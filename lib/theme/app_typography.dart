@@ -9,22 +9,22 @@ class AppFonts {
   static const brandonGrotesque = 'BrandonGrotesque';
 }
 
-const double fontScaleRatio = 1.3;
-const double fontSizeBase = 18.0;
-const double fontSizeUp1 = fontSizeBase * fontScaleRatio;
-const double fontSizeUp2 = fontSizeUp1 * fontScaleRatio;
-const double fontSizeUp3 = fontSizeUp2 * fontScaleRatio;
-const double fontSizeDown1 = fontSizeBase / fontScaleRatio;
-const double fontSizeDown2 = fontSizeDown1 / fontScaleRatio;
-const double fontSizeDown3 = fontSizeDown2 / fontScaleRatio;
-
 class AppTypography {
   const AppTypography._();
+
+  static const double fontScaleRatio = 1.3;
+  static const double md = 18.0;
+  static const double lg = md * fontScaleRatio;
+  static const double xl = lg * fontScaleRatio;
+  static const double xxl = xl * fontScaleRatio;
+  static const double sm = md / fontScaleRatio;
+  static const double xs = sm / fontScaleRatio;
+  static const double xxs = xs / fontScaleRatio;
 
   static const h1 = TextStyle(
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeUp3,
+    fontSize: xxl,
     letterSpacing: 0.5,
     color: AppColors.onSurface,
   );
@@ -32,7 +32,7 @@ class AppTypography {
   static const h2 = TextStyle(
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeUp2,
+    fontSize: xl,
     letterSpacing: 0.5,
     color: AppColors.onSurface,
   );
@@ -40,14 +40,14 @@ class AppTypography {
   static const titleMedium = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w500,
-    fontSize: fontSizeUp1,
+    fontSize: lg,
     color: AppColors.onSurface,
   );
 
   static const bodyLarge = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeUp1,
+    fontSize: lg,
     height: 1.5,
     color: AppColors.onSurface,
   );
@@ -55,7 +55,7 @@ class AppTypography {
   static const bodyMedium = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeBase,
+    fontSize: md,
     height: 1.5,
     color: AppColors.onSurface,
   );
@@ -63,14 +63,14 @@ class AppTypography {
   static const button = TextStyle(
     fontFamily: AppFonts.brandonGrotesque,
     fontWeight: FontWeight.w600,
-    fontSize: fontSizeBase,
+    fontSize: md,
     letterSpacing: 1.0,
   );
 
   static const caption = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: fontSizeDown1,
+    fontSize: sm,
     color: AppColors.onSurface,
   );
 

@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
@@ -21,8 +22,6 @@ class ArrowButton extends StatelessWidget {
         ? TriangleDirection.left
         : TriangleDirection.right;
     return Material(
-      color: AppColors.primary,
-      shape: const CircleBorder(),
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: onPressed,
@@ -32,8 +31,8 @@ class ArrowButton extends StatelessWidget {
           child: Center(
             child: TriangleIcon(
               direction: triangleDirection,
-              color: AppColors.onPrimary,
-              size: 22,
+              color: AppColors.primary,
+              size: AppTypography.sm,
             ),
           ),
         ),

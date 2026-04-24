@@ -1,5 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
@@ -289,10 +290,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
             border: Border.all(color: AppColors.outline),
           ),
           width: double.infinity,
-          child: Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            crossAxisAlignment: WrapCrossAlignment.center,
+          child: Row(
+            spacing: AppSpacing.xxl,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ActionButton(
                 label: 'Yes',
