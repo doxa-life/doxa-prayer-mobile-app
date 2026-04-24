@@ -262,19 +262,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ),
             ActionButton(label: 'Remove', onPressed: () {}),
             ActionButton(
-              label: 'Yes',
-              onPressed: () {},
-              color: ActionButtonColor.secondary,
-            ),
-            ActionButton(
-              label: 'No',
-              onPressed: () {},
-              color: ActionButtonColor.white,
-            ),
-            ActionButton(
               label: 'Back',
               onPressed: () {},
               color: ActionButtonColor.white,
+              isOutlined: true,
             ),
             ActionButton.iconLabel(
               label: 'Share',
@@ -284,6 +275,34 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ActionButton.icon(icon: const Icon(Icons.add), onPressed: () {}),
             const ActionButton(label: 'Disabled', onPressed: null),
           ],
+        ),
+        Gap.m,
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: AppColors.secondary,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.outline),
+          ),
+          width: double.infinity,
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ActionButton(
+                label: 'Yes',
+                onPressed: () {},
+                color: ActionButtonColor.secondary,
+                isOutlined: true,
+              ),
+              ActionButton(
+                label: 'No',
+                onPressed: () {},
+                color: ActionButtonColor.white,
+              ),
+            ],
+          ),
         ),
         Gap.m,
         ActionButton.fullWidth(
@@ -297,7 +316,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
   Widget _ctaSection() => Section(
     title: 'CTA button',
-    child: CtaButton(label: 'Choose a people group', onPressed: () {}),
+    child: CtaButton(
+      label: 'Set reminder',
+      leadingIcon: const AppIcon(AppIconName.bell),
+      onPressed: () {},
+    ),
   );
 
   Widget _iconLabelSection() => Section(

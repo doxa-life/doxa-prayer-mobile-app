@@ -1,11 +1,20 @@
+import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
+import 'package:doxa_prayer_mobile_app/layouts/spacing.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
 
 class CtaButton extends StatelessWidget {
-  const CtaButton({super.key, required this.label, required this.onPressed});
+  const CtaButton({
+    super.key,
+    required this.label,
+    this.leadingIcon,
+    required this.onPressed,
+  });
 
   final String label;
+  final Widget? leadingIcon;
   final VoidCallback? onPressed;
 
   @override
@@ -15,12 +24,31 @@ class CtaButton extends StatelessWidget {
       child: FilledButton(
         onPressed: onPressed,
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.secondary,
-          foregroundColor: AppColors.onSecondary,
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
           minimumSize: const Size(64, 56),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
-        child: Text(label.toUpperCase()),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              children: [
+                leadingIcon ?? const SizedBox.shrink(),
+                Text(
+                  label.toUpperCase(),
+                  style: AppTypography.h1.copyWith(color: AppColors.white),
+                ),
+              ],
+            ),
+            TriangleIcon(direction: TriangleDirection.right),
+          ],
+        ),
       ),
     );
   }

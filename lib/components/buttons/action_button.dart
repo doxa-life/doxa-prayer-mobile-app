@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
-import '../../theme/app_typography.dart';
 
 enum _ActionButtonKind { label, iconLabel, icon, fullWidth }
 
@@ -14,6 +13,7 @@ class ActionButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.color = ActionButtonColor.primary,
+    this.isOutlined = false,
   }) : _kind = _ActionButtonKind.label;
 
   const ActionButton.iconLabel({
@@ -22,6 +22,7 @@ class ActionButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.color = ActionButtonColor.primary,
+    this.isOutlined = false,
   }) : _kind = _ActionButtonKind.iconLabel;
 
   const ActionButton.icon({
@@ -30,6 +31,7 @@ class ActionButton extends StatelessWidget {
     required this.onPressed,
     this.label = '',
     this.color = ActionButtonColor.primary,
+    this.isOutlined = false,
   }) : _kind = _ActionButtonKind.icon;
 
   const ActionButton.fullWidth({
@@ -38,13 +40,17 @@ class ActionButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.color = ActionButtonColor.primary,
+    this.isOutlined = false,
   }) : _kind = _ActionButtonKind.fullWidth;
 
   final String label;
   final Widget? icon;
   final VoidCallback? onPressed;
   final ActionButtonColor? color;
+  final bool isOutlined;
   final _ActionButtonKind _kind;
+
+  static const borderWidth = 1.5;
 
   ButtonStyle getStyle(ActionButtonColor color) {
     switch (color) {
@@ -52,16 +58,25 @@ class ActionButton extends StatelessWidget {
         return FilledButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
+          side: isOutlined
+              ? BorderSide(color: AppColors.white, width: borderWidth)
+              : null,
         );
       case ActionButtonColor.secondary:
         return FilledButton.styleFrom(
           backgroundColor: AppColors.secondary,
           foregroundColor: AppColors.white,
+          side: isOutlined
+              ? BorderSide(color: AppColors.white, width: borderWidth)
+              : null,
         );
       case ActionButtonColor.white:
         return FilledButton.styleFrom(
           backgroundColor: AppColors.white,
           foregroundColor: AppColors.primary,
+          side: isOutlined
+              ? BorderSide(color: AppColors.onPrimary, width: borderWidth)
+              : null,
         );
     }
   }
