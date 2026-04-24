@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
+import 'app_spacing.dart';
 import 'app_typography.dart';
 
 class AppTheme {
@@ -41,7 +42,10 @@ class AppTheme {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(28)),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 6),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxxl,
+            vertical: AppSpacing.sm,
+          ),
           minimumSize: const Size(64, 32),
         ),
       ),
@@ -53,8 +57,11 @@ class AppTheme {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(28)),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxxl,
+            vertical: 0,
+          ),
+          minimumSize: const Size(64, 32),
         ),
       ),
       textButtonTheme: TextButtonThemeData(

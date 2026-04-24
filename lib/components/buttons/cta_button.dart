@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,10 @@ class CtaButton extends StatelessWidget {
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.xxxl,
+            vertical: AppSpacing.sm,
+          ),
           minimumSize: const Size(64, 56),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -41,7 +45,7 @@ class CtaButton extends StatelessWidget {
                 leadingIcon ?? const SizedBox.shrink(),
                 Text(
                   label.toUpperCase(),
-                  style: AppTypography.h1.copyWith(color: AppColors.white),
+                  style: AppTypography.h2.copyWith(color: AppColors.white),
                 ),
               ],
             ),
