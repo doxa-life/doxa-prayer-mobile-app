@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
@@ -345,7 +346,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
           onPressed: () {},
         ),
         IconLabelButton(
-          icon: const Icon(Icons.close),
+          icon: const AppIcon(AppIconName.trash),
           label: 'Remove',
           onPressed: () {},
         ),
