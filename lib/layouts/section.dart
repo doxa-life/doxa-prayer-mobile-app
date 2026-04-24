@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 import '../components/misc/titles.dart';
@@ -23,10 +24,10 @@ class Section extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSpacing.lg,
         children: [
           H2(title),
           if (description != null) ...[
-            Gap.xs,
             Text(
               description!,
               style: AppTypography.caption.copyWith(
@@ -34,9 +35,7 @@ class Section extends StatelessWidget {
               ),
             ),
           ],
-          Gap.m,
           child,
-          Gap.m,
           const Divider(height: 1),
         ],
       ),

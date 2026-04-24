@@ -1,3 +1,5 @@
+import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
@@ -55,15 +57,13 @@ class IconSet extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TriangleIcon(
-                direction: dir,
-                color: AppColors.primary,
-                size: 28,
-              ),
+              TriangleIcon(direction: dir, color: AppColors.primary, size: 16),
               const SizedBox(height: 4),
               Text('triangle-${dir.name}', style: AppTypography.caption),
             ],
           ),
+        PlusIcon(color: AppColors.primary, size: 16),
+        CloseIcon(color: AppColors.primary, size: 16),
       ],
     );
   }

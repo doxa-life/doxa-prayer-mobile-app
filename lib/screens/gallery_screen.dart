@@ -1,4 +1,3 @@
-import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
@@ -28,7 +27,6 @@ import '../components/nav/bottom_nav_bar.dart';
 import '../components/nav/top_nav_bar.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
-import '../layouts/spacing.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 
@@ -76,10 +74,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
             PageContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSpacing.xl,
                 children: [
-                  Gap.l,
                   const H1('Component Gallery'),
-                  Gap.xs,
                   Text(
                     'Phase 2 kitchen sink — every component + layout primitive for review.',
                     style: AppTypography.bodyMedium,
@@ -100,7 +97,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   _iconsSection(),
                   _imageSection(),
                   _layoutsSection(),
-                  Gap.xl,
                 ],
               ),
             ),
@@ -165,25 +161,20 @@ class _GalleryScreenState extends State<GalleryScreen> {
     title: 'Typography',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: AppSpacing.md,
       children: [
         Text('displayLarge / h1 — BebasKai +2', style: AppTypography.h1),
-        Gap.xs,
         Text('displayMedium / h2 — BebasKai +1', style: AppTypography.h2),
-        Gap.xs,
         Text(
           'titleMedium — Poppins 500 / base',
           style: AppTypography.titleMedium,
         ),
-        Gap.xs,
         Text('bodyLarge — Poppins 400 / base', style: AppTypography.bodyLarge),
-        Gap.xs,
         Text('bodyMedium — Poppins 400 / -1', style: AppTypography.bodyMedium),
-        Gap.xs,
         Text(
           'LABELLARGE — BRANDON GROTESQUE 600 / base',
           style: AppTypography.button,
         ),
-        Gap.xs,
         Text('caption — Poppins 400 / -2', style: AppTypography.caption),
       ],
     ),
@@ -193,7 +184,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
     title: 'Titles',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [H1('Pray for the Avar'), Gap.s, H2('Today’s prayer')],
+      spacing: AppSpacing.md,
+      children: [H1('Pray for the Avar'), H2('Today’s prayer')],
     ),
   );
 
@@ -208,7 +200,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
             child: TopNavBar(title: 'DOXA', onSettings: () {}),
           ),
         ),
-        Gap.s,
         _framed(
           SizedBox(
             height: kToolbarHeight,
@@ -252,6 +243,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
     description: 'Label, icon + label, icon-only, full-width variants.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: AppSpacing.lg,
       children: [
         Wrap(
           spacing: 12,
@@ -282,7 +274,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
             const ActionButton(label: 'Disabled', onPressed: null),
           ],
         ),
-        Gap.m,
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -310,7 +301,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ],
           ),
         ),
-        Gap.m,
         ActionButton.fullWidth(
           label: 'Continue',
           icon: const TriangleIcon(direction: TriangleDirection.right),
@@ -359,7 +349,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
     child: Row(
       children: [
         ArrowButton(direction: ArrowDirection.back, onPressed: () {}),
-        Gap.mH,
         ArrowButton(direction: ArrowDirection.forward, onPressed: () {}),
       ],
     ),
@@ -376,13 +365,14 @@ class _GalleryScreenState extends State<GalleryScreen> {
     title: 'Cards',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.lg,
       children: [
         ElevatedAppCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppSpacing.md,
             children: [
               const H2('Elevated card'),
-              Gap.s,
               Text(
                 'Used for primary content surfaces (e.g. home people-group card).',
                 style: AppTypography.bodyMedium,
@@ -390,13 +380,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ],
           ),
         ),
-        Gap.m,
         FlatCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppSpacing.md,
             children: [
               const H2('Flat card'),
-              Gap.s,
               Text(
                 'Used for secondary groupings (e.g. reminder cards).',
                 style: AppTypography.bodyMedium,
@@ -404,14 +393,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ],
           ),
         ),
-        Gap.m,
         ReminderCard(
           time: '07:30 AM',
           daysSummary: 'Mon, Wed, Fri',
           enabled: _reminderOn,
           onToggle: (v) => setState(() => _reminderOn = v),
         ),
-        Gap.m,
         PeopleGroupCard(
           name: 'The Avar',
           imageUrl: null,
@@ -426,31 +413,28 @@ class _GalleryScreenState extends State<GalleryScreen> {
     title: 'Inputs',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.lg,
       children: [
         AppTextField(
           label: 'Name',
           hint: 'Your name',
           controller: _textController,
         ),
-        Gap.m,
         const AppTextField(
           label: 'Email',
           hint: 'you@example.com',
           errorText: 'Please enter a valid email',
         ),
-        Gap.m,
         SearchField(
           controller: _searchController,
           onChanged: (_) => setState(() {}),
           onClear: () => setState(() => _searchController.clear()),
         ),
-        Gap.m,
         TimeField(
           label: 'Reminder time',
           value: _time,
           onChanged: (v) => setState(() => _time = v),
         ),
-        Gap.m,
         SelectField<String>(
           label: 'Language',
           value: _selectValue,
@@ -461,7 +445,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
           ],
           onChanged: (v) => setState(() => _selectValue = v),
         ),
-        Gap.m,
         CheckboxField(
           label: 'Receive updates about this people group',
           value: _checkbox1,
@@ -472,7 +455,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
           value: _checkbox2,
           onChanged: (v) => setState(() => _checkbox2 = v),
         ),
-        Gap.m,
         ToggleField(
           label: 'Reminder enabled',
           subtitle: 'Sends a local notification at the set time',
@@ -493,7 +475,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
     child: Row(
       children: [
         ProgressDots(count: 4, currentIndex: _progressIndex),
-        Gap.lH,
         TextButton(
           onPressed: () =>
               setState(() => _progressIndex = (_progressIndex + 1) % 4),
@@ -516,33 +497,22 @@ class _GalleryScreenState extends State<GalleryScreen> {
         'Spacing, pushed-apart, centred, grouped buttons, container width.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.lg,
       children: [
         _layoutLabel('Vertical spacing'),
         _framed(
           Column(
-            children: [
-              _dashedBox('A'),
-              Gap.m,
-              _dashedBox('B'),
-              Gap.m,
-              _dashedBox('C'),
-            ],
+            spacing: AppSpacing.lg,
+            children: [_dashedBox('A'), _dashedBox('B'), _dashedBox('C')],
           ),
         ),
-        Gap.m,
         _layoutLabel('Horizontal spacing'),
         _framed(
           Row(
-            children: [
-              _dashedBox('A'),
-              Gap.mH,
-              _dashedBox('B'),
-              Gap.mH,
-              _dashedBox('C'),
-            ],
+            spacing: AppSpacing.lg,
+            children: [_dashedBox('A'), _dashedBox('B'), _dashedBox('C')],
           ),
         ),
-        Gap.m,
         _layoutLabel('Pushed apart (spaceBetween)'),
         _framed(
           Row(
@@ -550,22 +520,24 @@ class _GalleryScreenState extends State<GalleryScreen> {
             children: [_dashedBox('A'), _dashedBox('B')],
           ),
         ),
-        Gap.m,
         _layoutLabel('Centre aligned'),
         _framed(Center(child: _dashedBox('centred'))),
-        Gap.m,
         _layoutLabel('Vertically grouped buttons'),
         _framed(
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: AppSpacing.lg,
             children: [
               ActionButton.fullWidth(label: 'Save', onPressed: () {}),
-              Gap.s,
-              OutlinedButton(onPressed: () {}, child: const Text('SKIP')),
+              ActionButton.fullWidth(
+                label: 'Skip',
+                color: ActionButtonColor.white,
+                onPressed: () {},
+                isOutlined: true,
+              ),
             ],
           ),
         ),
-        Gap.m,
         _layoutLabel('Consistent container width (max 480)'),
         _framed(
           Container(
