@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/app_spacing.dart';
 
 class FlatCard extends StatelessWidget {
   const FlatCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(20),
+    this.padding = const EdgeInsets.all(AppSpacing.xxxl),
     this.onTap,
   });
 

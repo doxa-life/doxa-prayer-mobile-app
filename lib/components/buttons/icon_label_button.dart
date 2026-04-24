@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 
 class IconLabelButton extends StatelessWidget {
@@ -21,7 +22,10 @@ class IconLabelButton extends StatelessWidget {
       onTap: onPressed,
       borderRadius: BorderRadius.circular(12),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -31,7 +35,7 @@ class IconLabelButton extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              label,
+              label.toUpperCase(),
               style: AppTypography.caption.copyWith(color: AppColors.primary),
             ),
           ],

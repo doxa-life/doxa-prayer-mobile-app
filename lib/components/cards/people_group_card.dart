@@ -1,9 +1,13 @@
+import 'package:doxa_prayer_mobile_app/components/buttons/icon_label_button.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
+import '../../layouts/spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../buttons/button_link.dart';
+import '../misc/app_image.dart';
 import 'elevated_card.dart';
 
 class PeopleGroupCard extends StatelessWidget {
@@ -23,56 +27,40 @@ class PeopleGroupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedAppCard(
-      padding: EdgeInsets.zero,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: AppSpacing.xl,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: _PeopleGroupImage(imageUrl: imageUrl),
-            ),
+          Text(name, style: AppTypography.h2),
+          AppImage(url: imageUrl, aspectRatio: 1, size: 169.0),
+          ActionButton(
+            label: 'Pray',
+            onPressed: onPray,
+            color: ActionButtonColor.secondary,
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: AppTypography.h2),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ButtonLink(label: 'Profile', onPressed: onDetails),
-                    ActionButton(label: 'Pray', onPressed: onPray),
-                  ],
-                ),
-              ],
-            ),
+          Row(
+            spacing: AppSpacing.md,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconLabelButton(
+                icon: const AppIcon(AppIconName.person),
+                label: 'Profile',
+                onPressed: () {},
+              ),
+              IconLabelButton(
+                icon: const AppIcon(AppIconName.share),
+                label: 'Share',
+                onPressed: () {},
+              ),
+              IconLabelButton(
+                icon: const AppIcon(AppIconName.trash),
+                label: 'Remove',
+                onPressed: () {},
+              ),
+            ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PeopleGroupImage extends StatelessWidget {
-  const _PeopleGroupImage({required this.imageUrl});
-  final String? imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    if (imageUrl != null && imageUrl!.isNotEmpty) {
-      return Image.network(imageUrl!, fit: BoxFit.cover);
-    }
-    return Container(
-      color: AppColors.mutedSurface,
-      alignment: Alignment.center,
-      child: Icon(
-        Icons.image_outlined,
-        size: 48,
-        color: AppColors.onSurface.withValues(alpha: 0.4),
       ),
     );
   }
