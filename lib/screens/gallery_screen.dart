@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
@@ -5,8 +6,6 @@ import '../components/buttons/arrow_button.dart';
 import '../components/buttons/button_link.dart';
 import '../components/buttons/cta_button.dart';
 import '../components/buttons/icon_label_button.dart';
-import '../components/buttons/navbar_icon_button.dart';
-import '../components/buttons/navbar_icon_label_button.dart';
 import '../components/cards/elevated_card.dart';
 import '../components/cards/flat_card.dart';
 import '../components/cards/people_group_card.dart';
@@ -259,17 +258,20 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ActionButton(label: 'Pray', onPressed: () {}),
             ActionButton.iconLabel(
               label: 'Share',
-              icon: Icons.share,
+              icon: const AppIcon(AppIconName.share),
               onPressed: () {},
             ),
-            ActionButton.icon(icon: Icons.add, onPressed: () {}),
+            ActionButton.icon(
+              icon: const Icon(Icons.add),
+              onPressed: () {},
+            ),
             const ActionButton(label: 'Disabled', onPressed: null),
           ],
         ),
         Gap.m,
         ActionButton.fullWidth(
           label: 'Continue',
-          icon: Icons.arrow_forward,
+          icon: const TriangleIcon(direction: TriangleDirection.right),
           onPressed: () {},
         ),
       ],
@@ -288,12 +290,20 @@ class _GalleryScreenState extends State<GalleryScreen> {
       runSpacing: 16,
       children: [
         IconLabelButton(
-          icon: Icons.person_outline,
+          icon: const AppIcon(AppIconName.person),
           label: 'Profile',
           onPressed: () {},
         ),
-        IconLabelButton(icon: Icons.share, label: 'Share', onPressed: () {}),
-        IconLabelButton(icon: Icons.close, label: 'Remove', onPressed: () {}),
+        IconLabelButton(
+          icon: const AppIcon(AppIconName.share),
+          label: 'Share',
+          onPressed: () {},
+        ),
+        IconLabelButton(
+          icon: const Icon(Icons.close),
+          label: 'Remove',
+          onPressed: () {},
+        ),
       ],
     ),
   );

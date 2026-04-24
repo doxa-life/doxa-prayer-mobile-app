@@ -32,7 +32,7 @@ class ActionButton extends StatelessWidget {
   }) : _kind = _ActionButtonKind.fullWidth;
 
   final String label;
-  final IconData? icon;
+  final Widget? icon;
   final VoidCallback? onPressed;
   final _ActionButtonKind _kind;
 
@@ -45,7 +45,7 @@ class ActionButton extends StatelessWidget {
       case _ActionButtonKind.iconLabel:
         return FilledButton.icon(
           onPressed: onPressed,
-          icon: Icon(icon),
+          icon: icon!,
           label: Text(upper),
         );
       case _ActionButtonKind.icon:
@@ -56,7 +56,7 @@ class ActionButton extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             minimumSize: const Size(56, 56),
           ),
-          child: Icon(icon),
+          child: icon!,
         );
       case _ActionButtonKind.fullWidth:
         return SizedBox(
@@ -65,7 +65,7 @@ class ActionButton extends StatelessWidget {
               ? FilledButton(onPressed: onPressed, child: Text(upper))
               : FilledButton.icon(
                   onPressed: onPressed,
-                  icon: Icon(icon),
+                  icon: icon!,
                   label: Text(upper),
                 ),
         );

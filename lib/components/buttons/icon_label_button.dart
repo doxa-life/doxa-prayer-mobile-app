@@ -11,7 +11,7 @@ class IconLabelButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String label;
   final VoidCallback? onPressed;
 
@@ -25,7 +25,10 @@ class IconLabelButton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: AppColors.primary, size: 28),
+            IconTheme.merge(
+              data: const IconThemeData(color: AppColors.primary, size: 28),
+              child: icon,
+            ),
             const SizedBox(height: 6),
             Text(
               label,

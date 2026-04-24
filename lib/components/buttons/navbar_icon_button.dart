@@ -10,15 +10,17 @@ class NavbarIconButton extends StatelessWidget {
     this.tooltip,
   });
 
-  final IconData icon;
+  final Widget icon;
   final VoidCallback? onPressed;
   final String? tooltip;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(icon),
-      color: AppColors.onSurface,
+      icon: IconTheme.merge(
+        data: const IconThemeData(color: AppColors.onSurface),
+        child: icon,
+      ),
       tooltip: tooltip,
       onPressed: onPressed,
     );

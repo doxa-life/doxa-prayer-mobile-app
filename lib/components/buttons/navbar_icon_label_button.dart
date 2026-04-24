@@ -12,7 +12,7 @@ class NavbarIconLabelButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String label;
   final bool selected;
   final VoidCallback? onPressed;
@@ -28,7 +28,10 @@ class NavbarIconLabelButton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: color, size: 24),
+            IconTheme.merge(
+              data: IconThemeData(color: color, size: 24),
+              child: icon,
+            ),
             const SizedBox(height: 4),
             Text(
               label,
