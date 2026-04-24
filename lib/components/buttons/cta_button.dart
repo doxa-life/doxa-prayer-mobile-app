@@ -1,5 +1,4 @@
-import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
-import 'package:doxa_prayer_mobile_app/layouts/spacing.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +45,20 @@ class CtaButton extends StatelessWidget {
                 ),
               ],
             ),
-            TriangleIcon(direction: TriangleDirection.right),
+            Container(
+              decoration: ShapeDecoration(
+                shape: CircleBorder(),
+                color: AppColors.white,
+              ),
+              padding: const EdgeInsets.all(4),
+              child: Center(
+                child: PlusIcon(
+                  color: AppColors.primary,
+                  size: 20,
+                  thickness: 5,
+                ),
+              ),
+            ),
           ],
         ),
       ),
