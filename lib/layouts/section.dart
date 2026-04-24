@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../components/misc/titles.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
-import 'spacing.dart';
 
 class Section extends StatelessWidget {
   const Section({

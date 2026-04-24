@@ -2,7 +2,9 @@ import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class PeopleGroupDetailsScreen extends StatelessWidget {
-  const PeopleGroupDetailsScreen({super.key});
+  const PeopleGroupDetailsScreen({super.key, this.slug});
+
+  final String? slug;
 
   @override
   Widget build(BuildContext context) {

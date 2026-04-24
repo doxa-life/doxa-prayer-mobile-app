@@ -7,12 +7,12 @@ class ElevatedAppCard extends StatelessWidget {
   const ElevatedAppCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(AppSpacing.xxxl),
+    this.padding = AppSpacing.xxxl,
     this.onTap,
   });
 
   final Widget child;
-  final EdgeInsets padding;
+  final double padding;
   final VoidCallback? onTap;
 
   @override
@@ -25,7 +25,7 @@ class ElevatedAppCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-        child: Padding(padding: padding, child: child),
+        child: Padding(padding: EdgeInsets.all(padding), child: child),
       ),
     );
   }

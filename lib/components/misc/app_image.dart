@@ -34,7 +34,11 @@ class AppImage extends StatelessWidget {
                 color: AppColors.onSurface.withValues(alpha: 0.4),
               ),
             )
-          : Image.network(url!, fit: fit),
+          : SizedBox(
+              width: size,
+              height: size,
+              child: Image.network(url!, fit: fit),
+            ),
     );
   }
 }

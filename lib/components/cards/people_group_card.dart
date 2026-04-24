@@ -3,10 +3,8 @@ import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
-import '../../layouts/spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
-import '../buttons/button_link.dart';
 import '../misc/app_image.dart';
 import 'elevated_card.dart';
 
