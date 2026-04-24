@@ -29,16 +29,18 @@ class ProgressDots extends StatelessWidget {
 class _Dot extends StatelessWidget {
   const _Dot({required this.active});
   final bool active;
+  static const double size = 16;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      width: active ? 24 : 8,
-      height: 8,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.ease,
+      width: active ? size * 2 : size,
+      height: size,
       decoration: BoxDecoration(
-        color: active ? AppColors.primary : AppColors.outline,
-        borderRadius: BorderRadius.circular(4),
+        color: active ? AppColors.secondary : AppColors.outline,
+        borderRadius: BorderRadius.circular(28),
       ),
     );
   }
