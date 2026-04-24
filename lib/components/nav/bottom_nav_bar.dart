@@ -29,9 +29,9 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedColor = Theme.of(context)
-        .extension<AppColorsExtra>()!
-        .onPrimarySelected;
+    final selectedColor = Theme.of(
+      context,
+    ).extension<AppColorsExtra>()!.onPrimarySelected;
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: currentIndex,
@@ -43,7 +43,7 @@ class BottomNavBar extends StatelessWidget {
               i == currentIndex ? items[i].selectedIcon : items[i].icon,
               color: i == currentIndex ? selectedColor : AppColors.onPrimary,
             ),
-            label: items[i].label,
+            label: items[i].label.toUpperCase(),
           ),
       ],
       backgroundColor: AppColors.primary,
