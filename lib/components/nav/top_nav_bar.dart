@@ -11,11 +11,13 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     this.title = 'DOXA',
     this.onSettings,
     this.onBack,
+    this.onGallery,
   });
 
   final String title;
   final VoidCallback? onSettings;
   final VoidCallback? onBack;
+  final VoidCallback? onGallery;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -39,6 +41,11 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
         style: AppTypography.h2.copyWith(color: AppColors.onPrimary),
       ),
       actions: [
+        IconButton(
+          icon: const Icon(Icons.widgets_outlined, color: AppColors.onPrimary),
+          tooltip: 'Kitchen Sink',
+          onPressed: onGallery,
+        ),
         if (onSettings != null)
           IconButton(
             icon: const AppIcon(AppIconName.gear, color: AppColors.onPrimary),

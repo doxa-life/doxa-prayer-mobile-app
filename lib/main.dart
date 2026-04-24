@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/gallery_screen.dart';
+import 'app_shell.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Doxa Prayer',
       theme: AppTheme.light,
-      home: const GalleryScreen(),
+      home: const AppShell(),
     );
   }
 }

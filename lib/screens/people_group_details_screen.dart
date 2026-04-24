@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class PeopleGroupDetailsScreen extends StatelessWidget {
@@ -6,7 +7,10 @@ class PeopleGroupDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('People Group')),
+      appBar: DetailsNavBar(
+        title: 'People Group',
+        onBack: () => Navigator.pop(context),
+      ),
       body: const Center(
         child: Padding(
           padding: EdgeInsets.all(24),

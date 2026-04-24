@@ -1,7 +1,9 @@
+import 'package:doxa_prayer_mobile_app/components/nav/top_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
+import 'screens/gallery_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/people_groups_screen.dart';
 import 'screens/pray_screen.dart';
@@ -26,24 +28,24 @@ class _AppShellState extends State<AppShell> {
   ];
 
   void _openSettings() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen()));
+  }
+
+  void _openGallery() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => const GalleryScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('DOXA'),
-        actions: [
-          IconButton(
-            icon: const AppIcon(AppIconName.gear),
-            tooltip: 'Settings',
-            onPressed: _openSettings,
-          ),
-        ],
+      appBar: TopNavBar(
+        title: 'DOXA',
+        onSettings: _openSettings,
+        onGallery: _openGallery,
       ),
       body: IndexedStack(index: _selectedIndex, children: _tabs),
       bottomNavigationBar: BottomNavBar(
@@ -58,10 +60,7 @@ class _AppShellState extends State<AppShell> {
             selectedIcon: AppIconName.praySolid,
             label: 'Pray',
           ),
-          BottomNavItemData(
-            icon: AppIconName.person,
-            label: 'People Groups',
-          ),
+          BottomNavItemData(icon: AppIconName.person, label: 'People Groups'),
           BottomNavItemData(
             icon: AppIconName.bell,
             selectedIcon: AppIconName.bellSolid,
