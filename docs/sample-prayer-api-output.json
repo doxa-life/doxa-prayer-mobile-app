@@ -1,0 +1,311 @@
+{
+  "people_group": {
+    "id": 1640,
+    "slug": "adi",
+    "title": "Adi",
+    "image_url": "https://media.joshuaproject.net/public/assets/media/profiles/photos/p18386.jpg",
+    "default_language": "en"
+  },
+  "date": "2026-03-01",
+  "language": "en",
+  "availableLanguages": [
+    "ar",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "hi",
+    "it",
+    "pt",
+    "ro",
+    "ru",
+    "zh"
+  ],
+  "content": [
+    {
+      "id": -1,
+      "title": "Adi",
+      "language_code": "en",
+      "content_json": null,
+      "content_date": "2026-03-01",
+      "content_type": "people_group",
+      "people_group_data": {
+        "name": "Adi",
+        "image_url": "https://media.joshuaproject.net/public/assets/media/profiles/photos/p18386.jpg",
+        "description": "The Adi of People's Republic of China, numbering approximately 1,400 people, are Unengaged and Unreached. They are an indigenous community of China. They are an Indigenous people, in the Adi people cluster of the Himalayan Peoples affinity bloc. Their primary religion is Ethnoreligion. They primarily speak Adi.",
+        "population": 1400,
+        "language": "Adi",
+        "religion": "Ethnoreligion",
+        "country": "People's Republic of China",
+        "lat": 29.249612,
+        "lng": 95.171824,
+        "picture_credit": [
+          {
+            "link": null,
+            "text": "Photo courtesy of "
+          },
+          {
+            "link": "https://www.joshuaproject.net",
+            "text": "Joshua Project"
+          },
+          {
+            "link": null,
+            "text": ". By "
+          },
+          {
+            "link": "https://flickr.com/photos/ramesh_lalwani/8169468855/",
+            "text": "Ramesh Lalwani - Flickr"
+          }
+        ]
+      }
+    },
+    {
+      "id": -3,
+      "title": "",
+      "language_code": "en",
+      "content_json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "text": "At dawn, when Adi farmers in the Siang River valley rise to tend their jhum fields on the misty hillsides, pray that the Light of the World would break through the spiritual fog that has long covered this highland people.",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "content_date": "2026-03-01",
+      "content_type": "static",
+      "people_group_data": null
+    },
+    {
+      "id": 21579,
+      "title": "",
+      "language_code": "en",
+      "content_json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "text": "Kingdom Prayers",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "verse",
+            "attrs": {
+              "reference": "Matthew 9:37-38",
+              "translation": "NKJV"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "text": "37 ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "superscript"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "Then He said to His disciples, “The harvest truly is plentiful, but the laborers are few. ",
+                    "type": "text"
+                  },
+                  {
+                    "text": "38 ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "superscript"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "Therefore pray the Lord of the harvest to send out laborers into His harvest.”",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "hardBreak"
+              },
+              {
+                "text": "Pray for laborers among this people group: Jesus told us to pray that the Lord would raise up laborers (hard workers) for the harvest fields. Please pray that God would raise up missionaries from all over the world to plant the Church together among unreached people groups.",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "content_date": "2026-03-01",
+      "content_type": "static",
+      "people_group_data": null
+    },
+    {
+      "id": 9897,
+      "title": "",
+      "language_code": "en",
+      "content_json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "text": "Holy Spirit",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "verse",
+            "attrs": {
+              "reference": "Acts 1:8",
+              "translation": "NKJV"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "text": "8 ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "superscript"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "But you shall receive power  when the Holy Spirit has come upon you; and  you shall be witnesses to Me in Jerusalem, and in all Judea and  Samaria, and to the  end of the earth.”",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "text": "Stand in faith for believers to be clothed with power from the Holy Spirit, bearing bold and faithful witness among unengaged peoples as Christ’s mission advances to the nations.",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "content_date": "2026-03-01",
+      "content_type": "static",
+      "people_group_data": null
+    },
+    {
+      "id": -2,
+      "title": "Puman",
+      "language_code": "en",
+      "content_json": null,
+      "content_date": "2026-03-01",
+      "content_type": "people_group",
+      "people_group_data": {
+        "name": "Puman",
+        "image_url": "https://media.joshuaproject.net/public/assets/media/profiles/photos/p14473.jpg",
+        "description": "The Puman of People's Republic of China, numbering approximately 18,500 people, are Unengaged and Unreached. They are an ethnolinguistic community of China. They are an Indigenous people, in the Mon-Khmer people cluster of the Southeast Asian Peoples affinity bloc. Their primary religion is Buddhism - Theravada. They primarily speak U.",
+        "population": 18500,
+        "language": "U",
+        "religion": "Buddhism",
+        "country": "People's Republic of China",
+        "lat": 23.482,
+        "lng": 99.785,
+        "picture_credit": [
+          {
+            "link": null,
+            "text": "Photo courtesy of "
+          },
+          {
+            "link": "https://www.joshuaproject.net",
+            "text": "Joshua Project"
+          },
+          {
+            "link": null,
+            "text": ". By "
+          },
+          {
+            "link": "https://www.paulnoll.com/China/Minorities/China-Nationalities.html",
+            "text": "Paul Noll"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5882,
+      "title": "",
+      "language_code": "en",
+      "content_json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "verse",
+            "attrs": {
+              "reference": "Genesis 12:3",
+              "translation": "NKJV"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "text": "3 ",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "superscript"
+                      }
+                    ]
+                  },
+                  {
+                    "text": " I will bless those who bless you, And I will curse him who curses you; And in you all the families of the earth shall be blessed.”",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "text": "Father, today we pray that this people group would experience the promise you made to Abraham that they would be blessed through him. Amen.",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "content_date": "2026-03-01",
+      "content_type": "static",
+      "people_group_data": null
+    }
+  ],
+  "hasContent": true,
+  "globalStartDate": "2026-03-01"
+}
