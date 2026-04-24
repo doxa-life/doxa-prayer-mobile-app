@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -163,25 +164,25 @@ class _GalleryScreenState extends State<GalleryScreen> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('displayLarge / h1 — BebasKai 32', style: AppTypography.h1),
+        Text('displayLarge / h1 — BebasKai +2', style: AppTypography.h1),
         Gap.xs,
-        Text('displayMedium / h2 — BebasKai 24', style: AppTypography.h2),
+        Text('displayMedium / h2 — BebasKai +1', style: AppTypography.h2),
         Gap.xs,
         Text(
-          'titleMedium — Poppins 500 / 18',
+          'titleMedium — Poppins 500 / base',
           style: AppTypography.titleMedium,
         ),
         Gap.xs,
-        Text('bodyLarge — Poppins 400 / 16', style: AppTypography.bodyLarge),
+        Text('bodyLarge — Poppins 400 / base', style: AppTypography.bodyLarge),
         Gap.xs,
-        Text('bodyMedium — Poppins 400 / 14', style: AppTypography.bodyMedium),
+        Text('bodyMedium — Poppins 400 / -1', style: AppTypography.bodyMedium),
         Gap.xs,
         Text(
-          'LABELLARGE — BRANDON GROTESQUE 500 / 14',
+          'LABELLARGE — BRANDON GROTESQUE 600 / base',
           style: AppTypography.button,
         ),
         Gap.xs,
-        Text('caption — Poppins 400 / 12', style: AppTypography.caption),
+        Text('caption — Poppins 400 / -2', style: AppTypography.caption),
       ],
     ),
   );
@@ -272,7 +273,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
               icon: const AppIcon(AppIconName.share),
               onPressed: () {},
             ),
-            ActionButton.icon(icon: const Icon(Icons.add), onPressed: () {}),
+            ActionButton.icon(
+              icon: PlusIcon(color: AppColors.white),
+              onPressed: () {},
+            ),
             const ActionButton(label: 'Disabled', onPressed: null),
           ],
         ),

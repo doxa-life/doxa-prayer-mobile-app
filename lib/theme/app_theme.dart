@@ -41,8 +41,8 @@ class AppTheme {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(28)),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
-          minimumSize: const Size(64, 48),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 6),
+          minimumSize: const Size(64, 32),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

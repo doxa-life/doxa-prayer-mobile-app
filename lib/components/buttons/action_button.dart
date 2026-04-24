@@ -103,8 +103,8 @@ class ActionButton extends StatelessWidget {
           onPressed: onPressed,
           style: FilledButton.styleFrom(
             shape: const CircleBorder(),
-            padding: const EdgeInsets.all(16),
-            minimumSize: const Size(56, 56),
+            padding: const EdgeInsets.all(8),
+            minimumSize: const Size(48, 48),
           ),
           child: icon!,
         );

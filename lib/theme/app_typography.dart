@@ -9,13 +9,22 @@ class AppFonts {
   static const brandonGrotesque = 'BrandonGrotesque';
 }
 
+const double fontScaleRatio = 1.3;
+const double fontSizeBase = 18.0;
+const double fontSizeUp1 = fontSizeBase * fontScaleRatio;
+const double fontSizeUp2 = fontSizeUp1 * fontScaleRatio;
+const double fontSizeUp3 = fontSizeUp2 * fontScaleRatio;
+const double fontSizeDown1 = fontSizeBase / fontScaleRatio;
+const double fontSizeDown2 = fontSizeDown1 / fontScaleRatio;
+const double fontSizeDown3 = fontSizeDown2 / fontScaleRatio;
+
 class AppTypography {
   const AppTypography._();
 
   static const h1 = TextStyle(
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
-    fontSize: 32,
+    fontSize: fontSizeUp3,
     letterSpacing: 0.5,
     color: AppColors.onSurface,
   );
@@ -23,7 +32,7 @@ class AppTypography {
   static const h2 = TextStyle(
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
-    fontSize: 24,
+    fontSize: fontSizeUp2,
     letterSpacing: 0.5,
     color: AppColors.onSurface,
   );
@@ -31,14 +40,14 @@ class AppTypography {
   static const titleMedium = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w500,
-    fontSize: 18,
+    fontSize: fontSizeUp1,
     color: AppColors.onSurface,
   );
 
   static const bodyLarge = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: 16,
+    fontSize: fontSizeUp1,
     height: 1.5,
     color: AppColors.onSurface,
   );
@@ -46,7 +55,7 @@ class AppTypography {
   static const bodyMedium = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: 14,
+    fontSize: fontSizeBase,
     height: 1.5,
     color: AppColors.onSurface,
   );
@@ -54,14 +63,14 @@ class AppTypography {
   static const button = TextStyle(
     fontFamily: AppFonts.brandonGrotesque,
     fontWeight: FontWeight.w600,
-    fontSize: 18,
+    fontSize: fontSizeBase,
     letterSpacing: 1.0,
   );
 
   static const caption = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
-    fontSize: 12,
+    fontSize: fontSizeDown1,
     color: AppColors.onSurface,
   );
 
