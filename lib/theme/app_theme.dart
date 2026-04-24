@@ -72,25 +72,27 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.mutedSurface,
+        fillColor: AppColors.surface,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
+          horizontal: AppSpacing.xxxl,
+          vertical: AppSpacing.sm,
         ),
         hintStyle: AppTypography.bodyMedium.copyWith(
           color: AppColors.onSurface.withValues(alpha: 0.6),
         ),
-        labelStyle: AppTypography.bodyMedium,
+        labelStyle: AppTypography.bodyMedium.copyWith(
+          color: AppColors.onSurface.withValues(alpha: 0.3),
+        ),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(28)),
           borderSide: BorderSide(color: AppColors.outline),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(28)),
           borderSide: BorderSide(color: AppColors.outline),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: BorderRadius.all(Radius.circular(28)),
           borderSide: BorderSide(color: AppColors.primary, width: 1.5),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class TimeField extends StatelessWidget {
@@ -31,7 +32,7 @@ class TimeField extends StatelessWidget {
           labelText: label,
           suffixIcon: const Icon(Icons.access_time),
         ),
-        child: Text(text),
+        child: Text(text, style: AppTypography.bodyMedium),
       ),
     );
   }

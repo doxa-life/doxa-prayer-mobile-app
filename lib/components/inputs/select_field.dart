@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class SelectField<T> extends StatelessWidget {
@@ -24,6 +25,7 @@ class SelectField<T> extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(labelText: label, hintText: hint),
       icon: const Icon(Icons.expand_more),
+      style: AppTypography.bodyMedium,
     );
   }
 }

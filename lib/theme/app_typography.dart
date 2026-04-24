@@ -60,6 +60,14 @@ class AppTypography {
     color: AppColors.onSurface,
   );
 
+  static const bodySmall = TextStyle(
+    fontFamily: AppFonts.poppins,
+    fontWeight: FontWeight.w400,
+    fontSize: sm,
+    height: 1.5,
+    color: AppColors.onSurface,
+  );
+
   static const button = TextStyle(
     fontFamily: AppFonts.brandonGrotesque,
     fontWeight: FontWeight.w600,
@@ -78,8 +86,8 @@ class AppTypography {
     displayLarge: h1,
     displayMedium: h2,
     titleMedium: titleMedium,
-    bodyLarge: bodyLarge,
-    bodyMedium: bodyMedium,
+    bodyLarge: bodyMedium,
+    bodyMedium: bodySmall,
     labelLarge: button,
     labelSmall: caption,
   );
