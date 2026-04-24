@@ -71,5 +71,5 @@ flutter:
           weight: 500
     - family: BrandonGrotesque
       fonts:
-        - asset: assets/fonts/Brandon_Grotesque/Brandon_Grotesque_medium.otf
-          weight: 500
+        - asset: assets/fonts/Brandon_Grotesque/Brandon_Grotesque_bold.otf
+          weight: 600

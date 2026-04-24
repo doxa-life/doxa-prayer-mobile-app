@@ -255,16 +255,33 @@ class _GalleryScreenState extends State<GalleryScreen> {
           runSpacing: 12,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            ActionButton(label: 'Pray', onPressed: () {}),
+            ActionButton(
+              label: 'Pray',
+              onPressed: () {},
+              color: ActionButtonColor.secondary,
+            ),
+            ActionButton(label: 'Remove', onPressed: () {}),
+            ActionButton(
+              label: 'Yes',
+              onPressed: () {},
+              color: ActionButtonColor.secondary,
+            ),
+            ActionButton(
+              label: 'No',
+              onPressed: () {},
+              color: ActionButtonColor.white,
+            ),
+            ActionButton(
+              label: 'Back',
+              onPressed: () {},
+              color: ActionButtonColor.white,
+            ),
             ActionButton.iconLabel(
               label: 'Share',
               icon: const AppIcon(AppIconName.share),
               onPressed: () {},
             ),
-            ActionButton.icon(
-              icon: const Icon(Icons.add),
-              onPressed: () {},
-            ),
+            ActionButton.icon(icon: const Icon(Icons.add), onPressed: () {}),
             const ActionButton(label: 'Disabled', onPressed: null),
           ],
         ),

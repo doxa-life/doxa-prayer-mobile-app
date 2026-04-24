@@ -53,8 +53,8 @@ class AppTypography {
 
   static const button = TextStyle(
     fontFamily: AppFonts.brandonGrotesque,
-    fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontSize: 18,
     letterSpacing: 1.0,
   );
 
