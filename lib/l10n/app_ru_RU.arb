@@ -1,0 +1,56 @@
+{
+    "@appName": {
+        "description": "The name of the app"
+    },
+    "@couldNotLoadPeopleGroupsMessage": {
+        "description": "The message displayed when the people groups cannot be loaded"
+    },
+    "@home": {
+        "description": "The home screen"
+    },
+    "@language": {
+        "description": "The language selector"
+    },
+    "@nPeopleGroups": {
+        "description": "A plural message for the number of people groups",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
+    "@peopleGroups": {
+        "description": "The people groups screen"
+    },
+    "@pray": {
+        "description": "The pray screen"
+    },
+    "@profile": {
+        "description": "The profile button"
+    },
+    "@reminders": {
+        "description": "The reminders screen"
+    },
+    "@retry": {
+        "description": "The retry button"
+    },
+    "@searchPeopleGroups": {
+        "description": "The search people groups input"
+    },
+    "@settings": {
+        "description": "The settings screen"
+    },
+    "appName": "",
+    "couldNotLoadPeopleGroupsMessage": "",
+    "home": "",
+    "language": "",
+    "nPeopleGroups": "",
+    "peopleGroups": "",
+    "pray": "",
+    "profile": "",
+    "reminders": "",
+    "retry": "",
+    "searchPeopleGroups": "",
+    "settings": ""
+}
