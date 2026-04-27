@@ -60,6 +60,9 @@ class AppLocalizationsPt extends AppLocalizations {
       'Não foi possível carregar os grupos de pessoas.';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'Selecionar';
 
   @override
@@ -79,6 +82,27 @@ class AppLocalizationsPt extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return 'Você quer parar de orar por $currentName e começar a orar por $newName?';
   }
+
+  @override
+  String get amen => 'Amém';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Escolha um grupo de pessoas para começar a orar.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'Não foi possível carregar o conteúdo de oração.';
+
+  @override
+  String get noPrayerContentAvailable => 'Sem conteúdo de oração para hoje.';
+
+  @override
+  String get prayerLogged => 'Sua oração foi registrada.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'Não foi possível registrar sua sessão de oração.';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

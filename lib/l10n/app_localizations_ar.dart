@@ -60,6 +60,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'تعذر تحميل رسالة مجموعات الأشخاص';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'اختيار';
 
   @override
@@ -78,4 +81,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return 'هل تريد التوقف عن الصلاة لـ $currentName والبدء في الصلاة لـ $newName؟';
   }
+
+  @override
+  String get amen => 'آمين';
+
+  @override
+  String get noPeopleGroupSelected => 'اختر مجموعة عرقية لتبدأ الصلاة.';
+
+  @override
+  String get couldNotLoadPrayerContent => 'تعذر تحميل محتوى الصلاة.';
+
+  @override
+  String get noPrayerContentAvailable => 'لا يوجد محتوى صلاة لهذا اليوم.';
+
+  @override
+  String get prayerLogged => 'تم تسجيل صلاتك.';
+
+  @override
+  String get couldNotLogPrayerSession => 'تعذر تسجيل جلسة الصلاة.';
 }

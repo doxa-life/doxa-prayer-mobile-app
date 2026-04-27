@@ -62,6 +62,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Не удалось загрузить группы людей.';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'Выбрать';
 
   @override
@@ -80,6 +83,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return 'Вы хотите перестать молиться за $currentName и начать молиться за $newName?';
   }
+
+  @override
+  String get amen => 'Аминь';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Выберите группу людей, чтобы начать молиться.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'Не удалось загрузить молитвенный материал.';
+
+  @override
+  String get noPrayerContentAvailable => 'Сегодня нет молитвенного материала.';
+
+  @override
+  String get prayerLogged => 'Ваша молитва записана.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'Не удалось записать вашу молитвенную сессию.';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

@@ -58,5 +58,11 @@
     "yes": "نعم",
     "no": "لا",
     "selectPeopleGroupConfirm": "هل تريد اختيار هذه المجموعة العرقية؟",
-    "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟"
+    "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
+    "amen": "آمين",
+    "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
+    "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
+    "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
+    "prayerLogged": "تم تسجيل صلاتك.",
+    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة."
 }

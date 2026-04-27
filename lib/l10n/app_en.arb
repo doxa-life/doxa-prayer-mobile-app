@@ -53,6 +53,10 @@
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
     },
+    "pauseAndPray": "Pause & Pray",
+    "@pauseAndPray": {
+        "description": "The message displayed when the user should pause and pray"
+    },
     "select": "Select",
     "@select": {
         "description": "The select people group button"
@@ -84,5 +88,29 @@
                 "type": "String"
             }
         }
+    },
+    "amen": "Amen",
+    "@amen": {
+        "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
+    },
+    "noPeopleGroupSelected": "Choose a people group to start praying.",
+    "@noPeopleGroupSelected": {
+        "description": "Message shown on the pray screen when the user has not yet selected a people group"
+    },
+    "couldNotLoadPrayerContent": "Could not load prayer content.",
+    "@couldNotLoadPrayerContent": {
+        "description": "Error message shown when the prayer-content API call fails"
+    },
+    "noPrayerContentAvailable": "No prayer content for today.",
+    "@noPrayerContentAvailable": {
+        "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "prayerLogged": "Your prayer has been logged.",
+    "@prayerLogged": {
+        "description": "Snackbar shown after a prayer session has been recorded"
+    },
+    "couldNotLogPrayerSession": "Could not log your prayer session.",
+    "@couldNotLogPrayerSession": {
+        "description": "Snackbar shown when the prayer-session POST fails"
     }
 }

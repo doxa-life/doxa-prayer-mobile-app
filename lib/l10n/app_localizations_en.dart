@@ -59,6 +59,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get couldNotLoadPeopleGroupsMessage => 'Could not load people groups.';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'Select';
 
   @override
@@ -78,6 +81,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return 'Do you want to stop praying for $currentName and start praying for $newName?';
   }
+
+  @override
+  String get amen => 'Amen';
+
+  @override
+  String get noPeopleGroupSelected => 'Choose a people group to start praying.';
+
+  @override
+  String get couldNotLoadPrayerContent => 'Could not load prayer content.';
+
+  @override
+  String get noPrayerContentAvailable => 'No prayer content for today.';
+
+  @override
+  String get prayerLogged => 'Your prayer has been logged.';
+
+  @override
+  String get couldNotLogPrayerSession => 'Could not log your prayer session.';
 }
 
 /// The translations for English, as used in the United States (`en_US`).

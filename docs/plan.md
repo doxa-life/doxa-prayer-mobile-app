@@ -152,7 +152,7 @@ Has a support section with:
 Get's today's prayer content from
 GET /api/people-groups/{slug}/prayer-content/2026-01-12?language=en HTTP/1.1
 Host: pray.doxa.life
-Where the slug is the people group slug
+Where the slug is the people group slug and the language is the language without the country code
 The returned data is of the form
 ```json
 {

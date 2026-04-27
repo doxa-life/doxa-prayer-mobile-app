@@ -60,6 +60,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Impossible de charger les groupes de personnes.';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'Sélectionner';
 
   @override
@@ -79,6 +82,28 @@ class AppLocalizationsFr extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return 'Voulez-vous arrêter de prier pour $currentName et commencer à prier pour $newName ?';
   }
+
+  @override
+  String get amen => 'Amen';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Choisissez un groupe de personnes pour commencer à prier.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'Impossible de charger le contenu de prière.';
+
+  @override
+  String get noPrayerContentAvailable =>
+      'Aucun contenu de prière pour aujourd\'hui.';
+
+  @override
+  String get prayerLogged => 'Votre prière a été enregistrée.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'Impossible d\'enregistrer votre session de prière.';
 }
 
 /// The translations for French, as used in France (`fr_FR`).

@@ -183,6 +183,12 @@ abstract class AppLocalizations {
   /// **'Could not load people groups.'**
   String get couldNotLoadPeopleGroupsMessage;
 
+  /// The message displayed when the user should pause and pray
+  ///
+  /// In en, this message translates to:
+  /// **'Pause & Pray'**
+  String get pauseAndPray;
+
   /// The select people group button
   ///
   /// In en, this message translates to:
@@ -218,6 +224,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to stop praying for {currentName} and start praying for {newName}?'**
   String switchPeopleGroupConfirm(String currentName, String newName);
+
+  /// The Amen button shown at the bottom of the prayer screen to log a prayer session
+  ///
+  /// In en, this message translates to:
+  /// **'Amen'**
+  String get amen;
+
+  /// Message shown on the pray screen when the user has not yet selected a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group to start praying.'**
+  String get noPeopleGroupSelected;
+
+  /// Error message shown when the prayer-content API call fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load prayer content.'**
+  String get couldNotLoadPrayerContent;
+
+  /// Message shown when the API returns hasContent=false or an empty content list
+  ///
+  /// In en, this message translates to:
+  /// **'No prayer content for today.'**
+  String get noPrayerContentAvailable;
+
+  /// Snackbar shown after a prayer session has been recorded
+  ///
+  /// In en, this message translates to:
+  /// **'Your prayer has been logged.'**
+  String get prayerLogged;
+
+  /// Snackbar shown when the prayer-session POST fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not log your prayer session.'**
+  String get couldNotLogPrayerSession;
 }
 
 class _AppLocalizationsDelegate

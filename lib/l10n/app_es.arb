@@ -16,5 +16,11 @@
     "yes": "Sí",
     "no": "No",
     "selectPeopleGroupConfirm": "¿Quieres seleccionar este grupo de personas?",
-    "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?"
+    "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?",
+    "amen": "Amén",
+    "noPeopleGroupSelected": "Elige un grupo de personas para empezar a orar.",
+    "couldNotLoadPrayerContent": "No se pudo cargar el contenido de oración.",
+    "noPrayerContentAvailable": "No hay contenido de oración para hoy.",
+    "prayerLogged": "Tu oración ha sido registrada.",
+    "couldNotLogPrayerSession": "No se pudo registrar tu sesión de oración."
 }

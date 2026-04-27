@@ -16,5 +16,11 @@
     "yes": "Oui",
     "no": "Non",
     "selectPeopleGroupConfirm": "Voulez-vous sélectionner ce groupe de personnes ?",
-    "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?"
+    "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
+    "amen": "Amen",
+    "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
+    "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
+    "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
+    "prayerLogged": "Votre prière a été enregistrée.",
+    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière."
 }

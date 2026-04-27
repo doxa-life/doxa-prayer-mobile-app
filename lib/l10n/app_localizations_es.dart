@@ -60,6 +60,9 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudieron cargar los grupos de personas.';
 
   @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
   String get select => 'Seleccionar';
 
   @override
@@ -79,6 +82,28 @@ class AppLocalizationsEs extends AppLocalizations {
   String switchPeopleGroupConfirm(String currentName, String newName) {
     return '¿Quieres dejar de orar por $currentName y comenzar a orar por $newName?';
   }
+
+  @override
+  String get amen => 'Amén';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Elige un grupo de personas para empezar a orar.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'No se pudo cargar el contenido de oración.';
+
+  @override
+  String get noPrayerContentAvailable =>
+      'No hay contenido de oración para hoy.';
+
+  @override
+  String get prayerLogged => 'Tu oración ha sido registrada.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'No se pudo registrar tu sesión de oración.';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).
