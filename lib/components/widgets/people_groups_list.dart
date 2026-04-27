@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/action_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
@@ -66,40 +67,19 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        content: Text(
-          message,
-          style: AppTypography.bodyLarge.copyWith(
-            color: AppColors.onSecondary,
-            fontWeight: FontWeight.w500,
+      builder: (ctx) => ActionModal(
+        message: message,
+        actionButtons: [
+          ActionButton(
+            label: l10n.no,
+            onPressed: () => Navigator.of(ctx).pop(false),
+            color: ActionButtonColor.white,
           ),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.md),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: AppSpacing.xxxl,
-          vertical: AppSpacing.xxl,
-        ),
-        backgroundColor: AppColors.secondary,
-        actions: [
-          Row(
-            spacing: AppSpacing.xxl,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ActionButton(
-                label: l10n.no,
-                onPressed: () => Navigator.of(ctx).pop(false),
-                color: ActionButtonColor.white,
-              ),
-              ActionButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                label: l10n.yes,
-                color: ActionButtonColor.secondaryLight,
-                isOutlined: true,
-              ),
-            ],
+          ActionButton(
+            label: l10n.yes,
+            onPressed: () => Navigator.of(ctx).pop(true),
+            color: ActionButtonColor.secondaryLight,
+            isOutlined: true,
           ),
         ],
       ),
