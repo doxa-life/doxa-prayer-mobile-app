@@ -60,7 +60,11 @@ class _AppShellState extends State<AppShell> {
             selectedIcon: AppIconName.praySolid,
             label: 'Pray',
           ),
-          BottomNavItemData(icon: AppIconName.person, label: 'People Groups'),
+          BottomNavItemData(
+            icon: AppIconName.peopleGroup,
+            selectedIcon: AppIconName.peopleGroupSolid,
+            label: 'People Groups',
+          ),
           BottomNavItemData(
             icon: AppIconName.bell,
             selectedIcon: AppIconName.bellSolid,

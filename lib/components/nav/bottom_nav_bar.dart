@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
@@ -49,6 +50,12 @@ class BottomNavBar extends StatelessWidget {
       backgroundColor: AppColors.primary,
       selectedItemColor: selectedColor,
       unselectedItemColor: AppColors.onPrimary,
+      selectedLabelStyle: AppTypography.caption.copyWith(
+        fontSize: AppTypography.xs,
+      ),
+      unselectedLabelStyle: AppTypography.caption.copyWith(
+        fontSize: AppTypography.xs,
+      ),
     );
   }
 }
