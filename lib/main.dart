@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app_shell.dart';
 import 'l10n/app_localizations.dart';
+import 'services/locale_controller.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -14,25 +15,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Doxa Prayer',
-      theme: AppTheme.light,
-      home: const AppShell(),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es', 'ES'),
-        Locale('pt', 'BR'),
-        Locale('fr', 'FR'),
-        Locale('ru', 'RU'),
-        Locale('ar'),
-      ],
-      locale: const Locale('en'),
+    return ValueListenableBuilder<Locale>(
+      valueListenable: localeController,
+      builder: (context, locale, _) {
+        return MaterialApp(
+          title: 'Doxa Prayer',
+          theme: AppTheme.light,
+          home: const AppShell(),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: appLanguages.map((l) => l.locale),
+          locale: locale,
+        );
+      },
     );
   }
 }

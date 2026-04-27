@@ -1,4 +1,6 @@
+import 'package:doxa_prayer_mobile_app/components/inputs/language_switcher.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -8,15 +10,15 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DetailsNavBar(
-        title: 'Settings',
+        title: AppLocalizations.of(context)!.settings,
         onBack: () => Navigator.pop(context),
       ),
-      body: const Center(
+      body: const SafeArea(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Text(
-            'Settings — stub\n\nWill expose language selection, permission management, and the app version.',
-            textAlign: TextAlign.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [LanguageSwitcher()],
           ),
         ),
       ),
