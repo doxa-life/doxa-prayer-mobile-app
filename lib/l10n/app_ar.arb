@@ -45,7 +45,7 @@
     "couldNotLoadPeopleGroupsMessage": "تعذر تحميل رسالة مجموعات الأشخاص",
     "home": "الصفحة الرئيسية",
     "language": "اللغة",
-    "nPeopleGroups": "مجموعات بشرية",
+    "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
     "peopleGroups": "المجموعات العرقية",
     "pray": "صلي",
     "profile": "الملف الشخصي",
