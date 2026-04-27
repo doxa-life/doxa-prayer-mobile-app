@@ -9,6 +9,8 @@ enum AppIconName {
   bell('bell.svg'),
   bellSolid('bell-solid.svg'),
   person('person.svg'),
+  peopleGroup('people-group.svg'),
+  peopleGroupSolid('people-group-solid.svg'),
   search('search.svg'),
   searchSolid('search-solid.svg'),
   gear('gear.svg'),
@@ -36,7 +38,8 @@ class AppIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = color ?? IconTheme.of(context).color ?? const Color(0xFF000000);
+    final tint =
+        color ?? IconTheme.of(context).color ?? const Color(0xFF000000);
     return SvgPicture.asset(
       name.assetPath,
       width: size,
