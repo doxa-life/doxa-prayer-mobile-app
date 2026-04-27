@@ -4,9 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app_shell.dart';
 import 'l10n/app_localizations.dart';
 import 'services/locale_controller.dart';
+import 'services/selected_people_group_controller.dart';
 import 'theme/app_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await loadSelectedPeopleGroup();
   runApp(const MyApp());
 }
 

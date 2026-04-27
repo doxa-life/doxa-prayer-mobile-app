@@ -10,5 +10,11 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "retry": "Reintentar",
-    "couldNotLoadPeopleGroupsMessage": "No se pudieron cargar los grupos de personas."
+    "couldNotLoadPeopleGroupsMessage": "No se pudieron cargar los grupos de personas.",
+    "select": "Seleccionar",
+    "selected": "Seleccionado",
+    "yes": "Sí",
+    "no": "No",
+    "selectPeopleGroupConfirm": "¿Quieres seleccionar este grupo de personas?",
+    "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?"
 }

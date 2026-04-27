@@ -6,6 +6,7 @@ class AppColors {
   static const primary = Color(0xFF3B463D);
   static const onPrimary = Color(0xFFCBC5B9);
   static const secondary = Color(0xFF73A17F);
+  static const secondaryLight = Color(0xFF92B195);
   static const onSecondary = Color(0xFFFFFFFF);
   static const surface = Color(0xFFFFFFFF);
   static const onSurface = Color(0xFF000000);

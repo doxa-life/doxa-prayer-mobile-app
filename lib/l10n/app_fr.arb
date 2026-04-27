@@ -10,5 +10,11 @@
     "settings": "Paramètres",
     "language": "Langue",
     "retry": "Réessayer",
-    "couldNotLoadPeopleGroupsMessage": "Impossible de charger les groupes de personnes."
+    "couldNotLoadPeopleGroupsMessage": "Impossible de charger les groupes de personnes.",
+    "select": "Sélectionner",
+    "selected": "Sélectionné",
+    "yes": "Oui",
+    "no": "Non",
+    "selectPeopleGroupConfirm": "Voulez-vous sélectionner ce groupe de personnes ?",
+    "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?"
 }

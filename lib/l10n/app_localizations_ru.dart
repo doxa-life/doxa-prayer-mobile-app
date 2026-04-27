@@ -60,6 +60,26 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'Не удалось загрузить группы людей.';
+
+  @override
+  String get select => 'Выбрать';
+
+  @override
+  String get selected => 'Выбрано';
+
+  @override
+  String get yes => 'Да';
+
+  @override
+  String get no => 'Нет';
+
+  @override
+  String get selectPeopleGroupConfirm => 'Вы хотите выбрать эту группу людей?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Вы хотите перестать молиться за $currentName и начать молиться за $newName?';
+  }
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

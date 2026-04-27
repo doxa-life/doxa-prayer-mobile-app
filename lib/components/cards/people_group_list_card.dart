@@ -13,17 +13,20 @@ class PeopleGroupListCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.imageUrl,
-    required this.onPray,
+    required this.onSelect,
     required this.onDetails,
+    this.isSelected = false,
   });
 
   final String name;
   final String? imageUrl;
-  final VoidCallback onPray;
+  final VoidCallback onSelect;
   final VoidCallback onDetails;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ElevatedAppCard(
       padding: AppSpacing.xl,
       child: Column(
@@ -52,12 +55,12 @@ class PeopleGroupListCard extends StatelessWidget {
             spacing: AppSpacing.md,
             children: [
               ButtonLink(
-                label: AppLocalizations.of(context)!.profile,
+                label: l10n.profile,
                 onPressed: onDetails,
               ),
               ActionButton(
-                label: AppLocalizations.of(context)!.pray,
-                onPressed: onPray,
+                label: isSelected ? l10n.selected : l10n.select,
+                onPressed: isSelected ? null : onSelect,
                 color: ActionButtonColor.secondary,
               ),
             ],

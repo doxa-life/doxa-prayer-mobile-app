@@ -182,6 +182,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load people groups.'**
   String get couldNotLoadPeopleGroupsMessage;
+
+  /// The select people group button
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
+  /// The disabled label shown on the currently selected people group
+  ///
+  /// In en, this message translates to:
+  /// **'Selected'**
+  String get selected;
+
+  /// The yes confirmation button
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// The no/cancel button
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// Confirmation prompt when selecting a people group for the first time
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to select this people group?'**
+  String get selectPeopleGroupConfirm;
+
+  /// Confirmation prompt when switching from a currently selected people group to a new one
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to stop praying for {currentName} and start praying for {newName}?'**
+  String switchPeopleGroupConfirm(String currentName, String newName);
 }
 
 class _AppLocalizationsDelegate

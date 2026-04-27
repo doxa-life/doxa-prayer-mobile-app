@@ -58,6 +58,27 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'No se pudieron cargar los grupos de personas.';
+
+  @override
+  String get select => 'Seleccionar';
+
+  @override
+  String get selected => 'Seleccionado';
+
+  @override
+  String get yes => 'Sí';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      '¿Quieres seleccionar este grupo de personas?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return '¿Quieres dejar de orar por $currentName y comenzar a orar por $newName?';
+  }
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

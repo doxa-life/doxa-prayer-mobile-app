@@ -58,4 +58,24 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'تعذر تحميل رسالة مجموعات الأشخاص';
+
+  @override
+  String get select => 'اختيار';
+
+  @override
+  String get selected => 'تم الاختيار';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get selectPeopleGroupConfirm => 'هل تريد اختيار هذه المجموعة العرقية؟';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'هل تريد التوقف عن الصلاة لـ $currentName والبدء في الصلاة لـ $newName؟';
+  }
 }

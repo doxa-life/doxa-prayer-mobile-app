@@ -58,6 +58,27 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'Não foi possível carregar os grupos de pessoas.';
+
+  @override
+  String get select => 'Selecionar';
+
+  @override
+  String get selected => 'Selecionado';
+
+  @override
+  String get yes => 'Sim';
+
+  @override
+  String get no => 'Não';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'Você quer selecionar este grupo de pessoas?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Você quer parar de orar por $currentName e começar a orar por $newName?';
+  }
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

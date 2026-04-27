@@ -10,5 +10,11 @@
     "settings": "Настройки",
     "language": "Язык",
     "retry": "Повторить",
-    "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить группы людей."
+    "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить группы людей.",
+    "select": "Выбрать",
+    "selected": "Выбрано",
+    "yes": "Да",
+    "no": "Нет",
+    "selectPeopleGroupConfirm": "Вы хотите выбрать эту группу людей?",
+    "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?"
 }

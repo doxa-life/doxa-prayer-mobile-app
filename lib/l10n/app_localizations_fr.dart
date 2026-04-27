@@ -58,6 +58,27 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'Impossible de charger les groupes de personnes.';
+
+  @override
+  String get select => 'Sélectionner';
+
+  @override
+  String get selected => 'Sélectionné';
+
+  @override
+  String get yes => 'Oui';
+
+  @override
+  String get no => 'Non';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'Voulez-vous sélectionner ce groupe de personnes ?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Voulez-vous arrêter de prier pour $currentName et commencer à prier pour $newName ?';
+  }
 }
 
 /// The translations for French, as used in France (`fr_FR`).

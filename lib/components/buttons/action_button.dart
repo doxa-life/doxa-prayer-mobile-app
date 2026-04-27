@@ -4,7 +4,7 @@ import '../../theme/app_colors.dart';
 
 enum _ActionButtonKind { label, iconLabel, icon, fullWidth }
 
-enum ActionButtonColor { primary, secondary, white }
+enum ActionButtonColor { primary, secondary, secondaryLight, white }
 
 class ActionButton extends StatelessWidget {
   const ActionButton({
@@ -65,6 +65,14 @@ class ActionButton extends StatelessWidget {
       case ActionButtonColor.secondary:
         return FilledButton.styleFrom(
           backgroundColor: AppColors.secondary,
+          foregroundColor: AppColors.white,
+          side: isOutlined
+              ? BorderSide(color: AppColors.white, width: borderWidth)
+              : null,
+        );
+      case ActionButtonColor.secondaryLight:
+        return FilledButton.styleFrom(
+          backgroundColor: AppColors.secondaryLight,
           foregroundColor: AppColors.white,
           side: isOutlined
               ? BorderSide(color: AppColors.white, width: borderWidth)

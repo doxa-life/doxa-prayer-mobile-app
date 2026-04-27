@@ -57,6 +57,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get couldNotLoadPeopleGroupsMessage => 'Could not load people groups.';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'Do you want to select this people group?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Do you want to stop praying for $currentName and start praying for $newName?';
+  }
 }
 
 /// The translations for English, as used in the United States (`en_US`).
