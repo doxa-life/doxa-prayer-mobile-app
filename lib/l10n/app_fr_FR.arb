@@ -41,16 +41,16 @@
     "@settings": {
         "description": "The settings screen"
     },
-    "appName": "",
-    "couldNotLoadPeopleGroupsMessage": "",
-    "home": "",
-    "language": "",
+    "appName": "nom de l'application",
+    "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
+    "home": "Accueil",
+    "language": "langue",
     "nPeopleGroups": "",
-    "peopleGroups": "",
-    "pray": "",
-    "profile": "",
-    "reminders": "",
-    "retry": "",
-    "searchPeopleGroups": "",
-    "settings": ""
+    "peopleGroups": "groupes ethniques",
+    "pray": "prier",
+    "profile": "profil",
+    "reminders": "rappels",
+    "retry": "réessayer",
+    "searchPeopleGroups": "Rechercher des personnes et des groupes",
+    "settings": "paramètres"
 }
