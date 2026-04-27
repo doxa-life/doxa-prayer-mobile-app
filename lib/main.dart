@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         Locale('ru', 'RU'),
         Locale('ar'),
       ],
-      locale: const Locale('es', 'ES'),
+      locale: const Locale('en'),
     );
   }
 }

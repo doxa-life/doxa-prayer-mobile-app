@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_spacing.dart';
@@ -50,9 +51,12 @@ class PeopleGroupListCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: AppSpacing.md,
             children: [
-              ButtonLink(label: 'Profile', onPressed: onDetails),
+              ButtonLink(
+                label: AppLocalizations.of(context)!.profile,
+                onPressed: onDetails,
+              ),
               ActionButton(
-                label: 'Pray',
+                label: AppLocalizations.of(context)!.pray,
                 onPressed: onPray,
                 color: ActionButtonColor.secondary,
               ),
