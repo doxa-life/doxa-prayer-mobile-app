@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/nav/top_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'components/misc/app_icon.dart';
@@ -43,32 +44,32 @@ class _AppShellState extends State<AppShell> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopNavBar(
-        title: 'DOXA',
+        title: AppLocalizations.of(context)!.appName,
         onSettings: _openSettings,
         onGallery: _openGallery,
       ),
       body: IndexedStack(index: _selectedIndex, children: _tabs),
       bottomNavigationBar: BottomNavBar(
-        items: const [
+        items: [
           BottomNavItemData(
             icon: AppIconName.home,
             selectedIcon: AppIconName.homeSolid,
-            label: 'Home',
+            label: AppLocalizations.of(context)!.home,
           ),
           BottomNavItemData(
             icon: AppIconName.pray,
             selectedIcon: AppIconName.praySolid,
-            label: 'Pray',
+            label: AppLocalizations.of(context)!.pray,
           ),
           BottomNavItemData(
             icon: AppIconName.peopleGroup,
             selectedIcon: AppIconName.peopleGroupSolid,
-            label: 'People Groups',
+            label: AppLocalizations.of(context)!.peopleGroups,
           ),
           BottomNavItemData(
             icon: AppIconName.bell,
             selectedIcon: AppIconName.bellSolid,
-            label: 'Reminders',
+            label: AppLocalizations.of(context)!.reminders,
           ),
         ],
         currentIndex: _selectedIndex,

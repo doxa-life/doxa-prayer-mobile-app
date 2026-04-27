@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.10+1
   http: ^1.2.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -51,9 +54,12 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+
 # The following section is specific to Flutter packages.
 flutter:
 
+  # In order to generate the app_localizations.dart file, we need to add the following line
+  generate: true
   uses-material-design: true
 
   assets:

@@ -1,0 +1,56 @@
+{
+    "appName": "Doxa Prayer",
+    "@appName": {
+        "description": "The name of the app"
+    },
+    "home": "Home",
+    "@home": {
+        "description": "The home screen"
+    },
+    "pray": "Pray",
+    "@pray": {
+        "description": "The pray screen"
+    },
+    "peopleGroups": "People Groups",
+    "@peopleGroups": {
+        "description": "The people groups screen"
+    },
+    "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
+    "@nPeopleGroups": {
+        "description": "A plural message for the number of people groups",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "searchPeopleGroups": "Search People Groups",
+    "@searchPeopleGroups": {
+        "description": "The search people groups input"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "The profile button"
+    },
+    "reminders": "Reminders",
+    "@reminders": {
+        "description": "The reminders screen"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "The settings screen"
+    },
+    "language": "Language",
+    "@language": {
+        "description": "The language selector"
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "The retry button"
+    },
+    "couldNotLoadPeopleGroupsMessage": "Could not load people groups.",
+    "@couldNotLoadPeopleGroupsMessage": {
+        "description": "The message displayed when the people groups cannot be loaded"
+    }
+}

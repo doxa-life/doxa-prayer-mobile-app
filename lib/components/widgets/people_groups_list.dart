@@ -1,10 +1,11 @@
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
 import '../../components/inputs/search_field.dart';
-import '../../layouts/page_scaffold.dart';
 import '../../models/people_group.dart';
 import '../../services/people_groups_service.dart';
 import '../../theme/app_spacing.dart';
@@ -75,7 +76,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           children: [
             Expanded(
               child: SearchField(
-                hint: 'Search people groups',
+                hint: AppLocalizations.of(context)!.searchPeopleGroups,
                 controller: _searchController,
                 onChanged: (v) => setState(() => _query = v),
                 onClear: () {
@@ -103,7 +104,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
               }
               if (snapshot.hasError) {
                 return _ErrorView(
-                  message: 'Could not load people groups.',
+                  message: AppLocalizations.of(
+                    context,
+                  )!.couldNotLoadPeopleGroupsMessage,
                   onRetry: _reload,
                 );
               }
@@ -113,7 +116,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 spacing: AppSpacing.lg,
                 children: [
                   Text(
-                    '${filtered.length} people groups',
+                    AppLocalizations.of(
+                      context,
+                    )!.nPeopleGroups(filtered.length),
                     style: AppTypography.caption,
                   ),
                   Expanded(
@@ -156,7 +161,10 @@ class _ErrorView extends StatelessWidget {
         spacing: AppSpacing.lg,
         children: [
           Text(message, textAlign: TextAlign.center),
-          ActionButton(label: 'Retry', onPressed: onRetry),
+          ActionButton(
+            label: AppLocalizations.of(context)!.retry,
+            onPressed: onRetry,
+          ),
         ],
       ),
     );
