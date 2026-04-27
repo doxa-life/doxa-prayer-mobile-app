@@ -41,16 +41,16 @@
     "@settings": {
         "description": "The settings screen"
     },
-    "appName": "",
-    "couldNotLoadPeopleGroupsMessage": "",
-    "home": "",
-    "language": "",
+    "appName": "название приложения",
+    "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить сообщение о группах людей",
+    "home": "Главная",
+    "language": "язык",
     "nPeopleGroups": "",
-    "peopleGroups": "",
-    "pray": "",
-    "profile": "",
-    "reminders": "",
-    "retry": "",
-    "searchPeopleGroups": "",
-    "settings": ""
+    "peopleGroups": "этнические группы",
+    "pray": "молиться",
+    "profile": "профиль",
+    "reminders": "напоминания",
+    "retry": "повторить попытку",
+    "searchPeopleGroups": "поискЛюдиГруппы",
+    "settings": "настройки"
 }
