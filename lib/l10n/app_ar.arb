@@ -41,16 +41,16 @@
     "@settings": {
         "description": "The settings screen"
     },
-    "appName": "",
-    "couldNotLoadPeopleGroupsMessage": "",
-    "home": "",
-    "language": "",
+    "appName": "اسم التطبيق",
+    "couldNotLoadPeopleGroupsMessage": "تعذر تحميل رسالة مجموعات الأشخاص",
+    "home": "الصفحة الرئيسية",
+    "language": "اللغة",
     "nPeopleGroups": "",
-    "peopleGroups": "",
-    "pray": "",
-    "profile": "",
-    "reminders": "",
-    "retry": "",
-    "searchPeopleGroups": "",
-    "settings": ""
+    "peopleGroups": "المجموعات العرقية",
+    "pray": "صلي",
+    "profile": "الملف الشخصي",
+    "reminders": "تذكيرات",
+    "retry": "إعادة المحاولة",
+    "searchPeopleGroups": "البحث عن الأشخاص والمجموعات",
+    "settings": "الإعدادات"
 }
