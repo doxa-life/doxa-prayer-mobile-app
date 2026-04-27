@@ -41,16 +41,16 @@
     "@settings": {
         "description": "The settings screen"
     },
-    "appName": "",
-    "couldNotLoadPeopleGroupsMessage": "",
-    "home": "",
-    "language": "",
-    "nPeopleGroups": "",
-    "peopleGroups": "",
-    "pray": "",
-    "profile": "",
-    "reminders": "",
-    "retry": "",
-    "searchPeopleGroups": "",
-    "settings": ""
+    "appName": "appName",
+    "couldNotLoadPeopleGroupsMessage": "couldNotLoadPeopleGroupsMessage",
+    "home": "home",
+    "language": "language",
+    "nPeopleGroups": "nPeopleGroups",
+    "peopleGroups": "peopleGroups",
+    "pray": "pray",
+    "profile": "profile",
+    "reminders": "reminders",
+    "retry": "retry",
+    "searchPeopleGroups": "searchPeopleGroups",
+    "settings": "settings"
 }
