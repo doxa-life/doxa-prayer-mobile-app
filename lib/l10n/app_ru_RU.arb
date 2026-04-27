@@ -45,7 +45,7 @@
     "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить сообщение о группах людей",
     "home": "Главная",
     "language": "язык",
-    "nPeopleGroups": "Группы людей",
+    "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
     "peopleGroups": "этнические группы",
     "pray": "молиться",
     "profile": "профиль",
