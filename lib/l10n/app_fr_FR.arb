@@ -45,7 +45,7 @@
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
     "home": "Accueil",
     "language": "langue",
-    "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
+    "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
     "peopleGroups": "groupes ethniques",
     "pray": "prier",
     "profile": "profil",

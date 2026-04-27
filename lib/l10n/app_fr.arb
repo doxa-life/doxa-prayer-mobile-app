@@ -1,0 +1,14 @@
+{
+    "appName": "Doxa Prière",
+    "home": "Accueil",
+    "pray": "Prier",
+    "peopleGroups": "Groupes de Personnes",
+    "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
+    "searchPeopleGroups": "Rechercher des Groupes de Personnes",
+    "profile": "Profil",
+    "reminders": "Rappels",
+    "settings": "Paramètres",
+    "language": "Langue",
+    "retry": "Réessayer",
+    "couldNotLoadPeopleGroupsMessage": "Impossible de charger les groupes de personnes."
+}

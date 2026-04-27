@@ -1,0 +1,14 @@
+{
+    "appName": "Doxa Молитва",
+    "home": "Главная",
+    "pray": "Молиться",
+    "peopleGroups": "Группы людей",
+    "nPeopleGroups": "{count, plural, =0{Нет групп людей} one{1 группа людей} few{{count} группы людей} many{{count} групп людей} other{{count} групп людей}}",
+    "searchPeopleGroups": "Поиск групп людей",
+    "profile": "Профиль",
+    "reminders": "Напоминания",
+    "settings": "Настройки",
+    "language": "Язык",
+    "retry": "Повторить",
+    "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить группы людей."
+}

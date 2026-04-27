@@ -1,0 +1,14 @@
+{
+    "appName": "Doxa Oración",
+    "home": "Inicio",
+    "pray": "Orar",
+    "peopleGroups": "Grupos de Personas",
+    "nPeopleGroups": "{count, plural, =0{Sin Grupos de Personas} =1{1 Grupo de Personas} other{{count} Grupos de Personas}}",
+    "searchPeopleGroups": "Buscar Grupos de Personas",
+    "profile": "Perfil",
+    "reminders": "Recordatorios",
+    "settings": "Ajustes",
+    "language": "Idioma",
+    "retry": "Reintentar",
+    "couldNotLoadPeopleGroupsMessage": "No se pudieron cargar los grupos de personas."
+}

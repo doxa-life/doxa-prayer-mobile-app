@@ -1,0 +1,117 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Portuguese (`pt`).
+class AppLocalizationsPt extends AppLocalizations {
+  AppLocalizationsPt([String locale = 'pt']) : super(locale);
+
+  @override
+  String get appName => 'Doxa Oração';
+
+  @override
+  String get home => 'Início';
+
+  @override
+  String get pray => 'Orar';
+
+  @override
+  String get peopleGroups => 'Grupos de Pessoas';
+
+  @override
+  String nPeopleGroups(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString Grupos de Pessoas',
+      one: '1 Grupo de Pessoas',
+      zero: 'Sem Grupos de Pessoas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get searchPeopleGroups => 'Buscar Grupos de Pessoas';
+
+  @override
+  String get profile => 'Perfil';
+
+  @override
+  String get reminders => 'Lembretes';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get retry => 'Tentar novamente';
+
+  @override
+  String get couldNotLoadPeopleGroupsMessage =>
+      'Não foi possível carregar os grupos de pessoas.';
+}
+
+/// The translations for Portuguese, as used in Portugal (`pt_PT`).
+class AppLocalizationsPtPt extends AppLocalizationsPt {
+  AppLocalizationsPtPt() : super('pt_PT');
+
+  @override
+  String get appName => 'nome da aplicação';
+
+  @override
+  String get home => 'início';
+
+  @override
+  String get pray => 'rezar';
+
+  @override
+  String get peopleGroups => 'Grupos étnicos';
+
+  @override
+  String nPeopleGroups(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString Grupos de Pessoas',
+      one: '1 Grupo de Pessoas',
+      zero: 'Sem Grupos de Pessoas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get searchPeopleGroups => 'Pesquisar Pessoas Grupos';
+
+  @override
+  String get profile => 'perfil';
+
+  @override
+  String get reminders => 'lembretes';
+
+  @override
+  String get settings => 'configurações';
+
+  @override
+  String get language => 'língua';
+
+  @override
+  String get retry => 'tentar novamente';
+
+  @override
+  String get couldNotLoadPeopleGroupsMessage =>
+      'Mensagem de falha ao carregar grupos de pessoas';
+}

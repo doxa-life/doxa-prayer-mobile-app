@@ -58,3 +58,52 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get couldNotLoadPeopleGroupsMessage => 'Could not load people groups.';
 }
+
+/// The translations for English, as used in the United States (`en_US`).
+class AppLocalizationsEnUs extends AppLocalizationsEn {
+  AppLocalizationsEnUs() : super('en_US');
+
+  @override
+  String get appName => 'appName';
+
+  @override
+  String get home => 'home';
+
+  @override
+  String get pray => 'pray';
+
+  @override
+  String get peopleGroups => 'peopleGroups';
+
+  @override
+  String nPeopleGroups(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    return 'nPeopleGroups';
+  }
+
+  @override
+  String get searchPeopleGroups => 'searchPeopleGroups';
+
+  @override
+  String get profile => 'profile';
+
+  @override
+  String get reminders => 'reminders';
+
+  @override
+  String get settings => 'settings';
+
+  @override
+  String get language => 'language';
+
+  @override
+  String get retry => 'retry';
+
+  @override
+  String get couldNotLoadPeopleGroupsMessage =>
+      'couldNotLoadPeopleGroupsMessage';
+}
