@@ -46,7 +46,7 @@ class PrayerDocView extends StatelessWidget {
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: AppSpacing.lg,
+      spacing: AppSpacing.xxl,
       children: widgets,
     );
   }

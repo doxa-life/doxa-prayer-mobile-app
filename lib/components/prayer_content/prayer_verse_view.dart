@@ -32,8 +32,8 @@ class PrayerVerseView extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSpacing.md),
       ),
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.lg,
+        horizontal: AppSpacing.xxl,
+        vertical: AppSpacing.xxl,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,6 +41,7 @@ class PrayerVerseView extends StatelessWidget {
         children: [
           for (final spans in paragraphs)
             Text.rich(
+              textAlign: TextAlign.center,
               TextSpan(
                 style: AppTypography.bodyMedium.copyWith(
                   color: AppColors.white,
@@ -50,12 +51,17 @@ class PrayerVerseView extends StatelessWidget {
               ),
             ),
           if (citation.isNotEmpty)
-            Text(
-              citation,
-              style: AppTypography.caption.copyWith(
-                color: AppColors.white.withValues(alpha: 0.7),
-                fontWeight: FontWeight.w500,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  citation,
+                  style: AppTypography.caption.copyWith(
+                    color: AppColors.white.withValues(alpha: 0.7),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
         ],
       ),
