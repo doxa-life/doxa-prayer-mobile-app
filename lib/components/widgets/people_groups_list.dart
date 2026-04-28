@@ -87,7 +87,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
     if (confirmed == true) {
       await setSelectedPeopleGroup(
-        SelectedPeopleGroup(slug: group.slug, name: group.name),
+        SelectedPeopleGroup(
+          slug: group.slug,
+          name: group.name,
+          imageUrl: group.imageUrl,
+        ),
       );
     }
   }

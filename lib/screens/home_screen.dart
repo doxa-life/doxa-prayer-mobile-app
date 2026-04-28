@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -9,12 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(24),
-        child: _peopleGroupCardOrCTA(),
-      ),
-    );
+    return PageContainer(child: Column(children: [_peopleGroupCardOrCTA()]));
   }
 
   Widget _peopleGroupCardOrCTA() {
@@ -36,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               )
             : PeopleGroupCard(
                 name: selected.name,
-                imageUrl: '',
+                imageUrl: selected.imageUrl ?? '',
                 onPray: () {},
                 onDetails: () {},
               );
