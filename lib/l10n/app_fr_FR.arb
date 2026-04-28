@@ -1,9 +1,18 @@
 {
+    "@amen": {
+        "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
+    },
     "@appName": {
         "description": "The name of the app"
     },
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
+    },
+    "@couldNotLoadPrayerContent": {
+        "description": "Error message shown when the prayer-content API call fails"
+    },
+    "@couldNotLogPrayerSession": {
+        "description": "Snackbar shown when the prayer-session POST fails"
     },
     "@home": {
         "description": "The home screen"
@@ -20,11 +29,23 @@
             }
         }
     },
+    "@noPeopleGroupSelected": {
+        "description": "Message shown on the pray screen when the user has not yet selected a people group"
+    },
+    "@noPrayerContentAvailable": {
+        "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "@pauseAndPray": {
+        "description": "The message displayed when the user should pause and pray"
+    },
     "@peopleGroups": {
         "description": "The people groups screen"
     },
     "@pray": {
         "description": "The pray screen"
+    },
+    "@prayerLogged": {
+        "description": "Snackbar shown after a prayer session has been recorded"
     },
     "@profile": {
         "description": "The profile button"
@@ -38,19 +59,50 @@
     "@searchPeopleGroups": {
         "description": "The search people groups input"
     },
+    "@selectPeopleGroup": {
+        "description": "The select people group button"
+    },
+    "@selectPeopleGroupConfirm": {
+        "description": "Confirmation prompt when selecting a people group for the first time"
+    },
+    "@selected": {
+        "description": "The disabled label shown on the currently selected people group"
+    },
     "@settings": {
         "description": "The settings screen"
     },
+    "@switchPeopleGroupConfirm": {
+        "description": "Confirmation prompt when switching from a currently selected people group to a new one",
+        "placeholders": {
+            "currentName": {
+                "type": "String"
+            },
+            "newName": {
+                "type": "String"
+            }
+        }
+    },
+    "amen": "Amen",
     "appName": "nom de l'application",
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
+    "couldNotLoadPrayerContent": "Impossible de charger le contenu de la prière.",
+    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
     "home": "Accueil",
     "language": "langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
+    "noPeopleGroupSelected": "Choisissez un groupe ethnique pour commencer à prier.",
+    "noPrayerContentAvailable": "Il n'y a pas de texte de prière pour aujourd'hui.",
+    "pauseAndPray": "Fais une pause et prie",
     "peopleGroups": "groupes ethniques",
     "pray": "prier",
+    "prayerLogged": "Votre prière a été enregistrée.",
     "profile": "profil",
     "reminders": "rappels",
     "retry": "réessayer",
     "searchPeopleGroups": "Rechercher des personnes et des groupes",
-    "settings": "paramètres"
+    "selectPeopleGroup": "Sélectionnez un groupe ethnique",
+    "selectPeopleGroupConfirm": "Souhaitez-vous sélectionner ce groupe ethnique ?",
+    "selected": "Sélectionné",
+    "settings": "paramètres",
+    "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?"
 }
