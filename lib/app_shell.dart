@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
-import 'services/selected_tab_controller.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
@@ -25,13 +24,6 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tab = AppTab.values[navigationShell.currentIndex];
-    if (selectedTabController.value != tab) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        selectedTabController.value = tab;
-      });
-    }
-
     return Scaffold(
       appBar: TopNavBar(
         title: AppLocalizations.of(context)!.appName,

@@ -11,8 +11,8 @@ import '../models/prayer_content.dart';
 import '../services/locale_controller.dart';
 import '../services/prayer_content_service.dart';
 import '../services/prayer_history_service.dart';
+import '../router.dart';
 import '../services/selected_people_group_controller.dart';
-import '../services/selected_tab_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
@@ -83,14 +83,14 @@ class _PrayContentState extends State<_PrayContent>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    selectedTabController.addListener(_onTabChanged);
+    appRouter.routerDelegate.addListener(_onRouteChanged);
     _date = DateTime.now();
     _future = fetchPrayerContent(
       slug: widget.slug,
       date: _date,
       language: widget.language,
     );
-    if (selectedTabController.value == AppTab.pray) {
+    if (_isOnPrayRoute) {
       _startSession();
     }
   }
@@ -98,7 +98,7 @@ class _PrayContentState extends State<_PrayContent>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    selectedTabController.removeListener(_onTabChanged);
+    appRouter.routerDelegate.removeListener(_onRouteChanged);
     if (_sessionActive) {
       _endSession();
     }
@@ -114,14 +114,17 @@ class _PrayContentState extends State<_PrayContent>
         _endSession();
       }
     } else if (state == AppLifecycleState.resumed) {
-      if (selectedTabController.value == AppTab.pray && !_sessionActive) {
+      if (_isOnPrayRoute && !_sessionActive) {
         _startSession();
       }
     }
   }
 
-  void _onTabChanged() {
-    final isPray = selectedTabController.value == AppTab.pray;
+  bool get _isOnPrayRoute =>
+      appRouter.routerDelegate.currentConfiguration.uri.path == '/pray';
+
+  void _onRouteChanged() {
+    final isPray = _isOnPrayRoute;
     if (isPray && !_sessionActive) {
       _startSession();
     } else if (!isPray && _sessionActive) {
