@@ -59,6 +59,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get couldNotLoadPeopleGroupsMessage => 'Could not load people groups.';
 
   @override
+  String get selectPeopleGroup => 'Select a people group';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override

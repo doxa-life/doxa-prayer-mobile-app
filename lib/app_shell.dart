@@ -10,6 +10,7 @@ import 'screens/people_groups_screen.dart';
 import 'screens/pray_screen.dart';
 import 'screens/reminders_screen.dart';
 import 'screens/settings_screen.dart';
+import 'services/selected_tab_controller.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -19,8 +20,6 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
-  int _selectedIndex = 0;
-
   static const List<Widget> _tabs = <Widget>[
     HomeScreen(),
     PrayScreen(),
@@ -48,32 +47,39 @@ class _AppShellState extends State<AppShell> {
         onSettings: _openSettings,
         onGallery: _openGallery,
       ),
-      body: IndexedStack(index: _selectedIndex, children: _tabs),
-      bottomNavigationBar: BottomNavBar(
-        items: [
-          BottomNavItemData(
-            icon: AppIconName.home,
-            selectedIcon: AppIconName.homeSolid,
-            label: AppLocalizations.of(context)!.home,
-          ),
-          BottomNavItemData(
-            icon: AppIconName.pray,
-            selectedIcon: AppIconName.praySolid,
-            label: AppLocalizations.of(context)!.pray,
-          ),
-          BottomNavItemData(
-            icon: AppIconName.peopleGroup,
-            selectedIcon: AppIconName.peopleGroupSolid,
-            label: AppLocalizations.of(context)!.peopleGroups,
-          ),
-          BottomNavItemData(
-            icon: AppIconName.bell,
-            selectedIcon: AppIconName.bellSolid,
-            label: AppLocalizations.of(context)!.reminders,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: (i) => setState(() => _selectedIndex = i),
+      body: ValueListenableBuilder<int>(
+        valueListenable: selectedTabController,
+        builder: (context, index, _) =>
+            IndexedStack(index: index, children: _tabs),
+      ),
+      bottomNavigationBar: ValueListenableBuilder<int>(
+        valueListenable: selectedTabController,
+        builder: (context, index, _) => BottomNavBar(
+          items: [
+            BottomNavItemData(
+              icon: AppIconName.home,
+              selectedIcon: AppIconName.homeSolid,
+              label: AppLocalizations.of(context)!.home,
+            ),
+            BottomNavItemData(
+              icon: AppIconName.pray,
+              selectedIcon: AppIconName.praySolid,
+              label: AppLocalizations.of(context)!.pray,
+            ),
+            BottomNavItemData(
+              icon: AppIconName.peopleGroup,
+              selectedIcon: AppIconName.peopleGroupSolid,
+              label: AppLocalizations.of(context)!.peopleGroups,
+            ),
+            BottomNavItemData(
+              icon: AppIconName.bell,
+              selectedIcon: AppIconName.bellSolid,
+              label: AppLocalizations.of(context)!.reminders,
+            ),
+          ],
+          currentIndex: index,
+          onTap: (i) => selectedTabController.value = i,
+        ),
       ),
     );
   }

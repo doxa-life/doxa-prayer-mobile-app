@@ -183,6 +183,12 @@ abstract class AppLocalizations {
   /// **'Could not load people groups.'**
   String get couldNotLoadPeopleGroupsMessage;
 
+  /// The select people group button
+  ///
+  /// In en, this message translates to:
+  /// **'Select a people group'**
+  String get selectPeopleGroup;
+
   /// The message displayed when the user should pause and pray
   ///
   /// In en, this message translates to:

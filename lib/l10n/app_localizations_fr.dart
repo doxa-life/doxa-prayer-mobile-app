@@ -60,6 +60,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Impossible de charger les groupes de personnes.';
 
   @override
+  String get selectPeopleGroup => 'Select a people group';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override

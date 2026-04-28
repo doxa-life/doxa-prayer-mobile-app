@@ -62,6 +62,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Не удалось загрузить группы людей.';
 
   @override
+  String get selectPeopleGroup => 'Select a people group';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override

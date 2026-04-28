@@ -53,6 +53,10 @@
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
     },
+    "selectPeopleGroup": "Select a people group",
+    "@selectPeopleGroup": {
+        "description": "The select people group button"
+    },
     "pauseAndPray": "Pause & Pray",
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"

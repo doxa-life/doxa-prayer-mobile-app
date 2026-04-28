@@ -60,6 +60,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'تعذر تحميل رسالة مجموعات الأشخاص';
 
   @override
+  String get selectPeopleGroup => 'Select a people group';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
