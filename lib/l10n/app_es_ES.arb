@@ -17,6 +17,9 @@
     "@daysOfWeek": {
         "description": "Label for the weekday selector"
     },
+    "@delete": {
+        "description": "Delete button label"
+    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -77,6 +80,9 @@
     "@retry": {
         "description": "The retry button"
     },
+    "@save": {
+        "description": "Save button label"
+    },
     "@searchPeopleGroups": {
         "description": "The search people groups input"
     },
@@ -121,6 +127,7 @@
     "couldNotLoadPrayerContent": "No se ha podido cargar el contenido de la oración.",
     "couldNotLogPrayerSession": "No se ha podido registrar tu sesión de oración.",
     "daysOfWeek": "Días de la semana",
+    "delete": "Borrar",
     "editReminder": "Editar recordatorio",
     "everyDay": "Todos los días",
     "home": "Inicio",
@@ -139,6 +146,7 @@
     "profile": "perfil",
     "reminders": "recordatorios",
     "retry": "reintentar",
+    "save": "Guardar",
     "searchPeopleGroups": "Buscar personas y grupos",
     "select": "Seleccionar",
     "selectPeopleGroup": "Selecciona un grupo étnico",
