@@ -17,8 +17,14 @@
     "@daysOfWeek": {
         "description": "Label for the weekday selector"
     },
+    "@delete": {
+        "description": "Delete button label"
+    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
+    },
+    "@everyDay": {
+        "description": "Days summary shown when a reminder is set for all 7 days"
     },
     "@home": {
         "description": "The home screen"
@@ -74,6 +80,9 @@
     "@retry": {
         "description": "The retry button"
     },
+    "@save": {
+        "description": "Save button label"
+    },
     "@searchPeopleGroups": {
         "description": "The search people groups input"
     },
@@ -106,6 +115,9 @@
             }
         }
     },
+    "@time": {
+        "description": "Label for the time-of-day field"
+    },
     "@yes": {
         "description": "The yes confirmation button"
     },
@@ -115,7 +127,9 @@
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de la prière.",
     "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
     "daysOfWeek": "Jours de la semaine",
+    "delete": "Supprimer",
     "editReminder": "Modifier le rappel",
+    "everyDay": "Tous les jours",
     "home": "Accueil",
     "language": "langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
@@ -132,6 +146,7 @@
     "profile": "profil",
     "reminders": "rappels",
     "retry": "réessayer",
+    "save": "Enregistrer",
     "searchPeopleGroups": "Rechercher des personnes et des groupes",
     "select": "Sélectionner",
     "selectPeopleGroup": "Sélectionnez un groupe ethnique",
@@ -140,5 +155,6 @@
     "selected": "Sélectionné",
     "settings": "paramètres",
     "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?",
+    "time": "Heure",
     "yes": "Oui"
 }
