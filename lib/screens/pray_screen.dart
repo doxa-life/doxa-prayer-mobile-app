@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 
@@ -9,9 +10,12 @@ import '../layouts/page_scaffold.dart';
 import '../models/prayer_content.dart';
 import '../services/locale_controller.dart';
 import '../services/prayer_content_service.dart';
+import '../services/prayer_history_service.dart';
 import '../services/selected_people_group_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+
+const _minimumDurationInSeconds = 5;
 
 class PrayScreen extends StatelessWidget {
   const PrayScreen({super.key});
@@ -65,22 +69,78 @@ class _PrayContent extends StatefulWidget {
   State<_PrayContent> createState() => _PrayContentState();
 }
 
-class _PrayContentState extends State<_PrayContent> {
+class _PrayContentState extends State<_PrayContent>
+    with WidgetsBindingObserver {
   late Future<PrayerContentResponse> _future;
   late DateTime _date;
   late DateTime _openedAt;
   bool _submitting = false;
+  bool _amenFired = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _date = DateTime.now();
     _openedAt = DateTime.now();
+    developer.log('Opened at: $_openedAt', name: 'pray_screen');
     _future = fetchPrayerContent(
       slug: widget.slug,
       date: _date,
       language: widget.language,
     );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    developer.log('Disposed at: ${DateTime.now()}', name: 'pray_screen');
+    if (!_amenFired) {
+      developer.log('Recording in background', name: 'pray_screen');
+      _amenFired = true;
+      _recordAmenInBackground();
+    }
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      developer.log('App Lifecycle State: $state', name: 'pray_screen');
+      if (!_amenFired) {
+        _amenFired = true;
+        _recordAmenInBackground();
+      }
+    }
+  }
+
+  void _recordAmenInBackground() {
+    final now = DateTime.now();
+    final duration = now.difference(_openedAt).inSeconds;
+    if (duration <= _minimumDurationInSeconds) return;
+    final timestamp = now.toUtc().toLocal().toIso8601String();
+    final report = PrayerSessionReport(
+      sessionId: _generateId(),
+      trackingId: _generateId(),
+      duration: duration,
+      timestamp: timestamp,
+    );
+    final slug = widget.slug;
+    final date = _date;
+    Future(() async {
+      try {
+        await postPrayerSession(slug: slug, date: date, report: report);
+        await recordPrayer(
+          PrayerRecord(
+            slug: slug,
+            durationSeconds: duration,
+            timestamp: timestamp,
+            openedAtTimestamp: _openedAt.toUtc().toLocal().toIso8601String(),
+          ),
+        );
+      } catch (_) {}
+    });
   }
 
   void _reload() {
@@ -101,21 +161,29 @@ class _PrayContentState extends State<_PrayContent> {
   }
 
   Future<void> _onAmen() async {
-    if (_submitting) return;
+    if (_submitting || _amenFired) return;
+    _amenFired = true;
     setState(() => _submitting = true);
     final l10n = AppLocalizations.of(context)!;
     final messenger = ScaffoldMessenger.of(context);
+    final now = DateTime.now();
+    final duration = now.difference(_openedAt).inSeconds;
+    final timestamp = now.toUtc().toLocal().toIso8601String();
     final report = PrayerSessionReport(
       sessionId: _generateId(),
       trackingId: _generateId(),
-      duration: DateTime.now().difference(_openedAt).inSeconds,
-      timestamp: DateTime.now().toUtc().toIso8601String(),
+      duration: duration,
+      timestamp: timestamp,
     );
     try {
-      await postPrayerSession(
-        slug: widget.slug,
-        date: _date,
-        report: report,
+      await postPrayerSession(slug: widget.slug, date: _date, report: report);
+      await recordPrayer(
+        PrayerRecord(
+          slug: widget.slug,
+          durationSeconds: duration,
+          timestamp: timestamp,
+          openedAtTimestamp: _openedAt.toUtc().toLocal().toIso8601String(),
+        ),
       );
       if (!mounted) return;
       messenger.showSnackBar(SnackBar(content: Text(l10n.prayerLogged)));
@@ -163,13 +231,14 @@ class _PrayContentState extends State<_PrayContent> {
             children: [
               PageContainer(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   spacing: AppSpacing.xxl,
                   children: [
                     PrayerContentView(response: data),
-                    ActionButton.fullWidth(
+                    ActionButton(
                       label: l10n.amen,
                       onPressed: _submitting ? null : _onAmen,
+                      color: ActionButtonColor.secondary,
                     ),
                   ],
                 ),
