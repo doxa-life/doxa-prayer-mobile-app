@@ -1,9 +1,9 @@
 import 'package:doxa_prayer_mobile_app/components/misc/action_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
-import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
@@ -12,7 +12,6 @@ import '../../models/people_group.dart';
 import '../../services/people_groups_service.dart';
 import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
-import '../../screens/people_group_details_screen.dart';
 
 class PeopleGroupsList extends StatefulWidget {
   const PeopleGroupsList({super.key});
@@ -49,11 +48,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   }
 
   void _openDetails(PeopleGroup group) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => PeopleGroupDetailsScreen(slug: group.slug),
-      ),
-    );
+    context.push('/people-groups/${group.slug}');
   }
 
   Future<void> _onSelectPressed(PeopleGroup group) async {

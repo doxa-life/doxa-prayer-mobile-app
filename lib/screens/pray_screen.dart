@@ -90,7 +90,7 @@ class _PrayContentState extends State<_PrayContent>
       date: _date,
       language: widget.language,
     );
-    if (selectedTabController.value == prayTabIndex) {
+    if (selectedTabController.value == AppTab.pray) {
       _startSession();
     }
   }
@@ -114,14 +114,14 @@ class _PrayContentState extends State<_PrayContent>
         _endSession();
       }
     } else if (state == AppLifecycleState.resumed) {
-      if (selectedTabController.value == prayTabIndex && !_sessionActive) {
+      if (selectedTabController.value == AppTab.pray && !_sessionActive) {
         _startSession();
       }
     }
   }
 
   void _onTabChanged() {
-    final isPray = selectedTabController.value == prayTabIndex;
+    final isPray = selectedTabController.value == AppTab.pray;
     if (isPray && !_sessionActive) {
       _startSession();
     } else if (!isPray && _sessionActive) {

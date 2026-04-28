@@ -44,7 +44,7 @@ class PeopleGroupCard extends StatelessWidget {
               IconLabelButton(
                 icon: const AppIcon(AppIconName.person),
                 label: 'Profile',
-                onPressed: () {},
+                onPressed: onDetails,
               ),
               IconLabelButton(
                 icon: const AppIcon(AppIconName.share),

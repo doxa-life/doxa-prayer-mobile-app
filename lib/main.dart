@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'app_shell.dart';
 import 'l10n/app_localizations.dart';
+import 'router.dart';
 import 'services/locale_controller.dart';
 import 'services/selected_people_group_controller.dart';
 import 'theme/app_theme.dart';
@@ -21,10 +21,10 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<Locale>(
       valueListenable: localeController,
       builder: (context, locale, _) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'Doxa Prayer',
           theme: AppTheme.light,
-          home: const AppShell(),
+          routerConfig: appRouter,
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

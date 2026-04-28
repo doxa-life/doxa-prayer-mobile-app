@@ -1,85 +1,69 @@
 import 'package:doxa_prayer_mobile_app/components/nav/top_nav_bar.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
-import 'screens/gallery_screen.dart';
-import 'screens/home_screen.dart';
-import 'screens/people_groups_screen.dart';
-import 'screens/pray_screen.dart';
-import 'screens/reminders_screen.dart';
-import 'screens/settings_screen.dart';
 import 'services/selected_tab_controller.dart';
 
-class AppShell extends StatefulWidget {
-  const AppShell({super.key});
+class AppShell extends StatelessWidget {
+  const AppShell({super.key, required this.navigationShell});
 
-  @override
-  State<AppShell> createState() => _AppShellState();
-}
+  final StatefulNavigationShell navigationShell;
 
-class _AppShellState extends State<AppShell> {
-  static const List<Widget> _tabs = <Widget>[
-    HomeScreen(),
-    PrayScreen(),
-    PeopleGroupsScreen(),
-    RemindersScreen(),
-  ];
+  void _openSettings(BuildContext context) => context.push('/settings');
 
-  void _openSettings() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen()));
-  }
+  void _openGallery(BuildContext context) => context.push('/gallery');
 
-  void _openGallery() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute<void>(builder: (_) => const GalleryScreen()));
+  void _onTabTap(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final tab = AppTab.values[navigationShell.currentIndex];
+    if (selectedTabController.value != tab) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        selectedTabController.value = tab;
+      });
+    }
+
     return Scaffold(
       appBar: TopNavBar(
         title: AppLocalizations.of(context)!.appName,
-        onSettings: _openSettings,
-        onGallery: _openGallery,
+        onSettings: () => _openSettings(context),
+        onGallery: () => _openGallery(context),
       ),
-      body: ValueListenableBuilder<int>(
-        valueListenable: selectedTabController,
-        builder: (context, index, _) =>
-            IndexedStack(index: index, children: _tabs),
-      ),
-      bottomNavigationBar: ValueListenableBuilder<int>(
-        valueListenable: selectedTabController,
-        builder: (context, index, _) => BottomNavBar(
-          items: [
-            BottomNavItemData(
-              icon: AppIconName.home,
-              selectedIcon: AppIconName.homeSolid,
-              label: AppLocalizations.of(context)!.home,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.pray,
-              selectedIcon: AppIconName.praySolid,
-              label: AppLocalizations.of(context)!.pray,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.peopleGroup,
-              selectedIcon: AppIconName.peopleGroupSolid,
-              label: AppLocalizations.of(context)!.peopleGroups,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.bell,
-              selectedIcon: AppIconName.bellSolid,
-              label: AppLocalizations.of(context)!.reminders,
-            ),
-          ],
-          currentIndex: index,
-          onTap: (i) => selectedTabController.value = i,
-        ),
+      body: navigationShell,
+      bottomNavigationBar: BottomNavBar(
+        items: [
+          BottomNavItemData(
+            icon: AppIconName.home,
+            selectedIcon: AppIconName.homeSolid,
+            label: AppLocalizations.of(context)!.home,
+          ),
+          BottomNavItemData(
+            icon: AppIconName.pray,
+            selectedIcon: AppIconName.praySolid,
+            label: AppLocalizations.of(context)!.pray,
+          ),
+          BottomNavItemData(
+            icon: AppIconName.peopleGroup,
+            selectedIcon: AppIconName.peopleGroupSolid,
+            label: AppLocalizations.of(context)!.peopleGroups,
+          ),
+          BottomNavItemData(
+            icon: AppIconName.bell,
+            selectedIcon: AppIconName.bellSolid,
+            label: AppLocalizations.of(context)!.reminders,
+          ),
+        ],
+        currentIndex: navigationShell.currentIndex,
+        onTap: _onTabTap,
       ),
     );
   }

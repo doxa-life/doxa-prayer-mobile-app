@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-const int prayTabIndex = 1;
+enum AppTab { home, pray, peopleGroups, reminders }
 
-final ValueNotifier<int> selectedTabController = ValueNotifier<int>(0);
+final ValueNotifier<AppTab> selectedTabController = ValueNotifier<AppTab>(
+  AppTab.home,
+);

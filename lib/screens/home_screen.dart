@@ -4,6 +4,7 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,14 @@ class HomeScreen extends StatelessWidget {
     return PageContainer(child: Column(children: [_peopleGroupCardOrCTA()]));
   }
 
+  void _openDetails(String slug, BuildContext context) {
+    context.push('/people-groups/$slug');
+  }
+
+  void _openPray(BuildContext context) {
+    context.push('/pray');
+  }
+
   Widget _peopleGroupCardOrCTA() {
     return ValueListenableBuilder<SelectedPeopleGroup?>(
       valueListenable: selectedPeopleGroupController,
@@ -20,21 +29,13 @@ class HomeScreen extends StatelessWidget {
         return selected == null
             ? CtaButton(
                 label: AppLocalizations.of(context)!.selectPeopleGroup,
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'navigating to people groups screen coming soon',
-                      ),
-                    ),
-                  );
-                },
+                onPressed: () => context.go('/people-groups'),
               )
             : PeopleGroupCard(
                 name: selected.name,
                 imageUrl: selected.imageUrl ?? '',
-                onPray: () {},
-                onDetails: () {},
+                onPray: () => _openPray(context),
+                onDetails: () => _openDetails(selected.slug, context),
               );
       },
     );
