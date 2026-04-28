@@ -29,6 +29,9 @@
             }
         }
     },
+    "@no": {
+        "description": "The no/cancel button"
+    },
     "@noPeopleGroupSelected": {
         "description": "Message shown on the pray screen when the user has not yet selected a people group"
     },
@@ -59,6 +62,9 @@
     "@searchPeopleGroups": {
         "description": "The search people groups input"
     },
+    "@select": {
+        "description": "The select people group button"
+    },
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
@@ -82,6 +88,9 @@
             }
         }
     },
+    "@yes": {
+        "description": "The yes confirmation button"
+    },
     "amen": "Amen",
     "appName": "nom de l'application",
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
@@ -90,6 +99,7 @@
     "home": "Accueil",
     "language": "langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
+    "no": "Non",
     "noPeopleGroupSelected": "Choisissez un groupe ethnique pour commencer à prier.",
     "noPrayerContentAvailable": "Il n'y a pas de texte de prière pour aujourd'hui.",
     "pauseAndPray": "Fais une pause et prie",
@@ -100,9 +110,11 @@
     "reminders": "rappels",
     "retry": "réessayer",
     "searchPeopleGroups": "Rechercher des personnes et des groupes",
+    "select": "Sélectionner",
     "selectPeopleGroup": "Sélectionnez un groupe ethnique",
     "selectPeopleGroupConfirm": "Souhaitez-vous sélectionner ce groupe ethnique ?",
     "selected": "Sélectionné",
     "settings": "paramètres",
-    "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?"
+    "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?",
+    "yes": "Oui"
 }
