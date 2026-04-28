@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/prayer_content.dart';
 import '../../theme/app_spacing.dart';
 import 'people_group_intro_view.dart';
+import 'people_group_of_the_day_view.dart';
 import 'prayer_doc_view.dart';
 
 /// Renders a full `PrayerContentResponse` as a vertical stack of
@@ -32,6 +33,10 @@ class PrayerContentView extends StatelessWidget {
         final data = block.peopleGroupData;
         if (data == null) return null;
         return PeopleGroupIntroView(name: block.title, data: data);
+      case PrayerContentBlockType.peopleGroupOfTheDay:
+        final data = block.peopleGroupData;
+        if (data == null) return null;
+        return PeopleGroupOfTheDayView(name: block.title, data: data);
       case PrayerContentBlockType.static:
         final doc = block.contentJson;
         if (doc == null) return null;

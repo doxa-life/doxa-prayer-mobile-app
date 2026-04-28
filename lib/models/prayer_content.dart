@@ -16,6 +16,10 @@ class PrayerContentResponse {
   final bool hasContent;
 
   static PrayerContentResponse fromJson(Map<String, dynamic> json) {
+    final content = (json['content'] as List<dynamic>? ?? const []).map(
+      (e) => PrayerContentBlock.fromJson(e as Map<String, dynamic>),
+    );
+
     return PrayerContentResponse(
       peopleGroup: PrayerContentPeopleGroup.fromJson(
         json['people_group'] as Map<String, dynamic>,
@@ -26,9 +30,7 @@ class PrayerContentResponse {
           (json['availableLanguages'] as List<dynamic>? ?? const [])
               .map((e) => e as String)
               .toList(growable: false),
-      content: (json['content'] as List<dynamic>? ?? const [])
-          .map((e) => PrayerContentBlock.fromJson(e as Map<String, dynamic>))
-          .toList(growable: false),
+      content: content.toList(growable: false),
       hasContent: json['hasContent'] as bool? ?? false,
     );
   }
@@ -60,7 +62,7 @@ class PrayerContentPeopleGroup {
   }
 }
 
-enum PrayerContentBlockType { peopleGroup, static, unknown }
+enum PrayerContentBlockType { peopleGroup, peopleGroupOfTheDay, static, unknown }
 
 class PrayerContentBlock {
   const PrayerContentBlock({
@@ -81,14 +83,17 @@ class PrayerContentBlock {
 
   static PrayerContentBlock fromJson(Map<String, dynamic> json) {
     final rawType = json['content_type'] as String? ?? '';
+    final id = (json['id'] as num?)?.toInt() ?? 0;
     final type = switch (rawType) {
-      'people_group' => PrayerContentBlockType.peopleGroup,
+      'people_group' => id == -2
+          ? PrayerContentBlockType.peopleGroupOfTheDay
+          : PrayerContentBlockType.peopleGroup,
       'static' => PrayerContentBlockType.static,
       _ => PrayerContentBlockType.unknown,
     };
     final pgRaw = json['people_group_data'];
     return PrayerContentBlock(
-      id: (json['id'] as num?)?.toInt() ?? 0,
+      id: id,
       title: json['title'] as String? ?? '',
       languageCode: json['language_code'] as String? ?? '',
       type: type,
