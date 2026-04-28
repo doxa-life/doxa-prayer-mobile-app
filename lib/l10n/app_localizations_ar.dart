@@ -63,6 +63,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -102,4 +105,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get couldNotLogPrayerSession => 'تعذر تسجيل جلسة الصلاة.';
+
+  @override
+  String get newReminder => 'تذكير جديد';
+
+  @override
+  String get editReminder => 'تعديل التذكير';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String get time => 'الوقت';
+
+  @override
+  String get daysOfWeek => 'أيام الأسبوع';
+
+  @override
+  String get everyDay => 'كل يوم';
+
+  @override
+  String get noDaysSelected => 'لم يتم تحديد أيام';
+
+  @override
+  String get noRemindersYet => 'لا توجد تذكيرات بعد';
 }

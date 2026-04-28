@@ -11,14 +11,14 @@ class ReminderCard extends StatelessWidget {
     required this.time,
     required this.daysSummary,
     required this.enabled,
-    required this.onToggle,
+    this.onToggle,
     this.onTap,
   });
 
   final String time;
   final String daysSummary;
   final bool enabled;
-  final ValueChanged<bool> onToggle;
+  final ValueChanged<bool>? onToggle;
   final VoidCallback? onTap;
 
   @override

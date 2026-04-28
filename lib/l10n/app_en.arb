@@ -57,6 +57,10 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "selectReminders": "Select reminders",
+    "@selectReminders": {
+        "description": "The select reminders button"
+    },
     "pauseAndPray": "Pause & Pray",
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
@@ -116,5 +120,41 @@
     "couldNotLogPrayerSession": "Could not log your prayer session.",
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
+    },
+    "newReminder": "New reminder",
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "editReminder": "Edit reminder",
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
+    },
+    "save": "Save",
+    "@save": {
+        "description": "Save button label"
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Delete button label"
+    },
+    "time": "Time",
+    "@time": {
+        "description": "Label for the time-of-day field"
+    },
+    "daysOfWeek": "Days of week",
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "everyDay": "Every day",
+    "@everyDay": {
+        "description": "Days summary shown when a reminder is set for all 7 days"
+    },
+    "noDaysSelected": "No days selected",
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
+    },
+    "noRemindersYet": "No reminders yet",
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
     }
 }

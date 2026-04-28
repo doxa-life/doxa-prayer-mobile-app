@@ -63,6 +63,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -107,6 +110,33 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get couldNotLogPrayerSession =>
       'No se pudo registrar tu sesión de oración.';
+
+  @override
+  String get newReminder => 'Nuevo recordatorio';
+
+  @override
+  String get editReminder => 'Editar recordatorio';
+
+  @override
+  String get save => 'Guardar';
+
+  @override
+  String get delete => 'Eliminar';
+
+  @override
+  String get time => 'Hora';
+
+  @override
+  String get daysOfWeek => 'Días de la semana';
+
+  @override
+  String get everyDay => 'Todos los días';
+
+  @override
+  String get noDaysSelected => 'Ningún día seleccionado';
+
+  @override
+  String get noRemindersYet => 'Aún no hay recordatorios';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

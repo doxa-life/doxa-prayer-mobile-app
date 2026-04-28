@@ -63,6 +63,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -106,6 +109,33 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get couldNotLogPrayerSession =>
       'Não foi possível registrar sua sessão de oração.';
+
+  @override
+  String get newReminder => 'Novo lembrete';
+
+  @override
+  String get editReminder => 'Editar lembrete';
+
+  @override
+  String get save => 'Salvar';
+
+  @override
+  String get delete => 'Excluir';
+
+  @override
+  String get time => 'Hora';
+
+  @override
+  String get daysOfWeek => 'Dias da semana';
+
+  @override
+  String get everyDay => 'Todos os dias';
+
+  @override
+  String get noDaysSelected => 'Nenhum dia selecionado';
+
+  @override
+  String get noRemindersYet => 'Ainda não há lembretes';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

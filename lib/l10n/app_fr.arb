@@ -31,4 +31,19 @@
     "settings": "Paramètres",
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
     "yes": "Oui"
+    "amen": "Amen",
+    "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
+    "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
+    "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
+    "prayerLogged": "Votre prière a été enregistrée.",
+    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
+    "newReminder": "Nouveau rappel",
+    "editReminder": "Modifier le rappel",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "time": "Heure",
+    "daysOfWeek": "Jours de la semaine",
+    "everyDay": "Tous les jours",
+    "noDaysSelected": "Aucun jour sélectionné",
+    "noRemindersYet": "Aucun rappel pour le moment"
 }

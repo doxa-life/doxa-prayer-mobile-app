@@ -31,4 +31,19 @@
     "settings": "Настройки",
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
     "yes": "Да"
+    "amen": "Аминь",
+    "noPeopleGroupSelected": "Выберите группу людей, чтобы начать молиться.",
+    "couldNotLoadPrayerContent": "Не удалось загрузить молитвенный материал.",
+    "noPrayerContentAvailable": "Сегодня нет молитвенного материала.",
+    "prayerLogged": "Ваша молитва записана.",
+    "couldNotLogPrayerSession": "Не удалось записать вашу молитвенную сессию.",
+    "newReminder": "Новое напоминание",
+    "editReminder": "Изменить напоминание",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "time": "Время",
+    "daysOfWeek": "Дни недели",
+    "everyDay": "Каждый день",
+    "noDaysSelected": "Дни не выбраны",
+    "noRemindersYet": "Пока нет напоминаний"
 }

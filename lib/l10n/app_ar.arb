@@ -73,4 +73,19 @@
     "settings": "الإعدادات",
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
     "yes": "نعم"
+    "amen": "آمين",
+    "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
+    "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
+    "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
+    "prayerLogged": "تم تسجيل صلاتك.",
+    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة.",
+    "newReminder": "تذكير جديد",
+    "editReminder": "تعديل التذكير",
+    "save": "حفظ",
+    "delete": "حذف",
+    "time": "الوقت",
+    "daysOfWeek": "أيام الأسبوع",
+    "everyDay": "كل يوم",
+    "noDaysSelected": "لم يتم تحديد أيام",
+    "noRemindersYet": "لا توجد تذكيرات بعد"
 }

@@ -63,6 +63,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -107,6 +110,33 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get couldNotLogPrayerSession =>
       'Impossible d\'enregistrer votre session de prière.';
+
+  @override
+  String get newReminder => 'Nouveau rappel';
+
+  @override
+  String get editReminder => 'Modifier le rappel';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get time => 'Heure';
+
+  @override
+  String get daysOfWeek => 'Jours de la semaine';
+
+  @override
+  String get everyDay => 'Tous les jours';
+
+  @override
+  String get noDaysSelected => 'Aucun jour sélectionné';
+
+  @override
+  String get noRemindersYet => 'Aucun rappel pour le moment';
 }
 
 /// The translations for French, as used in France (`fr_FR`).

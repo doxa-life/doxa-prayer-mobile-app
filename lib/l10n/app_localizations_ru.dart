@@ -65,6 +65,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -107,6 +110,33 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get couldNotLogPrayerSession =>
       'Не удалось записать вашу молитвенную сессию.';
+
+  @override
+  String get newReminder => 'Новое напоминание';
+
+  @override
+  String get editReminder => 'Изменить напоминание';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get time => 'Время';
+
+  @override
+  String get daysOfWeek => 'Дни недели';
+
+  @override
+  String get everyDay => 'Каждый день';
+
+  @override
+  String get noDaysSelected => 'Дни не выбраны';
+
+  @override
+  String get noRemindersYet => 'Пока нет напоминаний';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).
