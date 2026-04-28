@@ -14,6 +14,12 @@
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
     },
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
+    },
     "@home": {
         "description": "The home screen"
     },
@@ -29,14 +35,23 @@
             }
         }
     },
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
     "@no": {
         "description": "The no/cancel button"
+    },
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
     },
     "@noPeopleGroupSelected": {
         "description": "Message shown on the pray screen when the user has not yet selected a people group"
     },
     "@noPrayerContentAvailable": {
         "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
     },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
@@ -71,6 +86,9 @@
     "@selectPeopleGroupConfirm": {
         "description": "Confirmation prompt when selecting a people group for the first time"
     },
+    "@selectReminders": {
+        "description": "The select reminders button"
+    },
     "@selected": {
         "description": "The disabled label shown on the currently selected people group"
     },
@@ -96,12 +114,17 @@
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de la prière.",
     "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
+    "daysOfWeek": "Jours de la semaine",
+    "editReminder": "Modifier le rappel",
     "home": "Accueil",
     "language": "langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
+    "newReminder": "Nouveau rappel",
     "no": "Non",
+    "noDaysSelected": "Aucun jour sélectionné",
     "noPeopleGroupSelected": "Choisissez un groupe ethnique pour commencer à prier.",
     "noPrayerContentAvailable": "Il n'y a pas de texte de prière pour aujourd'hui.",
+    "noRemindersYet": "Pas encore de rappels",
     "pauseAndPray": "Fais une pause et prie",
     "peopleGroups": "groupes ethniques",
     "pray": "prier",
@@ -113,6 +136,7 @@
     "select": "Sélectionner",
     "selectPeopleGroup": "Sélectionnez un groupe ethnique",
     "selectPeopleGroupConfirm": "Souhaitez-vous sélectionner ce groupe ethnique ?",
+    "selectReminders": "Sélectionner les rappels",
     "selected": "Sélectionné",
     "settings": "paramètres",
     "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?",
