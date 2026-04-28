@@ -22,5 +22,14 @@
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
     "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
     "prayerLogged": "Votre prière a été enregistrée.",
-    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière."
+    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
+    "newReminder": "Nouveau rappel",
+    "editReminder": "Modifier le rappel",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "time": "Heure",
+    "daysOfWeek": "Jours de la semaine",
+    "everyDay": "Tous les jours",
+    "noDaysSelected": "Aucun jour sélectionné",
+    "noRemindersYet": "Aucun rappel pour le moment"
 }

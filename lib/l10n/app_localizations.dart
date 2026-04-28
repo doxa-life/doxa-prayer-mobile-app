@@ -189,6 +189,12 @@ abstract class AppLocalizations {
   /// **'Select a people group'**
   String get selectPeopleGroup;
 
+  /// The select reminders button
+  ///
+  /// In en, this message translates to:
+  /// **'Select reminders'**
+  String get selectReminders;
+
   /// The message displayed when the user should pause and pray
   ///
   /// In en, this message translates to:
@@ -266,6 +272,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not log your prayer session.'**
   String get couldNotLogPrayerSession;
+
+  /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
+  ///
+  /// In en, this message translates to:
+  /// **'New reminder'**
+  String get newReminder;
+
+  /// Title of the edit-reminder bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Edit reminder'**
+  String get editReminder;
+
+  /// Save button label
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Delete button label
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// Label for the time-of-day field
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// Label for the weekday selector
+  ///
+  /// In en, this message translates to:
+  /// **'Days of week'**
+  String get daysOfWeek;
+
+  /// Days summary shown when a reminder is set for all 7 days
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get everyDay;
+
+  /// Days summary shown when a reminder has no weekdays selected
+  ///
+  /// In en, this message translates to:
+  /// **'No days selected'**
+  String get noDaysSelected;
+
+  /// Empty state on the reminders screen
+  ///
+  /// In en, this message translates to:
+  /// **'No reminders yet'**
+  String get noRemindersYet;
 }
 
 class _AppLocalizationsDelegate

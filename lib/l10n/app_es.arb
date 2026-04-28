@@ -22,5 +22,14 @@
     "couldNotLoadPrayerContent": "No se pudo cargar el contenido de oración.",
     "noPrayerContentAvailable": "No hay contenido de oración para hoy.",
     "prayerLogged": "Tu oración ha sido registrada.",
-    "couldNotLogPrayerSession": "No se pudo registrar tu sesión de oración."
+    "couldNotLogPrayerSession": "No se pudo registrar tu sesión de oración.",
+    "newReminder": "Nuevo recordatorio",
+    "editReminder": "Editar recordatorio",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "time": "Hora",
+    "daysOfWeek": "Días de la semana",
+    "everyDay": "Todos los días",
+    "noDaysSelected": "Ningún día seleccionado",
+    "noRemindersYet": "Aún no hay recordatorios"
 }

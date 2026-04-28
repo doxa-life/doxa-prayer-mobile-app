@@ -1,8 +1,12 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
+import 'package:doxa_prayer_mobile_app/router.dart';
+import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +15,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageContainer(child: Column(children: [_peopleGroupCardOrCTA()]));
+    return PageContainer(
+      child: Column(
+        spacing: AppSpacing.xxl,
+        children: [_peopleGroupCardOrCTA(), _remindersCardOrCTA()],
+      ),
+    );
   }
 
   void _openDetails(String slug, BuildContext context) {
@@ -19,7 +28,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _openPray(BuildContext context) {
-    context.goNamed('pray');
+    context.goNamed(AppRoute.pray.name);
   }
 
   Widget _peopleGroupCardOrCTA() {
@@ -40,4 +49,19 @@ class HomeScreen extends StatelessWidget {
       },
     );
   }
+}
+
+Widget _remindersCardOrCTA() {
+  return ValueListenableBuilder<Reminders?>(
+    valueListenable: remindersController,
+    builder: (context, reminders, _) {
+      final hasAny = reminders != null && reminders.list.isNotEmpty;
+      return hasAny
+          ? RemindersSummary(reminders: reminders)
+          : CtaButton(
+              label: AppLocalizations.of(context)!.selectReminders,
+              onPressed: () => context.go('/reminders'),
+            );
+    },
+  );
 }

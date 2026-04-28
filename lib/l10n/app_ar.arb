@@ -64,5 +64,14 @@
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
     "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
     "prayerLogged": "تم تسجيل صلاتك.",
-    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة."
+    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة.",
+    "newReminder": "تذكير جديد",
+    "editReminder": "تعديل التذكير",
+    "save": "حفظ",
+    "delete": "حذف",
+    "time": "الوقت",
+    "daysOfWeek": "أيام الأسبوع",
+    "everyDay": "كل يوم",
+    "noDaysSelected": "لم يتم تحديد أيام",
+    "noRemindersYet": "لا توجد تذكيرات بعد"
 }

@@ -62,6 +62,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get selectReminders => 'Select reminders';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -102,6 +105,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get couldNotLogPrayerSession => 'Could not log your prayer session.';
+
+  @override
+  String get newReminder => 'New reminder';
+
+  @override
+  String get editReminder => 'Edit reminder';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get daysOfWeek => 'Days of week';
+
+  @override
+  String get everyDay => 'Every day';
+
+  @override
+  String get noDaysSelected => 'No days selected';
+
+  @override
+  String get noRemindersYet => 'No reminders yet';
 }
 
 /// The translations for English, as used in the United States (`en_US`).

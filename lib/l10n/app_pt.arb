@@ -22,5 +22,14 @@
     "couldNotLoadPrayerContent": "Não foi possível carregar o conteúdo de oração.",
     "noPrayerContentAvailable": "Sem conteúdo de oração para hoje.",
     "prayerLogged": "Sua oração foi registrada.",
-    "couldNotLogPrayerSession": "Não foi possível registrar sua sessão de oração."
+    "couldNotLogPrayerSession": "Não foi possível registrar sua sessão de oração.",
+    "newReminder": "Novo lembrete",
+    "editReminder": "Editar lembrete",
+    "save": "Salvar",
+    "delete": "Excluir",
+    "time": "Hora",
+    "daysOfWeek": "Dias da semana",
+    "everyDay": "Todos os dias",
+    "noDaysSelected": "Nenhum dia selecionado",
+    "noRemindersYet": "Ainda não há lembretes"
 }
