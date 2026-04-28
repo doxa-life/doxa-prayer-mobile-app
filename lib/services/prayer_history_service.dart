@@ -35,8 +35,8 @@ class PrayerRecord {
 }
 
 Future<List<PrayerRecord>> loadPrayerHistory() async {
-  final prefs = await SharedPreferences.getInstance();
-  final raw = prefs.getString(_historyKey);
+  final prefs = SharedPreferencesAsync();
+  final raw = await prefs.getString(_historyKey);
   if (raw == null) return [];
   final list = jsonDecode(raw) as List<dynamic>;
   return list
@@ -51,7 +51,7 @@ Future<void> recordPrayer(PrayerRecord record) async {
       name: 'prayer_history_service',
     );
   }
-  final prefs = await SharedPreferences.getInstance();
+  final prefs = SharedPreferencesAsync();
   final history = await loadPrayerHistory();
   history.add(record);
   final encoded = jsonEncode(history.map((r) => r.toJson()).toList());

@@ -15,18 +15,20 @@ final ValueNotifier<SelectedPeopleGroup?> selectedPeopleGroupController =
     ValueNotifier<SelectedPeopleGroup?>(null);
 
 Future<void> loadSelectedPeopleGroup() async {
-  final prefs = await SharedPreferences.getInstance();
-  final slug = prefs.getString(_slugKey);
-  final name = prefs.getString(_nameKey);
+  final prefs = SharedPreferencesAsync();
+  final slug = await prefs.getString(_slugKey);
+  final name = await prefs.getString(_nameKey);
   if (slug != null && name != null) {
-    selectedPeopleGroupController.value =
-        SelectedPeopleGroup(slug: slug, name: name);
+    selectedPeopleGroupController.value = SelectedPeopleGroup(
+      slug: slug,
+      name: name,
+    );
   }
 }
 
 Future<void> setSelectedPeopleGroup(SelectedPeopleGroup group) async {
   selectedPeopleGroupController.value = group;
-  final prefs = await SharedPreferences.getInstance();
+  final prefs = SharedPreferencesAsync();
   await prefs.setString(_slugKey, group.slug);
   await prefs.setString(_nameKey, group.name);
 }
