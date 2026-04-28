@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _openPray(BuildContext context) {
-    context.push('/pray');
+    context.goNamed('pray');
   }
 
   Widget _peopleGroupCardOrCTA() {
