@@ -1,3 +1,7 @@
+import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
+import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -5,14 +9,38 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
         padding: EdgeInsets.all(24),
-        child: Text(
-          'Home — stub\n\nWill show the selected people group card and a summary of upcoming reminders.',
-          textAlign: TextAlign.center,
-        ),
+        child: _peopleGroupCardOrCTA(),
       ),
+    );
+  }
+
+  Widget _peopleGroupCardOrCTA() {
+    return ValueListenableBuilder<SelectedPeopleGroup?>(
+      valueListenable: selectedPeopleGroupController,
+      builder: (context, selected, _) {
+        return selected == null
+            ? CtaButton(
+                label: AppLocalizations.of(context)!.selectPeopleGroup,
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'navigating to people groups screen coming soon',
+                      ),
+                    ),
+                  );
+                },
+              )
+            : PeopleGroupCard(
+                name: selected.name,
+                imageUrl: '',
+                onPray: () {},
+                onDetails: () {},
+              );
+      },
     );
   }
 }
