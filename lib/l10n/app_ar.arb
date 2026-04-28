@@ -20,6 +20,9 @@
             }
         }
     },
+    "@pauseAndPray": {
+        "description": "The message displayed when the user should pause and pray"
+    },
     "@peopleGroups": {
         "description": "The people groups screen"
     },
@@ -38,27 +41,38 @@
     "@searchPeopleGroups": {
         "description": "The search people groups input"
     },
+    "@selectPeopleGroup": {
+        "description": "The select people group button"
+    },
     "@settings": {
         "description": "The settings screen"
     },
+    "amen": "آمين",
     "appName": "اسم التطبيق",
     "couldNotLoadPeopleGroupsMessage": "تعذر تحميل رسالة مجموعات الأشخاص",
+    "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
+    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة.",
     "home": "الصفحة الرئيسية",
     "language": "اللغة",
     "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
+    "no": "لا",
+    "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
+    "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
+    "pauseAndPray": "توقف وصلي",
     "peopleGroups": "المجموعات العرقية",
     "pray": "صلي",
+    "prayerLogged": "تم تسجيل صلاتك.",
     "profile": "الملف الشخصي",
     "reminders": "تذكيرات",
     "retry": "إعادة المحاولة",
     "searchPeopleGroups": "البحث عن الأشخاص والمجموعات",
-    "settings": "الإعدادات",
     "select": "اختيار",
-    "selected": "تم الاختيار",
-    "yes": "نعم",
-    "no": "لا",
+    "selectPeopleGroup": "اختر مجموعة عرقية",
     "selectPeopleGroupConfirm": "هل تريد اختيار هذه المجموعة العرقية؟",
+    "selected": "تم الاختيار",
+    "settings": "الإعدادات",
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
+    "yes": "نعم"
     "amen": "آمين",
     "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
