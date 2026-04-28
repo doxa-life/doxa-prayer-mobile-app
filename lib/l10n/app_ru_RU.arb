@@ -14,6 +14,12 @@
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
     },
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
+    },
     "@home": {
         "description": "The home screen"
     },
@@ -29,14 +35,23 @@
             }
         }
     },
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
     "@no": {
         "description": "The no/cancel button"
+    },
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
     },
     "@noPeopleGroupSelected": {
         "description": "Message shown on the pray screen when the user has not yet selected a people group"
     },
     "@noPrayerContentAvailable": {
         "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
     },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
@@ -71,6 +86,9 @@
     "@selectPeopleGroupConfirm": {
         "description": "Confirmation prompt when selecting a people group for the first time"
     },
+    "@selectReminders": {
+        "description": "The select reminders button"
+    },
     "@selected": {
         "description": "The disabled label shown on the currently selected people group"
     },
@@ -96,12 +114,17 @@
     "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить сообщение о группах людей",
     "couldNotLoadPrayerContent": "Не удалось загрузить текст молитвы.",
     "couldNotLogPrayerSession": "Не удалось зарегистрировать вашу молитвенную сессию.",
+    "daysOfWeek": "Дни недели",
+    "editReminder": "Изменить напоминание",
     "home": "Главная",
     "language": "язык",
     "nPeopleGroups": "{count, plural, =0{Нет групп людей} one{1 группа людей} few{{count} группы людей} many{{count} групп людей} other{{count} групп людей}}",
+    "newReminder": "Новое напоминание",
     "no": "нет",
+    "noDaysSelected": "Дни не выбраны",
     "noPeopleGroupSelected": "Выберите народ, за который вы хотите начать молиться.",
     "noPrayerContentAvailable": "Сегодня молитвенного материала нет.",
+    "noRemindersYet": "Пока нет напоминаний",
     "pauseAndPray": "Остановись и помолись",
     "peopleGroups": "этнические группы",
     "pray": "молиться",
@@ -113,6 +136,7 @@
     "select": "Выбрать",
     "selectPeopleGroup": "Выберите этническую группу",
     "selectPeopleGroupConfirm": "Вы хотите выбрать эту этническую группу?",
+    "selectReminders": "Выбрать напоминания",
     "selected": "Выбранные",
     "settings": "настройки",
     "switchPeopleGroupConfirm": "Хотите перестать молиться за сайт {currentName} и начать молиться за сайт {newName}?",
