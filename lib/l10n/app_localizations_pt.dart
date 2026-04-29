@@ -63,7 +63,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get selectPeopleGroup => 'Selecione um grupo étnico';
 
   @override
-  String get selectReminders => 'Select reminders';
+  String get setReminder => 'Set reminder';
 
   @override
   String get pauseAndPray => 'Faz uma pausa e reza';

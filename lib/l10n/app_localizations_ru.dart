@@ -65,7 +65,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectPeopleGroup => 'Выберите этническую группу';
 
   @override
-  String get selectReminders => 'Select reminders';
+  String get setReminder => 'Set reminder';
 
   @override
   String get pauseAndPray => 'Остановись и помолись';

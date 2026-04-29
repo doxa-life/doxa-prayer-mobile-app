@@ -189,11 +189,11 @@ abstract class AppLocalizations {
   /// **'Select a people group'**
   String get selectPeopleGroup;
 
-  /// The select reminders button
+  /// The set reminder button
   ///
   /// In en, this message translates to:
-  /// **'Select reminders'**
-  String get selectReminders;
+  /// **'Set reminder'**
+  String get setReminder;
 
   /// The message displayed when the user should pause and pray
   ///

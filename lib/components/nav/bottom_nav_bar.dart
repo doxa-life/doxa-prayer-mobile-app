@@ -33,28 +33,31 @@ class BottomNavBar extends StatelessWidget {
     final selectedColor = Theme.of(
       context,
     ).extension<AppColorsExtra>()!.onPrimarySelected;
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      currentIndex: currentIndex,
-      onTap: onTap,
-      items: [
-        for (var i = 0; i < items.length; i++)
-          BottomNavigationBarItem(
-            icon: AppIcon(
-              i == currentIndex ? items[i].selectedIcon : items[i].icon,
-              color: i == currentIndex ? selectedColor : AppColors.onPrimary,
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: currentIndex,
+        onTap: onTap,
+        items: [
+          for (var i = 0; i < items.length; i++)
+            BottomNavigationBarItem(
+              icon: AppIcon(
+                i == currentIndex ? items[i].selectedIcon : items[i].icon,
+                color: i == currentIndex ? selectedColor : AppColors.onPrimary,
+              ),
+              label: items[i].label.toUpperCase(),
             ),
-            label: items[i].label.toUpperCase(),
-          ),
-      ],
-      backgroundColor: AppColors.primary,
-      selectedItemColor: selectedColor,
-      unselectedItemColor: AppColors.onPrimary,
-      selectedLabelStyle: AppTypography.caption.copyWith(
-        fontSize: AppTypography.xs,
-      ),
-      unselectedLabelStyle: AppTypography.caption.copyWith(
-        fontSize: AppTypography.xs,
+        ],
+        backgroundColor: AppColors.primary,
+        selectedItemColor: selectedColor,
+        unselectedItemColor: AppColors.onPrimary,
+        selectedLabelStyle: AppTypography.caption.copyWith(
+          fontSize: AppTypography.xs,
+        ),
+        unselectedLabelStyle: AppTypography.caption.copyWith(
+          fontSize: AppTypography.xs,
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
@@ -63,7 +64,8 @@ Widget _remindersCardOrCTA() {
       return hasAny
           ? RemindersSummary(reminders: reminders)
           : CtaButton(
-              label: AppLocalizations.of(context)!.selectReminders,
+              label: AppLocalizations.of(context)!.setReminder,
+              leadingIcon: const AppIcon(AppIconName.bell),
               onPressed: () => context.go('/reminders'),
             );
     },

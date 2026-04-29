@@ -63,7 +63,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPeopleGroup => 'اختر مجموعة عرقية';
 
   @override
-  String get selectReminders => 'Select reminders';
+  String get setReminder => 'Set reminder';
 
   @override
   String get pauseAndPray => 'توقف وصلي';

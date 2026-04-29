@@ -57,9 +57,9 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
-    "selectReminders": "Select reminders",
-    "@selectReminders": {
-        "description": "The select reminders button"
+    "setReminder": "Set reminder",
+    "@setReminder": {
+        "description": "The set reminder button"
     },
     "pauseAndPray": "Pause & Pray",
     "@pauseAndPray": {
