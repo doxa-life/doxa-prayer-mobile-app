@@ -5,11 +5,13 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/locale_controller.dart';
 import 'services/reminders_controller.dart';
+import 'services/reminders_notifications.dart';
 import 'services/selected_people_group_controller.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initRemindersNotifications();
   await Future.wait([loadSelectedPeopleGroup(), loadReminders()]);
   runApp(const MyApp());
 }

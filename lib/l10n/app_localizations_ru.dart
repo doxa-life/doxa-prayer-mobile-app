@@ -62,13 +62,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Не удалось загрузить группы людей.';
 
   @override
-  String get selectPeopleGroup => 'Select a people group';
+  String get selectPeopleGroup => 'Выберите этническую группу';
 
   @override
   String get selectReminders => 'Select reminders';
 
   @override
-  String get pauseAndPray => 'Pause & Pray';
+  String get pauseAndPray => 'Остановись и помолись';
 
   @override
   String get select => 'Выбрать';
@@ -137,6 +137,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noRemindersYet => 'Пока нет напоминаний';
+
+  @override
+  String get reminderNotificationTitle => 'Время молиться';
+
+  @override
+  String get reminderNotificationBody =>
+      'Откройте Doxa, чтобы начать сегодняшнюю молитву.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).
@@ -195,4 +206,51 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'Не удалось загрузить сообщение о группах людей';
+
+  @override
+  String get selectPeopleGroup => 'Выберите этническую группу';
+
+  @override
+  String get pauseAndPray => 'Остановись и помолись';
+
+  @override
+  String get select => 'Выбрать';
+
+  @override
+  String get selected => 'Выбранные';
+
+  @override
+  String get yes => 'да';
+
+  @override
+  String get no => 'нет';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'Вы хотите выбрать эту этническую группу?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Хотите перестать молиться за сайт $currentName и начать молиться за сайт $newName?';
+  }
+
+  @override
+  String get amen => 'Аминь';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Выберите народ, за который вы хотите начать молиться.';
+
+  @override
+  String get couldNotLoadPrayerContent => 'Не удалось загрузить текст молитвы.';
+
+  @override
+  String get noPrayerContentAvailable => 'Сегодня молитвенного материала нет.';
+
+  @override
+  String get prayerLogged => 'Ваша молитва была зарегистрирована.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'Не удалось зарегистрировать вашу молитвенную сессию.';
 }

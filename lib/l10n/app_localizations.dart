@@ -326,6 +326,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No reminders yet'**
   String get noRemindersYet;
+
+  /// Title shown on a scheduled reminder notification
+  ///
+  /// In en, this message translates to:
+  /// **'Time to pray'**
+  String get reminderNotificationTitle;
+
+  /// Body shown on a scheduled reminder notification
+  ///
+  /// In en, this message translates to:
+  /// **'Open Doxa to start today\'s prayer.'**
+  String get reminderNotificationBody;
+
+  /// Snackbar shown after saving a reminder when the OS notification permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off — enable them in system settings to receive reminders.'**
+  String get reminderPermissionDenied;
 }
 
 class _AppLocalizationsDelegate

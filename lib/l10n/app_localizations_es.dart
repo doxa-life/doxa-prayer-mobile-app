@@ -60,13 +60,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se pudieron cargar los grupos de personas.';
 
   @override
-  String get selectPeopleGroup => 'Select a people group';
+  String get selectPeopleGroup => 'Selecciona un grupo étnico';
 
   @override
   String get selectReminders => 'Select reminders';
 
   @override
-  String get pauseAndPray => 'Pause & Pray';
+  String get pauseAndPray => 'Haz una pausa y reza';
 
   @override
   String get select => 'Seleccionar';
@@ -137,6 +137,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noRemindersYet => 'Aún no hay recordatorios';
+
+  @override
+  String get reminderNotificationTitle => 'Hora de orar';
+
+  @override
+  String get reminderNotificationBody =>
+      'Abre Doxa para iniciar la oración de hoy.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios.';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).
@@ -193,4 +204,52 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'No se ha podido cargar el mensaje de los grupos de personas';
+
+  @override
+  String get selectPeopleGroup => 'Selecciona un grupo étnico';
+
+  @override
+  String get pauseAndPray => 'Haz una pausa y reza';
+
+  @override
+  String get select => 'Seleccionar';
+
+  @override
+  String get selected => 'Seleccionado';
+
+  @override
+  String get yes => 'Si';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      '¿Quieres seleccionar este grupo étnico?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return '¿Quieres dejar de rezar por $currentName y empezar a rezar por $newName?';
+  }
+
+  @override
+  String get amen => 'Amén';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Elige un grupo étnico por el que empezar a orar.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'No se ha podido cargar el contenido de la oración.';
+
+  @override
+  String get noPrayerContentAvailable => 'Hoy no hay contenido de oración.';
+
+  @override
+  String get prayerLogged => 'Tu oración ha quedado registrada.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'No se ha podido registrar tu sesión de oración.';
 }

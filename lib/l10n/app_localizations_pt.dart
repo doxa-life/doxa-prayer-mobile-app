@@ -60,13 +60,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Não foi possível carregar os grupos de pessoas.';
 
   @override
-  String get selectPeopleGroup => 'Select a people group';
+  String get selectPeopleGroup => 'Selecione um grupo étnico';
 
   @override
   String get selectReminders => 'Select reminders';
 
   @override
-  String get pauseAndPray => 'Pause & Pray';
+  String get pauseAndPray => 'Faz uma pausa e reza';
 
   @override
   String get select => 'Selecionar';
@@ -136,6 +136,17 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get noRemindersYet => 'Ainda não há lembretes';
+
+  @override
+  String get reminderNotificationTitle => 'Hora de orar';
+
+  @override
+  String get reminderNotificationBody =>
+      'Abre o Doxa para começar a oração de hoje.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes.';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).
@@ -192,4 +203,51 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'Mensagem de falha ao carregar grupos de pessoas';
+
+  @override
+  String get selectPeopleGroup => 'Selecione um grupo étnico';
+
+  @override
+  String get pauseAndPray => 'Faz uma pausa e reza';
+
+  @override
+  String get select => 'Selecionar';
+
+  @override
+  String get selected => 'Selecionado';
+
+  @override
+  String get yes => 'Sim';
+
+  @override
+  String get no => 'Não';
+
+  @override
+  String get selectPeopleGroupConfirm => 'Quer selecionar este grupo étnico?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Queres deixar de rezar por $currentName e começar a rezar por $newName?';
+  }
+
+  @override
+  String get amen => 'Ámen';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'Escolha um grupo étnico para começar a orar.';
+
+  @override
+  String get couldNotLoadPrayerContent =>
+      'Não foi possível carregar o conteúdo da oração.';
+
+  @override
+  String get noPrayerContentAvailable => 'Hoje não há texto de oração.';
+
+  @override
+  String get prayerLogged => 'A sua oração foi registada.';
+
+  @override
+  String get couldNotLogPrayerSession =>
+      'Não foi possível registar a sua sessão de oração.';
 }

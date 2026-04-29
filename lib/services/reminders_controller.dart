@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'reminders_notifications.dart';
+
 const _storageKey = 'reminders';
 
 class Reminders {
@@ -73,10 +75,11 @@ Future<void> loadReminders() async {
   final raw = await prefs.getString(_storageKey);
   if (raw == null) {
     remindersController.value = const Reminders(list: []);
-    return;
+  } else {
+    final json = jsonDecode(raw) as List<dynamic>;
+    remindersController.value = Reminders.fromJson(json);
   }
-  final json = jsonDecode(raw) as List<dynamic>;
-  remindersController.value = Reminders.fromJson(json);
+  await rescheduleAllReminders(remindersController.value!.list);
 }
 
 Future<void> _persist(List<Reminder> list) async {
@@ -91,21 +94,48 @@ Future<void> _persist(List<Reminder> list) async {
 List<Reminder> _current() =>
     remindersController.value?.list ?? const <Reminder>[];
 
-Future<void> addReminder(Reminder reminder) =>
-    _persist([..._current(), reminder]);
+Reminder? _find(String id) {
+  for (final r in _current()) {
+    if (r.id == id) return r;
+  }
+  return null;
+}
 
-Future<void> updateReminder(Reminder reminder) => _persist([
-  for (final r in _current())
-    if (r.id == reminder.id) reminder else r,
-]);
+Future<void> addReminder(Reminder reminder) async {
+  await _persist([..._current(), reminder]);
+  if (reminder.enabled) await scheduleReminder(reminder);
+}
 
-Future<void> deleteReminder(String id) =>
-    _persist([for (final r in _current()) if (r.id != id) r]);
+Future<void> updateReminder(Reminder reminder) async {
+  final old = _find(reminder.id);
+  if (old != null) await cancelReminder(old);
+  await _persist([
+    for (final r in _current())
+      if (r.id == reminder.id) reminder else r,
+  ]);
+  if (reminder.enabled) await scheduleReminder(reminder);
+}
 
-Future<void> setReminderEnabled(String id, bool enabled) => _persist([
-  for (final r in _current())
-    if (r.id == id) r.copyWith(enabled: enabled) else r,
-]);
+Future<void> deleteReminder(String id) async {
+  final old = _find(id);
+  if (old != null) await cancelReminder(old);
+  await _persist([for (final r in _current()) if (r.id != id) r]);
+}
+
+Future<void> setReminderEnabled(String id, bool enabled) async {
+  final old = _find(id);
+  await _persist([
+    for (final r in _current())
+      if (r.id == id) r.copyWith(enabled: enabled) else r,
+  ]);
+  if (old != null) {
+    if (enabled) {
+      await scheduleReminder(old.copyWith(enabled: true));
+    } else {
+      await cancelReminder(old);
+    }
+  }
+}
 
 String generateReminderId() =>
     DateTime.now().microsecondsSinceEpoch.toRadixString(36);

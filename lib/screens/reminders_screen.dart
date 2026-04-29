@@ -36,20 +36,24 @@ class RemindersScreen extends StatelessWidget {
                 ),
               );
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            return ListView(
               children: [
-                for (final r in list)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                    child: ReminderCard(
-                      time: formatReminderTime(context, r),
-                      daysSummary: formatReminderDays(context, r),
-                      enabled: r.enabled,
-                      onToggle: (v) => setReminderEnabled(r.id, v),
-                      onTap: () => showReminderEditor(context, existing: r),
-                    ),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final r in list)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                        child: ReminderCard(
+                          time: formatReminderTime(context, r),
+                          daysSummary: formatReminderDays(context, r),
+                          enabled: r.enabled,
+                          onToggle: (v) => setReminderEnabled(r.id, v),
+                          onTap: () => showReminderEditor(context, existing: r),
+                        ),
+                      ),
+                  ],
+                ),
               ],
             );
           },

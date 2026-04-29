@@ -156,5 +156,17 @@
     "noRemindersYet": "No reminders yet",
     "@noRemindersYet": {
         "description": "Empty state on the reminders screen"
+    },
+    "reminderNotificationTitle": "Time to pray",
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "reminderNotificationBody": "Open Doxa to start today's prayer.",
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "reminderPermissionDenied": "Notifications are off — enable them in system settings to receive reminders.",
+    "@reminderPermissionDenied": {
+        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
     }
 }

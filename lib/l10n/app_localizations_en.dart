@@ -132,6 +132,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noRemindersYet => 'No reminders yet';
+
+  @override
+  String get reminderNotificationTitle => 'Time to pray';
+
+  @override
+  String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Notifications are off — enable them in system settings to receive reminders.';
 }
 
 /// The translations for English, as used in the United States (`en_US`).
@@ -181,4 +191,49 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
   @override
   String get couldNotLoadPeopleGroupsMessage =>
       'couldNotLoadPeopleGroupsMessage';
+
+  @override
+  String get selectPeopleGroup => 'Select a people group';
+
+  @override
+  String get pauseAndPray => 'Pause & Pray';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get selected => 'Selected';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'Do you want to select this people group?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'Do you want to stop praying for $currentName and start praying for $newName?';
+  }
+
+  @override
+  String get amen => 'Amen';
+
+  @override
+  String get noPeopleGroupSelected => 'Choose a people group to start praying.';
+
+  @override
+  String get couldNotLoadPrayerContent => 'Could not load prayer content.';
+
+  @override
+  String get noPrayerContentAvailable => 'No prayer content for today.';
+
+  @override
+  String get prayerLogged => 'Your prayer has been logged.';
+
+  @override
+  String get couldNotLogPrayerSession => 'Could not log your prayer session.';
 }

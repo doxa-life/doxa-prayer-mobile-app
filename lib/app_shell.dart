@@ -5,20 +5,52 @@ import 'package:go_router/go_router.dart';
 
 import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
+import 'router.dart';
+import 'services/reminders_notifications.dart';
 
-class AppShell extends StatelessWidget {
+class AppShell extends StatefulWidget {
   const AppShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
+
+  @override
+  State<AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<AppShell> {
+  @override
+  void initState() {
+    super.initState();
+    reminderTapPayload.addListener(_onReminderTap);
+    // Handle a payload that was already set (cold-start from notification tap).
+    if (reminderTapPayload.value != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _onReminderTap());
+    }
+  }
+
+  @override
+  void dispose() {
+    reminderTapPayload.removeListener(_onReminderTap);
+    super.dispose();
+  }
+
+  void _onReminderTap() {
+    final payload = reminderTapPayload.value;
+    if (payload == null) return;
+    reminderTapPayload.value = null;
+    if (!mounted) return;
+    final prayIndex = AppRoute.values.indexOf(AppRoute.pray);
+    widget.navigationShell.goBranch(prayIndex, initialLocation: true);
+  }
 
   void _openSettings(BuildContext context) => context.push('/settings');
 
   void _openGallery(BuildContext context) => context.push('/gallery');
 
   void _onTabTap(int index) {
-    navigationShell.goBranch(
+    widget.navigationShell.goBranch(
       index,
-      initialLocation: index == navigationShell.currentIndex,
+      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
 
@@ -30,7 +62,7 @@ class AppShell extends StatelessWidget {
         onSettings: () => _openSettings(context),
         onGallery: () => _openGallery(context),
       ),
-      body: navigationShell,
+      body: widget.navigationShell,
       bottomNavigationBar: BottomNavBar(
         items: [
           BottomNavItemData(
@@ -54,7 +86,7 @@ class AppShell extends StatelessWidget {
             label: AppLocalizations.of(context)!.reminders,
           ),
         ],
-        currentIndex: navigationShell.currentIndex,
+        currentIndex: widget.navigationShell.currentIndex,
         onTap: _onTabTap,
       ),
     );

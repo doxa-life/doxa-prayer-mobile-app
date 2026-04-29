@@ -16,9 +16,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageContainer(
-      child: Column(
-        spacing: AppSpacing.xxl,
-        children: [_peopleGroupCardOrCTA(), _remindersCardOrCTA()],
+      child: ListView(
+        children: [
+          Column(
+            spacing: AppSpacing.xxl,
+            children: [_peopleGroupCardOrCTA(), _remindersCardOrCTA()],
+          ),
+        ],
       ),
     );
   }

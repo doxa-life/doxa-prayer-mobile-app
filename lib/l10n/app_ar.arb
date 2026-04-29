@@ -72,7 +72,7 @@
     "selected": "تم الاختيار",
     "settings": "الإعدادات",
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
-    "yes": "نعم"
+    "yes": "نعم",
     "amen": "آمين",
     "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
@@ -87,5 +87,8 @@
     "daysOfWeek": "أيام الأسبوع",
     "everyDay": "كل يوم",
     "noDaysSelected": "لم يتم تحديد أيام",
-    "noRemindersYet": "لا توجد تذكيرات بعد"
+    "noRemindersYet": "لا توجد تذكيرات بعد",
+    "reminderNotificationTitle": "حان وقت الصلاة",
+    "reminderNotificationBody": "افتح Doxa لبدء صلاة اليوم.",
+    "reminderPermissionDenied": "الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات."
 }

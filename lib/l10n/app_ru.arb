@@ -30,7 +30,7 @@
     "selected": "Выбрано",
     "settings": "Настройки",
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
-    "yes": "Да"
+    "yes": "Да",
     "amen": "Аминь",
     "noPeopleGroupSelected": "Выберите группу людей, чтобы начать молиться.",
     "couldNotLoadPrayerContent": "Не удалось загрузить молитвенный материал.",
@@ -45,5 +45,8 @@
     "daysOfWeek": "Дни недели",
     "everyDay": "Каждый день",
     "noDaysSelected": "Дни не выбраны",
-    "noRemindersYet": "Пока нет напоминаний"
+    "noRemindersYet": "Пока нет напоминаний",
+    "reminderNotificationTitle": "Время молиться",
+    "reminderNotificationBody": "Откройте Doxa, чтобы начать сегодняшнюю молитву.",
+    "reminderPermissionDenied": "Уведомления отключены — включите их в системных настройках, чтобы получать напоминания."
 }

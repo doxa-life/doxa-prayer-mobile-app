@@ -30,7 +30,7 @@
     "selected": "Sélectionné",
     "settings": "Paramètres",
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
-    "yes": "Oui"
+    "yes": "Oui",
     "amen": "Amen",
     "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
@@ -45,5 +45,8 @@
     "daysOfWeek": "Jours de la semaine",
     "everyDay": "Tous les jours",
     "noDaysSelected": "Aucun jour sélectionné",
-    "noRemindersYet": "Aucun rappel pour le moment"
+    "noRemindersYet": "Aucun rappel pour le moment",
+    "reminderNotificationTitle": "C'est l'heure de prier",
+    "reminderNotificationBody": "Ouvre Doxa pour commencer la prière du jour.",
+    "reminderPermissionDenied": "Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels."
 }

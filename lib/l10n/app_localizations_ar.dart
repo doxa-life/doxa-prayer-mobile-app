@@ -60,13 +60,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'تعذر تحميل رسالة مجموعات الأشخاص';
 
   @override
-  String get selectPeopleGroup => 'Select a people group';
+  String get selectPeopleGroup => 'اختر مجموعة عرقية';
 
   @override
   String get selectReminders => 'Select reminders';
 
   @override
-  String get pauseAndPray => 'Pause & Pray';
+  String get pauseAndPray => 'توقف وصلي';
 
   @override
   String get select => 'اختيار';
@@ -132,4 +132,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noRemindersYet => 'لا توجد تذكيرات بعد';
+
+  @override
+  String get reminderNotificationTitle => 'حان وقت الصلاة';
+
+  @override
+  String get reminderNotificationBody => 'افتح Doxa لبدء صلاة اليوم.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.';
 }

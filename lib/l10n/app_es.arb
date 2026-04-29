@@ -30,7 +30,7 @@
     "selected": "Seleccionado",
     "settings": "Ajustes",
     "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?",
-    "yes": "Sí"
+    "yes": "Sí",
     "amen": "Amén",
     "noPeopleGroupSelected": "Elige un grupo de personas para empezar a orar.",
     "couldNotLoadPrayerContent": "No se pudo cargar el contenido de oración.",
@@ -45,5 +45,8 @@
     "daysOfWeek": "Días de la semana",
     "everyDay": "Todos los días",
     "noDaysSelected": "Ningún día seleccionado",
-    "noRemindersYet": "Aún no hay recordatorios"
+    "noRemindersYet": "Aún no hay recordatorios",
+    "reminderNotificationTitle": "Hora de orar",
+    "reminderNotificationBody": "Abre Doxa para iniciar la oración de hoy.",
+    "reminderPermissionDenied": "Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios."
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/reminders_controller.dart';
 import '../../services/reminders_format.dart';
+import '../../services/reminders_notifications.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -62,6 +63,9 @@ class _ReminderEditorSheetState extends State<_ReminderEditorSheet> {
   }
 
   Future<void> _save() async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l = AppLocalizations.of(context)!;
+    final granted = await ensureNotificationPermission();
     final r = widget.existing;
     final next = Reminder(
       id: r?.id ?? generateReminderId(),
@@ -75,7 +79,13 @@ class _ReminderEditorSheetState extends State<_ReminderEditorSheet> {
     } else {
       await updateReminder(next);
     }
-    if (mounted) Navigator.of(context).pop();
+    if (!mounted) return;
+    if (!granted) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(l.reminderPermissionDenied)),
+      );
+    }
+    Navigator.of(context).pop();
   }
 
   Future<void> _delete() async {
