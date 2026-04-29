@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../components/cards/reminder_card.dart';
@@ -19,7 +20,7 @@ class RemindersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Colors.transparent,
       body: PageContainer(
         child: ValueListenableBuilder<Reminders?>(
           valueListenable: remindersController,

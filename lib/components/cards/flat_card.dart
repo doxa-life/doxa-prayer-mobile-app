@@ -18,7 +18,7 @@ class FlatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.mutedSurface,
+      color: AppColors.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: onTap,

@@ -24,6 +24,7 @@ class CtaButton extends StatelessWidget {
       child: FilledButton(
         onPressed: onPressed,
         style: FilledButton.styleFrom(
+          elevation: 6,
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
           padding: const EdgeInsets.symmetric(

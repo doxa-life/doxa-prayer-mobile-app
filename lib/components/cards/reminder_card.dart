@@ -1,3 +1,5 @@
+import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
@@ -23,9 +25,9 @@ class ReminderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatCard(
+    return ElevatedAppCard(
       onTap: onTap,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: AppSpacing.xl,
       child: Row(
         children: [
           const AppIcon(AppIconName.bell, color: AppColors.primary),
