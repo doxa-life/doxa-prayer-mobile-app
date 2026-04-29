@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:flutter/material.dart';
 
 import '../components/cards/reminder_card.dart';
@@ -39,19 +40,28 @@ class RemindersScreen extends StatelessWidget {
             return ListView(
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: AppSpacing.xxl,
                   children: [
-                    for (final r in list)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                        child: ReminderCard(
-                          time: formatReminderTime(context, r),
-                          daysSummary: formatReminderDays(context, r),
-                          enabled: r.enabled,
-                          onToggle: (v) => setReminderEnabled(r.id, v),
-                          onTap: () => showReminderEditor(context, existing: r),
-                        ),
-                      ),
+                    H1(l.reminders),
+                    Column(
+                      children: [
+                        for (final r in list)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: AppSpacing.md,
+                            ),
+                            child: ReminderCard(
+                              time: formatReminderTime(context, r),
+                              daysSummary: formatReminderDays(context, r),
+                              enabled: r.enabled,
+                              onToggle: (v) => setReminderEnabled(r.id, v),
+                              onTap: () =>
+                                  showReminderEditor(context, existing: r),
+                            ),
+                          ),
+                      ],
+                    ),
                   ],
                 ),
               ],
