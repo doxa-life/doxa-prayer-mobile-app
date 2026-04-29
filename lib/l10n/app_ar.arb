@@ -90,5 +90,11 @@
     "noRemindersYet": "لا توجد تذكيرات بعد",
     "reminderNotificationTitle": "حان وقت الصلاة",
     "reminderNotificationBody": "افتح Doxa لبدء صلاة اليوم.",
-    "reminderPermissionDenied": "الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات."
+    "reminderPermissionDenied": "الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.",
+    "nextReminder": "التذكير التالي",
+    "nextReminderToday": "اليوم في {time}",
+    "nextReminderTomorrow": "غدًا في {time}",
+    "nextReminderOn": "{weekday} في {time}",
+    "nRemindersSet": "{count, plural, zero{لا توجد تذكيرات} one{تذكير واحد مفعّل} two{تذكيران مفعّلان} few{{count} تذكيرات مفعّلة} many{{count} تذكيرًا مفعّلًا} other{{count} تذكير مفعّل}}",
+    "dismissNextReminder": "إلغاء التالي"
 }

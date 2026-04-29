@@ -147,6 +147,44 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes.';
+
+  @override
+  String get nextReminder => 'Próximo lembrete';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Hoje às $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Amanhã às $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday às $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString lembretes ativos',
+      one: '1 lembrete ativo',
+      zero: 'Sem lembretes',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Descartar próximo';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

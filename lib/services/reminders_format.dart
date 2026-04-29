@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 
 import '../l10n/app_localizations.dart';
 import 'reminders_controller.dart';
@@ -33,4 +34,22 @@ String formatReminderDays(BuildContext context, Reminder r) {
       .where(selected.contains)
       .map((w) => shortWeekdayLabel(context, w))
       .join(' · ');
+}
+
+String formatNextReminderWhen(BuildContext context, DateTime firesAt) {
+  final l = AppLocalizations.of(context)!;
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final fireDay = DateTime(firesAt.year, firesAt.month, firesAt.day);
+  final daysAhead = fireDay.difference(today).inDays;
+  final time = TimeOfDay(
+    hour: firesAt.hour,
+    minute: firesAt.minute,
+  ).format(context);
+  if (daysAhead == 0) return l.nextReminderToday(time);
+  if (daysAhead == 1) return l.nextReminderTomorrow(time);
+  final weekday = intl.DateFormat.EEEE(
+    Localizations.localeOf(context).toString(),
+  ).format(firesAt);
+  return l.nextReminderOn(weekday, time);
 }

@@ -142,6 +142,44 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'Notifications are off — enable them in system settings to receive reminders.';
+
+  @override
+  String get nextReminder => 'Next reminder';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Today at $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Tomorrow at $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday at $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString reminders set',
+      one: '1 reminder set',
+      zero: 'No reminders set',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Dismiss next';
 }
 
 /// The translations for English, as used in the United States (`en_US`).

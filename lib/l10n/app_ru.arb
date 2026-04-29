@@ -48,5 +48,11 @@
     "noRemindersYet": "Пока нет напоминаний",
     "reminderNotificationTitle": "Время молиться",
     "reminderNotificationBody": "Откройте Doxa, чтобы начать сегодняшнюю молитву.",
-    "reminderPermissionDenied": "Уведомления отключены — включите их в системных настройках, чтобы получать напоминания."
+    "reminderPermissionDenied": "Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.",
+    "nextReminder": "Следующее напоминание",
+    "nextReminderToday": "Сегодня в {time}",
+    "nextReminderTomorrow": "Завтра в {time}",
+    "nextReminderOn": "{weekday} в {time}",
+    "nRemindersSet": "{count, plural, =0{Нет напоминаний} one{1 активное напоминание} few{{count} активных напоминания} many{{count} активных напоминаний} other{{count} активных напоминаний}}",
+    "dismissNextReminder": "Отменить следующее"
 }

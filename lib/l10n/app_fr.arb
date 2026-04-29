@@ -48,5 +48,11 @@
     "noRemindersYet": "Aucun rappel pour le moment",
     "reminderNotificationTitle": "C'est l'heure de prier",
     "reminderNotificationBody": "Ouvre Doxa pour commencer la prière du jour.",
-    "reminderPermissionDenied": "Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels."
+    "reminderPermissionDenied": "Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.",
+    "nextReminder": "Prochain rappel",
+    "nextReminderToday": "Aujourd'hui à {time}",
+    "nextReminderTomorrow": "Demain à {time}",
+    "nextReminderOn": "{weekday} à {time}",
+    "nRemindersSet": "{count, plural, =0{Aucun rappel} =1{1 rappel actif} other{{count} rappels actifs}}",
+    "dismissNextReminder": "Ignorer le prochain"
 }

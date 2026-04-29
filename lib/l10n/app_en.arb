@@ -168,5 +168,42 @@
     "reminderPermissionDenied": "Notifications are off — enable them in system settings to receive reminders.",
     "@reminderPermissionDenied": {
         "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
+    },
+    "nextReminder": "Next reminder",
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "nextReminderToday": "Today at {time}",
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": { "type": "String" }
+        }
+    },
+    "nextReminderTomorrow": "Tomorrow at {time}",
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": { "type": "String" }
+        }
+    },
+    "nextReminderOn": "{weekday} at {time}",
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "weekday": { "type": "String" },
+            "time": { "type": "String" }
+        }
+    },
+    "nRemindersSet": "{count, plural, =0{No reminders set} =1{1 reminder set} other{{count} reminders set}}",
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": { "type": "num", "format": "compact" }
+        }
+    },
+    "dismissNextReminder": "Dismiss next",
+    "@dismissNextReminder": {
+        "description": "Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown"
     }
 }

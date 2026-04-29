@@ -139,3 +139,34 @@ Future<void> setReminderEnabled(String id, bool enabled) async {
 
 String generateReminderId() =>
     DateTime.now().microsecondsSinceEpoch.toRadixString(36);
+
+class NextReminder {
+  const NextReminder({required this.reminder, required this.firesAt});
+
+  final Reminder reminder;
+  final DateTime firesAt;
+}
+
+/// Returns the soonest enabled firing across all reminders, or null if none.
+NextReminder? findNextReminder(List<Reminder> all, {DateTime? now}) {
+  final n = now ?? DateTime.now();
+  NextReminder? best;
+  for (final r in all) {
+    if (!r.enabled || r.weekdays.isEmpty) continue;
+    for (final w in r.weekdays) {
+      final dt = _nextOccurrence(n, w, r.hour, r.minute);
+      if (best == null || dt.isBefore(best.firesAt)) {
+        best = NextReminder(reminder: r, firesAt: dt);
+      }
+    }
+  }
+  return best;
+}
+
+DateTime _nextOccurrence(DateTime now, int weekday, int hour, int minute) {
+  var dt = DateTime(now.year, now.month, now.day, hour, minute);
+  while (dt.weekday != weekday || !dt.isAfter(now)) {
+    dt = dt.add(const Duration(days: 1));
+  }
+  return dt;
+}

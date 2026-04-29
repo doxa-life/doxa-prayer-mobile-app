@@ -48,5 +48,11 @@
     "noRemindersYet": "Ainda não há lembretes",
     "reminderNotificationTitle": "Hora de orar",
     "reminderNotificationBody": "Abre o Doxa para começar a oração de hoje.",
-    "reminderPermissionDenied": "As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes."
+    "reminderPermissionDenied": "As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes.",
+    "nextReminder": "Próximo lembrete",
+    "nextReminderToday": "Hoje às {time}",
+    "nextReminderTomorrow": "Amanhã às {time}",
+    "nextReminderOn": "{weekday} às {time}",
+    "nRemindersSet": "{count, plural, =0{Sem lembretes} =1{1 lembrete ativo} other{{count} lembretes ativos}}",
+    "dismissNextReminder": "Descartar próximo"
 }

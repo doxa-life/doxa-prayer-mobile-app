@@ -142,4 +142,45 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.';
+
+  @override
+  String get nextReminder => 'التذكير التالي';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'اليوم في $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'غدًا في $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday في $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString تذكير مفعّل',
+      many: '$countString تذكيرًا مفعّلًا',
+      few: '$countString تذكيرات مفعّلة',
+      two: 'تذكيران مفعّلان',
+      one: 'تذكير واحد مفعّل',
+      zero: 'لا توجد تذكيرات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'إلغاء التالي';
 }

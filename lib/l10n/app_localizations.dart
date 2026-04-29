@@ -344,6 +344,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications are off — enable them in system settings to receive reminders.'**
   String get reminderPermissionDenied;
+
+  /// Header on the home-screen card that previews the next scheduled reminder
+  ///
+  /// In en, this message translates to:
+  /// **'Next reminder'**
+  String get nextReminder;
+
+  /// Next-reminder summary when it fires later today
+  ///
+  /// In en, this message translates to:
+  /// **'Today at {time}'**
+  String nextReminderToday(String time);
+
+  /// Next-reminder summary when it fires tomorrow
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow at {time}'**
+  String nextReminderTomorrow(String time);
+
+  /// Next-reminder summary when it fires later this week
+  ///
+  /// In en, this message translates to:
+  /// **'{weekday} at {time}'**
+  String nextReminderOn(String weekday, String time);
+
+  /// Total reminder count shown on the home-screen next-reminder card
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No reminders set} =1{1 reminder set} other{{count} reminders set}}'**
+  String nRemindersSet(num count);
+
+  /// Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss next'**
+  String get dismissNextReminder;
 }
 
 class _AppLocalizationsDelegate

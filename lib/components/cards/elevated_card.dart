@@ -7,18 +7,20 @@ class ElevatedAppCard extends StatelessWidget {
   const ElevatedAppCard({
     super.key,
     required this.child,
-    this.padding = AppSpacing.xxxl,
     this.onTap,
+    this.padding = AppSpacing.xxxl,
+    this.color = AppColors.surface,
   });
 
   final Widget child;
   final double padding;
   final VoidCallback? onTap;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.surface,
+      color: color,
       elevation: 6,
       shadowColor: Colors.black.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(16),

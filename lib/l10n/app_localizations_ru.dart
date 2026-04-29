@@ -148,6 +148,46 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.';
+
+  @override
+  String get nextReminder => 'Следующее напоминание';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Сегодня в $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Завтра в $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday в $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString активных напоминаний',
+      many: '$countString активных напоминаний',
+      few: '$countString активных напоминания',
+      one: '1 активное напоминание',
+      zero: 'Нет напоминаний',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Отменить следующее';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

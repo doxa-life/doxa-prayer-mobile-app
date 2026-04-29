@@ -148,6 +148,44 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios.';
+
+  @override
+  String get nextReminder => 'Próximo recordatorio';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Hoy a las $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Mañana a las $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday a las $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString recordatorios activos',
+      one: '1 recordatorio activo',
+      zero: 'Sin recordatorios',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Descartar siguiente';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

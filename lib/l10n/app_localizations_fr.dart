@@ -148,6 +148,44 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get reminderPermissionDenied =>
       'Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.';
+
+  @override
+  String get nextReminder => 'Prochain rappel';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Aujourd\'hui à $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Demain à $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday à $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString rappels actifs',
+      one: '1 rappel actif',
+      zero: 'Aucun rappel',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Ignorer le prochain';
 }
 
 /// The translations for French, as used in France (`fr_FR`).
