@@ -1,5 +1,4 @@
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../components/cards/reminder_card.dart';

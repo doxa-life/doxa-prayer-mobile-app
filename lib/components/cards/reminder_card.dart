@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../misc/app_icon.dart';
-import 'flat_card.dart';
 
 class ReminderCard extends StatelessWidget {
   const ReminderCard({
