@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
@@ -92,6 +93,12 @@ class _DetailBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          SelectPeopleGroupButton(
+            slug: detail.slug,
+            name: detail.name,
+            imageUrl: detail.imageUrl,
+          ),
+          const SizedBox(height: AppSpacing.xl),
           _Hero(detail: detail),
           const SizedBox(height: AppSpacing.xl),
           _CommittedProgress(committed: detail.peopleCommitted),

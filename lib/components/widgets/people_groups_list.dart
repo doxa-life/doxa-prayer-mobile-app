@@ -1,4 +1,3 @@
-import 'package:doxa_prayer_mobile_app/components/misc/action_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
@@ -10,6 +9,7 @@ import '../../components/cards/people_group_list_card.dart';
 import '../../components/inputs/search_field.dart';
 import '../../models/people_group.dart';
 import '../../services/people_groups_service.dart';
+import '../../services/select_people_group_flow.dart';
 import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
 
@@ -49,46 +49,6 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   void _openDetails(PeopleGroup group) {
     context.push('/people-groups/${group.slug}');
-  }
-
-  Future<void> _onSelectPressed(PeopleGroup group) async {
-    final l10n = AppLocalizations.of(context)!;
-    final current = selectedPeopleGroupController.value;
-    if (current?.slug == group.slug) return;
-
-    final message = current == null
-        ? l10n.selectPeopleGroupConfirm
-        : l10n.switchPeopleGroupConfirm(current.name, group.name);
-
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => ActionModal(
-        message: message,
-        actionButtons: [
-          ActionButton(
-            label: l10n.no,
-            onPressed: () => Navigator.of(ctx).pop(false),
-            color: ActionButtonColor.white,
-          ),
-          ActionButton(
-            label: l10n.yes,
-            onPressed: () => Navigator.of(ctx).pop(true),
-            color: ActionButtonColor.secondaryLight,
-            isOutlined: true,
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed == true) {
-      await setSelectedPeopleGroup(
-        SelectedPeopleGroup(
-          slug: group.slug,
-          name: group.name,
-          imageUrl: group.imageUrl,
-        ),
-      );
-    }
   }
 
   void _onScanQr() {
@@ -167,7 +127,12 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                               name: g.name,
                               imageUrl: g.imageUrl,
                               isSelected: selected?.slug == g.slug,
-                              onSelect: () => _onSelectPressed(g),
+                              onSelect: () => showSelectPeopleGroupConfirmation(
+                                context,
+                                slug: g.slug,
+                                name: g.name,
+                                imageUrl: g.imageUrl,
+                              ),
                               onDetails: () => _openDetails(g),
                             );
                           },
