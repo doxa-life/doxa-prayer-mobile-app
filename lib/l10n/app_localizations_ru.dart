@@ -65,6 +65,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectPeopleGroup => 'Выберите этническую группу';
 
   @override
+  String get prayerStatus => 'Prayer Status';
+
+  @override
+  String get peopleCommittedToPraying => 'People committed to praying';
+
+  @override
+  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+
+  @override
   String get setReminder => 'Set reminder';
 
   @override

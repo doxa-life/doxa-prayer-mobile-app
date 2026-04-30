@@ -3,7 +3,9 @@ import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/people_groups_service.dart';
@@ -389,7 +391,7 @@ class _Hero extends StatelessWidget {
           Text(
             detail.name,
             textAlign: TextAlign.center,
-            style: AppTypography.h1,
+            style: AppTypography.titleLarge,
           ),
           Center(
             child: Stack(
@@ -422,36 +424,45 @@ class _CommittedProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations l = AppLocalizations.of(context)!;
     final clamped = committed.clamp(0, _peopleCommittedGoal);
     final ratio = _peopleCommittedGoal == 0
         ? 0.0
         : clamped / _peopleCommittedGoal;
     return ElevatedAppCard(
-      padding: AppSpacing.xl,
+      padding: AppSpacing.xxxl,
+      color: AppColors.primary,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: AppSpacing.md,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('People committed', style: AppTypography.titleMedium),
-              Text(
-                '$committed / $_peopleCommittedGoal',
-                style: AppTypography.bodyMedium,
-              ),
-            ],
+          H1(l.prayerStatus, color: AppColors.white),
+          Text(
+            '$committed',
+            style: AppTypography.bodyLarge.copyWith(
+              color: AppColors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: AppTypography.xxl,
+            ),
           ),
-          const SizedBox(height: AppSpacing.md),
+          Text(
+            l.peopleCommittedToPraying,
+            style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
+          ),
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
             child: LinearProgressIndicator(
               value: ratio,
-              minHeight: 12,
+              minHeight: AppTypography.md,
               backgroundColor: AppColors.mutedSurface,
               valueColor: const AlwaysStoppedAnimation<Color>(
                 AppColors.secondary,
               ),
             ),
+          ),
+          Text(
+            l.prayerCoverage24h,
+            style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
           ),
         ],
       ),

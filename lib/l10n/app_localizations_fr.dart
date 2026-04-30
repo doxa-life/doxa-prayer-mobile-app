@@ -63,6 +63,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get selectPeopleGroup => 'Sélectionnez un groupe ethnique';
 
   @override
+  String get prayerStatus => 'Prayer Status';
+
+  @override
+  String get peopleCommittedToPraying => 'People committed to praying';
+
+  @override
+  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+
+  @override
   String get setReminder => 'Set reminder';
 
   @override

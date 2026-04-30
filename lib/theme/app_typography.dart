@@ -44,6 +44,13 @@ class AppTypography {
     color: AppColors.onSurface,
   );
 
+  static const titleLarge = TextStyle(
+    fontFamily: AppFonts.poppins,
+    fontWeight: FontWeight.w500,
+    fontSize: xl,
+    color: AppColors.onSurface,
+  );
+
   static const bodyLarge = TextStyle(
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
@@ -86,6 +93,7 @@ class AppTypography {
     displayLarge: h1,
     displayMedium: h2,
     titleMedium: titleMedium,
+    titleLarge: titleLarge,
     bodyLarge: bodyMedium,
     bodyMedium: bodySmall,
     labelLarge: button,

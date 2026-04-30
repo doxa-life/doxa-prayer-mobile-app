@@ -57,6 +57,18 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "prayerStatus": "Prayer Status",
+    "@prayerStatus": {
+        "description": "The title of the people committed progress card"
+    },
+    "peopleCommittedToPraying": "People committed to praying",
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed progress card"
+    },
+    "prayerCoverage24h": "24-Hour Prayer Coverage",
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h progress card"
+    },
     "setReminder": "Set reminder",
     "@setReminder": {
         "description": "The set reminder button"

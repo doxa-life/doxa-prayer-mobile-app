@@ -189,6 +189,24 @@ abstract class AppLocalizations {
   /// **'Select a people group'**
   String get selectPeopleGroup;
 
+  /// The title of the people committed progress card
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer Status'**
+  String get prayerStatus;
+
+  /// The label of the people committed progress card
+  ///
+  /// In en, this message translates to:
+  /// **'People committed to praying'**
+  String get peopleCommittedToPraying;
+
+  /// The label of the prayer coverage 24h progress card
+  ///
+  /// In en, this message translates to:
+  /// **'24-Hour Prayer Coverage'**
+  String get prayerCoverage24h;
+
   /// The set reminder button
   ///
   /// In en, this message translates to:
