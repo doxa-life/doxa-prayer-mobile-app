@@ -74,6 +74,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerCoverage24h => '24-Hour Prayer Coverage';
 
   @override
+  String get overview => 'Overview';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get alternateName => 'Alternate name';
+
+  @override
+  String get population => 'Population';
+
+  @override
+  String get primaryLanguage => 'Primary language';
+
+  @override
+  String get primaryReligion => 'Primary religion';
+
+  @override
+  String get religiousPractices => 'Religious practices';
+
+  @override
   String get setReminder => 'Set reminder';
 
   @override
@@ -90,6 +111,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get no => 'Нет';
+
+  @override
+  String get status => 'Status';
 
   @override
   String get selectPeopleGroupConfirm => 'Вы хотите выбрать эту группу людей?';

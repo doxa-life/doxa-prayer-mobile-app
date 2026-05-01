@@ -87,6 +87,7 @@ class _DetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xl,
@@ -106,85 +107,48 @@ class _DetailBody extends StatelessWidget {
           _CommittedProgress(committed: detail.peopleCommitted),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'Description',
+            title: l.overview,
             children: [
-              if (detail.raw['imb_people_description'] is String)
-                Text(
-                  detail.raw['imb_people_description'] as String,
-                  style: AppTypography.bodyMedium,
-                ),
-            ],
-          ),
-          _Section(
-            title: 'Identity',
-            children: [
-              _DetailRow(label: 'Name', value: detail.name),
-              _DetailRow(label: 'Slug', value: detail.slug),
-              _DetailRow(label: 'Status', value: _label(detail.raw['status'])),
               _DetailRow(
-                label: 'Reason unlisted',
-                value: detail.raw['reason_unlisted']?.toString(),
+                label: l.status,
+                value: _label(detail.raw['engagement_status']),
               ),
               _DetailRow(
-                label: 'IMB alternate name',
+                label: l.country,
+                value: detail.raw['country_code']?['label'],
+              ),
+              _DetailRow(
+                label: l.alternateName,
                 value: detail.raw['imb_alternate_name']?.toString(),
               ),
-            ],
-          ),
-          _Section(
-            title: 'Location',
-            children: [
               _DetailRow(
-                label: 'Country',
-                value: _label(detail.raw['country_code']),
-              ),
-              _DetailRow(label: 'Region', value: _label(detail.raw['region'])),
-              _DetailRow(
-                label: 'IMB subregion',
-                value: _label(detail.raw['imb_subregion']),
-              ),
-              _DetailRow(
-                label: 'WAGF region',
-                value: _label(detail.raw['wagf_region']),
-              ),
-              _DetailRow(
-                label: 'WAGF block',
-                value: _label(detail.raw['wagf_block']),
-              ),
-              _DetailRow(
-                label: 'Latitude',
-                value: detail.raw['latitude']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Longitude',
-                value: detail.raw['longitude']?.toString(),
-              ),
-            ],
-          ),
-          _Section(
-            title: 'Population',
-            children: [
-              _DetailRow(
-                label: 'Population',
+                label: l.population,
                 value: _formatInt(detail.raw['population']),
               ),
               _DetailRow(
-                label: 'Population class',
-                value: _label(detail.raw['imb_population_class']),
+                label: l.primaryLanguage,
+                value: _label(detail.raw['primary_language']),
               ),
               _DetailRow(
-                label: 'Indigenous',
-                value: _label(detail.raw['imb_is_indigenous']),
+                label: l.primaryReligion,
+                value: _label(detail.raw['religion']),
               ),
+              if (detail.raw['religion'] is Map<String, dynamic> &&
+                  (detail.raw['religion']
+                          as Map<String, dynamic>)['description']
+                      is String)
+                _DetailRow(
+                  label: l.religiousPractices,
+                  value:
+                      (detail.raw['religion']
+                              as Map<String, dynamic>)['description']
+                          as String,
+                ),
             ],
           ),
           _Section(
             title: 'People & Language',
             children: [
-              _DetailRow(
-                label: 'Primary language',
-                value: _label(detail.raw['primary_language']),
-              ),
               _DetailRow(
                 label: 'Language family',
                 value: _label(detail.raw['imb_language_family']),
@@ -222,20 +186,6 @@ class _DetailBody extends StatelessWidget {
           _Section(
             title: 'Religion',
             children: [
-              _DetailRow(
-                label: 'Religion',
-                value: _label(detail.raw['religion']),
-              ),
-              if (detail.raw['religion'] is Map<String, dynamic> &&
-                  (detail.raw['religion']
-                          as Map<String, dynamic>)['description']
-                      is String)
-                Text(
-                  (detail.raw['religion']
-                          as Map<String, dynamic>)['description']
-                      as String,
-                  style: AppTypography.bodySmall,
-                ),
               _DetailRow(
                 label: 'Religion (3-level)',
                 value: _label(detail.raw['imb_reg_of_religion_3']),
@@ -406,6 +356,20 @@ class _Hero extends StatelessWidget {
               ],
             ),
           ),
+          Column(
+            children: [
+              Text(
+                detail.raw['country_code']?['label'] ?? '',
+                textAlign: TextAlign.center,
+                style: AppTypography.titleMedium,
+              ),
+              Text(
+                '(${detail.raw['rop1']?['label']})',
+                textAlign: TextAlign.center,
+                style: AppTypography.titleMedium,
+              ),
+            ],
+          ),
           if (detail.raw['imb_people_description'] is String)
             Text(
               detail.raw['imb_people_description'] as String,
@@ -489,7 +453,10 @@ class _Section extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: AppTypography.h2),
+            Text(
+              title,
+              style: AppTypography.h2.copyWith(color: AppColors.secondary),
+            ),
             const SizedBox(height: AppSpacing.md),
             for (final w in visible)
               Padding(

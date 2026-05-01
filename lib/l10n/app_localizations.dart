@@ -207,6 +207,48 @@ abstract class AppLocalizations {
   /// **'24-Hour Prayer Coverage'**
   String get prayerCoverage24h;
 
+  /// The title of the overview section
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// The label of the country field
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// The label of the alternate name field
+  ///
+  /// In en, this message translates to:
+  /// **'Alternate name'**
+  String get alternateName;
+
+  /// The label of the population field
+  ///
+  /// In en, this message translates to:
+  /// **'Population'**
+  String get population;
+
+  /// The label of the primary language field
+  ///
+  /// In en, this message translates to:
+  /// **'Primary language'**
+  String get primaryLanguage;
+
+  /// The label of the primary religion field
+  ///
+  /// In en, this message translates to:
+  /// **'Primary religion'**
+  String get primaryReligion;
+
+  /// The label of the religious practices field
+  ///
+  /// In en, this message translates to:
+  /// **'Religious practices'**
+  String get religiousPractices;
+
   /// The set reminder button
   ///
   /// In en, this message translates to:
@@ -242,6 +284,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No'**
   String get no;
+
+  /// The label of the status field
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
 
   /// Confirmation prompt when selecting a people group for the first time
   ///

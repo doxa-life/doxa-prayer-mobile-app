@@ -69,6 +69,34 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h progress card"
     },
+    "overview": "Overview",
+    "@overview": {
+        "description": "The title of the overview section"
+    },
+    "country": "Country",
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "alternateName": "Alternate name",
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
+    "population": "Population",
+    "@population": {
+        "description": "The label of the population field"
+    },
+    "primaryLanguage": "Primary language",
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "primaryReligion": "Primary religion",
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
+    "religiousPractices": "Religious practices",
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
     "setReminder": "Set reminder",
     "@setReminder": {
         "description": "The set reminder button"
@@ -92,6 +120,10 @@
     "no": "No",
     "@no": {
         "description": "The no/cancel button"
+    },
+    "status": "Status",
+    "@status": {
+        "description": "The label of the status field"
     },
     "selectPeopleGroupConfirm": "Do you want to select this people group?",
     "@selectPeopleGroupConfirm": {
