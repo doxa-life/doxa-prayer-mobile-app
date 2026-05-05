@@ -1,58 +1,148 @@
 {
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
+    },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
+    },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
+    },
+    "@population": {
+        "description": "The label of the population field"
+    },
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
+    },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
+    "@resources": {
+        "description": "The title of the resources section"
     },
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
+    "@status": {
+        "description": "The label of the status field"
+    },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "adoptionStatus": "Статус усыновления",
+    "alternateName": "Другое название",
     "amen": "Аминь",
     "appName": "Doxa Молитва",
+    "audioScripture": "Аудиозапись Священного Писания",
+    "bibleStories": "Библейские истории",
+    "bibleTranslation": "Перевод Библии",
     "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить группы людей.",
     "couldNotLoadPrayerContent": "Не удалось загрузить молитвенный материал.",
     "couldNotLogPrayerSession": "Не удалось записать вашу молитвенную сессию.",
+    "country": "Страна",
+    "crossCulturalWorkersPresent": "Присутствуют специалисты по межкультурной работе",
+    "daysOfWeek": "Дни недели",
+    "delete": "Удалить",
+    "discipleAndChurchMultiplication": "Распространение ученичества и рост церквей",
+    "dismissNextReminder": "Отменить следующее",
+    "editReminder": "Изменить напоминание",
+    "engagementStatus": "Семейное положение",
+    "everyDay": "Каждый день",
+    "gospelRecordings": "Записи евангелий",
     "home": "Главная",
+    "jesusFilm": "Фильм «Иисус»",
     "language": "Язык",
     "nPeopleGroups": "{count, plural, =0{Нет групп людей} one{1 группа людей} few{{count} группы людей} many{{count} групп людей} other{{count} групп людей}}",
+    "nRemindersSet": "{count, plural, =0{Нет напоминаний} one{1 активное напоминание} few{{count} активных напоминания} many{{count} активных напоминаний} other{{count} активных напоминаний}}",
+    "newReminder": "Новое напоминание",
+    "nextReminder": "Следующее напоминание",
+    "nextReminderOn": "{weekday} в {time}",
+    "nextReminderToday": "Сегодня в {time}",
+    "nextReminderTomorrow": "Завтра в {time}",
     "no": "Нет",
+    "noDaysSelected": "Дни не выбраны",
     "noPeopleGroupSelected": "Выберите группу людей, чтобы начать молиться.",
     "noPrayerContentAvailable": "Сегодня нет молитвенного материала.",
+    "noRemindersYet": "Пока нет напоминаний",
+    "overview": "Обзор",
     "pauseAndPray": "Остановись и помолись",
+    "peopleCommittedToPraying": "Люди, посвятившие себя молитве",
     "peopleGroups": "Группы людей",
+    "population": "Население",
     "pray": "Молиться",
+    "prayerCoverage24h": "Круглосуточная молитвенная поддержка",
     "prayerLogged": "Ваша молитва записана.",
+    "prayerStatus": "Статус молитвы",
+    "primaryLanguage": "Родной язык",
+    "primaryReligion": "Основная религия",
     "profile": "Профиль",
+    "radioBroadcast": "Радиопередача",
+    "religiousPractices": "Религиозные обряды",
+    "reminderNotificationBody": "Откройте Doxa, чтобы начать сегодняшнюю молитву.",
+    "reminderNotificationTitle": "Время молиться",
+    "reminderPermissionDenied": "Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.",
     "reminders": "Напоминания",
+    "resources": "Ресурсы",
     "retry": "Повторить",
+    "save": "Сохранить",
     "searchPeopleGroups": "Поиск групп людей",
     "select": "Выбрать",
     "selectPeopleGroup": "Выберите этническую группу",
     "selectPeopleGroupConfirm": "Вы хотите выбрать эту группу людей?",
     "selected": "Выбрано",
+    "setReminder": "Установить напоминание",
     "settings": "Настройки",
+    "status": "Статус",
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
-    "yes": "Да",
-    "amen": "Аминь",
-    "noPeopleGroupSelected": "Выберите группу людей, чтобы начать молиться.",
-    "couldNotLoadPrayerContent": "Не удалось загрузить молитвенный материал.",
-    "noPrayerContentAvailable": "Сегодня нет молитвенного материала.",
-    "prayerLogged": "Ваша молитва записана.",
-    "couldNotLogPrayerSession": "Не удалось записать вашу молитвенную сессию.",
-    "newReminder": "Новое напоминание",
-    "editReminder": "Изменить напоминание",
-    "save": "Сохранить",
-    "delete": "Удалить",
     "time": "Время",
-    "daysOfWeek": "Дни недели",
-    "everyDay": "Каждый день",
-    "noDaysSelected": "Дни не выбраны",
-    "noRemindersYet": "Пока нет напоминаний",
-    "reminderNotificationTitle": "Время молиться",
-    "reminderNotificationBody": "Откройте Doxa, чтобы начать сегодняшнюю молитву.",
-    "reminderPermissionDenied": "Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.",
-    "nextReminder": "Следующее напоминание",
-    "nextReminderToday": "Сегодня в {time}",
-    "nextReminderTomorrow": "Завтра в {time}",
-    "nextReminderOn": "{weekday} в {time}",
-    "nRemindersSet": "{count, plural, =0{Нет напоминаний} one{1 активное напоминание} few{{count} активных напоминания} many{{count} активных напоминаний} other{{count} активных напоминаний}}",
-    "dismissNextReminder": "Отменить следующее"
+    "workInLocalLanguageAndCulture": "Работа с учетом особенностей местного языка и культуры",
+    "yes": "Да"
 }

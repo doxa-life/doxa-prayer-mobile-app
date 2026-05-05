@@ -1,12 +1,45 @@
 {
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
     "@appName": {
         "description": "The name of the app"
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
     },
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
     },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
     "@home": {
         "description": "The home screen"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
     },
     "@language": {
         "description": "The language selector"
@@ -20,20 +53,50 @@
             }
         }
     },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
     },
     "@peopleGroups": {
         "description": "The people groups screen"
     },
+    "@population": {
+        "description": "The label of the population field"
+    },
     "@pray": {
         "description": "The pray screen"
+    },
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
+    },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
     },
     "@profile": {
         "description": "The profile button"
     },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
     "@reminders": {
         "description": "The reminders screen"
+    },
+    "@resources": {
+        "description": "The title of the resources section"
     },
     "@retry": {
         "description": "The retry button"
@@ -44,57 +107,84 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
     "@settings": {
         "description": "The settings screen"
     },
+    "@status": {
+        "description": "The label of the status field"
+    },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "adoptionStatus": "وضعية الإنتماء",
+    "alternateName": "اسم بديل",
     "amen": "آمين",
     "appName": "اسم التطبيق",
+    "audioScripture": "الكتاب المقدس الصوتي",
+    "bibleStories": "قصص الكتاب المقدس",
+    "bibleTranslation": "ترجمة الكتاب المقدس",
     "couldNotLoadPeopleGroupsMessage": "تعذر تحميل رسالة مجموعات الأشخاص",
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
     "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة.",
+    "country": "الدولة",
+    "crossCulturalWorkersPresent": "تواجد خدّام يعملون عبر الثقافات",
+    "daysOfWeek": "أيام الأسبوع",
+    "delete": "حذف",
+    "discipleAndChurchMultiplication": "تكاثر التلاميذ والكنائس",
+    "dismissNextReminder": "إلغاء التالي",
+    "editReminder": "تعديل التذكير",
+    "engagementStatus": "حالة الإلتزام",
+    "everyDay": "كل يوم",
+    "gospelRecordings": "تسجيلات الإنجيل",
     "home": "الصفحة الرئيسية",
+    "jesusFilm": "فيلم يسوع",
     "language": "اللغة",
     "nPeopleGroups": "{count, plural, =0{No People Groups} =1{1 People Group} other{{count} People Groups}}",
+    "nRemindersSet": "{count, plural, zero{لا توجد تذكيرات} one{تذكير واحد مفعّل} two{تذكيران مفعّلان} few{{count} تذكيرات مفعّلة} many{{count} تذكيرًا مفعّلًا} other{{count} تذكير مفعّل}}",
+    "newReminder": "تذكير جديد",
+    "nextReminder": "التذكير التالي",
+    "nextReminderOn": "{weekday} في {time}",
+    "nextReminderToday": "اليوم في {time}",
+    "nextReminderTomorrow": "غدًا في {time}",
     "no": "لا",
+    "noDaysSelected": "لم يتم تحديد أيام",
     "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
     "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
+    "noRemindersYet": "لا توجد تذكيرات بعد",
+    "overview": "نظرة عامة",
     "pauseAndPray": "توقف وصلي",
+    "peopleCommittedToPraying": "الأشخاص الذين التزموا بالصلاة",
     "peopleGroups": "المجموعات العرقية",
+    "population": "عدد السكان",
     "pray": "صلي",
+    "prayerCoverage24h": "سلسلة صلاة مستمرة على مدار 24 ساعة",
     "prayerLogged": "تم تسجيل صلاتك.",
+    "prayerStatus": "حالة الصلاة",
+    "primaryLanguage": "اللغة الأساسية",
+    "primaryReligion": "الدين الرئيسي",
     "profile": "الملف الشخصي",
+    "radioBroadcast": "بث إذاعي",
+    "religiousPractices": "الممارسات الدينية",
+    "reminderNotificationBody": "افتح Doxa لبدء صلاة اليوم.",
+    "reminderNotificationTitle": "حان وقت الصلاة",
+    "reminderPermissionDenied": "الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.",
     "reminders": "تذكيرات",
+    "resources": "المصادر",
     "retry": "إعادة المحاولة",
+    "save": "حفظ",
     "searchPeopleGroups": "البحث عن الأشخاص والمجموعات",
     "select": "اختيار",
     "selectPeopleGroup": "اختر مجموعة عرقية",
     "selectPeopleGroupConfirm": "هل تريد اختيار هذه المجموعة العرقية؟",
     "selected": "تم الاختيار",
+    "setReminder": "تعيين تذكير",
     "settings": "الإعدادات",
+    "status": "الحالة",
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
-    "yes": "نعم",
-    "amen": "آمين",
-    "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
-    "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
-    "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
-    "prayerLogged": "تم تسجيل صلاتك.",
-    "couldNotLogPrayerSession": "تعذر تسجيل جلسة الصلاة.",
-    "newReminder": "تذكير جديد",
-    "editReminder": "تعديل التذكير",
-    "save": "حفظ",
-    "delete": "حذف",
     "time": "الوقت",
-    "daysOfWeek": "أيام الأسبوع",
-    "everyDay": "كل يوم",
-    "noDaysSelected": "لم يتم تحديد أيام",
-    "noRemindersYet": "لا توجد تذكيرات بعد",
-    "reminderNotificationTitle": "حان وقت الصلاة",
-    "reminderNotificationBody": "افتح Doxa لبدء صلاة اليوم.",
-    "reminderPermissionDenied": "الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.",
-    "nextReminder": "التذكير التالي",
-    "nextReminderToday": "اليوم في {time}",
-    "nextReminderTomorrow": "غدًا في {time}",
-    "nextReminderOn": "{weekday} في {time}",
-    "nRemindersSet": "{count, plural, zero{لا توجد تذكيرات} one{تذكير واحد مفعّل} two{تذكيران مفعّلان} few{{count} تذكيرات مفعّلة} many{{count} تذكيرًا مفعّلًا} other{{count} تذكير مفعّل}}",
-    "dismissNextReminder": "إلغاء التالي"
+    "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
+    "yes": "نعم"
 }
