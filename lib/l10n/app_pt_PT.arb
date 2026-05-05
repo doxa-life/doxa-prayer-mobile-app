@@ -221,6 +221,9 @@
     "@settings": {
         "description": "The settings screen"
     },
+    "@share": {
+        "description": "The label of the share button"
+    },
     "@status": {
         "description": "The label of the status field"
     },
@@ -308,6 +311,7 @@
     "selected": "Selecionado",
     "setReminder": "Definir lembrete",
     "settings": "configurações",
+    "share": "Compartilhe",
     "status": "Estado",
     "switchPeopleGroupConfirm": "Queres deixar de rezar por {currentName} e começar a rezar por {newName}?",
     "time": "Tempo",

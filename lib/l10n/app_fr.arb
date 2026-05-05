@@ -71,6 +71,9 @@
     "@setReminder": {
         "description": "The set reminder button"
     },
+    "@share": {
+        "description": "The label of the share button"
+    },
     "@status": {
         "description": "The label of the status field"
     },
@@ -140,6 +143,7 @@
     "selected": "Sélectionné",
     "setReminder": "Définir un rappel",
     "settings": "Paramètres",
+    "share": "Partager",
     "status": "Statut",
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
     "time": "Heure",

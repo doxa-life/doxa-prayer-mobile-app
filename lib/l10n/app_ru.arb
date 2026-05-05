@@ -71,6 +71,9 @@
     "@setReminder": {
         "description": "The set reminder button"
     },
+    "@share": {
+        "description": "The label of the share button"
+    },
     "@status": {
         "description": "The label of the status field"
     },
@@ -140,6 +143,7 @@
     "selected": "Выбрано",
     "setReminder": "Установить напоминание",
     "settings": "Настройки",
+    "share": "Поделиться",
     "status": "Статус",
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
     "time": "Время",

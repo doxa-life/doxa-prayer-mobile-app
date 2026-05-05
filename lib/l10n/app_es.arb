@@ -71,6 +71,9 @@
     "@setReminder": {
         "description": "The set reminder button"
     },
+    "@share": {
+        "description": "The label of the share button"
+    },
     "@status": {
         "description": "The label of the status field"
     },
@@ -140,6 +143,7 @@
     "selected": "Seleccionado",
     "setReminder": "Configurar un recordatorio",
     "settings": "Ajustes",
+    "share": "Compartir",
     "status": "Estado",
     "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?",
     "time": "Hora",
