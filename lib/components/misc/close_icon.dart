@@ -8,15 +8,15 @@ class CloseIcon extends StatelessWidget {
   const CloseIcon({
     super.key,
     this.size = 24,
-    this.thickness = 5,
     this.color,
     this.cornerRadius = 0,
   });
 
   final double size;
-  final double thickness;
   final Color? color;
   final double cornerRadius;
+
+  double get thickness => size / 3;
 
   @override
   Widget build(BuildContext context) {

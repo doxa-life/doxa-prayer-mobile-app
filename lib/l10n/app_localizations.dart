@@ -207,29 +207,71 @@ abstract class AppLocalizations {
   /// **'Disciple & church multiplication'**
   String get discipleAndChurchMultiplication;
 
-  /// The title of the people committed progress card
+  /// The title of the resources section
   ///
   /// In en, this message translates to:
-  /// **'Prayer Status'**
-  String get prayerStatus;
+  /// **'Resources'**
+  String get resources;
 
-  /// The label of the people committed progress card
+  /// The label of the bible translation field
   ///
   /// In en, this message translates to:
-  /// **'People committed to praying'**
-  String get peopleCommittedToPraying;
+  /// **'Bible Translation'**
+  String get bibleTranslation;
 
-  /// The label of the prayer coverage 24h progress card
+  /// The label of the bible stories field
   ///
   /// In en, this message translates to:
-  /// **'24-Hour Prayer Coverage'**
-  String get prayerCoverage24h;
+  /// **'Bible Stories'**
+  String get bibleStories;
+
+  /// The label of the jesus film field
+  ///
+  /// In en, this message translates to:
+  /// **'Jesus Film'**
+  String get jesusFilm;
+
+  /// The label of the radio broadcast field
+  ///
+  /// In en, this message translates to:
+  /// **'Radio broadcast'**
+  String get radioBroadcast;
+
+  /// The label of the gospel recordings field
+  ///
+  /// In en, this message translates to:
+  /// **'Gospel recordings'**
+  String get gospelRecordings;
+
+  /// The label of the audio scripture field
+  ///
+  /// In en, this message translates to:
+  /// **'Audio scripture'**
+  String get audioScripture;
 
   /// The title of the overview section
   ///
   /// In en, this message translates to:
   /// **'Overview'**
   String get overview;
+
+  /// The title of the prayer status section
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer Status'**
+  String get prayerStatus;
+
+  /// The label of the people committed to praying field
+  ///
+  /// In en, this message translates to:
+  /// **'People committed to praying'**
+  String get peopleCommittedToPraying;
+
+  /// The label of the prayer coverage 24h field
+  ///
+  /// In en, this message translates to:
+  /// **'24-Hour Prayer Coverage'**
+  String get prayerCoverage24h;
 
   /// The label of the country field
   ///

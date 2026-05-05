@@ -69,21 +69,49 @@
     "@discipleAndChurchMultiplication": {
         "description": "The label of the disciple and church multiplication field"
     },
-    "prayerStatus": "Prayer Status",
-    "@prayerStatus": {
-        "description": "The title of the people committed progress card"
+    "resources": "Resources",
+    "@resources": {
+        "description": "The title of the resources section"
     },
-    "peopleCommittedToPraying": "People committed to praying",
-    "@peopleCommittedToPraying": {
-        "description": "The label of the people committed progress card"
+    "bibleTranslation": "Bible Translation",
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
     },
-    "prayerCoverage24h": "24-Hour Prayer Coverage",
-    "@prayerCoverage24h": {
-        "description": "The label of the prayer coverage 24h progress card"
+    "bibleStories": "Bible Stories",
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "jesusFilm": "Jesus Film",
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
+    },
+    "radioBroadcast": "Radio broadcast",
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "gospelRecordings": "Gospel recordings",
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
+    "audioScripture": "Audio scripture",
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
     },
     "overview": "Overview",
     "@overview": {
         "description": "The title of the overview section"
+    },
+    "prayerStatus": "Prayer Status",
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "peopleCommittedToPraying": "People committed to praying",
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
+    },
+    "prayerCoverage24h": "24-Hour Prayer Coverage",
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
     },
     "country": "Country",
     "@country": {

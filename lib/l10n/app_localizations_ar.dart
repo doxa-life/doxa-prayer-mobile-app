@@ -74,6 +74,30 @@ class AppLocalizationsAr extends AppLocalizations {
       'Disciple & church multiplication';
 
   @override
+  String get resources => 'Resources';
+
+  @override
+  String get bibleTranslation => 'Bible Translation';
+
+  @override
+  String get bibleStories => 'Bible Stories';
+
+  @override
+  String get jesusFilm => 'Jesus Film';
+
+  @override
+  String get radioBroadcast => 'Radio broadcast';
+
+  @override
+  String get gospelRecordings => 'Gospel recordings';
+
+  @override
+  String get audioScripture => 'Audio scripture';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
   String get prayerStatus => 'Prayer Status';
 
   @override
@@ -81,9 +105,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get prayerCoverage24h => '24-Hour Prayer Coverage';
-
-  @override
-  String get overview => 'Overview';
 
   @override
   String get country => 'Country';

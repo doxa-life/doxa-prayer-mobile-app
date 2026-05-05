@@ -195,175 +195,50 @@ class _DetailBody extends StatelessWidget {
             ],
           ),
           _Section(
-            title: 'People & Language',
+            title: l.resources,
             children: [
               _DetailRow(
-                label: 'Language family',
-                value: _label(detail.raw['imb_language_family']),
+                label: l.bibleTranslation,
+                value: _formatBool(detail.raw['imb_bible_available'], l),
+                isChecked: detail.raw['imb_bible_available'] ?? false,
               ),
               _DetailRow(
-                label: 'Language class',
-                value: _label(detail.raw['imb_language_class']),
+                label: l.bibleStories,
+                value: _formatBool(
+                  detail.raw['imb_bible_stories_available'],
+                  l,
+                ),
+                isChecked: detail.raw['imb_bible_stories_available'] ?? false,
               ),
               _DetailRow(
-                label: 'Language speakers',
-                value: detail.raw['imb_language_speakers']?.toString(),
+                label: l.jesusFilm,
+                value: _formatBool(detail.raw['imb_jesus_film_available'], l),
+                isChecked: detail.raw['imb_jesus_film_available'] ?? false,
               ),
               _DetailRow(
-                label: 'Affinity',
-                value: _label(detail.raw['imb_affinity_code']),
+                label: l.radioBroadcast,
+                value: _formatBool(
+                  detail.raw['imb_radio_broadcast_available'],
+                  l,
+                ),
+                isChecked: detail.raw['imb_radio_broadcast_available'] ?? false,
               ),
               _DetailRow(
-                label: 'People cluster',
-                value: _label(detail.raw['imb_reg_of_people_2']),
-              ),
-              _DetailRow(
-                label: 'Region of people',
-                value: _label(detail.raw['rop1']),
-              ),
-              _DetailRow(
-                label: 'Sub-people',
-                value: _label(detail.raw['imb_reg_of_people_25']),
-              ),
-              _DetailRow(
-                label: 'Reg of people 3',
-                value: detail.raw['imb_reg_of_people_3']?.toString(),
-              ),
-            ],
-          ),
-          _Section(
-            title: 'Religion',
-            children: [
-              _DetailRow(
-                label: 'Religion (3-level)',
-                value: _label(detail.raw['imb_reg_of_religion_3']),
-              ),
-              _DetailRow(
-                label: 'Religion (4-level)',
-                value: _label(detail.raw['imb_reg_of_religion_4']),
-              ),
-            ],
-          ),
-          _Section(
-            title: 'Engagement',
-            children: [
-              _DetailRow(
-                label: 'Engagement status',
-                value: _label(detail.raw['engagement_status']),
-              ),
-              _DetailRow(
-                label: 'Reason engaged',
-                value: detail.raw['reason_engaged']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Existing congregation',
-                value: _label(detail.raw['imb_congregation_existing']),
-              ),
-              _DetailRow(
-                label: 'Church planting',
-                value: _label(detail.raw['imb_church_planting']),
-              ),
-              _DetailRow(
-                label: 'Believers count',
-                value: detail.raw['believers_count']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Evangelical %',
-                value: detail.raw['evangelical_pct']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Evangelical level',
-                value: _label(detail.raw['imb_evangelical_level']),
-              ),
-              _DetailRow(label: 'GSEC', value: _label(detail.raw['imb_gsec'])),
-              _DetailRow(
-                label: 'Strategic priority index',
-                value: detail.raw['imb_strategic_priority_index']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Lostness priority index',
-                value: detail.raw['imb_lostness_priority_index']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Long-term workers',
-                value: detail.raw['workers_long_term']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Work in local language',
-                value: detail.raw['work_in_local_language']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Disciple & church multiplication',
-                value: detail.raw['disciple_and_church_multiplication']
-                    ?.toString(),
-              ),
-            ],
-          ),
-          _Section(
-            title: 'Resources',
-            children: [
-              _DetailRow(
-                label: 'Bible Translation',
-                value: _formatBool(detail.raw['imb_bible_available']),
-              ),
-              _DetailRow(
-                label: 'Bible Stories',
-                value: _formatBool(detail.raw['imb_bible_stories_available']),
-              ),
-              _DetailRow(
-                label: 'Jesus Film',
-                value: _formatBool(detail.raw['imb_jesus_film_available']),
-              ),
-              _DetailRow(
-                label: 'Radio broadcast',
-                value: _formatBool(detail.raw['imb_radio_broadcast_available']),
-              ),
-              _DetailRow(
-                label: 'Gospel recordings',
+                label: l.gospelRecordings,
                 value: _formatBool(
                   detail.raw['imb_gospel_recordings_available'],
+                  l,
                 ),
+                isChecked:
+                    detail.raw['imb_gospel_recordings_available'] ?? false,
               ),
               _DetailRow(
-                label: 'Audio scripture',
-                value: _formatBool(detail.raw['imb_audio_scripture_available']),
-              ),
-            ],
-          ),
-          _Section(
-            title: 'Adoption & Commitment',
-            children: [
-              _DetailRow(
-                label: 'People praying',
-                value: detail.peoplePraying.toString(),
-              ),
-              _DetailRow(
-                label: 'People committed',
-                value: detail.peopleCommitted.toString(),
-              ),
-              _DetailRow(
-                label: 'Committed duration',
-                value: detail.raw['committed_duration']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Global start date',
-                value: detail.raw['global_start_date']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Adopted by churches',
-                value: detail.raw['adopted_by_churches']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Adopted by count',
-                value: detail.raw['adopted_by_count']?.toString(),
-              ),
-              _DetailRow(
-                label: 'Adopted by',
-                value: _formatStringList(detail.raw['adopted_by_names']),
-              ),
-              _DetailRow(
-                label: 'WAGF member',
-                value: _label(detail.raw['wagf_member']),
+                label: l.audioScripture,
+                value: _formatBool(
+                  detail.raw['imb_audio_scripture_available'],
+                  l,
+                ),
+                isChecked: detail.raw['imb_audio_scripture_available'] ?? false,
               ),
             ],
           ),
@@ -494,6 +369,7 @@ class _Section extends StatelessWidget {
       padding: AppSpacing.xl,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSpacing.md,
         children: [
           Text(
             title,
@@ -512,10 +388,11 @@ class _Section extends StatelessWidget {
 }
 
 class _DetailRow extends StatelessWidget {
-  const _DetailRow({required this.label, required this.value});
+  const _DetailRow({required this.label, required this.value, this.isChecked});
 
   final String label;
   final String? value;
+  final bool? isChecked;
 
   bool get isVisible => value != null && value!.trim().isNotEmpty;
 
@@ -524,17 +401,41 @@ class _DetailRow extends StatelessWidget {
     if (!isVisible) return const SizedBox.shrink();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: AppSpacing.sm,
       children: [
-        SizedBox(
-          width: 140,
-          child: Text(
-            label,
-            style: AppTypography.bodySmall.copyWith(
-              color: AppColors.onSurface.withValues(alpha: 0.6),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xxxs),
+          child: Row(
+            spacing: AppSpacing.sm,
+            children: [
+              if (isChecked != null)
+                (isChecked == true)
+                    ? _IconCircle(
+                        icon: CheckIcon(
+                          size: AppTypography.xs,
+                          color: AppColors.white,
+                        ),
+                        color: AppColors.secondary,
+                      )
+                    : _IconCircle(
+                        icon: CloseIcon(
+                          size: AppTypography.xs,
+                          color: AppColors.white,
+                        ),
+                        color: AppColors.scheme.error,
+                      ),
+              SizedBox(
+                width: 140,
+                child: Text(
+                  label,
+                  style: AppTypography.bodySmall.copyWith(
+                    color: AppColors.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: AppSpacing.sm),
         Expanded(child: Text(value!, style: AppTypography.bodyMedium)),
       ],
     );
@@ -576,14 +477,7 @@ class _EngagementItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Material(
-            color: color,
-            shape: const CircleBorder(),
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.xs),
-              child: icon,
-            ),
-          ),
+          _IconCircle(icon: icon, color: color),
           Text(
             label,
             style: AppTypography.h1.copyWith(fontSize: AppTypography.md),
@@ -591,6 +485,22 @@ class _EngagementItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _IconCircle extends StatelessWidget {
+  const _IconCircle({required this.icon, required this.color});
+
+  final Widget icon;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color,
+      shape: const CircleBorder(),
+      child: Padding(padding: const EdgeInsets.all(AppSpacing.xs), child: icon),
     );
   }
 }
@@ -635,9 +545,9 @@ String? _label(dynamic field) {
   return null;
 }
 
-String? _formatBool(dynamic value) {
+String? _formatBool(dynamic value, AppLocalizations l) {
   if (value == null) return null;
-  if (value is bool) return value ? 'Yes' : 'No';
+  if (value is bool) return value ? l.yes : l.no;
   return value.toString();
 }
 
@@ -651,13 +561,4 @@ String? _formatInt(dynamic value) {
     );
   }
   return value.toString();
-}
-
-String? _formatStringList(dynamic value) {
-  if (value is List) {
-    final items = value.whereType<String>().toList();
-    if (items.isEmpty) return null;
-    return items.join(', ');
-  }
-  return null;
 }
