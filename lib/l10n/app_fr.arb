@@ -1,58 +1,148 @@
 {
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
+    },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
+    },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
+    },
+    "@population": {
+        "description": "The label of the population field"
+    },
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
+    },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
+    "@resources": {
+        "description": "The title of the resources section"
     },
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
+    "@status": {
+        "description": "The label of the status field"
+    },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "adoptionStatus": "Statut d'adoption",
+    "alternateName": "Autre nom",
     "amen": "Amen",
     "appName": "Doxa Prière",
+    "audioScripture": "Écritures en audio",
+    "bibleStories": "Histoires bibliques",
+    "bibleTranslation": "Traduction de la Bible",
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger les groupes de personnes.",
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
     "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
+    "country": "Pays",
+    "crossCulturalWorkersPresent": "Présence d'agents de mission interculturelle",
+    "daysOfWeek": "Jours de la semaine",
+    "delete": "Supprimer",
+    "discipleAndChurchMultiplication": "Formation de disciples et multiplication des Églises",
+    "dismissNextReminder": "Ignorer le prochain",
+    "editReminder": "Modifier le rappel",
+    "engagementStatus": "Situation matrimoniale",
+    "everyDay": "Tous les jours",
+    "gospelRecordings": "Enregistrements de gospel",
     "home": "Accueil",
+    "jesusFilm": "Le film « Jésus »",
     "language": "Langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
+    "nRemindersSet": "{count, plural, =0{Aucun rappel} =1{1 rappel actif} other{{count} rappels actifs}}",
+    "newReminder": "Nouveau rappel",
+    "nextReminder": "Prochain rappel",
+    "nextReminderOn": "{weekday} à {time}",
+    "nextReminderToday": "Aujourd'hui à {time}",
+    "nextReminderTomorrow": "Demain à {time}",
     "no": "Non",
+    "noDaysSelected": "Aucun jour sélectionné",
     "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
     "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
+    "noRemindersYet": "Aucun rappel pour le moment",
+    "overview": "Aperçu",
     "pauseAndPray": "Fais une pause et prie",
+    "peopleCommittedToPraying": "Des personnes qui s'engagent à prier",
     "peopleGroups": "Groupes de Personnes",
+    "population": "Population",
     "pray": "Prier",
+    "prayerCoverage24h": "Veillée de prière 24 heures sur 24",
     "prayerLogged": "Votre prière a été enregistrée.",
+    "prayerStatus": "État de la prière",
+    "primaryLanguage": "Langue maternelle",
+    "primaryReligion": "Religion principale",
     "profile": "Profil",
+    "radioBroadcast": "Émission de radio",
+    "religiousPractices": "Pratiques religieuses",
+    "reminderNotificationBody": "Ouvre Doxa pour commencer la prière du jour.",
+    "reminderNotificationTitle": "C'est l'heure de prier",
+    "reminderPermissionDenied": "Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.",
     "reminders": "Rappels",
+    "resources": "Ressources",
     "retry": "Réessayer",
+    "save": "Enregistrer",
     "searchPeopleGroups": "Rechercher des Groupes de Personnes",
     "select": "Sélectionner",
     "selectPeopleGroup": "Sélectionnez un groupe ethnique",
     "selectPeopleGroupConfirm": "Voulez-vous sélectionner ce groupe de personnes ?",
     "selected": "Sélectionné",
+    "setReminder": "Définir un rappel",
     "settings": "Paramètres",
+    "status": "Statut",
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
-    "yes": "Oui",
-    "amen": "Amen",
-    "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
-    "couldNotLoadPrayerContent": "Impossible de charger le contenu de prière.",
-    "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
-    "prayerLogged": "Votre prière a été enregistrée.",
-    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
-    "newReminder": "Nouveau rappel",
-    "editReminder": "Modifier le rappel",
-    "save": "Enregistrer",
-    "delete": "Supprimer",
     "time": "Heure",
-    "daysOfWeek": "Jours de la semaine",
-    "everyDay": "Tous les jours",
-    "noDaysSelected": "Aucun jour sélectionné",
-    "noRemindersYet": "Aucun rappel pour le moment",
-    "reminderNotificationTitle": "C'est l'heure de prier",
-    "reminderNotificationBody": "Ouvre Doxa pour commencer la prière du jour.",
-    "reminderPermissionDenied": "Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.",
-    "nextReminder": "Prochain rappel",
-    "nextReminderToday": "Aujourd'hui à {time}",
-    "nextReminderTomorrow": "Demain à {time}",
-    "nextReminderOn": "{weekday} à {time}",
-    "nRemindersSet": "{count, plural, =0{Aucun rappel} =1{1 rappel actif} other{{count} rappels actifs}}",
-    "dismissNextReminder": "Ignorer le prochain"
+    "workInLocalLanguageAndCulture": "Travailler dans le respect de la langue et de la culture locales",
+    "yes": "Oui"
 }
