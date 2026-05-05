@@ -2,6 +2,9 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
     "@amen": {
         "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
     },
@@ -38,6 +41,12 @@
     "@delete": {
         "description": "Delete button label"
     },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@dismissNextReminder": {
+        "description": "Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown"
+    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -68,8 +77,47 @@
             }
         }
     },
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "weekday": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
     },
     "@no": {
         "description": "The no/cancel button"
@@ -122,8 +170,20 @@
     "@profile": {
         "description": "The profile button"
     },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
     "@religiousPractices": {
         "description": "The label of the religious practices field"
+    },
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "@reminderPermissionDenied": {
+        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
     },
     "@reminders": {
         "description": "The reminders screen"
@@ -155,6 +215,9 @@
     "@selected": {
         "description": "The disabled label shown on the currently selected people group"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
     "@settings": {
         "description": "The settings screen"
     },
@@ -175,10 +238,14 @@
     "@time": {
         "description": "Label for the time-of-day field"
     },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
     "@yes": {
         "description": "The yes confirmation button"
     },
     "adoptionStatus": "Статус принятия",
+    "alternateName": "Другое название",
     "amen": "Аминь",
     "appName": "название приложения",
     "audioScripture": "Аудио-Священное Писание",
@@ -191,6 +258,8 @@
     "crossCulturalWorkersPresent": "Межкультурные работники присутствуют",
     "daysOfWeek": "Дни недели",
     "delete": "Удалить",
+    "discipleAndChurchMultiplication": "Распространение ученичества и рост церквей",
+    "dismissNextReminder": "Закрыть следующее",
     "editReminder": "Изменить напоминание",
     "engagementStatus": "Статус взаимодействия",
     "everyDay": "Каждый день",
@@ -199,7 +268,12 @@
     "jesusFilm": "Фильм «Иисус»",
     "language": "язык",
     "nPeopleGroups": "{count, plural, =0{Нет групп людей} one{1 группа людей} few{{count} группы людей} many{{count} групп людей} other{{count} групп людей}}",
+    "nRemindersSet": "{count, множественное число, =0{Напоминания не установлены} =1{Установлено 1 напоминание} other{Установлено {count}о напоминаний}}",
     "newReminder": "Новое напоминание",
+    "nextReminder": "Следующее напоминание",
+    "nextReminderOn": "{weekday} по адресу {time}",
+    "nextReminderToday": "Сегодня на сайте {time}",
+    "nextReminderTomorrow": "Завтра на сайте {time}",
     "no": "нет",
     "noDaysSelected": "Дни не выбраны",
     "noPeopleGroupSelected": "Выберите народ, за который вы хотите начать молиться.",
@@ -217,7 +291,11 @@
     "primaryLanguage": "Основной язык",
     "primaryReligion": "Основная религия",
     "profile": "профиль",
+    "radioBroadcast": "Радиопередача",
     "religiousPractices": "Религиозные обряды",
+    "reminderNotificationBody": "Откройте «Доксу», чтобы начать сегодняшнюю молитву.",
+    "reminderNotificationTitle": "Пора молиться",
+    "reminderPermissionDenied": "Уведомления отключены — включите их в настройках системы, чтобы получать напоминания.",
     "reminders": "напоминания",
     "resources": "Ресурсы",
     "retry": "повторить попытку",
@@ -228,9 +306,11 @@
     "selectPeopleGroupConfirm": "Вы хотите выбрать эту этническую группу?",
     "selectReminders": "Выбрать напоминания",
     "selected": "Выбранные",
+    "setReminder": "Установить напоминание",
     "settings": "настройки",
     "status": "Статус",
     "switchPeopleGroupConfirm": "Хотите перестать молиться за сайт {currentName} и начать молиться за сайт {newName}?",
     "time": "Время",
+    "workInLocalLanguageAndCulture": "Работа с учетом особенностей местного языка и культуры",
     "yes": "да"
 }
