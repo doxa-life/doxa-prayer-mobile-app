@@ -2,6 +2,9 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
     "@amen": {
         "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
     },
@@ -38,6 +41,12 @@
     "@delete": {
         "description": "Delete button label"
     },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@dismissNextReminder": {
+        "description": "Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown"
+    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -68,8 +77,47 @@
             }
         }
     },
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "weekday": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
     },
     "@no": {
         "description": "The no/cancel button"
@@ -122,8 +170,20 @@
     "@profile": {
         "description": "The profile button"
     },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
     "@religiousPractices": {
         "description": "The label of the religious practices field"
+    },
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "@reminderPermissionDenied": {
+        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
     },
     "@reminders": {
         "description": "The reminders screen"
@@ -155,6 +215,9 @@
     "@selected": {
         "description": "The disabled label shown on the currently selected people group"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
     "@settings": {
         "description": "The settings screen"
     },
@@ -175,10 +238,14 @@
     "@time": {
         "description": "Label for the time-of-day field"
     },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
     "@yes": {
         "description": "The yes confirmation button"
     },
     "adoptionStatus": "Estado da adoção",
+    "alternateName": "Nome alternativo",
     "amen": "Ámen",
     "appName": "nome da aplicação",
     "audioScripture": "Áudio das Escrituras",
@@ -191,6 +258,8 @@
     "crossCulturalWorkersPresent": "Trabalhadores interculturais presentes",
     "daysOfWeek": "Dias da semana",
     "delete": "Excluir",
+    "discipleAndChurchMultiplication": "Multiplicação de discípulos e igrejas",
+    "dismissNextReminder": "Ignorar o próximo",
     "editReminder": "Editar lembrete",
     "engagementStatus": "Estado do noivado",
     "everyDay": "Diariamente",
@@ -199,7 +268,12 @@
     "jesusFilm": "Filme Jesus",
     "language": "língua",
     "nPeopleGroups": "{count, plural, =0{Sem Grupos de Pessoas} =1{1 Grupo de Pessoas} other{{count} Grupos de Pessoas}}",
+    "nRemindersSet": "{count, plural, =0{Não há lembretes definidos} =1{1 lembrete definido} other{Estão definidos {count}es de lembretes}}",
     "newReminder": "Novo lembrete",
+    "nextReminder": "Próximo lembrete",
+    "nextReminderOn": "{weekday} em {time}",
+    "nextReminderToday": "Hoje em {time}",
+    "nextReminderTomorrow": "Amanhã em {time}",
     "no": "Não",
     "noDaysSelected": "Não foram selecionados dias",
     "noPeopleGroupSelected": "Escolha um grupo étnico para começar a orar.",
@@ -217,7 +291,11 @@
     "primaryLanguage": "Língua principal",
     "primaryReligion": "Religião Primária",
     "profile": "perfil",
+    "radioBroadcast": "Transmissão de rádio",
     "religiousPractices": "Práticas religiosas",
+    "reminderNotificationBody": "Abra o Doxa para iniciar a oração de hoje.",
+    "reminderNotificationTitle": "É hora de rezar",
+    "reminderPermissionDenied": "As notificações estão desativadas — ative-as nas definições do sistema para receber lembretes.",
     "reminders": "lembretes",
     "resources": "Recursos",
     "retry": "tentar novamente",
@@ -228,9 +306,11 @@
     "selectPeopleGroupConfirm": "Quer selecionar este grupo étnico?",
     "selectReminders": "Selecionar lembretes",
     "selected": "Selecionado",
+    "setReminder": "Definir lembrete",
     "settings": "configurações",
     "status": "Estado",
     "switchPeopleGroupConfirm": "Queres deixar de rezar por {currentName} e começar a rezar por {newName}?",
     "time": "Tempo",
+    "workInLocalLanguageAndCulture": "Trabalho na língua e cultura locais",
     "yes": "Sim"
 }
