@@ -2,6 +2,9 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
     "@appName": {
         "description": "The name of the app"
     },
@@ -22,6 +25,9 @@
     },
     "@crossCulturalWorkersPresent": {
         "description": "The label of the cross-cultural workers present field"
+    },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
     },
     "@engagementStatus": {
         "description": "The label of the engagement status field"
@@ -80,6 +86,9 @@
     "@profile": {
         "description": "The profile button"
     },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
     "@religiousPractices": {
         "description": "The label of the religious practices field"
     },
@@ -98,13 +107,20 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
     "@settings": {
         "description": "The settings screen"
     },
     "@status": {
         "description": "The label of the status field"
     },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
     "adoptionStatus": "وضعية الإنتماء",
+    "alternateName": "اسم بديل",
     "amen": "آمين",
     "appName": "اسم التطبيق",
     "audioScripture": "الكتاب المقدس الصوتي",
@@ -117,6 +133,7 @@
     "crossCulturalWorkersPresent": "تواجد خدّام يعملون عبر الثقافات",
     "daysOfWeek": "أيام الأسبوع",
     "delete": "حذف",
+    "discipleAndChurchMultiplication": "تكاثر التلاميذ والكنائس",
     "dismissNextReminder": "إلغاء التالي",
     "editReminder": "تعديل التذكير",
     "engagementStatus": "حالة الإلتزام",
@@ -149,6 +166,7 @@
     "primaryLanguage": "اللغة الأساسية",
     "primaryReligion": "الدين الرئيسي",
     "profile": "الملف الشخصي",
+    "radioBroadcast": "بث إذاعي",
     "religiousPractices": "الممارسات الدينية",
     "reminderNotificationBody": "افتح Doxa لبدء صلاة اليوم.",
     "reminderNotificationTitle": "حان وقت الصلاة",
@@ -162,9 +180,11 @@
     "selectPeopleGroup": "اختر مجموعة عرقية",
     "selectPeopleGroupConfirm": "هل تريد اختيار هذه المجموعة العرقية؟",
     "selected": "تم الاختيار",
+    "setReminder": "تعيين تذكير",
     "settings": "الإعدادات",
     "status": "الحالة",
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
     "time": "الوقت",
+    "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
     "yes": "نعم"
 }
