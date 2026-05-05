@@ -13,6 +13,7 @@ class AppColors {
   static const onSurface = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
+  static const warning = Color(0xFFF5A623);
 
   static const outline = Color(0xFFD6D3CC);
   static const mutedSurface = Color(0xFFF4F2EC);
@@ -23,7 +24,7 @@ class AppColors {
     onPrimary: onPrimary,
     secondary: secondary,
     onSecondary: onSecondary,
-    error: Color(0xFFB3261E),
+    error: Color(0xFFE29186),
     onError: Color(0xFFFFFFFF),
     surface: surface,
     onSurface: onSurface,

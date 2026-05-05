@@ -189,6 +189,24 @@ abstract class AppLocalizations {
   /// **'Select a people group'**
   String get selectPeopleGroup;
 
+  /// The label of the cross-cultural workers present field
+  ///
+  /// In en, this message translates to:
+  /// **'Cross-cultural workers present'**
+  String get crossCulturalWorkersPresent;
+
+  /// The label of the work in local language and culture field
+  ///
+  /// In en, this message translates to:
+  /// **'Work in local language & culture'**
+  String get workInLocalLanguageAndCulture;
+
+  /// The label of the disciple and church multiplication field
+  ///
+  /// In en, this message translates to:
+  /// **'Disciple & church multiplication'**
+  String get discipleAndChurchMultiplication;
+
   /// The title of the people committed progress card
   ///
   /// In en, this message translates to:
@@ -290,6 +308,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Status'**
   String get status;
+
+  /// The label of the engagement status field
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement status'**
+  String get engagementStatus;
+
+  /// The label of the adoption status field
+  ///
+  /// In en, this message translates to:
+  /// **'Adoption Status'**
+  String get adoptionStatus;
 
   /// Confirmation prompt when selecting a people group for the first time
   ///

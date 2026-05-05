@@ -57,6 +57,18 @@
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "crossCulturalWorkersPresent": "Cross-cultural workers present",
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "workInLocalLanguageAndCulture": "Work in local language & culture",
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "discipleAndChurchMultiplication": "Disciple & church multiplication",
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
     "prayerStatus": "Prayer Status",
     "@prayerStatus": {
         "description": "The title of the people committed progress card"
@@ -124,6 +136,14 @@
     "status": "Status",
     "@status": {
         "description": "The label of the status field"
+    },
+    "engagementStatus": "Engagement status",
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "adoptionStatus": "Adoption Status",
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
     },
     "selectPeopleGroupConfirm": "Do you want to select this people group?",
     "@selectPeopleGroupConfirm": {

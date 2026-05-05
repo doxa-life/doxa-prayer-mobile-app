@@ -2,7 +2,9 @@ import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CreditPopoverButton extends StatefulWidget {
   const CreditPopoverButton({super.key, required this.credit});
@@ -23,6 +25,10 @@ class _CreditPopoverButtonState extends State<CreditPopoverButton> {
         if (part.link != null && part.link!.isNotEmpty)
           TextSpan(
             text: part.text,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                launchUrl(Uri.parse(part.link!));
+              },
             style: const TextStyle(
               color: AppColors.secondary,
               decoration: TextDecoration.underline,

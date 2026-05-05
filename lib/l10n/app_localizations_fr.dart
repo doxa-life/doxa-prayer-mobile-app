@@ -63,6 +63,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get selectPeopleGroup => 'Sélectionnez un groupe ethnique';
 
   @override
+  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'Work in local language & culture';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'Disciple & church multiplication';
+
+  @override
   String get prayerStatus => 'Prayer Status';
 
   @override
@@ -112,6 +123,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get status => 'Status';
+
+  @override
+  String get engagementStatus => 'Engagement status';
+
+  @override
+  String get adoptionStatus => 'Adoption Status';
 
   @override
   String get selectPeopleGroupConfirm =>

@@ -2,6 +2,8 @@ import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_bu
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/check_icon.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
@@ -95,17 +97,63 @@ class _DetailBody extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: AppSpacing.xl,
         children: [
           SelectPeopleGroupButton(
             slug: detail.slug,
             name: detail.name,
             imageUrl: detail.imageUrl,
           ),
-          const SizedBox(height: AppSpacing.xl),
           _Hero(detail: detail),
-          const SizedBox(height: AppSpacing.xl),
           _CommittedProgress(committed: detail.peopleCommitted),
-          const SizedBox(height: AppSpacing.xl),
+          ElevatedAppCard(
+            padding: AppSpacing.xl,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                H2(l.engagementStatus),
+                Wrap(
+                  spacing: AppSpacing.xl,
+                  runSpacing: AppSpacing.xl,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    _EngagementItem(
+                      label: l.prayerStatus,
+                      status: detail.peopleCommitted > 0
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    _EngagementItem(
+                      label: l.adoptionStatus,
+                      status: detail.raw['adopted_by_churches'] > 0
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    _EngagementItem(
+                      label: l.crossCulturalWorkersPresent,
+                      status: detail.raw['workers_long_term'] != null
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    _EngagementItem(
+                      label: l.workInLocalLanguageAndCulture,
+                      status: detail.raw['work_in_local_language'] != null
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    _EngagementItem(
+                      label: l.discipleAndChurchMultiplication,
+                      status:
+                          detail.raw['disciple_and_church_multiplication'] !=
+                              null
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           _Section(
             title: l.overview,
             children: [
@@ -442,29 +490,22 @@ class _Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visible = children
-        .where((w) => w is! _DetailRow || w.isVisible)
-        .toList();
-    if (visible.isEmpty) return const SizedBox.shrink();
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.xl),
-      child: ElevatedAppCard(
-        padding: AppSpacing.xl,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: AppTypography.h2.copyWith(color: AppColors.secondary),
+    return ElevatedAppCard(
+      padding: AppSpacing.xl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: AppTypography.h2.copyWith(color: AppColors.secondary),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          for (final w in children)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxs),
+              child: w,
             ),
-            const SizedBox(height: AppSpacing.md),
-            for (final w in visible)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxs),
-                child: w,
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -496,6 +537,60 @@ class _DetailRow extends StatelessWidget {
         const SizedBox(width: AppSpacing.sm),
         Expanded(child: Text(value!, style: AppTypography.bodyMedium)),
       ],
+    );
+  }
+}
+
+enum EngagementStatus { yes, no, partial }
+
+class _EngagementItem extends StatelessWidget {
+  const _EngagementItem({required this.label, required this.status});
+
+  final String label;
+  final EngagementStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = switch (status) {
+      EngagementStatus.yes => AppColors.secondary,
+      EngagementStatus.no => AppColors.scheme.error,
+      EngagementStatus.partial => AppColors.warning,
+    };
+
+    final icon = switch (status) {
+      EngagementStatus.yes => const CheckIcon(
+        size: AppTypography.md,
+        color: AppColors.white,
+      ),
+      EngagementStatus.partial => const CheckIcon(
+        size: AppTypography.md,
+        color: AppColors.white,
+      ),
+      EngagementStatus.no => const CloseIcon(
+        size: AppTypography.md,
+        color: AppColors.white,
+      ),
+    };
+    return SizedBox(
+      width: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Material(
+            color: color,
+            shape: const CircleBorder(),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.xs),
+              child: icon,
+            ),
+          ),
+          Text(
+            label,
+            style: AppTypography.h1.copyWith(fontSize: AppTypography.md),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
