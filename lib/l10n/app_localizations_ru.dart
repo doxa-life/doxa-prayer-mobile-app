@@ -110,7 +110,17 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerCoverage24h => 'Круглосуточная молитвенная поддержка';
 
   @override
-  String get share => 'Share';
+  String get peopleGroup => 'People Group';
+
+  @override
+  String get couldNotLoadPeopleGroupDetailsMessage =>
+      'Could not load people group details.';
+
+  @override
+  String get share => 'Поделиться';
+
+  @override
+  String get search => 'Search';
 
   @override
   String get country => 'Страна';
@@ -369,6 +379,9 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
 
   @override
   String get prayerCoverage24h => '24-часовая молитвенная поддержка';
+
+  @override
+  String get share => 'доля';
 
   @override
   String get country => 'Страна';

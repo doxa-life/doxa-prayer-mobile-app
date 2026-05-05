@@ -109,7 +109,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get prayerCoverage24h => 'Cobertura de oración las 24 horas';
 
   @override
-  String get share => 'Share';
+  String get peopleGroup => 'People Group';
+
+  @override
+  String get couldNotLoadPeopleGroupDetailsMessage =>
+      'Could not load people group details.';
+
+  @override
+  String get share => 'Compartir';
+
+  @override
+  String get search => 'Search';
 
   @override
   String get country => 'País';
@@ -367,6 +377,9 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
 
   @override
   String get prayerCoverage24h => 'Cobertura de oración las 24 horas';
+
+  @override
+  String get share => 'Compartir';
 
   @override
   String get country => 'País';

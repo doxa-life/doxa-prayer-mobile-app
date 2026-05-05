@@ -54,11 +54,12 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return BackgroundImageContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: DetailsNavBar(
-          title: 'People Group',
+          title: l.peopleGroup,
           onBack: () => Navigator.pop(context),
         ),
         body: FutureBuilder<PeopleGroupDetail>(
@@ -69,7 +70,7 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
             }
             if (snapshot.hasError) {
               return _ErrorView(
-                message: 'Could not load people group details.',
+                message: l.couldNotLoadPeopleGroupDetailsMessage,
                 onRetry: _reload,
               );
             }

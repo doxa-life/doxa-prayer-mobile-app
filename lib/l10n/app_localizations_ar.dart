@@ -105,7 +105,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerCoverage24h => 'سلسلة صلاة مستمرة على مدار 24 ساعة';
 
   @override
-  String get share => 'Share';
+  String get peopleGroup => 'People Group';
+
+  @override
+  String get couldNotLoadPeopleGroupDetailsMessage =>
+      'Could not load people group details.';
+
+  @override
+  String get share => 'مشاركة';
+
+  @override
+  String get search => 'Search';
 
   @override
   String get country => 'الدولة';

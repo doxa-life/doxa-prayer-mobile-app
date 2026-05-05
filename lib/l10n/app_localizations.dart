@@ -273,11 +273,29 @@ abstract class AppLocalizations {
   /// **'24-Hour Prayer Coverage'**
   String get prayerCoverage24h;
 
+  /// The label of the people group field
+  ///
+  /// In en, this message translates to:
+  /// **'People Group'**
+  String get peopleGroup;
+
+  /// The message displayed when the people group details cannot be loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load people group details.'**
+  String get couldNotLoadPeopleGroupDetailsMessage;
+
   /// The label of the share button
   ///
   /// In en, this message translates to:
   /// **'Share'**
   String get share;
+
+  /// The label of the search button
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
 
   /// The label of the country field
   ///

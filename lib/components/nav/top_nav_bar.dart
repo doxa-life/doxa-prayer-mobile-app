@@ -8,13 +8,13 @@ import '../misc/triangle_icon.dart';
 class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
   const TopNavBar({
     super.key,
-    this.title = 'DOXA',
+    this.title,
     this.onSettings,
     this.onBack,
     this.onGallery,
   });
 
-  final String title;
+  final String? title;
   final VoidCallback? onSettings;
   final VoidCallback? onBack;
   final VoidCallback? onGallery;
@@ -36,10 +36,16 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       centerTitle: true,
-      title: Text(
-        title,
-        style: AppTypography.h2.copyWith(color: AppColors.onPrimary),
-      ),
+      title: title != null
+          ? Text(
+              title!,
+              style: AppTypography.h2.copyWith(color: AppColors.onPrimary),
+            )
+          : Image.asset(
+              'assets/images/doxa-logo.png',
+              height: AppTypography.lg,
+              fit: BoxFit.contain,
+            ),
       actions: [
         IconButton(
           icon: const Icon(Icons.widgets_outlined, color: AppColors.onPrimary),

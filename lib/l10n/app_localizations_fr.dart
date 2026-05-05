@@ -109,7 +109,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get prayerCoverage24h => 'Veillée de prière 24 heures sur 24';
 
   @override
-  String get share => 'Share';
+  String get peopleGroup => 'People Group';
+
+  @override
+  String get couldNotLoadPeopleGroupDetailsMessage =>
+      'Could not load people group details.';
+
+  @override
+  String get share => 'Partager';
+
+  @override
+  String get search => 'Search';
 
   @override
   String get country => 'Pays';
@@ -366,6 +376,9 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
 
   @override
   String get prayerCoverage24h => 'Prière 24 heures sur 24';
+
+  @override
+  String get share => 'Partager';
 
   @override
   String get country => 'Pays';

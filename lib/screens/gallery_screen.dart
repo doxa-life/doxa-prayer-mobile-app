@@ -201,7 +201,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
         _framed(
           SizedBox(
             height: kToolbarHeight,
-            child: TopNavBar(title: 'DOXA', onSettings: () {}),
+            child: TopNavBar(onSettings: () {}),
           ),
         ),
         _framed(

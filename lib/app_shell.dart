@@ -61,7 +61,6 @@ class _AppShellState extends State<AppShell> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: TopNavBar(
-          title: AppLocalizations.of(context)!.appName,
           onSettings: () => _openSettings(context),
           onGallery: () => _openGallery(context),
         ),
@@ -81,7 +80,7 @@ class _AppShellState extends State<AppShell> {
             BottomNavItemData(
               icon: AppIconName.peopleGroup,
               selectedIcon: AppIconName.peopleGroupSolid,
-              label: AppLocalizations.of(context)!.peopleGroups,
+              label: AppLocalizations.of(context)!.search,
             ),
             BottomNavItemData(
               icon: AppIconName.bell,

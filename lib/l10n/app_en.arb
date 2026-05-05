@@ -113,9 +113,21 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
     },
+    "peopleGroup": "People Group",
+    "@peopleGroup": {
+        "description": "The label of the people group field"
+    },
+    "couldNotLoadPeopleGroupDetailsMessage": "Could not load people group details.",
+    "@couldNotLoadPeopleGroupDetailsMessage": {
+        "description": "The message displayed when the people group details cannot be loaded"
+    },
     "share": "Share",
     "@share": {
         "description": "The label of the share button"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "The label of the search button"
     },
     "country": "Country",
     "@country": {
