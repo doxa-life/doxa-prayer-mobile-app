@@ -1,9 +1,21 @@
 {
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
     "@amen": {
         "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
     },
     "@appName": {
         "description": "The name of the app"
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
     },
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
@@ -14,6 +26,12 @@
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
     },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
     "@daysOfWeek": {
         "description": "Label for the weekday selector"
     },
@@ -23,11 +41,20 @@
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
     "@everyDay": {
         "description": "Days summary shown when a reminder is set for all 7 days"
     },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
     "@home": {
         "description": "The home screen"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
     },
     "@language": {
         "description": "The language selector"
@@ -59,20 +86,44 @@
     "@noRemindersYet": {
         "description": "Empty state on the reminders screen"
     },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
     },
     "@peopleGroups": {
         "description": "The people groups screen"
     },
+    "@population": {
+        "description": "The label of the population field"
+    },
     "@pray": {
         "description": "The pray screen"
+    },
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
     },
     "@prayerLogged": {
         "description": "Snackbar shown after a prayer session has been recorded"
     },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
     "@profile": {
         "description": "The profile button"
+    },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
     },
     "@reminders": {
         "description": "The reminders screen"
@@ -121,16 +172,25 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "adoptionStatus": "Adoption Status",
     "amen": "Amen",
     "appName": "appName",
+    "audioScripture": "Audio Scripture",
+    "bibleStories": "Bible Stories",
+    "bibleTranslation": "Bible Translation",
     "couldNotLoadPeopleGroupsMessage": "couldNotLoadPeopleGroupsMessage",
     "couldNotLoadPrayerContent": "Could not load prayer content.",
     "couldNotLogPrayerSession": "Could not log your prayer session.",
+    "country": "Country",
+    "crossCulturalWorkersPresent": "Cross-cultural workers present",
     "daysOfWeek": "Days of week",
     "delete": "Delete",
     "editReminder": "Edit reminder",
+    "engagementStatus": "Engagement Status",
     "everyDay": "Every day",
+    "gospelRecordings": "Gospel Recordings",
     "home": "home",
+    "jesusFilm": "Jesus Film",
     "language": "language",
     "nPeopleGroups": "nPeopleGroups",
     "newReminder": "New reminder",
@@ -139,11 +199,19 @@
     "noPeopleGroupSelected": "Choose a people group to start praying.",
     "noPrayerContentAvailable": "No prayer content for today.",
     "noRemindersYet": "No reminders yet",
+    "overview": "Overview",
     "pauseAndPray": "Pause & Pray",
+    "peopleCommittedToPraying": "People committed to praying",
     "peopleGroups": "peopleGroups",
+    "population": "Population",
     "pray": "pray",
+    "prayerCoverage24h": "24-Hour Prayer Coverage",
     "prayerLogged": "Your prayer has been logged.",
+    "prayerStatus": "Prayer Status",
+    "primaryLanguage": "Primary Language",
+    "primaryReligion": "Primary Religion",
     "profile": "profile",
+    "religiousPractices": "Religious Practices",
     "reminders": "reminders",
     "retry": "retry",
     "save": "Save",
