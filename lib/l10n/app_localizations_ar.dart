@@ -265,4 +265,74 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dismissNextReminder => 'إلغاء التالي';
+
+  @override
+  String get wizardWelcomeTitle => 'Welcome to Doxa Prayer';
+
+  @override
+  String get wizardWelcomeBody =>
+      'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
+
+  @override
+  String get wizardGetStarted => 'Get started';
+
+  @override
+  String get wizardChoosePeopleGroupTitle => 'Choose a people group';
+
+  @override
+  String wizardConfirmPeopleGroupTitle(String name) {
+    return 'Pray for $name?';
+  }
+
+  @override
+  String get wizardConfirmPeopleGroupBody =>
+      'We\'ll show you prayer content and reminders for this group. You can change this later.';
+
+  @override
+  String get wizardSetReminderTitle => 'Set a prayer reminder';
+
+  @override
+  String get wizardSetReminderBody =>
+      'We\'ll send you a gentle nudge at the time you choose. You can skip this and add reminders later.';
+
+  @override
+  String get wizardNewsSignupTitle => 'Stay in the loop';
+
+  @override
+  String get wizardNewsSignupBody =>
+      'Optional. Get news about your people group and updates from Doxa.';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get continueLabel => 'Continue';
+
+  @override
+  String get saveAndContinue => 'Save & continue';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get updatesAboutMyPeopleGroup =>
+      'Receive updates about my people group';
+
+  @override
+  String get updatesFromDoxa => 'Receive updates from Doxa';
+
+  @override
+  String get signUpForUpdates => 'Sign up for updates';
+
+  @override
+  String get newsSignupThanks => 'Thanks — you\'re signed up.';
 }

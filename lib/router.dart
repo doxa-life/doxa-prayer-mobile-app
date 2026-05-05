@@ -4,11 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'app_shell.dart';
 import 'screens/gallery_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/news_signup_settings_screen.dart';
 import 'screens/people_group_details_screen.dart';
 import 'screens/people_groups_screen.dart';
 import 'screens/pray_screen.dart';
 import 'screens/reminders_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/wizard_screen.dart';
+import 'services/wizard_completion_controller.dart';
 
 enum AppRoute { home, pray, peopleGroups, reminders }
 
@@ -19,6 +22,13 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  refreshListenable: wizardCompletedController,
+  redirect: (context, state) {
+    final atWizard = state.matchedLocation == '/wizard';
+    if (!wizardCompletedController.value && !atWizard) return '/wizard';
+    if (wizardCompletedController.value && atWizard) return '/home';
+    return null;
+  },
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -74,12 +84,26 @@ final GoRouter appRouter = GoRouter(
       path: '/settings',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (_, _) => const SettingsScreen(),
+      routes: [
+        GoRoute(
+          name: 'settings-news-signup',
+          path: 'news-signup',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (_, _) => const NewsSignupSettingsScreen(),
+        ),
+      ],
     ),
     GoRoute(
       name: 'gallery',
       path: '/gallery',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (_, _) => const GalleryScreen(),
+    ),
+    GoRoute(
+      name: 'wizard',
+      path: '/wizard',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const WizardScreen(),
     ),
   ],
 );

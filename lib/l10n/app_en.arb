@@ -313,5 +313,92 @@
     "dismissNextReminder": "Dismiss next",
     "@dismissNextReminder": {
         "description": "Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown"
+    },
+    "wizardWelcomeTitle": "Welcome to Doxa Prayer",
+    "@wizardWelcomeTitle": {
+        "description": "Title of the wizard welcome step"
+    },
+    "wizardWelcomeBody": "Doxa helps you pray for an unreached people group. We'll help you choose a group, set a reminder, and stay in the loop.",
+    "@wizardWelcomeBody": {
+        "description": "Body of the wizard welcome step"
+    },
+    "wizardGetStarted": "Get started",
+    "@wizardGetStarted": {
+        "description": "Primary button on the wizard welcome step"
+    },
+    "wizardChoosePeopleGroupTitle": "Choose a people group",
+    "@wizardChoosePeopleGroupTitle": {
+        "description": "Title of the wizard people-group selection step"
+    },
+    "wizardConfirmPeopleGroupTitle": "Pray for {name}?",
+    "@wizardConfirmPeopleGroupTitle": {
+        "description": "Title of the wizard confirm-people-group sub-step",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
+    },
+    "wizardConfirmPeopleGroupBody": "We'll show you prayer content and reminders for this group. You can change this later.",
+    "@wizardConfirmPeopleGroupBody": {
+        "description": "Body of the wizard confirm-people-group sub-step"
+    },
+    "wizardSetReminderTitle": "Set a prayer reminder",
+    "@wizardSetReminderTitle": {
+        "description": "Title of the wizard reminder step"
+    },
+    "wizardSetReminderBody": "We'll send you a gentle nudge at the time you choose. You can skip this and add reminders later.",
+    "@wizardSetReminderBody": {
+        "description": "Body of the wizard reminder step"
+    },
+    "wizardNewsSignupTitle": "Stay in the loop",
+    "@wizardNewsSignupTitle": {
+        "description": "Title of the wizard news-signup step"
+    },
+    "wizardNewsSignupBody": "Optional. Get news about your people group and updates from Doxa.",
+    "@wizardNewsSignupBody": {
+        "description": "Body of the wizard news-signup step"
+    },
+    "back": "Back",
+    "@back": {
+        "description": "Back button label"
+    },
+    "continueLabel": "Continue",
+    "@continueLabel": {
+        "description": "Continue button label (named to avoid the reserved word 'continue')"
+    },
+    "saveAndContinue": "Save & continue",
+    "@saveAndContinue": {
+        "description": "Save-and-advance button label used in wizard steps"
+    },
+    "skip": "Skip",
+    "@skip": {
+        "description": "Skip button label"
+    },
+    "finish": "Finish",
+    "@finish": {
+        "description": "Finish button label on the final wizard step"
+    },
+    "nameLabel": "Name",
+    "@nameLabel": {
+        "description": "Label for the name input on the news signup form"
+    },
+    "emailLabel": "Email",
+    "@emailLabel": {
+        "description": "Label for the email input on the news signup form"
+    },
+    "updatesAboutMyPeopleGroup": "Receive updates about my people group",
+    "@updatesAboutMyPeopleGroup": {
+        "description": "Checkbox label on the news signup form for per-people-group updates"
+    },
+    "updatesFromDoxa": "Receive updates from Doxa",
+    "@updatesFromDoxa": {
+        "description": "Checkbox label on the news signup form for general Doxa updates"
+    },
+    "signUpForUpdates": "Sign up for updates",
+    "@signUpForUpdates": {
+        "description": "Settings row label and sub-screen title for the news signup form"
+    },
+    "newsSignupThanks": "Thanks — you're signed up.",
+    "@newsSignupThanks": {
+        "description": "SnackBar shown after the user submits the news signup form from settings"
     }
 }

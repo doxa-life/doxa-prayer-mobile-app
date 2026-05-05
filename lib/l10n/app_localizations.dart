@@ -542,6 +542,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dismiss next'**
   String get dismissNextReminder;
+
+  /// Title of the wizard welcome step
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Doxa Prayer'**
+  String get wizardWelcomeTitle;
+
+  /// Body of the wizard welcome step
+  ///
+  /// In en, this message translates to:
+  /// **'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.'**
+  String get wizardWelcomeBody;
+
+  /// Primary button on the wizard welcome step
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get wizardGetStarted;
+
+  /// Title of the wizard people-group selection step
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group'**
+  String get wizardChoosePeopleGroupTitle;
+
+  /// Title of the wizard confirm-people-group sub-step
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for {name}?'**
+  String wizardConfirmPeopleGroupTitle(String name);
+
+  /// Body of the wizard confirm-people-group sub-step
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll show you prayer content and reminders for this group. You can change this later.'**
+  String get wizardConfirmPeopleGroupBody;
+
+  /// Title of the wizard reminder step
+  ///
+  /// In en, this message translates to:
+  /// **'Set a prayer reminder'**
+  String get wizardSetReminderTitle;
+
+  /// Body of the wizard reminder step
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll send you a gentle nudge at the time you choose. You can skip this and add reminders later.'**
+  String get wizardSetReminderBody;
+
+  /// Title of the wizard news-signup step
+  ///
+  /// In en, this message translates to:
+  /// **'Stay in the loop'**
+  String get wizardNewsSignupTitle;
+
+  /// Body of the wizard news-signup step
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Get news about your people group and updates from Doxa.'**
+  String get wizardNewsSignupBody;
+
+  /// Back button label
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// Continue button label (named to avoid the reserved word 'continue')
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
+  /// Save-and-advance button label used in wizard steps
+  ///
+  /// In en, this message translates to:
+  /// **'Save & continue'**
+  String get saveAndContinue;
+
+  /// Skip button label
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// Finish button label on the final wizard step
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
+
+  /// Label for the name input on the news signup form
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// Label for the email input on the news signup form
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// Checkbox label on the news signup form for per-people-group updates
+  ///
+  /// In en, this message translates to:
+  /// **'Receive updates about my people group'**
+  String get updatesAboutMyPeopleGroup;
+
+  /// Checkbox label on the news signup form for general Doxa updates
+  ///
+  /// In en, this message translates to:
+  /// **'Receive updates from Doxa'**
+  String get updatesFromDoxa;
+
+  /// Settings row label and sub-screen title for the news signup form
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up for updates'**
+  String get signUpForUpdates;
+
+  /// SnackBar shown after the user submits the news signup form from settings
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks — you\'re signed up.'**
+  String get newsSignupThanks;
 }
 
 class _AppLocalizationsDelegate

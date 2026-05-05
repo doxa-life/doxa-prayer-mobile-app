@@ -296,7 +296,7 @@ This screen will have options like
 ### Wizard (when user first starts app)
 
 Has several steps
-1. How it works step
+1. Welcome and How it works step
 2. Choose a people group step (uses the people group list component)
    1. has a confirm step when they select a people group with 'back' or 'continue' button
 3. Set prayer reminder

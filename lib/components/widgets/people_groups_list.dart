@@ -14,7 +14,13 @@ import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
 
 class PeopleGroupsList extends StatefulWidget {
-  const PeopleGroupsList({super.key});
+  const PeopleGroupsList({super.key, this.onSelect});
+
+  /// Override the action triggered when the user taps "Select" on a group.
+  /// When null, falls back to the in-app confirmation modal that persists the
+  /// selection. The wizard passes a callback that advances to a confirm step
+  /// instead.
+  final ValueChanged<PeopleGroup>? onSelect;
 
   @override
   State<PeopleGroupsList> createState() => _PeopleGroupsListState();
@@ -127,12 +133,19 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                               name: g.name,
                               imageUrl: g.imageUrl,
                               isSelected: selected?.slug == g.slug,
-                              onSelect: () => showSelectPeopleGroupConfirmation(
-                                context,
-                                slug: g.slug,
-                                name: g.name,
-                                imageUrl: g.imageUrl,
-                              ),
+                              onSelect: () {
+                                final cb = widget.onSelect;
+                                if (cb != null) {
+                                  cb(g);
+                                } else {
+                                  showSelectPeopleGroupConfirmation(
+                                    context,
+                                    slug: g.slug,
+                                    name: g.name,
+                                    imageUrl: g.imageUrl,
+                                  );
+                                }
+                              },
                               onDetails: () => _openDetails(g),
                             );
                           },
