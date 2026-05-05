@@ -268,7 +268,7 @@
     "jesusFilm": "Фильм «Иисус»",
     "language": "язык",
     "nPeopleGroups": "{count, plural, =0{Нет групп людей} one{1 группа людей} few{{count} группы людей} many{{count} групп людей} other{{count} групп людей}}",
-    "nRemindersSet": "{count, множественное число, =0{Напоминания не установлены} =1{Установлено 1 напоминание} other{Установлено {count}о напоминаний}}",
+    "nRemindersSet": "{count, plural, =0{Напоминания не установлены} =1{Установлено 1 напоминание} other{Установлено {count}о напоминаний}}",
     "newReminder": "Новое напоминание",
     "nextReminder": "Следующее напоминание",
     "nextReminderOn": "{weekday} по адресу {time}",
