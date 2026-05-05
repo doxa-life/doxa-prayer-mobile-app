@@ -1,9 +1,21 @@
 {
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
     "@amen": {
         "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
     },
     "@appName": {
         "description": "The name of the app"
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
     },
     "@couldNotLoadPeopleGroupsMessage": {
         "description": "The message displayed when the people groups cannot be loaded"
@@ -14,6 +26,12 @@
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
     },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
     "@daysOfWeek": {
         "description": "Label for the weekday selector"
     },
@@ -23,11 +41,20 @@
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
     "@everyDay": {
         "description": "Days summary shown when a reminder is set for all 7 days"
     },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
     "@home": {
         "description": "The home screen"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
     },
     "@language": {
         "description": "The language selector"
@@ -59,23 +86,50 @@
     "@noRemindersYet": {
         "description": "Empty state on the reminders screen"
     },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
     },
     "@peopleGroups": {
         "description": "The people groups screen"
     },
+    "@population": {
+        "description": "The label of the population field"
+    },
     "@pray": {
         "description": "The pray screen"
+    },
+    "@prayerCoverage24h": {
+        "description": "The label of the prayer coverage 24h field"
     },
     "@prayerLogged": {
         "description": "Snackbar shown after a prayer session has been recorded"
     },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
     "@profile": {
         "description": "The profile button"
     },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
     "@reminders": {
         "description": "The reminders screen"
+    },
+    "@resources": {
+        "description": "The title of the resources section"
     },
     "@retry": {
         "description": "The retry button"
@@ -104,6 +158,9 @@
     "@settings": {
         "description": "The settings screen"
     },
+    "@status": {
+        "description": "The label of the status field"
+    },
     "@switchPeopleGroupConfirm": {
         "description": "Confirmation prompt when switching from a currently selected people group to a new one",
         "placeholders": {
@@ -121,16 +178,25 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "adoptionStatus": "Statut d'adoption",
     "amen": "Amen",
     "appName": "nom de l'application",
+    "audioScripture": "Écritures audio",
+    "bibleStories": "Histoires bibliques",
+    "bibleTranslation": "Traduction de la Bible",
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de la prière.",
     "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
+    "country": "Pays",
+    "crossCulturalWorkersPresent": "Travailleurs interculturels présents",
     "daysOfWeek": "Jours de la semaine",
     "delete": "Supprimer",
     "editReminder": "Modifier le rappel",
+    "engagementStatus": "Statut de l'engagement",
     "everyDay": "Tous les jours",
+    "gospelRecordings": "Enregistrements évangéliques",
     "home": "Accueil",
+    "jesusFilm": "Film Jésus",
     "language": "langue",
     "nPeopleGroups": "{count, plural, =0{Aucun Groupe de Personnes} =1{1 Groupe de Personnes} other{{count} Groupes de Personnes}}",
     "newReminder": "Nouveau rappel",
@@ -139,12 +205,21 @@
     "noPeopleGroupSelected": "Choisissez un groupe ethnique pour commencer à prier.",
     "noPrayerContentAvailable": "Il n'y a pas de texte de prière pour aujourd'hui.",
     "noRemindersYet": "Pas encore de rappels",
+    "overview": "Aperçu",
     "pauseAndPray": "Fais une pause et prie",
+    "peopleCommittedToPraying": "Personnes engagées dans la prière",
     "peopleGroups": "groupes ethniques",
+    "population": "Population",
     "pray": "prier",
+    "prayerCoverage24h": "Prière 24 heures sur 24",
     "prayerLogged": "Votre prière a été enregistrée.",
+    "prayerStatus": "Statut de prière",
+    "primaryLanguage": "Langue principale",
+    "primaryReligion": "Religion primaire",
     "profile": "profil",
+    "religiousPractices": "Pratiques religieuses",
     "reminders": "rappels",
+    "resources": "Ressources",
     "retry": "réessayer",
     "save": "Enregistrer",
     "searchPeopleGroups": "Rechercher des personnes et des groupes",
@@ -154,6 +229,7 @@
     "selectReminders": "Sélectionner les rappels",
     "selected": "Sélectionné",
     "settings": "paramètres",
+    "status": "Statut",
     "switchPeopleGroupConfirm": "Voulez-vous cesser de prier pour {currentName} et commencer à prier pour {newName} ?",
     "time": "Heure",
     "yes": "Oui"
