@@ -63,69 +63,74 @@ class AppLocalizationsFr extends AppLocalizations {
   String get selectPeopleGroup => 'Sélectionnez un groupe ethnique';
 
   @override
-  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+  String get crossCulturalWorkersPresent =>
+      'Présence d\'agents de mission interculturelle';
 
   @override
   String get workInLocalLanguageAndCulture =>
-      'Work in local language & culture';
+      'Travailler dans le respect de la langue et de la culture locales';
 
   @override
   String get discipleAndChurchMultiplication =>
-      'Disciple & church multiplication';
+      'Formation de disciples et multiplication des Églises';
 
   @override
-  String get resources => 'Resources';
+  String get resources => 'Ressources';
 
   @override
-  String get bibleTranslation => 'Bible Translation';
+  String get bibleTranslation => 'Traduction de la Bible';
 
   @override
-  String get bibleStories => 'Bible Stories';
+  String get bibleStories => 'Histoires bibliques';
 
   @override
-  String get jesusFilm => 'Jesus Film';
+  String get jesusFilm => 'Le film « Jésus »';
 
   @override
-  String get radioBroadcast => 'Radio broadcast';
+  String get radioBroadcast => 'Émission de radio';
 
   @override
-  String get gospelRecordings => 'Gospel recordings';
+  String get gospelRecordings => 'Enregistrements de gospel';
 
   @override
-  String get audioScripture => 'Audio scripture';
+  String get audioScripture => 'Écritures en audio';
 
   @override
-  String get overview => 'Overview';
+  String get overview => 'Aperçu';
 
   @override
-  String get prayerStatus => 'Prayer Status';
+  String get prayerStatus => 'État de la prière';
 
   @override
-  String get peopleCommittedToPraying => 'People committed to praying';
+  String get peopleCommittedToPraying =>
+      'Des personnes qui s\'engagent à prier';
 
   @override
-  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+  String get prayerCoverage24h => 'Veillée de prière 24 heures sur 24';
 
   @override
-  String get country => 'Country';
+  String get share => 'Share';
 
   @override
-  String get alternateName => 'Alternate name';
+  String get country => 'Pays';
+
+  @override
+  String get alternateName => 'Autre nom';
 
   @override
   String get population => 'Population';
 
   @override
-  String get primaryLanguage => 'Primary language';
+  String get primaryLanguage => 'Langue maternelle';
 
   @override
-  String get primaryReligion => 'Primary religion';
+  String get primaryReligion => 'Religion principale';
 
   @override
-  String get religiousPractices => 'Religious practices';
+  String get religiousPractices => 'Pratiques religieuses';
 
   @override
-  String get setReminder => 'Set reminder';
+  String get setReminder => 'Définir un rappel';
 
   @override
   String get pauseAndPray => 'Fais une pause et prie';
@@ -143,13 +148,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get no => 'Non';
 
   @override
-  String get status => 'Status';
+  String get status => 'Statut';
 
   @override
-  String get engagementStatus => 'Engagement status';
+  String get engagementStatus => 'Situation matrimoniale';
 
   @override
-  String get adoptionStatus => 'Adoption Status';
+  String get adoptionStatus => 'Statut d\'adoption';
 
   @override
   String get selectPeopleGroupConfirm =>
@@ -318,6 +323,72 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
   String get selectPeopleGroup => 'Sélectionnez un groupe ethnique';
 
   @override
+  String get crossCulturalWorkersPresent =>
+      'Travailleurs interculturels présents';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'Travailler dans la langue et la culture locales';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'Formation de disciples et multiplication des Églises';
+
+  @override
+  String get resources => 'Ressources';
+
+  @override
+  String get bibleTranslation => 'Traduction de la Bible';
+
+  @override
+  String get bibleStories => 'Histoires bibliques';
+
+  @override
+  String get jesusFilm => 'Film Jésus';
+
+  @override
+  String get radioBroadcast => 'Émission de radio';
+
+  @override
+  String get gospelRecordings => 'Enregistrements évangéliques';
+
+  @override
+  String get audioScripture => 'Écritures audio';
+
+  @override
+  String get overview => 'Aperçu';
+
+  @override
+  String get prayerStatus => 'Statut de prière';
+
+  @override
+  String get peopleCommittedToPraying => 'Personnes engagées dans la prière';
+
+  @override
+  String get prayerCoverage24h => 'Prière 24 heures sur 24';
+
+  @override
+  String get country => 'Pays';
+
+  @override
+  String get alternateName => 'Autre nom';
+
+  @override
+  String get population => 'Population';
+
+  @override
+  String get primaryLanguage => 'Langue principale';
+
+  @override
+  String get primaryReligion => 'Religion primaire';
+
+  @override
+  String get religiousPractices => 'Pratiques religieuses';
+
+  @override
+  String get setReminder => 'Définir un rappel';
+
+  @override
   String get pauseAndPray => 'Fais une pause et prie';
 
   @override
@@ -331,6 +402,15 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
 
   @override
   String get no => 'Non';
+
+  @override
+  String get status => 'Statut';
+
+  @override
+  String get engagementStatus => 'Statut de l\'engagement';
+
+  @override
+  String get adoptionStatus => 'Statut d\'adoption';
 
   @override
   String get selectPeopleGroupConfirm =>
@@ -362,4 +442,80 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
   @override
   String get couldNotLogPrayerSession =>
       'Impossible d\'enregistrer votre session de prière.';
+
+  @override
+  String get newReminder => 'Nouveau rappel';
+
+  @override
+  String get editReminder => 'Modifier le rappel';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get time => 'Heure';
+
+  @override
+  String get daysOfWeek => 'Jours de la semaine';
+
+  @override
+  String get everyDay => 'Tous les jours';
+
+  @override
+  String get noDaysSelected => 'Aucun jour sélectionné';
+
+  @override
+  String get noRemindersYet => 'Pas encore de rappels';
+
+  @override
+  String get reminderNotificationTitle => 'C\'est l\'heure de prier';
+
+  @override
+  String get reminderNotificationBody =>
+      'Ouvrez la Doxa pour commencer la prière d\'aujourd\'hui.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Les notifications sont désactivées. Activez-les dans les paramètres système pour recevoir des rappels.';
+
+  @override
+  String get nextReminder => 'Prochain rappel';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Aujourd\'hui sur $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Demain sur $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday sur $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Rappels définis $countString',
+      one: '1 rappel défini',
+      zero: 'Aucun rappel défini',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Fermer la fenêtre suivante';
 }

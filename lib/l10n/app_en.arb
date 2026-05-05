@@ -113,6 +113,10 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
     },
+    "share": "Share",
+    "@share": {
+        "description": "The label of the share button"
+    },
     "country": "Country",
     "@country": {
         "description": "The label of the country field"

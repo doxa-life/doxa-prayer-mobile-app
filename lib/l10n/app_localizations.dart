@@ -273,6 +273,12 @@ abstract class AppLocalizations {
   /// **'24-Hour Prayer Coverage'**
   String get prayerCoverage24h;
 
+  /// The label of the share button
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
   /// The label of the country field
   ///
   /// In en, this message translates to:

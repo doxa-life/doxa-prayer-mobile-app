@@ -63,69 +63,70 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPeopleGroup => 'اختر مجموعة عرقية';
 
   @override
-  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+  String get crossCulturalWorkersPresent => 'تواجد خدّام يعملون عبر الثقافات';
 
   @override
-  String get workInLocalLanguageAndCulture =>
-      'Work in local language & culture';
+  String get workInLocalLanguageAndCulture => 'العمل باللغة والثقافة المحلية';
 
   @override
-  String get discipleAndChurchMultiplication =>
-      'Disciple & church multiplication';
+  String get discipleAndChurchMultiplication => 'تكاثر التلاميذ والكنائس';
 
   @override
-  String get resources => 'Resources';
+  String get resources => 'المصادر';
 
   @override
-  String get bibleTranslation => 'Bible Translation';
+  String get bibleTranslation => 'ترجمة الكتاب المقدس';
 
   @override
-  String get bibleStories => 'Bible Stories';
+  String get bibleStories => 'قصص الكتاب المقدس';
 
   @override
-  String get jesusFilm => 'Jesus Film';
+  String get jesusFilm => 'فيلم يسوع';
 
   @override
-  String get radioBroadcast => 'Radio broadcast';
+  String get radioBroadcast => 'بث إذاعي';
 
   @override
-  String get gospelRecordings => 'Gospel recordings';
+  String get gospelRecordings => 'تسجيلات الإنجيل';
 
   @override
-  String get audioScripture => 'Audio scripture';
+  String get audioScripture => 'الكتاب المقدس الصوتي';
 
   @override
-  String get overview => 'Overview';
+  String get overview => 'نظرة عامة';
 
   @override
-  String get prayerStatus => 'Prayer Status';
+  String get prayerStatus => 'حالة الصلاة';
 
   @override
-  String get peopleCommittedToPraying => 'People committed to praying';
+  String get peopleCommittedToPraying => 'الأشخاص الذين التزموا بالصلاة';
 
   @override
-  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+  String get prayerCoverage24h => 'سلسلة صلاة مستمرة على مدار 24 ساعة';
 
   @override
-  String get country => 'Country';
+  String get share => 'Share';
 
   @override
-  String get alternateName => 'Alternate name';
+  String get country => 'الدولة';
 
   @override
-  String get population => 'Population';
+  String get alternateName => 'اسم بديل';
 
   @override
-  String get primaryLanguage => 'Primary language';
+  String get population => 'عدد السكان';
 
   @override
-  String get primaryReligion => 'Primary religion';
+  String get primaryLanguage => 'اللغة الأساسية';
 
   @override
-  String get religiousPractices => 'Religious practices';
+  String get primaryReligion => 'الدين الرئيسي';
 
   @override
-  String get setReminder => 'Set reminder';
+  String get religiousPractices => 'الممارسات الدينية';
+
+  @override
+  String get setReminder => 'تعيين تذكير';
 
   @override
   String get pauseAndPray => 'توقف وصلي';
@@ -143,13 +144,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get no => 'لا';
 
   @override
-  String get status => 'Status';
+  String get status => 'الحالة';
 
   @override
-  String get engagementStatus => 'Engagement status';
+  String get engagementStatus => 'حالة الإلتزام';
 
   @override
-  String get adoptionStatus => 'Adoption Status';
+  String get adoptionStatus => 'وضعية الإنتماء';
 
   @override
   String get selectPeopleGroupConfirm => 'هل تريد اختيار هذه المجموعة العرقية؟';

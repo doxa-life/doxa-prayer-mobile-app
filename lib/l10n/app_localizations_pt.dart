@@ -63,69 +63,73 @@ class AppLocalizationsPt extends AppLocalizations {
   String get selectPeopleGroup => 'Selecione um grupo étnico';
 
   @override
-  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+  String get crossCulturalWorkersPresent =>
+      'Trabalhadores interculturais presentes';
 
   @override
   String get workInLocalLanguageAndCulture =>
-      'Work in local language & culture';
+      'Trabalho na língua e cultura locais';
 
   @override
   String get discipleAndChurchMultiplication =>
-      'Disciple & church multiplication';
+      'Multiplicação de discípulos e igrejas';
 
   @override
-  String get resources => 'Resources';
+  String get resources => 'Recursos';
 
   @override
-  String get bibleTranslation => 'Bible Translation';
+  String get bibleTranslation => 'Tradução da Bíblia';
 
   @override
-  String get bibleStories => 'Bible Stories';
+  String get bibleStories => 'Histórias da Bíblia';
 
   @override
-  String get jesusFilm => 'Jesus Film';
+  String get jesusFilm => 'O Filme de Jesus';
 
   @override
-  String get radioBroadcast => 'Radio broadcast';
+  String get radioBroadcast => 'Transmissão de rádio';
 
   @override
-  String get gospelRecordings => 'Gospel recordings';
+  String get gospelRecordings => 'Gravações de gospel';
 
   @override
-  String get audioScripture => 'Audio scripture';
+  String get audioScripture => 'Áudio da passagem bíblica';
 
   @override
-  String get overview => 'Overview';
+  String get overview => 'Visão geral';
 
   @override
-  String get prayerStatus => 'Prayer Status';
+  String get prayerStatus => 'Estado da oração';
 
   @override
-  String get peopleCommittedToPraying => 'People committed to praying';
+  String get peopleCommittedToPraying => 'Pessoas empenhadas em rezar';
 
   @override
-  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+  String get prayerCoverage24h => 'Cobertura de oração 24 horas por dia';
 
   @override
-  String get country => 'Country';
+  String get share => 'Share';
 
   @override
-  String get alternateName => 'Alternate name';
+  String get country => 'País';
 
   @override
-  String get population => 'Population';
+  String get alternateName => 'Nome alternativo';
 
   @override
-  String get primaryLanguage => 'Primary language';
+  String get population => 'População';
 
   @override
-  String get primaryReligion => 'Primary religion';
+  String get primaryLanguage => 'Língua principal';
 
   @override
-  String get religiousPractices => 'Religious practices';
+  String get primaryReligion => 'Religião principal';
 
   @override
-  String get setReminder => 'Set reminder';
+  String get religiousPractices => 'Práticas religiosas';
+
+  @override
+  String get setReminder => 'Definir lembrete';
 
   @override
   String get pauseAndPray => 'Faz uma pausa e reza';
@@ -143,13 +147,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get no => 'Não';
 
   @override
-  String get status => 'Status';
+  String get status => 'Estado';
 
   @override
-  String get engagementStatus => 'Engagement status';
+  String get engagementStatus => 'Estado civil';
 
   @override
-  String get adoptionStatus => 'Adoption Status';
+  String get adoptionStatus => 'Estado da adoção';
 
   @override
   String get selectPeopleGroupConfirm =>
@@ -317,6 +321,72 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get selectPeopleGroup => 'Selecione um grupo étnico';
 
   @override
+  String get crossCulturalWorkersPresent =>
+      'Trabalhadores interculturais presentes';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'Trabalho na língua e cultura locais';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'Multiplicação de discípulos e igrejas';
+
+  @override
+  String get resources => 'Recursos';
+
+  @override
+  String get bibleTranslation => 'Tradução da Bíblia';
+
+  @override
+  String get bibleStories => 'Histórias da Bíblia';
+
+  @override
+  String get jesusFilm => 'Filme Jesus';
+
+  @override
+  String get radioBroadcast => 'Transmissão de rádio';
+
+  @override
+  String get gospelRecordings => 'Gravações do Evangelho';
+
+  @override
+  String get audioScripture => 'Áudio das Escrituras';
+
+  @override
+  String get overview => 'Visão geral';
+
+  @override
+  String get prayerStatus => 'Status de oração';
+
+  @override
+  String get peopleCommittedToPraying => 'Pessoas comprometidas com a oração';
+
+  @override
+  String get prayerCoverage24h => 'Cobertura de oração 24 horas por dia';
+
+  @override
+  String get country => 'País';
+
+  @override
+  String get alternateName => 'Nome alternativo';
+
+  @override
+  String get population => 'Aplicação';
+
+  @override
+  String get primaryLanguage => 'Língua principal';
+
+  @override
+  String get primaryReligion => 'Religião Primária';
+
+  @override
+  String get religiousPractices => 'Práticas religiosas';
+
+  @override
+  String get setReminder => 'Definir lembrete';
+
+  @override
   String get pauseAndPray => 'Faz uma pausa e reza';
 
   @override
@@ -330,6 +400,15 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
 
   @override
   String get no => 'Não';
+
+  @override
+  String get status => 'Estado';
+
+  @override
+  String get engagementStatus => 'Estado do noivado';
+
+  @override
+  String get adoptionStatus => 'Estado da adoção';
 
   @override
   String get selectPeopleGroupConfirm => 'Quer selecionar este grupo étnico?';
@@ -359,4 +438,80 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   @override
   String get couldNotLogPrayerSession =>
       'Não foi possível registar a sua sessão de oração.';
+
+  @override
+  String get newReminder => 'Novo lembrete';
+
+  @override
+  String get editReminder => 'Editar lembrete';
+
+  @override
+  String get save => 'Salve';
+
+  @override
+  String get delete => 'Excluir';
+
+  @override
+  String get time => 'Tempo';
+
+  @override
+  String get daysOfWeek => 'Dias da semana';
+
+  @override
+  String get everyDay => 'Diariamente';
+
+  @override
+  String get noDaysSelected => 'Não foram selecionados dias';
+
+  @override
+  String get noRemindersYet => 'Ainda não há lembretes';
+
+  @override
+  String get reminderNotificationTitle => 'É hora de rezar';
+
+  @override
+  String get reminderNotificationBody =>
+      'Abra o Doxa para iniciar a oração de hoje.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'As notificações estão desativadas — ative-as nas definições do sistema para receber lembretes.';
+
+  @override
+  String get nextReminder => 'Próximo lembrete';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Hoje em $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Amanhã em $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday em $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Estão definidos ${countString}es de lembretes',
+      one: '1 lembrete definido',
+      zero: 'Não há lembretes definidos',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Ignorar o próximo';
 }

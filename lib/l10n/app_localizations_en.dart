@@ -106,6 +106,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerCoverage24h => '24-Hour Prayer Coverage';
 
   @override
+  String get share => 'Share';
+
+  @override
   String get country => 'Country';
 
   @override
@@ -305,6 +308,71 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
   String get selectPeopleGroup => 'Select a people group';
 
   @override
+  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'Work in local language & culture';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'Disciple & church multiplication';
+
+  @override
+  String get resources => 'Resources';
+
+  @override
+  String get bibleTranslation => 'Bible Translation';
+
+  @override
+  String get bibleStories => 'Bible Stories';
+
+  @override
+  String get jesusFilm => 'Jesus Film';
+
+  @override
+  String get radioBroadcast => 'Radio broadcast';
+
+  @override
+  String get gospelRecordings => 'Gospel Recordings';
+
+  @override
+  String get audioScripture => 'Audio Scripture';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get prayerStatus => 'Prayer Status';
+
+  @override
+  String get peopleCommittedToPraying => 'People committed to praying';
+
+  @override
+  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get alternateName => 'Alternate name';
+
+  @override
+  String get population => 'Population';
+
+  @override
+  String get primaryLanguage => 'Primary Language';
+
+  @override
+  String get primaryReligion => 'Primary Religion';
+
+  @override
+  String get religiousPractices => 'Religious Practices';
+
+  @override
+  String get setReminder => 'Set reminder';
+
+  @override
   String get pauseAndPray => 'Pause & Pray';
 
   @override
@@ -318,6 +386,15 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
 
   @override
   String get no => 'No';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get engagementStatus => 'Engagement Status';
+
+  @override
+  String get adoptionStatus => 'Adoption Status';
 
   @override
   String get selectPeopleGroupConfirm =>
@@ -345,4 +422,79 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
 
   @override
   String get couldNotLogPrayerSession => 'Could not log your prayer session.';
+
+  @override
+  String get newReminder => 'New reminder';
+
+  @override
+  String get editReminder => 'Edit reminder';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get daysOfWeek => 'Days of week';
+
+  @override
+  String get everyDay => 'Every day';
+
+  @override
+  String get noDaysSelected => 'No days selected';
+
+  @override
+  String get noRemindersYet => 'No reminders yet';
+
+  @override
+  String get reminderNotificationTitle => 'Time to pray';
+
+  @override
+  String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Notifications are off — enable them in system settings to receive reminders.';
+
+  @override
+  String get nextReminder => 'Next reminder';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Today at $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Tomorrow at $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday at $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString reminders set',
+      one: '1 reminder set',
+      zero: 'No reminders set',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Dismiss next';
 }

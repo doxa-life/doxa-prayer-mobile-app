@@ -1,5 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/icon_label_button.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class PeopleGroupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return ElevatedAppCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,28 +34,23 @@ class PeopleGroupCard extends StatelessWidget {
           Text(name, style: AppTypography.h2),
           AppImage(url: imageUrl, aspectRatio: 1, size: 169.0),
           ActionButton(
-            label: 'Pray',
+            label: l.pray,
             onPressed: onPray,
             color: ActionButtonColor.secondary,
           ),
           Row(
             spacing: AppSpacing.md,
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconLabelButton(
                 icon: const AppIcon(AppIconName.person),
-                label: 'Profile',
+                label: l.profile,
                 onPressed: onDetails,
               ),
               IconLabelButton(
                 icon: const AppIcon(AppIconName.share),
-                label: 'Share',
-                onPressed: () {},
-              ),
-              IconLabelButton(
-                icon: const AppIcon(AppIconName.trash),
-                label: 'Remove',
+                label: l.share,
                 onPressed: () {},
               ),
             ],

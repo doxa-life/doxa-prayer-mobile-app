@@ -335,6 +335,7 @@ class _CommittedProgress extends StatelessWidget {
           Text(
             l.peopleCommittedToPraying,
             style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
+            textAlign: TextAlign.center,
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(999),
@@ -350,6 +351,7 @@ class _CommittedProgress extends StatelessWidget {
           Text(
             l.prayerCoverage24h,
             style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

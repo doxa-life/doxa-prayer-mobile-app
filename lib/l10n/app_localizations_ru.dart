@@ -65,69 +65,73 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selectPeopleGroup => 'Выберите этническую группу';
 
   @override
-  String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+  String get crossCulturalWorkersPresent =>
+      'Присутствуют специалисты по межкультурной работе';
 
   @override
   String get workInLocalLanguageAndCulture =>
-      'Work in local language & culture';
+      'Работа с учетом особенностей местного языка и культуры';
 
   @override
   String get discipleAndChurchMultiplication =>
-      'Disciple & church multiplication';
+      'Распространение ученичества и рост церквей';
 
   @override
-  String get resources => 'Resources';
+  String get resources => 'Ресурсы';
 
   @override
-  String get bibleTranslation => 'Bible Translation';
+  String get bibleTranslation => 'Перевод Библии';
 
   @override
-  String get bibleStories => 'Bible Stories';
+  String get bibleStories => 'Библейские истории';
 
   @override
-  String get jesusFilm => 'Jesus Film';
+  String get jesusFilm => 'Фильм «Иисус»';
 
   @override
-  String get radioBroadcast => 'Radio broadcast';
+  String get radioBroadcast => 'Радиопередача';
 
   @override
-  String get gospelRecordings => 'Gospel recordings';
+  String get gospelRecordings => 'Записи евангелий';
 
   @override
-  String get audioScripture => 'Audio scripture';
+  String get audioScripture => 'Аудиозапись Священного Писания';
 
   @override
-  String get overview => 'Overview';
+  String get overview => 'Обзор';
 
   @override
-  String get prayerStatus => 'Prayer Status';
+  String get prayerStatus => 'Статус молитвы';
 
   @override
-  String get peopleCommittedToPraying => 'People committed to praying';
+  String get peopleCommittedToPraying => 'Люди, посвятившие себя молитве';
 
   @override
-  String get prayerCoverage24h => '24-Hour Prayer Coverage';
+  String get prayerCoverage24h => 'Круглосуточная молитвенная поддержка';
 
   @override
-  String get country => 'Country';
+  String get share => 'Share';
 
   @override
-  String get alternateName => 'Alternate name';
+  String get country => 'Страна';
 
   @override
-  String get population => 'Population';
+  String get alternateName => 'Другое название';
 
   @override
-  String get primaryLanguage => 'Primary language';
+  String get population => 'Население';
 
   @override
-  String get primaryReligion => 'Primary religion';
+  String get primaryLanguage => 'Родной язык';
 
   @override
-  String get religiousPractices => 'Religious practices';
+  String get primaryReligion => 'Основная религия';
 
   @override
-  String get setReminder => 'Set reminder';
+  String get religiousPractices => 'Религиозные обряды';
+
+  @override
+  String get setReminder => 'Установить напоминание';
 
   @override
   String get pauseAndPray => 'Остановись и помолись';
@@ -145,13 +149,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get no => 'Нет';
 
   @override
-  String get status => 'Status';
+  String get status => 'Статус';
 
   @override
-  String get engagementStatus => 'Engagement status';
+  String get engagementStatus => 'Семейное положение';
 
   @override
-  String get adoptionStatus => 'Adoption Status';
+  String get adoptionStatus => 'Статус усыновления';
 
   @override
   String get selectPeopleGroupConfirm => 'Вы хотите выбрать эту группу людей?';
@@ -322,6 +326,72 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
   String get selectPeopleGroup => 'Выберите этническую группу';
 
   @override
+  String get crossCulturalWorkersPresent =>
+      'Межкультурные работники присутствуют';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'Работа с учетом особенностей местного языка и культуры';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'Распространение ученичества и рост церквей';
+
+  @override
+  String get resources => 'Ресурсы';
+
+  @override
+  String get bibleTranslation => 'Перевод Библии';
+
+  @override
+  String get bibleStories => 'Библейские истории';
+
+  @override
+  String get jesusFilm => 'Фильм «Иисус»';
+
+  @override
+  String get radioBroadcast => 'Радиопередача';
+
+  @override
+  String get gospelRecordings => 'Записи Евангелия';
+
+  @override
+  String get audioScripture => 'Аудио-Священное Писание';
+
+  @override
+  String get overview => 'Обзор';
+
+  @override
+  String get prayerStatus => 'Статус молитвы';
+
+  @override
+  String get peopleCommittedToPraying => 'Люди, посвятившие себя молитве';
+
+  @override
+  String get prayerCoverage24h => '24-часовая молитвенная поддержка';
+
+  @override
+  String get country => 'Страна';
+
+  @override
+  String get alternateName => 'Другое название';
+
+  @override
+  String get population => 'Население';
+
+  @override
+  String get primaryLanguage => 'Основной язык';
+
+  @override
+  String get primaryReligion => 'Основная религия';
+
+  @override
+  String get religiousPractices => 'Религиозные обряды';
+
+  @override
+  String get setReminder => 'Установить напоминание';
+
+  @override
   String get pauseAndPray => 'Остановись и помолись';
 
   @override
@@ -335,6 +405,15 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
 
   @override
   String get no => 'нет';
+
+  @override
+  String get status => 'Статус';
+
+  @override
+  String get engagementStatus => 'Статус взаимодействия';
+
+  @override
+  String get adoptionStatus => 'Статус принятия';
 
   @override
   String get selectPeopleGroupConfirm =>
@@ -364,4 +443,80 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
   @override
   String get couldNotLogPrayerSession =>
       'Не удалось зарегистрировать вашу молитвенную сессию.';
+
+  @override
+  String get newReminder => 'Новое напоминание';
+
+  @override
+  String get editReminder => 'Изменить напоминание';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get time => 'Время';
+
+  @override
+  String get daysOfWeek => 'Дни недели';
+
+  @override
+  String get everyDay => 'Каждый день';
+
+  @override
+  String get noDaysSelected => 'Дни не выбраны';
+
+  @override
+  String get noRemindersYet => 'Пока нет напоминаний';
+
+  @override
+  String get reminderNotificationTitle => 'Пора молиться';
+
+  @override
+  String get reminderNotificationBody =>
+      'Откройте «Доксу», чтобы начать сегодняшнюю молитву.';
+
+  @override
+  String get reminderPermissionDenied =>
+      'Уведомления отключены — включите их в настройках системы, чтобы получать напоминания.';
+
+  @override
+  String get nextReminder => 'Следующее напоминание';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'Сегодня на сайте $time';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'Завтра на сайте $time';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday по адресу $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Установлено $countStringо напоминаний',
+      one: 'Установлено 1 напоминание',
+      zero: 'Напоминания не установлены',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dismissNextReminder => 'Закрыть следующее';
 }
