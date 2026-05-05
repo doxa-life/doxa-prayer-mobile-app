@@ -32,11 +32,17 @@
     "@jesusFilm": {
         "description": "The label of the jesus film field"
     },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "@population": {
+        "description": "The label of the population field"
     },
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
@@ -56,11 +62,17 @@
     "@religiousPractices": {
         "description": "The label of the religious practices field"
     },
+    "@resources": {
+        "description": "The title of the resources section"
+    },
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
     "@setReminder": {
         "description": "The set reminder button"
+    },
+    "@status": {
+        "description": "The label of the status field"
     },
     "@workInLocalLanguageAndCulture": {
         "description": "The label of the work in local language and culture field"
@@ -100,9 +112,11 @@
     "noPeopleGroupSelected": "Elige un grupo de personas para empezar a orar.",
     "noPrayerContentAvailable": "No hay contenido de oración para hoy.",
     "noRemindersYet": "Aún no hay recordatorios",
+    "overview": "Resumen",
     "pauseAndPray": "Haz una pausa y reza",
     "peopleCommittedToPraying": "Personas comprometidas con la oración",
     "peopleGroups": "Grupos de Personas",
+    "population": "Aplicación",
     "pray": "Orar",
     "prayerCoverage24h": "Cobertura de oración las 24 horas",
     "prayerLogged": "Tu oración ha sido registrada.",
@@ -116,6 +130,7 @@
     "reminderNotificationTitle": "Hora de orar",
     "reminderPermissionDenied": "Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios.",
     "reminders": "Recordatorios",
+    "resources": "Recursos",
     "retry": "Reintentar",
     "save": "Guardar",
     "searchPeopleGroups": "Buscar Grupos de Personas",
@@ -125,6 +140,7 @@
     "selected": "Seleccionado",
     "setReminder": "Configurar un recordatorio",
     "settings": "Ajustes",
+    "status": "Estado",
     "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?",
     "time": "Hora",
     "workInLocalLanguageAndCulture": "Trabajar en el idioma y la cultura locales",
