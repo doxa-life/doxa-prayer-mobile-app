@@ -25,7 +25,14 @@ final GoRouter appRouter = GoRouter(
   refreshListenable: wizardCompletedController,
   redirect: (context, state) {
     final atWizard = state.matchedLocation == '/wizard';
-    if (!wizardCompletedController.value && !atWizard) return '/wizard';
+    final atPeopleGroupDetails = state.matchedLocation.startsWith(
+      '/people-groups/',
+    );
+    if (!wizardCompletedController.value &&
+        !atWizard &&
+        !atPeopleGroupDetails) {
+      return '/wizard';
+    }
     if (wizardCompletedController.value && atWizard) return '/home';
     return null;
   },
