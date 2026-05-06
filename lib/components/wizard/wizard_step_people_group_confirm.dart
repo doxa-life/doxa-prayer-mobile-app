@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -30,44 +31,42 @@ class WizardStepPeopleGroupConfirm extends StatelessWidget {
     if (g == null) {
       return const SizedBox.shrink();
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        H1(
-          l.wizardConfirmPeopleGroupTitle(g.name),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.lg),
-        Text(
-          l.wizardConfirmPeopleGroupBody,
-          style: AppTypography.bodyMedium,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: AppSpacing.xl),
-        PeopleGroupCard(
-          name: g.name,
-          imageUrl: g.imageUrl,
-          onPray: () {},
-          onDetails: () {},
-        ),
-        const SizedBox(height: AppSpacing.xxl),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ActionButton(
-              label: l.back,
-              color: ActionButtonColor.white,
-              isOutlined: true,
-              onPressed: controller.cancelPeopleGroupSelection,
-            ),
-            ActionButton(
-              label: l.continueLabel,
-              color: ActionButtonColor.secondary,
-              onPressed: () => _onContinue(context),
-            ),
-          ],
-        ),
-      ],
+    return PageContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          H1(
+            l.wizardConfirmPeopleGroupTitle(g.name),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            l.wizardConfirmPeopleGroupBody,
+            style: AppTypography.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          PeopleGroupCard(name: g.name, imageUrl: g.imageUrl),
+          const SizedBox(height: AppSpacing.xxl),
+          Expanded(child: SizedBox.shrink()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ActionButton(
+                label: l.back,
+                color: ActionButtonColor.white,
+                isOutlined: true,
+                onPressed: controller.cancelPeopleGroupSelection,
+              ),
+              ActionButton(
+                label: l.continueLabel,
+                color: ActionButtonColor.secondary,
+                onPressed: () => _onContinue(context),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

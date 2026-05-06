@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -27,23 +28,25 @@ class WizardStepNewsSignup extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          H1(l.wizardNewsSignupTitle, textAlign: TextAlign.center),
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            l.wizardNewsSignupBody,
-            style: AppTypography.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          NewsSignup(
-            onSubmit: (data) => _onSubmit(context, data),
-            onSkip: () => _onSkip(context),
-            submitLabel: l.finish,
-          ),
-        ],
+      child: PageContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            H1(l.wizardNewsSignupTitle, textAlign: TextAlign.center),
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              l.wizardNewsSignupBody,
+              style: AppTypography.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            NewsSignup(
+              onSubmit: (data) => _onSubmit(context, data),
+              onSkip: () => _onSkip(context),
+              submitLabel: l.finish,
+            ),
+          ],
+        ),
       ),
     );
   }

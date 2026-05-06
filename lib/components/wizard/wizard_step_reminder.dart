@@ -1,3 +1,5 @@
+import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -31,22 +33,26 @@ class WizardStepReminder extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            l.wizardSetReminderBody,
-            style: AppTypography.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          ReminderForm(
-            title: l.wizardSetReminderTitle,
-            onSaved: (r) => _onSaved(context, r),
-            onSkip: controller.next,
-            saveLabel: l.saveAndContinue,
-          ),
-        ],
+      child: PageContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
+            Text(
+              l.wizardSetReminderBody,
+              style: AppTypography.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            ReminderForm(
+              title: '',
+              onSaved: (r) => _onSaved(context, r),
+              onSkip: controller.next,
+              saveLabel: l.saveAndContinue,
+            ),
+          ],
+        ),
       ),
     );
   }

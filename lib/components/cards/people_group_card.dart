@@ -14,14 +14,16 @@ class PeopleGroupCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.imageUrl,
-    required this.onPray,
-    required this.onDetails,
+    this.onPray,
+    this.onShare,
+    this.onDetails,
   });
 
   final String name;
   final String? imageUrl;
-  final VoidCallback onPray;
-  final VoidCallback onDetails;
+  final VoidCallback? onPray;
+  final VoidCallback? onShare;
+  final VoidCallback? onDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +35,29 @@ class PeopleGroupCard extends StatelessWidget {
         children: [
           Text(name, style: AppTypography.h2),
           AppImage(url: imageUrl, aspectRatio: 1, size: 169.0),
-          ActionButton(
-            label: l.pray,
-            onPressed: onPray,
-            color: ActionButtonColor.secondary,
-          ),
+          if (onPray != null)
+            ActionButton(
+              label: l.pray,
+              onPressed: onPray,
+              color: ActionButtonColor.secondary,
+            ),
           Row(
             spacing: AppSpacing.md,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconLabelButton(
-                icon: const AppIcon(AppIconName.person),
-                label: l.profile,
-                onPressed: onDetails,
-              ),
-              IconLabelButton(
-                icon: const AppIcon(AppIconName.share),
-                label: l.share,
-                onPressed: () {},
-              ),
+              if (onDetails != null)
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.person),
+                  label: l.profile,
+                  onPressed: onDetails,
+                ),
+              if (onShare != null)
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.share),
+                  label: l.share,
+                  onPressed: () {},
+                ),
             ],
           ),
         ],
