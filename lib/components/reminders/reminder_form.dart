@@ -12,17 +12,17 @@ class ReminderForm extends StatefulWidget {
   const ReminderForm({
     super.key,
     this.initialReminder,
-    required this.onSaved,
+    this.onSaved,
     this.onDelete,
-    this.onSkip,
+    this.onChanged,
     this.saveLabel,
     this.title,
   });
 
   final Reminder? initialReminder;
-  final Future<void> Function(Reminder) onSaved;
+  final Future<void> Function(Reminder)? onSaved;
   final Future<void> Function()? onDelete;
-  final VoidCallback? onSkip;
+  final ValueChanged<Reminder?>? onChanged;
   final String? saveLabel;
   final String? title;
 
@@ -31,6 +31,7 @@ class ReminderForm extends StatefulWidget {
 }
 
 class _ReminderFormState extends State<ReminderForm> {
+  late final String _id;
   late TimeOfDay _time;
   late Set<int> _weekdays;
   bool _saving = false;
@@ -39,41 +40,61 @@ class _ReminderFormState extends State<ReminderForm> {
   void initState() {
     super.initState();
     final r = widget.initialReminder;
+    _id = r?.id ?? generateReminderId();
     _time = r != null
         ? TimeOfDay(hour: r.hour, minute: r.minute)
         : const TimeOfDay(hour: 8, minute: 0);
     _weekdays = r != null
         ? {...r.weekdays}
         : {
+            DateTime.sunday,
             DateTime.monday,
             DateTime.tuesday,
             DateTime.wednesday,
             DateTime.thursday,
             DateTime.friday,
+            DateTime.saturday,
           };
+    if (widget.onChanged != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) widget.onChanged!(_currentValid());
+      });
+    }
   }
 
   bool get _isEditing => widget.initialReminder != null;
   bool get _canSave => _weekdays.isNotEmpty && !_saving;
 
-  Future<void> _pickTime() async {
-    final picked = await showTimePicker(context: context, initialTime: _time);
-    if (picked != null) setState(() => _time = picked);
-  }
-
-  Future<void> _save() async {
-    if (!_canSave) return;
-    setState(() => _saving = true);
+  Reminder? _currentValid() {
+    if (_weekdays.isEmpty) return null;
     final r = widget.initialReminder;
-    final next = Reminder(
-      id: r?.id ?? generateReminderId(),
+    return Reminder(
+      id: _id,
       hour: _time.hour,
       minute: _time.minute,
       weekdays: _weekdays.toList()..sort(),
       enabled: r?.enabled ?? true,
     );
+  }
+
+  void _emitChanged() => widget.onChanged?.call(_currentValid());
+
+  Future<void> _pickTime() async {
+    final picked = await showTimePicker(context: context, initialTime: _time);
+    if (picked != null) {
+      setState(() => _time = picked);
+      _emitChanged();
+    }
+  }
+
+  Future<void> _save() async {
+    final onSaved = widget.onSaved;
+    if (!_canSave || onSaved == null) return;
+    final next = _currentValid();
+    if (next == null) return;
+    setState(() => _saving = true);
     try {
-      await widget.onSaved(next);
+      await onSaved(next);
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -106,10 +127,15 @@ class _ReminderFormState extends State<ReminderForm> {
         const SizedBox(height: AppSpacing.sm),
         WeekdaySelector(
           selected: _weekdays,
-          onChanged: (s) => setState(() => _weekdays = s),
+          onChanged: (s) {
+            setState(() => _weekdays = s);
+            _emitChanged();
+          },
         ),
-        const SizedBox(height: AppSpacing.xxl),
-        _buildButtonRow(l, saveLabel),
+        if (widget.onSaved != null) ...[
+          const SizedBox(height: AppSpacing.xxl),
+          _buildButtonRow(l, saveLabel),
+        ],
       ],
     );
   }
@@ -129,20 +155,6 @@ class _ReminderFormState extends State<ReminderForm> {
             color: ActionButtonColor.white,
             isOutlined: true,
             onPressed: _saving ? null : () => widget.onDelete!(),
-          ),
-          saveButton,
-        ],
-      );
-    }
-    if (widget.onSkip != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ActionButton(
-            label: l.skip,
-            color: ActionButtonColor.white,
-            isOutlined: true,
-            onPressed: _saving ? null : widget.onSkip,
           ),
           saveButton,
         ],

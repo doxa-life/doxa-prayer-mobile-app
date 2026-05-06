@@ -8,33 +8,50 @@ import '../../services/reminders_notifications.dart';
 import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
+import '../buttons/action_button.dart';
 import '../reminders/reminder_form.dart';
 
-class WizardStepReminder extends StatelessWidget {
+class WizardStepReminder extends StatefulWidget {
   const WizardStepReminder({super.key, required this.controller});
 
   final WizardController controller;
 
-  Future<void> _onSaved(BuildContext context, Reminder r) async {
+  @override
+  State<WizardStepReminder> createState() => _WizardStepReminderState();
+}
+
+class _WizardStepReminderState extends State<WizardStepReminder> {
+  Reminder? _current;
+  bool _saving = false;
+
+  Future<void> _save() async {
+    final r = _current;
+    if (r == null || _saving) return;
     final messenger = ScaffoldMessenger.of(context);
     final l = AppLocalizations.of(context)!;
-    final granted = await ensureNotificationPermission();
-    await addReminder(r);
-    if (!context.mounted) return;
-    if (!granted) {
-      messenger.showSnackBar(
-        SnackBar(content: Text(l.reminderPermissionDenied)),
-      );
+    setState(() => _saving = true);
+    try {
+      final granted = await ensureNotificationPermission();
+      await addReminder(r);
+      if (!mounted) return;
+      if (!granted) {
+        messenger.showSnackBar(
+          SnackBar(content: Text(l.reminderPermissionDenied)),
+        );
+      }
+      widget.controller.next();
+    } finally {
+      if (mounted) setState(() => _saving = false);
     }
-    controller.next();
   }
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final canSave = _current != null && !_saving;
     return PageContainer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
@@ -46,9 +63,25 @@ class WizardStepReminder extends StatelessWidget {
           const SizedBox(height: AppSpacing.xl),
           ReminderForm(
             title: '',
-            onSaved: (r) => _onSaved(context, r),
-            onSkip: controller.next,
-            saveLabel: l.saveAndContinue,
+            onChanged: (r) => setState(() => _current = r),
+          ),
+          const SizedBox(height: AppSpacing.xxl),
+          Expanded(child: SizedBox.shrink()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ActionButton(
+                label: l.skip,
+                color: ActionButtonColor.white,
+                isOutlined: true,
+                onPressed: _saving ? null : widget.controller.next,
+              ),
+              ActionButton(
+                label: l.saveAndContinue,
+                color: ActionButtonColor.secondary,
+                onPressed: canSave ? _save : null,
+              ),
+            ],
           ),
         ],
       ),
