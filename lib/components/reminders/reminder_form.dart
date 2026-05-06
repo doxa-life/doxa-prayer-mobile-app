@@ -110,7 +110,7 @@ class _ReminderFormState extends State<ReminderForm> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Center(child: H2(title)),
-        const SizedBox(height: AppSpacing.xxl),
+        if (title.isNotEmpty) const SizedBox(height: AppSpacing.xxl),
         InkWell(
           onTap: _pickTime,
           borderRadius: BorderRadius.circular(28),

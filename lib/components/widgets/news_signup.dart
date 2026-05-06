@@ -23,13 +23,13 @@ class NewsSignupData {
 class NewsSignup extends StatefulWidget {
   const NewsSignup({
     super.key,
-    required this.onSubmit,
-    this.onSkip,
+    this.onSubmit,
+    this.onChanged,
     this.submitLabel,
   });
 
-  final Future<void> Function(NewsSignupData) onSubmit;
-  final VoidCallback? onSkip;
+  final Future<void> Function(NewsSignupData)? onSubmit;
+  final ValueChanged<NewsSignupData?>? onChanged;
   final String? submitLabel;
 
   @override
@@ -46,29 +46,46 @@ class _NewsSignupState extends State<NewsSignup> {
   static final RegExp _emailRe = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.onChanged != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) widget.onChanged!(_currentValid());
+      });
+    }
+  }
+
+  @override
   void dispose() {
     _name.dispose();
     _email.dispose();
     super.dispose();
   }
 
-  bool get _canSubmit =>
-      !_submitting &&
-      _name.text.trim().isNotEmpty &&
-      _emailRe.hasMatch(_email.text.trim());
+  bool get _isValid =>
+      _name.text.trim().isNotEmpty && _emailRe.hasMatch(_email.text.trim());
+  bool get _canSubmit => !_submitting && _isValid;
+
+  NewsSignupData? _currentValid() {
+    if (!_isValid) return null;
+    return NewsSignupData(
+      name: _name.text.trim(),
+      email: _email.text.trim(),
+      wantsPeopleGroupUpdates: _wantsPeopleGroupUpdates,
+      wantsDoxaUpdates: _wantsDoxaUpdates,
+    );
+  }
+
+  void _emitChanged() => widget.onChanged?.call(_currentValid());
 
   Future<void> _submit() async {
-    if (!_canSubmit) return;
+    final onSubmit = widget.onSubmit;
+    if (!_canSubmit || onSubmit == null) return;
+    final data = _currentValid();
+    if (data == null) return;
     setState(() => _submitting = true);
     try {
-      await widget.onSubmit(
-        NewsSignupData(
-          name: _name.text.trim(),
-          email: _email.text.trim(),
-          wantsPeopleGroupUpdates: _wantsPeopleGroupUpdates,
-          wantsDoxaUpdates: _wantsDoxaUpdates,
-        ),
-      );
+      await onSubmit(data);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -84,54 +101,51 @@ class _NewsSignupState extends State<NewsSignup> {
         AppTextField(
           label: l.nameLabel,
           controller: _name,
-          onChanged: (_) => setState(() {}),
+          onChanged: (_) {
+            setState(() {});
+            _emitChanged();
+          },
         ),
         const SizedBox(height: AppSpacing.lg),
         AppTextField(
           label: l.emailLabel,
           controller: _email,
-          onChanged: (_) => setState(() {}),
+          onChanged: (_) {
+            setState(() {});
+            _emitChanged();
+          },
         ),
         const SizedBox(height: AppSpacing.lg),
         CheckboxField(
           label: l.updatesAboutMyPeopleGroup,
           value: _wantsPeopleGroupUpdates,
-          onChanged: (v) => setState(() => _wantsPeopleGroupUpdates = v),
+          onChanged: (v) {
+            setState(() => _wantsPeopleGroupUpdates = v);
+            _emitChanged();
+          },
         ),
         CheckboxField(
           label: l.updatesFromDoxa,
           value: _wantsDoxaUpdates,
-          onChanged: (v) => setState(() => _wantsDoxaUpdates = v),
+          onChanged: (v) {
+            setState(() => _wantsDoxaUpdates = v);
+            _emitChanged();
+          },
         ),
-        const SizedBox(height: AppSpacing.xxl),
-        _buildButtonRow(l, submitLabel),
-      ],
-    );
-  }
-
-  Widget _buildButtonRow(AppLocalizations l, String submitLabel) {
-    final submitButton = ActionButton(
-      label: submitLabel,
-      onPressed: _canSubmit ? _submit : null,
-      color: ActionButtonColor.secondary,
-    );
-    if (widget.onSkip != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ActionButton(
-            label: l.skip,
-            color: ActionButtonColor.white,
-            isOutlined: true,
-            onPressed: _submitting ? null : widget.onSkip,
+        if (widget.onSubmit != null) ...[
+          const SizedBox(height: AppSpacing.xxl),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ActionButton(
+                label: submitLabel,
+                onPressed: _canSubmit ? _submit : null,
+                color: ActionButtonColor.secondary,
+              ),
+            ],
           ),
-          submitButton,
         ],
-      );
-    }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [submitButton],
+      ],
     );
   }
 }

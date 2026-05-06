@@ -6,27 +6,45 @@ import '../../services/news_signup_service.dart';
 import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
+import '../buttons/action_button.dart';
 import '../misc/titles.dart';
 import '../widgets/news_signup.dart';
 
-class WizardStepNewsSignup extends StatelessWidget {
+class WizardStepNewsSignup extends StatefulWidget {
   const WizardStepNewsSignup({super.key, required this.controller});
 
   final WizardController controller;
 
-  Future<void> _onSubmit(BuildContext context, NewsSignupData data) async {
-    await submitNewsSignup(data);
-    if (!context.mounted) return;
-    await controller.finish(context);
+  @override
+  State<WizardStepNewsSignup> createState() => _WizardStepNewsSignupState();
+}
+
+class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
+  NewsSignupData? _current;
+  bool _submitting = false;
+
+  Future<void> _submit() async {
+    final data = _current;
+    if (data == null || _submitting) return;
+    setState(() => _submitting = true);
+    try {
+      await submitNewsSignup(data);
+      if (!mounted) return;
+      await widget.controller.finish(context);
+    } finally {
+      if (mounted) setState(() => _submitting = false);
+    }
   }
 
-  Future<void> _onSkip(BuildContext context) async {
-    await controller.finish(context);
+  Future<void> _skip() async {
+    if (_submitting) return;
+    await widget.controller.finish(context);
   }
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final canSubmit = _current != null && !_submitting;
     return PageContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,10 +57,24 @@ class WizardStepNewsSignup extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.xl),
-          NewsSignup(
-            onSubmit: (data) => _onSubmit(context, data),
-            onSkip: () => _onSkip(context),
-            submitLabel: l.finish,
+          NewsSignup(onChanged: (data) => setState(() => _current = data)),
+          const SizedBox(height: AppSpacing.xxl),
+          const Expanded(child: SizedBox.shrink()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ActionButton(
+                label: l.skip,
+                color: ActionButtonColor.white,
+                isOutlined: true,
+                onPressed: _submitting ? null : _skip,
+              ),
+              ActionButton(
+                label: l.finish,
+                color: ActionButtonColor.secondary,
+                onPressed: canSubmit ? _submit : null,
+              ),
+            ],
           ),
         ],
       ),
