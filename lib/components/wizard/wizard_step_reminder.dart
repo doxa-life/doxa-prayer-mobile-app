@@ -32,27 +32,25 @@ class WizardStepReminder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    return SingleChildScrollView(
-      child: PageContainer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
-            Text(
-              l.wizardSetReminderBody,
-              style: AppTypography.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.xl),
-            ReminderForm(
-              title: '',
-              onSaved: (r) => _onSaved(context, r),
-              onSkip: controller.next,
-              saveLabel: l.saveAndContinue,
-            ),
-          ],
-        ),
+    return PageContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
+          Text(
+            l.wizardSetReminderBody,
+            style: AppTypography.bodyMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          ReminderForm(
+            title: '',
+            onSaved: (r) => _onSaved(context, r),
+            onSkip: controller.next,
+            saveLabel: l.saveAndContinue,
+          ),
+        ],
       ),
     );
   }
