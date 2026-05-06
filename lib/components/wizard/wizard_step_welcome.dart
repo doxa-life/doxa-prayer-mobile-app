@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,7 +25,16 @@ class WizardStepWelcome extends StatelessWidget {
           right: 0,
           child: SvgPicture.asset(
             'assets/images/worldmap.svg',
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image.asset(
+            'assets/images/doxa-logo-vertical.png',
+            height: 140,
           ),
         ),
         Positioned(
@@ -36,8 +46,8 @@ class WizardStepWelcome extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.white, Colors.white.withValues(alpha: 0)],
-                stops: const [0.0, 0.5],
+                colors: [Colors.white, Colors.white.withValues(alpha: 0.5)],
+                stops: const [0.0, 1],
               ),
             ),
             child: Image.asset(
@@ -47,24 +57,27 @@ class WizardStepWelcome extends StatelessWidget {
           ),
         ),
         Positioned.fill(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
-              const SizedBox(height: AppSpacing.xl),
-              Text(
-                l.wizardWelcomeBody,
-                style: AppTypography.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.xxxl),
-              ActionButton.fullWidth(
-                label: l.wizardGetStarted,
-                onPressed: controller.next,
-                color: ActionButtonColor.secondary,
-              ),
-            ],
+          child: PageContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: AppSpacing.xl,
+              children: [
+                H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
+                const SizedBox(height: AppSpacing.xl),
+                Text(
+                  l.wizardWelcomeBody,
+                  style: AppTypography.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppSpacing.xxxl),
+                ActionButton(
+                  label: l.wizardGetStarted,
+                  onPressed: controller.next,
+                  color: ActionButtonColor.secondary,
+                ),
+              ],
+            ),
           ),
         ),
       ],

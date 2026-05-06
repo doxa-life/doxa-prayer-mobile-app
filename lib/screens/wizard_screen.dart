@@ -37,7 +37,9 @@ class _WizardScreenState extends State<WizardScreen> {
   Widget build(BuildContext context) {
     return BackgroundImageContainer(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: (_controller.step == WizardStep.welcome)
+            ? Colors.white
+            : Colors.transparent,
         body: SafeArea(
           child: PopScope(
             canPop: false,
@@ -49,6 +51,7 @@ class _WizardScreenState extends State<WizardScreen> {
               animation: _controller,
               builder: (context, _) {
                 return PageContainer(
+                  horizontalPadding: 0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
