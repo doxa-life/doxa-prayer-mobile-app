@@ -17,6 +17,7 @@ Future<void> main() async {
     loadSelectedPeopleGroup(),
     loadReminders(),
     loadWizardCompleted(),
+    loadLocale(),
   ]);
   runApp(const MyApp());
 }

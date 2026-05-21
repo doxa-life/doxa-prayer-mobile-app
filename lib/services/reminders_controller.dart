@@ -122,6 +122,13 @@ Future<void> deleteReminder(String id) async {
   await _persist([for (final r in _current()) if (r.id != id) r]);
 }
 
+Future<void> clearReminders() async {
+  remindersController.value = const Reminders(list: []);
+  final prefs = SharedPreferencesAsync();
+  await prefs.remove(_storageKey);
+  await rescheduleAllReminders(const []);
+}
+
 Future<void> setReminderEnabled(String id, bool enabled) async {
   final old = _find(id);
   await _persist([

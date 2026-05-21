@@ -43,3 +43,11 @@ Future<void> setSelectedPeopleGroup(SelectedPeopleGroup group) async {
     await prefs.setString(_imageUrlKey, group.imageUrl!);
   }
 }
+
+Future<void> clearSelectedPeopleGroup() async {
+  selectedPeopleGroupController.value = null;
+  final prefs = SharedPreferencesAsync();
+  await prefs.remove(_slugKey);
+  await prefs.remove(_nameKey);
+  await prefs.remove(_imageUrlKey);
+}

@@ -12,12 +12,14 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     this.onSettings,
     this.onBack,
     this.onGallery,
+    this.onDebug,
   });
 
   final String? title;
   final VoidCallback? onSettings;
   final VoidCallback? onBack;
   final VoidCallback? onGallery;
+  final VoidCallback? onDebug;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -52,6 +54,15 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
           tooltip: 'Kitchen Sink',
           onPressed: onGallery,
         ),
+        if (onDebug != null)
+          IconButton(
+            icon: const Icon(
+              Icons.bug_report_outlined,
+              color: AppColors.onPrimary,
+            ),
+            tooltip: 'Debug',
+            onPressed: onDebug,
+          ),
         if (onSettings != null)
           IconButton(
             icon: const AppIcon(AppIconName.gear, color: AppColors.onPrimary),

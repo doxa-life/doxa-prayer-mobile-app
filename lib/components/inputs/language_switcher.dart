@@ -25,7 +25,7 @@ class LanguageSwitcher extends StatelessWidget {
               .toList(growable: false),
           onChanged: (selected) {
             if (selected != null) {
-              localeController.value = selected;
+              setLocale(selected);
             }
           },
         );

@@ -44,6 +44,11 @@ Future<List<PrayerRecord>> loadPrayerHistory() async {
       .toList();
 }
 
+Future<void> clearPrayerHistory() async {
+  final prefs = SharedPreferencesAsync();
+  await prefs.remove(_historyKey);
+}
+
 Future<void> recordPrayer(PrayerRecord record) async {
   if (!kReleaseMode) {
     developer.log(

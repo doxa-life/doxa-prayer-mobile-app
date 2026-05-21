@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_shell.dart';
+import 'screens/debug_screen.dart';
 import 'screens/gallery_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
@@ -105,6 +106,12 @@ final GoRouter appRouter = GoRouter(
       path: '/gallery',
       parentNavigatorKey: _rootNavigatorKey,
       builder: (_, _) => const GalleryScreen(),
+    ),
+    GoRoute(
+      name: 'debug',
+      path: '/debug',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const DebugScreen(),
     ),
     GoRoute(
       name: 'wizard',

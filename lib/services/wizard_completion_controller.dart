@@ -17,3 +17,9 @@ Future<void> markWizardCompleted() async {
   final prefs = SharedPreferencesAsync();
   await prefs.setBool(_storageKey, true);
 }
+
+Future<void> clearWizardCompleted() async {
+  wizardCompletedController.value = false;
+  final prefs = SharedPreferencesAsync();
+  await prefs.remove(_storageKey);
+}

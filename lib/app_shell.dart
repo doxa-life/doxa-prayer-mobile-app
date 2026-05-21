@@ -48,6 +48,8 @@ class _AppShellState extends State<AppShell> {
 
   void _openGallery(BuildContext context) => context.push('/gallery');
 
+  void _openDebug(BuildContext context) => context.push('/debug');
+
   void _onTabTap(int index) {
     widget.navigationShell.goBranch(
       index,
@@ -63,6 +65,7 @@ class _AppShellState extends State<AppShell> {
         appBar: TopNavBar(
           onSettings: () => _openSettings(context),
           onGallery: () => _openGallery(context),
+          onDebug: () => _openDebug(context),
         ),
         body: widget.navigationShell,
         bottomNavigationBar: BottomNavBar(
