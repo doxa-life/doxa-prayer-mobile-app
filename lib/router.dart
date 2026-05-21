@@ -84,8 +84,14 @@ final GoRouter appRouter = GoRouter(
       name: 'people-group-details',
       path: '/people-groups/:slug',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, state) =>
-          PeopleGroupDetailsScreen(slug: state.pathParameters['slug']),
+      builder: (_, state) {
+        final extra = state.extra;
+        final fromWizard = extra is Map && extra['fromWizard'] == true;
+        return PeopleGroupDetailsScreen(
+          slug: state.pathParameters['slug'],
+          fromWizard: fromWizard,
+        );
+      },
     ),
     GoRoute(
       name: 'settings',

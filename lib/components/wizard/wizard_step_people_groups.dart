@@ -25,7 +25,10 @@ class WizardStepPeopleGroups extends StatelessWidget {
         children: [
           H1(l.wizardChoosePeopleGroupTitle, textAlign: TextAlign.center),
           Expanded(
-            child: PeopleGroupsList(onSelect: controller.proposePeopleGroup),
+            child: PeopleGroupsList(
+              onSelect: controller.proposePeopleGroup,
+              onSelectionConfirmed: (_) => controller.next(),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

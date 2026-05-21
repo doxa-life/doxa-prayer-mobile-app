@@ -14,13 +14,18 @@ import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
 
 class PeopleGroupsList extends StatefulWidget {
-  const PeopleGroupsList({super.key, this.onSelect});
+  const PeopleGroupsList({super.key, this.onSelect, this.onSelectionConfirmed});
 
   /// Override the action triggered when the user taps "Select" on a group.
   /// When null, falls back to the in-app confirmation modal that persists the
   /// selection. The wizard passes a callback that advances to a confirm step
   /// instead.
   final ValueChanged<PeopleGroup>? onSelect;
+
+  /// Called after the user confirms a selection via the details page modal.
+  /// The wizard uses this to skip its in-wizard confirm step (the user already
+  /// confirmed externally) and signals "in wizard" mode to the details page.
+  final ValueChanged<PeopleGroup>? onSelectionConfirmed;
 
   @override
   State<PeopleGroupsList> createState() => _PeopleGroupsListState();
@@ -53,8 +58,14 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     return groups.where((g) => g.name.toLowerCase().contains(q)).toList();
   }
 
-  void _openDetails(PeopleGroup group) {
-    context.push('/people-groups/${group.slug}');
+  Future<void> _openDetails(PeopleGroup group) async {
+    final fromWizard = widget.onSelectionConfirmed != null;
+    final confirmed = await context.push<bool>(
+      '/people-groups/${group.slug}',
+      extra: {'fromWizard': fromWizard},
+    );
+    if (!mounted) return;
+    if (confirmed == true) widget.onSelectionConfirmed?.call(group);
   }
 
   void _onScanQr() {

@@ -19,9 +19,18 @@ import 'package:flutter/material.dart';
 const int _peopleCommittedGoal = 144;
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
-  const PeopleGroupDetailsScreen({super.key, this.slug});
+  const PeopleGroupDetailsScreen({
+    super.key,
+    this.slug,
+    this.fromWizard = false,
+  });
 
   final String? slug;
+
+  /// When true, the screen was opened from the wizard's people-groups list.
+  /// A successful selection via the "Select" button will pop with `true` so
+  /// the wizard can advance past the confirm step.
+  final bool fromWizard;
 
   @override
   State<PeopleGroupDetailsScreen> createState() =>
@@ -75,7 +84,7 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
               );
             }
             final detail = snapshot.data!;
-            return _DetailBody(detail: detail);
+            return _DetailBody(detail: detail, fromWizard: widget.fromWizard);
           },
         ),
       ),
@@ -84,9 +93,10 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
 }
 
 class _DetailBody extends StatelessWidget {
-  const _DetailBody({required this.detail});
+  const _DetailBody({required this.detail, required this.fromWizard});
 
   final PeopleGroupDetail detail;
+  final bool fromWizard;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +114,13 @@ class _DetailBody extends StatelessWidget {
             slug: detail.slug,
             name: detail.name,
             imageUrl: detail.imageUrl,
+            onConfirmed: fromWizard
+                ? () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop(true);
+                    }
+                  }
+                : null,
           ),
           _Hero(detail: detail),
           _CommittedProgress(committed: detail.peopleCommitted),
