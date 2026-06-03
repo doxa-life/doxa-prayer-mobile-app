@@ -4,12 +4,13 @@ import 'package:http/http.dart' as http;
 
 import '../models/people_group.dart';
 import '../models/people_group_detail.dart';
+import 'api_config.dart';
 
 const _listFields = 'name,slug,image_url,country_code,religion,people_praying';
 
 Future<List<PeopleGroup>> fetchPeopleGroups({String lang = 'en'}) async {
   final uri = Uri.https(
-    'pray.doxa.life',
+    ApiConfig.host,
     '/api/people-groups/list',
     {'lang': lang, 'fields': _listFields},
   );
@@ -34,7 +35,7 @@ Future<PeopleGroupDetail> fetchPeopleGroupDetail(
   String lang = 'en',
 }) async {
   final uri = Uri.https(
-    'pray.doxa.life',
+    ApiConfig.host,
     '/api/people-groups/detail/$slug',
     {'lang': lang},
   );

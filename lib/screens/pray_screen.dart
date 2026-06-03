@@ -8,6 +8,7 @@ import '../components/prayer_content/prayer_content_view.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
 import '../models/prayer_content.dart';
+import '../services/identity_service.dart';
 import '../services/locale_controller.dart';
 import '../services/prayer_content_service.dart';
 import '../services/prayer_history_service.dart';
@@ -156,7 +157,7 @@ class _PrayContentState extends State<_PrayContent>
     final timestamp = now.toUtc().toLocal().toIso8601String();
     final report = PrayerSessionReport(
       sessionId: _generateId(),
-      trackingId: _generateId(),
+      trackingId: identityController.value?.trackingId ?? '',
       duration: duration,
       timestamp: timestamp,
     );
@@ -210,7 +211,7 @@ class _PrayContentState extends State<_PrayContent>
     final timestamp = now.toUtc().toLocal().toIso8601String();
     final report = PrayerSessionReport(
       sessionId: _generateId(),
-      trackingId: _generateId(),
+      trackingId: identityController.value?.trackingId ?? '',
       duration: duration,
       timestamp: timestamp,
     );

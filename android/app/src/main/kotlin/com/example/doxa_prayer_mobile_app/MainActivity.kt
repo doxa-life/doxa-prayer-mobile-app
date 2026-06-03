@@ -1,4 +1,4 @@
-package com.example.doxa_prayer_mobile_app
+package app.prayer.doxa
 
 import io.flutter.embedding.android.FlutterActivity
 

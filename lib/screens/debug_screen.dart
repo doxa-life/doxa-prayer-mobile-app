@@ -5,6 +5,7 @@ import '../components/misc/titles.dart';
 import '../components/nav/details_nav_bar.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
+import '../services/identity_service.dart';
 import '../services/locale_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/reminders_controller.dart';
@@ -80,6 +81,14 @@ class DebugScreen extends StatelessWidget {
           label: 'Prayer history',
           onClear: clearPrayerHistory,
         ),
+        _clearRow(
+          context,
+          label: 'Signup identity',
+          description:
+              'Forgets tracking_id, profile_id, and subscription_id. '
+              'Next people-group selection will trigger a fresh anon-signup.',
+          onClear: clearIdentity,
+        ),
         const SizedBox(height: AppSpacing.md),
         ActionButton.fullWidth(
           label: 'Clear all',
@@ -93,6 +102,7 @@ class DebugScreen extends StatelessWidget {
                 clearSelectedPeopleGroup(),
                 clearReminders(),
                 clearPrayerHistory(),
+                clearIdentity(),
               ]);
             },
           ),

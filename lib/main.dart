@@ -1,9 +1,15 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'l10n/app_localizations.dart';
 import 'router.dart';
+import 'services/anon_signup_service.dart';
+import 'services/identity_service.dart';
 import 'services/locale_controller.dart';
+import 'services/profile_update_service.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
 import 'services/selected_people_group_controller.dart';
@@ -12,13 +18,25 @@ import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load();
+  } catch (e) {
+    developer.log(
+      'failed to load .env (continuing with empty environment)',
+      name: 'main',
+      error: e,
+    );
+  }
   await initRemindersNotifications();
   await Future.wait([
     loadSelectedPeopleGroup(),
     loadReminders(),
     loadWizardCompleted(),
     loadLocale(),
+    loadIdentity(),
   ]);
+  installDeferredAnonSignupListener();
+  installProfileUpdateListeners();
   runApp(const MyApp());
 }
 

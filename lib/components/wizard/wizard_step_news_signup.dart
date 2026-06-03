@@ -2,7 +2,6 @@ import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../services/news_signup_service.dart';
 import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -28,9 +27,7 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
     if (data == null || _submitting) return;
     setState(() => _submitting = true);
     try {
-      await submitNewsSignup(data);
-      if (!mounted) return;
-      await widget.controller.finish(context);
+      await widget.controller.finish(context, newsSignup: data);
     } finally {
       if (mounted) setState(() => _submitting = false);
     }

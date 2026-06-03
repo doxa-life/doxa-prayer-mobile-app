@@ -33,6 +33,10 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Local secrets (loaded by flutter_dotenv at startup; kept out of source control)
+.env
+!.env.example
+
 # Symbolication related
 app.*.symbols
 

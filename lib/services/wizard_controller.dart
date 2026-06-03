@@ -1,7 +1,13 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import '../components/widgets/news_signup.dart';
 import '../models/people_group.dart';
+import 'anon_signup_service.dart';
+import 'news_signup_service.dart';
+import 'selected_people_group_controller.dart';
 import 'wizard_completion_controller.dart';
 
 enum WizardStep {
@@ -84,7 +90,39 @@ class WizardController extends ChangeNotifier {
     _set(WizardStep.reminder);
   }
 
-  Future<void> finish(BuildContext context) async {
+  Future<void> finish(BuildContext context, {NewsSignupData? newsSignup}) async {
+    final slug = selectedPeopleGroupController.value?.slug;
+    if (slug != null && slug.isNotEmpty) {
+      try {
+        await submitAnonSignup(
+          slug: slug,
+          name: newsSignup?.name ?? '',
+          email: newsSignup?.email ?? '',
+          consentDoxaGeneral: newsSignup?.wantsDoxaUpdates ?? false,
+          consentPeopleGroupUpdates:
+              newsSignup?.wantsPeopleGroupUpdates ?? false,
+        );
+      } catch (e, s) {
+        developer.log(
+          'anon-signup failed at wizard finish',
+          name: 'wizard_controller',
+          error: e,
+          stackTrace: s,
+        );
+      }
+    }
+    if (newsSignup != null) {
+      try {
+        await submitNewsSignup(newsSignup);
+      } catch (e, s) {
+        developer.log(
+          'news-signup failed at wizard finish',
+          name: 'wizard_controller',
+          error: e,
+          stackTrace: s,
+        );
+      }
+    }
     await markWizardCompleted();
     if (context.mounted) context.go('/home');
   }

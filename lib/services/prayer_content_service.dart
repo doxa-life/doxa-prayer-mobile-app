@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/prayer_content.dart';
-
-const _host = 'pray.doxa.life';
+import 'api_config.dart';
 
 String _formatDate(DateTime date) {
   final y = date.year.toString().padLeft(4, '0');
@@ -21,7 +20,7 @@ Future<PrayerContentResponse> fetchPrayerContent({
   required String language,
 }) async {
   final uri = Uri.https(
-    _host,
+    ApiConfig.host,
     '/api/people-groups/$slug/prayer-content/${_formatDate(date)}',
     {'language': language},
   );
@@ -50,8 +49,8 @@ class PrayerSessionReport {
   final String timestamp;
 
   Map<String, dynamic> toJson() => {
-    'sessionId': sessionId,
-    'trackingId': trackingId,
+    'session_id': sessionId,
+    'tracking_id': trackingId,
     'duration': duration,
     'timestamp': timestamp,
   };
@@ -63,7 +62,7 @@ Future<void> postPrayerSession({
   required PrayerSessionReport report,
 }) async {
   final uri = Uri.https(
-    _host,
+    ApiConfig.host,
     '/api/people-groups/$slug/prayer-content/${_formatDate(date)}/session',
   );
   final body = jsonEncode(report.toJson());
