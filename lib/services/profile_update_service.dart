@@ -84,13 +84,20 @@ _PrayerReminder _selectPrayerReminder() {
   int rank(Reminder r) => r.hour * 60 + r.minute;
   final enabled = all.where((r) => r.enabled).toList()
     ..sort((a, b) => rank(a).compareTo(rank(b)));
-  final picked = enabled.isNotEmpty
+  final timeSource = enabled.isNotEmpty
       ? enabled.first
       : (all.toList()..sort((a, b) => rank(a).compareTo(rank(b)))).first;
+  // Union the weekdays of every enabled reminder so the server learns every
+  // day the user has any reminder for. Fall back to the time source's days
+  // when nothing is enabled, so we still send a usable schedule.
+  final weekdays = <int>{
+    for (final r in enabled) ...r.weekdays,
+  };
+  if (weekdays.isEmpty) weekdays.addAll(timeSource.weekdays);
   return _PrayerReminder(
-    hour: picked.hour,
-    minute: picked.minute,
-    weekdays: picked.weekdays,
+    hour: timeSource.hour,
+    minute: timeSource.minute,
+    weekdays: weekdays.toList()..sort(),
   );
 }
 
