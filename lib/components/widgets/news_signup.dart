@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../buttons/action_button.dart';
 import '../inputs/checkbox_field.dart';
@@ -42,6 +43,7 @@ class _NewsSignupState extends State<NewsSignup> {
   bool _wantsPeopleGroupUpdates = true;
   bool _wantsDoxaUpdates = true;
   bool _submitting = false;
+  String? _errorMessage;
 
   static final RegExp _emailRe = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
@@ -83,9 +85,18 @@ class _NewsSignupState extends State<NewsSignup> {
     if (!_canSubmit || onSubmit == null) return;
     final data = _currentValid();
     if (data == null) return;
-    setState(() => _submitting = true);
+    setState(() {
+      _submitting = true;
+      _errorMessage = null;
+    });
     try {
       await onSubmit(data);
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = AppLocalizations.of(context)!.newsSignupError;
+        });
+      }
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -133,10 +144,25 @@ class _NewsSignupState extends State<NewsSignup> {
           },
         ),
         if (widget.onSubmit != null) ...[
+          if (_errorMessage != null) ...[
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              _errorMessage!,
+              style: TextStyle(color: AppColors.scheme.error),
+            ),
+          ],
           const SizedBox(height: AppSpacing.xxl),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              if (_submitting) ...[
+                const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2.5),
+                ),
+                const SizedBox(width: AppSpacing.md),
+              ],
               ActionButton(
                 label: submitLabel,
                 onPressed: _canSubmit ? _submit : null,

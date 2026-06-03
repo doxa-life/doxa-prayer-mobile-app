@@ -343,6 +343,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get newsSignupThanks => 'Thanks — you\'re signed up.';
+
+  @override
+  String get newsSignupError =>
+      'Something went wrong. Please check your connection and try again.';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

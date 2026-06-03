@@ -668,6 +668,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thanks — you\'re signed up.'**
   String get newsSignupThanks;
+
+  /// Error message shown when the news signup submission fails
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please check your connection and try again.'**
+  String get newsSignupError;
 }
 
 class _AppLocalizationsDelegate

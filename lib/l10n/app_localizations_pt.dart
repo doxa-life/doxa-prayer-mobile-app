@@ -340,6 +340,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get newsSignupThanks => 'Thanks — you\'re signed up.';
+
+  @override
+  String get newsSignupError =>
+      'Something went wrong. Please check your connection and try again.';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

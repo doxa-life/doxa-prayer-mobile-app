@@ -400,5 +400,9 @@
     "newsSignupThanks": "Thanks — you're signed up.",
     "@newsSignupThanks": {
         "description": "SnackBar shown after the user submits the news signup form from settings"
+    },
+    "newsSignupError": "Something went wrong. Please check your connection and try again.",
+    "@newsSignupError": {
+        "description": "Error message shown when the news signup submission fails"
     }
 }
