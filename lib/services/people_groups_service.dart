@@ -9,8 +9,7 @@ import 'api_config.dart';
 const _listFields = 'name,slug,image_url,country_code,religion,people_praying';
 
 Future<List<PeopleGroup>> fetchPeopleGroups({String lang = 'en'}) async {
-  final uri = Uri.https(
-    ApiConfig.host,
+  final uri = ApiConfig.buildUri(
     '/api/people-groups/list',
     {'lang': lang, 'fields': _listFields},
   );
@@ -34,8 +33,7 @@ Future<PeopleGroupDetail> fetchPeopleGroupDetail(
   String slug, {
   String lang = 'en',
 }) async {
-  final uri = Uri.https(
-    ApiConfig.host,
+  final uri = ApiConfig.buildUri(
     '/api/people-groups/detail/$slug',
     {'lang': lang},
   );

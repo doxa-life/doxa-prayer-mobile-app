@@ -19,8 +19,7 @@ Future<PrayerContentResponse> fetchPrayerContent({
   required DateTime date,
   required String language,
 }) async {
-  final uri = Uri.https(
-    ApiConfig.host,
+  final uri = ApiConfig.buildUri(
     '/api/people-groups/$slug/prayer-content/${_formatDate(date)}',
     {'language': language},
   );
@@ -61,8 +60,7 @@ Future<void> postPrayerSession({
   required DateTime date,
   required PrayerSessionReport report,
 }) async {
-  final uri = Uri.https(
-    ApiConfig.host,
+  final uri = ApiConfig.buildUri(
     '/api/people-groups/$slug/prayer-content/${_formatDate(date)}/session',
   );
   final body = jsonEncode(report.toJson());

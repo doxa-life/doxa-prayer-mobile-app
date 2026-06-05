@@ -26,12 +26,15 @@ Future<void> submitProfileUpdate() async {
       'time_preference': _formatTime(reminder.hour, reminder.minute),
       'days_of_week': _encodeWeekdays(reminder.weekdays),
       'timezone': timezone,
+      // Moving the subscription to the now-selected group. Only meaningful
+      // alongside subscription_id, so it lives inside this block.
+      if (peopleGroup != null) 'people_group_slug': peopleGroup.slug,
     },
     if (peopleGroup != null) 'consent_people_group_slug': peopleGroup.slug,
   };
 
   final body = jsonEncode(payload);
-  final uri = Uri.https(ApiConfig.host, '/api/profile/$profileId');
+  final uri = ApiConfig.buildUri('/api/profile/$profileId');
 
   if (!kReleaseMode && !ApiConfig.hasAppSecret) {
     developer.log(
@@ -58,6 +61,15 @@ Future<void> submitProfileUpdate() async {
   );
   if (response.statusCode != 200) {
     throw Exception('profile update failed (${response.statusCode})');
+  }
+
+  // A group move usually keeps the same subscription_id (repointed in place),
+  // but when the server merges into a pre-existing row the id changes. Adopt the
+  // returned id so the cached identity stays in sync.
+  final json = jsonDecode(response.body) as Map<String, dynamic>;
+  final returnedId = (json['currentSubscription'] as Map<String, dynamic>?)?['id'];
+  if (returnedId is num && returnedId.toInt() != identity?.subscriptionId) {
+    await setIdentity(subscriptionId: returnedId.toInt());
   }
 }
 

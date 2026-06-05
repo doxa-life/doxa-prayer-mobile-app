@@ -34,7 +34,7 @@ Future<void> submitAnonSignup({
     'consent_people_group_updates': consentPeopleGroupUpdates,
   });
 
-  final uri = Uri.https(ApiConfig.host, '/api/people-groups/$slug/anon-signup');
+  final uri = ApiConfig.buildUri('/api/people-groups/$slug/anon-signup');
 
   if (!kReleaseMode && !ApiConfig.hasAppSecret) {
     developer.log(

@@ -22,7 +22,7 @@ Future<void> submitNewsSignup(NewsSignupData data) async {
     'tracking_id': identityController.value?.trackingId ?? '',
   });
 
-  final uri = Uri.https(ApiConfig.host, '/api/news-signup');
+  final uri = ApiConfig.buildUri('/api/news-signup');
 
   if (!kReleaseMode && !ApiConfig.hasAppSecret) {
     developer.log(
