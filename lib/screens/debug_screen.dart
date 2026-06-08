@@ -10,9 +10,21 @@ import '../services/locale_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/reminders_controller.dart';
 import '../services/selected_people_group_controller.dart';
+import '../services/update_controller.dart';
+import '../services/version_check_service.dart';
 import '../services/wizard_completion_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+
+/// A canned /api/app/version response used by the debug buttons to preview the
+/// update UI without hitting the backend or installing a newer build.
+const _fakeUpdateInfo = AppVersionInfo(
+  latestVersion: '9.9.9',
+  minSupportedVersion: '9.9.9',
+  iosAppStoreUrl: 'https://apps.apple.com/app/id000000000',
+  androidPlayUrl:
+      'https://play.google.com/store/apps/details?id=app.prayer.doxa',
+);
 
 class DebugScreen extends StatelessWidget {
   const DebugScreen({super.key});
@@ -38,6 +50,7 @@ class DebugScreen extends StatelessWidget {
                     style: AppTypography.bodyMedium,
                   ),
                   _prefsSection(context),
+                  _updateSection(context),
                 ],
               ),
             ),
@@ -106,6 +119,52 @@ class DebugScreen extends StatelessWidget {
               ]);
             },
           ),
+        ),
+      ],
+    ),
+  );
+
+  Widget _updateSection(BuildContext context) => Section(
+    title: 'App update prompts',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        Text(
+          'Simulate a /api/app/version response to preview the update UI. '
+          'The blocking modal can only be cleared by relaunching the app or '
+          'tapping the store button.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Show optional banner',
+          onPressed: () {
+            updateController.value = const UpdateStatus(
+              UpdateState.optional,
+              _fakeUpdateInfo,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Triggered optional update banner')),
+            );
+          },
+        ),
+        ActionButton.fullWidth(
+          label: 'Show blocking modal',
+          onPressed: () {
+            updateController.value = const UpdateStatus(
+              UpdateState.forced,
+              _fakeUpdateInfo,
+            );
+          },
+        ),
+        ActionButton.fullWidth(
+          label: 'Clear update prompt',
+          onPressed: () {
+            updateController.value = UpdateStatus.none;
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Cleared update prompt')),
+            );
+          },
         ),
       ],
     ),

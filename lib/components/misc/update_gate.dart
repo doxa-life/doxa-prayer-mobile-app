@@ -79,7 +79,7 @@ class _OptionalBanner extends StatelessWidget {
                       ),
                       FilledButton(
                         onPressed: () => startAppUpdate(),
-                        child: Text(l10n.updateAction),
+                        child: Text(l10n.updateAction.toUpperCase()),
                       ),
                     ],
                   ),
@@ -138,7 +138,7 @@ class _ForcedModal extends StatelessWidget {
                         width: double.infinity,
                         child: FilledButton(
                           onPressed: () => startAppUpdate(immediate: true),
-                          child: Text(l10n.updateAction),
+                          child: Text(l10n.updateAction.toUpperCase()),
                         ),
                       ),
                     ],

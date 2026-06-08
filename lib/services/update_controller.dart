@@ -45,27 +45,47 @@ Future<void> checkForAppUpdate() async {
     final packageInfo = await PackageInfo.fromPlatform();
     final current = packageInfo.version;
 
-    if (_isLower(current, info.minSupportedVersion)) {
-      updateController.value = UpdateStatus(UpdateState.forced, info);
-      return;
+    // Only the optional path consults the dismissed-version flag, so avoid the
+    // prefs read otherwise.
+    String? dismissed;
+    if (!_isLower(current, info.minSupportedVersion) &&
+        _isLower(current, info.latestVersion)) {
+      dismissed = await SharedPreferencesAsync().getString(_dismissedVersionKey);
     }
 
-    if (_isLower(current, info.latestVersion)) {
-      final prefs = SharedPreferencesAsync();
-      final dismissed = await prefs.getString(_dismissedVersionKey);
-      if (dismissed == info.latestVersion) {
-        updateController.value = UpdateStatus.none;
-        return;
-      }
-      updateController.value = UpdateStatus(UpdateState.optional, info);
-      return;
-    }
+    final state = resolveUpdateState(
+      currentVersion: current,
+      latestVersion: info.latestVersion,
+      minSupportedVersion: info.minSupportedVersion,
+      dismissedVersion: dismissed,
+    );
 
-    updateController.value = UpdateStatus.none;
+    updateController.value =
+        state == UpdateState.none ? UpdateStatus.none : UpdateStatus(state, info);
   } catch (e) {
     developer.log('app update check failed', name: 'update', error: e);
     updateController.value = UpdateStatus.none;
   }
+}
+
+/// Pure decision: given the running version and the server gate, which prompt
+/// (if any) should show? Extracted so the trigger logic is unit-testable without
+/// touching the network, package info or prefs.
+@visibleForTesting
+UpdateState resolveUpdateState({
+  required String currentVersion,
+  required String latestVersion,
+  required String minSupportedVersion,
+  String? dismissedVersion,
+}) {
+  if (_isLower(currentVersion, minSupportedVersion)) {
+    return UpdateState.forced;
+  }
+  if (_isLower(currentVersion, latestVersion)) {
+    if (dismissedVersion == latestVersion) return UpdateState.none;
+    return UpdateState.optional;
+  }
+  return UpdateState.none;
 }
 
 /// Remembers that the user dismissed the optional update for this version, so the
