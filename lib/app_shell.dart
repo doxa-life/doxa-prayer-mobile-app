@@ -8,6 +8,7 @@ import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
 import 'router.dart';
 import 'services/reminders_notifications.dart';
+import 'services/update_controller.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key, required this.navigationShell});
@@ -18,10 +19,11 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     reminderTapPayload.addListener(_onReminderTap);
     // Handle a payload that was already set (cold-start from notification tap).
     if (reminderTapPayload.value != null) {
@@ -31,8 +33,17 @@ class _AppShellState extends State<AppShell> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     reminderTapPayload.removeListener(_onReminderTap);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Re-check the version gate when returning to the foreground.
+      checkForAppUpdate();
+    }
   }
 
   void _onReminderTap() {

@@ -404,5 +404,29 @@
     "newsSignupError": "Something went wrong. Please check your connection and try again.",
     "@newsSignupError": {
         "description": "Error message shown when the news signup submission fails"
+    },
+    "updateAvailableTitle": "Update available",
+    "@updateAvailableTitle": {
+        "description": "Title of the optional-update banner"
+    },
+    "updateAvailableBody": "A new version of Doxa Prayer is available.",
+    "@updateAvailableBody": {
+        "description": "Body of the optional-update banner"
+    },
+    "updateRequiredTitle": "Update required",
+    "@updateRequiredTitle": {
+        "description": "Title of the forced-update modal"
+    },
+    "updateRequiredBody": "Please update to the latest version to keep using Doxa Prayer.",
+    "@updateRequiredBody": {
+        "description": "Body of the forced-update modal"
+    },
+    "updateAction": "Update",
+    "@updateAction": {
+        "description": "Button that starts the app update / opens the store"
+    },
+    "updateDismiss": "Not now",
+    "@updateDismiss": {
+        "description": "Button that dismisses the optional-update banner"
     }
 }

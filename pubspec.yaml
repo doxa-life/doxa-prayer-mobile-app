@@ -46,6 +46,8 @@ dependencies:
   intl: any
   url_launcher: ^6.3.1
   flutter_dotenv: ^5.1.0
+  package_info_plus: ^10.1.0
+  in_app_update: ^4.2.5
 
 dev_dependencies:
   flutter_test:

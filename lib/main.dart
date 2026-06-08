@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'components/misc/update_gate.dart';
 import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/anon_signup_service.dart';
@@ -13,6 +14,7 @@ import 'services/profile_update_service.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
 import 'services/selected_people_group_controller.dart';
+import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
 import 'theme/app_theme.dart';
 
@@ -37,6 +39,8 @@ Future<void> main() async {
   ]);
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
+  // Fire-and-forget: never block app start on the version check.
+  checkForAppUpdate();
   runApp(const MyApp());
 }
 
@@ -60,6 +64,8 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: appLanguages.map((l) => l.locale),
           locale: locale,
+          builder: (context, child) =>
+              UpdateGate(child: child ?? const SizedBox.shrink()),
         );
       },
     );

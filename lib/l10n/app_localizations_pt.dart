@@ -344,6 +344,26 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get newsSignupError =>
       'Something went wrong. Please check your connection and try again.';
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String get updateAvailableBody =>
+      'A new version of Doxa Prayer is available.';
+
+  @override
+  String get updateRequiredTitle => 'Update required';
+
+  @override
+  String get updateRequiredBody =>
+      'Please update to the latest version to keep using Doxa Prayer.';
+
+  @override
+  String get updateAction => 'Update';
+
+  @override
+  String get updateDismiss => 'Not now';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

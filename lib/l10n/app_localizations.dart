@@ -674,6 +674,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please check your connection and try again.'**
   String get newsSignupError;
+
+  /// Title of the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get updateAvailableTitle;
+
+  /// Body of the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'A new version of Doxa Prayer is available.'**
+  String get updateAvailableBody;
+
+  /// Title of the forced-update modal
+  ///
+  /// In en, this message translates to:
+  /// **'Update required'**
+  String get updateRequiredTitle;
+
+  /// Body of the forced-update modal
+  ///
+  /// In en, this message translates to:
+  /// **'Please update to the latest version to keep using Doxa Prayer.'**
+  String get updateRequiredBody;
+
+  /// Button that starts the app update / opens the store
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateAction;
+
+  /// Button that dismisses the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get updateDismiss;
 }
 
 class _AppLocalizationsDelegate
