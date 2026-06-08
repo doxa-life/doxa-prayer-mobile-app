@@ -6,7 +6,10 @@ import 'package:go_router/go_router.dart';
 import '../components/widgets/news_signup.dart';
 import '../models/people_group.dart';
 import 'anon_signup_service.dart';
+import 'locale_controller.dart';
 import 'news_signup_service.dart';
+import 'people_groups_service.dart';
+import 'referral_controller.dart';
 import 'selected_people_group_controller.dart';
 import 'wizard_completion_controller.dart';
 
@@ -21,9 +24,57 @@ enum WizardStep {
 class WizardController extends ChangeNotifier {
   WizardStep _step = WizardStep.welcome;
   PeopleGroup? _candidatePeopleGroup;
+  bool _resolvingReferral = false;
 
   WizardStep get step => _step;
   PeopleGroup? get candidatePeopleGroup => _candidatePeopleGroup;
+
+  /// True while we're resolving a referred people group (from a "Pray on the app"
+  /// link) after the welcome step — the welcome CTA shows a spinner meanwhile.
+  bool get resolvingReferral => _resolvingReferral;
+
+  /// Advances past the welcome step. If the user arrived via a "Pray on the app"
+  /// link, the referred slug is resolved and we jump straight to the confirm step
+  /// with that group pre-filled; otherwise we show the normal people-groups list.
+  /// Back from confirm returns to the list so they can still choose differently.
+  Future<void> startFromWelcome() async {
+    if (_resolvingReferral) return;
+    final slug = referredPeopleGroupController.value;
+    if (slug == null || slug.isEmpty) {
+      _set(WizardStep.peopleGroupsList);
+      return;
+    }
+    _resolvingReferral = true;
+    notifyListeners();
+    try {
+      final detail = await fetchPeopleGroupDetail(
+        slug,
+        lang: localeController.value.languageCode,
+      );
+      _candidatePeopleGroup = PeopleGroup(
+        name: detail.name,
+        slug: detail.slug,
+        imageUrl: detail.imageUrl,
+        countryLabel: null,
+        religionLabel: null,
+        peoplePraying: 0,
+      );
+      // Consume the referral so a later wizard re-entry won't re-trigger it.
+      await clearReferredPeopleGroup();
+      _resolvingReferral = false;
+      _set(WizardStep.peopleGroupConfirm);
+    } catch (e, s) {
+      developer.log(
+        'referred people group lookup failed',
+        name: 'wizard_controller',
+        error: e,
+        stackTrace: s,
+      );
+      await clearReferredPeopleGroup();
+      _resolvingReferral = false;
+      _set(WizardStep.peopleGroupsList);
+    }
+  }
 
   /// Maps the 5-state machine onto 4 progress dots — the confirm sub-step
   /// shares its dot with the people-group list step.

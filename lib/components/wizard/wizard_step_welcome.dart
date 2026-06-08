@@ -71,11 +71,14 @@ class WizardStepWelcome extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: AppSpacing.xxxl),
-                ActionButton(
-                  label: l.wizardGetStarted,
-                  onPressed: controller.next,
-                  color: ActionButtonColor.secondary,
-                ),
+                if (controller.resolvingReferral)
+                  const CircularProgressIndicator()
+                else
+                  ActionButton(
+                    label: l.wizardGetStarted,
+                    onPressed: controller.startFromWelcome,
+                    color: ActionButtonColor.secondary,
+                  ),
               ],
             ),
           ),

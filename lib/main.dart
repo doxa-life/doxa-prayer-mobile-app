@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
@@ -8,8 +9,10 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/anon_signup_service.dart';
 import 'services/identity_service.dart';
+import 'services/install_referrer_service.dart';
 import 'services/locale_controller.dart';
 import 'services/profile_update_service.dart';
+import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
 import 'services/selected_people_group_controller.dart';
@@ -34,7 +37,12 @@ Future<void> main() async {
     loadWizardCompleted(),
     loadLocale(),
     loadIdentity(),
+    loadReferredPeopleGroup(),
   ]);
+  // Android-only Play install-referrer lookup. Fire-and-forget after the persisted
+  // referred slug is loaded, so it can't be clobbered; it updates the referral
+  // controller within a second or two — before the user finishes the welcome step.
+  unawaited(fetchInstallReferrer());
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
   runApp(const MyApp());
