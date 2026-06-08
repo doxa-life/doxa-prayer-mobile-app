@@ -14,6 +14,22 @@
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
+		<!-- Custom-scheme fallback (doxa:///app/<slug>) used by the web smart-link page
+		     when Universal Links aren't available. Primary deep-linking uses Universal
+		     Links via the Associated Domains entitlement (Runner.entitlements). -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>app.prayer.doxa</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>doxa</string>
+				</array>
+			</dict>
+		</array>
 		<key>CFBundleName</key>
 		<string>doxa_prayer_mobile_app</string>
 		<key>CFBundlePackageType</key>

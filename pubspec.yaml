@@ -46,6 +46,7 @@ dependencies:
   intl: any
   url_launcher: ^6.3.1
   flutter_dotenv: ^5.1.0
+  android_play_install_referrer: ^0.4.0
 
 dev_dependencies:
   flutter_test:
