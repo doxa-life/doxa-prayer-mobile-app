@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'analytics_service.dart';
+
 class AppLanguage {
   const AppLanguage({required this.locale, required this.nativeName});
 
@@ -39,9 +41,16 @@ Future<void> loadLocale() async {
 }
 
 Future<void> setLocale(Locale locale) async {
+  final previous = localeController.value;
   localeController.value = locale;
   final prefs = SharedPreferencesAsync();
   await prefs.setString(_storageKey, locale.languageCode);
+  if (locale.languageCode != previous.languageCode) {
+    trackLanguageSwitched(
+      locale.languageCode,
+      previous: previous.languageCode,
+    );
+  }
 }
 
 Future<void> clearLocale() async {

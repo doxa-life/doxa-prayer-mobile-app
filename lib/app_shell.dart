@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'components/misc/app_icon.dart';
 import 'components/nav/bottom_nav_bar.dart';
 import 'router.dart';
+import 'services/analytics_service.dart';
 import 'services/reminders_notifications.dart';
 import 'services/update_controller.dart';
 
@@ -43,6 +44,8 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       // Re-check the version gate when returning to the foreground.
       checkForAppUpdate();
+      // Count the foreground resume as an app-open (cold start is tracked in main()).
+      trackAppOpen();
     }
   }
 

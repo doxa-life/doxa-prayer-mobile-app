@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'components/misc/update_gate.dart';
 import 'l10n/app_localizations.dart';
 import 'router.dart';
+import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
 import 'services/identity_service.dart';
 import 'services/locale_controller.dart';
@@ -41,6 +42,8 @@ Future<void> main() async {
   installProfileUpdateListeners();
   // Fire-and-forget: never block app start on the version check.
   checkForAppUpdate();
+  // Record the cold-start app-open (foreground resumes are tracked in AppShell).
+  trackAppOpen();
   runApp(const MyApp());
 }
 
