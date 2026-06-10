@@ -16,6 +16,7 @@ class PeopleGroupCard extends StatelessWidget {
     required this.imageUrl,
     this.onPray,
     this.onShare,
+    this.onShowQr,
     this.onDetails,
   });
 
@@ -23,6 +24,7 @@ class PeopleGroupCard extends StatelessWidget {
   final String? imageUrl;
   final VoidCallback? onPray;
   final VoidCallback? onShare;
+  final VoidCallback? onShowQr;
   final VoidCallback? onDetails;
 
   @override
@@ -56,7 +58,13 @@ class PeopleGroupCard extends StatelessWidget {
                 IconLabelButton(
                   icon: const AppIcon(AppIconName.share),
                   label: l.share,
-                  onPressed: () {},
+                  onPressed: onShare,
+                ),
+              if (onShowQr != null)
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.qrCode),
+                  label: l.qrCode,
+                  onPressed: onShowQr,
                 ),
             ],
           ),

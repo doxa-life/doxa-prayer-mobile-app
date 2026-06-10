@@ -367,6 +367,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get updateDismiss => 'Not now';
+
+  @override
+  String get getInvolved => 'Get involved';
+
+  @override
+  String get donate => 'Donate';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String shareMessage(String name) {
+    return 'Pray with me for the $name — get the Doxa Prayer app:';
+  }
+
+  @override
+  String get qrCode => 'QR code';
+
+  @override
+  String scanToPray(String name) {
+    return 'Scan to get the app and pray for the $name';
+  }
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

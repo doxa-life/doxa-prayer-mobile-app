@@ -1,20 +1,52 @@
 # doxa_prayer_mobile_app
 
-A new Flutter project.
+The Doxa Prayer mobile app (Flutter), backed by the campaigns server API.
 
-## Getting Started
+## Running the app
 
-This project is a starting point for a Flutter application.
+The Android build defines two product flavors, `staging` and `production`
+(see `android/app/build.gradle.kts`), so **you must pass `--flavor`** — a
+plain `flutter run` fails with "Gradle build failed to produce an .apk file"
+because no unflavored APK is ever produced.
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter run --flavor staging      # installs as "Doxa Staging" (app.prayer.doxa.staging)
+flutter run --flavor production   # installs as "Doxa Prayer" (app.prayer.doxa)
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The two flavors install side by side on a device. The active flavor also
+selects the API host (see `lib/services/api_config.dart`): `staging` → the
+Railway staging server, `production` → `pray.doxa.life`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### VS Code
+
+`.vscode/launch.json` provides three launch configurations:
+
+- **debug (local API)** — staging flavor pointed at `http://localhost:3000`
+  via an inline `--dart-define=API_BASE_URL=...`. Use this when running the
+  campaigns server locally (`bun run dev`).
+- **staging** / **production** — the plain flavors against their real hosts.
+
+### Pointing a build at a different API host
+
+In resolution order (first match wins):
+
+1. `--dart-define=API_BASE_URL=<url>` at build/run time (what the
+   "debug (local API)" launch config uses).
+2. `API_BASE_URL=<url>` in `.env` — applies to any build without rebuilding
+   tooling; see `.env.example`.
+3. The build flavor, as above.
+
+When targeting `localhost:3000` from a **physical device over USB**, forward
+the port first so the device's localhost reaches your machine:
+
+```bash
+adb reverse tcp:3000 tcp:3000
+```
+
+The same applies to Android **emulators** (their `localhost` is the emulator
+itself, not your machine): run `adb reverse tcp:3000 tcp:3000`, or point the
+override at `http://10.0.2.2:3000`, the emulator's alias for the host.
 
 ## Testing reminders
 

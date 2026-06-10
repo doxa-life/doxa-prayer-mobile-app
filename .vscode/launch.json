@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug (local API)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "staging",
+                "--dart-define=API_BASE_URL=http://localhost:3000"
+            ]
+        },
+        {
+            "name": "staging",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "staging"
+            ]
+        },
+        {
+            "name": "production",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "production"
+            ]
+        }
+    ]
+}

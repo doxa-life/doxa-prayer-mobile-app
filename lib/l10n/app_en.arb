@@ -428,5 +428,35 @@
     "updateDismiss": "Not now",
     "@updateDismiss": {
         "description": "Button that dismisses the optional-update banner"
+    },
+    "getInvolved": "Get involved",
+    "@getInvolved": {
+        "description": "Title of the home-screen section with share, donate and feedback buttons"
+    },
+    "donate": "Donate",
+    "@donate": {
+        "description": "Button that opens the donation page in the browser"
+    },
+    "feedback": "Feedback",
+    "@feedback": {
+        "description": "Button that opens the feedback page in the browser"
+    },
+    "shareMessage": "Pray with me for the {name} — get the Doxa Prayer app:",
+    "@shareMessage": {
+        "description": "Message text accompanying the shared app link for a people group",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
+    },
+    "qrCode": "QR code",
+    "@qrCode": {
+        "description": "Button on the people group card that shows a QR code of the share link"
+    },
+    "scanToPray": "Scan to get the app and pray for the {name}",
+    "@scanToPray": {
+        "description": "Caption under the QR code in the share modal",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
     }
 }

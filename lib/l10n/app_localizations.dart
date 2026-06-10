@@ -710,6 +710,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not now'**
   String get updateDismiss;
+
+  /// Title of the home-screen section with share, donate and feedback buttons
+  ///
+  /// In en, this message translates to:
+  /// **'Get involved'**
+  String get getInvolved;
+
+  /// Button that opens the donation page in the browser
+  ///
+  /// In en, this message translates to:
+  /// **'Donate'**
+  String get donate;
+
+  /// Button that opens the feedback page in the browser
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// Message text accompanying the shared app link for a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Pray with me for the {name} — get the Doxa Prayer app:'**
+  String shareMessage(String name);
+
+  /// Button on the people group card that shows a QR code of the share link
+  ///
+  /// In en, this message translates to:
+  /// **'QR code'**
+  String get qrCode;
+
+  /// Caption under the QR code in the share modal
+  ///
+  /// In en, this message translates to:
+  /// **'Scan to get the app and pray for the {name}'**
+  String scanToPray(String name);
 }
 
 class _AppLocalizationsDelegate

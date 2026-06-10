@@ -55,6 +55,8 @@ dependencies:
   # exist". It is still used only as a CLI generator (`dart run
   # flutter_native_splash:create`); no runtime API is called.
   flutter_native_splash: ^2.4.7
+  share_plus: ^13.1.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

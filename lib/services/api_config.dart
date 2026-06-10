@@ -18,18 +18,27 @@ class ApiConfig {
   /// device's `localhost:3000` is forwarded to the dev machine.
   static const String _debugBase = 'http://localhost:3000';
 
+  /// Compile-time override, set per launch via
+  /// `--dart-define=API_BASE_URL=<url>` (see .vscode/launch.json's
+  /// "debug (local API)" configuration).
+  static const String _dartDefineBase = String.fromEnvironment('API_BASE_URL');
+
   /// Builds an API URI for [path] (+ optional [queryParameters]).
   ///
   /// Resolution order:
-  ///   1. `API_BASE_URL` in .env, when set — overrides everything. Use it to
-  ///      point any build at a different host (e.g. `localhost:3000` for local
-  ///      dev, or a LAN IP) without rebuilding.
-  ///   2. Build flavor (`appFlavor`): `staging` → staging host, `production` →
+  ///   1. `--dart-define=API_BASE_URL=<url>`, when set — an explicit per-launch
+  ///      argument, so it beats everything else.
+  ///   2. `API_BASE_URL` in .env, when set. Use it to point any build at a
+  ///      different host (e.g. `localhost:3000` for local dev, or a LAN IP)
+  ///      without rebuilding.
+  ///   3. Build flavor (`appFlavor`): `staging` → staging host, `production` →
   ///      production host. Set via `flutter run/build --flavor <name>`.
-  ///   3. Unflavored debug builds → local dev server (`_debugBase`).
-  ///   4. Fallback → production over HTTPS.
+  ///   4. Unflavored debug builds → local dev server (`_debugBase`).
+  ///   5. Fallback → production over HTTPS.
   static Uri buildUri(String path, [Map<String, dynamic>? queryParameters]) {
-    final override = dotenv.maybeGet('API_BASE_URL');
+    final override = _dartDefineBase.isNotEmpty
+        ? _dartDefineBase
+        : dotenv.maybeGet('API_BASE_URL');
     if (override != null && override.isNotEmpty) {
       return Uri.parse(override)
           .replace(path: path, queryParameters: queryParameters);
