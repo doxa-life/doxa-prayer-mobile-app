@@ -42,38 +42,54 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final canSubmit = _current != null && !_submitting;
+    // Scrolls when the keyboard shrinks the viewport (otherwise the column
+    // overflows and the buttons become unreachable), while keeping the
+    // buttons pinned to the bottom when there is room.
     return PageContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          H1(l.wizardNewsSignupTitle, textAlign: TextAlign.center),
-          const SizedBox(height: AppSpacing.lg),
-          Text(
-            l.wizardNewsSignupBody,
-            style: AppTypography.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          NewsSignup(onChanged: (data) => setState(() => _current = data)),
-          const SizedBox(height: AppSpacing.xxl),
-          const Expanded(child: SizedBox.shrink()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ActionButton(
-                label: l.skip,
-                color: ActionButtonColor.white,
-                isOutlined: true,
-                onPressed: _submitting ? null : _skip,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    H1(l.wizardNewsSignupTitle, textAlign: TextAlign.center),
+                    const SizedBox(height: AppSpacing.lg),
+                    Text(
+                      l.wizardNewsSignupBody,
+                      style: AppTypography.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: AppSpacing.xl),
+                    NewsSignup(
+                      onChanged: (data) => setState(() => _current = data),
+                    ),
+                    const SizedBox(height: AppSpacing.xxl),
+                    const Expanded(child: SizedBox.shrink()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ActionButton(
+                          label: l.skip,
+                          color: ActionButtonColor.white,
+                          isOutlined: true,
+                          onPressed: _submitting ? null : _skip,
+                        ),
+                        ActionButton(
+                          label: l.finish,
+                          color: ActionButtonColor.secondary,
+                          onPressed: canSubmit ? _submit : null,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              ActionButton(
-                label: l.finish,
-                color: ActionButtonColor.secondary,
-                onPressed: canSubmit ? _submit : null,
-              ),
-            ],
-          ),
-        ],
+            ),
+          );
+        },
       ),
     );
   }
