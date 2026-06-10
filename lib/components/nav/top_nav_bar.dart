@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
@@ -49,12 +50,19 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
               fit: BoxFit.contain,
             ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.widgets_outlined, color: AppColors.onPrimary),
-          tooltip: 'Kitchen Sink',
-          onPressed: onGallery,
-        ),
-        if (onDebug != null)
+        // Gallery ("Kitchen Sink") and Debug are dev-only tools — hidden in
+        // release builds. kDebugMode is a compile-time constant, so the
+        // tree-shaker drops these buttons entirely from release builds.
+        if (kDebugMode)
+          IconButton(
+            icon: const Icon(
+              Icons.widgets_outlined,
+              color: AppColors.onPrimary,
+            ),
+            tooltip: 'Kitchen Sink',
+            onPressed: onGallery,
+          ),
+        if (kDebugMode && onDebug != null)
           IconButton(
             icon: const Icon(
               Icons.bug_report_outlined,

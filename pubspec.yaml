@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ^3.11.5
@@ -48,6 +48,13 @@ dependencies:
   flutter_dotenv: ^5.1.0
   package_info_plus: ^10.1.0
   in_app_update: ^4.2.5
+  # Kept in dependencies (not dev_dependencies) because it declares a native
+  # Android plugin (FlutterNativeSplashPlugin) that GeneratedPluginRegistrant
+  # references. Flutter strips dev_dependency native code from release builds,
+  # which would otherwise break release compilation with "package ... does not
+  # exist". It is still used only as a CLI generator (`dart run
+  # flutter_native_splash:create`); no runtime API is called.
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +66,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
-  flutter_native_splash: ^2.4.6
   shared_preferences_platform_interface: ^2.4.2
+  flutter_flavorizr: ^2.5.0
 
 flutter_native_splash:
   color: "#ffffff"
@@ -68,6 +75,27 @@ flutter_native_splash:
   android_12:
     color: "#ffffff"
     color_dark: "#3B463D"
+
+# Flavor definitions consumed by flutter_flavorizr. Only the iOS processors are
+# run from this config (`dart run flutter_flavorizr -p ios:...`); the Android
+# flavors are defined by hand in android/app/build.gradle.kts because flavorizr's
+# Android processor targets Groovy build.gradle, not the Kotlin DSL used here.
+flavorizr:
+  flavors:
+    production:
+      app:
+        name: "Doxa Prayer"
+      android:
+        applicationId: "app.prayer.doxa"
+      ios:
+        bundleId: "app.prayer.doxa"
+    staging:
+      app:
+        name: "Doxa Staging"
+      android:
+        applicationId: "app.prayer.doxa.staging"
+      ios:
+        bundleId: "app.prayer.doxa.staging"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
