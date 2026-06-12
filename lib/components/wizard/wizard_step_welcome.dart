@@ -29,15 +29,6 @@ class WizardStepWelcome extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Image.asset(
-            'assets/images/doxa-logo-vertical.png',
-            height: 140,
-          ),
-        ),
-        Positioned(
           bottom: 0,
           left: 0,
           right: 0,
@@ -56,27 +47,46 @@ class WizardStepWelcome extends StatelessWidget {
             ),
           ),
         ),
+        // The logo is part of the content column (not a Positioned layer) so
+        // it reserves space and the centered text can never rise underneath
+        // it on short viewports; the scroll view takes over when even the
+        // collapsed column doesn't fit.
         Positioned.fill(
           child: PageContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: AppSpacing.xl,
-              children: [
-                H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
-                const SizedBox(height: AppSpacing.xl),
-                Text(
-                  l.wizardWelcomeBody,
-                  style: AppTypography.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.xxxl),
-                ActionButton(
-                  label: l.wizardGetStarted,
-                  onPressed: controller.next,
-                  color: ActionButtonColor.secondary,
-                ),
-              ],
+            verticalPadding: 0,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 50.0,
+                        children: [
+                          Image.asset(
+                            'assets/images/doxa-logo-vertical.png',
+                            height: 140,
+                          ),
+                          H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
+                          Text(
+                            l.wizardWelcomeBody,
+                            style: AppTypography.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                          ActionButton(
+                            label: l.wizardGetStarted,
+                            onPressed: controller.next,
+                            color: ActionButtonColor.secondary,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
