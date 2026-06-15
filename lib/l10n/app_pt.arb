@@ -148,5 +148,6 @@
     "switchPeopleGroupConfirm": "Você quer parar de orar por {currentName} e começar a orar por {newName}?",
     "time": "Hora",
     "workInLocalLanguageAndCulture": "Trabalho na língua e cultura locais",
-    "yes": "Sim"
+    "yes": "Sim",
+    "appVersion": "Versão {version}"
 }

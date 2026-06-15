@@ -381,4 +381,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String scanToPray(String name) {
     return 'Scan to get the app and pray for the $name';
   }
+
+  @override
+  String appVersion(String version) {
+    return 'الإصدار $version';
+  }
 }

@@ -34,6 +34,29 @@ class PrayerRecord {
   );
 }
 
+/// Slugs the user has prayed for on the current local day. Drives the
+/// "Prayed today" indicator on the home page people group card.
+final ValueNotifier<Set<String>> prayedTodayController =
+    ValueNotifier<Set<String>>(<String>{});
+
+bool _isToday(String isoTimestamp) {
+  final when = DateTime.parse(isoTimestamp).toLocal();
+  final now = DateTime.now();
+  return when.year == now.year &&
+      when.month == now.month &&
+      when.day == now.day;
+}
+
+Set<String> _todaysSlugs(List<PrayerRecord> history) => {
+  for (final r in history)
+    if (_isToday(r.timestamp)) r.slug,
+};
+
+Future<void> refreshPrayedToday() async {
+  final history = await loadPrayerHistory();
+  prayedTodayController.value = _todaysSlugs(history);
+}
+
 Future<List<PrayerRecord>> loadPrayerHistory() async {
   final prefs = SharedPreferencesAsync();
   final raw = await prefs.getString(_historyKey);
@@ -61,4 +84,5 @@ Future<void> recordPrayer(PrayerRecord record) async {
   history.add(record);
   final encoded = jsonEncode(history.map((r) => r.toJson()).toList());
   await prefs.setString(_historyKey, encoded);
+  prayedTodayController.value = _todaysSlugs(history);
 }

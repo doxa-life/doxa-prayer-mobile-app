@@ -388,6 +388,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String scanToPray(String name) {
     return 'Scan to get the app and pray for the $name';
   }
+
+  @override
+  String appVersion(String version) {
+    return 'Version $version';
+  }
 }
 
 /// The translations for French, as used in France (`fr_FR`).

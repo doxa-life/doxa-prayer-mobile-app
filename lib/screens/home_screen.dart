@@ -8,6 +8,7 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
+import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
@@ -52,23 +53,30 @@ class HomeScreen extends StatelessWidget {
     return ValueListenableBuilder<SelectedPeopleGroup?>(
       valueListenable: selectedPeopleGroupController,
       builder: (context, selected, _) {
-        return selected == null
-            ? CtaButton(
-                label: AppLocalizations.of(context)!.selectPeopleGroup,
-                onPressed: () => context.go('/people-groups'),
-              )
-            : PeopleGroupCard(
-                name: selected.name,
-                imageUrl: selected.imageUrl ?? '',
-                onPray: () => _openPray(context),
-                onDetails: () => _openDetails(selected.slug, context),
-                onShare: () => _share(context, selected),
-                onShowQr: () => showQrShareModal(
-                  context,
-                  url: _shareLink(selected.slug),
-                  peopleGroupName: selected.name,
-                ),
-              );
+        if (selected == null) {
+          return CtaButton(
+            label: AppLocalizations.of(context)!.selectPeopleGroup,
+            onPressed: () => context.go('/people-groups'),
+          );
+        }
+        return ValueListenableBuilder<Set<String>>(
+          valueListenable: prayedTodayController,
+          builder: (context, prayedSlugs, _) {
+            return PeopleGroupCard(
+              name: selected.name,
+              imageUrl: selected.imageUrl ?? '',
+              prayedToday: prayedSlugs.contains(selected.slug),
+              onPray: () => _openPray(context),
+              onDetails: () => _openDetails(selected.slug, context),
+              onShare: () => _share(context, selected),
+              onShowQr: () => showQrShareModal(
+                context,
+                url: _shareLink(selected.slug),
+                peopleGroupName: selected.name,
+              ),
+            );
+          },
+        );
       },
     );
   }

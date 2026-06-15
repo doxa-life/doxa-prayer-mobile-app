@@ -388,6 +388,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String scanToPray(String name) {
     return 'Scan to get the app and pray for the $name';
   }
+
+  @override
+  String appVersion(String version) {
+    return 'Versión $version';
+  }
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

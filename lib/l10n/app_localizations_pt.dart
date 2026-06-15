@@ -386,6 +386,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String scanToPray(String name) {
     return 'Scan to get the app and pray for the $name';
   }
+
+  @override
+  String appVersion(String version) {
+    return 'Versão $version';
+  }
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

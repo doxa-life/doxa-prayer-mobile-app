@@ -746,6 +746,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scan to get the app and pray for the {name}'**
   String scanToPray(String name);
+
+  /// App version label shown at the bottom of the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String appVersion(String version);
 }
 
 class _AppLocalizationsDelegate

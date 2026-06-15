@@ -148,5 +148,6 @@
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
     "time": "Heure",
     "workInLocalLanguageAndCulture": "Travailler dans le respect de la langue et de la culture locales",
-    "yes": "Oui"
+    "yes": "Oui",
+    "appVersion": "Version {version}"
 }

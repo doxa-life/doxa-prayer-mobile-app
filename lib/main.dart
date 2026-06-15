@@ -11,6 +11,7 @@ import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
 import 'services/identity_service.dart';
 import 'services/locale_controller.dart';
+import 'services/prayer_history_service.dart';
 import 'services/profile_update_service.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
@@ -33,6 +34,7 @@ Future<void> main() async {
   await initRemindersNotifications();
   await Future.wait([
     loadSelectedPeopleGroup(),
+    refreshPrayedToday(),
     loadReminders(),
     loadWizardCompleted(),
     loadLocale(),

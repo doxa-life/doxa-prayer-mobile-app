@@ -389,6 +389,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String scanToPray(String name) {
     return 'Scan to get the app and pray for the $name';
   }
+
+  @override
+  String appVersion(String version) {
+    return 'Версия $version';
+  }
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

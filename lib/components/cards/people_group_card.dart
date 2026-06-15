@@ -14,6 +14,7 @@ class PeopleGroupCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.imageUrl,
+    this.prayedToday = false,
     this.onPray,
     this.onShare,
     this.onShowQr,
@@ -22,6 +23,7 @@ class PeopleGroupCard extends StatelessWidget {
 
   final String name;
   final String? imageUrl;
+  final bool prayedToday;
   final VoidCallback? onPray;
   final VoidCallback? onShare;
   final VoidCallback? onShowQr;

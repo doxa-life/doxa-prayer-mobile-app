@@ -148,5 +148,6 @@
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
     "time": "Время",
     "workInLocalLanguageAndCulture": "Работа с учетом особенностей местного языка и культуры",
-    "yes": "Да"
+    "yes": "Да",
+    "appVersion": "Версия {version}"
 }

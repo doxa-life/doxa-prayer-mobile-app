@@ -458,5 +458,12 @@
         "placeholders": {
             "name": { "type": "String" }
         }
+    },
+    "appVersion": "Version {version}",
+    "@appVersion": {
+        "description": "App version label shown at the bottom of the settings screen",
+        "placeholders": {
+            "version": { "type": "String" }
+        }
     }
 }
