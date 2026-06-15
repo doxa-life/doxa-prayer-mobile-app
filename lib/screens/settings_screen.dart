@@ -61,7 +61,7 @@ class _VersionLabel extends StatelessWidget {
           child: Text(
             l.appVersion(version),
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+              color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.2),
             ),
           ),
         );
