@@ -186,6 +186,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerLogged => 'تم تسجيل صلاتك.';
 
   @override
+  String get prayedToday => 'صُلِّي اليوم';
+
+  @override
   String get couldNotLogPrayerSession => 'تعذر تسجيل جلسة الصلاة.';
 
   @override

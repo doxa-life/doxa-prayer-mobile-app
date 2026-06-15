@@ -193,6 +193,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerLogged => 'Ваша молитва записана.';
 
   @override
+  String get prayedToday => 'Помолились сегодня';
+
+  @override
   String get couldNotLogPrayerSession =>
       'Не удалось записать вашу молитвенную сессию.';
 
@@ -573,6 +576,9 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
 
   @override
   String get prayerLogged => 'Ваша молитва была зарегистрирована.';
+
+  @override
+  String get prayedToday => 'Помолились сегодня';
 
   @override
   String get couldNotLogPrayerSession =>

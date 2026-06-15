@@ -188,6 +188,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerLogged => 'Your prayer has been logged.';
 
   @override
+  String get prayedToday => 'Prayed today';
+
+  @override
   String get couldNotLogPrayerSession => 'Could not log your prayer session.';
 
   @override
@@ -553,6 +556,9 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
 
   @override
   String get prayerLogged => 'Your prayer has been logged.';
+
+  @override
+  String get prayedToday => 'Prayed today';
 
   @override
   String get couldNotLogPrayerSession => 'Could not log your prayer session.';

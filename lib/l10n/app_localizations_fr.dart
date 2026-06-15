@@ -194,6 +194,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get prayerLogged => 'Votre prière a été enregistrée.';
 
   @override
+  String get prayedToday => 'Prié aujourd\'hui';
+
+  @override
   String get couldNotLogPrayerSession =>
       'Impossible d\'enregistrer votre session de prière.';
 
@@ -572,6 +575,9 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
 
   @override
   String get prayerLogged => 'Votre prière a été enregistrée.';
+
+  @override
+  String get prayedToday => 'Prié aujourd\'hui';
 
   @override
   String get couldNotLogPrayerSession =>

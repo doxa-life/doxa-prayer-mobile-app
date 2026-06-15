@@ -194,6 +194,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get prayerLogged => 'Tu oración ha sido registrada.';
 
   @override
+  String get prayedToday => 'Orado hoy';
+
+  @override
   String get couldNotLogPrayerSession =>
       'No se pudo registrar tu sesión de oración.';
 
@@ -572,6 +575,9 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
 
   @override
   String get prayerLogged => 'Tu oración ha quedado registrada.';
+
+  @override
+  String get prayedToday => 'Orado hoy';
 
   @override
   String get couldNotLogPrayerSession =>

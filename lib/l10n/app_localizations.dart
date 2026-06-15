@@ -429,6 +429,12 @@ abstract class AppLocalizations {
   /// **'Your prayer has been logged.'**
   String get prayerLogged;
 
+  /// Pill shown on the home people group card when the user has prayed for it today
+  ///
+  /// In en, this message translates to:
+  /// **'Prayed today'**
+  String get prayedToday;
+
   /// Snackbar shown when the prayer-session POST fails
   ///
   /// In en, this message translates to:

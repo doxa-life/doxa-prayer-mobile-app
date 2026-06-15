@@ -225,6 +225,10 @@
     "@prayerLogged": {
         "description": "Snackbar shown after a prayer session has been recorded"
     },
+    "prayedToday": "Prayed today",
+    "@prayedToday": {
+        "description": "Pill shown on the home people group card when the user has prayed for it today"
+    },
     "couldNotLogPrayerSession": "Could not log your prayer session.",
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
