@@ -112,6 +112,10 @@ Future<void> startAppUpdate({bool immediate = false}) async {
         if (immediate) {
           await InAppUpdate.performImmediateUpdate();
         } else {
+          // Play now owns the update UX (its own download overlay/notification),
+          // so hide our banner. Reset state rather than persisting a dismissal —
+          // if the user cancels the download, the next resume check re-prompts.
+          updateController.value = UpdateStatus.none;
           await InAppUpdate.startFlexibleUpdate();
           await InAppUpdate.completeFlexibleUpdate();
         }
