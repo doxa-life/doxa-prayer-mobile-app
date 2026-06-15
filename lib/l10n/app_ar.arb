@@ -192,5 +192,7 @@
     "time": "الوقت",
     "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
     "yes": "نعم",
-    "appVersion": "الإصدار {version}"
+    "appVersion": "الإصدار {version}",
+    "previousDay": "اليوم السابق",
+    "nextDay": "اليوم التالي"
 }

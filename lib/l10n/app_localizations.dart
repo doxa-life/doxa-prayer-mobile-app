@@ -758,6 +758,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String appVersion(String version);
+
+  /// Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get previousDay;
+
+  /// Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get nextDay;
 }
 
 class _AppLocalizationsDelegate

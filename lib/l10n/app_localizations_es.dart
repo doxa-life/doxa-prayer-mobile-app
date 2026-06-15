@@ -396,6 +396,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String appVersion(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get previousDay => 'Día anterior';
+
+  @override
+  String get nextDay => 'Día siguiente';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

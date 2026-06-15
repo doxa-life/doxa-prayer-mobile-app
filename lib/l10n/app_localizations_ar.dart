@@ -389,4 +389,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String appVersion(String version) {
     return 'الإصدار $version';
   }
+
+  @override
+  String get previousDay => 'اليوم السابق';
+
+  @override
+  String get nextDay => 'اليوم التالي';
 }

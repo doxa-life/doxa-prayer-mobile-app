@@ -469,5 +469,13 @@
         "placeholders": {
             "version": { "type": "String" }
         }
+    },
+    "previousDay": "Previous day",
+    "@previousDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen"
+    },
+    "nextDay": "Next day",
+    "@nextDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
     }
 }

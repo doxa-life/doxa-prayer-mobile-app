@@ -397,6 +397,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String appVersion(String version) {
     return 'Версия $version';
   }
+
+  @override
+  String get previousDay => 'Предыдущий день';
+
+  @override
+  String get nextDay => 'Следующий день';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

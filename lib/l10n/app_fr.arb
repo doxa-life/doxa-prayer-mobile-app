@@ -150,5 +150,7 @@
     "time": "Heure",
     "workInLocalLanguageAndCulture": "Travailler dans le respect de la langue et de la culture locales",
     "yes": "Oui",
-    "appVersion": "Version {version}"
+    "appVersion": "Version {version}",
+    "previousDay": "Jour précédent",
+    "nextDay": "Jour suivant"
 }

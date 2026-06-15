@@ -396,6 +396,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String appVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get previousDay => 'Jour précédent';
+
+  @override
+  String get nextDay => 'Jour suivant';
 }
 
 /// The translations for French, as used in France (`fr_FR`).

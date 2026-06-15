@@ -394,6 +394,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String appVersion(String version) {
     return 'Versão $version';
   }
+
+  @override
+  String get previousDay => 'Dia anterior';
+
+  @override
+  String get nextDay => 'Dia seguinte';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

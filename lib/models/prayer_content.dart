@@ -6,6 +6,7 @@ class PrayerContentResponse {
     required this.availableLanguages,
     required this.content,
     required this.hasContent,
+    this.globalStartDate,
   });
 
   final PrayerContentPeopleGroup peopleGroup;
@@ -14,6 +15,10 @@ class PrayerContentResponse {
   final List<String> availableLanguages;
   final List<PrayerContentBlock> content;
   final bool hasContent;
+
+  /// Campaign start date (YYYY-MM-DD), or null if not configured. Used to bound
+  /// how far back the Pray screen lets the user navigate.
+  final String? globalStartDate;
 
   static PrayerContentResponse fromJson(Map<String, dynamic> json) {
     final content = (json['content'] as List<dynamic>? ?? const []).map(
@@ -32,6 +37,7 @@ class PrayerContentResponse {
               .toList(growable: false),
       content: content.toList(growable: false),
       hasContent: json['hasContent'] as bool? ?? false,
+      globalStartDate: json['globalStartDate'] as String?,
     );
   }
 }
@@ -62,7 +68,12 @@ class PrayerContentPeopleGroup {
   }
 }
 
-enum PrayerContentBlockType { peopleGroup, peopleGroupOfTheDay, static, unknown }
+enum PrayerContentBlockType {
+  peopleGroup,
+  peopleGroupOfTheDay,
+  static,
+  unknown,
+}
 
 class PrayerContentBlock {
   const PrayerContentBlock({
@@ -85,9 +96,10 @@ class PrayerContentBlock {
     final rawType = json['content_type'] as String? ?? '';
     final id = (json['id'] as num?)?.toInt() ?? 0;
     final type = switch (rawType) {
-      'people_group' => id == -2
-          ? PrayerContentBlockType.peopleGroupOfTheDay
-          : PrayerContentBlockType.peopleGroup,
+      'people_group' =>
+        id == -2
+            ? PrayerContentBlockType.peopleGroupOfTheDay
+            : PrayerContentBlockType.peopleGroup,
       'static' => PrayerContentBlockType.static,
       _ => PrayerContentBlockType.unknown,
     };
