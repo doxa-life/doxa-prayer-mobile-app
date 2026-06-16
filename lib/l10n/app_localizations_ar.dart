@@ -400,7 +400,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dayInTheLifeTitle => 'Day in the Life';
 
   @override
+  String get myPeopleGroupTitle => 'مجموعتي العرقية';
+
+  @override
   String peopleGroupIntroTitle(String name) {
     return 'Pray for the $name';
   }
+
+  @override
+  String get peopleGroupOfTheDay => 'People Group of the Day';
 }

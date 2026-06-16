@@ -17,10 +17,16 @@ class PeopleGroupOfTheDayView extends StatelessWidget {
     super.key,
     required this.name,
     required this.data,
+    required this.heading,
   });
 
   final String name;
   final PeopleGroupBlockData data;
+
+  /// Section title shown above the card. Defaults to the "People Group of the
+  /// Day" label; pass a different value to reuse this card for other groups
+  /// (e.g. the user's selected group below the Amen button).
+  final String heading;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class PeopleGroupOfTheDayView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: AppSpacing.lg,
       children: [
-        H2('People Group of the Day', textAlign: TextAlign.start),
+        H2(heading, textAlign: TextAlign.start),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: AppSpacing.xl,

@@ -777,11 +777,23 @@ abstract class AppLocalizations {
   /// **'Day in the Life'**
   String get dayInTheLifeTitle;
 
+  /// Heading for the selected people group's detail card shown below the Amen button on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'My People Group'**
+  String get myPeopleGroupTitle;
+
   /// The title of the people group intro section
   ///
   /// In en, this message translates to:
   /// **'Pray for the {name}'**
   String peopleGroupIntroTitle(String name);
+
+  /// Heading for the people group of the day section
+  ///
+  /// In en, this message translates to:
+  /// **'People Group of the Day'**
+  String get peopleGroupOfTheDay;
 }
 
 class _AppLocalizationsDelegate

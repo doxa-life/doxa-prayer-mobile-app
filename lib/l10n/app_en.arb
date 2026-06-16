@@ -482,11 +482,19 @@
     "@dayInTheLifeTitle": {
         "description": "The title of the day in the life section"
     },
+    "myPeopleGroupTitle": "My People Group",
+    "@myPeopleGroupTitle": {
+        "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
+    },
     "peopleGroupIntroTitle": "Pray for the {name}",
     "@peopleGroupIntroTitle": {
         "description": "The title of the people group intro section",
         "placeholders": {
             "name": { "type": "String" }
         }
+    },
+    "peopleGroupOfTheDay": "People Group of the Day",
+    "@peopleGroupOfTheDay": {
+        "description": "Heading for the people group of the day section"
     }
 }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../components/buttons/action_button.dart';
+import '../components/prayer_content/people_group_of_the_day_view.dart';
 import '../components/prayer_content/prayer_content_view.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
@@ -237,6 +238,19 @@ class _PrayContentState extends State<_PrayContent>
     return '$ms-$rand';
   }
 
+  /// The intro `people_group` block — the user's selected group, whose full
+  /// detail card is rendered below the Amen button. Returns null when no such
+  /// block carries people-group data.
+  PrayerContentBlock? _selectedGroupBlock(PrayerContentResponse data) {
+    for (final block in data.content) {
+      if (block.type == PrayerContentBlockType.peopleGroup &&
+          block.peopleGroupData != null) {
+        return block;
+      }
+    }
+    return null;
+  }
+
   Future<void> _onAmen() async {
     if (_submitting || _amenFired) return;
     final openedAt = _openedAt;
@@ -318,6 +332,7 @@ class _PrayContentState extends State<_PrayContent>
                     ),
                   );
                 }
+                final selectedGroup = _selectedGroupBlock(data);
                 return ListView(
                   children: [
                     PageContainer(
@@ -331,6 +346,12 @@ class _PrayContentState extends State<_PrayContent>
                             onPressed: _submitting ? null : _onAmen,
                             color: ActionButtonColor.secondary,
                           ),
+                          if (selectedGroup != null)
+                            PeopleGroupOfTheDayView(
+                              name: selectedGroup.title,
+                              data: selectedGroup.peopleGroupData!,
+                              heading: l10n.myPeopleGroupTitle,
+                            ),
                         ],
                       ),
                     ),

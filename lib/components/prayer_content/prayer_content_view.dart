@@ -37,7 +37,11 @@ class PrayerContentView extends StatelessWidget {
       case PrayerContentBlockType.peopleGroupOfTheDay:
         final data = block.peopleGroupData;
         if (data == null) return null;
-        return PeopleGroupOfTheDayView(name: block.title, data: data);
+        return PeopleGroupOfTheDayView(
+          name: block.title,
+          data: data,
+          heading: AppLocalizations.of(context)!.peopleGroupOfTheDay,
+        );
       case PrayerContentBlockType.static:
         final doc = block.contentJson;
         if (doc == null) return null;
