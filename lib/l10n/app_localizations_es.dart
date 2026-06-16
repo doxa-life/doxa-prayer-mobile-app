@@ -402,6 +402,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get nextDay => 'Día siguiente';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

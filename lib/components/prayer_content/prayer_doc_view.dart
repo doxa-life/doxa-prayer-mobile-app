@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,10 @@ import 'prayer_verse_view.dart';
 /// `hardBreak`. Unknown node types are skipped silently so that future
 /// content additions don't crash older clients.
 class PrayerDocView extends StatelessWidget {
-  const PrayerDocView({super.key, required this.doc});
+  const PrayerDocView({super.key, required this.doc, this.title});
 
   final Map<String, dynamic> doc;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,9 @@ class PrayerDocView extends StatelessWidget {
         .whereType<Map<String, dynamic>>()
         .toList();
     final widgets = <Widget>[];
+    if (title != null) {
+      widgets.add(H2(title!, textAlign: TextAlign.start));
+    }
     for (final node in nodes) {
       final widget = _renderBlock(node);
       if (widget != null) widgets.add(widget);

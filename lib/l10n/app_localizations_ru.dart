@@ -403,6 +403,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get nextDay => 'Следующий день';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

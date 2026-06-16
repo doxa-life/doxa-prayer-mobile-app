@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/prayer_content.dart';
@@ -17,7 +18,7 @@ class PrayerContentView extends StatelessWidget {
   Widget build(BuildContext context) {
     final children = <Widget>[];
     for (final block in response.content) {
-      final widget = _buildBlock(block);
+      final widget = _buildBlock(context, block);
       if (widget != null) children.add(widget);
     }
     return Column(
@@ -27,7 +28,7 @@ class PrayerContentView extends StatelessWidget {
     );
   }
 
-  Widget? _buildBlock(PrayerContentBlock block) {
+  Widget? _buildBlock(BuildContext context, PrayerContentBlock block) {
     switch (block.type) {
       case PrayerContentBlockType.peopleGroup:
         final data = block.peopleGroupData;
@@ -41,6 +42,13 @@ class PrayerContentView extends StatelessWidget {
         final doc = block.contentJson;
         if (doc == null) return null;
         return PrayerDocView(doc: doc);
+      case PrayerContentBlockType.dayInTheLife:
+        final doc = block.contentJson;
+        if (doc == null) return null;
+        return PrayerDocView(
+          doc: doc,
+          title: AppLocalizations.of(context)!.dayInTheLifeTitle,
+        );
       case PrayerContentBlockType.unknown:
         return null;
     }

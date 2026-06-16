@@ -770,6 +770,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next day'**
   String get nextDay;
+
+  /// The title of the day in the life section
+  ///
+  /// In en, this message translates to:
+  /// **'Day in the Life'**
+  String get dayInTheLifeTitle;
+
+  /// The title of the people group intro section
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for the {name}'**
+  String peopleGroupIntroTitle(String name);
 }
 
 class _AppLocalizationsDelegate

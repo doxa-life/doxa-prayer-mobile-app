@@ -400,6 +400,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get nextDay => 'Dia seguinte';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

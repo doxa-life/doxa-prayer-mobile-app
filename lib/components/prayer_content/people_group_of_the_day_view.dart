@@ -25,9 +25,10 @@ class PeopleGroupOfTheDayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: AppSpacing.lg,
       children: [
+        H2('People Group of the Day', textAlign: TextAlign.start),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: AppSpacing.xl,

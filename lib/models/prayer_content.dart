@@ -72,6 +72,7 @@ enum PrayerContentBlockType {
   peopleGroup,
   peopleGroupOfTheDay,
   static,
+  dayInTheLife,
   unknown,
 }
 
@@ -100,7 +101,10 @@ class PrayerContentBlock {
         id == -2
             ? PrayerContentBlockType.peopleGroupOfTheDay
             : PrayerContentBlockType.peopleGroup,
-      'static' => PrayerContentBlockType.static,
+      'static' =>
+        id == -3
+            ? PrayerContentBlockType.dayInTheLife
+            : PrayerContentBlockType.static,
       _ => PrayerContentBlockType.unknown,
     };
     final pgRaw = json['people_group_data'];

@@ -402,6 +402,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nextDay => 'Jour suivant';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }
 
 /// The translations for French, as used in France (`fr_FR`).

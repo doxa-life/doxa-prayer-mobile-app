@@ -394,6 +394,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nextDay => 'Next day';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }
 
 /// The translations for English, as used in the United States (`en_US`).

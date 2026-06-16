@@ -395,4 +395,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get nextDay => 'اليوم التالي';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
 }

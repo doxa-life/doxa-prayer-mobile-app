@@ -247,6 +247,10 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "@dayInTheLife": {
+        "description": "The title of the day in the life section"
+    },
+    "dayInTheLife": "Day in the Life",
     "adoptionStatus": "Adoption Status",
     "alternateName": "Alternate name",
     "amen": "Amen",

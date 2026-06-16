@@ -477,5 +477,16 @@
     "nextDay": "Next day",
     "@nextDay": {
         "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
+    },
+    "dayInTheLifeTitle": "Day in the Life",
+    "@dayInTheLifeTitle": {
+        "description": "The title of the day in the life section"
+    },
+    "peopleGroupIntroTitle": "Pray for the {name}",
+    "@peopleGroupIntroTitle": {
+        "description": "The title of the people group intro section",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
     }
 }
