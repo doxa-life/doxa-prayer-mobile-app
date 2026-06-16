@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.5.0+11 - 2026-06-16
+
+Features:
+- enable deep linking into the app
+- add my people group section under 'Amen'
+
+Bug fixes:
+- add missing titles to prayer sections
+
+CI/CD:
+- setup fastlane release process
+
 ## 1.4.0+10 - 2026-06-16
 
 Bug fixes:

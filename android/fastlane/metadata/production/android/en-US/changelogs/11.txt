@@ -1,0 +1,9 @@
+Features:
+- enable deep linking into the app
+- add my people group section under 'Amen'
+
+Bug fixes:
+- add missing titles to prayer sections
+
+CI/CD:
+- setup fastlane release process
