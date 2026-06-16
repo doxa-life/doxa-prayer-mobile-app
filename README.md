@@ -48,6 +48,53 @@ The same applies to Android **emulators** (their `localhost` is the emulator
 itself, not your machine): run `adb reverse tcp:3000 tcp:3000`, or point the
 override at `http://10.0.2.2:3000`, the emulator's alias for the host.
 
+## Releasing (Android)
+
+Releases are automated with [fastlane](https://fastlane.tools), fronted by
+`./release.sh`. Each flavor ships to its **own** Play app and updates its **own**
+server version gate:
+
+| Target | Flavor | Play app | Version gate |
+|---|---|---|---|
+| staging | `staging` | `app.prayer.doxa.staging` | staging campaigns server |
+| production | `production` | `app.prayer.doxa` | `pray.doxa.life` |
+
+### One-time setup
+
+1. `cd android && bundle install` (needs Ruby + Bundler: `gem install bundler`).
+2. Copy `android/fastlane/.env.example` to `android/fastlane/.env` and fill in:
+   - `PLAY_SERVICE_ACCOUNT_JSON` — path to a Google Play service-account JSON
+     with release permission on **both** apps (Play Console → Setup → API access).
+   - `STAGING_*` / `PRODUCTION_*` — each campaigns server's base URL and an admin
+     token with the `content.edit` permission.
+3. Signing is unchanged: builds use the existing `android/key.properties` →
+   local keystore. `.env`, the service-account JSON, and `key.properties` are all
+   gitignored.
+
+### Release flow
+
+```bash
+./release.sh bump minor   # 1.0.6+6 -> 1.1.0+7: opens $EDITOR with notes drafted
+                          # from git, then commits and tags v1.1.0
+./release.sh staging      # builds + uploads to the staging app (internal track),
+                          # updates the staging version gate
+# ...test on the Doxa Staging app...
+./release.sh production   # same build -> production app + production gate
+git push --follow-tags    # publish the release commit and tag
+```
+
+- `bump` types: `build` (default, just `+N`), `patch`, `minor`, `major`.
+- On `bump`, an editor opens with release notes generated from your
+  **conventional commits** (`feat:`/`fix:`/…) since the last release tag, via
+  [fastlane-plugin-semantic_release](https://github.com/xotahal/fastlane-plugin-semantic_release).
+  **Save to proceed; save an empty file to cancel** the release (no commit/tag).
+  The notes land in `CHANGELOG.md` and in both flavors' Play changelog files
+  (`android/fastlane/metadata/<flavor>/.../changelogs/`). Writing commits in
+  conventional format gives the cleanest notes.
+- `./release.sh build staging` builds a signed AAB only (no upload).
+- Re-deploying the same target without a new `bump` is rejected by Play
+  (duplicate version code) — run `bump` first.
+
 ## Testing reminders
 
 Local notifications are scheduled by `lib/services/reminders_notifications.dart` and triggered via the reminders CRUD in `lib/services/reminders_controller.dart`. To verify the end-to-end flow on a device:

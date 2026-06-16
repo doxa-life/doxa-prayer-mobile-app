@@ -47,3 +47,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Fastlane (Android release automation)
+/android/fastlane/.env
+/android/fastlane/report.xml
+/android/fastlane/README.md
+/android/vendor/bundle
+**/play-service-account*.json
