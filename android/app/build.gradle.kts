@@ -54,6 +54,24 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+
+    // Environment flavors. The active flavor is exposed to Dart via Flutter's
+    // built-in `appFlavor`, which ApiConfig uses to pick the API host. Staging
+    // gets its own applicationId suffix so it installs alongside production.
+    flavorDimensions += "env"
+    productFlavors {
+        create("production") {
+            dimension = "env"
+            // Uses the default applicationId (app.prayer.doxa).
+            resValue("string", "app_name", "Doxa Prayer")
+        }
+        create("staging") {
+            dimension = "env"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+            resValue("string", "app_name", "Doxa Staging")
+        }
+    }
 }
 
 flutter {

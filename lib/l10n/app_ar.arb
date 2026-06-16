@@ -155,6 +155,7 @@
     "no": "لا",
     "noDaysSelected": "لم يتم تحديد أيام",
     "noPeopleGroupSelected": "اختر مجموعة عرقية لتبدأ الصلاة.",
+    "myPeopleGroupTitle": "مجموعتي العرقية",
     "noPrayerContentAvailable": "لا يوجد محتوى صلاة لهذا اليوم.",
     "noRemindersYet": "لا توجد تذكيرات بعد",
     "overview": "نظرة عامة",
@@ -165,6 +166,7 @@
     "pray": "صلي",
     "prayerCoverage24h": "سلسلة صلاة مستمرة على مدار 24 ساعة",
     "prayerLogged": "تم تسجيل صلاتك.",
+    "prayedToday": "صُلِّي اليوم",
     "prayerStatus": "حالة الصلاة",
     "primaryLanguage": "اللغة الأساسية",
     "primaryReligion": "الدين الرئيسي",
@@ -190,5 +192,8 @@
     "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة لـ {currentName} والبدء في الصلاة لـ {newName}؟",
     "time": "الوقت",
     "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
-    "yes": "نعم"
+    "yes": "نعم",
+    "appVersion": "الإصدار {version}",
+    "previousDay": "اليوم السابق",
+    "nextDay": "اليوم التالي"
 }

@@ -1,20 +1,99 @@
 # doxa_prayer_mobile_app
 
-A new Flutter project.
+The Doxa Prayer mobile app (Flutter), backed by the campaigns server API.
 
-## Getting Started
+## Running the app
 
-This project is a starting point for a Flutter application.
+The Android build defines two product flavors, `staging` and `production`
+(see `android/app/build.gradle.kts`), so **you must pass `--flavor`** — a
+plain `flutter run` fails with "Gradle build failed to produce an .apk file"
+because no unflavored APK is ever produced.
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter run --flavor staging      # installs as "Doxa Staging" (app.prayer.doxa.staging)
+flutter run --flavor production   # installs as "Doxa Prayer" (app.prayer.doxa)
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The two flavors install side by side on a device. The active flavor also
+selects the API host (see `lib/services/api_config.dart`): `staging` → the
+Railway staging server, `production` → `pray.doxa.life`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### VS Code
+
+`.vscode/launch.json` provides three launch configurations:
+
+- **debug (local API)** — staging flavor pointed at `http://localhost:3000`
+  via an inline `--dart-define=API_BASE_URL=...`. Use this when running the
+  campaigns server locally (`bun run dev`).
+- **staging** / **production** — the plain flavors against their real hosts.
+
+### Pointing a build at a different API host
+
+In resolution order (first match wins):
+
+1. `--dart-define=API_BASE_URL=<url>` at build/run time (what the
+   "debug (local API)" launch config uses).
+2. `API_BASE_URL=<url>` in `.env` — applies to any build without rebuilding
+   tooling; see `.env.example`.
+3. The build flavor, as above.
+
+When targeting `localhost:3000` from a **physical device over USB**, forward
+the port first so the device's localhost reaches your machine:
+
+```bash
+adb reverse tcp:3000 tcp:3000
+```
+
+The same applies to Android **emulators** (their `localhost` is the emulator
+itself, not your machine): run `adb reverse tcp:3000 tcp:3000`, or point the
+override at `http://10.0.2.2:3000`, the emulator's alias for the host.
+
+## Releasing (Android)
+
+Releases are automated with [fastlane](https://fastlane.tools), fronted by
+`./release.sh`. Each flavor ships to its **own** Play app and updates its **own**
+server version gate:
+
+| Target | Flavor | Play app | Version gate |
+|---|---|---|---|
+| staging | `staging` | `app.prayer.doxa.staging` | staging campaigns server |
+| production | `production` | `app.prayer.doxa` | `pray.doxa.life` |
+
+### One-time setup
+
+1. `cd android && bundle install` (needs Ruby + Bundler: `gem install bundler`).
+2. Copy `android/fastlane/.env.example` to `android/fastlane/.env` and fill in:
+   - `PLAY_SERVICE_ACCOUNT_JSON` — path to a Google Play service-account JSON
+     with release permission on **both** apps (Play Console → Setup → API access).
+   - `STAGING_*` / `PRODUCTION_*` — each campaigns server's base URL and an admin
+     token with the `content.edit` permission.
+3. Signing is unchanged: builds use the existing `android/key.properties` →
+   local keystore. `.env`, the service-account JSON, and `key.properties` are all
+   gitignored.
+
+### Release flow
+
+```bash
+./release.sh bump minor   # 1.0.6+6 -> 1.1.0+7: opens $EDITOR with notes drafted
+                          # from git, then commits and tags v1.1.0
+./release.sh staging      # builds + uploads to the staging app (internal track),
+                          # updates the staging version gate
+# ...test on the Doxa Staging app...
+./release.sh production   # same build -> production app + production gate
+git push --follow-tags    # publish the release commit and tag
+```
+
+- `bump` types: `build` (default, just `+N`), `patch`, `minor`, `major`.
+- On `bump`, an editor opens with release notes generated from your
+  **conventional commits** (`feat:`/`fix:`/…) since the last release tag, via
+  [fastlane-plugin-semantic_release](https://github.com/xotahal/fastlane-plugin-semantic_release).
+  **Save to proceed; save an empty file to cancel** the release (no commit/tag).
+  The notes land in `CHANGELOG.md` and in both flavors' Play changelog files
+  (`android/fastlane/metadata/<flavor>/.../changelogs/`). Writing commits in
+  conventional format gives the cleanest notes.
+- `./release.sh build staging` builds a signed AAB only (no upload).
+- Re-deploying the same target without a new `bump` is rejected by Play
+  (duplicate version code) — run `bump` first.
 
 ## Testing reminders
 

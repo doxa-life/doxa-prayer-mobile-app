@@ -113,6 +113,7 @@
     "no": "Нет",
     "noDaysSelected": "Дни не выбраны",
     "noPeopleGroupSelected": "Выберите группу людей, чтобы начать молиться.",
+    "myPeopleGroupTitle": "Моя группа людей",
     "noPrayerContentAvailable": "Сегодня нет молитвенного материала.",
     "noRemindersYet": "Пока нет напоминаний",
     "overview": "Обзор",
@@ -123,6 +124,7 @@
     "pray": "Молиться",
     "prayerCoverage24h": "Круглосуточная молитвенная поддержка",
     "prayerLogged": "Ваша молитва записана.",
+    "prayedToday": "Помолились сегодня",
     "prayerStatus": "Статус молитвы",
     "primaryLanguage": "Родной язык",
     "primaryReligion": "Основная религия",
@@ -148,5 +150,8 @@
     "switchPeopleGroupConfirm": "Вы хотите перестать молиться за {currentName} и начать молиться за {newName}?",
     "time": "Время",
     "workInLocalLanguageAndCulture": "Работа с учетом особенностей местного языка и культуры",
-    "yes": "Да"
+    "yes": "Да",
+    "appVersion": "Версия {version}",
+    "previousDay": "Предыдущий день",
+    "nextDay": "Следующий день"
 }

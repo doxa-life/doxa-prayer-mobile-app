@@ -14,7 +14,12 @@ import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
 
 class PeopleGroupsList extends StatefulWidget {
-  const PeopleGroupsList({super.key, this.onSelect, this.onSelectionConfirmed});
+  const PeopleGroupsList({
+    super.key,
+    this.onSelect,
+    this.onSelectionConfirmed,
+    this.listBottomPadding = 0,
+  });
 
   /// Override the action triggered when the user taps "Select" on a group.
   /// When null, falls back to the in-app confirmation modal that persists the
@@ -26,6 +31,10 @@ class PeopleGroupsList extends StatefulWidget {
   /// The wizard uses this to skip its in-wizard confirm step (the user already
   /// confirmed externally) and signals "in wizard" mode to the details page.
   final ValueChanged<PeopleGroup>? onSelectionConfirmed;
+
+  /// Padding inside the scrollable list, so content can scroll to the
+  /// viewport edge while keeping a gap after the last item.
+  final double listBottomPadding;
 
   @override
   State<PeopleGroupsList> createState() => _PeopleGroupsListState();
@@ -135,6 +144,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                       valueListenable: selectedPeopleGroupController,
                       builder: (context, selected, _) {
                         return ListView.separated(
+                          padding: EdgeInsets.only(
+                            bottom: widget.listBottomPadding,
+                          ),
                           itemCount: filtered.length,
                           separatorBuilder: (_, _) =>
                               const SizedBox(height: AppSpacing.lg),

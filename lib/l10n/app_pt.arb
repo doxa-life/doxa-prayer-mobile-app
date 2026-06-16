@@ -113,6 +113,7 @@
     "no": "Não",
     "noDaysSelected": "Nenhum dia selecionado",
     "noPeopleGroupSelected": "Escolha um grupo de pessoas para começar a orar.",
+    "myPeopleGroupTitle": "Meu Grupo de Pessoas",
     "noPrayerContentAvailable": "Sem conteúdo de oração para hoje.",
     "noRemindersYet": "Ainda não há lembretes",
     "overview": "Visão geral",
@@ -123,6 +124,7 @@
     "pray": "Orar",
     "prayerCoverage24h": "Cobertura de oração 24 horas por dia",
     "prayerLogged": "Sua oração foi registrada.",
+    "prayedToday": "Orou hoje",
     "prayerStatus": "Estado da oração",
     "primaryLanguage": "Língua principal",
     "primaryReligion": "Religião principal",
@@ -148,5 +150,8 @@
     "switchPeopleGroupConfirm": "Você quer parar de orar por {currentName} e começar a orar por {newName}?",
     "time": "Hora",
     "workInLocalLanguageAndCulture": "Trabalho na língua e cultura locais",
-    "yes": "Sim"
+    "yes": "Sim",
+    "appVersion": "Versão {version}",
+    "previousDay": "Dia anterior",
+    "nextDay": "Dia seguinte"
 }

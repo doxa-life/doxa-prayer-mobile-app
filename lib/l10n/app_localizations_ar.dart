@@ -186,6 +186,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerLogged => 'تم تسجيل صلاتك.';
 
   @override
+  String get prayedToday => 'صُلِّي اليوم';
+
+  @override
   String get couldNotLogPrayerSession => 'تعذر تسجيل جلسة الصلاة.';
 
   @override
@@ -339,4 +342,71 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get newsSignupError =>
       'Something went wrong. Please check your connection and try again.';
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String get updateAvailableBody =>
+      'A new version of Doxa Prayer is available.';
+
+  @override
+  String get updateRequiredTitle => 'Update required';
+
+  @override
+  String get updateRequiredBody =>
+      'Please update to the latest version to keep using Doxa Prayer.';
+
+  @override
+  String get updateAction => 'Update';
+
+  @override
+  String get updateDismiss => 'Not now';
+
+  @override
+  String get getInvolved => 'Get involved';
+
+  @override
+  String get donate => 'Donate';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String shareMessage(String name) {
+    return 'Pray with me for the $name — get the Doxa Prayer app:';
+  }
+
+  @override
+  String get qrCode => 'QR code';
+
+  @override
+  String scanToPray(String name) {
+    return 'Scan to get the app and pray for the $name';
+  }
+
+  @override
+  String appVersion(String version) {
+    return 'الإصدار $version';
+  }
+
+  @override
+  String get previousDay => 'اليوم السابق';
+
+  @override
+  String get nextDay => 'اليوم التالي';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String get myPeopleGroupTitle => 'مجموعتي العرقية';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
+
+  @override
+  String get peopleGroupOfTheDay => 'People Group of the Day';
 }

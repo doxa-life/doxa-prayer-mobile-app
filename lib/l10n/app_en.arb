@@ -225,6 +225,10 @@
     "@prayerLogged": {
         "description": "Snackbar shown after a prayer session has been recorded"
     },
+    "prayedToday": "Prayed today",
+    "@prayedToday": {
+        "description": "Pill shown on the home people group card when the user has prayed for it today"
+    },
     "couldNotLogPrayerSession": "Could not log your prayer session.",
     "@couldNotLogPrayerSession": {
         "description": "Snackbar shown when the prayer-session POST fails"
@@ -404,5 +408,93 @@
     "newsSignupError": "Something went wrong. Please check your connection and try again.",
     "@newsSignupError": {
         "description": "Error message shown when the news signup submission fails"
+    },
+    "updateAvailableTitle": "Update available",
+    "@updateAvailableTitle": {
+        "description": "Title of the optional-update banner"
+    },
+    "updateAvailableBody": "A new version of Doxa Prayer is available.",
+    "@updateAvailableBody": {
+        "description": "Body of the optional-update banner"
+    },
+    "updateRequiredTitle": "Update required",
+    "@updateRequiredTitle": {
+        "description": "Title of the forced-update modal"
+    },
+    "updateRequiredBody": "Please update to the latest version to keep using Doxa Prayer.",
+    "@updateRequiredBody": {
+        "description": "Body of the forced-update modal"
+    },
+    "updateAction": "Update",
+    "@updateAction": {
+        "description": "Button that starts the app update / opens the store"
+    },
+    "updateDismiss": "Not now",
+    "@updateDismiss": {
+        "description": "Button that dismisses the optional-update banner"
+    },
+    "getInvolved": "Get involved",
+    "@getInvolved": {
+        "description": "Title of the home-screen section with share, donate and feedback buttons"
+    },
+    "donate": "Donate",
+    "@donate": {
+        "description": "Button that opens the donation page in the browser"
+    },
+    "feedback": "Feedback",
+    "@feedback": {
+        "description": "Button that opens the feedback page in the browser"
+    },
+    "shareMessage": "Pray with me for the {name} — get the Doxa Prayer app:",
+    "@shareMessage": {
+        "description": "Message text accompanying the shared app link for a people group",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
+    },
+    "qrCode": "QR code",
+    "@qrCode": {
+        "description": "Button on the people group card that shows a QR code of the share link"
+    },
+    "scanToPray": "Scan to get the app and pray for the {name}",
+    "@scanToPray": {
+        "description": "Caption under the QR code in the share modal",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
+    },
+    "appVersion": "Version {version}",
+    "@appVersion": {
+        "description": "App version label shown at the bottom of the settings screen",
+        "placeholders": {
+            "version": { "type": "String" }
+        }
+    },
+    "previousDay": "Previous day",
+    "@previousDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen"
+    },
+    "nextDay": "Next day",
+    "@nextDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
+    },
+    "dayInTheLifeTitle": "Day in the Life",
+    "@dayInTheLifeTitle": {
+        "description": "The title of the day in the life section"
+    },
+    "myPeopleGroupTitle": "My People Group",
+    "@myPeopleGroupTitle": {
+        "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
+    },
+    "peopleGroupIntroTitle": "Pray for the {name}",
+    "@peopleGroupIntroTitle": {
+        "description": "The title of the people group intro section",
+        "placeholders": {
+            "name": { "type": "String" }
+        }
+    },
+    "peopleGroupOfTheDay": "People Group of the Day",
+    "@peopleGroupOfTheDay": {
+        "description": "Heading for the people group of the day section"
     }
 }

@@ -113,6 +113,7 @@
     "no": "Non",
     "noDaysSelected": "Aucun jour sélectionné",
     "noPeopleGroupSelected": "Choisissez un groupe de personnes pour commencer à prier.",
+    "myPeopleGroupTitle": "Mon Groupe de Personnes",
     "noPrayerContentAvailable": "Aucun contenu de prière pour aujourd'hui.",
     "noRemindersYet": "Aucun rappel pour le moment",
     "overview": "Aperçu",
@@ -123,6 +124,7 @@
     "pray": "Prier",
     "prayerCoverage24h": "Veillée de prière 24 heures sur 24",
     "prayerLogged": "Votre prière a été enregistrée.",
+    "prayedToday": "Prié aujourd'hui",
     "prayerStatus": "État de la prière",
     "primaryLanguage": "Langue maternelle",
     "primaryReligion": "Religion principale",
@@ -148,5 +150,8 @@
     "switchPeopleGroupConfirm": "Voulez-vous arrêter de prier pour {currentName} et commencer à prier pour {newName} ?",
     "time": "Heure",
     "workInLocalLanguageAndCulture": "Travailler dans le respect de la langue et de la culture locales",
-    "yes": "Oui"
+    "yes": "Oui",
+    "appVersion": "Version {version}",
+    "previousDay": "Jour précédent",
+    "nextDay": "Jour suivant"
 }

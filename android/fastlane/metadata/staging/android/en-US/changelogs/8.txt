@@ -1,0 +1,2 @@
+Bug fixes:
+- hide banner once playstore takes over in app update

@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/prayer_content.dart';
@@ -25,10 +26,11 @@ class PeopleGroupIntroView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: AppSpacing.lg,
       children: [
-        H1(name, textAlign: TextAlign.center),
+        H1(
+          AppLocalizations.of(context)!.peopleGroupIntroTitle(name),
+          textAlign: TextAlign.center,
+        ),
         AppImage(url: data.imageUrl, aspectRatio: 1, size: 169.0),
-        if (data.description.isNotEmpty)
-          Text(data.description, style: AppTypography.bodyMedium),
       ],
     );
   }

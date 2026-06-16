@@ -71,21 +71,23 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
           title: l.peopleGroup,
           onBack: () => Navigator.pop(context),
         ),
-        body: FutureBuilder<PeopleGroupDetail>(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return _ErrorView(
-                message: l.couldNotLoadPeopleGroupDetailsMessage,
-                onRetry: _reload,
-              );
-            }
-            final detail = snapshot.data!;
-            return _DetailBody(detail: detail, fromWizard: widget.fromWizard);
-          },
+        body: SafeArea(
+          child: FutureBuilder<PeopleGroupDetail>(
+            future: _future,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return _ErrorView(
+                  message: l.couldNotLoadPeopleGroupDetailsMessage,
+                  onRetry: _reload,
+                );
+              }
+              final detail = snapshot.data!;
+              return _DetailBody(detail: detail, fromWizard: widget.fromWizard);
+            },
+          ),
         ),
       ),
     );

@@ -1,0 +1,219 @@
+require "tempfile"
+require "json"
+require "fileutils"
+require "shellwords"
+
+# ---------------------------------------------------------------------------
+# Doxa Prayer — Android build & release automation.
+#
+# Two flavors map to two separate Play apps and two separate server version
+# gates. `bump` cuts a release (version + notes + commit + tag); `deploy`
+# builds the signed AAB, uploads it to that app's internal track, and updates
+# that target's server gate. See ../../release.sh for the friendly wrapper.
+# ---------------------------------------------------------------------------
+
+# Repo root, resolved from this file's location so it is independent of the
+# process working directory (fastlane runs from android/, but `sh` runs from
+# android/fastlane/ — absolute paths avoid that ambiguity entirely).
+# NOTE: capture these as absolute constants at load time. `__dir__` is reliable
+# here, but returns "." when evaluated *inside a lane block* at runtime, which
+# made supply look for `./metadata/...` relative to the CWD. Freezing the values
+# at load avoids that entirely — use the constants everywhere, never `__dir__`.
+FASTLANE_DIR = File.expand_path(__dir__)
+ROOT = File.expand_path("../..", FASTLANE_DIR)
+PUBSPEC = File.join(ROOT, "pubspec.yaml")
+CHANGELOG = File.join(ROOT, "CHANGELOG.md")
+METADATA_DIR = File.join(FASTLANE_DIR, "metadata")
+
+FLAVORS = {
+  "staging" => {
+    package: "app.prayer.doxa.staging",
+    server_url: ENV["STAGING_SERVER_URL"],
+    token: ENV["STAGING_ADMIN_TOKEN"],
+  },
+  "production" => {
+    package: "app.prayer.doxa",
+    server_url: ENV["PRODUCTION_SERVER_URL"],
+    token: ENV["PRODUCTION_ADMIN_TOKEN"],
+  },
+}
+
+default_platform(:android)
+
+platform :android do
+  # ---- helpers ------------------------------------------------------------
+
+  # Parse `version: X.Y.Z+N` from pubspec.yaml.
+  def read_version
+    line = File.read(PUBSPEC)[/^version:\s*(.+)$/, 1]
+    UI.user_error!("Could not find `version:` in #{PUBSPEC}") unless line
+    m = line.strip.match(/^(\d+)\.(\d+)\.(\d+)\+(\d+)$/)
+    UI.user_error!("Unexpected version format: #{line.strip} (want X.Y.Z+N)") unless m
+    {
+      semver: "#{m[1]}.#{m[2]}.#{m[3]}",
+      major: m[1].to_i, minor: m[2].to_i, patch: m[3].to_i,
+      code: m[4].to_i,
+    }
+  end
+
+  def write_version(semver, code)
+    contents = File.read(PUBSPEC)
+    contents = contents.sub(/^version:\s*.+$/, "version: #{semver}+#{code}")
+    File.write(PUBSPEC, contents)
+  end
+
+  def require_flavor(flavor)
+    UI.user_error!("Unknown flavor #{flavor.inspect} (use staging or production)") unless FLAVORS.key?(flavor)
+    FLAVORS[flavor]
+  end
+
+  def git(args)
+    sh("git -C #{ROOT.shellescape} #{args}")
+  end
+
+  # ---- lanes --------------------------------------------------------------
+
+  desc "Bump version, draft release notes, commit and tag. type: build|patch|minor|major"
+  lane :bump do |options|
+    type = (options[:type] || "build").to_s
+    v = read_version
+
+    case type
+    when "build"  then semver = v[:semver]
+    when "patch"  then semver = "#{v[:major]}.#{v[:minor]}.#{v[:patch] + 1}"
+    when "minor"  then semver = "#{v[:major]}.#{v[:minor] + 1}.0"
+    when "major"  then semver = "#{v[:major] + 1}.0.0"
+    else UI.user_error!("Unknown bump type #{type.inspect} (build|patch|minor|major)")
+    end
+    code = v[:code] + 1
+
+    write_version(semver, code)
+    UI.success("Version #{v[:semver]}+#{v[:code]} -> #{semver}+#{code}")
+
+    # Draft notes from conventional commits since the last release tag, via
+    # fastlane-plugin-semantic_release. analyze_commits sets the lane context
+    # (last tag hash) that conventional_changelog reads to scope the range, and
+    # also surfaces the version the commits *imply* as a sanity hint.
+    analyze_commits(match: "v*")
+    suggested = lane_context[SharedValues::RELEASE_NEXT_VERSION]
+    UI.message("semantic_release suggests #{suggested} from the commits (bumping #{semver})") if suggested
+    draft = conventional_changelog(format: "plain", display_links: false, display_title: false)
+    write_release_notes(semver, code, draft)
+
+    git("add #{PUBSPEC.shellescape} #{CHANGELOG.shellescape} #{METADATA_DIR.shellescape}")
+    git("commit -m #{"chore: release v#{semver}+#{code}".shellescape}")
+
+    tag = type == "build" ? "v#{semver}+#{code}" : "v#{semver}"
+    git("tag #{tag.shellescape}")
+    UI.success("Committed and tagged #{tag}. Push with: git push --follow-tags")
+  end
+
+  desc "Build a signed AAB for a flavor. flavor: staging|production"
+  lane :build_aab do |options|
+    flavor = (options[:flavor] || "staging").to_s
+    require_flavor(flavor)
+    sh("cd #{ROOT.shellescape} && flutter build appbundle --flavor #{flavor} --release")
+    path = aab_path(flavor)
+    UI.user_error!("Expected AAB not found at #{path}") unless File.exist?(path)
+    UI.success("Built #{path}")
+    path
+  end
+
+  desc "Build + upload to the Play internal track and update the server gate. flavor: staging|production"
+  lane :deploy do |options|
+    flavor = (options[:flavor] || "").to_s
+    cfg = require_flavor(flavor)
+
+    json_key = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
+    UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set (see fastlane/.env.example)") if json_key.to_s.empty?
+
+    aab = build_aab(flavor: flavor)
+
+    upload_to_play_store(
+      package_name: cfg[:package],
+      track: "internal",
+      aab: aab,
+      json_key: json_key,
+      metadata_path: File.join(METADATA_DIR, flavor, "android"),
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: false,
+    )
+
+    update_server_version(flavor: flavor)
+    UI.success("Deployed #{read_version[:semver]} (#{flavor}) to Play internal + updated #{flavor} gate")
+  end
+
+  desc "Update the campaigns-server version gate for a flavor. flavor: staging|production"
+  lane :update_server_version do |options|
+    flavor = (options[:flavor] || "").to_s
+    cfg = require_flavor(flavor)
+    UI.user_error!("Missing server URL/token for #{flavor} (see fastlane/.env.example)") if cfg[:server_url].to_s.empty? || cfg[:token].to_s.empty?
+
+    semver = read_version[:semver]
+    body = JSON.generate(latest_version: semver)
+    url = "#{cfg[:server_url]}/api/admin/app-version/config"
+    sh(%(curl -fsS -X PUT #{url.shellescape} ) +
+       %(-H "Authorization: Bearer #{cfg[:token]}" ) +
+       %(-H "Content-Type: application/json" ) +
+       %(-d #{body.shellescape}))
+    UI.success("Set #{flavor} latest_version = #{semver}")
+  end
+end
+
+# ---- non-lane helpers (file-level so they can use Ruby IO directly) --------
+
+def aab_path(flavor)
+  File.join(ROOT, "build", "app", "outputs", "bundle", "#{flavor}Release", "app-#{flavor}-release.aab")
+end
+
+# Open $EDITOR pre-filled with the semantic_release-generated `draft`, then
+# write CHANGELOG.md + both flavors' Play changelog files for the given version
+# code. Empty save aborts.
+def write_release_notes(semver, code, draft)
+  draft = draft.to_s.strip
+  draft = "- " if draft.empty?
+
+  tmp = Tempfile.new(["release-notes", ".md"])
+  begin
+    tmp.write(draft + "\n")
+    tmp.close
+    editor = ENV["EDITOR"]
+    editor = "vi" if editor.to_s.empty?
+    # Use system (not fastlane sh) so the editor inherits the TTY.
+    UI.message("Opening #{editor} to edit release notes for #{semver}+#{code}…")
+    unless system("#{editor} #{tmp.path.shellescape}")
+      UI.user_error!("Editor exited abnormally — aborting release")
+    end
+    notes = File.read(tmp.path).strip
+  ensure
+    tmp.unlink
+  end
+
+  meaningful = notes.gsub(/^[-\s]+$/, "").strip
+  UI.user_error!("Release notes are empty — aborting release") if meaningful.empty?
+
+  if notes.length > 500
+    UI.important("Release notes are #{notes.length} chars; Play truncates changelogs at 500.")
+  end
+
+  # Prepend a dated section to CHANGELOG.md.
+  date = Time.now.strftime("%Y-%m-%d")
+  section = "## #{semver}+#{code} - #{date}\n\n#{notes}\n"
+  existing = File.exist?(CHANGELOG) ? File.read(CHANGELOG) : "# Changelog\n"
+  lines = existing.lines
+  title = (lines.first || "# Changelog\n")
+  rest = lines[1..]&.join.to_s.lstrip
+  File.write(CHANGELOG, "#{title.chomp}\n\n#{section}\n#{rest}".rstrip + "\n")
+
+  # Write the Play changelog file for each flavor (plain text, no header).
+  FLAVORS.each_key do |flavor|
+    dir = File.join(METADATA_DIR, flavor, "android", "en-US", "changelogs")
+    FileUtils.mkdir_p(dir)
+    File.write(File.join(dir, "#{code}.txt"), notes + "\n")
+  end
+
+  UI.success("Wrote CHANGELOG.md and changelogs/#{code}.txt for both flavors")
+end

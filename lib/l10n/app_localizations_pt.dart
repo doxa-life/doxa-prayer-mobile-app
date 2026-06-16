@@ -192,6 +192,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get prayerLogged => 'Sua oração foi registrada.';
 
   @override
+  String get prayedToday => 'Orou hoje';
+
+  @override
   String get couldNotLogPrayerSession =>
       'Não foi possível registrar sua sessão de oração.';
 
@@ -344,6 +347,73 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get newsSignupError =>
       'Something went wrong. Please check your connection and try again.';
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String get updateAvailableBody =>
+      'A new version of Doxa Prayer is available.';
+
+  @override
+  String get updateRequiredTitle => 'Update required';
+
+  @override
+  String get updateRequiredBody =>
+      'Please update to the latest version to keep using Doxa Prayer.';
+
+  @override
+  String get updateAction => 'Update';
+
+  @override
+  String get updateDismiss => 'Not now';
+
+  @override
+  String get getInvolved => 'Get involved';
+
+  @override
+  String get donate => 'Donate';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String shareMessage(String name) {
+    return 'Pray with me for the $name — get the Doxa Prayer app:';
+  }
+
+  @override
+  String get qrCode => 'QR code';
+
+  @override
+  String scanToPray(String name) {
+    return 'Scan to get the app and pray for the $name';
+  }
+
+  @override
+  String appVersion(String version) {
+    return 'Versão $version';
+  }
+
+  @override
+  String get previousDay => 'Dia anterior';
+
+  @override
+  String get nextDay => 'Dia seguinte';
+
+  @override
+  String get dayInTheLifeTitle => 'Day in the Life';
+
+  @override
+  String get myPeopleGroupTitle => 'Meu Grupo de Pessoas';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return 'Pray for the $name';
+  }
+
+  @override
+  String get peopleGroupOfTheDay => 'People Group of the Day';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).
@@ -521,6 +591,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
 
   @override
   String get prayerLogged => 'A sua oração foi registada.';
+
+  @override
+  String get prayedToday => 'Orou hoje';
 
   @override
   String get couldNotLogPrayerSession =>

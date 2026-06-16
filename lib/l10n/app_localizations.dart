@@ -429,6 +429,12 @@ abstract class AppLocalizations {
   /// **'Your prayer has been logged.'**
   String get prayerLogged;
 
+  /// Pill shown on the home people group card when the user has prayed for it today
+  ///
+  /// In en, this message translates to:
+  /// **'Prayed today'**
+  String get prayedToday;
+
   /// Snackbar shown when the prayer-session POST fails
   ///
   /// In en, this message translates to:
@@ -674,6 +680,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please check your connection and try again.'**
   String get newsSignupError;
+
+  /// Title of the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get updateAvailableTitle;
+
+  /// Body of the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'A new version of Doxa Prayer is available.'**
+  String get updateAvailableBody;
+
+  /// Title of the forced-update modal
+  ///
+  /// In en, this message translates to:
+  /// **'Update required'**
+  String get updateRequiredTitle;
+
+  /// Body of the forced-update modal
+  ///
+  /// In en, this message translates to:
+  /// **'Please update to the latest version to keep using Doxa Prayer.'**
+  String get updateRequiredBody;
+
+  /// Button that starts the app update / opens the store
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateAction;
+
+  /// Button that dismisses the optional-update banner
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get updateDismiss;
+
+  /// Title of the home-screen section with share, donate and feedback buttons
+  ///
+  /// In en, this message translates to:
+  /// **'Get involved'**
+  String get getInvolved;
+
+  /// Button that opens the donation page in the browser
+  ///
+  /// In en, this message translates to:
+  /// **'Donate'**
+  String get donate;
+
+  /// Button that opens the feedback page in the browser
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// Message text accompanying the shared app link for a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Pray with me for the {name} — get the Doxa Prayer app:'**
+  String shareMessage(String name);
+
+  /// Button on the people group card that shows a QR code of the share link
+  ///
+  /// In en, this message translates to:
+  /// **'QR code'**
+  String get qrCode;
+
+  /// Caption under the QR code in the share modal
+  ///
+  /// In en, this message translates to:
+  /// **'Scan to get the app and pray for the {name}'**
+  String scanToPray(String name);
+
+  /// App version label shown at the bottom of the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String appVersion(String version);
+
+  /// Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get previousDay;
+
+  /// Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get nextDay;
+
+  /// The title of the day in the life section
+  ///
+  /// In en, this message translates to:
+  /// **'Day in the Life'**
+  String get dayInTheLifeTitle;
+
+  /// Heading for the selected people group's detail card shown below the Amen button on the Pray screen
+  ///
+  /// In en, this message translates to:
+  /// **'My People Group'**
+  String get myPeopleGroupTitle;
+
+  /// The title of the people group intro section
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for the {name}'**
+  String peopleGroupIntroTitle(String name);
+
+  /// Heading for the people group of the day section
+  ///
+  /// In en, this message translates to:
+  /// **'People Group of the Day'**
+  String get peopleGroupOfTheDay;
 }
 
 class _AppLocalizationsDelegate
