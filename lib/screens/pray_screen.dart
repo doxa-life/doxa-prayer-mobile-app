@@ -352,6 +352,10 @@ class _PrayContentState extends State<_PrayContent>
                               data: selectedGroup.peopleGroupData!,
                               heading: l10n.myPeopleGroupTitle,
                             ),
+                          if (data.metadata.copyrightNotices.isNotEmpty)
+                            _CopyrightNotices(
+                              notices: data.metadata.copyrightNotices,
+                            ),
                         ],
                       ),
                     ),
@@ -436,6 +440,45 @@ class _DateNavigator extends StatelessWidget {
             onPressed: canGoNext ? onNext : null,
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Scripture copyright notices shown at the very bottom of the prayer content,
+/// mirroring the web `PrayerFuelDisplay`: a thin left rule with small, italic,
+/// muted lines — one per quoted translation.
+class _CopyrightNotices extends StatelessWidget {
+  const _CopyrightNotices({required this.notices});
+
+  final List<CopyrightNotice> notices;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
+      child: Container(
+        padding: const EdgeInsetsDirectional.only(start: AppSpacing.sm),
+        decoration: const BoxDecoration(
+          border: BorderDirectional(
+            start: BorderSide(color: AppColors.outline, width: 2),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: AppSpacing.xxs,
+          children: [
+            for (final notice in notices)
+              Text(
+                notice.notice,
+                style: AppTypography.caption.copyWith(
+                  fontSize: AppTypography.xxs,
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.primaryLight,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

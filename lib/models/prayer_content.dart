@@ -6,6 +6,7 @@ class PrayerContentResponse {
     required this.availableLanguages,
     required this.content,
     required this.hasContent,
+    required this.metadata,
     this.globalStartDate,
   });
 
@@ -15,6 +16,7 @@ class PrayerContentResponse {
   final List<String> availableLanguages;
   final List<PrayerContentBlock> content;
   final bool hasContent;
+  final PrayerContentMetadata metadata;
 
   /// Campaign start date (YYYY-MM-DD), or null if not configured. Used to bound
   /// how far back the Pray screen lets the user navigate.
@@ -37,7 +39,39 @@ class PrayerContentResponse {
               .toList(growable: false),
       content: content.toList(growable: false),
       hasContent: json['hasContent'] as bool? ?? false,
+      metadata: PrayerContentMetadata.fromJson(
+        json['metadata'] as Map<String, dynamic>?,
+      ),
       globalStartDate: json['globalStartDate'] as String?,
+    );
+  }
+}
+
+/// Out-of-band data accompanying the prayer content — currently the scripture
+/// copyright notices that must be displayed alongside any quoted translations.
+class PrayerContentMetadata {
+  const PrayerContentMetadata({required this.copyrightNotices});
+
+  final List<CopyrightNotice> copyrightNotices;
+
+  static PrayerContentMetadata fromJson(Map<String, dynamic>? json) {
+    final notices = (json?['copyright_notices'] as List<dynamic>? ?? const [])
+        .map((e) => CopyrightNotice.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false);
+    return PrayerContentMetadata(copyrightNotices: notices);
+  }
+}
+
+class CopyrightNotice {
+  const CopyrightNotice({required this.id, required this.notice});
+
+  final String id;
+  final String notice;
+
+  static CopyrightNotice fromJson(Map<String, dynamic> json) {
+    return CopyrightNotice(
+      id: json['id'] as String? ?? '',
+      notice: json['notice'] as String? ?? '',
     );
   }
 }
