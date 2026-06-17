@@ -2,6 +2,7 @@ import 'package:doxa_prayer_mobile_app/components/misc/background_image_containe
 import 'package:doxa_prayer_mobile_app/components/nav/top_nav_bar.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import 'components/misc/app_icon.dart';
@@ -21,6 +22,8 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
+  DateTime? _lastBackPress;
+
   @override
   void initState() {
     super.initState();
@@ -71,42 +74,73 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     );
   }
 
+  void _handleBack() {
+    final shell = widget.navigationShell;
+    // From any non-Home tab, switch to Home (deterministic — no reliance on
+    // navigation history, so it works on the very first back press too).
+    if (shell.currentIndex != AppRoute.home.index) {
+      shell.goBranch(AppRoute.home.index);
+      return;
+    }
+    // Already on Home: double-tap within 2s to exit.
+    final now = DateTime.now();
+    if (_lastBackPress != null &&
+        now.difference(_lastBackPress!) < const Duration(seconds: 2)) {
+      SystemNavigator.pop();
+      return;
+    }
+    _lastBackPress = now;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.pressBackAgainToExit),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BackgroundImageContainer(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: TopNavBar(
-          onSettings: () => _openSettings(context),
-          onGallery: () => _openGallery(context),
-          onDebug: () => _openDebug(context),
-        ),
-        body: widget.navigationShell,
-        bottomNavigationBar: BottomNavBar(
-          items: [
-            BottomNavItemData(
-              icon: AppIconName.home,
-              selectedIcon: AppIconName.homeSolid,
-              label: AppLocalizations.of(context)!.home,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.pray,
-              selectedIcon: AppIconName.praySolid,
-              label: AppLocalizations.of(context)!.pray,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.peopleGroup,
-              selectedIcon: AppIconName.peopleGroupSolid,
-              label: AppLocalizations.of(context)!.search,
-            ),
-            BottomNavItemData(
-              icon: AppIconName.bell,
-              selectedIcon: AppIconName.bellSolid,
-              label: AppLocalizations.of(context)!.reminders,
-            ),
-          ],
-          currentIndex: widget.navigationShell.currentIndex,
-          onTap: _onTabTap,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        _handleBack();
+      },
+      child: BackgroundImageContainer(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: TopNavBar(
+            onSettings: () => _openSettings(context),
+            onGallery: () => _openGallery(context),
+            onDebug: () => _openDebug(context),
+          ),
+          body: widget.navigationShell,
+          bottomNavigationBar: BottomNavBar(
+            items: [
+              BottomNavItemData(
+                icon: AppIconName.home,
+                selectedIcon: AppIconName.homeSolid,
+                label: AppLocalizations.of(context)!.home,
+              ),
+              BottomNavItemData(
+                icon: AppIconName.pray,
+                selectedIcon: AppIconName.praySolid,
+                label: AppLocalizations.of(context)!.pray,
+              ),
+              BottomNavItemData(
+                icon: AppIconName.peopleGroup,
+                selectedIcon: AppIconName.peopleGroupSolid,
+                label: AppLocalizations.of(context)!.search,
+              ),
+              BottomNavItemData(
+                icon: AppIconName.bell,
+                selectedIcon: AppIconName.bellSolid,
+                label: AppLocalizations.of(context)!.reminders,
+              ),
+            ],
+            currentIndex: widget.navigationShell.currentIndex,
+            onTap: _onTabTap,
+          ),
         ),
       ),
     );

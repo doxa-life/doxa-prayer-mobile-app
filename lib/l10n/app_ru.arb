@@ -153,5 +153,6 @@
     "yes": "Да",
     "appVersion": "Версия {version}",
     "previousDay": "Предыдущий день",
-    "nextDay": "Следующий день"
+    "nextDay": "Следующий день",
+    "pressBackAgainToExit": "Нажмите ещё раз, чтобы выйти"
 }

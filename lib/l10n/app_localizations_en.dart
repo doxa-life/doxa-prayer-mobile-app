@@ -408,6 +408,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'Press back again to exit';
 }
 
 /// The translations for English, as used in the United States (`en_US`).

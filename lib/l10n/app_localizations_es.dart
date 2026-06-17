@@ -416,6 +416,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'Pulsa de nuevo para salir';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

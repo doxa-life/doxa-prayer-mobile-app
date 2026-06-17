@@ -496,5 +496,9 @@
     "peopleGroupOfTheDay": "People Group of the Day",
     "@peopleGroupOfTheDay": {
         "description": "Heading for the people group of the day section"
+    },
+    "pressBackAgainToExit": "Press back again to exit",
+    "@pressBackAgainToExit": {
+        "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
     }
 }

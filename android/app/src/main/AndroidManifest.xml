@@ -9,7 +9,16 @@
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="false">
+        <!-- enableOnBackInvokedCallback=false opts out of Android 13+ predictive back.
+             Predictive back gates whether the framework handles back via
+             SystemNavigator.setFrameworkHandlesBack, and with StatefulShellRoute's nested
+             navigators that flag loses a first-frame race (a single-screen branch reports
+             canHandlePop=false), so the shell PopScope isn't consulted until after the first
+             navigation — back would exit the app instead of returning Home. Opting out routes
+             every back press through handlePopRoute()/didPopRoute(), so the shell PopScope is
+             consulted from the first frame. See lib/app_shell.dart. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

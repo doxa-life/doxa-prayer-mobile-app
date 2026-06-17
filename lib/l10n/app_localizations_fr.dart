@@ -416,6 +416,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'Appuyez à nouveau pour quitter';
 }
 
 /// The translations for French, as used in France (`fr_FR`).

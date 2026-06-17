@@ -195,5 +195,6 @@
     "yes": "نعم",
     "appVersion": "الإصدار {version}",
     "previousDay": "اليوم السابق",
-    "nextDay": "اليوم التالي"
+    "nextDay": "اليوم التالي",
+    "pressBackAgainToExit": "اضغط مرة أخرى للخروج"
 }

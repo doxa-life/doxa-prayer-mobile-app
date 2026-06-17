@@ -417,6 +417,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'Нажмите ещё раз, чтобы выйти';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

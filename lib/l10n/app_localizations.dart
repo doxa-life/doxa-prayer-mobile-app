@@ -794,6 +794,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'People Group of the Day'**
   String get peopleGroupOfTheDay;
+
+  /// Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Press back again to exit'**
+  String get pressBackAgainToExit;
 }
 
 class _AppLocalizationsDelegate

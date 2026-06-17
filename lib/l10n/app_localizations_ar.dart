@@ -409,4 +409,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'اضغط مرة أخرى للخروج';
 }

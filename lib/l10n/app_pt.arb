@@ -153,5 +153,6 @@
     "yes": "Sim",
     "appVersion": "Versão {version}",
     "previousDay": "Dia anterior",
-    "nextDay": "Dia seguinte"
+    "nextDay": "Dia seguinte",
+    "pressBackAgainToExit": "Pressione novamente para sair"
 }

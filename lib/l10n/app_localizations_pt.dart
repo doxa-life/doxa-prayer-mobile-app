@@ -414,6 +414,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get peopleGroupOfTheDay => 'People Group of the Day';
+
+  @override
+  String get pressBackAgainToExit => 'Pressione novamente para sair';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).
