@@ -1,0 +1,166 @@
+require "tempfile"
+require "json"
+require "shellwords"
+
+# ---------------------------------------------------------------------------
+# Doxa Prayer — iOS build & release automation.
+#
+# Mirrors android/fastlane/Fastfile: two flavors map to two App Store Connect
+# apps and the same per-target server version gate. Version bumping is NOT here
+# — `./release.sh bump` (Android lane) edits the shared pubspec.yaml and iOS
+# reads it via FLUTTER_BUILD_NAME/NUMBER.
+#
+# REQUIRES macOS + Xcode. Everything that ties this to a specific Apple account
+# (team id, App Store Connect API key, match repo) comes from fastlane/.env, so
+# the same Fastfile works against a throwaway personal team today and the final
+# org account later with no edits. See SETUP.md for the account-bound steps.
+# ---------------------------------------------------------------------------
+
+FASTLANE_DIR = File.expand_path(__dir__)
+ROOT = File.expand_path("../..", FASTLANE_DIR)
+PUBSPEC = File.join(ROOT, "pubspec.yaml")
+
+FLAVORS = {
+  "staging" => {
+    bundle: "app.prayer.doxa.staging",
+    scheme: "staging",
+    configuration: "Release-staging",
+    server_url: ENV["STAGING_SERVER_URL"],
+    token: ENV["STAGING_ADMIN_TOKEN"],
+  },
+  "production" => {
+    bundle: "app.prayer.doxa",
+    scheme: "production",
+    configuration: "Release-production",
+    server_url: ENV["PRODUCTION_SERVER_URL"],
+    token: ENV["PRODUCTION_ADMIN_TOKEN"],
+  },
+}
+
+default_platform(:ios)
+
+platform :ios do
+  # ---- helpers ------------------------------------------------------------
+
+  def require_flavor(flavor)
+    UI.user_error!("Unknown flavor #{flavor.inspect} (use staging or production)") unless FLAVORS.key?(flavor)
+    FLAVORS[flavor]
+  end
+
+  # Read `version: X.Y.Z+N` from pubspec.yaml (shared with Android).
+  def read_semver
+    line = File.read(PUBSPEC)[/^version:\s*(.+)$/, 1]
+    UI.user_error!("Could not find `version:` in #{PUBSPEC}") unless line
+    m = line.strip.match(/^(\d+\.\d+\.\d+)\+\d+$/)
+    UI.user_error!("Unexpected version format: #{line.strip} (want X.Y.Z+N)") unless m
+    m[1]
+  end
+
+  # Build the App Store Connect API key token used by gym/pilot in place of an
+  # Apple ID + 2FA. Returns nil if not configured (so account-free lanes still run).
+  def asc_api_key
+    return nil if ENV["ASC_KEY_ID"].to_s.empty?
+    app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_filepath: ENV["ASC_KEY_PATH"],
+      in_house: false,
+    )
+  end
+
+  # ---- lanes --------------------------------------------------------------
+
+  desc "Compile the iOS app WITHOUT signing — validates the build with no Apple account. flavor: staging|production"
+  lane :build_unsigned do |options|
+    flavor = (options[:flavor] || "staging").to_s
+    require_flavor(flavor)
+    sh("cd #{ROOT.shellescape} && flutter build ios --no-codesign --release --flavor #{flavor.shellescape}")
+    UI.success("Compiled #{flavor} (unsigned). The iOS build pipeline works; signing/upload need an Apple account.")
+  end
+
+  desc "Build a signed App Store IPA for a flavor. flavor: staging|production"
+  lane :build_ipa do |options|
+    flavor = (options[:flavor] || "staging").to_s
+    cfg = require_flavor(flavor)
+
+    setup_ci if ENV["CI"]
+    api_key = asc_api_key
+
+    # Install the App Store cert + profile for this bundle id from the match repo.
+    match(
+      type: "appstore",
+      app_identifier: cfg[:bundle],
+      readonly: true,
+      api_key: api_key,
+    )
+
+    team_id = ENV["APPLE_TEAM_ID"]
+    UI.user_error!("APPLE_TEAM_ID is not set (see fastlane/.env.example)") if team_id.to_s.empty?
+
+    # Generate the export options plist from env so the team id stays a single
+    # variable. The profile name is match's deterministic default.
+    export_plist = Tempfile.new(["ExportOptions-#{flavor}", ".plist"])
+    export_plist.write(<<~PLIST)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>method</key><string>app-store</string>
+        <key>teamID</key><string>#{team_id}</string>
+        <key>signingStyle</key><string>manual</string>
+        <key>provisioningProfiles</key>
+        <dict>
+          <key>#{cfg[:bundle]}</key><string>match AppStore #{cfg[:bundle]}</string>
+        </dict>
+      </dict>
+      </plist>
+    PLIST
+    export_plist.close
+
+    sh("cd #{ROOT.shellescape} && flutter build ipa --release " \
+       "--flavor #{flavor.shellescape} " \
+       "--export-options-plist=#{export_plist.path.shellescape}")
+
+    ipa = Dir[File.join(ROOT, "build", "ios", "ipa", "*.ipa")].max_by { |f| File.mtime(f) }
+    UI.user_error!("No IPA produced in build/ios/ipa") unless ipa
+    UI.success("Built #{ipa}")
+    ipa
+  end
+
+  desc "Build + upload to TestFlight and update the server gate. flavor: staging|production"
+  lane :deploy do |options|
+    flavor = (options[:flavor] || "").to_s
+    cfg = require_flavor(flavor)
+
+    api_key = asc_api_key
+    UI.user_error!("ASC_KEY_ID is not set — TestFlight upload needs the App Store Connect API key (see fastlane/.env.example)") if api_key.nil?
+
+    ipa = build_ipa(flavor: flavor)
+
+    upload_to_testflight(
+      app_identifier: cfg[:bundle],
+      ipa: ipa,
+      api_key: api_key,
+      skip_waiting_for_build_processing: true,
+    )
+
+    update_server_version(flavor: flavor)
+    UI.success("Deployed #{read_semver} (#{flavor}) to TestFlight + updated #{flavor} gate")
+  end
+
+  desc "Update the campaigns-server version gate for a flavor. flavor: staging|production"
+  lane :update_server_version do |options|
+    flavor = (options[:flavor] || "").to_s
+    cfg = require_flavor(flavor)
+    UI.user_error!("Missing server URL/token for #{flavor} (see fastlane/.env.example)") if cfg[:server_url].to_s.empty? || cfg[:token].to_s.empty?
+
+    semver = read_semver
+    body = JSON.generate(latest_version: semver)
+    url = "#{cfg[:server_url]}/api/admin/app-version/config"
+    sh(%(curl -fsS -X PUT #{url.shellescape} ) +
+       %(-H "Authorization: Bearer #{cfg[:token]}" ) +
+       %(-H "Content-Type: application/json" ) +
+       %(-d #{body.shellescape}))
+    UI.success("Set #{flavor} latest_version = #{semver}")
+  end
+end

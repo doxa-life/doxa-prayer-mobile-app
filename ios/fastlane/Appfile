@@ -1,0 +1,10 @@
+# The two bundle IDs are stable and account-independent. Everything that ties
+# this to a *specific* Apple account — the team and the login — is read from the
+# environment so swapping from a personal team to the final org account is a
+# one-variable change (set APPLE_TEAM_ID / APPLE_ID in fastlane/.env), not a
+# rewrite. The Fastfile passes the per-flavor app_identifier to each action, so
+# we deliberately do NOT pin one here.
+
+apple_id(ENV["APPLE_ID"]) if ENV["APPLE_ID"].to_s != ""
+team_id(ENV["APPLE_TEAM_ID"]) if ENV["APPLE_TEAM_ID"].to_s != ""
+itc_team_id(ENV["APPLE_TEAM_ID"]) if ENV["APPLE_TEAM_ID"].to_s != ""

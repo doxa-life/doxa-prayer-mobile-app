@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 #
-# Doxa Prayer — Android release wrapper around fastlane.
+# Doxa Prayer — release wrapper around fastlane (Android + iOS).
 #
 #   ./release.sh bump [build|patch|minor|major]    cut a release: bump version,
 #                                                  draft notes in $EDITOR, commit, tag
-#   ./release.sh deploy [staging|production]       build + upload app, update gate
+#   ./release.sh deploy [staging|production]       build + upload Android app, update gate
 #   ./release.sh build [staging|production]        build a signed AAB only (no upload)
+#
+#   ./release.sh deploy-ios [staging|production]   build + upload iOS app, update gate (macOS only)
+#   ./release.sh build-ios [staging|production]    build a signed iOS IPA only (macOS only)
+#   ./release.sh validate-ios [staging|production] compile iOS unsigned — no Apple account (macOS only)
 #
 # Typical flow:
 #   ./release.sh bump minor
@@ -17,23 +21,33 @@ set -euo pipefail
 cmd="${1:-}"
 arg="${2:-}"
 
-cd "$(dirname "$0")/android"
+here="$(dirname "$0")"
 
 case "$cmd" in
   deploy)
-    bundle exec fastlane deploy flavor:"${arg:-staging}"
+    (cd "$here/android" && bundle exec fastlane deploy flavor:"${arg:-staging}")
     ;;
   build)
-    bundle exec fastlane build_aab flavor:"${arg:-staging}"
+    (cd "$here/android" && bundle exec fastlane build_aab flavor:"${arg:-staging}")
     ;;
   upload)
-    bundle exec fastlane upload flavor:"${arg:-staging}"
+    (cd "$here/android" && bundle exec fastlane upload flavor:"${arg:-staging}")
     ;;
   bump)
-    bundle exec fastlane bump type:"${arg:-build}"
+    (cd "$here/android" && bundle exec fastlane bump type:"${arg:-build}")
+    ;;
+  deploy-ios)
+    (cd "$here/ios" && bundle exec fastlane deploy flavor:"${arg:-staging}")
+    ;;
+  build-ios)
+    (cd "$here/ios" && bundle exec fastlane build_ipa flavor:"${arg:-staging}")
+    ;;
+  validate-ios)
+    (cd "$here/ios" && bundle exec fastlane build_unsigned flavor:"${arg:-staging}")
     ;;
   *)
-    echo "usage: ./release.sh {deploy [staging|production] | build [staging|production] | bump [build|patch|minor|major]}" >&2
+    echo "usage: ./release.sh {deploy|build|upload [staging|production] | bump [build|patch|minor|major]" >&2
+    echo "                     | deploy-ios|build-ios|validate-ios [staging|production]}" >&2
     exit 1
     ;;
 esac

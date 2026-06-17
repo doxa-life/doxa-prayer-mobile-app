@@ -54,3 +54,10 @@ app.*.map.json
 /android/fastlane/README.md
 /android/vendor/bundle
 **/play-service-account*.json
+
+# Fastlane (iOS release automation)
+/ios/fastlane/.env
+/ios/fastlane/report.xml
+/ios/fastlane/README.md
+/ios/vendor/bundle
+**/AuthKey_*.p8

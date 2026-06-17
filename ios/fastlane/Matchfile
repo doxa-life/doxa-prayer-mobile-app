@@ -1,0 +1,17 @@
+# fastlane match — certificates + provisioning profiles, stored encrypted in a
+# private git repo. The repo URL and the App Store Connect login come from the
+# environment so this file is identical across the personal team you test with
+# now and the final org account later. When the real account lands you only
+# change MATCH_GIT_URL (+ run `match appstore` once per bundle id); this file
+# does not change.
+
+git_url(ENV["MATCH_GIT_URL"]) if ENV["MATCH_GIT_URL"].to_s != ""
+storage_mode("git")
+
+type("appstore")
+
+# Both flavors. match generates one App Store profile per bundle id, named
+# "match AppStore <bundle id>" — the Fastfile references those names verbatim.
+app_identifier(["app.prayer.doxa", "app.prayer.doxa.staging"])
+
+username(ENV["APPLE_ID"]) if ENV["APPLE_ID"].to_s != ""
