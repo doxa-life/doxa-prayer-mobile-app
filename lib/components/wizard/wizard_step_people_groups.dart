@@ -1,7 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/action_button.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../services/wizard_controller.dart';

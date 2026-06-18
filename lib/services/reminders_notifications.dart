@@ -41,8 +41,8 @@ Future<void> initRemindersNotifications() async {
   // tz.initializeTimeZones() leaves tz.local set to UTC; set it to the
   // device's actual zone so scheduled times match what the user picked.
   try {
-    final zoneName = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(zoneName));
+    final zone = await FlutterTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(zone.identifier));
   } catch (e) {
     debugPrint('reminders_notifications: failed to resolve local zone: $e');
   }
@@ -55,7 +55,7 @@ Future<void> initRemindersNotifications() async {
     requestSoundPermission: false,
   );
   await _plugin.initialize(
-    const InitializationSettings(android: androidInit, iOS: iosInit),
+    settings: const InitializationSettings(android: androidInit, iOS: iosInit),
     onDidReceiveNotificationResponse: _onTap,
     onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
   );
@@ -146,14 +146,12 @@ Future<void> scheduleReminder(Reminder r) async {
     final fireAt = _nextInstanceOf(weekday, r.hour, r.minute);
     try {
       await _plugin.zonedSchedule(
-        id,
-        title,
-        body,
-        fireAt,
-        details,
+        id: id,
+        title: title,
+        body: body,
+        scheduledDate: fireAt,
+        notificationDetails: details,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         payload: 'pray',
       );
@@ -168,7 +166,7 @@ Future<void> cancelReminder(Reminder r) async {
   // Cancel every weekday slot we might have scheduled, regardless of the
   // reminder's current weekdays — handles reminders whose weekdays changed.
   for (var weekday = DateTime.monday; weekday <= DateTime.sunday; weekday++) {
-    await _plugin.cancel(_notificationId(r.id, weekday));
+    await _plugin.cancel(id: _notificationId(r.id, weekday));
   }
 }
 

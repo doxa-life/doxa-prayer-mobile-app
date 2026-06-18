@@ -115,7 +115,7 @@ _PrayerReminder _selectPrayerReminder() {
 
 Future<String> _resolveTimezone() async {
   try {
-    return await FlutterTimezone.getLocalTimezone();
+    return (await FlutterTimezone.getLocalTimezone()).identifier;
   } catch (e) {
     developer.log(
       'failed to resolve local timezone, falling back to UTC',
