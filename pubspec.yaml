@@ -71,13 +71,29 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   shared_preferences_platform_interface: ^2.4.2
   flutter_flavorizr: ^2.5.0
+  flutter_launcher_icons: ^0.14.4
+
+# iOS app icon generation. Android icons are maintained by hand (adaptive
+# foreground/background PNGs under android/.../res/mipmap-*), so we only generate
+# iOS icons. This is a flavorizr project: the Xcode configs reference
+# AppIcon-$(ASSET_PREFIX), so icons are defined per-flavor in
+# flutter_launcher_icons-staging.yaml / -production.yaml (which produce the
+# AppIcon-staging / AppIcon-production sets). Do NOT add a top-level
+# `flutter_launcher_icons:` block here — its non-flavor run rewrites every build
+# config's APPICON name to plain "AppIcon" and corrupts the asset-symbol setting.
+# Regenerate with: dart run flutter_launcher_icons
+# Source is a padded, white-flattened 1024x1024 (iOS icons must have no alpha).
 
 flutter_native_splash:
-  color: "#ffffff"
+  # iOS only — the Android splash is maintained by hand (solid green #3B463D
+  # background + the adaptive launcher icon, see android/.../res/values*/styles.xml).
+  # This mirrors that look on iOS: green background with the DOXA logo in a white
+  # circle. Run: dart run flutter_native_splash:create
+  android: false
+  ios: true
+  color: "#3B463D"
   color_dark: "#3B463D"
-  android_12:
-    color: "#ffffff"
-    color_dark: "#3B463D"
+  image: assets/images/splash_logo.png
 
 # Flavor definitions consumed by flutter_flavorizr. Only the iOS processors are
 # run from this config (`dart run flutter_flavorizr -p ios:...`); the Android
