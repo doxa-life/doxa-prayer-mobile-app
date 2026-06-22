@@ -182,9 +182,6 @@
     "@reminderNotificationTitle": {
         "description": "Title shown on a scheduled reminder notification"
     },
-    "@reminderPermissionDenied": {
-        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
-    },
     "@reminders": {
         "description": "The reminders screen"
     },
@@ -299,7 +296,6 @@
     "religiousPractices": "Религиозные обряды",
     "reminderNotificationBody": "Откройте «Доксу», чтобы начать сегодняшнюю молитву.",
     "reminderNotificationTitle": "Пора молиться",
-    "reminderPermissionDenied": "Уведомления отключены — включите их в настройках системы, чтобы получать напоминания.",
     "reminders": "напоминания",
     "resources": "Ресурсы",
     "retry": "повторить попытку",

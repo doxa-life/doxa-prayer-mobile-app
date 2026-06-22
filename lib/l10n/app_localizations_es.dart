@@ -235,10 +235,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Abre Doxa para iniciar la oración de hoy.';
 
   @override
-  String get reminderPermissionDenied =>
-      'Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios.';
-
-  @override
   String get notifications => 'Notificaciones';
 
   @override
@@ -252,6 +248,9 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'Toca el botón de abajo para abrir la configuración y permite las notificaciones de Doxa.';
+
+  @override
+  String get enableNotifications => 'Activar notificaciones';
 
   @override
   String get openSettings => 'Abrir configuración';
@@ -445,10 +444,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pressBackAgainToExit => 'Pulsa de nuevo para salir';
 
   @override
-  String get notifications_enabled => 'Notifications enabled';
+  String get notifications_enabled => 'Notificaciones activadas';
 
   @override
-  String get notifications_disabled => 'Notifications disabled';
+  String get notifications_disabled => 'Notificaciones desactivadas';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).
@@ -669,10 +668,6 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
   @override
   String get reminderNotificationBody =>
       'Abre la Doxa para comenzar la oración de hoy.';
-
-  @override
-  String get reminderPermissionDenied =>
-      'Las notificaciones están desactivadas; actívalas en los ajustes del sistema para recibir recordatorios.';
 
   @override
   String get nextReminder => 'Próximo recordatorio';

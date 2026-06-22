@@ -227,10 +227,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
 
   @override
-  String get reminderPermissionDenied =>
-      'Notifications are off — enable them in system settings to receive reminders.';
-
-  @override
   String get notifications => 'Notifications';
 
   @override
@@ -244,6 +240,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'Tap below to open settings, then allow notifications for Doxa.';
+
+  @override
+  String get enableNotifications => 'Enable notifications';
 
   @override
   String get openSettings => 'Open settings';
@@ -648,10 +647,6 @@ class AppLocalizationsEnUs extends AppLocalizationsEn {
 
   @override
   String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
-
-  @override
-  String get reminderPermissionDenied =>
-      'Notifications are off — enable them in system settings to receive reminders.';
 
   @override
   String get nextReminder => 'Next reminder';

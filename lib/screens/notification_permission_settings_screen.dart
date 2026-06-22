@@ -1,6 +1,3 @@
-import 'dart:io' show Platform;
-
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
@@ -55,16 +52,8 @@ class _NotificationPermissionSettingsScreenState
   }
 
   Future<void> _onEnable() async {
-    // On Android the first denial can still be recovered with a fresh prompt;
-    // once permanently denied this is a no-op and we fall through to settings.
-    if (Platform.isAndroid) {
-      final granted = await ensureNotificationPermission();
-      if (granted) {
-        if (mounted) setState(() => _granted = true);
-        return;
-      }
-    }
-    await AppSettings.openAppSettings(type: AppSettingsType.notification);
+    final granted = await promptEnableNotifications();
+    if (granted && mounted) setState(() => _granted = true);
   }
 
   @override

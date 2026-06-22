@@ -1,3 +1,6 @@
+import 'dart:io' show Platform;
+
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -22,6 +25,31 @@ bool _initialized = false;
 /// The app shell listens to this and routes accordingly. Set to null after
 /// the route has been consumed.
 final ValueNotifier<String?> reminderTapPayload = ValueNotifier<String?>(null);
+
+/// true when OS notification permission is denied — drives "needs attention"
+/// badges on the Reminders tab and the Settings row.
+final ValueNotifier<bool> notificationsBlocked = ValueNotifier<bool>(false);
+
+/// Refreshes [notificationsBlocked] from the current OS permission state.
+Future<void> refreshNotificationsBlocked() async {
+  notificationsBlocked.value = !(await notificationsAuthorized());
+}
+
+/// Attempts to enable notifications: on Android tries a fresh permission prompt
+/// first (recovers a first-time denial); otherwise opens the OS notification
+/// settings. Returns whether permission is now granted, and keeps
+/// [notificationsBlocked] in sync on the success path.
+Future<bool> promptEnableNotifications() async {
+  if (Platform.isAndroid) {
+    final granted = await ensureNotificationPermission();
+    if (granted) {
+      notificationsBlocked.value = false;
+      return true;
+    }
+  }
+  await AppSettings.openAppSettings(type: AppSettingsType.notification);
+  return false;
+}
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse response) {

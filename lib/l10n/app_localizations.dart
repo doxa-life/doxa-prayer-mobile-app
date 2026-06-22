@@ -507,12 +507,6 @@ abstract class AppLocalizations {
   /// **'Open Doxa to start today\'s prayer.'**
   String get reminderNotificationBody;
 
-  /// Snackbar shown after saving a reminder when the OS notification permission is denied
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications are off — enable them in system settings to receive reminders.'**
-  String get reminderPermissionDenied;
-
   /// Title of the settings section/subpage for checking notification permission
   ///
   /// In en, this message translates to:
@@ -525,7 +519,7 @@ abstract class AppLocalizations {
   /// **'Notifications are on. Your prayer reminders will be delivered.'**
   String get notificationsEnabledStatus;
 
-  /// Explanation shown on the notifications settings page when permission is denied
+  /// Shared 'notifications off' message — shown on the notifications settings page, the reminders-screen banner, and the deny toast when permission is denied
   ///
   /// In en, this message translates to:
   /// **'Notifications are turned off, so your prayer reminders won\'t appear.'**
@@ -536,6 +530,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap below to open settings, then allow notifications for Doxa.'**
   String get notificationsHowToEnable;
+
+  /// Button label that takes the user to the notification settings page to enable notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications'**
+  String get enableNotifications;
 
   /// Button label that opens the OS settings to enable notifications
   ///

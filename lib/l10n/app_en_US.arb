@@ -182,9 +182,6 @@
     "@reminderNotificationTitle": {
         "description": "Title shown on a scheduled reminder notification"
     },
-    "@reminderPermissionDenied": {
-        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
-    },
     "@reminders": {
         "description": "The reminders screen"
     },
@@ -303,7 +300,6 @@
     "religiousPractices": "Religious Practices",
     "reminderNotificationBody": "Open Doxa to start today's prayer.",
     "reminderNotificationTitle": "Time to pray",
-    "reminderPermissionDenied": "Notifications are off — enable them in system settings to receive reminders.",
     "reminders": "reminders",
     "resources": "Resources",
     "retry": "retry",

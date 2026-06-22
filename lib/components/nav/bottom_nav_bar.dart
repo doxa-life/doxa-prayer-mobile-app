@@ -9,11 +9,15 @@ class BottomNavItemData {
     required this.icon,
     required this.label,
     AppIconName? selectedIcon,
+    this.showBadge = false,
   }) : selectedIcon = selectedIcon ?? icon;
 
   final AppIconName icon;
   final AppIconName selectedIcon;
   final String label;
+
+  /// When true, a small "needs attention" dot is overlaid on the icon.
+  final bool showBadge;
 }
 
 class BottomNavBar extends StatelessWidget {
@@ -42,9 +46,15 @@ class BottomNavBar extends StatelessWidget {
         items: [
           for (var i = 0; i < items.length; i++)
             BottomNavigationBarItem(
-              icon: AppIcon(
-                i == currentIndex ? items[i].selectedIcon : items[i].icon,
-                color: i == currentIndex ? selectedColor : AppColors.onPrimary,
+              icon: Badge(
+                isLabelVisible: items[i].showBadge,
+                backgroundColor: AppColors.warning,
+                child: AppIcon(
+                  i == currentIndex ? items[i].selectedIcon : items[i].icon,
+                  color: i == currentIndex
+                      ? selectedColor
+                      : AppColors.onPrimary,
+                ),
               ),
               label: items[i].label.toUpperCase(),
             ),

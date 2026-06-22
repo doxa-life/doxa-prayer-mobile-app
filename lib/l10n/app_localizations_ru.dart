@@ -234,10 +234,6 @@ class AppLocalizationsRu extends AppLocalizations {
       'Откройте Doxa, чтобы начать сегодняшнюю молитву.';
 
   @override
-  String get reminderPermissionDenied =>
-      'Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.';
-
-  @override
   String get notifications => 'Уведомления';
 
   @override
@@ -251,6 +247,9 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'Нажмите кнопку ниже, чтобы открыть настройки, и разрешите уведомления для Doxa.';
+
+  @override
+  String get enableNotifications => 'Включить уведомления';
 
   @override
   String get openSettings => 'Открыть настройки';
@@ -446,10 +445,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pressBackAgainToExit => 'Нажмите ещё раз, чтобы выйти';
 
   @override
-  String get notifications_enabled => 'Notifications enabled';
+  String get notifications_enabled => 'Уведомления включены';
 
   @override
-  String get notifications_disabled => 'Notifications disabled';
+  String get notifications_disabled => 'Уведомления отключены';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).
@@ -670,10 +669,6 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
   @override
   String get reminderNotificationBody =>
       'Откройте «Доксу», чтобы начать сегодняшнюю молитву.';
-
-  @override
-  String get reminderPermissionDenied =>
-      'Уведомления отключены — включите их в настройках системы, чтобы получать напоминания.';
 
   @override
   String get nextReminder => 'Следующее напоминание';

@@ -33,6 +33,7 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     if (reminderTapPayload.value != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _onReminderTap());
     }
+    refreshNotificationsBlocked();
   }
 
   @override
@@ -49,6 +50,9 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
       checkForAppUpdate();
       // Count the foreground resume as an app-open (cold start is tracked in main()).
       trackAppOpen();
+      // Re-check notification permission — the user may have just toggled it in
+      // OS settings.
+      refreshNotificationsBlocked();
     }
   }
 
@@ -115,31 +119,35 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             onDebug: () => _openDebug(context),
           ),
           body: widget.navigationShell,
-          bottomNavigationBar: BottomNavBar(
-            items: [
-              BottomNavItemData(
-                icon: AppIconName.home,
-                selectedIcon: AppIconName.homeSolid,
-                label: AppLocalizations.of(context)!.home,
-              ),
-              BottomNavItemData(
-                icon: AppIconName.pray,
-                selectedIcon: AppIconName.praySolid,
-                label: AppLocalizations.of(context)!.pray,
-              ),
-              BottomNavItemData(
-                icon: AppIconName.peopleGroup,
-                selectedIcon: AppIconName.peopleGroupSolid,
-                label: AppLocalizations.of(context)!.search,
-              ),
-              BottomNavItemData(
-                icon: AppIconName.bell,
-                selectedIcon: AppIconName.bellSolid,
-                label: AppLocalizations.of(context)!.reminders,
-              ),
-            ],
-            currentIndex: widget.navigationShell.currentIndex,
-            onTap: _onTabTap,
+          bottomNavigationBar: ValueListenableBuilder<bool>(
+            valueListenable: notificationsBlocked,
+            builder: (context, blocked, _) => BottomNavBar(
+              items: [
+                BottomNavItemData(
+                  icon: AppIconName.home,
+                  selectedIcon: AppIconName.homeSolid,
+                  label: AppLocalizations.of(context)!.home,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.pray,
+                  selectedIcon: AppIconName.praySolid,
+                  label: AppLocalizations.of(context)!.pray,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.peopleGroup,
+                  selectedIcon: AppIconName.peopleGroupSolid,
+                  label: AppLocalizations.of(context)!.search,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.bell,
+                  selectedIcon: AppIconName.bellSolid,
+                  label: AppLocalizations.of(context)!.reminders,
+                  showBadge: blocked,
+                ),
+              ],
+              currentIndex: widget.navigationShell.currentIndex,
+              onTap: _onTabTap,
+            ),
           ),
         ),
       ),

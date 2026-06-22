@@ -37,7 +37,7 @@ class _ReminderEditorSheet extends StatelessWidget {
     if (!context.mounted) return;
     if (!granted) {
       messenger.showSnackBar(
-        SnackBar(content: Text(l.reminderPermissionDenied)),
+        SnackBar(content: Text(l.notificationsDisabledStatus)),
       );
     }
     Navigator.of(context).pop();

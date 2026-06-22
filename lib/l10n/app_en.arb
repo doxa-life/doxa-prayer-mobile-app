@@ -277,10 +277,6 @@
     "@reminderNotificationBody": {
         "description": "Body shown on a scheduled reminder notification"
     },
-    "reminderPermissionDenied": "Notifications are off — enable them in system settings to receive reminders.",
-    "@reminderPermissionDenied": {
-        "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
-    },
     "notifications": "Notifications",
     "@notifications": {
         "description": "Title of the settings section/subpage for checking notification permission"
@@ -291,11 +287,15 @@
     },
     "notificationsDisabledStatus": "Notifications are turned off, so your prayer reminders won't appear.",
     "@notificationsDisabledStatus": {
-        "description": "Explanation shown on the notifications settings page when permission is denied"
+        "description": "Shared 'notifications off' message — shown on the notifications settings page, the reminders-screen banner, and the deny toast when permission is denied"
     },
     "notificationsHowToEnable": "Tap below to open settings, then allow notifications for Doxa.",
     "@notificationsHowToEnable": {
         "description": "Instructions guiding the user to enable notifications in OS settings"
+    },
+    "enableNotifications": "Enable notifications",
+    "@enableNotifications": {
+        "description": "Button label that takes the user to the notification settings page to enable notifications"
     },
     "openSettings": "Open settings",
     "@openSettings": {

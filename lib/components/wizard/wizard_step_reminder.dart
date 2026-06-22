@@ -36,7 +36,7 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
       if (!mounted) return;
       if (!granted) {
         messenger.showSnackBar(
-          SnackBar(content: Text(l.reminderPermissionDenied)),
+          SnackBar(content: Text(l.notificationsDisabledStatus)),
         );
       }
       widget.controller.next();

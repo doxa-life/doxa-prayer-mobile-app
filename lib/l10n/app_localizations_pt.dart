@@ -233,10 +233,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Abre o Doxa para começar a oração de hoje.';
 
   @override
-  String get reminderPermissionDenied =>
-      'As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes.';
-
-  @override
   String get notifications => 'Notificações';
 
   @override
@@ -250,6 +246,9 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'Toca no botão abaixo para abrir as definições e permitir as notificações da Doxa.';
+
+  @override
+  String get enableNotifications => 'Ativar notificações';
 
   @override
   String get openSettings => 'Abrir definições';
@@ -443,10 +442,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get pressBackAgainToExit => 'Pressione novamente para sair';
 
   @override
-  String get notifications_enabled => 'Notifications enabled';
+  String get notifications_enabled => 'Notificações ativadas';
 
   @override
-  String get notifications_disabled => 'Notifications disabled';
+  String get notifications_disabled => 'Notificações desativadas';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).
@@ -665,10 +664,6 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   @override
   String get reminderNotificationBody =>
       'Abra o Doxa para iniciar a oração de hoje.';
-
-  @override
-  String get reminderPermissionDenied =>
-      'As notificações estão desativadas — ative-as nas definições do sistema para receber lembretes.';
 
   @override
   String get nextReminder => 'Próximo lembrete';

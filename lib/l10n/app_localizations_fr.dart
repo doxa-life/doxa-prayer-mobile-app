@@ -235,10 +235,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ouvre Doxa pour commencer la prière du jour.';
 
   @override
-  String get reminderPermissionDenied =>
-      'Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.';
-
-  @override
   String get notifications => 'Notifications';
 
   @override
@@ -252,6 +248,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'Touche le bouton ci-dessous pour ouvrir les réglages, puis autorise les notifications pour Doxa.';
+
+  @override
+  String get enableNotifications => 'Activer les notifications';
 
   @override
   String get openSettings => 'Ouvrir les réglages';
@@ -445,10 +444,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pressBackAgainToExit => 'Appuyez à nouveau pour quitter';
 
   @override
-  String get notifications_enabled => 'Notifications enabled';
+  String get notifications_enabled => 'Notifications activées';
 
   @override
-  String get notifications_disabled => 'Notifications disabled';
+  String get notifications_disabled => 'Notifications désactivées';
 }
 
 /// The translations for French, as used in France (`fr_FR`).
@@ -669,10 +668,6 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
   @override
   String get reminderNotificationBody =>
       'Ouvrez la Doxa pour commencer la prière d\'aujourd\'hui.';
-
-  @override
-  String get reminderPermissionDenied =>
-      'Les notifications sont désactivées. Activez-les dans les paramètres système pour recevoir des rappels.';
 
   @override
   String get nextReminder => 'Prochain rappel';

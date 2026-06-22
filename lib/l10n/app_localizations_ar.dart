@@ -225,10 +225,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reminderNotificationBody => 'افتح Doxa لبدء صلاة اليوم.';
 
   @override
-  String get reminderPermissionDenied =>
-      'الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.';
-
-  @override
   String get notifications => 'الإشعارات';
 
   @override
@@ -242,6 +238,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notificationsHowToEnable =>
       'اضغط على الزر أدناه لفتح الإعدادات، ثم اسمح بالإشعارات لتطبيق Doxa.';
+
+  @override
+  String get enableNotifications => 'تفعيل الإشعارات';
 
   @override
   String get openSettings => 'فتح الإعدادات';
@@ -438,8 +437,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pressBackAgainToExit => 'اضغط مرة أخرى للخروج';
 
   @override
-  String get notifications_enabled => 'Notifications enabled';
+  String get notifications_enabled => 'الإشعارات مفعّلة';
 
   @override
-  String get notifications_disabled => 'Notifications disabled';
+  String get notifications_disabled => 'الإشعارات مغلقة';
 }
