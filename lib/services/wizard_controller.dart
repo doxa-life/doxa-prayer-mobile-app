@@ -41,9 +41,11 @@ class WizardController extends ChangeNotifier {
     if (_resolvingReferral) return;
     final slug = referredPeopleGroupController.value;
     if (slug == null || slug.isEmpty) {
+      debugPrint('[deferred] welcome: no referred slug — showing people-groups list');
       _set(WizardStep.peopleGroupsList);
       return;
     }
+    debugPrint('[deferred] welcome: resolving referred people group slug="$slug"');
     _resolvingReferral = true;
     notifyListeners();
     try {

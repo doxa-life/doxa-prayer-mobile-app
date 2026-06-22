@@ -6,7 +6,7 @@ class PageContainer extends StatelessWidget {
   const PageContainer({
     super.key,
     required this.child,
-    this.maxWidth = 480,
+    this.maxWidth = 960,
     this.horizontalPadding = AppSpacing.xl,
     this.verticalPadding = AppSpacing.xxl,
     this.bottomPadding,

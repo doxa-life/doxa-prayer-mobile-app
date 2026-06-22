@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
+import '../components/inputs/text_field.dart';
 import '../components/misc/titles.dart';
 import '../components/nav/details_nav_bar.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
 import '../services/identity_service.dart';
+import '../services/install_referrer_service.dart';
 import '../services/locale_controller.dart';
+import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/reminders_controller.dart';
 import '../services/selected_people_group_controller.dart';
@@ -50,6 +53,7 @@ class DebugScreen extends StatelessWidget {
                     style: AppTypography.bodyMedium,
                   ),
                   _prefsSection(context),
+                  const _SimulateReferralCard(),
                   _updateSection(context),
                 ],
               ),
@@ -102,6 +106,23 @@ class DebugScreen extends StatelessWidget {
               'Next people-group selection will trigger a fresh anon-signup.',
           onClear: clearIdentity,
         ),
+        _clearRow(
+          context,
+          label: 'Referred people group',
+          description:
+              'Forgets the slug deferred from a "Pray on the app" link / install '
+              'referrer, so the wizard stops auto-selecting it.',
+          onClear: clearReferredPeopleGroup,
+        ),
+        _clearRow(
+          context,
+          label: 'Install-referrer checked flag',
+          description:
+              'Re-arms the once-per-install Play install-referrer read so the next '
+              'launch checks it again — re-test the deferred deep link without a '
+              'full reinstall.',
+          onClear: clearInstallReferrerChecked,
+        ),
         const SizedBox(height: AppSpacing.md),
         ActionButton.fullWidth(
           label: 'Clear all',
@@ -116,6 +137,8 @@ class DebugScreen extends StatelessWidget {
                 clearReminders(),
                 clearPrayerHistory(),
                 clearIdentity(),
+                clearReferredPeopleGroup(),
+                clearInstallReferrerChecked(),
               ]);
             },
           ),
@@ -207,5 +230,87 @@ class DebugScreen extends StatelessWidget {
     final messenger = ScaffoldMessenger.of(context);
     await action();
     messenger.showSnackBar(SnackBar(content: Text('Cleared: $label')));
+  }
+}
+
+/// Stashes a referred people-group slug exactly as the Play install referrer
+/// would, so the deferred-deep-link wizard branch (auto-select on the confirm
+/// step) can be exercised on a sideloaded debug build — which never receives a
+/// real Play referrer. Pair with clearing "Wizard completion" to re-run onboarding.
+class _SimulateReferralCard extends StatefulWidget {
+  const _SimulateReferralCard();
+
+  @override
+  State<_SimulateReferralCard> createState() => _SimulateReferralCardState();
+}
+
+class _SimulateReferralCardState extends State<_SimulateReferralCard> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _apply() async {
+    final slug = _controller.text.trim();
+    if (slug.isEmpty) return;
+    final messenger = ScaffoldMessenger.of(context);
+    await setReferredPeopleGroup(slug);
+    messenger.showSnackBar(
+      SnackBar(content: Text('Referred people group set to "$slug"')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Section(
+      title: 'Simulate deferred referral',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: AppSpacing.md,
+        children: [
+          ValueListenableBuilder<String?>(
+            valueListenable: referredPeopleGroupController,
+            builder: (_, referredSlug, _) {
+              return ValueListenableBuilder<SelectedPeopleGroup?>(
+                valueListenable: selectedPeopleGroupController,
+                builder: (_, selected, _) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Referred (deferred) slug: ${referredSlug ?? '(none)'}',
+                        style: AppTypography.titleMedium,
+                      ),
+                      Text(
+                        'Selected people group: ${selected?.slug ?? '(none)'}',
+                        style: AppTypography.titleMedium,
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          Text(
+            'Stash a people-group slug as if it arrived via a "Pray on the app" '
+            'install referrer. Clear "Wizard completion" too, then relaunch: the '
+            'wizard should auto-select this group on the confirm step.',
+            style: AppTypography.caption,
+          ),
+          AppTextField(
+            label: 'People group slug',
+            hint: 'e.g. somali-bantu',
+            controller: _controller,
+          ),
+          ActionButton.fullWidth(
+            label: 'Set referred people group',
+            onPressed: _apply,
+          ),
+        ],
+      ),
+    );
   }
 }

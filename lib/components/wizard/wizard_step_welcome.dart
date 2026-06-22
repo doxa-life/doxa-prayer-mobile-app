@@ -76,11 +76,23 @@ class WizardStepWelcome extends StatelessWidget {
                             style: AppTypography.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
-                          ActionButton(
-                            label: l.wizardGetStarted,
-                            onPressed: controller.next,
-                            color: ActionButtonColor.secondary,
-                          ),
+                          // Resolves a deferred "Pray on the app" referral (if any)
+                          // and jumps to the confirm step with that group pre-filled;
+                          // otherwise advances to the people-groups list. Shows a
+                          // spinner while the referred group is being looked up.
+                          if (controller.resolvingReferral)
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.md,
+                              ),
+                              child: CircularProgressIndicator(),
+                            )
+                          else
+                            ActionButton(
+                              label: l.wizardGetStarted,
+                              onPressed: controller.startFromWelcome,
+                              color: ActionButtonColor.secondary,
+                            ),
                         ],
                       ),
                     ),

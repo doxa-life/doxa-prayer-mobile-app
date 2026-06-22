@@ -19,7 +19,9 @@ final ValueNotifier<String?> referredPeopleGroupController =
 
 Future<void> loadReferredPeopleGroup() async {
   final prefs = SharedPreferencesAsync();
-  referredPeopleGroupController.value = await prefs.getString(_referredSlugKey);
+  final slug = await prefs.getString(_referredSlugKey);
+  referredPeopleGroupController.value = slug;
+  debugPrint('[deferred] loaded referred people group slug=${slug ?? '(none)'}');
 }
 
 Future<void> setReferredPeopleGroup(String slug) async {
@@ -27,10 +29,12 @@ Future<void> setReferredPeopleGroup(String slug) async {
   referredPeopleGroupController.value = slug;
   final prefs = SharedPreferencesAsync();
   await prefs.setString(_referredSlugKey, slug);
+  debugPrint('[deferred] set referred people group slug="$slug"');
 }
 
 Future<void> clearReferredPeopleGroup() async {
   referredPeopleGroupController.value = null;
   final prefs = SharedPreferencesAsync();
   await prefs.remove(_referredSlugKey);
+  debugPrint('[deferred] cleared referred people group');
 }
