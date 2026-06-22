@@ -1,8 +1,0 @@
-Features:
-- add notifications settings screen
-- add indicator on reminders and notice on reminders screen that notifications aren't enabled
-- wait for referral link to be fetched before going to ppl selection
-
-Bug fixes:
-- use page container max width on settings and people group details screen
-- wire up the 'get started' button to use referrer link

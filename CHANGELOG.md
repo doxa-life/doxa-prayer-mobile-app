@@ -1,16 +1,5 @@
 # Changelog
 
-## 1.7.0+14 - 2026-06-22
-
-Features:
-- add notifications settings screen
-- add indicator on reminders and notice on reminders screen that notifications aren't enabled
-- wait for referral link to be fetched before going to ppl selection
-
-Bug fixes:
-- use page container max width on settings and people group details screen
-- wire up the 'get started' button to use referrer link
-
 ## 1.6.0+13 - 2026-06-22
 
 Features:
