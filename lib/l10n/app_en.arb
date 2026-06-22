@@ -389,6 +389,14 @@
     "@emailLabel": {
         "description": "Label for the email input on the news signup form"
     },
+    "emailInvalid": "Please enter a valid email address.",
+    "@emailInvalid": {
+        "description": "Inline validation warning shown when the news signup email is missing or malformed"
+    },
+    "nameRequired": "Please enter your name.",
+    "@nameRequired": {
+        "description": "Inline validation warning shown when the news signup name is empty"
+    },
     "updatesAboutMyPeopleGroup": "Receive updates about my people group",
     "@updatesAboutMyPeopleGroup": {
         "description": "Checkbox label on the news signup form for per-people-group updates"

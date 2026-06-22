@@ -327,6 +327,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailLabel => 'Email';
 
   @override
+  String get emailInvalid => 'Please enter a valid email address.';
+
+  @override
+  String get nameRequired => 'Please enter your name.';
+
+  @override
   String get updatesAboutMyPeopleGroup =>
       'Receive updates about my people group';
 

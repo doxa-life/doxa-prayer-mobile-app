@@ -19,12 +19,13 @@ class WizardStepNewsSignup extends StatefulWidget {
 }
 
 class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
-  NewsSignupData? _current;
+  final GlobalKey<NewsSignupState> _signupKey = GlobalKey<NewsSignupState>();
   bool _submitting = false;
 
   Future<void> _submit() async {
-    final data = _current;
-    if (data == null || _submitting) return;
+    if (_submitting) return;
+    final data = _signupKey.currentState?.validateAndCollect();
+    if (data == null) return; // warnings now shown inline by NewsSignup
     setState(() => _submitting = true);
     try {
       await widget.controller.finish(context, newsSignup: data);
@@ -41,7 +42,6 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final canSubmit = _current != null && !_submitting;
     // Scrolls when the keyboard shrinks the viewport (otherwise the column
     // overflows and the buttons become unreachable), while keeping the
     // buttons pinned to the bottom when there is room.
@@ -63,9 +63,7 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    NewsSignup(
-                      onChanged: (data) => setState(() => _current = data),
-                    ),
+                    NewsSignup(key: _signupKey),
                     const SizedBox(height: AppSpacing.xxl),
                     const Expanded(child: SizedBox.shrink()),
                     Row(
@@ -80,7 +78,7 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
                         ActionButton(
                           label: l.finish,
                           color: ActionButtonColor.secondary,
-                          onPressed: canSubmit ? _submit : null,
+                          onPressed: _submitting ? null : _submit,
                         ),
                       ],
                     ),

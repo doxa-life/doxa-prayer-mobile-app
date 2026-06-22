@@ -34,15 +34,16 @@ class NewsSignup extends StatefulWidget {
   final String? submitLabel;
 
   @override
-  State<NewsSignup> createState() => _NewsSignupState();
+  State<NewsSignup> createState() => NewsSignupState();
 }
 
-class _NewsSignupState extends State<NewsSignup> {
+class NewsSignupState extends State<NewsSignup> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   bool _wantsPeopleGroupUpdates = true;
   bool _wantsDoxaUpdates = true;
   bool _submitting = false;
+  bool _submitAttempted = false;
   String? _errorMessage;
 
   static final RegExp _emailRe = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
@@ -64,9 +65,17 @@ class _NewsSignupState extends State<NewsSignup> {
     super.dispose();
   }
 
-  bool get _isValid =>
-      _name.text.trim().isNotEmpty && _emailRe.hasMatch(_email.text.trim());
-  bool get _canSubmit => !_submitting && _isValid;
+  bool get _nameValid => _name.text.trim().isNotEmpty;
+  bool get _emailValid => _emailRe.hasMatch(_email.text.trim());
+  bool get _isValid => _nameValid && _emailValid;
+
+  /// Forces validation warnings to show and returns the collected data, or null
+  /// if the form is invalid. Called by the wizard step's Finish button so the
+  /// button can stay enabled and surface warnings on tap.
+  NewsSignupData? validateAndCollect() {
+    setState(() => _submitAttempted = true);
+    return _currentValid();
+  }
 
   NewsSignupData? _currentValid() {
     if (!_isValid) return null;
@@ -81,8 +90,9 @@ class _NewsSignupState extends State<NewsSignup> {
   void _emitChanged() => widget.onChanged?.call(_currentValid());
 
   Future<void> _submit() async {
+    setState(() => _submitAttempted = true);
     final onSubmit = widget.onSubmit;
-    if (!_canSubmit || onSubmit == null) return;
+    if (_submitting || onSubmit == null) return;
     final data = _currentValid();
     if (data == null) return;
     setState(() {
@@ -112,6 +122,7 @@ class _NewsSignupState extends State<NewsSignup> {
         AppTextField(
           label: l.nameLabel,
           controller: _name,
+          errorText: _submitAttempted && !_nameValid ? l.nameRequired : null,
           onChanged: (_) {
             setState(() {});
             _emitChanged();
@@ -121,6 +132,7 @@ class _NewsSignupState extends State<NewsSignup> {
         AppTextField(
           label: l.emailLabel,
           controller: _email,
+          errorText: _submitAttempted && !_emailValid ? l.emailInvalid : null,
           onChanged: (_) {
             setState(() {});
             _emitChanged();
@@ -165,7 +177,7 @@ class _NewsSignupState extends State<NewsSignup> {
               ],
               ActionButton(
                 label: submitLabel,
-                onPressed: _canSubmit ? _submit : null,
+                onPressed: _submitting ? null : _submit,
                 color: ActionButtonColor.secondary,
               ),
             ],

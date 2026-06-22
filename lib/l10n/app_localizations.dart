@@ -651,6 +651,18 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get emailLabel;
 
+  /// Inline validation warning shown when the news signup email is missing or malformed
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address.'**
+  String get emailInvalid;
+
+  /// Inline validation warning shown when the news signup name is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name.'**
+  String get nameRequired;
+
   /// Checkbox label on the news signup form for per-people-group updates
   ///
   /// In en, this message translates to:
