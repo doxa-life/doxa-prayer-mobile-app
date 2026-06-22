@@ -513,6 +513,36 @@ abstract class AppLocalizations {
   /// **'Notifications are off — enable them in system settings to receive reminders.'**
   String get reminderPermissionDenied;
 
+  /// Title of the settings section/subpage for checking notification permission
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// Confirmation shown on the notifications settings page when permission is granted
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are on. Your prayer reminders will be delivered.'**
+  String get notificationsEnabledStatus;
+
+  /// Explanation shown on the notifications settings page when permission is denied
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are turned off, so your prayer reminders won\'t appear.'**
+  String get notificationsDisabledStatus;
+
+  /// Instructions guiding the user to enable notifications in OS settings
+  ///
+  /// In en, this message translates to:
+  /// **'Tap below to open settings, then allow notifications for Doxa.'**
+  String get notificationsHowToEnable;
+
+  /// Button label that opens the OS settings to enable notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get openSettings;
+
   /// Header on the home-screen card that previews the next scheduled reminder
   ///
   /// In en, this message translates to:
@@ -812,6 +842,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Press back again to exit'**
   String get pressBackAgainToExit;
+
+  /// Title of the notifications enabled section
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications enabled'**
+  String get notifications_enabled;
+
+  /// Title of the notifications disabled section
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications disabled'**
+  String get notifications_disabled;
 }
 
 class _AppLocalizationsDelegate

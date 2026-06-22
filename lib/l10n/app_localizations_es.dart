@@ -239,6 +239,24 @@ class AppLocalizationsEs extends AppLocalizations {
       'Las notificaciones están desactivadas; actívalas en la configuración del sistema para recibir recordatorios.';
 
   @override
+  String get notifications => 'Notificaciones';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'Las notificaciones están activadas. Recibirás tus recordatorios de oración.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'Las notificaciones están desactivadas, por lo que no aparecerán tus recordatorios de oración.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'Toca el botón de abajo para abrir la configuración y permite las notificaciones de Doxa.';
+
+  @override
+  String get openSettings => 'Abrir configuración';
+
+  @override
   String get nextReminder => 'Próximo recordatorio';
 
   @override
@@ -425,6 +443,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'Pulsa de nuevo para salir';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
 
 /// The translations for Spanish Castilian, as used in Spain (`es_ES`).

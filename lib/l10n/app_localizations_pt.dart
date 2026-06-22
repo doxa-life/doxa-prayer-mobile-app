@@ -237,6 +237,24 @@ class AppLocalizationsPt extends AppLocalizations {
       'As notificações estão desativadas; ativa-as nas definições do sistema para receber lembretes.';
 
   @override
+  String get notifications => 'Notificações';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'As notificações estão ativadas. Os teus lembretes de oração serão entregues.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'As notificações estão desativadas, por isso os teus lembretes de oração não vão aparecer.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'Toca no botão abaixo para abrir as definições e permitir as notificações da Doxa.';
+
+  @override
+  String get openSettings => 'Abrir definições';
+
+  @override
   String get nextReminder => 'Próximo lembrete';
 
   @override
@@ -423,6 +441,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'Pressione novamente para sair';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

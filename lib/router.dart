@@ -6,6 +6,7 @@ import 'screens/debug_screen.dart';
 import 'screens/gallery_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
+import 'screens/notification_permission_settings_screen.dart';
 import 'screens/people_group_details_screen.dart';
 import 'screens/people_groups_screen.dart';
 import 'screens/pray_screen.dart';
@@ -125,6 +126,12 @@ final GoRouter appRouter = GoRouter(
           path: 'news-signup',
           parentNavigatorKey: _rootNavigatorKey,
           builder: (_, _) => const NewsSignupSettingsScreen(),
+        ),
+        GoRoute(
+          name: 'settings-notifications',
+          path: 'notifications',
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (_, _) => const NotificationPermissionSettingsScreen(),
         ),
       ],
     ),

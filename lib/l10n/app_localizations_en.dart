@@ -231,6 +231,24 @@ class AppLocalizationsEn extends AppLocalizations {
       'Notifications are off — enable them in system settings to receive reminders.';
 
   @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'Notifications are on. Your prayer reminders will be delivered.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'Notifications are turned off, so your prayer reminders won\'t appear.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'Tap below to open settings, then allow notifications for Doxa.';
+
+  @override
+  String get openSettings => 'Open settings';
+
+  @override
   String get nextReminder => 'Next reminder';
 
   @override
@@ -417,6 +435,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'Press back again to exit';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
 
 /// The translations for English, as used in the United States (`en_US`).

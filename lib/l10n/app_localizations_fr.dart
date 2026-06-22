@@ -239,6 +239,24 @@ class AppLocalizationsFr extends AppLocalizations {
       'Les notifications sont désactivées ; active-les dans les réglages système pour recevoir les rappels.';
 
   @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'Les notifications sont activées. Tes rappels de prière te seront bien envoyés.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'Les notifications sont désactivées ; tes rappels de prière n\'apparaîtront pas.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'Touche le bouton ci-dessous pour ouvrir les réglages, puis autorise les notifications pour Doxa.';
+
+  @override
+  String get openSettings => 'Ouvrir les réglages';
+
+  @override
   String get nextReminder => 'Prochain rappel';
 
   @override
@@ -425,6 +443,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'Appuyez à nouveau pour quitter';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
 
 /// The translations for French, as used in France (`fr_FR`).

@@ -118,6 +118,27 @@ Future<bool> ensureNotificationPermission() async {
   return true;
 }
 
+/// Returns whether notifications are currently authorised, WITHOUT prompting.
+/// Used by the settings screen to show permission status; unlike
+/// [ensureNotificationPermission] it never triggers a system dialog.
+Future<bool> notificationsAuthorized() async {
+  if (!_initialized) await initRemindersNotifications();
+
+  final android = _plugin.resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>();
+  if (android != null) {
+    return (await android.areNotificationsEnabled()) ?? false;
+  }
+
+  final ios = _plugin.resolvePlatformSpecificImplementation<
+      IOSFlutterLocalNotificationsPlugin>();
+  if (ios != null) {
+    return (await ios.checkPermissions())?.isEnabled ?? false;
+  }
+
+  return true;
+}
+
 /// Schedules a weekly-repeating notification per selected weekday.
 Future<void> scheduleReminder(Reminder r) async {
   if (!_initialized) await initRemindersNotifications();

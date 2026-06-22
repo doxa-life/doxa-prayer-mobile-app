@@ -34,6 +34,12 @@ class SettingsScreen extends StatelessWidget {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => context.push('/settings/news-signup'),
                     ),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l.notifications),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.push('/settings/notifications'),
+                    ),
                   ],
                 ),
               ),

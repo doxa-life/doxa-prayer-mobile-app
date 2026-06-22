@@ -281,6 +281,26 @@
     "@reminderPermissionDenied": {
         "description": "Snackbar shown after saving a reminder when the OS notification permission is denied"
     },
+    "notifications": "Notifications",
+    "@notifications": {
+        "description": "Title of the settings section/subpage for checking notification permission"
+    },
+    "notificationsEnabledStatus": "Notifications are on. Your prayer reminders will be delivered.",
+    "@notificationsEnabledStatus": {
+        "description": "Confirmation shown on the notifications settings page when permission is granted"
+    },
+    "notificationsDisabledStatus": "Notifications are turned off, so your prayer reminders won't appear.",
+    "@notificationsDisabledStatus": {
+        "description": "Explanation shown on the notifications settings page when permission is denied"
+    },
+    "notificationsHowToEnable": "Tap below to open settings, then allow notifications for Doxa.",
+    "@notificationsHowToEnable": {
+        "description": "Instructions guiding the user to enable notifications in OS settings"
+    },
+    "openSettings": "Open settings",
+    "@openSettings": {
+        "description": "Button label that opens the OS settings to enable notifications"
+    },
     "nextReminder": "Next reminder",
     "@nextReminder": {
         "description": "Header on the home-screen card that previews the next scheduled reminder"
@@ -508,5 +528,13 @@
     "pressBackAgainToExit": "Press back again to exit",
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
+    },
+    "notifications_enabled": "Notifications enabled",
+    "@notifications_enabled": {
+        "description": "Title of the notifications enabled section"
+    },
+    "notifications_disabled": "Notifications disabled",
+    "@notifications_disabled": {
+        "description": "Title of the notifications disabled section"
     }
 }

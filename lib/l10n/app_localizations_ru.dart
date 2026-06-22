@@ -238,6 +238,24 @@ class AppLocalizationsRu extends AppLocalizations {
       'Уведомления отключены — включите их в системных настройках, чтобы получать напоминания.';
 
   @override
+  String get notifications => 'Уведомления';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'Уведомления включены. Вы будете получать напоминания о молитве.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'Уведомления отключены, поэтому напоминания о молитве не будут появляться.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'Нажмите кнопку ниже, чтобы открыть настройки, и разрешите уведомления для Doxa.';
+
+  @override
+  String get openSettings => 'Открыть настройки';
+
+  @override
   String get nextReminder => 'Следующее напоминание';
 
   @override
@@ -426,6 +444,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'Нажмите ещё раз, чтобы выйти';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
 
 /// The translations for Russian, as used in Russian Federation (`ru_RU`).

@@ -229,6 +229,24 @@ class AppLocalizationsAr extends AppLocalizations {
       'الإشعارات مغلقة — فعّلها من إعدادات النظام لاستلام التذكيرات.';
 
   @override
+  String get notifications => 'الإشعارات';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'الإشعارات مفعّلة. ستصلك تذكيرات الصلاة.';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'الإشعارات مغلقة، لذلك لن تظهر تذكيرات الصلاة.';
+
+  @override
+  String get notificationsHowToEnable =>
+      'اضغط على الزر أدناه لفتح الإعدادات، ثم اسمح بالإشعارات لتطبيق Doxa.';
+
+  @override
+  String get openSettings => 'فتح الإعدادات';
+
+  @override
   String get nextReminder => 'التذكير التالي';
 
   @override
@@ -418,4 +436,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pressBackAgainToExit => 'اضغط مرة أخرى للخروج';
+
+  @override
+  String get notifications_enabled => 'Notifications enabled';
+
+  @override
+  String get notifications_disabled => 'Notifications disabled';
 }
