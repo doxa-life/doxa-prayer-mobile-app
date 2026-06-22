@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0+13 - 2026-06-22
+
+Features:
+- add copyright notice to bottom of prayer page
+
+Bug fixes:
+- back button only quits app on home screen (and then after 2 backs)
+- validate news signup email and name
+
 ## 1.5.0+12 - 2026-06-22
 
 Features:
