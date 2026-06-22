@@ -1,0 +1,3 @@
+Features:
+  - notifications settings screen
+  - notice on reminders if notification permissions are off

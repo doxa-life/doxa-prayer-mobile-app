@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.0+16 - 2026-06-22
+
+Features:
+  - notifications settings screen
+  - notice on reminders if notification permissions are off
+
 ## 1.7.0+14 - 2026-06-22
 
 Features:
