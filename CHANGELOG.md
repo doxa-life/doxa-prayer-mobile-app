@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.7.0+14 - 2026-06-22
+
+Features:
+  - add notifications setting page
+  - add indicator on reminder screen if notifications not enabled
+
+Fixes:
+  - improve referral linking
+
 ## 1.6.0+13 - 2026-06-22
 
 Features:

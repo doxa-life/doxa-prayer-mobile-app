@@ -1,0 +1,6 @@
+Features:
+  - add notifications setting page
+  - add indicator on reminder screen if notifications not enabled
+
+Fixes:
+  - improve referral linking
