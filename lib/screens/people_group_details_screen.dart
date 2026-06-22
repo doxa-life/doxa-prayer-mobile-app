@@ -1,5 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
+import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/check_icon.dart';
@@ -72,21 +73,26 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
           onBack: () => Navigator.pop(context),
         ),
         body: SafeArea(
-          child: FutureBuilder<PeopleGroupDetail>(
-            future: _future,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return _ErrorView(
-                  message: l.couldNotLoadPeopleGroupDetailsMessage,
-                  onRetry: _reload,
+          child: PageContainer(
+            child: FutureBuilder<PeopleGroupDetail>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return _ErrorView(
+                    message: l.couldNotLoadPeopleGroupDetailsMessage,
+                    onRetry: _reload,
+                  );
+                }
+                final detail = snapshot.data!;
+                return _DetailBody(
+                  detail: detail,
+                  fromWizard: widget.fromWizard,
                 );
-              }
-              final detail = snapshot.data!;
-              return _DetailBody(detail: detail, fromWizard: widget.fromWizard);
-            },
+              },
+            ),
           ),
         ),
       ),
@@ -104,10 +110,6 @@ class _DetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.xl,
-        vertical: AppSpacing.xxl,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: AppSpacing.xl,
