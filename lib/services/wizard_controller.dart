@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../components/widgets/news_signup.dart';
 import '../models/people_group.dart';
 import 'anon_signup_service.dart';
+import 'install_referrer_service.dart';
 import 'locale_controller.dart';
 import 'news_signup_service.dart';
 import 'people_groups_service.dart';
@@ -39,15 +40,28 @@ class WizardController extends ChangeNotifier {
   /// Back from confirm returns to the list so they can still choose differently.
   Future<void> startFromWelcome() async {
     if (_resolvingReferral) return;
+    _resolvingReferral = true;
+    notifyListeners();
+
+    // The install-referrer lookup is fire-and-forget from main(); on a fresh
+    // install the referred slug may not be stored yet when the user taps through
+    // the welcome step. Await the single in-flight lookup (instant once done) so
+    // a fast tapper doesn't race it. Bounded so a slow/hung Play Store service
+    // can't wedge onboarding — we just fall through with whatever we have.
+    try {
+      await fetchInstallReferrer().timeout(const Duration(seconds: 5));
+    } catch (_) {
+      // Timeout or lookup failure — the install_referrer_service already logged it.
+    }
+
     final slug = referredPeopleGroupController.value;
     if (slug == null || slug.isEmpty) {
       debugPrint('[deferred] welcome: no referred slug — showing people-groups list');
+      _resolvingReferral = false;
       _set(WizardStep.peopleGroupsList);
       return;
     }
     debugPrint('[deferred] welcome: resolving referred people group slug="$slug"');
-    _resolvingReferral = true;
-    notifyListeners();
     try {
       final detail = await fetchPeopleGroupDetail(
         slug,

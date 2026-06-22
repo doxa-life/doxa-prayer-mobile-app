@@ -13,13 +13,23 @@ const _tag = '[deferred]';
 
 const _checkedFlagKey = 'install_referrer_checked';
 
+/// The single in-flight (or completed) lookup, so repeated calls share one
+/// operation. The wizard awaits this to close the cold-start race; startup
+/// fires it. Reset by [clearInstallReferrerChecked] so a debug re-test re-runs.
+Future<void>? _lookup;
+
 /// Reads the Google Play install referrer **once** (Android only) and, if it carries
 /// a `utm_content=<slug>`, stashes that slug as the referred people group so the
 /// onboarding wizard can auto-select it after a fresh install.
 ///
+/// Idempotent: every call returns the same in-flight future, so startup and the
+/// wizard await a single lookup rather than triggering several.
+///
 /// No-op on iOS (no install-referrer equivalent) and on every run after the first —
 /// the referrer is only meaningful for the install that produced it.
-Future<void> fetchInstallReferrer() async {
+Future<void> fetchInstallReferrer() => _lookup ??= _runInstallReferrerLookup();
+
+Future<void> _runInstallReferrerLookup() async {
   if (!Platform.isAndroid) {
     debugPrint('$_tag install referrer: not Android — skipping');
     return;
@@ -66,6 +76,9 @@ Future<void> fetchInstallReferrer() async {
 Future<void> clearInstallReferrerChecked() async {
   final prefs = SharedPreferencesAsync();
   await prefs.remove(_checkedFlagKey);
+  // Drop the cached lookup so the next fetchInstallReferrer() actually re-reads,
+  // even without a relaunch (e.g. re-testing from the Debug screen).
+  _lookup = null;
   debugPrint('$_tag cleared install-referrer checked flag');
 }
 
