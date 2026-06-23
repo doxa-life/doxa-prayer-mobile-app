@@ -151,7 +151,12 @@ final GoRouter appRouter = GoRouter(
       name: 'wizard',
       path: '/wizard',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const WizardScreen(),
+      // Stable page key so re-resolving '/wizard' (e.g. an /app/<slug> deep link
+      // arriving while the user is already mid-wizard) is a Navigator no-op
+      // instead of a remount — the WizardController survives and its referral
+      // listener fires, preserving onboarding progress.
+      pageBuilder: (_, _) =>
+          const MaterialPage(key: ValueKey('wizard'), child: WizardScreen()),
     ),
   ],
 );
