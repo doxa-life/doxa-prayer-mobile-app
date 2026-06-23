@@ -9,14 +9,32 @@ import 'screens/news_signup_settings_screen.dart';
 import 'screens/notification_permission_settings_screen.dart';
 import 'screens/people_group_details_screen.dart';
 import 'screens/people_groups_screen.dart';
+import 'screens/pray_deep_link_screen.dart';
 import 'screens/pray_screen.dart';
 import 'screens/reminders_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/wizard_screen.dart';
+import 'services/pray_override_controller.dart';
 import 'services/referral_controller.dart';
 import 'services/wizard_completion_controller.dart';
 
 enum AppRoute { home, pray, peopleGroups, reminders }
+
+/// Matches the `/<slug>/prayer` and `/<slug>/prayer/<date>` deep links that
+/// mirror the campaigns site's prayer pages.
+final RegExp _prayDeepLinkPath = RegExp(r'^/[^/]+/prayer(/[^/]+)?$');
+
+/// Shared redirect for the prayer deep-link routes. An onboarded user is sent
+/// to the Pray tab with the group stashed as a one-visit override; a
+/// pre-onboarding user falls through to the standalone [PrayDeepLinkScreen].
+String? _prayDeepLinkRedirect(BuildContext context, GoRouterState state) {
+  final slug = state.pathParameters['slug'] ?? '';
+  if (slug.isEmpty) return '/home';
+  if (!wizardCompletedController.value) return null;
+  final date = DateTime.tryParse(state.pathParameters['date'] ?? '');
+  setPrayOverride(slug, date);
+  return '/pray';
+}
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
@@ -34,9 +52,13 @@ final GoRouter appRouter = GoRouter(
     final atPeopleGroupDetails = state.matchedLocation.startsWith(
       '/people-groups/',
     );
+    // Let `/<slug>/prayer` deep links reach their own route so a pre-onboarding
+    // visitor can see the prayer content before being routed into the wizard.
+    final atPrayDeepLink = _prayDeepLinkPath.hasMatch(state.uri.path);
     if (!wizardCompletedController.value &&
         !atWizard &&
-        !atPeopleGroupDetails) {
+        !atPeopleGroupDetails &&
+        !atPrayDeepLink) {
       return '/wizard';
     }
     if (wizardCompletedController.value && atWizard) return '/home';
@@ -101,6 +123,29 @@ final GoRouter appRouter = GoRouter(
         setReferredPeopleGroup(slug);
         return '/wizard';
       },
+    ),
+    // Pray deep link mirroring the campaigns site's `/<slug>/prayer[/<date>]`
+    // pages. Onboarded users are redirected onto the Pray tab with a one-visit
+    // override; pre-onboarding users get the standalone screen + wizard CTA.
+    GoRoute(
+      name: 'pray-deep-link',
+      path: '/:slug/prayer',
+      parentNavigatorKey: _rootNavigatorKey,
+      redirect: _prayDeepLinkRedirect,
+      builder: (_, state) =>
+          PrayDeepLinkScreen(slug: state.pathParameters['slug']!),
+      routes: [
+        GoRoute(
+          name: 'pray-deep-link-dated',
+          path: ':date',
+          parentNavigatorKey: _rootNavigatorKey,
+          redirect: _prayDeepLinkRedirect,
+          builder: (_, state) => PrayDeepLinkScreen(
+            slug: state.pathParameters['slug']!,
+            date: DateTime.tryParse(state.pathParameters['date'] ?? ''),
+          ),
+        ),
+      ],
     ),
     GoRoute(
       name: 'people-group-details',

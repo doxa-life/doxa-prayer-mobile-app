@@ -13,6 +13,7 @@ import 'services/anon_signup_service.dart';
 import 'services/identity_service.dart';
 import 'services/install_referrer_service.dart';
 import 'services/locale_controller.dart';
+import 'services/pray_override_controller.dart';
 import 'services/prayer_history_service.dart';
 import 'services/profile_update_service.dart';
 import 'services/referral_controller.dart';
@@ -50,6 +51,9 @@ Future<void> main() async {
   unawaited(fetchInstallReferrer());
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
+  // Revert the Pray tab to the user's own selection once they leave it after a
+  // `/<slug>/prayer` deep link.
+  attachPrayOverrideAutoClear();
   // Fire-and-forget: never block app start on the version check.
   checkForAppUpdate();
   // Record the cold-start app-open (foreground resumes are tracked in AppShell).
