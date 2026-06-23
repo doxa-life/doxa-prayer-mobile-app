@@ -1,0 +1,5 @@
+Features:
+- allow deep linking to people group to work on people group list
+
+Bug fixes:
+- update banner hides for 6 hours if in app update is done

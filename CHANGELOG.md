@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.0+17 - 2026-06-23
+
+Features:
+- allow deep linking to people group to work on people group list
+
+Bug fixes:
+- update banner hides for 6 hours if in app update is done
+
 ## 1.9.0+16 - 2026-06-22
 
 Features:
