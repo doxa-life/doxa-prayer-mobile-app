@@ -26,9 +26,6 @@
     "@couldNotLoadPrayerContent": {
         "description": "Error message shown when the prayer-content API call fails"
     },
-    "@couldNotLogPrayerSession": {
-        "description": "Snackbar shown when the prayer-session POST fails"
-    },
     "@country": {
         "description": "The label of the country field"
     },
@@ -155,9 +152,6 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
     },
-    "@prayerLogged": {
-        "description": "Snackbar shown after a prayer session has been recorded"
-    },
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
@@ -253,7 +247,6 @@
     "bibleTranslation": "Traducción de la Biblia",
     "couldNotLoadPeopleGroupsMessage": "No se ha podido cargar el mensaje de los grupos de personas",
     "couldNotLoadPrayerContent": "No se ha podido cargar el contenido de la oración.",
-    "couldNotLogPrayerSession": "No se ha podido registrar tu sesión de oración.",
     "country": "País",
     "crossCulturalWorkersPresent": "Trabajadores interculturales presentes",
     "daysOfWeek": "Días de la semana",
@@ -286,7 +279,10 @@
     "population": "Población",
     "pray": "rezar",
     "prayerCoverage24h": "Cobertura de oración las 24 horas",
-    "prayerLogged": "Tu oración ha quedado registrada.",
+    "prayerThankYouTitle": "Gracias por orar",
+    "prayerThankYouMessage": "Tu fidelidad en la oración importa. Dios te escucha y tus oraciones marcan la diferencia.",
+    "prayerThankYouVerse": "Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.",
+    "prayerThankYouVerseReference": "1 Tesalonicenses 5:16-18",
     "prayedToday": "Orado hoy",
     "prayerStatus": "Estado de la oración",
     "primaryLanguage": "Lenguaje principal",

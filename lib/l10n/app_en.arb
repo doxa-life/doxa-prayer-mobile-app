@@ -221,17 +221,25 @@
     "@noPrayerContentAvailable": {
         "description": "Message shown when the API returns hasContent=false or an empty content list"
     },
-    "prayerLogged": "Your prayer has been logged.",
-    "@prayerLogged": {
-        "description": "Snackbar shown after a prayer session has been recorded"
+    "prayerThankYouTitle": "Thank you for praying",
+    "@prayerThankYouTitle": {
+        "description": "Title of the encouraging modal shown after the user taps Amen"
+    },
+    "prayerThankYouMessage": "Your faithfulness in prayer matters. God hears you, and your prayers make a difference.",
+    "@prayerThankYouMessage": {
+        "description": "Encouraging body message of the modal shown after the user taps Amen"
+    },
+    "prayerThankYouVerse": "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
+    "@prayerThankYouVerse": {
+        "description": "Bible verse text shown in the thank-you-for-praying modal"
+    },
+    "prayerThankYouVerseReference": "1 Thessalonians 5:16-18",
+    "@prayerThankYouVerseReference": {
+        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "prayedToday": "Prayed today",
     "@prayedToday": {
         "description": "Pill shown on the home people group card when the user has prayed for it today"
-    },
-    "couldNotLogPrayerSession": "Could not log your prayer session.",
-    "@couldNotLogPrayerSession": {
-        "description": "Snackbar shown when the prayer-session POST fails"
     },
     "newReminder": "New reminder",
     "@newReminder": {

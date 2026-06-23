@@ -18,6 +18,7 @@ import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import 'people_group_of_the_day_view.dart';
 import 'prayer_content_view.dart';
+import 'prayer_thank_you_modal.dart';
 
 const _minimumDurationInSeconds = 5;
 
@@ -227,8 +228,6 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     _amenFired = true;
     _sessionActive = false;
     setState(() => _submitting = true);
-    final l10n = AppLocalizations.of(context)!;
-    final messenger = ScaffoldMessenger.of(context);
     final now = DateTime.now();
     final duration = now.difference(openedAt).inSeconds;
     final timestamp = now.toUtc().toLocal().toIso8601String();
@@ -248,16 +247,21 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
           openedAtTimestamp: openedAt.toUtc().toLocal().toIso8601String(),
         ),
       );
-      if (!mounted) return;
-      messenger.showSnackBar(SnackBar(content: Text(l10n.prayerLogged)));
-    } catch (_) {
-      if (!mounted) return;
-      messenger.showSnackBar(
-        SnackBar(content: Text(l10n.couldNotLogPrayerSession)),
+    } catch (error, stackTrace) {
+      // Recording the prayer is best-effort; failures must not interrupt the
+      // user's experience. Surface to the dev console only for now (a
+      // crash-reporting integration can hook in here later).
+      developer.log(
+        'Failed to record prayer session',
+        name: 'prayer_session_view',
+        error: error,
+        stackTrace: stackTrace,
       );
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
+    if (!mounted) return;
+    await showPrayerThankYouModal(context);
   }
 
   @override

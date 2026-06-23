@@ -190,14 +190,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noPrayerContentAvailable => 'Сегодня нет молитвенного материала.';
 
   @override
-  String get prayerLogged => 'Ваша молитва записана.';
+  String get prayerThankYouTitle => 'Спасибо за молитву';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Ваша верность в молитве важна. Бог слышит вас, и ваши молитвы имеют значение.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Всегда радуйтесь. Непрестанно молитесь. За всё благодарите: ибо такова о вас воля Божия во Христе Иисусе.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Фессалоникийцам 5:16-18';
 
   @override
   String get prayedToday => 'Помолились сегодня';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'Не удалось записать вашу молитвенную сессию.';
 
   @override
   String get newReminder => 'Новое напоминание';
@@ -627,14 +634,21 @@ class AppLocalizationsRuRu extends AppLocalizationsRu {
   String get noPrayerContentAvailable => 'Сегодня молитвенного материала нет.';
 
   @override
-  String get prayerLogged => 'Ваша молитва была зарегистрирована.';
+  String get prayerThankYouTitle => 'Спасибо за молитву';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Ваша верность в молитве важна. Бог слышит вас, и ваши молитвы имеют значение.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Всегда радуйтесь. Непрестанно молитесь. За всё благодарите: ибо такова о вас воля Божия во Христе Иисусе.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Фессалоникийцам 5:16-18';
 
   @override
   String get prayedToday => 'Помолились сегодня';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'Не удалось зарегистрировать вашу молитвенную сессию.';
 
   @override
   String get newReminder => 'Новое напоминание';

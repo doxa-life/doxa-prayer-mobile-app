@@ -26,9 +26,6 @@
     "@couldNotLoadPrayerContent": {
         "description": "Error message shown when the prayer-content API call fails"
     },
-    "@couldNotLogPrayerSession": {
-        "description": "Snackbar shown when the prayer-session POST fails"
-    },
     "@country": {
         "description": "The label of the country field"
     },
@@ -155,9 +152,6 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
     },
-    "@prayerLogged": {
-        "description": "Snackbar shown after a prayer session has been recorded"
-    },
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
@@ -253,7 +247,6 @@
     "bibleTranslation": "Traduction de la Bible",
     "couldNotLoadPeopleGroupsMessage": "Impossible de charger le message « PeopleGroups »",
     "couldNotLoadPrayerContent": "Impossible de charger le contenu de la prière.",
-    "couldNotLogPrayerSession": "Impossible d'enregistrer votre session de prière.",
     "country": "Pays",
     "crossCulturalWorkersPresent": "Travailleurs interculturels présents",
     "daysOfWeek": "Jours de la semaine",
@@ -286,7 +279,10 @@
     "population": "Population",
     "pray": "prier",
     "prayerCoverage24h": "Prière 24 heures sur 24",
-    "prayerLogged": "Votre prière a été enregistrée.",
+    "prayerThankYouTitle": "Merci d'avoir prié",
+    "prayerThankYouMessage": "Votre fidélité dans la prière compte. Dieu vous entend, et vos prières font la différence.",
+    "prayerThankYouVerse": "Soyez toujours joyeux. Priez sans cesse. Rendez grâces en toutes choses, car c'est à votre égard la volonté de Dieu en Jésus-Christ.",
+    "prayerThankYouVerseReference": "1 Thessaloniciens 5:16-18",
     "prayedToday": "Prié aujourd'hui",
     "prayerStatus": "Statut de prière",
     "primaryLanguage": "Langue principale",

@@ -191,14 +191,21 @@ class AppLocalizationsFr extends AppLocalizations {
       'Aucun contenu de prière pour aujourd\'hui.';
 
   @override
-  String get prayerLogged => 'Votre prière a été enregistrée.';
+  String get prayerThankYouTitle => 'Merci d\'avoir prié';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Votre fidélité dans la prière compte. Dieu vous entend, et vos prières font la différence.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Soyez toujours joyeux. Priez sans cesse. Rendez grâces en toutes choses, car c\'est à votre égard la volonté de Dieu en Jésus-Christ.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Thessaloniciens 5:16-18';
 
   @override
   String get prayedToday => 'Prié aujourd\'hui';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'Impossible d\'enregistrer votre session de prière.';
 
   @override
   String get newReminder => 'Nouveau rappel';
@@ -626,14 +633,21 @@ class AppLocalizationsFrFr extends AppLocalizationsFr {
       'Il n\'y a pas de texte de prière pour aujourd\'hui.';
 
   @override
-  String get prayerLogged => 'Votre prière a été enregistrée.';
+  String get prayerThankYouTitle => 'Merci d\'avoir prié';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Votre fidélité dans la prière compte. Dieu vous entend, et vos prières font la différence.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Soyez toujours joyeux. Priez sans cesse. Rendez grâces en toutes choses, car c\'est à votre égard la volonté de Dieu en Jésus-Christ.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Thessaloniciens 5:16-18';
 
   @override
   String get prayedToday => 'Prié aujourd\'hui';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'Impossible d\'enregistrer votre session de prière.';
 
   @override
   String get newReminder => 'Nouveau rappel';

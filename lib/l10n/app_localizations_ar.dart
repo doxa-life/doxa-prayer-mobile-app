@@ -183,13 +183,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noPrayerContentAvailable => 'لا يوجد محتوى صلاة لهذا اليوم.';
 
   @override
-  String get prayerLogged => 'تم تسجيل صلاتك.';
+  String get prayerThankYouTitle => 'شكرًا لصلاتك';
+
+  @override
+  String get prayerThankYouMessage =>
+      'أمانتك في الصلاة لها قيمتها. الله يسمعك، وصلواتك تُحدث فرقًا.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'افرحوا كل حين. صلّوا بلا انقطاع. اشكروا في كل شيء، لأن هذه هي مشيئة الله في المسيح يسوع من جهتكم.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 تسالونيكي 5:16-18';
 
   @override
   String get prayedToday => 'صُلِّي اليوم';
-
-  @override
-  String get couldNotLogPrayerSession => 'تعذر تسجيل جلسة الصلاة.';
 
   @override
   String get newReminder => 'تذكير جديد';

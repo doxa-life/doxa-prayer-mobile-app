@@ -423,23 +423,35 @@ abstract class AppLocalizations {
   /// **'No prayer content for today.'**
   String get noPrayerContentAvailable;
 
-  /// Snackbar shown after a prayer session has been recorded
+  /// Title of the encouraging modal shown after the user taps Amen
   ///
   /// In en, this message translates to:
-  /// **'Your prayer has been logged.'**
-  String get prayerLogged;
+  /// **'Thank you for praying'**
+  String get prayerThankYouTitle;
+
+  /// Encouraging body message of the modal shown after the user taps Amen
+  ///
+  /// In en, this message translates to:
+  /// **'Your faithfulness in prayer matters. God hears you, and your prayers make a difference.'**
+  String get prayerThankYouMessage;
+
+  /// Bible verse text shown in the thank-you-for-praying modal
+  ///
+  /// In en, this message translates to:
+  /// **'Rejoice always, pray continually, give thanks in all circumstances; for this is God\'s will for you in Christ Jesus.'**
+  String get prayerThankYouVerse;
+
+  /// Bible verse reference shown beneath the verse in the thank-you-for-praying modal
+  ///
+  /// In en, this message translates to:
+  /// **'1 Thessalonians 5:16-18'**
+  String get prayerThankYouVerseReference;
 
   /// Pill shown on the home people group card when the user has prayed for it today
   ///
   /// In en, this message translates to:
   /// **'Prayed today'**
   String get prayedToday;
-
-  /// Snackbar shown when the prayer-session POST fails
-  ///
-  /// In en, this message translates to:
-  /// **'Could not log your prayer session.'**
-  String get couldNotLogPrayerSession;
 
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
   ///

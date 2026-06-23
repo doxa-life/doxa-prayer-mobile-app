@@ -26,9 +26,6 @@
     "@couldNotLoadPrayerContent": {
         "description": "Error message shown when the prayer-content API call fails"
     },
-    "@couldNotLogPrayerSession": {
-        "description": "Snackbar shown when the prayer-session POST fails"
-    },
     "@country": {
         "description": "The label of the country field"
     },
@@ -155,9 +152,6 @@
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
     },
-    "@prayerLogged": {
-        "description": "Snackbar shown after a prayer session has been recorded"
-    },
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
@@ -257,7 +251,6 @@
     "bibleTranslation": "Bible Translation",
     "couldNotLoadPeopleGroupsMessage": "couldNotLoadPeopleGroupsMessage",
     "couldNotLoadPrayerContent": "Could not load prayer content.",
-    "couldNotLogPrayerSession": "Could not log your prayer session.",
     "country": "Country",
     "crossCulturalWorkersPresent": "Cross-cultural workers present",
     "daysOfWeek": "Days of week",
@@ -290,7 +283,10 @@
     "population": "Population",
     "pray": "pray",
     "prayerCoverage24h": "24-Hour Prayer Coverage",
-    "prayerLogged": "Your prayer has been logged.",
+    "prayerThankYouTitle": "Thank you for praying",
+    "prayerThankYouMessage": "Your faithfulness in prayer matters. God hears you, and your prayers make a difference.",
+    "prayerThankYouVerse": "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
+    "prayerThankYouVerseReference": "1 Thessalonians 5:16-18",
     "prayedToday": "Prayed today",
     "prayerStatus": "Prayer Status",
     "primaryLanguage": "Primary Language",

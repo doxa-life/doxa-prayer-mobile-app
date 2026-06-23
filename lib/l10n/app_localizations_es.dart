@@ -191,14 +191,21 @@ class AppLocalizationsEs extends AppLocalizations {
       'No hay contenido de oración para hoy.';
 
   @override
-  String get prayerLogged => 'Tu oración ha sido registrada.';
+  String get prayerThankYouTitle => 'Gracias por orar';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Tu fidelidad en la oración importa. Dios te escucha y tus oraciones marcan la diferencia.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
 
   @override
   String get prayedToday => 'Orado hoy';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'No se pudo registrar tu sesión de oración.';
 
   @override
   String get newReminder => 'Nuevo recordatorio';
@@ -626,14 +633,21 @@ class AppLocalizationsEsEs extends AppLocalizationsEs {
   String get noPrayerContentAvailable => 'Hoy no hay contenido de oración.';
 
   @override
-  String get prayerLogged => 'Tu oración ha quedado registrada.';
+  String get prayerThankYouTitle => 'Gracias por orar';
+
+  @override
+  String get prayerThankYouMessage =>
+      'Tu fidelidad en la oración importa. Dios te escucha y tus oraciones marcan la diferencia.';
+
+  @override
+  String get prayerThankYouVerse =>
+      'Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
+
+  @override
+  String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
 
   @override
   String get prayedToday => 'Orado hoy';
-
-  @override
-  String get couldNotLogPrayerSession =>
-      'No se ha podido registrar tu sesión de oración.';
 
   @override
   String get newReminder => 'Nuevo recordatorio';
