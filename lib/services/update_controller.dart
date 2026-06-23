@@ -10,6 +10,13 @@ import 'package:url_launcher/url_launcher.dart';
 import 'version_check_service.dart';
 
 const _dismissedVersionKey = 'update_dismissed_version';
+const _snoozeUntilKey = 'update_snooze_until';
+
+/// How long the optional-update banner stays hidden after the user starts an
+/// update. A successful flexible update restarts the app, so this window only
+/// matters when the update is cancelled or fails — it stops the resume-check
+/// from re-showing the banner the instant the user dismisses Play's dialog.
+const _snoozeDuration = Duration(hours: 6);
 
 enum UpdateState {
   /// No update needed (or check failed — fail open).
@@ -45,12 +52,17 @@ Future<void> checkForAppUpdate() async {
     final packageInfo = await PackageInfo.fromPlatform();
     final current = packageInfo.version;
 
-    // Only the optional path consults the dismissed-version flag, so avoid the
-    // prefs read otherwise.
+    // Only the optional path consults the dismissed-version flag and snooze
+    // timestamp, so avoid the prefs reads otherwise.
     String? dismissed;
+    bool snoozed = false;
     if (!_isLower(current, info.minSupportedVersion) &&
         _isLower(current, info.latestVersion)) {
-      dismissed = await SharedPreferencesAsync().getString(_dismissedVersionKey);
+      final prefs = SharedPreferencesAsync();
+      dismissed = await prefs.getString(_dismissedVersionKey);
+      final snoozeUntil = await prefs.getInt(_snoozeUntilKey);
+      snoozed = snoozeUntil != null &&
+          DateTime.now().millisecondsSinceEpoch < snoozeUntil;
     }
 
     final state = resolveUpdateState(
@@ -58,6 +70,7 @@ Future<void> checkForAppUpdate() async {
       latestVersion: info.latestVersion,
       minSupportedVersion: info.minSupportedVersion,
       dismissedVersion: dismissed,
+      optionalSnoozed: snoozed,
     );
 
     updateController.value =
@@ -77,12 +90,14 @@ UpdateState resolveUpdateState({
   required String latestVersion,
   required String minSupportedVersion,
   String? dismissedVersion,
+  bool optionalSnoozed = false,
 }) {
   if (_isLower(currentVersion, minSupportedVersion)) {
     return UpdateState.forced;
   }
   if (_isLower(currentVersion, latestVersion)) {
     if (dismissedVersion == latestVersion) return UpdateState.none;
+    if (optionalSnoozed) return UpdateState.none;
     return UpdateState.optional;
   }
   return UpdateState.none;
@@ -93,9 +108,17 @@ UpdateState resolveUpdateState({
 Future<void> dismissOptionalUpdate() async {
   final info = updateController.value.info;
   updateController.value = UpdateStatus.none;
+  await _snoozeOptionalUpdate();
   if (info == null) return;
   final prefs = SharedPreferencesAsync();
   await prefs.setString(_dismissedVersionKey, info.latestVersion);
+}
+
+/// Suppresses the optional-update banner for [_snoozeDuration] from now, so a
+/// cancelled or failed update attempt doesn't immediately re-prompt on resume.
+Future<void> _snoozeOptionalUpdate() async {
+  final until = DateTime.now().add(_snoozeDuration).millisecondsSinceEpoch;
+  await SharedPreferencesAsync().setInt(_snoozeUntilKey, until);
 }
 
 /// Starts the platform update flow.
@@ -105,6 +128,15 @@ Future<void> dismissOptionalUpdate() async {
 Future<void> startAppUpdate({bool immediate = false}) async {
   final info = updateController.value.info;
 
+  // For the optional flow, the user has chosen to update: hide our banner and
+  // snooze it so the resume-check (which fires the moment Play's dialog closes)
+  // doesn't re-show it while the download is in progress — or right after a
+  // cancel/failure. Forced updates are never snoozed; they must keep prompting.
+  if (!immediate) {
+    updateController.value = UpdateStatus.none;
+    await _snoozeOptionalUpdate();
+  }
+
   if (Platform.isAndroid) {
     try {
       final result = await InAppUpdate.checkForUpdate();
@@ -112,10 +144,7 @@ Future<void> startAppUpdate({bool immediate = false}) async {
         if (immediate) {
           await InAppUpdate.performImmediateUpdate();
         } else {
-          // Play now owns the update UX (its own download overlay/notification),
-          // so hide our banner. Reset state rather than persisting a dismissal —
-          // if the user cancels the download, the next resume check re-prompts.
-          updateController.value = UpdateStatus.none;
+          // Play now owns the update UX (its own download overlay/notification).
           await InAppUpdate.startFlexibleUpdate();
           await InAppUpdate.completeFlexibleUpdate();
         }

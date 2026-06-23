@@ -99,6 +99,30 @@ void main() {
       );
     });
 
+    test('optional suppressed while snoozed', () {
+      expect(
+        resolveUpdateState(
+          currentVersion: '1.1.0',
+          latestVersion: '1.2.0',
+          minSupportedVersion: '1.0.0',
+          optionalSnoozed: true,
+        ),
+        UpdateState.none,
+      );
+    });
+
+    test('snooze never suppresses a forced update', () {
+      expect(
+        resolveUpdateState(
+          currentVersion: '1.0.0',
+          latestVersion: '1.2.0',
+          minSupportedVersion: '1.1.0',
+          optionalSnoozed: true,
+        ),
+        UpdateState.forced,
+      );
+    });
+
     test('build/pre-release suffixes are ignored in comparison', () {
       expect(
         resolveUpdateState(
