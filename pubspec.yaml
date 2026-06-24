@@ -45,7 +45,12 @@ dependencies:
     sdk: flutter
   intl: any
   url_launcher: ^6.3.1
-  app_settings: ^6.1.1
+  # Pinned to 5.1.1: it has no SPM Package.swift, so Flutter's SPM build uses the
+  # CocoaPods fallback and compiles it in Swift 5. From 5.2.0 onward the plugin
+  # ships a `swift-tools-version: 6.0` manifest, which compiles under Swift 6 and
+  # trips the FlutterPlugin conformance-isolation error. Do NOT use a caret here
+  # (^5.1.1 would resolve to 5.2.0+ and reintroduce the error).
+  app_settings: 5.1.1
   flutter_dotenv: ^5.1.0
   android_play_install_referrer: ^0.4.0
   package_info_plus: ^10.1.0
