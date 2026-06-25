@@ -77,12 +77,6 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     if (confirmed == true) widget.onSelectionConfirmed?.call(group);
   }
 
-  void _onScanQr() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('QR scan — coming soon')));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -102,14 +96,6 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                   setState(() => _query = '');
                 },
               ),
-            ),
-            ActionButton.icon(
-              icon: const Icon(
-                Icons.qr_code_scanner,
-                color: Colors.white,
-                size: 32,
-              ),
-              onPressed: _onScanQr,
             ),
           ],
         ),
