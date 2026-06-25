@@ -9,7 +9,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get appName => 'Prière de la Doxa';
+  String get appName => 'Doxa Prayer';
 
   @override
   String get home => 'Accueil';
@@ -117,7 +117,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get share => 'Partager';
 
   @override
-  String get search => 'Recherche';
+  String get search => 'Rechercher';
 
   @override
   String get country => 'Pays';
@@ -237,7 +237,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Ouvrez le Doxa pour commencer la prière d\'aujourd\'hui.';
+      'Ouvrez Doxa pour commencer la prière d\'aujourd\'hui.';
 
   @override
   String get notifications => 'Notifications';
@@ -265,17 +265,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String nextReminderToday(String time) {
-    return 'Aujourd\'hui sur $time';
+    return 'Aujourd\'hui à $time';
   }
 
   @override
   String nextReminderTomorrow(String time) {
-    return 'Demain sur $time';
+    return 'Demain à $time';
   }
 
   @override
   String nextReminderOn(String weekday, String time) {
-    return '$weekday sur $time';
+    return '$weekday à $time';
   }
 
   @override
@@ -296,7 +296,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get dismissNextReminder => 'Fermer Suivant';
+  String get dismissNextReminder => 'Ignorer le prochain';
 
   @override
   String get wizardWelcomeTitle => 'Bienvenue sur Doxa Prayer';
@@ -313,7 +313,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
-    return 'Prier pour «$name » ?';
+    return 'Prier pour « $name » ?';
   }
 
   @override
@@ -366,7 +366,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Recevoir des informations sur mon peuple';
 
   @override
-  String get updatesFromDoxa => 'Recevez les actualités de Doxa';
+  String get updatesFromDoxa => 'Recevoir les actualités de Doxa';
 
   @override
   String get signUpForUpdates => 'Inscrivez-vous pour recevoir nos actualités';
@@ -422,14 +422,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'Version$version';
+    return 'Version $version';
   }
 
   @override
-  String get previousDay => 'La veille';
+  String get previousDay => 'Jour précédent';
 
   @override
-  String get nextDay => 'Le lendemain';
+  String get nextDay => 'Jour suivant';
 
   @override
   String get dayInTheLifeTitle => 'Une journée type';

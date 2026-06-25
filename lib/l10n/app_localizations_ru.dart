@@ -9,10 +9,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appName => 'Молитва «Докса»';
+  String get appName => 'Doxa Prayer';
 
   @override
-  String get home => 'Домой';
+  String get home => 'Главная';
 
   @override
   String get pray => 'Молитесь';
@@ -91,7 +91,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get gospelRecordings => 'Записи Евангелия';
 
   @override
-  String get audioScripture => 'Аудио-Священное Писание';
+  String get audioScripture => 'Аудиозапись Писания';
 
   @override
   String get overview => 'Обзор';
@@ -140,7 +140,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get setReminder => 'Установить напоминание';
 
   @override
-  String get pauseAndPray => 'Остановись и помолись';
+  String get pauseAndPray => 'Остановитесь и помолитесь';
 
   @override
   String get select => 'Выбрать';
@@ -149,10 +149,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get selected => 'Выбрано';
 
   @override
-  String get yes => 'да';
+  String get yes => 'Да';
 
   @override
-  String get no => 'нет';
+  String get no => 'Нет';
 
   @override
   String get status => 'Статус';
@@ -179,7 +179,8 @@ class AppLocalizationsRu extends AppLocalizations {
       'Выберите народ, за который хотите начать молиться.';
 
   @override
-  String get couldNotLoadPrayerContent => 'Не удалось загрузить текст молитвы.';
+  String get couldNotLoadPrayerContent =>
+      'Не удалось загрузить молитвенные материалы.';
 
   @override
   String get noPrayerContentAvailable =>
@@ -190,7 +191,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get prayerThankYouMessage =>
-      'Ваша постоянство в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.';
+      'Ваша верность в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.';
 
   @override
   String get prayerThankYouVerse =>
@@ -200,7 +201,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerThankYouVerseReference => '1 Фессалоникийцам 5:16–18';
 
   @override
-  String get prayedToday => 'Сегодня помолился';
+  String get prayedToday => 'Помолились сегодня';
 
   @override
   String get newReminder => 'Новое напоминание';
@@ -234,7 +235,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Откройте «Доксу», чтобы начать сегодняшнюю молитву.';
+      'Откройте Doxa, чтобы начать сегодняшнюю молитву.';
 
   @override
   String get notifications => 'Уведомления';
@@ -262,17 +263,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String nextReminderToday(String time) {
-    return 'Сегодня на сайте $time';
+    return 'Сегодня в $time';
   }
 
   @override
   String nextReminderTomorrow(String time) {
-    return 'Завтра на сайте $time';
+    return 'Завтра в $time';
   }
 
   @override
   String nextReminderOn(String weekday, String time) {
-    return '$weekday по адресу $time';
+    return '$weekday в $time';
   }
 
   @override
@@ -293,7 +294,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get dismissNextReminder => 'Закрыть Следующий';
+  String get dismissNextReminder => 'Отклонить следующее';
 
   @override
   String get wizardWelcomeTitle => 'Добро пожаловать в «Doxa Prayer»';
@@ -315,7 +316,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardConfirmPeopleGroupBody =>
-      'Мы покажем вам тексты молитв и напоминания для этого народа. Вы сможете изменить эти настройки позже.';
+      'Мы покажем вам молитвенные материалы и напоминания для этого народа. Вы сможете изменить эти настройки позже.';
 
   @override
   String get wizardSetReminderTitle => 'Установить напоминание о молитве';
@@ -390,7 +391,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Пожалуйста, обновите приложение до последней версии, чтобы продолжить пользоваться Doxa Prayer.';
 
   @override
-  String get updateAction => 'Обновление';
+  String get updateAction => 'Обновить';
 
   @override
   String get updateDismiss => 'Не сейчас';
@@ -426,7 +427,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get previousDay => 'Предыдущий день';
 
   @override
-  String get nextDay => 'На следующий день';
+  String get nextDay => 'Следующий день';
 
   @override
   String get dayInTheLifeTitle => 'Один день из жизни';

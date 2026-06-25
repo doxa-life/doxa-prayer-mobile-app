@@ -15,7 +15,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get home => 'Inicio';
 
   @override
-  String get pray => 'Oración';
+  String get pray => 'Orar';
 
   @override
   String get peopleGroups => 'Grupos de personas';
@@ -71,7 +71,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get discipleAndChurchMultiplication =>
-      'Discípulo y multiplicación de iglesias';
+      'Multiplicación de discípulos e iglesias';
 
   @override
   String get resources => 'Recursos';
@@ -133,7 +133,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get primaryLanguage => 'Idioma principal';
 
   @override
-  String get primaryReligion => 'Religión primaria';
+  String get primaryReligion => 'Religión principal';
 
   @override
   String get religiousPractices => 'Prácticas religiosas';
@@ -151,7 +151,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get selected => 'Seleccionado';
 
   @override
-  String get yes => 'Si';
+  String get yes => 'Sí';
 
   @override
   String get no => 'No';
@@ -183,7 +183,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get couldNotLoadPrayerContent =>
-      'No se ha podido cargar el contenido de la oración.';
+      'No se ha podido cargar el contenido de oración.';
 
   @override
   String get noPrayerContentAvailable => 'Hoy no hay contenido de oración.';
@@ -197,7 +197,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get prayerThankYouVerse =>
-      'Alégrense siempre, oren sin cesar, den gracias en todo momento; pues esta es la voluntad de Dios para ustedes en Cristo Jesús.';
+      'Estad siempre gozosos, orad sin cesar, dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
 
   @override
   String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
@@ -237,7 +237,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Abre la Doxa para comenzar la oración de hoy.';
+      'Abre Doxa para comenzar la oración de hoy.';
 
   @override
   String get notifications => 'Notificaciones';
@@ -265,17 +265,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String nextReminderToday(String time) {
-    return 'Hoy en $time';
+    return 'Hoy a las $time';
   }
 
   @override
   String nextReminderTomorrow(String time) {
-    return 'Mañana en $time';
+    return 'Mañana a las $time';
   }
 
   @override
   String nextReminderOn(String weekday, String time) {
-    return '$weekday en $time';
+    return '$weekday a las $time';
   }
 
   @override
@@ -288,7 +288,7 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Hay ${countString}es recordatorios configurados',
+      other: 'Hay $countString recordatorios configurados',
       one: 'Hay 1 recordatorio configurado',
       zero: 'No hay recordatorios configurados',
     );
@@ -296,14 +296,14 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get dismissNextReminder => 'Cerrar Siguiente';
+  String get dismissNextReminder => 'Descartar siguiente';
 
   @override
   String get wizardWelcomeTitle => 'Bienvenidos a Doxa Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa te ayuda a orar por un grupo de personas al que aún no ha llegado el evangelio. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
+      'Doxa te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
 
   @override
   String get wizardGetStarted => 'Empezar';
@@ -353,7 +353,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get nameLabel => 'Nombre';
 
   @override
-  String get emailLabel => 'Correo Electrónico';
+  String get emailLabel => 'Correo electrónico';
 
   @override
   String get emailInvalid =>
@@ -400,7 +400,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get updateDismiss => 'Ahora no';
 
   @override
-  String get getInvolved => 'Participa';
+  String get getInvolved => 'Involúcrate';
 
   @override
   String get donate => 'Donar';
@@ -410,7 +410,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Ora conmigo por la «$name»; descárgate la aplicación Doxa Prayer:';
+    return 'Ora conmigo por los «$name»; descárgate la aplicación Doxa Prayer:';
   }
 
   @override
@@ -418,19 +418,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String scanToPray(String name) {
-    return 'Escanea el código para descargar la aplicación y ora por $name';
+    return 'Escanea el código para descargar la aplicación y ora por los $name';
   }
 
   @override
   String appVersion(String version) {
-    return 'Versión$version';
+    return 'Versión $version';
   }
 
   @override
-  String get previousDay => 'El día anterior';
+  String get previousDay => 'Día anterior';
 
   @override
-  String get nextDay => 'Al día siguiente';
+  String get nextDay => 'Día siguiente';
 
   @override
   String get dayInTheLifeTitle => 'Un día en la vida';
@@ -440,7 +440,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String peopleGroupIntroTitle(String name) {
-    return 'Orad por el «$name»';
+    return 'Ora por los «$name»';
   }
 
   @override
