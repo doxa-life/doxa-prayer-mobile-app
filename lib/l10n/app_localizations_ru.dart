@@ -15,10 +15,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home => 'Домой';
 
   @override
-  String get pray => 'Молиться';
+  String get pray => 'Молитесь';
 
   @override
-  String get peopleGroups => 'Группы людей';
+  String get peopleGroups => 'Народы';
 
   @override
   String nPeopleGroups(num count) {
@@ -30,15 +30,15 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString этнических групп',
-      one: '1 этническая группа',
-      zero: 'Нет этнических групп',
+      other: '$countString народов',
+      one: '1 народ',
+      zero: 'Нет народов',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchPeopleGroups => 'Поиск этнических групп';
+  String get searchPeopleGroups => 'Поиск народов';
 
   @override
   String get profile => 'Профиль';
@@ -56,22 +56,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String get retry => 'Повторить попытку';
 
   @override
-  String get couldNotLoadPeopleGroupsMessage =>
-      'Не удалось загрузить этнические группы.';
+  String get couldNotLoadPeopleGroupsMessage => 'Не удалось загрузить народы.';
 
   @override
-  String get selectPeopleGroup => 'Выберите этническую группу';
+  String get selectPeopleGroup => 'Выберите народ';
 
   @override
   String get crossCulturalWorkersPresent =>
-      'Межкультурные работники присутствуют';
+      'Межкультурные служители присутствуют';
 
   @override
   String get workInLocalLanguageAndCulture =>
-      'Работа на местном языке и в местной культуре';
+      'Работа на родном языке и в местной культуре';
 
   @override
-  String get discipleAndChurchMultiplication => 'Ученики и умножение церквей';
+  String get discipleAndChurchMultiplication => 'Умножение учеников и церквей';
 
   @override
   String get resources => 'Ресурсы';
@@ -101,17 +100,17 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerStatus => 'Статус молитвы';
 
   @override
-  String get peopleCommittedToPraying => 'Люди, посвятившие себя молитве';
+  String get peopleCommittedToPraying => 'Люди, обязавшиеся молиться';
 
   @override
-  String get prayerCoverage24h => 'Круглосуточная молитвенная поддержка';
+  String get prayerCoverage24h => '24-часовой молитвенный охват';
 
   @override
-  String get peopleGroup => 'Группа людей';
+  String get peopleGroup => 'Народ';
 
   @override
   String get couldNotLoadPeopleGroupDetailsMessage =>
-      'Не удалось загрузить сведения о народности.';
+      'Не удалось загрузить сведения о народе.';
 
   @override
   String get share => 'Поделиться';
@@ -165,12 +164,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get adoptionStatus => 'Статус принятия';
 
   @override
-  String get selectPeopleGroupConfirm =>
-      'Вы хотите выбрать эту этническую группу?';
+  String get selectPeopleGroupConfirm => 'Вы хотите выбрать этот народ?';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
-    return 'Хотите перестать молиться за сайт $currentName и начать молиться за сайт $newName?';
+    return 'Хотите перестать молиться за народ «$currentName» и начать молиться за народ «$newName»?';
   }
 
   @override
@@ -178,7 +176,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noPeopleGroupSelected =>
-      'Выберите народность, за которую хотите начать молиться.';
+      'Выберите народ, за который хотите начать молиться.';
 
   @override
   String get couldNotLoadPrayerContent => 'Не удалось загрузить текст молитвы.';
@@ -302,13 +300,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa поможет вам молиться за неохваченную народность. Мы поможем вам выбрать народность, настроить напоминание и оставаться в курсе событий.';
+      'Doxa поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.';
 
   @override
   String get wizardGetStarted => 'Начать работу';
 
   @override
-  String get wizardChoosePeopleGroupTitle => 'Выберите народность';
+  String get wizardChoosePeopleGroupTitle => 'Выберите народ';
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
@@ -317,7 +315,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardConfirmPeopleGroupBody =>
-      'Мы покажем вам тексты молитв и напоминания для этой группы. Вы сможете изменить эти настройки позже.';
+      'Мы покажем вам тексты молитв и напоминания для этого народа. Вы сможете изменить эти настройки позже.';
 
   @override
   String get wizardSetReminderTitle => 'Установить напоминание о молитве';
@@ -331,7 +329,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Необязательно. Получайте новости о вашей этнической группе и обновления от Doxa.';
+      'Необязательно. Получайте новости о вашем народе и обновления от Doxa.';
 
   @override
   String get back => 'Назад';
@@ -362,8 +360,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get nameRequired => 'Пожалуйста, введите своё имя.';
 
   @override
-  String get updatesAboutMyPeopleGroup =>
-      'Получайте новости о моей этнической группе';
+  String get updatesAboutMyPeopleGroup => 'Получайте новости о моём народе';
 
   @override
   String get updatesFromDoxa => 'Получайте новости от Doxa';
@@ -435,15 +432,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dayInTheLifeTitle => 'Один день из жизни';
 
   @override
-  String get myPeopleGroupTitle => 'Моя этническая группа';
+  String get myPeopleGroupTitle => 'Мой народ';
 
   @override
   String peopleGroupIntroTitle(String name) {
-    return 'Помолитесь за организацию «$name»';
+    return 'Помолитесь за народ «$name»';
   }
 
   @override
-  String get peopleGroupOfTheDay => 'Народность дня';
+  String get peopleGroupOfTheDay => 'Народ дня';
 
   @override
   String get pressBackAgainToExit => 'Нажмите «Назад» ещё раз, чтобы выйти';

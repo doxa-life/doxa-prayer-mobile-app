@@ -15,10 +15,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get home => 'الصفحة الرئيسية';
 
   @override
-  String get pray => 'صلّي';
+  String get pray => 'صلّ';
 
   @override
-  String get peopleGroups => 'مجموعات بشرية';
+  String get peopleGroups => 'مجموعات شعبية';
 
   @override
   String nPeopleGroups(num count) {
@@ -30,15 +30,15 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'مجموعات سكانية $countString',
-      one: 'مجموعة سكانية واحدة',
-      zero: 'لا توجد مجموعات سكانية',
+      other: '$countString مجموعة شعبية',
+      one: 'مجموعة شعبية واحدة',
+      zero: 'لا توجد مجموعات شعبية',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchPeopleGroups => 'البحث عن المجموعات العرقية';
+  String get searchPeopleGroups => 'البحث عن المجموعات الشعبية';
 
   @override
   String get profile => 'الملف الشخصي';
@@ -56,20 +56,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get retry => 'إعادة المحاولة';
 
   @override
-  String get couldNotLoadPeopleGroupsMessage =>
-      'تعذر تحميل المجموعات السكانية.';
+  String get couldNotLoadPeopleGroupsMessage => 'تعذر تحميل المجموعات الشعبية.';
 
   @override
-  String get selectPeopleGroup => 'اختر مجموعة عرقية';
+  String get selectPeopleGroup => 'اختر مجموعة شعبية';
 
   @override
-  String get crossCulturalWorkersPresent => 'تواجد خدّام يعملون عبر الثقافات';
+  String get crossCulturalWorkersPresent => 'وجود عمّال عابرين للثقافات';
 
   @override
   String get workInLocalLanguageAndCulture => 'العمل باللغة والثقافة المحلية';
 
   @override
-  String get discipleAndChurchMultiplication => 'تضاعف التلاميذ والكنيسة';
+  String get discipleAndChurchMultiplication => 'مضاعفة التلاميذ والكنائس';
 
   @override
   String get resources => 'الموارد';
@@ -102,14 +101,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get peopleCommittedToPraying => 'الأشخاص الذين التزموا بالصلاة';
 
   @override
-  String get prayerCoverage24h => 'تغطية صلاة على مدار 24 ساعة';
+  String get prayerCoverage24h => 'تغطية الصلاة على مدار 24 ساعة';
 
   @override
-  String get peopleGroup => 'مجموعة بشرية';
+  String get peopleGroup => 'مجموعة شعبية';
 
   @override
   String get couldNotLoadPeopleGroupDetailsMessage =>
-      'تعذر تحميل تفاصيل المجموعة العرقية.';
+      'تعذر تحميل تفاصيل المجموعة الشعبية.';
 
   @override
   String get share => 'مشاركة';
@@ -139,7 +138,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setReminder => 'تعيين تذكير';
 
   @override
-  String get pauseAndPray => 'توقف وصلي';
+  String get pauseAndPray => 'توقف وصلّ';
 
   @override
   String get select => 'اختر';
@@ -160,10 +159,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get engagementStatus => 'حالة الانخراط';
 
   @override
-  String get adoptionStatus => 'وضعية الإنتماء';
+  String get adoptionStatus => 'حالة التبنّي';
 
   @override
-  String get selectPeopleGroupConfirm => 'هل تريد تحديد هذه المجموعة العرقية؟';
+  String get selectPeopleGroupConfirm => 'هل تريد تحديد هذه المجموعة الشعبية؟';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
@@ -175,7 +174,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noPeopleGroupSelected =>
-      'اختر مجموعة من الناس لتبدأ بالصلاة من أجلها.';
+      'اختر مجموعة شعبية لتبدأ بالصلاة من أجلها.';
 
   @override
   String get couldNotLoadPrayerContent => 'تعذر تحميل محتوى الصلاة.';
@@ -297,17 +296,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'تساعدك «دوكسا» على الصلاة من أجل إحدى المجموعات العرقية التي لم تصلها البشارة بعد. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.';
+      'تساعدك «دوكسا» على الصلاة من أجل إحدى المجموعات الشعبية غير المُبشَّر بها. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.';
 
   @override
   String get wizardGetStarted => 'ابدؤوا الآن';
 
   @override
-  String get wizardChoosePeopleGroupTitle => 'إختر شعب';
+  String get wizardChoosePeopleGroupTitle => 'اختر مجموعة شعبية';
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
-    return 'هل نصلي من أجل «$name»؟';
+    return 'صلّ من أجل «$name»؟';
   }
 
   @override
@@ -326,7 +325,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'اختياري. احصل على الأخبار المتعلقة بمجموعتك العرقية وعلى آخر المستجدات من Doxa.';
+      'اختياري. احصل على الأخبار المتعلقة بمجموعتك الشعبية وعلى آخر المستجدات من Doxa.';
 
   @override
   String get back => 'العودة إلى الخلف';
@@ -357,7 +356,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updatesAboutMyPeopleGroup =>
-      'تلقي آخر المستجدات حول مجموعتي العرقية';
+      'تلقي آخر المستجدات حول مجموعتي الشعبية';
 
   @override
   String get updatesFromDoxa => 'احصل على آخر المستجدات من Doxa';
@@ -402,7 +401,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'صلوا معي من أجل حملة «$name» — قوموا بتنزيل تطبيق «Doxa Prayer»:';
+    return 'صلّوا معي من أجل «$name» — قوموا بتنزيل تطبيق «Doxa Prayer»:';
   }
 
   @override
@@ -410,7 +409,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String scanToPray(String name) {
-    return 'امسح الرمز للحصول على التطبيق وادعُ من أجل حملة «$name»';
+    return 'امسح الرمز للحصول على التطبيق وصلّ من أجل «$name»';
   }
 
   @override
@@ -428,15 +427,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dayInTheLifeTitle => 'يوم في الحياة';
 
   @override
-  String get myPeopleGroupTitle => 'مجموعتي العرقية';
+  String get myPeopleGroupTitle => 'مجموعتي الشعبية';
 
   @override
   String peopleGroupIntroTitle(String name) {
-    return 'صلوا من أجل منظمة «$name»';
+    return 'صلّ من أجل «$name»';
   }
 
   @override
-  String get peopleGroupOfTheDay => 'مجموعة إثنية اليوم';
+  String get peopleGroupOfTheDay => 'المجموعة الشعبية لليوم';
 
   @override
   String get pressBackAgainToExit => 'اضغط على زر الرجوع مرة أخرى للخروج';
