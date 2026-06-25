@@ -9,16 +9,16 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appName => 'Doxa Oración';
+  String get appName => 'nombreDeLaAplicación';
 
   @override
   String get home => 'Inicio';
 
   @override
-  String get pray => 'Orar';
+  String get pray => 'rezar';
 
   @override
-  String get peopleGroups => 'Grupos de Personas';
+  String get peopleGroups => 'Grupos étnicos';
 
   @override
   String nPeopleGroups(num count) {
@@ -38,33 +38,33 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get searchPeopleGroups => 'Buscar Grupos de Personas';
+  String get searchPeopleGroups => 'Buscar personas y grupos';
 
   @override
-  String get profile => 'Perfil';
+  String get profile => 'perfil';
 
   @override
-  String get reminders => 'Recordatorios';
+  String get reminders => 'recordatorios';
 
   @override
-  String get settings => 'Ajustes';
+  String get settings => 'configuración';
 
   @override
-  String get language => 'Idioma';
+  String get language => 'idioma';
 
   @override
-  String get retry => 'Reintentar';
+  String get retry => 'reintentar';
 
   @override
   String get couldNotLoadPeopleGroupsMessage =>
-      'No se pudieron cargar los grupos de personas.';
+      'No se ha podido cargar el mensaje de los grupos de personas';
 
   @override
   String get selectPeopleGroup => 'Selecciona un grupo étnico';
 
   @override
   String get crossCulturalWorkersPresent =>
-      'Trabajadores transculturales presentes';
+      'Trabajadores interculturales presentes';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -84,13 +84,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bibleStories => 'Historias bíblicas';
 
   @override
-  String get jesusFilm => 'La película de Jesús';
+  String get jesusFilm => 'Película sobre Jesús';
 
   @override
   String get radioBroadcast => 'Emisión de radio';
 
   @override
-  String get gospelRecordings => 'Grabaciones de gospel';
+  String get gospelRecordings => 'Grabaciones del Evangelio';
 
   @override
   String get audioScripture => 'Escritura en audio';
@@ -128,13 +128,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get alternateName => 'Nombre alternativo';
 
   @override
-  String get population => 'Aplicación';
+  String get population => 'Población';
 
   @override
-  String get primaryLanguage => 'Idioma principal';
+  String get primaryLanguage => 'Lenguaje principal';
 
   @override
-  String get primaryReligion => 'Religión principal';
+  String get primaryReligion => 'Religión primaria';
 
   @override
   String get religiousPractices => 'Prácticas religiosas';
@@ -152,7 +152,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get selected => 'Seleccionado';
 
   @override
-  String get yes => 'Sí';
+  String get yes => 'Si';
 
   @override
   String get no => 'No';
@@ -161,18 +161,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get status => 'Estado';
 
   @override
-  String get engagementStatus => 'Estado civil';
+  String get engagementStatus => 'Estado del compromiso';
 
   @override
   String get adoptionStatus => 'Estado de la adopción';
 
   @override
   String get selectPeopleGroupConfirm =>
-      '¿Quieres seleccionar este grupo de personas?';
+      '¿Quieres seleccionar este grupo étnico?';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
-    return '¿Quieres dejar de orar por $currentName y comenzar a orar por $newName?';
+    return '¿Quieres dejar de rezar por $currentName y empezar a rezar por $newName?';
   }
 
   @override
@@ -180,15 +180,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noPeopleGroupSelected =>
-      'Elige un grupo de personas para empezar a orar.';
+      'Elige un grupo étnico por el que empezar a orar.';
 
   @override
   String get couldNotLoadPrayerContent =>
-      'No se pudo cargar el contenido de oración.';
+      'No se ha podido cargar el contenido de la oración.';
 
   @override
-  String get noPrayerContentAvailable =>
-      'No hay contenido de oración para hoy.';
+  String get noPrayerContentAvailable => 'Hoy no hay contenido de oración.';
 
   @override
   String get prayerThankYouTitle => 'Gracias por orar';
@@ -217,7 +216,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get save => 'Guardar';
 
   @override
-  String get delete => 'Eliminar';
+  String get delete => 'Borrar';
 
   @override
   String get time => 'Hora';
@@ -229,55 +228,55 @@ class AppLocalizationsEs extends AppLocalizations {
   String get everyDay => 'Todos los días';
 
   @override
-  String get noDaysSelected => 'Ningún día seleccionado';
+  String get noDaysSelected => 'No se han seleccionado días';
 
   @override
   String get noRemindersYet => 'Aún no hay recordatorios';
 
   @override
-  String get reminderNotificationTitle => 'Hora de orar';
+  String get reminderNotificationTitle => 'Es hora de rezar';
 
   @override
   String get reminderNotificationBody =>
-      'Abre Doxa para iniciar la oración de hoy.';
+      'Abre la Doxa para comenzar la oración de hoy.';
 
   @override
-  String get notifications => 'Notificaciones';
+  String get notifications => 'Notifications';
 
   @override
   String get notificationsEnabledStatus =>
-      'Las notificaciones están activadas. Recibirás tus recordatorios de oración.';
+      'Notifications are on. Your prayer reminders will be delivered.';
 
   @override
   String get notificationsDisabledStatus =>
-      'Las notificaciones están desactivadas, por lo que no aparecerán tus recordatorios de oración.';
+      'Notifications are turned off, so your prayer reminders won\'t appear.';
 
   @override
   String get notificationsHowToEnable =>
-      'Toca el botón de abajo para abrir la configuración y permite las notificaciones de Doxa.';
+      'Tap below to open settings, then allow notifications for Doxa.';
 
   @override
-  String get enableNotifications => 'Activar notificaciones';
+  String get enableNotifications => 'Enable notifications';
 
   @override
-  String get openSettings => 'Abrir configuración';
+  String get openSettings => 'Open settings';
 
   @override
   String get nextReminder => 'Próximo recordatorio';
 
   @override
   String nextReminderToday(String time) {
-    return 'Hoy a las $time';
+    return 'Hoy en $time';
   }
 
   @override
   String nextReminderTomorrow(String time) {
-    return 'Mañana a las $time';
+    return 'Mañana en $time';
   }
 
   @override
   String nextReminderOn(String weekday, String time) {
-    return '$weekday a las $time';
+    return '$weekday en $time';
   }
 
   @override
@@ -290,15 +289,15 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString recordatorios activos',
-      one: '1 recordatorio activo',
-      zero: 'Sin recordatorios',
+      other: 'Hay ${countString}es recordatorios configurados',
+      one: 'Hay 1 recordatorio configurado',
+      zero: 'No hay recordatorios configurados',
     );
     return '$_temp0';
   }
 
   @override
-  String get dismissNextReminder => 'Descartar siguiente';
+  String get dismissNextReminder => 'Cerrar siguiente';
 
   @override
   String get wizardWelcomeTitle => 'Welcome to Doxa Prayer';
@@ -424,20 +423,20 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String appVersion(String version) {
-    return 'Versión $version';
+    return 'Version $version';
   }
 
   @override
-  String get previousDay => 'Día anterior';
+  String get previousDay => 'Previous day';
 
   @override
-  String get nextDay => 'Día siguiente';
+  String get nextDay => 'Next day';
 
   @override
   String get dayInTheLifeTitle => 'Day in the Life';
 
   @override
-  String get myPeopleGroupTitle => 'Mi Grupo de Personas';
+  String get myPeopleGroupTitle => 'My People Group';
 
   @override
   String peopleGroupIntroTitle(String name) {
@@ -448,276 +447,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get peopleGroupOfTheDay => 'People Group of the Day';
 
   @override
-  String get pressBackAgainToExit => 'Pulsa de nuevo para salir';
+  String get pressBackAgainToExit => 'Press back again to exit';
 
   @override
-  String get notifications_enabled => 'Notificaciones activadas';
+  String get notifications_enabled => 'Notifications enabled';
 
   @override
-  String get notifications_disabled => 'Notificaciones desactivadas';
-}
-
-/// The translations for Spanish Castilian, as used in Spain (`es_ES`).
-class AppLocalizationsEsEs extends AppLocalizationsEs {
-  AppLocalizationsEsEs() : super('es_ES');
-
-  @override
-  String get appName => 'nombreDeLaAplicación';
-
-  @override
-  String get home => 'Inicio';
-
-  @override
-  String get pray => 'rezar';
-
-  @override
-  String get peopleGroups => 'Grupos étnicos';
-
-  @override
-  String nPeopleGroups(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString Grupos de Personas',
-      one: '1 Grupo de Personas',
-      zero: 'Sin Grupos de Personas',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get searchPeopleGroups => 'Buscar personas y grupos';
-
-  @override
-  String get profile => 'perfil';
-
-  @override
-  String get reminders => 'recordatorios';
-
-  @override
-  String get settings => 'configuración';
-
-  @override
-  String get language => 'idioma';
-
-  @override
-  String get retry => 'reintentar';
-
-  @override
-  String get couldNotLoadPeopleGroupsMessage =>
-      'No se ha podido cargar el mensaje de los grupos de personas';
-
-  @override
-  String get selectPeopleGroup => 'Selecciona un grupo étnico';
-
-  @override
-  String get crossCulturalWorkersPresent =>
-      'Trabajadores interculturales presentes';
-
-  @override
-  String get workInLocalLanguageAndCulture =>
-      'Trabajar en el idioma y la cultura locales';
-
-  @override
-  String get discipleAndChurchMultiplication =>
-      'Multiplicación de discípulos y de iglesias';
-
-  @override
-  String get resources => 'Recursos';
-
-  @override
-  String get bibleTranslation => 'Traducción de la Biblia';
-
-  @override
-  String get bibleStories => 'Historias bíblicas';
-
-  @override
-  String get jesusFilm => 'Película sobre Jesús';
-
-  @override
-  String get radioBroadcast => 'Emisión de radio';
-
-  @override
-  String get gospelRecordings => 'Grabaciones del Evangelio';
-
-  @override
-  String get audioScripture => 'Escritura en audio';
-
-  @override
-  String get overview => 'Resumen';
-
-  @override
-  String get prayerStatus => 'Estado de la oración';
-
-  @override
-  String get peopleCommittedToPraying =>
-      'Personas comprometidas con la oración';
-
-  @override
-  String get prayerCoverage24h => 'Cobertura de oración las 24 horas';
-
-  @override
-  String get share => 'Compartir';
-
-  @override
-  String get country => 'País';
-
-  @override
-  String get alternateName => 'Nombre alternativo';
-
-  @override
-  String get population => 'Población';
-
-  @override
-  String get primaryLanguage => 'Lenguaje principal';
-
-  @override
-  String get primaryReligion => 'Religión primaria';
-
-  @override
-  String get religiousPractices => 'Prácticas religiosas';
-
-  @override
-  String get setReminder => 'Configurar un recordatorio';
-
-  @override
-  String get pauseAndPray => 'Haz una pausa y reza';
-
-  @override
-  String get select => 'Seleccionar';
-
-  @override
-  String get selected => 'Seleccionado';
-
-  @override
-  String get yes => 'Si';
-
-  @override
-  String get no => 'No';
-
-  @override
-  String get status => 'Estado';
-
-  @override
-  String get engagementStatus => 'Estado del compromiso';
-
-  @override
-  String get adoptionStatus => 'Estado de la adopción';
-
-  @override
-  String get selectPeopleGroupConfirm =>
-      '¿Quieres seleccionar este grupo étnico?';
-
-  @override
-  String switchPeopleGroupConfirm(String currentName, String newName) {
-    return '¿Quieres dejar de rezar por $currentName y empezar a rezar por $newName?';
-  }
-
-  @override
-  String get amen => 'Amén';
-
-  @override
-  String get noPeopleGroupSelected =>
-      'Elige un grupo étnico por el que empezar a orar.';
-
-  @override
-  String get couldNotLoadPrayerContent =>
-      'No se ha podido cargar el contenido de la oración.';
-
-  @override
-  String get noPrayerContentAvailable => 'Hoy no hay contenido de oración.';
-
-  @override
-  String get prayerThankYouTitle => 'Gracias por orar';
-
-  @override
-  String get prayerThankYouMessage =>
-      'Tu fidelidad en la oración importa. Dios te escucha y tus oraciones marcan la diferencia.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Estad siempre gozosos. Orad sin cesar. Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
-
-  @override
-  String get prayedToday => 'Orado hoy';
-
-  @override
-  String get newReminder => 'Nuevo recordatorio';
-
-  @override
-  String get editReminder => 'Editar recordatorio';
-
-  @override
-  String get save => 'Guardar';
-
-  @override
-  String get delete => 'Borrar';
-
-  @override
-  String get time => 'Hora';
-
-  @override
-  String get daysOfWeek => 'Días de la semana';
-
-  @override
-  String get everyDay => 'Todos los días';
-
-  @override
-  String get noDaysSelected => 'No se han seleccionado días';
-
-  @override
-  String get noRemindersYet => 'Aún no hay recordatorios';
-
-  @override
-  String get reminderNotificationTitle => 'Es hora de rezar';
-
-  @override
-  String get reminderNotificationBody =>
-      'Abre la Doxa para comenzar la oración de hoy.';
-
-  @override
-  String get nextReminder => 'Próximo recordatorio';
-
-  @override
-  String nextReminderToday(String time) {
-    return 'Hoy en $time';
-  }
-
-  @override
-  String nextReminderTomorrow(String time) {
-    return 'Mañana en $time';
-  }
-
-  @override
-  String nextReminderOn(String weekday, String time) {
-    return '$weekday en $time';
-  }
-
-  @override
-  String nRemindersSet(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Hay ${countString}es recordatorios configurados',
-      one: 'Hay 1 recordatorio configurado',
-      zero: 'No hay recordatorios configurados',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get dismissNextReminder => 'Cerrar siguiente';
+  String get notifications_disabled => 'Notifications disabled';
 }

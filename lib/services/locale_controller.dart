@@ -14,10 +14,10 @@ class AppLanguage {
 
 const List<AppLanguage> appLanguages = <AppLanguage>[
   AppLanguage(locale: Locale('en'), nativeName: 'English'),
-  AppLanguage(locale: Locale('es', 'ES'), nativeName: 'Español'),
-  AppLanguage(locale: Locale('pt', 'BR'), nativeName: 'Português'),
-  AppLanguage(locale: Locale('fr', 'FR'), nativeName: 'Français'),
-  AppLanguage(locale: Locale('ru', 'RU'), nativeName: 'Русский'),
+  AppLanguage(locale: Locale('es'), nativeName: 'Español'),
+  AppLanguage(locale: Locale('pt'), nativeName: 'Português'),
+  AppLanguage(locale: Locale('fr'), nativeName: 'Français'),
+  AppLanguage(locale: Locale('ru'), nativeName: 'Русский'),
   AppLanguage(locale: Locale('ar'), nativeName: 'العربية'),
 ];
 

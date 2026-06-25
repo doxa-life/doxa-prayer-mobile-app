@@ -100,15 +100,10 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
     Locale('en'),
-    Locale('en', 'US'),
     Locale('es'),
-    Locale('es', 'ES'),
     Locale('fr'),
-    Locale('fr', 'FR'),
     Locale('pt'),
-    Locale('pt', 'PT'),
     Locale('ru'),
-    Locale('ru', 'RU'),
   ];
 
   /// The name of the app
@@ -892,50 +887,6 @@ class _AppLocalizationsDelegate
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-  // Lookup logic when language+country codes are specified.
-  switch (locale.languageCode) {
-    case 'en':
-      {
-        switch (locale.countryCode) {
-          case 'US':
-            return AppLocalizationsEnUs();
-        }
-        break;
-      }
-    case 'es':
-      {
-        switch (locale.countryCode) {
-          case 'ES':
-            return AppLocalizationsEsEs();
-        }
-        break;
-      }
-    case 'fr':
-      {
-        switch (locale.countryCode) {
-          case 'FR':
-            return AppLocalizationsFrFr();
-        }
-        break;
-      }
-    case 'pt':
-      {
-        switch (locale.countryCode) {
-          case 'PT':
-            return AppLocalizationsPtPt();
-        }
-        break;
-      }
-    case 'ru':
-      {
-        switch (locale.countryCode) {
-          case 'RU':
-            return AppLocalizationsRuRu();
-        }
-        break;
-      }
-  }
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'ar':

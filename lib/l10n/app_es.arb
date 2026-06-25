@@ -5,6 +5,12 @@
     "@alternateName": {
         "description": "The label of the alternate name field"
     },
+    "@amen": {
+        "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
+    },
+    "@appName": {
+        "description": "The name of the app"
+    },
     "@audioScripture": {
         "description": "The label of the audio scripture field"
     },
@@ -14,23 +20,116 @@
     "@bibleTranslation": {
         "description": "The label of the bible translation field"
     },
+    "@couldNotLoadPeopleGroupsMessage": {
+        "description": "The message displayed when the people groups cannot be loaded"
+    },
+    "@couldNotLoadPrayerContent": {
+        "description": "Error message shown when the prayer-content API call fails"
+    },
     "@country": {
         "description": "The label of the country field"
     },
     "@crossCulturalWorkersPresent": {
         "description": "The label of the cross-cultural workers present field"
     },
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "@delete": {
+        "description": "Delete button label"
+    },
     "@discipleAndChurchMultiplication": {
         "description": "The label of the disciple and church multiplication field"
+    },
+    "@dismissNextReminder": {
+        "description": "Button on the home-screen next-reminder card that turns off the reminder rule whose next firing is shown"
+    },
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
     },
     "@engagementStatus": {
         "description": "The label of the engagement status field"
     },
+    "@everyDay": {
+        "description": "Days summary shown when a reminder is set for all 7 days"
+    },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
     },
+    "@home": {
+        "description": "The home screen"
+    },
     "@jesusFilm": {
         "description": "The label of the jesus film field"
+    },
+    "@language": {
+        "description": "The language selector"
+    },
+    "@nPeopleGroups": {
+        "description": "A plural message for the number of people groups",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "weekday": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@no": {
+        "description": "The no/cancel button"
+    },
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
+    },
+    "@noPeopleGroupSelected": {
+        "description": "Message shown on the pray screen when the user has not yet selected a people group"
+    },
+    "@noPrayerContentAvailable": {
+        "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
     },
     "@overview": {
         "description": "The title of the overview section"
@@ -41,8 +140,14 @@
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
     },
+    "@peopleGroups": {
+        "description": "The people groups screen"
+    },
     "@population": {
         "description": "The label of the population field"
+    },
+    "@pray": {
+        "description": "The pray screen"
     },
     "@prayerCoverage24h": {
         "description": "The label of the prayer coverage 24h field"
@@ -56,20 +161,56 @@
     "@primaryReligion": {
         "description": "The label of the primary religion field"
     },
+    "@profile": {
+        "description": "The profile button"
+    },
     "@radioBroadcast": {
         "description": "The label of the radio broadcast field"
     },
     "@religiousPractices": {
         "description": "The label of the religious practices field"
     },
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "@reminders": {
+        "description": "The reminders screen"
+    },
     "@resources": {
         "description": "The title of the resources section"
+    },
+    "@retry": {
+        "description": "The retry button"
+    },
+    "@save": {
+        "description": "Save button label"
+    },
+    "@searchPeopleGroups": {
+        "description": "The search people groups input"
+    },
+    "@select": {
+        "description": "The select people group button"
     },
     "@selectPeopleGroup": {
         "description": "The select people group button"
     },
+    "@selectPeopleGroupConfirm": {
+        "description": "Confirmation prompt when selecting a people group for the first time"
+    },
+    "@selectReminders": {
+        "description": "The select reminders button"
+    },
+    "@selected": {
+        "description": "The disabled label shown on the currently selected people group"
+    },
     "@setReminder": {
         "description": "The set reminder button"
+    },
+    "@settings": {
+        "description": "The settings screen"
     },
     "@share": {
         "description": "The label of the share button"
@@ -77,50 +218,66 @@
     "@status": {
         "description": "The label of the status field"
     },
+    "@switchPeopleGroupConfirm": {
+        "description": "Confirmation prompt when switching from a currently selected people group to a new one",
+        "placeholders": {
+            "currentName": {
+                "type": "String"
+            },
+            "newName": {
+                "type": "String"
+            }
+        }
+    },
+    "@time": {
+        "description": "Label for the time-of-day field"
+    },
     "@workInLocalLanguageAndCulture": {
         "description": "The label of the work in local language and culture field"
+    },
+    "@yes": {
+        "description": "The yes confirmation button"
     },
     "adoptionStatus": "Estado de la adopción",
     "alternateName": "Nombre alternativo",
     "amen": "Amén",
-    "appName": "Doxa Oración",
+    "appName": "nombreDeLaAplicación",
     "audioScripture": "Escritura en audio",
     "bibleStories": "Historias bíblicas",
     "bibleTranslation": "Traducción de la Biblia",
-    "couldNotLoadPeopleGroupsMessage": "No se pudieron cargar los grupos de personas.",
-    "couldNotLoadPrayerContent": "No se pudo cargar el contenido de oración.",
+    "couldNotLoadPeopleGroupsMessage": "No se ha podido cargar el mensaje de los grupos de personas",
+    "couldNotLoadPrayerContent": "No se ha podido cargar el contenido de la oración.",
     "country": "País",
-    "crossCulturalWorkersPresent": "Trabajadores transculturales presentes",
+    "crossCulturalWorkersPresent": "Trabajadores interculturales presentes",
     "daysOfWeek": "Días de la semana",
-    "delete": "Eliminar",
+    "delete": "Borrar",
     "discipleAndChurchMultiplication": "Multiplicación de discípulos y de iglesias",
-    "dismissNextReminder": "Descartar siguiente",
+    "dismissNextReminder": "Cerrar siguiente",
     "editReminder": "Editar recordatorio",
-    "engagementStatus": "Estado civil",
+    "engagementStatus": "Estado del compromiso",
     "everyDay": "Todos los días",
-    "gospelRecordings": "Grabaciones de gospel",
+    "gospelRecordings": "Grabaciones del Evangelio",
     "home": "Inicio",
-    "jesusFilm": "La película de Jesús",
-    "language": "Idioma",
+    "jesusFilm": "Película sobre Jesús",
+    "language": "idioma",
     "nPeopleGroups": "{count, plural, =0{Sin Grupos de Personas} =1{1 Grupo de Personas} other{{count} Grupos de Personas}}",
-    "nRemindersSet": "{count, plural, =0{Sin recordatorios} =1{1 recordatorio activo} other{{count} recordatorios activos}}",
+    "nRemindersSet": "{count, plural, =0{No hay recordatorios configurados} =1{Hay 1 recordatorio configurado} other{Hay {count}es recordatorios configurados}}",
     "newReminder": "Nuevo recordatorio",
     "nextReminder": "Próximo recordatorio",
-    "nextReminderOn": "{weekday} a las {time}",
-    "nextReminderToday": "Hoy a las {time}",
-    "nextReminderTomorrow": "Mañana a las {time}",
+    "nextReminderOn": "{weekday} en {time}",
+    "nextReminderToday": "Hoy en {time}",
+    "nextReminderTomorrow": "Mañana en {time}",
     "no": "No",
-    "noDaysSelected": "Ningún día seleccionado",
-    "noPeopleGroupSelected": "Elige un grupo de personas para empezar a orar.",
-    "myPeopleGroupTitle": "Mi Grupo de Personas",
-    "noPrayerContentAvailable": "No hay contenido de oración para hoy.",
+    "noDaysSelected": "No se han seleccionado días",
+    "noPeopleGroupSelected": "Elige un grupo étnico por el que empezar a orar.",
+    "noPrayerContentAvailable": "Hoy no hay contenido de oración.",
     "noRemindersYet": "Aún no hay recordatorios",
     "overview": "Resumen",
     "pauseAndPray": "Haz una pausa y reza",
     "peopleCommittedToPraying": "Personas comprometidas con la oración",
-    "peopleGroups": "Grupos de Personas",
-    "population": "Aplicación",
-    "pray": "Orar",
+    "peopleGroups": "Grupos étnicos",
+    "population": "Población",
+    "pray": "rezar",
     "prayerCoverage24h": "Cobertura de oración las 24 horas",
     "prayerThankYouTitle": "Gracias por orar",
     "prayerThankYouMessage": "Tu fidelidad en la oración importa. Dios te escucha y tus oraciones marcan la diferencia.",
@@ -128,40 +285,29 @@
     "prayerThankYouVerseReference": "1 Tesalonicenses 5:16-18",
     "prayedToday": "Orado hoy",
     "prayerStatus": "Estado de la oración",
-    "primaryLanguage": "Idioma principal",
-    "primaryReligion": "Religión principal",
-    "profile": "Perfil",
+    "primaryLanguage": "Lenguaje principal",
+    "primaryReligion": "Religión primaria",
+    "profile": "perfil",
     "radioBroadcast": "Emisión de radio",
     "religiousPractices": "Prácticas religiosas",
-    "reminderNotificationBody": "Abre Doxa para iniciar la oración de hoy.",
-    "reminderNotificationTitle": "Hora de orar",
-    "notifications": "Notificaciones",
-    "notificationsEnabledStatus": "Las notificaciones están activadas. Recibirás tus recordatorios de oración.",
-    "notificationsDisabledStatus": "Las notificaciones están desactivadas, por lo que no aparecerán tus recordatorios de oración.",
-    "notificationsHowToEnable": "Toca el botón de abajo para abrir la configuración y permite las notificaciones de Doxa.",
-    "enableNotifications": "Activar notificaciones",
-    "notifications_enabled": "Notificaciones activadas",
-    "notifications_disabled": "Notificaciones desactivadas",
-    "openSettings": "Abrir configuración",
-    "reminders": "Recordatorios",
+    "reminderNotificationBody": "Abre la Doxa para comenzar la oración de hoy.",
+    "reminderNotificationTitle": "Es hora de rezar",
+    "reminders": "recordatorios",
     "resources": "Recursos",
-    "retry": "Reintentar",
+    "retry": "reintentar",
     "save": "Guardar",
-    "searchPeopleGroups": "Buscar Grupos de Personas",
+    "searchPeopleGroups": "Buscar personas y grupos",
     "select": "Seleccionar",
     "selectPeopleGroup": "Selecciona un grupo étnico",
-    "selectPeopleGroupConfirm": "¿Quieres seleccionar este grupo de personas?",
+    "selectPeopleGroupConfirm": "¿Quieres seleccionar este grupo étnico?",
+    "selectReminders": "Seleccionar recordatorios",
     "selected": "Seleccionado",
     "setReminder": "Configurar un recordatorio",
-    "settings": "Ajustes",
+    "settings": "configuración",
     "share": "Compartir",
     "status": "Estado",
-    "switchPeopleGroupConfirm": "¿Quieres dejar de orar por {currentName} y comenzar a orar por {newName}?",
+    "switchPeopleGroupConfirm": "¿Quieres dejar de rezar por {currentName} y empezar a rezar por {newName}?",
     "time": "Hora",
     "workInLocalLanguageAndCulture": "Trabajar en el idioma y la cultura locales",
-    "yes": "Sí",
-    "appVersion": "Versión {version}",
-    "previousDay": "Día anterior",
-    "nextDay": "Día siguiente",
-    "pressBackAgainToExit": "Pulsa de nuevo para salir"
+    "yes": "Si"
 }
