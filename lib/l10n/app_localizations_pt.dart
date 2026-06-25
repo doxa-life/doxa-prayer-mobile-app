@@ -9,16 +9,16 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appName => 'Doxa Oração';
+  String get appName => 'Oração da Doxa';
 
   @override
   String get home => 'Início';
 
   @override
-  String get pray => 'Orar';
+  String get pray => 'Ore';
 
   @override
-  String get peopleGroups => 'Grupos de Pessoas';
+  String get peopleGroups => 'Grupos étnicos';
 
   @override
   String nPeopleGroups(num count) {
@@ -30,15 +30,15 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString Grupos de Pessoas',
-      one: '1 Grupo de Pessoas',
-      zero: 'Sem Grupos de Pessoas',
+      other: '$countString grupos étnicos',
+      one: '1 grupo étnico',
+      zero: 'Sem grupos étnicos',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchPeopleGroups => 'Buscar Grupos de Pessoas';
+  String get searchPeopleGroups => 'Pesquisar grupos étnicos';
 
   @override
   String get profile => 'Perfil';
@@ -57,7 +57,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get couldNotLoadPeopleGroupsMessage =>
-      'Não foi possível carregar os grupos de pessoas.';
+      'Não foi possível carregar os grupos étnicos.';
 
   @override
   String get selectPeopleGroup => 'Selecione um grupo étnico';
@@ -68,7 +68,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get workInLocalLanguageAndCulture =>
-      'Trabalho na língua e cultura locais';
+      'Trabalhar na língua e cultura locais';
 
   @override
   String get discipleAndChurchMultiplication =>
@@ -84,41 +84,41 @@ class AppLocalizationsPt extends AppLocalizations {
   String get bibleStories => 'Histórias da Bíblia';
 
   @override
-  String get jesusFilm => 'O Filme de Jesus';
+  String get jesusFilm => 'Filme Jesus';
 
   @override
-  String get radioBroadcast => 'Transmissão de rádio';
+  String get radioBroadcast => 'Emissão de rádio';
 
   @override
-  String get gospelRecordings => 'Gravações de gospel';
+  String get gospelRecordings => 'Gravações do Evangelho';
 
   @override
-  String get audioScripture => 'Áudio da passagem bíblica';
+  String get audioScripture => 'Áudio das Escrituras';
 
   @override
   String get overview => 'Visão geral';
 
   @override
-  String get prayerStatus => 'Estado da oração';
+  String get prayerStatus => 'Status de oração';
 
   @override
-  String get peopleCommittedToPraying => 'Pessoas empenhadas em rezar';
+  String get peopleCommittedToPraying => 'Pessoas comprometidas com a oração';
 
   @override
   String get prayerCoverage24h => 'Cobertura de oração 24 horas por dia';
 
   @override
-  String get peopleGroup => 'People Group';
+  String get peopleGroup => 'Grupo étnico';
 
   @override
   String get couldNotLoadPeopleGroupDetailsMessage =>
-      'Could not load people group details.';
+      'Não foi possível carregar os detalhes do grupo étnico.';
 
   @override
   String get share => 'Partilhar';
 
   @override
-  String get search => 'Search';
+  String get search => 'Pesquisar';
 
   @override
   String get country => 'País';
@@ -127,13 +127,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get alternateName => 'Nome alternativo';
 
   @override
-  String get population => 'População';
+  String get population => 'Aplicação';
 
   @override
   String get primaryLanguage => 'Língua principal';
 
   @override
-  String get primaryReligion => 'Religião principal';
+  String get primaryReligion => 'Religião Primária';
 
   @override
   String get religiousPractices => 'Práticas religiosas';
@@ -142,7 +142,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get setReminder => 'Definir lembrete';
 
   @override
-  String get pauseAndPray => 'Faz uma pausa e reza';
+  String get pauseAndPray => 'Fazer uma pausa e rezar';
 
   @override
   String get select => 'Selecionar';
@@ -160,50 +160,49 @@ class AppLocalizationsPt extends AppLocalizations {
   String get status => 'Estado';
 
   @override
-  String get engagementStatus => 'Estado civil';
+  String get engagementStatus => 'Estado do engajamento';
 
   @override
   String get adoptionStatus => 'Estado da adoção';
 
   @override
-  String get selectPeopleGroupConfirm =>
-      'Você quer selecionar este grupo de pessoas?';
+  String get selectPeopleGroupConfirm => 'Quer selecionar este grupo étnico?';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
-    return 'Você quer parar de orar por $currentName e começar a orar por $newName?';
+    return 'Queres deixar de rezar por $currentName e começar a rezar por $newName?';
   }
 
   @override
-  String get amen => 'Amém';
+  String get amen => 'Ámen';
 
   @override
   String get noPeopleGroupSelected =>
-      'Escolha um grupo de pessoas para começar a orar.';
+      'Escolha um grupo étnico para começar a orar.';
 
   @override
   String get couldNotLoadPrayerContent =>
-      'Não foi possível carregar o conteúdo de oração.';
+      'Não foi possível carregar o conteúdo da oração.';
 
   @override
-  String get noPrayerContentAvailable => 'Sem conteúdo de oração para hoje.';
+  String get noPrayerContentAvailable => 'Hoje não há texto de oração.';
 
   @override
-  String get prayerThankYouTitle => 'Obrigado por orar';
+  String get prayerThankYouTitle => 'Obrigado pelas vossas orações';
 
   @override
   String get prayerThankYouMessage =>
-      'Sua fidelidade na oração importa. Deus ouve você, e suas orações fazem a diferença.';
+      'A tua fidelidade na oração é importante. Deus ouve-te e as tuas orações fazem a diferença.';
 
   @override
   String get prayerThankYouVerse =>
-      'Regozijai-vos sempre. Orai sem cessar. Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.';
+      'Alegrai-vos sempre, orai sem cessar, dai graças em todas as circunstâncias; pois esta é a vontade de Deus para vós em Cristo Jesus.';
 
   @override
   String get prayerThankYouVerseReference => '1 Tessalonicenses 5:16-18';
 
   @override
-  String get prayedToday => 'Orou hoje';
+  String get prayedToday => 'Rezei hoje';
 
   @override
   String get newReminder => 'Novo lembrete';
@@ -212,10 +211,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get editReminder => 'Editar lembrete';
 
   @override
-  String get save => 'Salvar';
+  String get save => 'Guardar';
 
   @override
-  String get delete => 'Excluir';
+  String get delete => 'Apagar';
 
   @override
   String get time => 'Hora';
@@ -227,32 +226,32 @@ class AppLocalizationsPt extends AppLocalizations {
   String get everyDay => 'Todos os dias';
 
   @override
-  String get noDaysSelected => 'Nenhum dia selecionado';
+  String get noDaysSelected => 'Não foram selecionados dias';
 
   @override
   String get noRemindersYet => 'Ainda não há lembretes';
 
   @override
-  String get reminderNotificationTitle => 'Hora de orar';
+  String get reminderNotificationTitle => 'Está na hora de rezar';
 
   @override
   String get reminderNotificationBody =>
-      'Abre o Doxa para começar a oração de hoje.';
+      'Abre o Doxa para dar início à oração de hoje.';
 
   @override
   String get notifications => 'Notificações';
 
   @override
   String get notificationsEnabledStatus =>
-      'As notificações estão ativadas. Os teus lembretes de oração serão entregues.';
+      'As notificações estão ativadas. Os teus lembretes de oração serão enviados.';
 
   @override
   String get notificationsDisabledStatus =>
-      'As notificações estão desativadas, por isso os teus lembretes de oração não vão aparecer.';
+      'As notificações estão desativadas, pelo que os teus lembretes de oração não irão aparecer.';
 
   @override
   String get notificationsHowToEnable =>
-      'Toca no botão abaixo para abrir as definições e permitir as notificações da Doxa.';
+      'Toque abaixo para abrir as definições e, em seguida, autorize as notificações do Doxa.';
 
   @override
   String get enableNotifications => 'Ativar notificações';
@@ -265,17 +264,17 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String nextReminderToday(String time) {
-    return 'Hoje às $time';
+    return 'Hoje em $time';
   }
 
   @override
   String nextReminderTomorrow(String time) {
-    return 'Amanhã às $time';
+    return 'Amanhã em $time';
   }
 
   @override
   String nextReminderOn(String weekday, String time) {
-    return '$weekday às $time';
+    return '$weekday em $time';
   }
 
   @override
@@ -288,165 +287,165 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lembretes ativos',
-      one: '1 lembrete ativo',
-      zero: 'Sem lembretes',
+      other: 'estão definidos ${countString}es de lembretes',
+      one: '1 lembrete definido',
+      zero: 'Não há lembretes definidos',
     );
     return '$_temp0';
   }
 
   @override
-  String get dismissNextReminder => 'Descartar próximo';
+  String get dismissNextReminder => 'Ignorar o seguinte';
 
   @override
-  String get wizardWelcomeTitle => 'Welcome to Doxa Prayer';
+  String get wizardWelcomeTitle => 'Bem-vindo à Doxa Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
+      'A Doxa ajuda-te a orar por um grupo étnico ainda não alcançado. Vamos ajudar-te a escolher um grupo, a definir um lembrete e a manter-te a par das novidades.';
 
   @override
-  String get wizardGetStarted => 'Get started';
+  String get wizardGetStarted => 'Começar';
 
   @override
-  String get wizardChoosePeopleGroupTitle => 'Choose a people group';
+  String get wizardChoosePeopleGroupTitle => 'Escolha um grupo étnico';
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
-    return 'Pray for $name?';
+    return 'Rezar por $name?';
   }
 
   @override
   String get wizardConfirmPeopleGroupBody =>
-      'We\'ll show you prayer content and reminders for this group. You can change this later.';
+      'Vamos mostrar-lhe conteúdos de oração e lembretes para este grupo. Pode alterar isto mais tarde.';
 
   @override
-  String get wizardSetReminderTitle => 'Set a prayer reminder';
+  String get wizardSetReminderTitle => 'Definir um lembrete de oração';
 
   @override
   String get wizardSetReminderBody =>
-      'We\'ll send you a gentle nudge at the time you choose. You can skip this and add reminders later.';
+      'Vamos enviar-lhe um lembrete discreto na hora que escolher. Pode ignorar isto e adicionar lembretes mais tarde.';
 
   @override
-  String get wizardNewsSignupTitle => 'Stay in the loop';
+  String get wizardNewsSignupTitle => 'Mantenha-se a par das novidades';
 
   @override
   String get wizardNewsSignupBody =>
-      'Optional. Get news about your people group and updates from Doxa.';
+      'Opcional. Receba notícias sobre o seu grupo étnico e atualizações da Doxa.';
 
   @override
-  String get back => 'Back';
+  String get back => 'Volte';
 
   @override
-  String get continueLabel => 'Continue';
+  String get continueLabel => 'Continuar';
 
   @override
-  String get saveAndContinue => 'Save & continue';
+  String get saveAndContinue => 'Guardar e continuar';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'Ignorar';
 
   @override
-  String get finish => 'Finish';
+  String get finish => 'Concluir';
 
   @override
-  String get nameLabel => 'Name';
+  String get nameLabel => 'Nome';
 
   @override
-  String get emailLabel => 'Email';
+  String get emailLabel => 'E-mail';
 
   @override
-  String get emailInvalid => 'Please enter a valid email address.';
+  String get emailInvalid => 'Introduza um endereço de e-mail válido.';
 
   @override
-  String get nameRequired => 'Please enter your name.';
+  String get nameRequired => 'Por favor, introduza o seu nome.';
 
   @override
   String get updatesAboutMyPeopleGroup =>
-      'Receive updates about my people group';
+      'Receber atualizações sobre o meu grupo étnico';
 
   @override
-  String get updatesFromDoxa => 'Receive updates from Doxa';
+  String get updatesFromDoxa => 'Receba atualizações da Doxa';
 
   @override
-  String get signUpForUpdates => 'Sign up for updates';
+  String get signUpForUpdates => 'Inscreva-se para receber atualizações';
 
   @override
-  String get newsSignupThanks => 'Thanks — you\'re signed up.';
+  String get newsSignupThanks => 'Obrigado — já estás inscrito.';
 
   @override
   String get newsSignupError =>
-      'Something went wrong. Please check your connection and try again.';
+      'Ocorreu um erro. Verifique a sua ligação e tente novamente.';
 
   @override
-  String get updateAvailableTitle => 'Update available';
+  String get updateAvailableTitle => 'Atualização disponível';
 
   @override
   String get updateAvailableBody =>
-      'A new version of Doxa Prayer is available.';
+      'Está disponível uma nova versão do Doxa Prayer.';
 
   @override
-  String get updateRequiredTitle => 'Update required';
+  String get updateRequiredTitle => 'É necessária uma atualização';
 
   @override
   String get updateRequiredBody =>
-      'Please update to the latest version to keep using Doxa Prayer.';
+      'Por favor, atualize para a versão mais recente para continuar a utilizar o Doxa Prayer.';
 
   @override
-  String get updateAction => 'Update';
+  String get updateAction => 'Atualização';
 
   @override
-  String get updateDismiss => 'Not now';
+  String get updateDismiss => 'Agora não';
 
   @override
-  String get getInvolved => 'Get involved';
+  String get getInvolved => 'Participe';
 
   @override
-  String get donate => 'Donate';
+  String get donate => 'Fazer um donativo';
 
   @override
-  String get feedback => 'Feedback';
+  String get feedback => 'Comentários';
 
   @override
   String shareMessage(String name) {
-    return 'Pray with me for the $name — get the Doxa Prayer app:';
+    return 'Rezem comigo pela «$name» — descarreguem a aplicação Doxa Prayer:';
   }
 
   @override
-  String get qrCode => 'QR code';
+  String get qrCode => 'Código QR';
 
   @override
   String scanToPray(String name) {
-    return 'Scan to get the app and pray for the $name';
+    return 'Digitaliza o código para descarregar a aplicação e reza pela $name';
   }
 
   @override
   String appVersion(String version) {
-    return 'Versão $version';
+    return 'Versão$version';
   }
 
   @override
   String get previousDay => 'Dia anterior';
 
   @override
-  String get nextDay => 'Dia seguinte';
+  String get nextDay => 'No dia seguinte';
 
   @override
-  String get dayInTheLifeTitle => 'Day in the Life';
+  String get dayInTheLifeTitle => 'Um dia na vida';
 
   @override
-  String get myPeopleGroupTitle => 'Meu Grupo de Pessoas';
+  String get myPeopleGroupTitle => 'O meu grupo étnico';
 
   @override
   String peopleGroupIntroTitle(String name) {
-    return 'Pray for the $name';
+    return 'Rezem pela «$name»';
   }
 
   @override
-  String get peopleGroupOfTheDay => 'People Group of the Day';
+  String get peopleGroupOfTheDay => 'Grupo étnico do dia';
 
   @override
-  String get pressBackAgainToExit => 'Pressione novamente para sair';
+  String get pressBackAgainToExit => 'Prima «Voltar» novamente para sair';
 
   @override
   String get notifications_enabled => 'Notificações ativadas';
