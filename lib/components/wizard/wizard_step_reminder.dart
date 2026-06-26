@@ -77,7 +77,7 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
                 onPressed: _saving ? null : widget.controller.next,
               ),
               ActionButton(
-                label: l.saveAndContinue,
+                label: l.save,
                 color: ActionButtonColor.secondary,
                 onPressed: canSave ? _save : null,
               ),

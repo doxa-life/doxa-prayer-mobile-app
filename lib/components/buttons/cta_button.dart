@@ -37,19 +37,27 @@ class CtaButton extends StatelessWidget {
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 8,
-              children: [
-                leadingIcon ?? const SizedBox.shrink(),
-                Text(
-                  label.toUpperCase(),
-                  style: AppTypography.h2.copyWith(color: AppColors.white),
-                ),
-              ],
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (leadingIcon != null) ...[
+                    leadingIcon!,
+                    const SizedBox(width: 8),
+                  ],
+                  Expanded(
+                    child: Text(
+                      label.toUpperCase(),
+                      style:
+                          AppTypography.h2.copyWith(color: AppColors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(width: AppSpacing.sm),
             Container(
               decoration: ShapeDecoration(
                 shape: CircleBorder(),
