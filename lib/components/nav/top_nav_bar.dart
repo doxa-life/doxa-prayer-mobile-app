@@ -30,9 +30,11 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: onBack != null
           ? IconButton(
-              icon: const TriangleIcon(
+              icon: TriangleIcon(
                 color: AppColors.onPrimary,
-                direction: TriangleDirection.left,
+                direction: Directionality.of(context) == TextDirection.rtl
+                    ? TriangleDirection.right
+                    : TriangleDirection.left,
                 size: 12,
               ),
               onPressed: onBack,
