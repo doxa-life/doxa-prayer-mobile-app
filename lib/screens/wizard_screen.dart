@@ -36,21 +36,21 @@ class _WizardScreenState extends State<WizardScreen> {
   @override
   Widget build(BuildContext context) {
     return BackgroundImageContainer(
-      child: Scaffold(
-        backgroundColor: (_controller.step == WizardStep.welcome)
-            ? Colors.white
-            : Colors.transparent,
-        body: SafeArea(
-          child: PopScope(
-            canPop: false,
-            onPopInvokedWithResult: (didPop, _) {
-              if (didPop) return;
-              if (_controller.canGoBack) _controller.back();
-            },
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, _) {
-                return PageContainer(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, _) {
+          return Scaffold(
+            backgroundColor: (_controller.step == WizardStep.welcome)
+                ? Colors.white
+                : Colors.transparent,
+            body: SafeArea(
+              child: PopScope(
+                canPop: false,
+                onPopInvokedWithResult: (didPop, _) {
+                  if (didPop) return;
+                  if (_controller.canGoBack) _controller.back();
+                },
+                child: PageContainer(
                   horizontalPadding: 0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,11 +73,11 @@ class _WizardScreenState extends State<WizardScreen> {
                       ),
                     ],
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
