@@ -97,14 +97,14 @@ class ActionButton extends StatelessWidget {
         return FilledButton(
           onPressed: onPressed,
           style: getStyle(color!),
-          child: Text(upper),
+          child: Text(upper, textAlign: TextAlign.center),
         );
       case _ActionButtonKind.iconLabel:
         return FilledButton.icon(
           onPressed: onPressed,
           style: getStyle(color!),
           icon: icon!,
-          label: Text(upper),
+          label: Text(upper, textAlign: TextAlign.center),
         );
       case _ActionButtonKind.icon:
         return FilledButton(
@@ -123,7 +123,7 @@ class ActionButton extends StatelessWidget {
               ? FilledButton(
                   onPressed: onPressed,
                   style: getStyle(color!),
-                  child: Text(upper),
+                  child: Text(upper, textAlign: TextAlign.center),
                 )
               : FilledButton.icon(
                   onPressed: onPressed,
