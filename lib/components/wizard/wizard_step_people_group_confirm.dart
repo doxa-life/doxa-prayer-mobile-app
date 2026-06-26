@@ -7,6 +7,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../buttons/wizard_button_bar.dart';
 import '../cards/people_group_card.dart';
 import '../misc/titles.dart';
 
@@ -49,21 +50,18 @@ class WizardStepPeopleGroupConfirm extends StatelessWidget {
           PeopleGroupCard(name: g.name, imageUrl: g.imageUrl),
           const SizedBox(height: AppSpacing.xxl),
           Expanded(child: SizedBox.shrink()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ActionButton(
-                label: l.back,
-                color: ActionButtonColor.white,
-                isOutlined: true,
-                onPressed: controller.cancelPeopleGroupSelection,
-              ),
-              ActionButton(
-                label: l.continueLabel,
-                color: ActionButtonColor.secondary,
-                onPressed: () => _onContinue(context),
-              ),
-            ],
+          WizardButtonBar(
+            leading: ActionButton(
+              label: l.back,
+              color: ActionButtonColor.white,
+              isOutlined: true,
+              onPressed: controller.cancelPeopleGroupSelection,
+            ),
+            trailing: ActionButton(
+              label: l.continueLabel,
+              color: ActionButtonColor.secondary,
+              onPressed: () => _onContinue(context),
+            ),
           ),
         ],
       ),

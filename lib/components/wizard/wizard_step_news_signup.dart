@@ -6,6 +6,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../buttons/wizard_button_bar.dart';
 import '../misc/titles.dart';
 import '../widgets/news_signup.dart';
 
@@ -42,13 +43,17 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    // Scrolls when the keyboard shrinks the viewport (otherwise the column
-    // overflows and the buttons become unreachable), while keeping the
-    // buttons pinned to the bottom when there is room.
+    // The keyboard overlays this step (resizeToAvoidBottomInset is off on the
+    // wizard Scaffold) rather than shrinking it. We add scroll padding equal to
+    // the keyboard height so the buttons can be scrolled up above the keyboard
+    // without dismissing it, while staying pinned to the bottom when there is
+    // room.
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
     return PageContainer(
       child: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: keyboardInset),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: IntrinsicHeight(
@@ -66,21 +71,19 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
                     NewsSignup(key: _signupKey),
                     const SizedBox(height: AppSpacing.xxl),
                     const Expanded(child: SizedBox.shrink()),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ActionButton(
-                          label: l.skip,
-                          color: ActionButtonColor.white,
-                          isOutlined: true,
-                          onPressed: _submitting ? null : _skip,
-                        ),
-                        ActionButton(
-                          label: l.finish,
-                          color: ActionButtonColor.secondary,
-                          onPressed: _submitting ? null : _submit,
-                        ),
-                      ],
+                    WizardButtonBar(
+                      maxWidth: constraints.maxWidth,
+                      leading: ActionButton(
+                        label: l.skip,
+                        color: ActionButtonColor.white,
+                        isOutlined: true,
+                        onPressed: _submitting ? null : _skip,
+                      ),
+                      trailing: ActionButton(
+                        label: l.finish,
+                        color: ActionButtonColor.secondary,
+                        onPressed: _submitting ? null : _submit,
+                      ),
                     ),
                   ],
                 ),

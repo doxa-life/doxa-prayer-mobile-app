@@ -40,6 +40,9 @@ class _WizardScreenState extends State<WizardScreen> {
         animation: _controller,
         builder: (context, _) {
           return Scaffold(
+            // The news signup step keeps its buttons in a scroll view and lets
+            // the keyboard overlay them, instead of riding up on the keyboard.
+            resizeToAvoidBottomInset: _controller.step != WizardStep.newsSignup,
             backgroundColor: (_controller.step == WizardStep.welcome)
                 ? Colors.white
                 : Colors.transparent,

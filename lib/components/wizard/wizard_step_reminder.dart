@@ -9,6 +9,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../buttons/wizard_button_bar.dart';
 import '../reminders/reminder_form.dart';
 
 class WizardStepReminder extends StatefulWidget {
@@ -67,21 +68,18 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
           ),
           const SizedBox(height: AppSpacing.xxl),
           Expanded(child: SizedBox.shrink()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ActionButton(
-                label: l.skip,
-                color: ActionButtonColor.white,
-                isOutlined: true,
-                onPressed: _saving ? null : widget.controller.next,
-              ),
-              ActionButton(
-                label: l.save,
-                color: ActionButtonColor.secondary,
-                onPressed: canSave ? _save : null,
-              ),
-            ],
+          WizardButtonBar(
+            leading: ActionButton(
+              label: l.skip,
+              color: ActionButtonColor.white,
+              isOutlined: true,
+              onPressed: _saving ? null : widget.controller.next,
+            ),
+            trailing: ActionButton(
+              label: l.save,
+              color: ActionButtonColor.secondary,
+              onPressed: canSave ? _save : null,
+            ),
           ),
         ],
       ),
