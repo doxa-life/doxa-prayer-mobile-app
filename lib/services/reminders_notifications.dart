@@ -167,10 +167,25 @@ Future<bool> notificationsAuthorized() async {
   return true;
 }
 
-/// Schedules a weekly-repeating notification per selected weekday.
-Future<void> scheduleReminder(Reminder r) async {
+/// Cancels every scheduled reminder notification and reschedules exactly one
+/// per distinct fire-time across all enabled reminders. Keying notifications by
+/// time slot (not by reminder) means several reminders that land on the same
+/// weekday + time collapse into a single notification — no duplicate alerts.
+Future<void> rescheduleAllReminders(List<Reminder> all) async {
   if (!_initialized) await initRemindersNotifications();
-  if (!r.enabled || r.weekdays.isEmpty) return;
+  await _plugin.cancelAll();
+
+  // Distinct (weekday, hour, minute) slots across every enabled reminder,
+  // keyed by the slot id so duplicates collapse.
+  final slots = <int, ({int weekday, int hour, int minute})>{};
+  for (final r in all) {
+    if (!r.enabled) continue;
+    for (final weekday in r.weekdays) {
+      slots[_notificationId(weekday, r.hour, r.minute)] =
+          (weekday: weekday, hour: r.hour, minute: r.minute);
+    }
+  }
+  if (slots.isEmpty) return;
 
   final l = lookupAppLocalizations(localeController.value);
   final title = l.reminderNotificationTitle;
@@ -190,9 +205,10 @@ Future<void> scheduleReminder(Reminder r) async {
   );
   final details = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-  for (final weekday in r.weekdays) {
-    final id = _notificationId(r.id, weekday);
-    final fireAt = _nextInstanceOf(weekday, r.hour, r.minute);
+  for (final entry in slots.entries) {
+    final id = entry.key;
+    final slot = entry.value;
+    final fireAt = _nextInstanceOf(slot.weekday, slot.hour, slot.minute);
     try {
       await _plugin.zonedSchedule(
         id: id,
@@ -210,31 +226,12 @@ Future<void> scheduleReminder(Reminder r) async {
   }
 }
 
-Future<void> cancelReminder(Reminder r) async {
-  if (!_initialized) return;
-  // Cancel every weekday slot we might have scheduled, regardless of the
-  // reminder's current weekdays — handles reminders whose weekdays changed.
-  for (var weekday = DateTime.monday; weekday <= DateTime.sunday; weekday++) {
-    await _plugin.cancel(id: _notificationId(r.id, weekday));
-  }
-}
-
-Future<void> rescheduleAllReminders(List<Reminder> all) async {
-  if (!_initialized) await initRemindersNotifications();
-  await _plugin.cancelAll();
-  for (final r in all) {
-    if (r.enabled) await scheduleReminder(r);
-  }
-}
-
-/// Maps (reminderId, weekday) to a stable 32-bit notification id.
-/// Bottom 3 bits hold the weekday (1–7); upper bits come from the id hash.
-/// Distinct (id, weekday) pairs never collide; cross-reminder collisions are
-/// rare enough to be acceptable.
-int _notificationId(String reminderId, int weekday) {
-  final hash = reminderId.hashCode & 0x0FFFFFF8;
-  return hash | (weekday & 0x7);
-}
+/// Maps a (weekday, hour, minute) fire-time to a stable notification id.
+/// Reminders that share a fire time share an id, so only one notification is
+/// ever scheduled per distinct time — no duplicate alerts.
+/// Bit layout (all positive, well under 32 bits): hour<<9 | minute<<3 | weekday.
+int _notificationId(int weekday, int hour, int minute) =>
+    (hour << 9) | (minute << 3) | (weekday & 0x7);
 
 tz.TZDateTime _nextInstanceOf(int weekday, int hour, int minute) {
   final now = tz.TZDateTime.now(tz.local);

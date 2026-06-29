@@ -94,32 +94,26 @@ Future<void> _persist(List<Reminder> list) async {
 List<Reminder> _current() =>
     remindersController.value?.list ?? const <Reminder>[];
 
-Reminder? _find(String id) {
-  for (final r in _current()) {
-    if (r.id == id) return r;
-  }
-  return null;
-}
+// All mutations persist first, then reschedule from the full reminder list.
+// rescheduleAllReminders dedupes notifications by fire-time, so a slot is only
+// dropped when no remaining enabled reminder still covers it.
 
 Future<void> addReminder(Reminder reminder) async {
   await _persist([..._current(), reminder]);
-  if (reminder.enabled) await scheduleReminder(reminder);
+  await rescheduleAllReminders(_current());
 }
 
 Future<void> updateReminder(Reminder reminder) async {
-  final old = _find(reminder.id);
-  if (old != null) await cancelReminder(old);
   await _persist([
     for (final r in _current())
       if (r.id == reminder.id) reminder else r,
   ]);
-  if (reminder.enabled) await scheduleReminder(reminder);
+  await rescheduleAllReminders(_current());
 }
 
 Future<void> deleteReminder(String id) async {
-  final old = _find(id);
-  if (old != null) await cancelReminder(old);
   await _persist([for (final r in _current()) if (r.id != id) r]);
+  await rescheduleAllReminders(_current());
 }
 
 Future<void> clearReminders() async {
@@ -130,18 +124,11 @@ Future<void> clearReminders() async {
 }
 
 Future<void> setReminderEnabled(String id, bool enabled) async {
-  final old = _find(id);
   await _persist([
     for (final r in _current())
       if (r.id == id) r.copyWith(enabled: enabled) else r,
   ]);
-  if (old != null) {
-    if (enabled) {
-      await scheduleReminder(old.copyWith(enabled: true));
-    } else {
-      await cancelReminder(old);
-    }
-  }
+  await rescheduleAllReminders(_current());
 }
 
 String generateReminderId() =>
