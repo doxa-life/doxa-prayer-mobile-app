@@ -37,13 +37,11 @@ class GetInvolvedCard extends StatelessWidget {
                 label: l.donate,
                 onPressed: onDonate,
               ),
-              /* Waiting for feedback form to be implemented on the website */
-              if (false)
-                IconLabelButton(
-                  icon: const AppIcon(AppIconName.chat),
-                  label: l.feedback,
-                  onPressed: onFeedback,
-                ),
+              IconLabelButton(
+                icon: const AppIcon(AppIconName.chat),
+                label: l.feedback,
+                onPressed: onFeedback,
+              ),
             ],
           ),
         ],

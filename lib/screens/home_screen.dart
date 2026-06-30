@@ -8,6 +8,9 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
+import 'package:doxa_prayer_mobile_app/services/feedback_url.dart';
+import 'package:doxa_prayer_mobile_app/services/identity_service.dart';
+import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
@@ -18,7 +21,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const _donateUrl = 'https://giving.ag.org/donate/600001-6c2327';
-const _feedbackUrl = 'https://doxa.life/feedback';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -84,12 +86,27 @@ class HomeScreen extends StatelessWidget {
   Widget _getInvolvedCard() {
     return GetInvolvedCard(
       onDonate: () => _openExternalUrl(_donateUrl),
-      onFeedback: () => _openExternalUrl(_feedbackUrl),
+      onFeedback: _openFeedback,
     );
   }
 
   void _openExternalUrl(String url) {
     launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+  }
+
+  /// Opens the feedback form hosted on the campaigns server. The form lives on
+  /// the same host as the API (`ApiConfig`), so this resolves to the right
+  /// production/staging/dev host automatically. The app's locale picks the
+  /// localized route (English is unprefixed; other locales are path-prefixed,
+  /// matching the server's `prefix_except_default` i18n strategy), and the
+  /// `tracking_id` links the feedback to the user's existing subscriber.
+  void _openFeedback() {
+    final route = feedbackRoute(
+      localeController.value.languageCode,
+      identityController.value?.trackingId,
+    );
+    final uri = ApiConfig.buildUri(route.path, route.query);
+    launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
   /// The deep link to install the app / pray for a people group — the same
