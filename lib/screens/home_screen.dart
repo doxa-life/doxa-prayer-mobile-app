@@ -8,6 +8,7 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
+import 'package:doxa_prayer_mobile_app/services/device_context_service.dart';
 import 'package:doxa_prayer_mobile_app/services/feedback_url.dart';
 import 'package:doxa_prayer_mobile_app/services/identity_service.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
@@ -15,7 +16,9 @@ import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               _peopleGroupCardOrCTA(),
               _remindersCardOrCTA(),
-              _getInvolvedCard(),
+              _getInvolvedCard(context),
             ],
           ),
         ),
@@ -83,10 +86,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _getInvolvedCard() {
+  Widget _getInvolvedCard(BuildContext context) {
     return GetInvolvedCard(
       onDonate: () => _openExternalUrl(_donateUrl),
       onFeedback: _openFeedback,
+      // Debug builds only: copy the exact feedback URL so it can be opened
+      // against a local dev server.
+      onCopyFeedbackLink: kDebugMode ? () => _copyFeedbackLink(context) : null,
     );
   }
 
@@ -94,19 +100,34 @@ class HomeScreen extends StatelessWidget {
     launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
-  /// Opens the feedback form hosted on the campaigns server. The form lives on
-  /// the same host as the API (`ApiConfig`), so this resolves to the right
+  /// Builds the feedback form URL hosted on the campaigns server. The form lives
+  /// on the same host as the API (`ApiConfig`), so this resolves to the right
   /// production/staging/dev host automatically. The app's locale picks the
   /// localized route (English is unprefixed; other locales are path-prefixed,
-  /// matching the server's `prefix_except_default` i18n strategy), and the
-  /// `tracking_id` links the feedback to the user's existing subscriber.
-  void _openFeedback() {
+  /// matching the server's `prefix_except_default` i18n strategy), the
+  /// `tracking_id` links the feedback to the user's existing subscriber, and
+  /// device diagnostics are attached as query params.
+  Future<Uri> _feedbackUri() async {
+    final device = await gatherDeviceContext();
     final route = feedbackRoute(
       localeController.value.languageCode,
       identityController.value?.trackingId,
+      device,
     );
-    final uri = ApiConfig.buildUri(route.path, route.query);
-    launchUrl(uri, mode: LaunchMode.externalApplication);
+    return ApiConfig.buildUri(route.path, route.query);
+  }
+
+  Future<void> _openFeedback() async {
+    await launchUrl(await _feedbackUri(), mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _copyFeedbackLink(BuildContext context) async {
+    final uri = await _feedbackUri();
+    await Clipboard.setData(ClipboardData(text: uri.toString()));
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Feedback link copied: $uri')),
+    );
   }
 
   /// The deep link to install the app / pray for a people group — the same

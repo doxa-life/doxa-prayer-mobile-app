@@ -12,10 +12,15 @@ class GetInvolvedCard extends StatelessWidget {
     super.key,
     required this.onDonate,
     required this.onFeedback,
+    this.onCopyFeedbackLink,
   });
 
   final VoidCallback onDonate;
   final VoidCallback onFeedback;
+
+  /// Debug-only: when provided, renders a button that copies the feedback URL
+  /// to the clipboard (so it can be opened on a dev machine). Null in release.
+  final VoidCallback? onCopyFeedbackLink;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +47,12 @@ class GetInvolvedCard extends StatelessWidget {
                 label: l.feedback,
                 onPressed: onFeedback,
               ),
+              if (onCopyFeedbackLink != null)
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.link),
+                  label: 'Copy link',
+                  onPressed: onCopyFeedbackLink!,
+                ),
             ],
           ),
         ],

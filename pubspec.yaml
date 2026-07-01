@@ -54,6 +54,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   android_play_install_referrer: ^0.4.0
   package_info_plus: ^10.1.0
+  device_info_plus: ^13.2.0
   in_app_update: ^4.2.5
   # Kept in dependencies (not dev_dependencies) because it declares a native
   # Android plugin (FlutterNativeSplashPlugin) that GeneratedPluginRegistrant

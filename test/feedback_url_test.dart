@@ -26,5 +26,36 @@ void main() {
       expect(route.query, {'lang': 'fr'});
       expect(route.query.containsKey('tracking_id'), isFalse);
     });
+
+    test('merges device entries into the query', () {
+      final route = feedbackRoute('en', 'tid', {
+        'platform': 'ios',
+        'os_version': 'iOS 17.2',
+        'device_model': 'iPhone14,2',
+        'app_version': '1.10.0',
+        'app_build': '17',
+        'timezone': 'Europe/London',
+      });
+      expect(route.query, {
+        'lang': 'en',
+        'tracking_id': 'tid',
+        'platform': 'ios',
+        'os_version': 'iOS 17.2',
+        'device_model': 'iPhone14,2',
+        'app_version': '1.10.0',
+        'app_build': '17',
+        'timezone': 'Europe/London',
+      });
+    });
+
+    test('an empty device map leaves the query unchanged', () {
+      final route = feedbackRoute('en', 'tid', const {});
+      expect(route.query, {'lang': 'en', 'tracking_id': 'tid'});
+    });
+
+    test('device works alongside a null tracking_id', () {
+      final route = feedbackRoute('es', null, {'platform': 'android'});
+      expect(route.query, {'lang': 'es', 'platform': 'android'});
+    });
   });
 }
