@@ -400,8 +400,17 @@ class AppLocalizationsFr extends AppLocalizations {
       'E-mail de vérification envoyé. Vérifiez votre boîte de réception.';
 
   @override
-  String get resendVerificationCooldown =>
-      'Veuillez patienter avant de demander un autre e-mail.';
+  String resendVerificationCooldown(int seconds) {
+    return 'Veuillez patienter $seconds s avant de demander un autre e-mail.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'Renvoyer dans $seconds s';
+  }
+
+  @override
+  String get signUp => 'S\'inscrire';
 
   @override
   String get resendVerificationFailed =>

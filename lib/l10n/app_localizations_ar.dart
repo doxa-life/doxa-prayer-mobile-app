@@ -393,8 +393,17 @@ class AppLocalizationsAr extends AppLocalizations {
       'تم إرسال رسالة التحقق. تحقق من صندوق الوارد.';
 
   @override
-  String get resendVerificationCooldown =>
-      'يُرجى الانتظار قليلًا قبل طلب رسالة أخرى.';
+  String resendVerificationCooldown(int seconds) {
+    return 'يُرجى الانتظار $seconds ثانية قبل طلب رسالة أخرى.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'إعادة الإرسال خلال $seconds ثانية';
+  }
+
+  @override
+  String get signUp => 'التسجيل';
 
   @override
   String get resendVerificationFailed => 'تعذّر إرسال الرسالة. حاول مرة أخرى.';

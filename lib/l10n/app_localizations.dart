@@ -769,8 +769,20 @@ abstract class AppLocalizations {
   /// SnackBar shown when the user taps resend again before the cooldown has elapsed
   ///
   /// In en, this message translates to:
-  /// **'Please wait a moment before requesting another email.'**
-  String get resendVerificationCooldown;
+  /// **'Please wait {seconds}s before requesting another email.'**
+  String resendVerificationCooldown(int seconds);
+
+  /// Resend button label while the cooldown counts down
+  ///
+  /// In en, this message translates to:
+  /// **'Resend in {seconds}s'**
+  String resendVerificationCountdown(int seconds);
+
+  /// Label of the wizard's primary button that submits the signup form
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up'**
+  String get signUp;
 
   /// SnackBar shown when resending the verification email fails
   ///

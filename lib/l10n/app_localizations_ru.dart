@@ -398,8 +398,17 @@ class AppLocalizationsRu extends AppLocalizations {
       'Письмо для подтверждения отправлено. Проверьте почту.';
 
   @override
-  String get resendVerificationCooldown =>
-      'Подождите немного, прежде чем запрашивать новое письмо.';
+  String resendVerificationCooldown(int seconds) {
+    return 'Подождите $seconds с, прежде чем запрашивать новое письмо.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'Повторить через $seconds с';
+  }
+
+  @override
+  String get signUp => 'Зарегистрироваться';
 
   @override
   String get resendVerificationFailed =>

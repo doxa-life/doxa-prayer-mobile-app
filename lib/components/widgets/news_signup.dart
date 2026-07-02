@@ -92,11 +92,21 @@ class NewsSignupState extends State<NewsSignup> {
   void _emitChanged() => widget.onChanged?.call(_currentValid());
 
   Future<void> _submit() async {
-    setState(() => _submitAttempted = true);
     final onSubmit = widget.onSubmit;
-    if (_submitting || onSubmit == null) return;
+    if (onSubmit == null) return;
+    await runSubmit(onSubmit);
+  }
+
+  /// Validates the form, runs [onSubmit], and on success flips to the in-place
+  /// confirmation; on failure surfaces the inline error. Returns whether the
+  /// submission succeeded. Used both by the built-in submit button (settings)
+  /// and externally by the wizard step, which supplies its own callback and
+  /// reacts to the result (swapping its "Sign up" button for "Finish").
+  Future<bool> runSubmit(Future<void> Function(NewsSignupData) onSubmit) async {
+    setState(() => _submitAttempted = true);
+    if (_submitting) return false;
     final data = _currentValid();
-    if (data == null) return;
+    if (data == null) return false;
     setState(() {
       _submitting = true;
       _errorMessage = null;
@@ -104,12 +114,14 @@ class NewsSignupState extends State<NewsSignup> {
     try {
       await onSubmit(data);
       if (mounted) setState(() => _submitted = true);
+      return true;
     } catch (_) {
       if (mounted) {
         setState(() {
           _errorMessage = AppLocalizations.of(context)!.newsSignupError;
         });
       }
+      return false;
     } finally {
       if (mounted) setState(() => _submitting = false);
     }
@@ -161,14 +173,14 @@ class NewsSignupState extends State<NewsSignup> {
             _emitChanged();
           },
         ),
+        if (_errorMessage != null) ...[
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            _errorMessage!,
+            style: TextStyle(color: AppColors.scheme.error),
+          ),
+        ],
         if (widget.onSubmit != null) ...[
-          if (_errorMessage != null) ...[
-            const SizedBox(height: AppSpacing.lg),
-            Text(
-              _errorMessage!,
-              style: TextStyle(color: AppColors.scheme.error),
-            ),
-          ],
           const SizedBox(height: AppSpacing.xxl),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

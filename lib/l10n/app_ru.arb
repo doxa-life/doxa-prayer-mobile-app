@@ -167,7 +167,23 @@
         "description": "SnackBar shown after a verification email is successfully resent"
     },
     "@resendVerificationCooldown": {
-        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed"
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@resendVerificationCountdown": {
+        "description": "Resend button label while the cooldown counts down",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@signUp": {
+        "description": "Label of the wizard's primary button that submits the signup form"
     },
     "@resendVerificationFailed": {
         "description": "SnackBar shown when resending the verification email fails"
@@ -524,7 +540,9 @@
     "emailUnverified": "Не подтверждён",
     "resendVerification": "Отправить письмо для подтверждения ещё раз",
     "resendVerificationSent": "Письмо для подтверждения отправлено. Проверьте почту.",
-    "resendVerificationCooldown": "Подождите немного, прежде чем запрашивать новое письмо.",
+    "resendVerificationCooldown": "Подождите {seconds} с, прежде чем запрашивать новое письмо.",
+    "resendVerificationCountdown": "Повторить через {seconds} с",
+    "signUp": "Зарегистрироваться",
     "resendVerificationFailed": "Не удалось отправить письмо. Попробуйте ещё раз.",
     "viewProfile": "Открыть профиль",
     "emailsLoadError": "Не удалось загрузить ваши адреса.",

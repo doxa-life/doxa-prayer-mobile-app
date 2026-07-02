@@ -395,8 +395,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Verification email sent. Check your inbox.';
 
   @override
-  String get resendVerificationCooldown =>
-      'Please wait a moment before requesting another email.';
+  String resendVerificationCooldown(int seconds) {
+    return 'Please wait ${seconds}s before requesting another email.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'Resend in ${seconds}s';
+  }
+
+  @override
+  String get signUp => 'Sign up';
 
   @override
   String get resendVerificationFailed =>

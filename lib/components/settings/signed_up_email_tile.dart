@@ -25,10 +25,10 @@ class SignedUpEmailTile extends StatefulWidget {
 }
 
 class _SignedUpEmailTileState extends State<SignedUpEmailTile> {
-  static const _defaultCooldown = Duration(seconds: 60);
+  static const _defaultCooldownSeconds = 60;
 
   bool _sending = false;
-  bool _cooldown = false;
+  int _cooldownRemaining = 0;
   Timer? _cooldownTimer;
 
   @override
@@ -37,16 +37,24 @@ class _SignedUpEmailTileState extends State<SignedUpEmailTile> {
     super.dispose();
   }
 
-  void _startCooldown(Duration duration) {
+  /// Counts down [seconds], so the button can show the remaining cooldown.
+  void _startCooldown(int seconds) {
     _cooldownTimer?.cancel();
-    setState(() => _cooldown = true);
-    _cooldownTimer = Timer(duration, () {
-      if (mounted) setState(() => _cooldown = false);
+    setState(() => _cooldownRemaining = seconds);
+    _cooldownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      setState(() {
+        _cooldownRemaining--;
+        if (_cooldownRemaining <= 0) timer.cancel();
+      });
     });
   }
 
   Future<void> _resend() async {
-    if (_sending || _cooldown) return;
+    if (_sending || _cooldownRemaining > 0) return;
     setState(() => _sending = true);
     final result = await resendVerification(widget.profileId, widget.email.id);
     if (!mounted) return;
@@ -60,14 +68,13 @@ class _SignedUpEmailTileState extends State<SignedUpEmailTile> {
         messenger.showSnackBar(
           SnackBar(content: Text(l.resendVerificationSent)),
         );
-        _startCooldown(_defaultCooldown);
+        _startCooldown(_defaultCooldownSeconds);
       case ResendVerificationStatus.cooldown:
+        final seconds = result.retryAfterSeconds ?? _defaultCooldownSeconds;
         messenger.showSnackBar(
-          SnackBar(content: Text(l.resendVerificationCooldown)),
+          SnackBar(content: Text(l.resendVerificationCooldown(seconds))),
         );
-        _startCooldown(
-          Duration(seconds: result.retryAfterSeconds ?? _defaultCooldown.inSeconds),
-        );
+        _startCooldown(seconds);
       case ResendVerificationStatus.failed:
         messenger.showSnackBar(
           SnackBar(content: Text(l.resendVerificationFailed)),
@@ -114,14 +121,18 @@ class _SignedUpEmailTileState extends State<SignedUpEmailTile> {
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: TextButton(
-                onPressed: (_sending || _cooldown) ? null : _resend,
+                onPressed: (_sending || _cooldownRemaining > 0) ? null : _resend,
                 child: _sending
                     ? const SizedBox(
                         height: 16,
                         width: 16,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : Text(l.resendVerification),
+                    : Text(
+                        _cooldownRemaining > 0
+                            ? l.resendVerificationCountdown(_cooldownRemaining)
+                            : l.resendVerification,
+                      ),
               ),
             ),
         ],

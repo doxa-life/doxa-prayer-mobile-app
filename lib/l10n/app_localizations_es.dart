@@ -401,8 +401,17 @@ class AppLocalizationsEs extends AppLocalizations {
       'Correo de verificación enviado. Revisa tu bandeja de entrada.';
 
   @override
-  String get resendVerificationCooldown =>
-      'Espera un momento antes de solicitar otro correo.';
+  String resendVerificationCooldown(int seconds) {
+    return 'Espera $seconds s antes de solicitar otro correo.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'Reenviar en $seconds s';
+  }
+
+  @override
+  String get signUp => 'Registrarse';
 
   @override
   String get resendVerificationFailed =>

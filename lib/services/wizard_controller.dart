@@ -209,41 +209,51 @@ class WizardController extends ChangeNotifier {
     _set(WizardStep.reminder);
   }
 
-  Future<void> finish(BuildContext context, {NewsSignupData? newsSignup}) async {
-    final slug = selectedPeopleGroupController.value?.slug;
-    if (slug != null && slug.isNotEmpty) {
-      try {
-        await submitAnonSignup(
-          slug: slug,
-          name: newsSignup?.name ?? '',
-          email: newsSignup?.email ?? '',
-          consentDoxaGeneral: newsSignup?.wantsDoxaUpdates ?? false,
-          consentPeopleGroupUpdates:
-              newsSignup?.wantsPeopleGroupUpdates ?? false,
-        );
-      } catch (e, s) {
-        developer.log(
-          'anon-signup failed at wizard finish',
-          name: 'wizard_controller',
-          error: e,
-          stackTrace: s,
-        );
-      }
-    }
-    if (newsSignup != null) {
-      try {
-        await submitNewsSignup(newsSignup);
-      } catch (e, s) {
-        developer.log(
-          'news-signup failed at wizard finish',
-          name: 'wizard_controller',
-          error: e,
-          stackTrace: s,
-        );
-      }
-    }
+  /// Performs the signup for the news-signup step: the people-group prayer
+  /// subscription (best-effort) plus the news/email signup. Does NOT complete the
+  /// wizard — the step shows the "check your email" confirmation first, then the
+  /// user taps Finish ([complete]). Rethrows a news-signup failure so the step can
+  /// surface it inline and keep the Sign up button available for a retry.
+  Future<void> signUp({required NewsSignupData newsSignup}) async {
+    await _submitPeopleGroupSignup(newsSignup);
+    await submitNewsSignup(newsSignup);
+  }
+
+  /// Skips the news-signup step: still registers the selected people group
+  /// (best-effort) but sends no email, then completes the wizard.
+  Future<void> skip(BuildContext context) async {
+    await _submitPeopleGroupSignup(null);
+    if (context.mounted) await complete(context);
+  }
+
+  /// Finishes onboarding and routes to home. Called by the Finish button once the
+  /// user has signed up, and by [skip].
+  Future<void> complete(BuildContext context) async {
     await markWizardCompleted();
     if (context.mounted) context.go('/home');
+  }
+
+  /// Registers the selected people group's prayer subscription. Best-effort: a
+  /// failure is logged and swallowed so onboarding is never blocked by it.
+  Future<void> _submitPeopleGroupSignup(NewsSignupData? newsSignup) async {
+    final slug = selectedPeopleGroupController.value?.slug;
+    if (slug == null || slug.isEmpty) return;
+    try {
+      await submitAnonSignup(
+        slug: slug,
+        name: newsSignup?.name ?? '',
+        email: newsSignup?.email ?? '',
+        consentDoxaGeneral: newsSignup?.wantsDoxaUpdates ?? false,
+        consentPeopleGroupUpdates: newsSignup?.wantsPeopleGroupUpdates ?? false,
+      );
+    } catch (e, s) {
+      developer.log(
+        'anon-signup failed at wizard finish',
+        name: 'wizard_controller',
+        error: e,
+        stackTrace: s,
+      );
+    }
   }
 
   void _set(WizardStep step) {

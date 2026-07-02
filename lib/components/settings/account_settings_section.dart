@@ -15,10 +15,10 @@ class AccountSettingsSection extends StatefulWidget {
   const AccountSettingsSection({super.key});
 
   @override
-  State<AccountSettingsSection> createState() => _AccountSettingsSectionState();
+  State<AccountSettingsSection> createState() => AccountSettingsSectionState();
 }
 
-class _AccountSettingsSectionState extends State<AccountSettingsSection> {
+class AccountSettingsSectionState extends State<AccountSettingsSection> {
   String? _profileId;
   Future<List<SignedUpEmail>>? _emailsFuture;
 
@@ -35,15 +35,24 @@ class _AccountSettingsSectionState extends State<AccountSettingsSection> {
     super.dispose();
   }
 
-  /// Refetches emails when the signed-up profile id appears or changes.
+  /// Re-reads the profile id from identity and (re)fetches the email list. Runs
+  /// on every identity change — including a fresh signup that keeps the same
+  /// profile id but adds a new email — so the list always reflects the latest.
   void _syncToIdentity() {
     final profileId = identityController.value?.profileId;
-    if (profileId == _profileId) return;
     setState(() {
       _profileId = profileId;
       _emailsFuture =
           profileId == null ? null : fetchProfileEmails(profileId);
     });
+  }
+
+  /// Re-fetches the email list. Called when returning to the settings screen so
+  /// a just-added email shows without needing an identity change to fire.
+  void refresh() {
+    final profileId = _profileId;
+    if (profileId == null) return;
+    setState(() => _emailsFuture = fetchProfileEmails(profileId));
   }
 
   Future<void> _openProfile(String profileId) async {
@@ -92,7 +101,11 @@ class _AccountSettingsSectionState extends State<AccountSettingsSection> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 for (final email in emails)
-                  SignedUpEmailTile(profileId: profileId, email: email),
+                  SignedUpEmailTile(
+                    key: ValueKey(email.id),
+                    profileId: profileId,
+                    email: email,
+                  ),
               ],
             );
           },

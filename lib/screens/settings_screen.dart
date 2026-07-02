@@ -10,8 +10,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  final GlobalKey<AccountSettingsSectionState> _accountKey =
+      GlobalKey<AccountSettingsSectionState>();
+
+  Future<void> _openNewsSignup() async {
+    await context.push('/settings/news-signup');
+    // Coming back from the signup form: refresh so a newly added email shows.
+    _accountKey.currentState?.refresh();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                       contentPadding: EdgeInsets.zero,
                       title: Text(l.signUpForUpdates),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () => context.push('/settings/news-signup'),
+                      onTap: _openNewsSignup,
                     ),
                     ValueListenableBuilder<bool>(
                       valueListenable: notificationsBlocked,
@@ -59,7 +73,7 @@ class SettingsScreen extends StatelessWidget {
                         onTap: () => context.push('/settings/notifications'),
                       ),
                     ),
-                    const AccountSettingsSection(),
+                    AccountSettingsSection(key: _accountKey),
                   ],
                 ),
               ),

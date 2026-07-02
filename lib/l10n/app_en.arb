@@ -475,9 +475,27 @@
     "@resendVerificationSent": {
         "description": "SnackBar shown after a verification email is successfully resent"
     },
-    "resendVerificationCooldown": "Please wait a moment before requesting another email.",
+    "resendVerificationCooldown": "Please wait {seconds}s before requesting another email.",
     "@resendVerificationCooldown": {
-        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed"
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "resendVerificationCountdown": "Resend in {seconds}s",
+    "@resendVerificationCountdown": {
+        "description": "Resend button label while the cooldown counts down",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "signUp": "Sign up",
+    "@signUp": {
+        "description": "Label of the wizard's primary button that submits the signup form"
     },
     "resendVerificationFailed": "Couldn't send the email. Please try again.",
     "@resendVerificationFailed": {

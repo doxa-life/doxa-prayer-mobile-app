@@ -167,7 +167,23 @@
         "description": "SnackBar shown after a verification email is successfully resent"
     },
     "@resendVerificationCooldown": {
-        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed"
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@resendVerificationCountdown": {
+        "description": "Resend button label while the cooldown counts down",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@signUp": {
+        "description": "Label of the wizard's primary button that submits the signup form"
     },
     "@resendVerificationFailed": {
         "description": "SnackBar shown when resending the verification email fails"
@@ -524,7 +540,9 @@
     "emailUnverified": "Não verificado",
     "resendVerification": "Reenviar e-mail de verificação",
     "resendVerificationSent": "E-mail de verificação enviado. Verifique sua caixa de entrada.",
-    "resendVerificationCooldown": "Aguarde um momento antes de solicitar outro e-mail.",
+    "resendVerificationCooldown": "Aguarde {seconds} s antes de solicitar outro e-mail.",
+    "resendVerificationCountdown": "Reenviar em {seconds} s",
+    "signUp": "Inscrever-se",
     "resendVerificationFailed": "Não foi possível enviar o e-mail. Tente novamente.",
     "viewProfile": "Ver perfil",
     "emailsLoadError": "Não foi possível carregar seus e-mails.",

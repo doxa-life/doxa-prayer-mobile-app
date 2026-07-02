@@ -396,8 +396,17 @@ class AppLocalizationsPt extends AppLocalizations {
       'E-mail de verificação enviado. Verifique sua caixa de entrada.';
 
   @override
-  String get resendVerificationCooldown =>
-      'Aguarde um momento antes de solicitar outro e-mail.';
+  String resendVerificationCooldown(int seconds) {
+    return 'Aguarde $seconds s antes de solicitar outro e-mail.';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return 'Reenviar em $seconds s';
+  }
+
+  @override
+  String get signUp => 'Inscrever-se';
 
   @override
   String get resendVerificationFailed =>
