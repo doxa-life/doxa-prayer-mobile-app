@@ -437,13 +437,59 @@
     "@signUpForUpdates": {
         "description": "Settings row label and sub-screen title for the news signup form"
     },
-    "newsSignupThanks": "Thanks — you're signed up.",
-    "@newsSignupThanks": {
-        "description": "SnackBar shown after the user submits the news signup form from settings"
+    "newsSignupSuccessTitle": "Thanks for signing up!",
+    "@newsSignupSuccessTitle": {
+        "description": "Heading of the in-place confirmation shown after the news signup form is submitted"
+    },
+    "newsSignupSuccessBody": "We've sent a verification email to {email}. Please open your inbox and tap the link to confirm your subscription.",
+    "@newsSignupSuccessBody": {
+        "description": "Body of the in-place confirmation shown after news signup, telling the user to verify their email",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "name@example.com"
+            }
+        }
     },
     "newsSignupError": "Something went wrong. Please check your connection and try again.",
     "@newsSignupError": {
         "description": "Error message shown when the news signup submission fails"
+    },
+    "accountSectionTitle": "Your account",
+    "@accountSectionTitle": {
+        "description": "Settings section header for the signed-up account (emails and profile)"
+    },
+    "emailVerified": "Verified",
+    "@emailVerified": {
+        "description": "Status label shown next to a signed-up email that has been verified"
+    },
+    "emailUnverified": "Not verified",
+    "@emailUnverified": {
+        "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "resendVerification": "Resend verification email",
+    "@resendVerification": {
+        "description": "Button that re-sends the verification email for an unverified address"
+    },
+    "resendVerificationSent": "Verification email sent. Check your inbox.",
+    "@resendVerificationSent": {
+        "description": "SnackBar shown after a verification email is successfully resent"
+    },
+    "resendVerificationCooldown": "Please wait a moment before requesting another email.",
+    "@resendVerificationCooldown": {
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed"
+    },
+    "resendVerificationFailed": "Couldn't send the email. Please try again.",
+    "@resendVerificationFailed": {
+        "description": "SnackBar shown when resending the verification email fails"
+    },
+    "viewProfile": "View profile",
+    "@viewProfile": {
+        "description": "Button in settings that opens the user's profile page on the web"
+    },
+    "emailsLoadError": "Couldn't load your emails.",
+    "@emailsLoadError": {
+        "description": "Message shown when the list of signed-up emails fails to load"
     },
     "updateAvailableTitle": "Update available",
     "@updateAvailableTitle": {

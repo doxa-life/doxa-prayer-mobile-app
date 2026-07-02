@@ -1,5 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/inputs/language_switcher.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/components/settings/account_settings_section.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_notifications.dart';
@@ -58,6 +59,7 @@ class SettingsScreen extends StatelessWidget {
                         onTap: () => context.push('/settings/notifications'),
                       ),
                     ),
+                    const AccountSettingsSection(),
                   ],
                 ),
               ),

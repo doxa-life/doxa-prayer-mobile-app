@@ -365,11 +365,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signUpForUpdates => 'اشترك للحصول على آخر المستجدات';
 
   @override
-  String get newsSignupThanks => 'شكرًا — لقد تم تسجيلك.';
+  String get newsSignupSuccessTitle => 'شكرًا لتسجيلك!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'لقد أرسلنا رسالة تحقق إلى $email. يُرجى فتح صندوق الوارد والنقر على الرابط لتأكيد اشتراكك.';
+  }
 
   @override
   String get newsSignupError =>
       'حدث خطأ ما. يرجى التحقق من اتصالك ومحاولة الإجراء مرة أخرى.';
+
+  @override
+  String get accountSectionTitle => 'حسابك';
+
+  @override
+  String get emailVerified => 'تم التحقق';
+
+  @override
+  String get emailUnverified => 'لم يتم التحقق';
+
+  @override
+  String get resendVerification => 'إعادة إرسال رسالة التحقق';
+
+  @override
+  String get resendVerificationSent =>
+      'تم إرسال رسالة التحقق. تحقق من صندوق الوارد.';
+
+  @override
+  String get resendVerificationCooldown =>
+      'يُرجى الانتظار قليلًا قبل طلب رسالة أخرى.';
+
+  @override
+  String get resendVerificationFailed => 'تعذّر إرسال الرسالة. حاول مرة أخرى.';
+
+  @override
+  String get viewProfile => 'عرض الملف الشخصي';
+
+  @override
+  String get emailsLoadError => 'تعذّر تحميل عناوين بريدك الإلكتروني.';
 
   @override
   String get updateAvailableTitle => 'تحديث متاح';

@@ -6,6 +6,7 @@ import '../../theme/app_spacing.dart';
 import '../buttons/action_button.dart';
 import '../inputs/checkbox_field.dart';
 import '../inputs/text_field.dart';
+import 'news_signup_success.dart';
 
 class NewsSignupData {
   const NewsSignupData({
@@ -44,6 +45,7 @@ class NewsSignupState extends State<NewsSignup> {
   bool _wantsDoxaUpdates = true;
   bool _submitting = false;
   bool _submitAttempted = false;
+  bool _submitted = false;
   String? _errorMessage;
 
   static final RegExp _emailRe = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
@@ -101,6 +103,7 @@ class NewsSignupState extends State<NewsSignup> {
     });
     try {
       await onSubmit(data);
+      if (mounted) setState(() => _submitted = true);
     } catch (_) {
       if (mounted) {
         setState(() {
@@ -115,6 +118,9 @@ class NewsSignupState extends State<NewsSignup> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    if (_submitted) {
+      return NewsSignupSuccess(email: _email.text.trim());
+    }
     final submitLabel = widget.submitLabel ?? l.save;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

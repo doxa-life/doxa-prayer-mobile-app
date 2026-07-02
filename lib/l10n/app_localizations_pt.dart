@@ -368,11 +368,46 @@ class AppLocalizationsPt extends AppLocalizations {
   String get signUpForUpdates => 'Inscreva-se para receber novidades';
 
   @override
-  String get newsSignupThanks => 'Obrigado — sua inscrição foi concluída.';
+  String get newsSignupSuccessTitle => 'Obrigado por se inscrever!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'Enviamos um e-mail de verificação para $email. Abra sua caixa de entrada e toque no link para confirmar sua inscrição.';
+  }
 
   @override
   String get newsSignupError =>
       'Algo deu errado. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get accountSectionTitle => 'Sua conta';
+
+  @override
+  String get emailVerified => 'Verificado';
+
+  @override
+  String get emailUnverified => 'Não verificado';
+
+  @override
+  String get resendVerification => 'Reenviar e-mail de verificação';
+
+  @override
+  String get resendVerificationSent =>
+      'E-mail de verificação enviado. Verifique sua caixa de entrada.';
+
+  @override
+  String get resendVerificationCooldown =>
+      'Aguarde um momento antes de solicitar outro e-mail.';
+
+  @override
+  String get resendVerificationFailed =>
+      'Não foi possível enviar o e-mail. Tente novamente.';
+
+  @override
+  String get viewProfile => 'Ver perfil';
+
+  @override
+  String get emailsLoadError => 'Não foi possível carregar seus e-mails.';
 
   @override
   String get updateAvailableTitle => 'Atualização disponível';

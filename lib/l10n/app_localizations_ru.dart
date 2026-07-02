@@ -370,11 +370,46 @@ class AppLocalizationsRu extends AppLocalizations {
   String get signUpForUpdates => 'Подпишитесь на новости';
 
   @override
-  String get newsSignupThanks => 'Спасибо — вы подписаны.';
+  String get newsSignupSuccessTitle => 'Спасибо за регистрацию!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'Мы отправили письмо для подтверждения на адрес $email. Откройте почту и нажмите на ссылку, чтобы подтвердить подписку.';
+  }
 
   @override
   String get newsSignupError =>
       'Произошла ошибка. Проверьте подключение и попробуйте ещё раз.';
+
+  @override
+  String get accountSectionTitle => 'Ваш аккаунт';
+
+  @override
+  String get emailVerified => 'Подтверждён';
+
+  @override
+  String get emailUnverified => 'Не подтверждён';
+
+  @override
+  String get resendVerification => 'Отправить письмо для подтверждения ещё раз';
+
+  @override
+  String get resendVerificationSent =>
+      'Письмо для подтверждения отправлено. Проверьте почту.';
+
+  @override
+  String get resendVerificationCooldown =>
+      'Подождите немного, прежде чем запрашивать новое письмо.';
+
+  @override
+  String get resendVerificationFailed =>
+      'Не удалось отправить письмо. Попробуйте ещё раз.';
+
+  @override
+  String get viewProfile => 'Открыть профиль';
+
+  @override
+  String get emailsLoadError => 'Не удалось загрузить ваши адреса.';
 
   @override
   String get updateAvailableTitle => 'Доступно обновление';

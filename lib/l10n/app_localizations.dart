@@ -718,17 +718,77 @@ abstract class AppLocalizations {
   /// **'Sign up for updates'**
   String get signUpForUpdates;
 
-  /// SnackBar shown after the user submits the news signup form from settings
+  /// Heading of the in-place confirmation shown after the news signup form is submitted
   ///
   /// In en, this message translates to:
-  /// **'Thanks — you\'re signed up.'**
-  String get newsSignupThanks;
+  /// **'Thanks for signing up!'**
+  String get newsSignupSuccessTitle;
+
+  /// Body of the in-place confirmation shown after news signup, telling the user to verify their email
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve sent a verification email to {email}. Please open your inbox and tap the link to confirm your subscription.'**
+  String newsSignupSuccessBody(String email);
 
   /// Error message shown when the news signup submission fails
   ///
   /// In en, this message translates to:
   /// **'Something went wrong. Please check your connection and try again.'**
   String get newsSignupError;
+
+  /// Settings section header for the signed-up account (emails and profile)
+  ///
+  /// In en, this message translates to:
+  /// **'Your account'**
+  String get accountSectionTitle;
+
+  /// Status label shown next to a signed-up email that has been verified
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get emailVerified;
+
+  /// Status label shown next to a signed-up email that has not been verified yet
+  ///
+  /// In en, this message translates to:
+  /// **'Not verified'**
+  String get emailUnverified;
+
+  /// Button that re-sends the verification email for an unverified address
+  ///
+  /// In en, this message translates to:
+  /// **'Resend verification email'**
+  String get resendVerification;
+
+  /// SnackBar shown after a verification email is successfully resent
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email sent. Check your inbox.'**
+  String get resendVerificationSent;
+
+  /// SnackBar shown when the user taps resend again before the cooldown has elapsed
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait a moment before requesting another email.'**
+  String get resendVerificationCooldown;
+
+  /// SnackBar shown when resending the verification email fails
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send the email. Please try again.'**
+  String get resendVerificationFailed;
+
+  /// Button in settings that opens the user's profile page on the web
+  ///
+  /// In en, this message translates to:
+  /// **'View profile'**
+  String get viewProfile;
+
+  /// Message shown when the list of signed-up emails fails to load
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load your emails.'**
+  String get emailsLoadError;
 
   /// Title of the optional-update banner
   ///

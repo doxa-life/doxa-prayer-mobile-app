@@ -373,11 +373,46 @@ class AppLocalizationsEs extends AppLocalizations {
   String get signUpForUpdates => 'Suscríbete para recibir novedades';
 
   @override
-  String get newsSignupThanks => 'Gracias, ya estás registrado.';
+  String get newsSignupSuccessTitle => '¡Gracias por registrarte!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'Hemos enviado un correo de verificación a $email. Abre tu bandeja de entrada y toca el enlace para confirmar tu suscripción.';
+  }
 
   @override
   String get newsSignupError =>
       'Ha surgido un problema. Comprueba tu conexión e inténtalo de nuevo.';
+
+  @override
+  String get accountSectionTitle => 'Tu cuenta';
+
+  @override
+  String get emailVerified => 'Verificado';
+
+  @override
+  String get emailUnverified => 'Sin verificar';
+
+  @override
+  String get resendVerification => 'Reenviar correo de verificación';
+
+  @override
+  String get resendVerificationSent =>
+      'Correo de verificación enviado. Revisa tu bandeja de entrada.';
+
+  @override
+  String get resendVerificationCooldown =>
+      'Espera un momento antes de solicitar otro correo.';
+
+  @override
+  String get resendVerificationFailed =>
+      'No se pudo enviar el correo. Inténtalo de nuevo.';
+
+  @override
+  String get viewProfile => 'Ver perfil';
+
+  @override
+  String get emailsLoadError => 'No se pudieron cargar tus correos.';
 
   @override
   String get updateAvailableTitle => 'Hay una actualización disponible';

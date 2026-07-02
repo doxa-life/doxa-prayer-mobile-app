@@ -367,11 +367,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpForUpdates => 'Sign up for updates';
 
   @override
-  String get newsSignupThanks => 'Thanks — you\'re signed up.';
+  String get newsSignupSuccessTitle => 'Thanks for signing up!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'We\'ve sent a verification email to $email. Please open your inbox and tap the link to confirm your subscription.';
+  }
 
   @override
   String get newsSignupError =>
       'Something went wrong. Please check your connection and try again.';
+
+  @override
+  String get accountSectionTitle => 'Your account';
+
+  @override
+  String get emailVerified => 'Verified';
+
+  @override
+  String get emailUnverified => 'Not verified';
+
+  @override
+  String get resendVerification => 'Resend verification email';
+
+  @override
+  String get resendVerificationSent =>
+      'Verification email sent. Check your inbox.';
+
+  @override
+  String get resendVerificationCooldown =>
+      'Please wait a moment before requesting another email.';
+
+  @override
+  String get resendVerificationFailed =>
+      'Couldn\'t send the email. Please try again.';
+
+  @override
+  String get viewProfile => 'View profile';
+
+  @override
+  String get emailsLoadError => 'Couldn\'t load your emails.';
 
   @override
   String get updateAvailableTitle => 'Update available';

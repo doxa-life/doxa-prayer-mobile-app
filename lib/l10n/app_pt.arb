@@ -139,8 +139,44 @@
     "@newsSignupError": {
         "description": "Error message shown when the news signup submission fails"
     },
-    "@newsSignupThanks": {
-        "description": "SnackBar shown after the user submits the news signup form from settings"
+    "@newsSignupSuccessTitle": {
+        "description": "Heading of the in-place confirmation shown after the news signup form is submitted"
+    },
+    "@newsSignupSuccessBody": {
+        "description": "Body of the in-place confirmation shown after news signup, telling the user to verify their email",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "name@example.com"
+            }
+        }
+    },
+    "@accountSectionTitle": {
+        "description": "Settings section header for the signed-up account (emails and profile)"
+    },
+    "@emailVerified": {
+        "description": "Status label shown next to a signed-up email that has been verified"
+    },
+    "@emailUnverified": {
+        "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "@resendVerification": {
+        "description": "Button that re-sends the verification email for an unverified address"
+    },
+    "@resendVerificationSent": {
+        "description": "SnackBar shown after a verification email is successfully resent"
+    },
+    "@resendVerificationCooldown": {
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed"
+    },
+    "@resendVerificationFailed": {
+        "description": "SnackBar shown when resending the verification email fails"
+    },
+    "@viewProfile": {
+        "description": "Button in settings that opens the user's profile page on the web"
+    },
+    "@emailsLoadError": {
+        "description": "Message shown when the list of signed-up emails fails to load"
     },
     "@nextDay": {
         "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
@@ -481,7 +517,17 @@
     "nameRequired": "Insira seu nome.",
     "newReminder": "Novo lembrete",
     "newsSignupError": "Algo deu errado. Verifique sua conexão e tente novamente.",
-    "newsSignupThanks": "Obrigado — sua inscrição foi concluída.",
+    "newsSignupSuccessTitle": "Obrigado por se inscrever!",
+    "newsSignupSuccessBody": "Enviamos um e-mail de verificação para {email}. Abra sua caixa de entrada e toque no link para confirmar sua inscrição.",
+    "accountSectionTitle": "Sua conta",
+    "emailVerified": "Verificado",
+    "emailUnverified": "Não verificado",
+    "resendVerification": "Reenviar e-mail de verificação",
+    "resendVerificationSent": "E-mail de verificação enviado. Verifique sua caixa de entrada.",
+    "resendVerificationCooldown": "Aguarde um momento antes de solicitar outro e-mail.",
+    "resendVerificationFailed": "Não foi possível enviar o e-mail. Tente novamente.",
+    "viewProfile": "Ver perfil",
+    "emailsLoadError": "Não foi possível carregar seus e-mails.",
     "nextDay": "Próximo dia",
     "nextReminder": "Próximo lembrete",
     "nextReminderOn": "{weekday} às {time}",

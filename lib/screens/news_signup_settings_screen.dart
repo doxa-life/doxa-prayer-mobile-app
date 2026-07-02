@@ -9,14 +9,10 @@ import '../services/news_signup_service.dart';
 class NewsSignupSettingsScreen extends StatelessWidget {
   const NewsSignupSettingsScreen({super.key});
 
-  Future<void> _onSubmit(BuildContext context, NewsSignupData data) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final l = AppLocalizations.of(context)!;
-    await submitNewsSignup(data);
-    if (!context.mounted) return;
-    messenger.showSnackBar(SnackBar(content: Text(l.newsSignupThanks)));
-    Navigator.of(context).pop();
-  }
+  // Errors propagate so NewsSignup surfaces them inline; on success the widget
+  // shows its own in-place confirmation (thank-you + verify-your-email), so we
+  // deliberately don't toast or pop here.
+  Future<void> _onSubmit(NewsSignupData data) => submitNewsSignup(data);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +25,7 @@ class NewsSignupSettingsScreen extends StatelessWidget {
       body: SafeArea(
         child: PageContainer(
           child: SingleChildScrollView(
-            child: NewsSignup(onSubmit: (data) => _onSubmit(context, data)),
+            child: NewsSignup(onSubmit: _onSubmit),
           ),
         ),
       ),
