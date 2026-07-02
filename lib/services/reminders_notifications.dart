@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -37,17 +35,17 @@ Future<void> refreshNotificationsBlocked() async {
   notificationsBlocked.value = !(await notificationsAuthorized());
 }
 
-/// Attempts to enable notifications: on Android tries a fresh permission prompt
-/// first (recovers a first-time denial); otherwise opens the OS notification
-/// settings. Returns whether permission is now granted, and keeps
-/// [notificationsBlocked] in sync on the success path.
+/// Attempts to enable notifications. Tries a real permission request first: on a
+/// device that hasn't been asked yet this shows the system popup (iOS and
+/// Android 13+). If the user previously chose "Don't allow", the OS returns
+/// without a dialog and we fall back to opening the app's notification settings
+/// so they can flip it on manually. Returns whether permission is now granted,
+/// and keeps [notificationsBlocked] in sync on the success path.
 Future<bool> promptEnableNotifications() async {
-  if (Platform.isAndroid) {
-    final granted = await ensureNotificationPermission();
-    if (granted) {
-      notificationsBlocked.value = false;
-      return true;
-    }
+  final granted = await ensureNotificationPermission();
+  if (granted) {
+    notificationsBlocked.value = false;
+    return true;
   }
   await AppSettings.openAppSettings(type: AppSettingsType.notification);
   return false;

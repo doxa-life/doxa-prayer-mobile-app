@@ -5,6 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../misc/titles.dart';
+import '../notifications/enable_notifications_prompt.dart';
 
 /// In-place confirmation shown after the news signup form is submitted. Thanks
 /// the user and tells them to check their email to verify their subscription.
@@ -33,6 +34,8 @@ class NewsSignupSuccess extends StatelessWidget {
           style: AppTypography.bodyMedium,
           textAlign: TextAlign.center,
         ),
+        // Offer to also enable push notifications (self-hides if already on).
+        const EnableNotificationsPrompt(),
       ],
     );
   }

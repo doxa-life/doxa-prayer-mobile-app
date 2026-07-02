@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../components/nav/details_nav_bar.dart';
+import '../components/notifications/enable_notifications_prompt.dart';
 import '../components/widgets/news_signup.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
+import '../services/identity_service.dart';
 import '../services/news_signup_service.dart';
 
 class NewsSignupSettingsScreen extends StatelessWidget {
@@ -17,6 +19,10 @@ class NewsSignupSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    // Already-signed-up users (they have a profile) get the enable-notifications
+    // prompt here too, so they can opt into push later without re-signing-up.
+    // The prompt self-hides when notifications are already enabled.
+    final alreadySignedUp = identityController.value?.profileId != null;
     return Scaffold(
       appBar: DetailsNavBar(
         title: l.signUpForUpdates,
@@ -25,7 +31,13 @@ class NewsSignupSettingsScreen extends StatelessWidget {
       body: SafeArea(
         child: PageContainer(
           child: SingleChildScrollView(
-            child: NewsSignup(onSubmit: _onSubmit),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                NewsSignup(onSubmit: _onSubmit),
+                if (alreadySignedUp) const EnableNotificationsPrompt(),
+              ],
+            ),
           ),
         ),
       ),

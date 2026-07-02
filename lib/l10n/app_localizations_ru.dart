@@ -382,6 +382,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Произошла ошибка. Проверьте подключение и попробуйте ещё раз.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'Ваш аккаунт';
 
   @override

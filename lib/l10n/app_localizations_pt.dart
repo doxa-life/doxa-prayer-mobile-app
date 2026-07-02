@@ -380,6 +380,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Algo deu errado. Verifique sua conexão e tente novamente.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'Sua conta';
 
   @override

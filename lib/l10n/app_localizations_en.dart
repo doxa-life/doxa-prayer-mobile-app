@@ -379,6 +379,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Something went wrong. Please check your connection and try again.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'Your account';
 
   @override

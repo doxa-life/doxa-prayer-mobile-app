@@ -385,6 +385,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ha surgido un problema. Comprueba tu conexión e inténtalo de nuevo.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'Tu cuenta';
 
   @override

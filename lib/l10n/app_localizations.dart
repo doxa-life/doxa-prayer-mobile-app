@@ -736,6 +736,18 @@ abstract class AppLocalizations {
   /// **'Something went wrong. Please check your connection and try again.'**
   String get newsSignupError;
 
+  /// Prompt shown after signing up for updates, offering to also enable push notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications to also receive updates in push notifications.'**
+  String get enableNotificationsPromptBody;
+
+  /// Button that requests OS notification permission so the user can receive push notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Enable notifications'**
+  String get enableNotificationsButton;
+
   /// Settings section header for the signed-up account (emails and profile)
   ///
   /// In en, this message translates to:

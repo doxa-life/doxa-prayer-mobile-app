@@ -384,6 +384,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Une erreur s\'est produite. Veuillez vérifier votre connexion et réessayer.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'Votre compte';
 
   @override

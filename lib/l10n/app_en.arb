@@ -455,6 +455,14 @@
     "@newsSignupError": {
         "description": "Error message shown when the news signup submission fails"
     },
+    "enableNotificationsPromptBody": "Enable notifications to also receive updates in push notifications.",
+    "@enableNotificationsPromptBody": {
+        "description": "Prompt shown after signing up for updates, offering to also enable push notifications"
+    },
+    "enableNotificationsButton": "Enable notifications",
+    "@enableNotificationsButton": {
+        "description": "Button that requests OS notification permission so the user can receive push notifications"
+    },
     "accountSectionTitle": "Your account",
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"

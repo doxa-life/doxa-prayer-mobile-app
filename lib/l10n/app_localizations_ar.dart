@@ -377,6 +377,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدث خطأ ما. يرجى التحقق من اتصالك ومحاولة الإجراء مرة أخرى.';
 
   @override
+  String get enableNotificationsPromptBody =>
+      'Enable notifications to also receive updates in push notifications.';
+
+  @override
+  String get enableNotificationsButton => 'Enable notifications';
+
+  @override
   String get accountSectionTitle => 'حسابك';
 
   @override
