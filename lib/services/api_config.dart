@@ -61,6 +61,29 @@ class ApiConfig {
 
   static bool get hasAppSecret => appSecret.isNotEmpty;
 
+  /// Compile-time OneSignal App ID override, set per launch via
+  /// `--dart-define=ONESIGNAL_APP_ID=<id>`.
+  static const String _dartDefineOneSignal =
+      String.fromEnvironment('ONESIGNAL_APP_ID');
+
+  /// The OneSignal App ID for this build. A OneSignal app binds to a single
+  /// bundle id / package, so prod and staging use separate apps — resolved in
+  /// the same precedence order as [buildUri]:
+  ///   1. `--dart-define=ONESIGNAL_APP_ID` — explicit per-launch override.
+  ///   2. `.env`: `ONESIGNAL_APP_ID_STAGING` for the staging flavor, else
+  ///      `ONESIGNAL_APP_ID`.
+  /// Returns an empty string when unconfigured, which makes push no-op cleanly.
+  static String get oneSignalAppId {
+    if (_dartDefineOneSignal.isNotEmpty) return _dartDefineOneSignal;
+    if (appFlavor == 'staging') {
+      final staging = dotenv.maybeGet('ONESIGNAL_APP_ID_STAGING', fallback: '');
+      if (staging != null && staging.isNotEmpty) return staging;
+    }
+    return dotenv.maybeGet('ONESIGNAL_APP_ID', fallback: '') ?? '';
+  }
+
+  static bool get hasOneSignal => oneSignalAppId.isNotEmpty;
+
   static Map<String, String> get signupHeaders => {
     'Accept': 'application/json',
     'Content-Type': 'application/json',

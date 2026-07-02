@@ -4,10 +4,12 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../l10n/app_localizations.dart';
+import 'api_config.dart';
 import 'locale_controller.dart';
 import 'reminders_controller.dart';
 
@@ -129,6 +131,7 @@ Future<bool> ensureNotificationPermission() async {
       AndroidFlutterLocalNotificationsPlugin>();
   if (android != null) {
     final granted = await android.requestNotificationsPermission();
+    if (granted ?? false) await _nudgeOneSignalRegister();
     return granted ?? false;
   }
 
@@ -140,10 +143,25 @@ Future<bool> ensureNotificationPermission() async {
       badge: true,
       sound: true,
     );
+    if (granted ?? false) await _nudgeOneSignalRegister();
     return granted ?? false;
   }
 
   return true;
+}
+
+/// After the shared OS notification permission has been granted via the
+/// reminders flow, nudge OneSignal to register its APNs/FCM token immediately.
+/// Because permission is already granted, this shows NO second dialog — it just
+/// opts the push subscription in so the device becomes addressable right away.
+/// Coupling is intentionally one-directional (reminders → OneSignal).
+Future<void> _nudgeOneSignalRegister() async {
+  if (!ApiConfig.hasOneSignal) return;
+  try {
+    await OneSignal.Notifications.requestPermission(false);
+  } catch (e) {
+    debugPrint('reminders_notifications: OneSignal permission nudge failed: $e');
+  }
 }
 
 /// Returns whether notifications are currently authorised, WITHOUT prompting.

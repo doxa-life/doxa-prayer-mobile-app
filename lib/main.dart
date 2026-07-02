@@ -16,6 +16,7 @@ import 'services/locale_controller.dart';
 import 'services/pray_override_controller.dart';
 import 'services/prayer_history_service.dart';
 import 'services/profile_update_service.dart';
+import 'services/push_notifications_service.dart';
 import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
@@ -45,6 +46,11 @@ Future<void> main() async {
     loadIdentity(),
     loadReferredPeopleGroup(),
   ]);
+  // Push notifications: init after identity is loaded so the first
+  // OneSignal.login() uses the right external id. Receive-only for now; no
+  // permission prompt here (that stays owned by the reminders flow). No-ops
+  // cleanly when ONESIGNAL_APP_ID is unset.
+  await initPushNotifications();
   // Android-only Play install-referrer lookup. Fire-and-forget after the persisted
   // referred slug is loaded, so it can't be clobbered; it updates the referral
   // controller within a second or two — before the user finishes the welcome step.

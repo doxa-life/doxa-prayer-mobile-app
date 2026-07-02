@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../services/reminders_notifications.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../buttons/action_button.dart';
@@ -113,6 +116,12 @@ class NewsSignupState extends State<NewsSignup> {
     });
     try {
       await onSubmit(data);
+      // Signing up for updates is consent to be contacted, so also request OS
+      // notification permission — the user opts into push updates alongside
+      // email. Fire-and-forget: a permission hiccup must never undo a
+      // successful signup. Shared OS permission means granting here also lets
+      // OneSignal register its push token (see ensureNotificationPermission).
+      unawaited(ensureNotificationPermission());
       if (mounted) setState(() => _submitted = true);
       return true;
     } catch (_) {

@@ -65,6 +65,17 @@
 		</dict>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
+		<!-- Remote push delivery (OneSignal). Enables background/content-available
+		     delivery and the Notification Service Extension's confirmed-delivery. -->
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>remote-notification</string>
+		</array>
+		<!-- Force both flavors to share one App Group id so the shared
+		     Runner.entitlements matches (OneSignal's per-bundle default would
+		     differ between production and staging otherwise). -->
+		<key>OneSignal_app_groups_key</key>
+		<string>group.app.prayer.doxa.onesignal</string>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
