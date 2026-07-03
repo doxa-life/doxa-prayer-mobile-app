@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.11.0+18 - 2026-07-03
+
+Features:
+- add deep linking of site prayer pages into the app
+- show thankyou modal when amen is clicked
+- fix button overflow on wizards
+- feedback button
+- add profile section and show redacted (un)verified email
+- add push notifications to the app
+- show 'enable notifications' for updates message
+
+Bug fixes:
+- overflow issues
+- reverse flyover arrow directions for RTL langs
+- only fire one notification for multiple alarms at same time
+- resend verification cooldown
+
 ## 1.10.0+17 - 2026-06-23
 
 Features:
