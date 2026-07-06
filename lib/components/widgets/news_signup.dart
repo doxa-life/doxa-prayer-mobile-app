@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../services/crash_reporting_service.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../buttons/action_button.dart';
@@ -115,7 +116,8 @@ class NewsSignupState extends State<NewsSignup> {
       await onSubmit(data);
       if (mounted) setState(() => _submitted = true);
       return true;
-    } catch (_) {
+    } catch (e, s) {
+      reportError(e, s, reason: 'news-signup submit failed');
       if (mounted) {
         setState(() {
           _errorMessage = AppLocalizations.of(context)!.newsSignupError;
