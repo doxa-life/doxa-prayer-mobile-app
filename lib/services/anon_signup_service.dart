@@ -6,6 +6,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:http/http.dart' as http;
 
 import 'api_config.dart';
+import 'crash_reporting_service.dart';
 import 'identity_service.dart';
 import 'locale_controller.dart';
 import 'reminders_controller.dart';
@@ -145,5 +146,7 @@ void _maybeFireDeferredSignup() {
       error: e,
       stackTrace: s,
     );
+    // Non-fatal: the user believes they signed up but the request failed.
+    reportError(e, s, reason: 'deferred anon-signup failed');
   });
 }

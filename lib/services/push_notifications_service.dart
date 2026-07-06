@@ -9,6 +9,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../router.dart';
 import 'api_config.dart';
+import 'crash_reporting_service.dart';
 import 'identity_service.dart';
 import 'reminders_notifications.dart';
 
@@ -193,5 +194,6 @@ Future<void> _registerPushWithServer(String subscriptionId) async {
       error: e,
       stackTrace: s,
     );
+    reportError(e, s, reason: 'push register failed');
   }
 }

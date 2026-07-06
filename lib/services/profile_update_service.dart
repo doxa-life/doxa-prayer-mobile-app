@@ -6,6 +6,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:http/http.dart' as http;
 
 import 'api_config.dart';
+import 'crash_reporting_service.dart';
 import 'identity_service.dart';
 import 'reminders_controller.dart';
 import 'selected_people_group_controller.dart';
@@ -158,5 +159,7 @@ void _onSyncTrigger() {
       error: e,
       stackTrace: s,
     );
+    // Non-fatal: the user's profile change silently failed to sync.
+    reportError(e, s, reason: 'profile update failed');
   });
 }

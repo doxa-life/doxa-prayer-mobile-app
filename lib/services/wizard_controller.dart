@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../components/widgets/news_signup.dart';
 import '../models/people_group.dart';
 import 'anon_signup_service.dart';
+import 'crash_reporting_service.dart';
 import 'install_referrer_service.dart';
 import 'locale_controller.dart';
 import 'news_signup_service.dart';
@@ -137,6 +138,7 @@ class WizardController extends ChangeNotifier {
         error: e,
         stackTrace: s,
       );
+      reportError(e, s, reason: 'referred people group lookup failed');
       await clearReferredPeopleGroup();
       if (_disposed) return;
       _resolvingReferral = false;
@@ -253,6 +255,7 @@ class WizardController extends ChangeNotifier {
         error: e,
         stackTrace: s,
       );
+      reportError(e, s, reason: 'anon-signup failed at wizard finish');
     }
   }
 

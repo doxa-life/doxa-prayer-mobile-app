@@ -6,6 +6,10 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+    // Firebase Crashlytics. google-services must be applied so the plugin can read the
+    // per-flavor google-services.json (see android/app/src/<flavor>/google-services.json).
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 val keystoreProperties = Properties()

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +11,7 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
+import 'services/crash_reporting_service.dart';
 import 'services/identity_service.dart';
 import 'services/install_referrer_service.dart';
 import 'services/locale_controller.dart';
@@ -27,6 +29,10 @@ import 'theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Crash reporting first: initialise Firebase and install the error handlers
+  // before the rest of startup so crashes during bootstrap are captured too.
+  await Firebase.initializeApp();
+  await initCrashReporting();
   try {
     await dotenv.load();
   } catch (e) {

@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'crash_reporting_service.dart';
 import 'version_check_service.dart';
 
 const _dismissedVersionKey = 'update_dismissed_version';
@@ -75,8 +76,9 @@ Future<void> checkForAppUpdate() async {
 
     updateController.value =
         state == UpdateState.none ? UpdateStatus.none : UpdateStatus(state, info);
-  } catch (e) {
+  } catch (e, s) {
     developer.log('app update check failed', name: 'update', error: e);
+    reportError(e, s, reason: 'app update check failed');
     updateController.value = UpdateStatus.none;
   }
 }

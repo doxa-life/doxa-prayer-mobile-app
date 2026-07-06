@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
@@ -6,6 +7,7 @@ import '../components/misc/titles.dart';
 import '../components/nav/details_nav_bar.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
+import '../services/crash_reporting_service.dart';
 import '../services/identity_service.dart';
 import '../services/install_referrer_service.dart';
 import '../services/locale_controller.dart';
@@ -55,6 +57,7 @@ class DebugScreen extends StatelessWidget {
                   _prefsSection(context),
                   const _SimulateReferralCard(),
                   _updateSection(context),
+                  _crashlyticsSection(context),
                 ],
               ),
             ),
@@ -188,6 +191,40 @@ class DebugScreen extends StatelessWidget {
               const SnackBar(content: Text('Cleared update prompt')),
             );
           },
+        ),
+      ],
+    ),
+  );
+
+  Widget _crashlyticsSection(BuildContext context) => Section(
+    title: 'Crashlytics',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        Text(
+          'Verify crash reporting. Collection is disabled in debug builds, so '
+          'reports only reach the Firebase console from a profile/release build '
+          '(e.g. flutter run --profile --flavor staging). A fatal crash uploads '
+          'on the next launch.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Log test non-fatal',
+          onPressed: () {
+            reportError(
+              Exception('Test non-fatal from debug screen'),
+              StackTrace.current,
+              reason: 'debug screen test non-fatal',
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Recorded test non-fatal')),
+            );
+          },
+        ),
+        ActionButton.fullWidth(
+          label: 'Force test crash',
+          onPressed: () => FirebaseCrashlytics.instance.crash(),
         ),
       ],
     ),

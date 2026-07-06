@@ -10,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../../layouts/page_scaffold.dart';
 import '../../models/prayer_content.dart';
 import '../../router.dart';
+import '../../services/crash_reporting_service.dart';
 import '../../services/identity_service.dart';
 import '../../services/prayer_content_service.dart';
 import '../../services/prayer_history_service.dart';
@@ -149,7 +150,10 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
             openedAtTimestamp: openedAt.toUtc().toLocal().toIso8601String(),
           ),
         );
-      } catch (_) {}
+      } catch (e, s) {
+        // Best-effort background record; never surfaces to the user.
+        reportError(e, s, reason: 'prayer session record failed (background)');
+      }
     });
   }
 
@@ -249,14 +253,14 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
       );
     } catch (error, stackTrace) {
       // Recording the prayer is best-effort; failures must not interrupt the
-      // user's experience. Surface to the dev console only for now (a
-      // crash-reporting integration can hook in here later).
+      // user's experience. Log for local dev and report as a non-fatal.
       developer.log(
         'Failed to record prayer session',
         name: 'prayer_session_view',
         error: error,
         stackTrace: stackTrace,
       );
+      reportError(error, stackTrace, reason: 'prayer session record failed');
     } finally {
       if (mounted) setState(() => _submitting = false);
     }

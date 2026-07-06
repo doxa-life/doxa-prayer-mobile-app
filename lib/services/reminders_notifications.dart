@@ -8,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../l10n/app_localizations.dart';
 import 'api_config.dart';
+import 'crash_reporting_service.dart';
 import 'locale_controller.dart';
 import 'reminders_controller.dart';
 
@@ -236,8 +237,9 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         payload: 'pray',
       );
-    } catch (e) {
+    } catch (e, s) {
       debugPrint('reminders_notifications: schedule failed for $id: $e');
+      reportError(e, s, reason: 'reminder schedule failed');
     }
   }
 }
