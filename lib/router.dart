@@ -14,6 +14,7 @@ import 'screens/pray_screen.dart';
 import 'screens/reminders_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/wizard_screen.dart';
+import 'services/crashlytics_route_observer.dart';
 import 'services/pray_override_controller.dart';
 import 'services/referral_controller.dart';
 import 'services/wizard_completion_controller.dart';
@@ -43,6 +44,8 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  // Records root-level screen transitions as Crashlytics breadcrumbs.
+  observers: [CrashlyticsRouteObserver()],
   refreshListenable: wizardCompletedController,
   redirect: (context, state) {
     // "Pray on the app" deep links (/app/<slug>) are resolved by their own route

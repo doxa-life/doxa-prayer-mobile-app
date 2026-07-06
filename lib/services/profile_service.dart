@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'api_config.dart';
+import 'crash_reporting_service.dart';
 
 /// One signed-up email address as returned by the profile endpoint. The [value]
 /// is redacted server-side (e.g. `n***@g***.org`); [id] is the contact-method
@@ -92,7 +93,8 @@ Future<ResendVerificationResult> resendVerification(
       );
     }
     return const ResendVerificationResult(ResendVerificationStatus.sent);
-  } catch (_) {
+  } catch (e, s) {
+    reportError(e, s, reason: 'resend-verification failed');
     return const ResendVerificationResult(ResendVerificationStatus.failed);
   }
 }

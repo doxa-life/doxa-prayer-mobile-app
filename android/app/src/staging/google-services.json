@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533163240849",
+    "project_id": "doxa-prayer-app-staging",
+    "storage_bucket": "doxa-prayer-app-staging.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533163240849:android:dadd3007004c03005f7e30",
+        "android_client_info": {
+          "package_name": "app.prayer.doxa.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxaa9a3HIY1knC9-an7JJ6NaS1QX8C6p0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
