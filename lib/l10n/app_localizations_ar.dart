@@ -200,6 +200,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayedToday => 'صليت اليوم';
 
   @override
+  String get prayerReminderTitle => 'حان وقت الصلاة اليوم؟';
+
+  @override
+  String prayerReminderBody(String peopleGroup) {
+    return 'اضغط للصلاة من أجل «$peopleGroup».';
+  }
+
+  @override
+  String get dismissReminderLabel => 'تجاهل التذكير';
+
+  @override
   String get newReminder => 'تذكير جديد';
 
   @override

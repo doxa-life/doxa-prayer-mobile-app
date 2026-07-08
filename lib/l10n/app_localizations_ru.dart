@@ -204,6 +204,17 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayedToday => 'Помолились сегодня';
 
   @override
+  String get prayerReminderTitle => 'Готовы помолиться сегодня?';
+
+  @override
+  String prayerReminderBody(String peopleGroup) {
+    return 'Нажмите, чтобы помолиться за «$peopleGroup».';
+  }
+
+  @override
+  String get dismissReminderLabel => 'Скрыть напоминание';
+
+  @override
   String get newReminder => 'Новое напоминание';
 
   @override

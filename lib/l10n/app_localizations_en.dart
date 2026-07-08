@@ -202,6 +202,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayedToday => 'Prayed today';
 
   @override
+  String get prayerReminderTitle => 'Ready for today\'s prayer?';
+
+  @override
+  String prayerReminderBody(String peopleGroup) {
+    return 'Tap to pray for $peopleGroup.';
+  }
+
+  @override
+  String get dismissReminderLabel => 'Dismiss reminder';
+
+  @override
   String get newReminder => 'New reminder';
 
   @override

@@ -448,6 +448,24 @@ abstract class AppLocalizations {
   /// **'Prayed today'**
   String get prayedToday;
 
+  /// Title of the dismissable home banner reminding the user they haven't prayed yet today
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for today\'s prayer?'**
+  String get prayerReminderTitle;
+
+  /// Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to pray for {peopleGroup}.'**
+  String prayerReminderBody(String peopleGroup);
+
+  /// Accessibility label for the close button on the home prayer reminder banner
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss reminder'**
+  String get dismissReminderLabel;
+
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
   ///
   /// In en, this message translates to:

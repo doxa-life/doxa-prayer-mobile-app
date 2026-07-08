@@ -3,6 +3,7 @@ import 'package:doxa_prayer_mobile_app/components/cards/get_involved_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/prayer_reminder_banner.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/qr_share_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
@@ -30,19 +31,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        PageContainer(
-          child: Column(
-            spacing: AppSpacing.xxl,
-            children: [
-              _peopleGroupCardOrCTA(),
-              _remindersCardOrCTA(),
-              _getInvolvedCard(context),
-            ],
+    return PrayerReminderBanner(
+      child: ListView(
+        children: [
+          PageContainer(
+            child: Column(
+              spacing: AppSpacing.xxl,
+              children: [
+                _peopleGroupCardOrCTA(),
+                _remindersCardOrCTA(),
+                _getInvolvedCard(context),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

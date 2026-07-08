@@ -206,6 +206,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get prayedToday => 'J\'ai prié aujourd\'hui';
 
   @override
+  String get prayerReminderTitle => 'C\'est le moment de prier aujourd\'hui ?';
+
+  @override
+  String prayerReminderBody(String peopleGroup) {
+    return 'Touchez pour prier pour $peopleGroup.';
+  }
+
+  @override
+  String get dismissReminderLabel => 'Ignorer le rappel';
+
+  @override
   String get newReminder => 'Nouveau rappel';
 
   @override
