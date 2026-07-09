@@ -86,9 +86,11 @@ class _NotificationPermissionSettingsScreenState
 
   Widget _buildGranted(AppLocalizations l) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.check_circle,
@@ -96,21 +98,26 @@ class _NotificationPermissionSettingsScreenState
               size: 28,
             ),
             const SizedBox(width: AppSpacing.sm),
-            Expanded(child: H2(l.notifications_enabled)),
+            H2(l.notifications_enabled, textAlign: TextAlign.center),
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
-        Text(l.notificationsEnabledStatus, style: AppTypography.bodyMedium),
+        Text(
+          l.notificationsEnabledStatus,
+          style: AppTypography.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
 
   Widget _buildDenied(AppLocalizations l) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.notifications_off,
@@ -118,13 +125,21 @@ class _NotificationPermissionSettingsScreenState
               size: 28,
             ),
             const SizedBox(width: AppSpacing.sm),
-            Expanded(child: H2(l.notifications_disabled)),
+            H2(l.notifications_disabled),
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
-        Text(l.notificationsDisabledStatus, style: AppTypography.bodyMedium),
+        Text(
+          l.notificationsDisabledStatus,
+          style: AppTypography.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: AppSpacing.md),
-        Text(l.notificationsHowToEnable, style: AppTypography.bodySmall),
+        Text(
+          l.notificationsHowToEnable,
+          style: AppTypography.bodySmall,
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: AppSpacing.xxl),
         ActionButton.fullWidth(
           label: l.openSettings,
