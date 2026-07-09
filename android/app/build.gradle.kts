@@ -19,7 +19,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "app.prayer.doxa"
+    namespace = "life.doxa.pray"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -35,7 +35,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "app.prayer.doxa"
+        applicationId = "life.doxa.pray"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -66,7 +66,7 @@ android {
     productFlavors {
         create("production") {
             dimension = "env"
-            // Uses the default applicationId (app.prayer.doxa).
+            // Uses the default applicationId (life.doxa.pray).
             resValue("string", "app_name", "Doxa Prayer")
         }
         create("staging") {

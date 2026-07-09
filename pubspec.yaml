@@ -119,16 +119,16 @@ flavorizr:
       app:
         name: "Doxa Prayer"
       android:
-        applicationId: "app.prayer.doxa"
+        applicationId: "life.doxa.pray"
       ios:
-        bundleId: "app.prayer.doxa"
+        bundleId: "life.doxa.pray"
     staging:
       app:
         name: "Doxa Staging"
       android:
-        applicationId: "app.prayer.doxa.staging"
+        applicationId: "life.doxa.pray.staging"
       ios:
-        bundleId: "app.prayer.doxa.staging"
+        bundleId: "life.doxa.pray.staging"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

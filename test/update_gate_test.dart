@@ -10,7 +10,7 @@ const _info = AppVersionInfo(
   minSupportedVersion: '1.1.0',
   iosAppStoreUrl: 'https://apps.apple.com/app/id1',
   androidPlayUrl:
-      'https://play.google.com/store/apps/details?id=app.prayer.doxa',
+      'https://play.google.com/store/apps/details?id=life.doxa.pray',
 );
 
 Widget _wrap() => MaterialApp(

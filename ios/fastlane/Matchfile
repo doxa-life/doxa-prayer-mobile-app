@@ -12,6 +12,6 @@ type("appstore")
 
 # Both flavors. match generates one App Store profile per bundle id, named
 # "match AppStore <bundle id>" — the Fastfile references those names verbatim.
-app_identifier(["app.prayer.doxa", "app.prayer.doxa.staging"])
+app_identifier(["life.doxa.pray", "life.doxa.pray.staging"])
 
 username(ENV["APPLE_ID"]) if ENV["APPLE_ID"].to_s != ""

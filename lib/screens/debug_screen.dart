@@ -28,7 +28,7 @@ const _fakeUpdateInfo = AppVersionInfo(
   minSupportedVersion: '9.9.9',
   iosAppStoreUrl: 'https://apps.apple.com/app/id000000000',
   androidPlayUrl:
-      'https://play.google.com/store/apps/details?id=app.prayer.doxa',
+      'https://play.google.com/store/apps/details?id=life.doxa.pray',
 );
 
 class DebugScreen extends StatelessWidget {
