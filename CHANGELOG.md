@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.12.0+19 - 2026-07-14
+
+Features:
+- add crashylitics
+- prayer reminder banner on home page
+
+Bug fixes:
+- centralise text on screen
+
 ## 1.11.0+18 - 2026-07-03
 
 Features:

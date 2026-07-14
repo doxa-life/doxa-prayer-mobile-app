@@ -1,0 +1,6 @@
+Features:
+- add crashylitics
+- prayer reminder banner on home page
+
+Bug fixes:
+- centralise text on screen
