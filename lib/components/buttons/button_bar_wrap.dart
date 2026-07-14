@@ -8,8 +8,8 @@ import 'action_button.dart';
 /// Lays the two buttons out side by side (equal width) when their labels fit
 /// on one line, and stacks them full width when a long (e.g. translated) label
 /// would otherwise overflow the row.
-class ButtonBar extends StatelessWidget {
-  const ButtonBar({
+class ButtonBarWrap extends StatelessWidget {
+  const ButtonBarWrap({
     super.key,
     required this.leading,
     required this.trailing,

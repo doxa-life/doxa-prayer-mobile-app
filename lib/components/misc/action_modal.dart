@@ -1,5 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/action_button.dart';
-import 'package:doxa_prayer_mobile_app/components/buttons/button_bar.dart';
+import 'package:doxa_prayer_mobile_app/components/buttons/button_bar_wrap.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
@@ -22,7 +22,7 @@ class ActionModal extends StatelessWidget {
   Widget build(BuildContext context) {
     // A plain Dialog rather than AlertDialog: AlertDialog wraps its content in
     // IntrinsicWidth, which both hugs the message width (so a wide button row
-    // overflows) and breaks WizardButtonBar's LayoutBuilder. A Dialog gives the
+    // overflows) and breaks ButtonBar's LayoutBuilder. A Dialog gives the
     // child bounded width, so the button bar can measure it and lay the buttons
     // out side by side — or stacked full width when a longer (e.g. translated)
     // label wouldn't fit.
@@ -49,7 +49,7 @@ class ActionModal extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.xxl),
-            ButtonBar(
+            ButtonBarWrap(
               leading: actionButtons.first,
               trailing: actionButtons.last,
             ),

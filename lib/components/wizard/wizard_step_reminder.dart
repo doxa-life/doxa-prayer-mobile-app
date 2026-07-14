@@ -9,7 +9,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
-import '../buttons/button_bar.dart';
+import '../buttons/button_bar_wrap.dart';
 import '../reminders/exact_alarm_permission_prompt.dart';
 import '../reminders/reminder_form.dart';
 
@@ -79,7 +79,7 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
           ),
           const SizedBox(height: AppSpacing.xxl),
           Expanded(child: SizedBox.shrink()),
-          ButtonBar(
+          ButtonBarWrap(
             leading: ActionButton(
               label: l.skip,
               color: ActionButtonColor.white,
