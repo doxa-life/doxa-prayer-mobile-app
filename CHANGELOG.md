@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.13.0+20 - 2026-07-14
+
+Features:
+- use SCHEDULE_EXACT_ALARMS instead of USE_***
+
+Code refactoring:
+- WizardButtonBar to ButtonBar
+
 ## 1.12.0+19 - 2026-07-14
 
 Features:

@@ -1,0 +1,5 @@
+Features:
+- use SCHEDULE_EXACT_ALARMS instead of USE_***
+
+Code refactoring:
+- WizardButtonBar to ButtonBar
