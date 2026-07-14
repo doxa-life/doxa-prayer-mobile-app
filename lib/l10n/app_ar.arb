@@ -2,6 +2,12 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
     "@alternateName": {
         "description": "The label of the alternate name field"
     },
@@ -85,6 +91,12 @@
     "@everyDay": {
         "description": "Days summary shown when a reminder is set for all 7 days"
     },
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
     "@feedback": {
         "description": "Button that opens the feedback page in the browser"
     },
@@ -159,6 +171,9 @@
     },
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
@@ -493,6 +508,8 @@
         "description": "The yes confirmation button"
     },
     "adoptionStatus": "حالة التبنّي",
+    "allow": "السماح",
+    "allowExactAlarms": "السماح بالتنبيهات الدقيقة",
     "alternateName": "اسم بديل",
     "amen": "آمين",
     "appName": "صلاة دوكسا",
@@ -519,6 +536,8 @@
     "enableNotifications": "تمكين الإشعارات",
     "engagementStatus": "حالة الانخراط",
     "everyDay": "كل يوم",
+    "exactAlarmsDisabledStatus": "التنبيهات الدقيقة غير مسموح بها لتطبيق Doxa، لذا قد تصل تذكيرات الصلاة متأخرة بعدة دقائق.",
+    "exactAlarmsPromptBody": "لكي تصل تذكيرات الصلاة في وقتها تمامًا، اسمح لتطبيق Doxa باستخدام التنبيهات الدقيقة.",
     "feedback": "التعليقات",
     "finish": "إنهاء",
     "getInvolved": "شارك معنا",
@@ -538,6 +557,7 @@
     "accountSectionTitle": "حسابك",
     "emailVerified": "تم التحقق",
     "emailUnverified": "لم يتم التحقق",
+    "notNow": "ليس الآن",
     "resendVerification": "إعادة إرسال رسالة التحقق",
     "resendVerificationSent": "تم إرسال رسالة التحقق. تحقق من صندوق الوارد.",
     "resendVerificationCooldown": "يُرجى الانتظار {seconds} ثانية قبل طلب رسالة أخرى.",

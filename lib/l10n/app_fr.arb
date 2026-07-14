@@ -2,6 +2,12 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
     "@alternateName": {
         "description": "The label of the alternate name field"
     },
@@ -85,6 +91,12 @@
     "@everyDay": {
         "description": "Days summary shown when a reminder is set for all 7 days"
     },
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
     "@feedback": {
         "description": "Button that opens the feedback page in the browser"
     },
@@ -159,6 +171,9 @@
     },
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
@@ -493,6 +508,8 @@
         "description": "The yes confirmation button"
     },
     "adoptionStatus": "Statut d'adoption",
+    "allow": "Autoriser",
+    "allowExactAlarms": "Autoriser les alarmes exactes",
     "alternateName": "Autre nom",
     "amen": "Amen",
     "appName": "Doxa Prayer",
@@ -519,6 +536,8 @@
     "enableNotifications": "Activer les notifications",
     "engagementStatus": "Statut de l'engagement",
     "everyDay": "Tous les jours",
+    "exactAlarmsDisabledStatus": "Les alarmes exactes ne sont pas autorisées pour Doxa ; vos rappels de prière peuvent donc arriver avec plusieurs minutes de retard.",
+    "exactAlarmsPromptBody": "Pour que vos rappels de prière arrivent à l'heure pile, autorisez Doxa à utiliser des alarmes exactes.",
     "feedback": "Commentaires",
     "finish": "Terminer",
     "getInvolved": "Impliquez-vous",
@@ -538,6 +557,7 @@
     "accountSectionTitle": "Votre compte",
     "emailVerified": "Vérifié",
     "emailUnverified": "Non vérifié",
+    "notNow": "Pas maintenant",
     "resendVerification": "Renvoyer l'e-mail de vérification",
     "resendVerificationSent": "E-mail de vérification envoyé. Vérifiez votre boîte de réception.",
     "resendVerificationCooldown": "Veuillez patienter {seconds} s avant de demander un autre e-mail.",

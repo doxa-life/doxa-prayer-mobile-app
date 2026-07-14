@@ -31,9 +31,21 @@ final ValueNotifier<String?> reminderTapPayload = ValueNotifier<String?>(null);
 /// badges on the Reminders tab and the Settings row.
 final ValueNotifier<bool> notificationsBlocked = ValueNotifier<bool>(false);
 
+/// true when the app can post notifications but cannot schedule *exact* alarms
+/// (Android 12+ without the SCHEDULE_EXACT_ALARM permission). Reminders still
+/// fire in this state, but via inexact scheduling so they may arrive several
+/// minutes late — the reminders screen surfaces a warning offering to grant it.
+/// Always false on iOS and Android < 12, where exact scheduling isn't gated.
+final ValueNotifier<bool> exactAlarmsBlocked = ValueNotifier<bool>(false);
+
 /// Refreshes [notificationsBlocked] from the current OS permission state.
 Future<void> refreshNotificationsBlocked() async {
   notificationsBlocked.value = !(await notificationsAuthorized());
+}
+
+/// Refreshes [exactAlarmsBlocked] from the current OS permission state.
+Future<void> refreshExactAlarmsBlocked() async {
+  exactAlarmsBlocked.value = !(await exactAlarmsAuthorized());
 }
 
 /// Attempts to enable notifications. Tries a real permission request first: on a
@@ -184,6 +196,49 @@ Future<bool> notificationsAuthorized() async {
   return true;
 }
 
+/// Returns whether the app may schedule *exact* alarms, WITHOUT prompting.
+/// Only Android 12+ gates this; the plugin reports true on older Android and on
+/// platforms (iOS) where exact scheduling isn't permission-controlled, so a
+/// false result specifically means "Android that needs SCHEDULE_EXACT_ALARM but
+/// hasn't been granted it".
+Future<bool> exactAlarmsAuthorized() async {
+  if (!_initialized) await initRemindersNotifications();
+
+  final android = _plugin.resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>();
+  if (android != null) {
+    return (await android.canScheduleExactNotifications()) ?? true;
+  }
+
+  // iOS and other platforms deliver scheduled notifications at the set time
+  // without an exact-alarm permission, so there is nothing to be blocked on.
+  return true;
+}
+
+/// Sends the user to the system "Alarms & reminders" screen to grant the
+/// SCHEDULE_EXACT_ALARM permission (no-op on iOS / Android < 12). Reschedules
+/// afterwards so already-set reminders upgrade from inexact to exact timing,
+/// and keeps [exactAlarmsBlocked] in sync. Returns whether exact alarms are now
+/// permitted.
+Future<bool> promptEnableExactAlarms() async {
+  if (!_initialized) await initRemindersNotifications();
+
+  final android = _plugin.resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>();
+  if (android != null) {
+    await android.requestExactAlarmsPermission();
+  }
+
+  final granted = await exactAlarmsAuthorized();
+  exactAlarmsBlocked.value = !granted;
+  if (granted) {
+    await rescheduleAllReminders(
+      remindersController.value?.list ?? const <Reminder>[],
+    );
+  }
+  return granted;
+}
+
 /// Cancels every scheduled reminder notification and reschedules exactly one
 /// per distinct fire-time across all enabled reminders. Keying notifications by
 /// time slot (not by reminder) means several reminders that land on the same
@@ -203,6 +258,16 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
     }
   }
   if (slots.isEmpty) return;
+
+  // Prefer exact alarms so reminders fire at the chosen minute, but fall back
+  // to inexact scheduling when the permission isn't granted — otherwise the
+  // plugin throws ExactAlarmPermissionException and nothing gets scheduled at
+  // all. Also refresh the notifier so the warning banner reflects reality.
+  final canExact = await exactAlarmsAuthorized();
+  exactAlarmsBlocked.value = !canExact;
+  final scheduleMode = canExact
+      ? AndroidScheduleMode.exactAllowWhileIdle
+      : AndroidScheduleMode.inexactAllowWhileIdle;
 
   final l = lookupAppLocalizations(localeController.value);
   final title = l.reminderNotificationTitle;
@@ -233,7 +298,7 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
         body: body,
         scheduledDate: fireAt,
         notificationDetails: details,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        androidScheduleMode: scheduleMode,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         payload: 'pray',
       );

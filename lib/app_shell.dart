@@ -34,6 +34,7 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
       WidgetsBinding.instance.addPostFrameCallback((_) => _onReminderTap());
     }
     refreshNotificationsBlocked();
+    refreshExactAlarmsBlocked();
   }
 
   @override
@@ -53,6 +54,9 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
       // Re-check notification permission — the user may have just toggled it in
       // OS settings.
       refreshNotificationsBlocked();
+      // Likewise re-check exact-alarm permission — the user may have granted it
+      // via the system "Alarms & reminders" screen while away.
+      refreshExactAlarmsBlocked();
     }
   }
 
@@ -119,9 +123,16 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             onDebug: () => _openDebug(context),
           ),
           body: widget.navigationShell,
-          bottomNavigationBar: ValueListenableBuilder<bool>(
-            valueListenable: notificationsBlocked,
-            builder: (context, blocked, _) => BottomNavBar(
+          // Badge the reminders tab when anything stops reminders from firing as
+          // expected: notifications turned off, or exact alarms not permitted
+          // (reminders would arrive late). Merge both notifiers so either flips
+          // the dot.
+          bottomNavigationBar: ListenableBuilder(
+            listenable: Listenable.merge([
+              notificationsBlocked,
+              exactAlarmsBlocked,
+            ]),
+            builder: (context, _) => BottomNavBar(
               items: [
                 BottomNavItemData(
                   icon: AppIconName.home,
@@ -142,7 +153,7 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
                   icon: AppIconName.bell,
                   selectedIcon: AppIconName.bellSolid,
                   label: AppLocalizations.of(context)!.reminders,
-                  showBadge: blocked,
+                  showBadge: notificationsBlocked.value || exactAlarmsBlocked.value,
                 ),
               ],
               currentIndex: widget.navigationShell.currentIndex,

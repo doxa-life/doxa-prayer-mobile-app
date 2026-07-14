@@ -264,6 +264,23 @@ class AppLocalizationsRu extends AppLocalizations {
       'Нажмите ниже, чтобы открыть настройки, а затем разрешите получение уведомлений от Doxa.';
 
   @override
+  String get exactAlarmsDisabledStatus =>
+      'Точные будильники не разрешены для Doxa, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.';
+
+  @override
+  String get allowExactAlarms => 'Разрешить точные будильники';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'Чтобы напоминания о молитвах приходили точно вовремя, разрешите Doxa использовать точные будильники.';
+
+  @override
+  String get allow => 'Разрешить';
+
+  @override
+  String get notNow => 'Не сейчас';
+
+  @override
   String get enableNotifications => 'Включить уведомления';
 
   @override

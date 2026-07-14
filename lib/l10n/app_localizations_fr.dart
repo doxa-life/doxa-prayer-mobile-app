@@ -266,6 +266,23 @@ class AppLocalizationsFr extends AppLocalizations {
       'Appuyez ci-dessous pour ouvrir les paramètres, puis autorisez les notifications pour Doxa.';
 
   @override
+  String get exactAlarmsDisabledStatus =>
+      'Les alarmes exactes ne sont pas autorisées pour Doxa ; vos rappels de prière peuvent donc arriver avec plusieurs minutes de retard.';
+
+  @override
+  String get allowExactAlarms => 'Autoriser les alarmes exactes';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'Pour que vos rappels de prière arrivent à l\'heure pile, autorisez Doxa à utiliser des alarmes exactes.';
+
+  @override
+  String get allow => 'Autoriser';
+
+  @override
+  String get notNow => 'Pas maintenant';
+
+  @override
   String get enableNotifications => 'Activer les notifications';
 
   @override

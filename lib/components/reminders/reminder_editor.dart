@@ -5,10 +5,15 @@ import '../../services/reminders_controller.dart';
 import '../../services/reminders_notifications.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
+import 'exact_alarm_permission_prompt.dart';
 import 'reminder_form.dart';
 
-Future<void> showReminderEditor(BuildContext context, {Reminder? existing}) {
-  return showModalBottomSheet<void>(
+Future<void> showReminderEditor(BuildContext context, {Reminder? existing}) async {
+  // The sheet pops with `true` when it just saved the user's first reminder and
+  // we should nudge for exact-alarm permission. We show that prompt here — after
+  // the sheet has closed — so the dialog lands on the reminders screen rather
+  // than stacking over the closing sheet.
+  final promptExactAlarms = await showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
@@ -18,6 +23,9 @@ Future<void> showReminderEditor(BuildContext context, {Reminder? existing}) {
     ),
     builder: (_) => _ReminderEditorSheet(existing: existing),
   );
+  if (promptExactAlarms == true && context.mounted) {
+    await showExactAlarmPermissionPrompt(context);
+  }
 }
 
 class _ReminderEditorSheet extends StatelessWidget {
@@ -28,6 +36,9 @@ class _ReminderEditorSheet extends StatelessWidget {
   Future<void> _onSaved(BuildContext context, Reminder next) async {
     final messenger = ScaffoldMessenger.of(context);
     final l = AppLocalizations.of(context)!;
+    // Capture before adding: is this the user's very first reminder?
+    final wasFirstReminder =
+        existing == null && (remindersController.value?.list.isEmpty ?? true);
     final granted = await ensureNotificationPermission();
     if (existing == null) {
       await addReminder(next);
@@ -40,7 +51,12 @@ class _ReminderEditorSheet extends StatelessWidget {
         SnackBar(content: Text(l.notificationsDisabledStatus)),
       );
     }
-    Navigator.of(context).pop();
+    final promptExactAlarms = await shouldPromptExactAlarms(
+      wasFirstReminder: wasFirstReminder,
+      notificationsGranted: granted,
+    );
+    if (!context.mounted) return;
+    Navigator.of(context).pop(promptExactAlarms);
   }
 
   Future<void> _onDelete(BuildContext context) async {

@@ -259,6 +259,23 @@ class AppLocalizationsAr extends AppLocalizations {
       'انقر أدناه لفتح الإعدادات، ثم قم بالسماح بتلقي الإشعارات من Doxa.';
 
   @override
+  String get exactAlarmsDisabledStatus =>
+      'التنبيهات الدقيقة غير مسموح بها لتطبيق Doxa، لذا قد تصل تذكيرات الصلاة متأخرة بعدة دقائق.';
+
+  @override
+  String get allowExactAlarms => 'السماح بالتنبيهات الدقيقة';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'لكي تصل تذكيرات الصلاة في وقتها تمامًا، اسمح لتطبيق Doxa باستخدام التنبيهات الدقيقة.';
+
+  @override
+  String get allow => 'السماح';
+
+  @override
+  String get notNow => 'ليس الآن';
+
+  @override
   String get enableNotifications => 'تمكين الإشعارات';
 
   @override

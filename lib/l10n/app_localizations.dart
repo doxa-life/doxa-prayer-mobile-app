@@ -556,6 +556,36 @@ abstract class AppLocalizations {
   /// **'Tap below to open settings, then allow notifications for Doxa.'**
   String get notificationsHowToEnable;
 
+  /// Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms aren\'t allowed for Doxa, so your prayer reminders may arrive several minutes late.'**
+  String get exactAlarmsDisabledStatus;
+
+  /// Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission
+  ///
+  /// In en, this message translates to:
+  /// **'Allow exact alarms'**
+  String get allowExactAlarms;
+
+  /// Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission
+  ///
+  /// In en, this message translates to:
+  /// **'For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.'**
+  String get exactAlarmsPromptBody;
+
+  /// Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get allow;
+
+  /// Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notNow;
+
   /// Button label that takes the user to the notification settings page to enable notifications
   ///
   /// In en, this message translates to:

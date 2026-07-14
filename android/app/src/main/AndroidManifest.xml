@@ -4,8 +4,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- User-grantable exact-alarm permission so prayer reminders can fire at the
+         chosen minute. Deliberately NOT USE_EXACT_ALARM: that variant is auto-granted
+         but Play-policy-restricted to alarm/calendar apps, which this content app is
+         not. When this is not granted we fall back to inexact scheduling — see
+         rescheduleAllReminders in reminders_notifications.dart. -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"

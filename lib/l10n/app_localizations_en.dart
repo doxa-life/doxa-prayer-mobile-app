@@ -261,6 +261,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tap below to open settings, then allow notifications for Doxa.';
 
   @override
+  String get exactAlarmsDisabledStatus =>
+      'Exact alarms aren\'t allowed for Doxa, so your prayer reminders may arrive several minutes late.';
+
+  @override
+  String get allowExactAlarms => 'Allow exact alarms';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.';
+
+  @override
+  String get allow => 'Allow';
+
+  @override
+  String get notNow => 'Not now';
+
+  @override
   String get enableNotifications => 'Enable notifications';
 
   @override

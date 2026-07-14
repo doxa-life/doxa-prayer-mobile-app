@@ -2,6 +2,12 @@
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
     "@alternateName": {
         "description": "The label of the alternate name field"
     },
@@ -85,6 +91,12 @@
     "@everyDay": {
         "description": "Days summary shown when a reminder is set for all 7 days"
     },
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
     "@feedback": {
         "description": "Button that opens the feedback page in the browser"
     },
@@ -159,6 +171,9 @@
     },
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
@@ -493,6 +508,8 @@
         "description": "The yes confirmation button"
     },
     "adoptionStatus": "Статус принятия",
+    "allow": "Разрешить",
+    "allowExactAlarms": "Разрешить точные будильники",
     "alternateName": "Другое название",
     "amen": "Аминь",
     "appName": "Doxa Prayer",
@@ -519,6 +536,8 @@
     "enableNotifications": "Включить уведомления",
     "engagementStatus": "Статус вовлечения",
     "everyDay": "Каждый день",
+    "exactAlarmsDisabledStatus": "Точные будильники не разрешены для Doxa, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.",
+    "exactAlarmsPromptBody": "Чтобы напоминания о молитвах приходили точно вовремя, разрешите Doxa использовать точные будильники.",
     "feedback": "Отзывы",
     "finish": "Завершить",
     "getInvolved": "Присоединяйтесь",
@@ -538,6 +557,7 @@
     "accountSectionTitle": "Ваш аккаунт",
     "emailVerified": "Подтверждён",
     "emailUnverified": "Не подтверждён",
+    "notNow": "Не сейчас",
     "resendVerification": "Отправить письмо для подтверждения ещё раз",
     "resendVerificationSent": "Письмо для подтверждения отправлено. Проверьте почту.",
     "resendVerificationCooldown": "Подождите {seconds} с, прежде чем запрашивать новое письмо.",

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../components/buttons/action_button.dart';
 import '../components/cards/reminder_card.dart';
 import '../components/misc/plus_icon.dart';
+import '../components/reminders/exact_alarm_warning_banner.dart';
 import '../components/reminders/reminder_editor.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
@@ -27,9 +28,12 @@ class RemindersScreen extends StatelessWidget {
           children: [
             ValueListenableBuilder<bool>(
               valueListenable: notificationsBlocked,
+              // When notifications are off nothing fires at all, so show that
+              // banner alone; otherwise surface the exact-alarm warning (which
+              // self-hides when exact alarms are permitted).
               builder: (context, blocked, _) => blocked
                   ? const _NotificationsBlockedBanner()
-                  : const SizedBox.shrink(),
+                  : const ExactAlarmWarningBanner(),
             ),
             Expanded(child: _buildReminders(context, l)),
           ],

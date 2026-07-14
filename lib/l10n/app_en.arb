@@ -316,6 +316,26 @@
     "@notificationsHowToEnable": {
         "description": "Instructions guiding the user to enable notifications in OS settings"
     },
+    "exactAlarmsDisabledStatus": "Exact alarms aren't allowed for Doxa, so your prayer reminders may arrive several minutes late.",
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "allowExactAlarms": "Allow exact alarms",
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
+    "exactAlarmsPromptBody": "For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.",
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
+    "allow": "Allow",
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "notNow": "Not now",
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
+    },
     "enableNotifications": "Enable notifications",
     "@enableNotifications": {
         "description": "Button label that takes the user to the notification settings page to enable notifications"

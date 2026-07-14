@@ -263,6 +263,23 @@ class AppLocalizationsPt extends AppLocalizations {
       'Toque abaixo para abrir as configurações e permita as notificações do Doxa.';
 
   @override
+  String get exactAlarmsDisabledStatus =>
+      'Os alarmes exatos não são permitidos para o Doxa, então seus lembretes de oração podem chegar com alguns minutos de atraso.';
+
+  @override
+  String get allowExactAlarms => 'Permitir alarmes exatos';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'Para que seus lembretes de oração cheguem na hora certa, permita que o Doxa use alarmes exatos.';
+
+  @override
+  String get allow => 'Permitir';
+
+  @override
+  String get notNow => 'Agora não';
+
+  @override
   String get enableNotifications => 'Ativar notificações';
 
   @override

@@ -10,6 +10,7 @@ import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../buttons/wizard_button_bar.dart';
+import '../reminders/exact_alarm_permission_prompt.dart';
 import '../reminders/reminder_form.dart';
 
 class WizardStepReminder extends StatefulWidget {
@@ -32,6 +33,8 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
     final l = AppLocalizations.of(context)!;
     setState(() => _saving = true);
     try {
+      // Capture before adding: is this the user's very first reminder?
+      final wasFirstReminder = remindersController.value?.list.isEmpty ?? true;
       final granted = await ensureNotificationPermission();
       await addReminder(r);
       if (!mounted) return;
@@ -40,6 +43,14 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
           SnackBar(content: Text(l.notificationsDisabledStatus)),
         );
       }
+      if (await shouldPromptExactAlarms(
+            wasFirstReminder: wasFirstReminder,
+            notificationsGranted: granted,
+          ) &&
+          mounted) {
+        await showExactAlarmPermissionPrompt(context);
+      }
+      if (!mounted) return;
       widget.controller.next();
     } finally {
       if (mounted) setState(() => _saving = false);
