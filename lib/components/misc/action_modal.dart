@@ -1,5 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/action_button.dart';
-import 'package:doxa_prayer_mobile_app/components/buttons/wizard_button_bar.dart';
+import 'package:doxa_prayer_mobile_app/components/buttons/button_bar.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
@@ -49,7 +49,7 @@ class ActionModal extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.xxl),
-            WizardButtonBar(
+            ButtonBar(
               leading: actionButtons.first,
               trailing: actionButtons.last,
             ),

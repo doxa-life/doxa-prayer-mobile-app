@@ -6,7 +6,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
-import '../buttons/wizard_button_bar.dart';
+import '../buttons/button_bar.dart';
 import '../misc/titles.dart';
 import '../widgets/news_signup.dart';
 
@@ -96,7 +96,7 @@ class _WizardStepNewsSignupState extends State<WizardStepNewsSignup> {
                         onPressed: _submitting ? null : _finish,
                       )
                     else
-                      WizardButtonBar(
+                      ButtonBar(
                         maxWidth: constraints.maxWidth,
                         leading: ActionButton(
                           label: l.skip,
