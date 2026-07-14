@@ -161,9 +161,94 @@ platform :android do
        %(-d #{body.shellescape}))
     UI.success("Set #{flavor} latest_version = #{semver}")
   end
+
+  # ---- store screenshots --------------------------------------------------
+
+  desc "Capture + frame Play Store screenshots on emulators (phone/7\"/10\", staging data), then stage them for review. Upload with `upload_screenshots`."
+  lane :screenshots do
+    sh("cd #{ROOT.shellescape} && tool/screenshots/capture_android.sh")
+    meta_path, count = stage_screenshots("production")
+    UI.success("Staged #{count} framed screenshot(s) under #{meta_path}. Review build/screenshots_framed, then: bundle exec fastlane upload_screenshots")
+  end
+
+  desc "Upload the framed Play screenshots to a flavor's listing (default production). track:<name> (default internal), version_code:<n> to override, validate:true for a dry run. Assumes `screenshots` (or tool/screenshots/capture_android.sh) has run."
+  lane :upload_screenshots do |options|
+    flavor = (options[:flavor] || "production").to_s
+    cfg = require_flavor(flavor)
+
+    json_key = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
+    UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set (see fastlane/.env.example)") if json_key.to_s.empty?
+
+    meta_path, count = stage_screenshots(flavor)
+    UI.user_error!("No framed screenshots found — run `fastlane screenshots` first") if count.zero?
+
+    # Screenshots are listing-level, but supply still insists on resolving a
+    # release before it will upload listing assets (uploader.rb: perform_upload_meta
+    # fetches a release for a version_code and errors — "Could not find release for
+    # version code ''" — when there's no binary in the same run). So point it at an
+    # existing release: default to the `internal` track (where `deploy` publishes),
+    # and pick that track's newest version code unless one is passed explicitly.
+    track = (options[:track] || "internal").to_s
+    version_code = options[:version_code]
+    if version_code.to_s.empty?
+      codes = google_play_track_version_codes(
+        package_name: cfg[:package],
+        track: track,
+        json_key: json_key,
+      )
+      if codes.nil? || codes.empty?
+        UI.user_error!("No releases found on the '#{track}' track for #{cfg[:package]}. Screenshots upload needs an existing release — deploy a build first (`fastlane deploy flavor:#{flavor}`), or pass track:<name>/version_code:<n>.")
+      end
+      version_code = codes.max
+    end
+
+    upload_to_play_store(
+      package_name: cfg[:package],
+      json_key: json_key,
+      metadata_path: meta_path,
+      track: track,
+      version_code: version_code,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: false,
+      validate_only: options[:validate] ? true : false,
+    )
+    UI.success("Uploaded #{count} screenshot(s) to the #{flavor} listing (track #{track}, release #{version_code})#{options[:validate] ? " [validate-only]" : ""}")
+  end
 end
 
 # ---- non-lane helpers (file-level so they can use Ruby IO directly) --------
+
+# Copy the framed screenshots produced by tool/screenshots/capture_android.sh
+# (build/screenshots_framed/android/<bucket>/) into a CLEAN, images-only supply
+# metadata tree under build/. Deliberately NOT the committed metadata dir: that
+# also holds the release changelogs (changelogs/<code>.txt from `bump`), and
+# supply tries to attach them to a release version code — which doesn't exist on
+# a screenshots-only upload — failing with "Could not find release for version
+# code '' to update changelog". An images-only tree gives supply nothing else to
+# process. Returns [metadata_path, count].
+def stage_screenshots(flavor)
+  src_root = File.join(ROOT, "build", "screenshots_framed", "android")
+  meta_path = File.join(ROOT, "build", "supply", flavor, "android")
+  FileUtils.rm_rf(File.join(ROOT, "build", "supply", flavor))
+  buckets = %w[phoneScreenshots sevenInchScreenshots tenInchScreenshots]
+  staged = 0
+  buckets.each do |bucket|
+    src = File.join(src_root, bucket)
+    next unless File.directory?(src)
+    dst = File.join(meta_path, "en-US", "images", bucket)
+    FileUtils.mkdir_p(dst)
+    Dir[File.join(src, "*.png")].sort.each do |png|
+      FileUtils.cp(png, dst)
+      staged += 1
+    end
+  end
+  UI.message("Staged #{staged} screenshot(s) into #{meta_path}")
+  [meta_path, staged]
+end
 
 def aab_path(flavor)
   File.join(ROOT, "build", "app", "outputs", "bundle", "#{flavor}Release", "app-#{flavor}-release.aab")

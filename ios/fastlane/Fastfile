@@ -1,6 +1,7 @@
 require "tempfile"
 require "json"
 require "shellwords"
+require "fileutils"
 
 # ---------------------------------------------------------------------------
 # Doxa Prayer — iOS build & release automation.
@@ -163,4 +164,63 @@ platform :ios do
        %(-d #{body.shellescape}))
     UI.success("Set #{flavor} latest_version = #{semver}")
   end
+
+  # ---- store screenshots --------------------------------------------------
+
+  desc "Capture + frame App Store screenshots on the simulator (6.9\" iPhone + 13\" iPad, staging data), then stage them. macOS ONLY. Upload with `upload_screenshots`."
+  lane :screenshots do
+    sh("cd #{ROOT.shellescape} && tool/screenshots/capture_ios.sh")
+    count = stage_screenshots
+    UI.success("Staged #{count} screenshot(s) under fastlane/screenshots/en-US. Review, then: bundle exec fastlane upload_screenshots")
+  end
+
+  desc "Upload the framed App Store screenshots to a flavor's listing (default production). Assumes `screenshots` (or tool/screenshots/capture_ios.sh) has run."
+  lane :upload_screenshots do |options|
+    flavor = (options[:flavor] || "production").to_s
+    cfg = require_flavor(flavor)
+
+    api_key = asc_api_key
+    UI.user_error!("ASC_KEY_ID is not set — screenshot upload needs the App Store Connect API key (see fastlane/.env.example)") if api_key.nil?
+
+    count = stage_screenshots
+    UI.user_error!("No framed screenshots found — run `fastlane screenshots` first") if count.zero?
+
+    upload_to_app_store(
+      app_identifier: cfg[:bundle],
+      api_key: api_key,
+      screenshots_path: File.join(FASTLANE_DIR, "screenshots"),
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+      overwrite_screenshots: true,
+      run_precheck_before_submit: false,
+      force: true,
+    )
+    UI.success("Uploaded #{count} screenshot(s) to the #{flavor} App Store listing")
+  end
+end
+
+# ---- non-lane helpers ------------------------------------------------------
+
+# Copy the framed screenshots produced by tool/screenshots/capture_ios.sh
+# (build/screenshots_framed/ios/<key>/) into fastlane/screenshots/en-US/, which
+# is where deliver (upload_to_app_store) reads them. deliver infers the display
+# family from each image's dimensions, so the files are prefixed by device key
+# to keep the two families' identically-named shots distinct. Returns the count.
+def stage_screenshots
+  src_root = File.join(ROOT, "build", "screenshots_framed", "ios")
+  dst = File.join(FASTLANE_DIR, "screenshots", "en-US")
+  FileUtils.rm_rf(File.join(FASTLANE_DIR, "screenshots"))
+  FileUtils.mkdir_p(dst)
+  staged = 0
+  Dir[File.join(src_root, "*")].sort.each do |dir|
+    next unless File.directory?(dir)
+    key = File.basename(dir)
+    Dir[File.join(dir, "*.png")].sort.each do |png|
+      FileUtils.cp(png, File.join(dst, "#{key}_#{File.basename(png)}"))
+      staged += 1
+    end
+  end
+  UI.message("Staged #{staged} screenshot(s) into fastlane/screenshots/en-US")
+  staged
 end

@@ -33,6 +33,9 @@ case "$cmd" in
   upload)
     (cd "$here/android" && bundle exec fastlane upload flavor:"${arg:-staging}")
     ;;
+  deploy-screenshots)
+    (cd "$here/android" && bundle exec fastlane upload_screenshots flavor:"${arg:-staging}")
+    ;;
   bump)
     (cd "$here/android" && bundle exec fastlane bump type:"${arg:-build}")
     ;;

@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Capture + frame iOS App Store screenshots on the simulator. macOS + Xcode ONLY
+# — iOS simulators do not exist on Linux, so this cannot run on the CI/dev box
+# that drives Android. Run it on a Mac (yours or a macOS CI runner).
+#
+#   tool/screenshots/capture_ios.sh              # all iOS canvases
+#   tool/screenshots/capture_ios.sh iphone69     # just one (key from config)
+#
+# Output:
+#   build/screenshots_raw/ios_<key>/*.png                (raw)
+#   build/screenshots_framed/ios/<key>/*.png             (framed, ready to upload)
+#
+# Requires the simulator device types named in IOS_DEVICES (config.sh) to be
+# installed (Xcode → Settings → Components, or `xcrun simctl list devicetypes`).
+
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/config.sh"
+
+[ "$(uname)" = "Darwin" ] || { echo "capture_ios.sh runs on macOS only." >&2; exit 1; }
+command -v xcrun >/dev/null || { echo "xcrun not found — install Xcode." >&2; exit 1; }
+command -v flutter >/dev/null || { echo "flutter not on PATH" >&2; exit 1; }
+
+WANT=("$@")
+booted_udid=""
+shutdown_sim() { [ -n "$booted_udid" ] && xcrun simctl shutdown "$booted_udid" >/dev/null 2>&1 || true; booted_udid=""; }
+trap shutdown_sim EXIT
+
+udid_for() {
+  # First available simulator matching the device name exactly.
+  xcrun simctl list devices available \
+    | grep -F "$1 (" \
+    | grep -oE '[0-9A-Fa-f-]{36}' | head -1
+}
+
+for spec in "${IOS_DEVICES[@]}"; do
+  IFS='|' read -r key devname cw ch <<<"$spec"
+  if [ ${#WANT[@]} -gt 0 ] && [[ ! " ${WANT[*]} " == *" $key "* ]]; then continue; fi
+
+  udid="$(udid_for "$devname" || true)"
+  if [ -z "$udid" ]; then
+    echo "WARN: no simulator named '$devname' — create it in Xcode; skipping $key" >&2
+    continue
+  fi
+
+  raw_out="$RAW_DIR/ios_$key"; framed_out="$FRAMED_DIR/ios/$key"
+  rm -rf "$raw_out"; mkdir -p "$raw_out" "$framed_out"
+
+  echo "==== $key ($devname → ${cw}x${ch}) ===="
+  xcrun simctl boot "$udid" >/dev/null 2>&1 || true   # no-op if already booted
+  booted_udid="$udid"
+
+  echo "→ driving app (flavor=$FLAVOR)…"
+  SCREENSHOT_OUT="$raw_out" flutter drive \
+    --driver="$DRIVER" --target="$TARGET" \
+    --flavor "$FLAVOR" --profile \
+    -d "$udid"
+
+  echo "→ framing…"
+  for base in "${SHOT_ORDER[@]}"; do
+    raw="$raw_out/$base.png"
+    [ -f "$raw" ] || { echo "  WARN: missing $raw — skipped" >&2; continue; }
+    bash "$SCRIPT_DIR/frame.sh" "$raw" "$framed_out/$base.png" "$cw" "$ch" "${CAPTIONS[$base]}"
+  done
+
+  shutdown_sim
+  echo "✔ $key done → $framed_out"
+done
+
+echo "All iOS canvases captured. Framed screenshots in $FRAMED_DIR/ios/"
