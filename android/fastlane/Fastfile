@@ -27,7 +27,7 @@ METADATA_DIR = File.join(FASTLANE_DIR, "metadata")
 
 FLAVORS = {
   "staging" => {
-    package: "life.doxa.pray.staging",
+    package: "app.prayer.doxa.staging",
     server_url: ENV["STAGING_SERVER_URL"],
     token: ENV["STAGING_ADMIN_TOKEN"],
   },

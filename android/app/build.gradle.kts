@@ -61,7 +61,10 @@ android {
 
     // Environment flavors. The active flavor is exposed to Dart via Flutter's
     // built-in `appFlavor`, which ApiConfig uses to pick the API host. Staging
-    // gets its own applicationId suffix so it installs alongside production.
+    // keeps its original `app.prayer.doxa.staging` package (a separate Play app
+    // and Firebase app), so it sets a full applicationId rather than a suffix of
+    // production's `life.doxa.pray`. The two ids differ, so both install side by
+    // side regardless.
     flavorDimensions += "env"
     productFlavors {
         create("production") {
@@ -71,7 +74,7 @@ android {
         }
         create("staging") {
             dimension = "env"
-            applicationIdSuffix = ".staging"
+            applicationId = "app.prayer.doxa.staging"
             versionNameSuffix = "-staging"
             resValue("string", "app_name", "Doxa Staging")
         }

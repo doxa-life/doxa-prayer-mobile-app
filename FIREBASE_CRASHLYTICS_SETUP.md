@@ -10,7 +10,7 @@ There are **two flavors** with distinct bundle ids, so each needs its own Fireba
 | Flavor       | Bundle id / applicationId     |
 |--------------|-------------------------------|
 | `production` | `life.doxa.pray`              |
-| `staging`    | `life.doxa.pray.staging`      |
+| `staging`    | `app.prayer.doxa.staging`     |
 
 The Firebase project(s) already exist (set up for FCM behind OneSignal); you're adding app registrations
 + Crashlytics, not creating a project.

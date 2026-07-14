@@ -10,7 +10,7 @@ plain `flutter run` fails with "Gradle build failed to produce an .apk file"
 because no unflavored APK is ever produced.
 
 ```bash
-flutter run --flavor staging      # installs as "Doxa Staging" (life.doxa.pray.staging)
+flutter run --flavor staging      # installs as "Doxa Staging" (app.prayer.doxa.staging)
 flutter run --flavor production   # installs as "Doxa Prayer" (life.doxa.pray)
 ```
 
@@ -56,7 +56,7 @@ server version gate:
 
 | Target | Flavor | Play app | Version gate |
 |---|---|---|---|
-| staging | `staging` | `life.doxa.pray.staging` | staging campaigns server |
+| staging | `staging` | `app.prayer.doxa.staging` | staging campaigns server |
 | production | `production` | `life.doxa.pray` | `pray.doxa.life` |
 
 ### One-time setup

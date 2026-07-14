@@ -1,16 +1,21 @@
 # App ID migration — `app.prayer.doxa` → `life.doxa.pray`
 
+> **Amendment (staging kept on `app.prayer.doxa.staging`).** Only *production*
+> moved. Staging was reverted to its original `app.prayer.doxa.staging` package
+> to reuse the existing (permanent) Play + Firebase app slot rather than burn a
+> new one. The tables below reflect the final state.
+
 Moving the Android app off the old **testing** Play account onto a new Play
-account, with new package names:
+account:
 
 | Flavor       | Old (testing)             | New                        |
 |--------------|---------------------------|----------------------------|
 | `production` | `app.prayer.doxa`         | **`life.doxa.pray`**         |
-| `staging`    | `app.prayer.doxa.staging` | **`life.doxa.pray.staging`** |
+| `staging`    | `app.prayer.doxa.staging` | **`app.prayer.doxa.staging`** (unchanged) |
 
-Staging is production + `applicationIdSuffix = ".staging"`
-([android/app/build.gradle.kts](../android/app/build.gradle.kts)), so only the
-one production `applicationId` is set explicitly; staging follows automatically.
+Production uses the default `applicationId`; staging is not a suffix of it, so it
+sets a full `applicationId = "app.prayer.doxa.staging"`
+([android/app/build.gradle.kts](../android/app/build.gradle.kts)).
 
 **Scope: Android / Play only.** iOS bundle ids (`app.prayer.doxaPrayerMobileApp`)
 are a separate scheme and were intentionally left untouched — see the last
@@ -27,9 +32,9 @@ The `com.google.gms.google-services` + Crashlytics Gradle plugins require a
 `google-services.json` whose `package_name` matches each flavor's applicationId.
 New packages ⇒ new Firebase Android apps.
 
-1. Firebase console → Project settings → **Add app → Android**, twice:
-   - `life.doxa.pray`
-   - `life.doxa.pray.staging`
+1. Firebase console → Project settings → **Add app → Android**:
+   - `life.doxa.pray` (new production app)
+   - `app.prayer.doxa.staging` already exists — reused, no new app needed
 2. Download each `google-services.json` and place:
    - `android/app/src/production/google-services.json`  ← **new directory**
    - `android/app/src/staging/google-services.json`     ← overwrite existing
@@ -50,8 +55,9 @@ Already applied in this migration commit:
 
 ## Phase 3 — New Play Console account & apps
 
-1. In the **new** Play Console, create two apps with package names exactly
-   `life.doxa.pray` and `life.doxa.pray.staging`.
+1. In the **new** Play Console, create the production app with package name
+   exactly `life.doxa.pray`. Staging stays as the existing
+   `app.prayer.doxa.staging` app.
 2. Complete each app's setup wizard (content rating, data safety, target
    audience, etc.) — internal-track uploads are blocked until this is done.
 3. **Play App Signing**: fresh apps, so Google establishes the app-signing key
