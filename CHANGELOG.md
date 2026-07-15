@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.14.0+21 - 2026-07-15
+
+Bug fixes:
+- refactor ButtonBar to ButtonBarWrap
+
 ## 1.13.0+20 - 2026-07-14
 
 Features:

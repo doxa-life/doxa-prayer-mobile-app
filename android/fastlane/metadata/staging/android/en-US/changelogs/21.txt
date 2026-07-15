@@ -1,0 +1,2 @@
+Bug fixes:
+- refactor ButtonBar to ButtonBarWrap
