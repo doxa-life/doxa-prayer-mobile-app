@@ -131,7 +131,7 @@ platform :android do
 
     upload_to_play_store(
       package_name: cfg[:package],
-      track: "internal",
+      track: options[:track] || "internal",
       aab: aab,
       json_key: json_key,
       metadata_path: File.join(METADATA_DIR, flavor, "android"),

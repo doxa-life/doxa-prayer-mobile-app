@@ -21,20 +21,22 @@ set -euo pipefail
 cmd="${1:-}"
 arg="${2:-}"
 
+track="open"
+
 here="$(dirname "$0")"
 
 case "$cmd" in
   deploy)
-    (cd "$here/android" && bundle exec fastlane deploy flavor:"${arg:-staging}")
+    (cd "$here/android" && bundle exec fastlane deploy flavor:"${arg:-staging}" track:"${track}")
     ;;
   build)
     (cd "$here/android" && bundle exec fastlane build_aab flavor:"${arg:-staging}")
     ;;
   upload)
-    (cd "$here/android" && bundle exec fastlane upload flavor:"${arg:-staging}")
+    (cd "$here/android" && bundle exec fastlane upload flavor:"${arg:-staging}" track:"${track}")
     ;;
   deploy-screenshots)
-    (cd "$here/android" && bundle exec fastlane upload_screenshots flavor:"${arg:-staging}")
+    (cd "$here/android" && bundle exec fastlane upload_screenshots flavor:"${arg:-staging}" track:"${track}")
     ;;
   bump)
     (cd "$here/android" && bundle exec fastlane bump type:"${arg:-build}")
