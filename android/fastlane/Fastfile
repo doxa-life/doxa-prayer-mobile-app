@@ -167,8 +167,9 @@ platform :android do
   desc "Capture + frame Play Store screenshots on emulators (phone/7\"/10\", staging data), then stage them for review. Upload with `upload_screenshots`."
   lane :screenshots do
     sh("cd #{ROOT.shellescape} && tool/screenshots/capture_android.sh")
-    meta_path, count = stage_screenshots("production")
-    UI.success("Staged #{count} framed screenshot(s) under #{meta_path}. Review build/screenshots_framed, then: bundle exec fastlane upload_screenshots")
+    sh("cd #{ROOT.shellescape} && tool/screenshots/feature_graphic.sh")
+    meta_path, count, feature = stage_screenshots("production")
+    UI.success("Staged #{count} framed screenshot(s)#{feature ? " + feature graphic" : ""} under #{meta_path}. Review build/screenshots_framed, then: bundle exec fastlane upload_screenshots")
   end
 
   desc "Upload the framed Play screenshots to a flavor's listing (default production). track:<name> (default internal), version_code:<n> to override, validate:true for a dry run. Assumes `screenshots` (or tool/screenshots/capture_android.sh) has run."
@@ -179,7 +180,7 @@ platform :android do
     json_key = ENV["PLAY_SERVICE_ACCOUNT_JSON"]
     UI.user_error!("PLAY_SERVICE_ACCOUNT_JSON is not set (see fastlane/.env.example)") if json_key.to_s.empty?
 
-    meta_path, count = stage_screenshots(flavor)
+    meta_path, count, feature = stage_screenshots(flavor)
     UI.user_error!("No framed screenshots found — run `fastlane screenshots` first") if count.zero?
 
     # Screenshots are listing-level, but supply still insists on resolving a
@@ -212,11 +213,14 @@ platform :android do
       skip_upload_aab: true,
       skip_upload_metadata: true,
       skip_upload_changelogs: true,
-      skip_upload_images: true,
+      # Upload listing images too, so the feature graphic goes up. supply only
+      # uploads image types present locally (featureGraphic.png) — the icon and
+      # others are left untouched (uploader.rb: `next unless path`).
+      skip_upload_images: false,
       skip_upload_screenshots: false,
       validate_only: options[:validate] ? true : false,
     )
-    UI.success("Uploaded #{count} screenshot(s) to the #{flavor} listing (track #{track}, release #{version_code})#{options[:validate] ? " [validate-only]" : ""}")
+    UI.success("Uploaded #{count} screenshot(s)#{feature ? " + feature graphic" : ""} to the #{flavor} listing (track #{track}, release #{version_code})#{options[:validate] ? " [validate-only]" : ""}")
   end
 end
 
@@ -229,25 +233,37 @@ end
 # supply tries to attach them to a release version code — which doesn't exist on
 # a screenshots-only upload — failing with "Could not find release for version
 # code '' to update changelog". An images-only tree gives supply nothing else to
-# process. Returns [metadata_path, count].
+# process. Also stages the feature graphic (if generated) as the listing image
+# `featureGraphic.png`. Returns [metadata_path, screenshot_count, has_feature].
 def stage_screenshots(flavor)
   src_root = File.join(ROOT, "build", "screenshots_framed", "android")
   meta_path = File.join(ROOT, "build", "supply", flavor, "android")
+  images_dir = File.join(meta_path, "en-US", "images")
   FileUtils.rm_rf(File.join(ROOT, "build", "supply", flavor))
   buckets = %w[phoneScreenshots sevenInchScreenshots tenInchScreenshots]
   staged = 0
   buckets.each do |bucket|
     src = File.join(src_root, bucket)
     next unless File.directory?(src)
-    dst = File.join(meta_path, "en-US", "images", bucket)
+    dst = File.join(images_dir, bucket)
     FileUtils.mkdir_p(dst)
     Dir[File.join(src, "*.png")].sort.each do |png|
       FileUtils.cp(png, dst)
       staged += 1
     end
   end
-  UI.message("Staged #{staged} screenshot(s) into #{meta_path}")
-  [meta_path, staged]
+
+  # Feature graphic (1024x500) is a listing IMAGE, not a screenshot — it lives
+  # directly under images/ as featureGraphic.png (see tool/screenshots/feature_graphic.sh).
+  feature = File.join(src_root, "featureGraphic.png")
+  has_feature = File.exist?(feature)
+  if has_feature
+    FileUtils.mkdir_p(images_dir)
+    FileUtils.cp(feature, File.join(images_dir, "featureGraphic.png"))
+  end
+
+  UI.message("Staged #{staged} screenshot(s)#{has_feature ? " + feature graphic" : ""} into #{meta_path}")
+  [meta_path, staged, has_feature]
 end
 
 def aab_path(flavor)
