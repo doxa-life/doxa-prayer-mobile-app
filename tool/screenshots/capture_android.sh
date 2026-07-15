@@ -106,7 +106,7 @@ for spec in "${ANDROID_DEVICES[@]}"; do
   for base in "${SHOT_ORDER[@]}"; do
     raw="$raw_out/$base.png"
     [ -f "$raw" ] || { echo "  WARN: missing $raw — skipped" >&2; continue; }
-    bash "$SCRIPT_DIR/frame.sh" "$raw" "$framed_out/$base.png" "$cw" "$ch" "${CAPTIONS[$base]}"
+    bash "$SCRIPT_DIR/frame.sh" "$raw" "$framed_out/$base.png" "$cw" "$ch" "$(caption "$base")"
   done
 
   shutdown_emu

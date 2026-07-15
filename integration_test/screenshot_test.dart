@@ -18,6 +18,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb, ValueNotifier;
+import 'package:flutter/widgets.dart' show WidgetsApp;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,6 +39,11 @@ const _imageUrl =
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  // iOS simulators force a debug build (no AOT), which would otherwise paint the
+  // "DEBUG" ribbon over every marketing shot. Suppress it app-wide; a no-op in
+  // profile/release, so it's harmless for the Android profile capture too.
+  WidgetsApp.debugAllowBannerOverride = false;
 
   testWidgets('capture store screenshots', (tester) async {
     await _seedState();

@@ -8,7 +8,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 # Build flavor — `staging` points ApiConfig at the staging host (see api_config.dart).
+# Used by the Android capture; iOS uses IOS_API_BASE_URL instead (see capture_ios.sh).
 FLAVOR="${FLAVOR:-staging}"
+
+# iOS staging host (mirrors _stagingHost in api_config.dart). Passed via
+# --dart-define=API_BASE_URL because there is no Xcode scheme for the staging
+# flavor on iOS, so --flavor can't be used there.
+IOS_API_BASE_URL="${IOS_API_BASE_URL:-https://campaigns-server-k4ax-production.up.railway.app}"
 
 DRIVER="test_driver/screenshot_driver.dart"
 TARGET="integration_test/screenshot_test.dart"
@@ -28,15 +34,20 @@ CAPTION_COLOR="#F4F1EA"
 
 # Capture order + marketing captions, keyed by the base name the harness emits
 # (integration_test/screenshot_test.dart). Store listings order by filename.
+# NB: macOS ships bash 3.2 which lacks associative arrays, so caption() is a
+# case statement rather than a `declare -A` map.
 SHOT_ORDER=(01_home 02_pray 03_people_groups 04_people_group_details 05_reminders 06_onboarding)
-declare -A CAPTIONS=(
-  [01_home]="Pray for the unreached, every day"
-  [02_pray]="A guided daily prayer for every people group"
-  [03_people_groups]="Explore thousands of people groups"
-  [04_people_group_details]="Learn their story, language and needs"
-  [05_reminders]="Gentle reminders to keep you praying"
-  [06_onboarding]="Get started in under a minute"
-)
+caption() {
+  case "$1" in
+    01_home)                  echo "Pray for the unreached, every day" ;;
+    02_pray)                  echo "A guided daily prayer for every people group" ;;
+    03_people_groups)         echo "Explore thousands of people groups" ;;
+    04_people_group_details)  echo "Learn their story, language and needs" ;;
+    05_reminders)             echo "Gentle reminders to keep you praying" ;;
+    06_onboarding)            echo "Get started in under a minute" ;;
+    *)                        echo "" ;;
+  esac
+}
 
 # Android device matrix — one per Play screenshot bucket.
 #   key | AVD name | avdmanager device profile | canvas W | canvas H | play folder
@@ -48,12 +59,13 @@ ANDROID_DEVICES=(
   "tablet10|doxa_tablet10|Nexus 10|1440|2560|tenInchScreenshots"
 )
 
-# iOS device matrix (macOS only). Canvases are the App Store Connect required
-# sizes for the 6.9" iPhone and 13" iPad display families.
+# iOS device matrix (macOS only). Canvases are App Store Connect required sizes:
+#   - iPhone 6.9" Display slot: 1290x2796 (also accepts 1260x2736 / 1320x2868)
+#   - iPad  13"  Display slot: 2064x2752 (also accepts 2048x2732)
 #   key | simulator device name | canvas W | canvas H
 IOS_DEVICES=(
-  "iphone69|iPhone 16 Pro Max|1290|2796"
-  "ipad13|iPad Pro 13-inch (M4)|2064|2752"
+  "iphone69|iPhone 17 Pro Max|1290|2796"
+  "ipad13|iPad Pro 13-inch (M5)|2064|2752"
 )
 
 # Android system image used to auto-create missing AVDs.
