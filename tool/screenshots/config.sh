@@ -8,13 +8,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 # Build flavor — `staging` points ApiConfig at the staging host (see api_config.dart).
-# Used by the Android capture; iOS uses IOS_API_BASE_URL instead (see capture_ios.sh).
+# Used by both the Android and iOS capture scripts.
 FLAVOR="${FLAVOR:-staging}"
-
-# iOS staging host (mirrors _stagingHost in api_config.dart). Passed via
-# --dart-define=API_BASE_URL because there is no Xcode scheme for the staging
-# flavor on iOS, so --flavor can't be used there.
-IOS_API_BASE_URL="${IOS_API_BASE_URL:-https://campaigns-server-k4ax-production.up.railway.app}"
 
 DRIVER="test_driver/screenshot_driver.dart"
 TARGET="integration_test/screenshot_test.dart"

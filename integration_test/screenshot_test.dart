@@ -12,7 +12,7 @@
 // Point the app at staging by building with `--flavor staging` (see ApiConfig).
 // State is seeded into SharedPreferences BEFORE main() runs, so the app's own
 // load* bootstrap picks it up: wizard complete, English, a selected people
-// group ("afar"), and two reminders.
+// group ("adi"), and two reminders.
 
 import 'dart:convert';
 import 'dart:io' show Platform;
@@ -32,10 +32,10 @@ import 'package:doxa_prayer_mobile_app/services/wizard_completion_controller.dar
 
 /// A real staging people group with an image, a full profile and daily prayer
 /// content — see tool/screenshots/README.md for how it was chosen.
-const _slug = 'afar';
-const _name = 'Afar';
+const _slug = 'adi';
+const _name = 'Adi';
 const _imageUrl =
-    'https://media.joshuaproject.net/public/assets/media/profiles/photos/p11486.jpg';
+    'https://media.joshuaproject.net/public/assets/media/profiles/photos/p18386.jpg';
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();

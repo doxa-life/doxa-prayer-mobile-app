@@ -50,19 +50,17 @@ for spec in "${IOS_DEVICES[@]}"; do
   xcrun simctl boot "$udid" >/dev/null 2>&1 || true   # no-op if already booted
   booted_udid="$udid"
 
-  # iOS has no Xcode scheme for the staging flavor, so we can't pass --flavor
-  # here (Flutter errors: "You must specify a --flavor option"). Instead, point
-  # ApiConfig at staging directly via its highest-priority --dart-define
-  # override — see the resolution order in lib/services/api_config.dart.
+  # --flavor "$FLAVOR" mirrors the Android script and points ApiConfig at the
+  # staging host via `appFlavor` (see lib/services/api_config.dart).
   #
   # No --profile here (unlike Android): iOS simulators can't AOT-compile, so
   # Flutter rejects profile/release for them ("release/profile builds are only
   # supported for physical devices"). We run debug; the screenshot harness sets
   # WidgetsApp.debugAllowBannerOverride=false so no DEBUG banner leaks in.
-  echo "→ driving app (API_BASE_URL=$IOS_API_BASE_URL)…"
+  echo "→ driving app (--flavor $FLAVOR)…"
   SCREENSHOT_OUT="$raw_out" flutter drive \
     --driver="$DRIVER" --target="$TARGET" \
-    --dart-define=API_BASE_URL="$IOS_API_BASE_URL" \
+    --flavor "$FLAVOR" \
     -d "$udid"
 
   echo "→ framing…"
