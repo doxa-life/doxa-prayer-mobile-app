@@ -2,24 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- Universal Links: "Pray on the app" smart links open the installed app.
-	     Requires /.well-known/apple-app-site-association on the host to verify. -->
+	<key>aps-environment</key>
+	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:pray.doxa.life</string>
 	</array>
-	<!-- Push Notifications capability. `development` is correct here; Xcode
-	     re-signs to the production APNs environment automatically for
-	     TestFlight / App Store distribution builds. -->
-	<key>aps-environment</key>
-	<string>development</string>
-	<!-- App Group shared between the app and the OneSignal Notification Service
-	     Extension (badges + confirmed delivery). Must be registered for each
-	     flavor's bundle id in the Apple Developer portal; the same id is forced
-	     for both flavors via OneSignal_app_groups_key in Info.plist. -->
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.app.prayer.doxa.onesignal</string>
+		<string>group.life.doxa.pray.onesignal</string>
 	</array>
 </dict>
 </plist>
