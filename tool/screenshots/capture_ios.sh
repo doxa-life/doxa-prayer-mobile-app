@@ -34,7 +34,7 @@ udid_for() {
 }
 
 for spec in "${IOS_DEVICES[@]}"; do
-  IFS='|' read -r key devname cw ch <<<"$spec"
+  IFS='|' read -r key devname cw ch frame scr_x scr_y scr_w scr_h <<<"$spec"
   if [ ${#WANT[@]} -gt 0 ] && [[ ! " ${WANT[*]} " == *" $key "* ]]; then continue; fi
 
   udid="$(udid_for "$devname" || true)"
@@ -50,6 +50,17 @@ for spec in "${IOS_DEVICES[@]}"; do
   xcrun simctl boot "$udid" >/dev/null 2>&1 || true   # no-op if already booted
   booted_udid="$udid"
 
+  # Pin a clean marketing status bar (9:41, full signal/wifi, 100% battery).
+  # This is what shows in the shots because we capture the FULL device screen
+  # via `simctl io` in the driver (see below) — the Flutter surface alone has no
+  # status bar. --batteryState discharging keeps 100% without the charging bolt.
+  xcrun simctl status_bar "$udid" override \
+    --time "9:41" \
+    --dataNetwork wifi --wifiMode active --wifiBars 3 \
+    --cellularMode active --cellularBars 4 \
+    --batteryState discharging --batteryLevel 100 \
+    >/dev/null 2>&1 || echo "  WARN: status_bar override failed (need iOS 13+ sim)" >&2
+
   # --flavor "$FLAVOR" mirrors the Android script and points ApiConfig at the
   # staging host via `appFlavor` (see lib/services/api_config.dart).
   #
@@ -57,8 +68,10 @@ for spec in "${IOS_DEVICES[@]}"; do
   # Flutter rejects profile/release for them ("release/profile builds are only
   # supported for physical devices"). We run debug; the screenshot harness sets
   # WidgetsApp.debugAllowBannerOverride=false so no DEBUG banner leaks in.
+  # CAPTURE_UDID tells the driver to grab the full device screen (status bar
+  # included) via `simctl io` instead of the status-bar-less Flutter surface.
   echo "→ driving app (--flavor $FLAVOR)…"
-  SCREENSHOT_OUT="$raw_out" flutter drive \
+  SCREENSHOT_OUT="$raw_out" CAPTURE_UDID="$udid" flutter drive \
     --driver="$DRIVER" --target="$TARGET" \
     --flavor "$FLAVOR" \
     -d "$udid"
@@ -67,7 +80,8 @@ for spec in "${IOS_DEVICES[@]}"; do
   for base in "${SHOT_ORDER[@]}"; do
     raw="$raw_out/$base.png"
     [ -f "$raw" ] || { echo "  WARN: missing $raw — skipped" >&2; continue; }
-    bash "$SCRIPT_DIR/frame.sh" "$raw" "$framed_out/$base.png" "$cw" "$ch" "$(caption "$base")"
+    bash "$SCRIPT_DIR/frame.sh" "$raw" "$framed_out/$base.png" "$cw" "$ch" "$(caption "$base")" \
+      "$SCRIPT_DIR/$frame" "$scr_x" "$scr_y" "$scr_w" "$scr_h"
   done
 
   shutdown_sim

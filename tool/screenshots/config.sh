@@ -57,10 +57,16 @@ ANDROID_DEVICES=(
 # iOS device matrix (macOS only). Canvases are App Store Connect required sizes:
 #   - iPhone 6.9" Display slot: 1290x2796 (also accepts 1260x2736 / 1320x2868)
 #   - iPad  13"  Display slot: 2064x2752 (also accepts 2048x2732)
-#   key | simulator device name | canvas W | canvas H
+#
+# Real device frames (frames/*.png) replace the drawn bezel for iOS. Each frame
+# is a PNG with a transparent screen window; the trailing fields give that
+# window's geometry so frame.sh can drop the screenshot into it and lay the
+# frame on top. Values are measured directly from the PNG (and match the
+# frameit-frames offsets.json entries for these devices).
+#   key | simulator device name | canvas W | canvas H | frame png | scrX | scrY | scrW | scrH
 IOS_DEVICES=(
-  "iphone69|iPhone 17 Pro Max|1290|2796"
-  "ipad13|iPad Pro 13-inch (M5)|2064|2752"
+  "iphone69|iPhone 17 Pro Max|1290|2796|frames/iphone69.png|75|66|1320|2868"
+  "ipad13|iPad Pro 13-inch (M5)|2064|2752|frames/ipad13.png|96|102|2048|2732"
 )
 
 # Android system image used to auto-create missing AVDs.
