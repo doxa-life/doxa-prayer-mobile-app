@@ -10,8 +10,16 @@ storage_mode("git")
 
 type("appstore")
 
-# Both flavors. match generates one App Store profile per bundle id, named
+# Both flavors' main app + their OneSignal Notification Service Extensions.
+# match generates one App Store profile per bundle id, named
 # "match AppStore <bundle id>" — the Fastfile references those names verbatim.
-app_identifier(["life.doxa.pray", "life.doxa.pray.staging"])
+# The extension bundle ids come from fastlane/.env so this file stays free of
+# per-target values; blank entries are compacted out.
+app_identifier([
+  "life.doxa.pray",
+  "life.doxa.pray.staging",
+  ENV["ONESIGNAL_APP_ID"],
+  ENV["ONESIGNAL_APP_ID_STAGING"],
+].reject { |id| id.to_s.strip.empty? })
 
 username(ENV["APPLE_ID"]) if ENV["APPLE_ID"].to_s != ""

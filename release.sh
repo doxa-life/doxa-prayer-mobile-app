@@ -7,9 +7,11 @@
 #   ./release.sh deploy [staging|production]       build + upload Android app, update gate
 #   ./release.sh build [staging|production]        build a signed AAB only (no upload)
 #
-#   ./release.sh deploy-ios [staging|production]   build + upload iOS app, update gate (macOS only)
-#   ./release.sh build-ios [staging|production]    build a signed iOS IPA only (macOS only)
-#   ./release.sh validate-ios [staging|production] compile iOS unsigned — no Apple account (macOS only)
+#   ./release.sh deploy-ios [staging|production]         build + upload iOS app, update gate (macOS only)
+#   ./release.sh build-ios [staging|production]          build a signed iOS IPA only (macOS only)
+#   ./release.sh validate-ios [staging|production]       compile iOS unsigned — no Apple account (macOS only)
+#   ./release.sh screenshots-ios                         capture + frame iOS App Store screenshots (macOS only)
+#   ./release.sh deploy-screenshots-ios [staging|production]  upload iOS screenshots to App Store Connect (macOS only)
 #
 # Typical flow:
 #   ./release.sh bump minor
@@ -50,9 +52,17 @@ case "$cmd" in
   validate-ios)
     (cd "$here/ios" && bundle exec fastlane build_unsigned flavor:"${arg:-staging}")
     ;;
+  screenshots-ios)
+    (cd "$here/ios" && bundle exec fastlane screenshots)
+    ;;
+  deploy-screenshots-ios)
+    (cd "$here/ios" && bundle exec fastlane upload_screenshots flavor:"${arg:-staging}")
+    ;;
   *)
     echo "usage: ./release.sh {deploy|build|upload [staging|production] | bump [build|patch|minor|major]" >&2
-    echo "                     | deploy-ios|build-ios|validate-ios [staging|production]}" >&2
+    echo "                     | deploy-screenshots [staging|production]" >&2
+    echo "                     | deploy-ios|build-ios|validate-ios [staging|production]" >&2
+    echo "                     | screenshots-ios | deploy-screenshots-ios [staging|production]}" >&2
     exit 1
     ;;
 esac

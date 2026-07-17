@@ -24,6 +24,7 @@ PUBSPEC = File.join(ROOT, "pubspec.yaml")
 FLAVORS = {
   "staging" => {
     bundle: "life.doxa.pray.staging",
+    ext_bundle: ENV["ONESIGNAL_APP_ID_STAGING"],
     scheme: "staging",
     configuration: "Release-staging",
     server_url: ENV["STAGING_SERVER_URL"],
@@ -31,6 +32,7 @@ FLAVORS = {
   },
   "production" => {
     bundle: "life.doxa.pray",
+    ext_bundle: ENV["ONESIGNAL_APP_ID"],
     scheme: "production",
     configuration: "Release-production",
     server_url: ENV["PRODUCTION_SERVER_URL"],
@@ -87,10 +89,15 @@ platform :ios do
     setup_ci if ENV["CI"]
     api_key = asc_api_key
 
-    # Install the App Store cert + profile for this bundle id from the match repo.
+    # Every bundle id that ships inside the .ipa needs its own App Store profile
+    # (main app + OneSignal Notification Service Extension). match syncs them
+    # all in a single call.
+    bundle_ids = [cfg[:bundle], cfg[:ext_bundle]].reject { |id| id.to_s.strip.empty? }
+    UI.user_error!("ONESIGNAL_APP_ID#{flavor == 'staging' ? '_STAGING' : ''} is not set — the OneSignal extension needs its own bundle id in fastlane/.env") if bundle_ids.length < 2
+
     match(
       type: "appstore",
-      app_identifier: cfg[:bundle],
+      app_identifier: bundle_ids,
       readonly: true,
       api_key: api_key,
     )
@@ -99,7 +106,9 @@ platform :ios do
     UI.user_error!("APPLE_TEAM_ID is not set (see fastlane/.env.example)") if team_id.to_s.empty?
 
     # Generate the export options plist from env so the team id stays a single
-    # variable. The profile name is match's deterministic default.
+    # variable. Each embedded target must appear in provisioningProfiles with
+    # its match-generated profile name.
+    profile_entries = bundle_ids.map { |id| "  <key>#{id}</key><string>match AppStore #{id}</string>" }.join("\n")
     export_plist = Tempfile.new(["ExportOptions-#{flavor}", ".plist"])
     export_plist.write(<<~PLIST)
       <?xml version="1.0" encoding="UTF-8"?>
@@ -111,7 +120,7 @@ platform :ios do
         <key>signingStyle</key><string>manual</string>
         <key>provisioningProfiles</key>
         <dict>
-          <key>#{cfg[:bundle]}</key><string>match AppStore #{cfg[:bundle]}</string>
+      #{profile_entries}
         </dict>
       </dict>
       </plist>
