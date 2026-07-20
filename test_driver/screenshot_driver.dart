@@ -16,36 +16,22 @@ Future<void> main() async {
   final outDir = Platform.environment['SCREENSHOT_OUT'] ??
       'build/screenshots_raw/default';
 
-  // On iOS, `binding.takeScreenshot` captures only the Flutter surface, which
-  // excludes the system status bar (clock/signal/wifi/battery — a separate
-  // system window since iOS 13), leaving the top strip blank. When CAPTURE_UDID
-  // is set (see capture_ios.sh), we instead grab the FULL device screen with
-  // `xcrun simctl io … screenshot`, which includes the status bar the iOS
-  // simulator draws (pinned to 9:41 / full bars by `simctl status_bar override`).
-  // The takeScreenshot call still fires this callback at the right moment — we
-  // just discard its bytes and re-capture. Android leaves CAPTURE_UDID unset and
-  // keeps using the Flutter bytes.
-  final captureUdid = Platform.environment['CAPTURE_UDID'];
-
+  // This driver is the ANDROID path: it writes the exact bytes each
+  // `binding.takeScreenshot(name)` captured on-device, at the moment of the shot.
+  //
+  // It is NOT used for iOS. On iOS the Flutter surface omits the system status
+  // bar (a separate system window), and integration_test doesn't call this
+  // callback per-shot anyway — it collects every screenshot and replays them
+  // here in one batch AFTER the test finishes. So there is no way to re-capture
+  // "the current screen" from here at the right moment. iOS therefore uses a
+  // host-driven flutter_driver harness (test_driver/screenshot_ios_driver.dart +
+  // screenshot_ios_app.dart) that grabs the full device screen — real status bar
+  // included — with `xcrun simctl io screenshot` between navigation steps.
   await integrationDriver(
     onScreenshot: (String name, List<int> bytes, [Map<String, Object?>? args]) async {
       final dir = Directory(outDir);
       if (!dir.existsSync()) dir.createSync(recursive: true);
       final file = File('${dir.path}/$name.png');
-
-      if (captureUdid != null && captureUdid.isNotEmpty) {
-        final r = await Process.run(
-          'xcrun',
-          ['simctl', 'io', captureUdid, 'screenshot', file.path],
-        );
-        if (r.exitCode != 0) {
-          stderr.writeln('  simctl io screenshot failed for $name: ${r.stderr}');
-          return false;
-        }
-        stdout.writeln('  saved ${file.path} (full-screen via simctl)');
-        return true;
-      }
-
       await file.writeAsBytes(bytes, flush: true);
       stdout.writeln('  saved ${file.path} (${bytes.length} bytes)');
       return true;

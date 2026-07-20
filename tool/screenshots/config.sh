@@ -14,6 +14,13 @@ FLAVOR="${FLAVOR:-staging}"
 DRIVER="test_driver/screenshot_driver.dart"
 TARGET="integration_test/screenshot_test.dart"
 
+# iOS uses a separate, host-driven flutter_driver harness (not integration_test):
+# the host walks the app screen-by-screen and grabs the full device screen — real
+# status bar included — with `xcrun simctl io screenshot` between steps. See
+# capture_ios.sh and test_driver/screenshot_ios_{app,driver}.dart.
+IOS_DRIVER="test_driver/screenshot_ios_driver.dart"
+IOS_TARGET="test_driver/screenshot_ios_app.dart"
+
 # Raw = straight off the device; framed = composited onto store-sized canvases.
 RAW_DIR="$REPO/build/screenshots_raw"
 FRAMED_DIR="$REPO/build/screenshots_framed"

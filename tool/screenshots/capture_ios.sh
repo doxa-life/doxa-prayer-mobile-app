@@ -51,9 +51,9 @@ for spec in "${IOS_DEVICES[@]}"; do
   booted_udid="$udid"
 
   # Pin a clean marketing status bar (9:41, full signal/wifi, 100% battery).
-  # This is what shows in the shots because we capture the FULL device screen
-  # via `simctl io` in the driver (see below) — the Flutter surface alone has no
-  # status bar. --batteryState discharging keeps 100% without the charging bolt.
+  # This is what shows in the shots because the host driver captures the FULL
+  # device screen via `simctl io` — the Flutter surface alone has no status bar.
+  # --batteryState discharging keeps 100% without the charging bolt.
   xcrun simctl status_bar "$udid" override \
     --time "9:41" \
     --dataNetwork wifi --wifiMode active --wifiBars 3 \
@@ -66,13 +66,16 @@ for spec in "${IOS_DEVICES[@]}"; do
   #
   # No --profile here (unlike Android): iOS simulators can't AOT-compile, so
   # Flutter rejects profile/release for them ("release/profile builds are only
-  # supported for physical devices"). We run debug; the screenshot harness sets
+  # supported for physical devices"). We run debug; the harness sets
   # WidgetsApp.debugAllowBannerOverride=false so no DEBUG banner leaks in.
-  # CAPTURE_UDID tells the driver to grab the full device screen (status bar
-  # included) via `simctl io` instead of the status-bar-less Flutter surface.
+  #
+  # iOS uses the host-driven flutter_driver harness ($IOS_DRIVER/$IOS_TARGET), not
+  # integration_test: the host (screenshot_ios_driver.dart) tells the app to go to
+  # each screen, waits for it to settle, then grabs the full device screen — real
+  # status bar included — with `simctl io`. CAPTURE_UDID is the sim to screenshot.
   echo "→ driving app (--flavor $FLAVOR)…"
   SCREENSHOT_OUT="$raw_out" CAPTURE_UDID="$udid" flutter drive \
-    --driver="$DRIVER" --target="$TARGET" \
+    --driver="$IOS_DRIVER" --target="$IOS_TARGET" \
     --flavor "$FLAVOR" \
     -d "$udid"
 

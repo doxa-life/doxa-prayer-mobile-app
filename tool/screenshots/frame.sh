@@ -52,6 +52,24 @@ if [ -n "$FRAME_PNG" ]; then
   br=$(( bw * 9 / 100 ))                      # ~device corner radius (shadow only)
 
   convert "$RAW" -resize "${SCR_W}x${SCR_H}!" "$tmp/s.png"
+
+  # Clip the screenshot to the frame's real screen-window shape (rounded
+  # corners). A device screenshot is a full rectangle with square corners; on a
+  # thin-bezel phone those corners poke out past the body's rounded edge. Derive
+  # the exact screen mask from the frame itself, self-calibrating (no magic
+  # radius): the frame is transparent both INSIDE the screen hole and OUTSIDE the
+  # phone body, so a plain alpha crop would leak the corners. Instead flood-fill
+  # the exterior transparency away (starting from a corner, reached via a 1px
+  # black border) so only the enclosed hole remains, then use that as the
+  # screenshot's alpha.
+  convert "$FRAME_PNG" -alpha extract -threshold 50% \
+    -bordercolor black -border 1 \
+    -fill white -draw "color 0,0 floodfill" \
+    -shave 1x1 -negate \
+    -crop "${SCR_W}x${SCR_H}+${SCR_X}+${SCR_Y}" +repage "$tmp/screen_mask.png"
+  convert "$tmp/s.png" "$tmp/screen_mask.png" \
+    -alpha off -compose CopyOpacity -composite "$tmp/s.png"
+
   convert -size "${fw}x${fh}" xc:none \
     "$tmp/s.png"  -geometry "+${SCR_X}+${SCR_Y}" -compose over -composite \
     "$FRAME_PNG"  -compose over -composite \
