@@ -23,7 +23,10 @@ set -euo pipefail
 cmd="${1:-}"
 arg="${2:-}"
 
-track="open"
+# Google Play API track identifier. The built-in tracks have fixed names:
+# internal | alpha (closed testing) | beta (open testing) | production.
+# "Open testing" in the console is `beta` in the API.
+track="beta"
 
 here="$(dirname "$0")"
 
