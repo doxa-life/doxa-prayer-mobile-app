@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'app_shell.dart';
 import 'screens/debug_screen.dart';
+import 'screens/feedback_screen.dart';
 import 'screens/gallery_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
@@ -182,6 +183,12 @@ final GoRouter appRouter = GoRouter(
           builder: (_, _) => const NotificationPermissionSettingsScreen(),
         ),
       ],
+    ),
+    GoRoute(
+      name: 'feedback',
+      path: '/feedback',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const FeedbackScreen(),
     ),
     GoRoute(
       name: 'gallery',
