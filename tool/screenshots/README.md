@@ -12,8 +12,15 @@ tool/screenshots/
   config.sh          device matrix, captions, canvas sizes, theme  ← edit here
   capture_android.sh  boots emulators → drives → frames (Linux/macOS)
   capture_ios.sh      boots simulators → drives → frames (macOS only)
-  frame.sh            ImageMagick compositor (bezel + caption + canvas)
+  frame.sh            ImageMagick compositor (device frame / bezel + caption + canvas)
+  frames/             real device-frame PNGs (transparent screen window) — iOS
 ```
+
+iOS shots use real device frames (`frames/iphone69.png`, `frames/ipad13.png`)
+composited around the screenshot; Android uses a drawn rounded-rectangle bezel.
+iOS also captures the **full device screen** via `simctl io` (not just the Flutter
+surface) so the system status bar shows, pinned to a clean 9:41 / full-signal /
+full-battery via `simctl status_bar override` in `capture_ios.sh`.
 
 ## What gets captured
 
@@ -44,7 +51,8 @@ notifications/exact-alarm warnings) are pinned off so shots stay clean.
 - ImageMagick (`convert`)
 
 **iOS** (macOS + Xcode only — no iOS simulators exist on Linux):
-- Xcode with the `iPhone 16 Pro Max` and `iPad Pro 13-inch (M4)` simulators installed
+- Xcode with the `iPhone 17 Pro Max` and `iPad Pro 13-inch (M5)` simulators installed
+  (the names in `IOS_DEVICES`, config.sh)
 - ImageMagick (`brew install imagemagick`)
 
 ## Run it
@@ -127,6 +135,11 @@ so `frame.sh` composites each shot onto an exact canvas. Change sizes in
   `screenshot_test.dart`.
 - **Theme (background, bezel, font colour)** — `config.sh`.
 - **Canvas sizes / devices** — `ANDROID_DEVICES` / `IOS_DEVICES` in `config.sh`.
+- **iOS device frames** — swap the PNGs in `frames/` and update each row's
+  `frame png | scrX | scrY | scrW | scrH` in `IOS_DEVICES`. The screen-window
+  geometry is the transparent region's bounding box; measure it with
+  `convert frame.png -alpha extract -threshold 50% -negate -connected-components 8 …`
+  (or use the frameit-frames `offsets.json` values).
 
 ## Troubleshooting
 
