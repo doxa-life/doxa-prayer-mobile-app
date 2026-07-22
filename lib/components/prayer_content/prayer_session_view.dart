@@ -310,32 +310,57 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
                   );
                 }
                 final selectedGroup = _selectedGroupBlock(data);
+                // Everything below the Amen is information only. It is rendered
+                // on a full-bleed `mutedSurface` band so the change of zone is
+                // unmistakable and the Amen clearly reads as the end of the
+                // prayer action rather than another block in the flow.
+                final infoBlocks = <Widget>[
+                  if (selectedGroup != null)
+                    PeopleGroupOfTheDayView(
+                      name: selectedGroup.title,
+                      data: selectedGroup.peopleGroupData!,
+                      heading: l10n.myPeopleGroupTitle,
+                    ),
+                  if (data.metadata.copyrightNotices.isNotEmpty)
+                    _CopyrightNotices(notices: data.metadata.copyrightNotices),
+                ];
                 return ListView(
                   children: [
-                    PageContainer(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: AppSpacing.xxl,
-                        children: [
-                          PrayerContentView(response: data),
-                          ActionButton(
-                            label: l10n.amen,
-                            onPressed: _submitting ? null : _onAmen,
-                            color: ActionButtonColor.secondary,
-                          ),
-                          if (selectedGroup != null)
-                            PeopleGroupOfTheDayView(
-                              name: selectedGroup.title,
-                              data: selectedGroup.peopleGroupData!,
-                              heading: l10n.myPeopleGroupTitle,
+                    // Action zone: an explicit white surface so the prayer
+                    // content reads as a distinct zone against both the app's
+                    // patterned background and the muted info band below. The
+                    // scaffold is transparent over that pattern, so without this
+                    // the prayer section and the band have too little contrast.
+                    ColoredBox(
+                      color: AppColors.surface,
+                      child: PageContainer(
+                        bottomPadding: AppSpacing.xxxl,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: AppSpacing.xxl,
+                          children: [
+                            PrayerContentView(response: data),
+                            ActionButton(
+                              label: l10n.amen,
+                              onPressed: _submitting ? null : _onAmen,
+                              color: ActionButtonColor.secondary,
                             ),
-                          if (data.metadata.copyrightNotices.isNotEmpty)
-                            _CopyrightNotices(
-                              notices: data.metadata.copyrightNotices,
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
+                    if (infoBlocks.isNotEmpty)
+                      ColoredBox(
+                        color: AppColors.mutedSurface,
+                        child: PageContainer(
+                          verticalPadding: AppSpacing.xxxl,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            spacing: AppSpacing.xxl,
+                            children: infoBlocks,
+                          ),
+                        ),
+                      ),
                   ],
                 );
               },
@@ -376,47 +401,52 @@ class _DateNavigator extends StatelessWidget {
     final label = intl.DateFormat.yMMMMd(
       Localizations.localeOf(context).toString(),
     ).format(date);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.sm,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: AppSpacing.md,
-        children: [
-          IconButton(
-            icon: TriangleIcon(
-              direction: isRtl
-                  ? TriangleDirection.right
-                  : TriangleDirection.left,
-              color: canGoPrevious ? AppColors.primary : AppColors.primaryLight,
-              size: 12,
+    return ColoredBox(
+      color: AppColors.surface,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: AppSpacing.md,
+          children: [
+            IconButton(
+              icon: TriangleIcon(
+                direction: isRtl
+                    ? TriangleDirection.right
+                    : TriangleDirection.left,
+                color: canGoPrevious
+                    ? AppColors.primary
+                    : AppColors.primaryLight,
+                size: 12,
+              ),
+              tooltip: l10n.previousDay,
+              onPressed: canGoPrevious ? onPrevious : null,
             ),
-            tooltip: l10n.previousDay,
-            onPressed: canGoPrevious ? onPrevious : null,
-          ),
-          Expanded(
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: AppTypography.titleMedium.copyWith(
-                fontWeight: FontWeight.w600,
+            Expanded(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: AppTypography.titleMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          IconButton(
-            icon: TriangleIcon(
-              direction: isRtl
-                  ? TriangleDirection.left
-                  : TriangleDirection.right,
-              color: canGoNext ? AppColors.primary : AppColors.onPrimary,
-              size: 12,
+            IconButton(
+              icon: TriangleIcon(
+                direction: isRtl
+                    ? TriangleDirection.left
+                    : TriangleDirection.right,
+                color: canGoNext ? AppColors.primary : AppColors.onPrimary,
+                size: 12,
+              ),
+              tooltip: l10n.nextDay,
+              onPressed: canGoNext ? onNext : null,
             ),
-            tooltip: l10n.nextDay,
-            onPressed: canGoNext ? onNext : null,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
