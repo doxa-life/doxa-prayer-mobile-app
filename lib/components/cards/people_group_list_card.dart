@@ -49,21 +49,30 @@ class PeopleGroupListCard extends StatelessWidget {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: AppSpacing.md,
-            children: [
-              ButtonLink(
-                label: l10n.profile,
-                onPressed: onDetails,
-              ),
-              ActionButton(
-                label: isSelected ? l10n.selected : l10n.select,
-                onPressed: isSelected ? null : onSelect,
-                color: ActionButtonColor.secondary,
-              ),
-            ],
+          // A Wrap (rather than a Row) so the profile link and select button
+          // reflow onto separate lines instead of overflowing when a long
+          // label or a large font scale leaves them no room side by side.
+          // Full width so spaceBetween keeps profile left / select right while
+          // they fit on one line.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: AppSpacing.md,
+              runSpacing: AppSpacing.sm,
+              children: [
+                ButtonLink(
+                  label: l10n.profile,
+                  onPressed: onDetails,
+                ),
+                ActionButton(
+                  label: isSelected ? l10n.selected : l10n.select,
+                  onPressed: isSelected ? null : onSelect,
+                  color: ActionButtonColor.secondary,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -86,6 +86,7 @@ class WizardStepWelcome extends StatelessWidget {
                       onPressed: controller.startFromWelcome,
                       color: ActionButtonColor.secondary,
                     ),
+                  SizedBox(height: AppSpacing.xxxs),
                 ],
               ),
             ),
