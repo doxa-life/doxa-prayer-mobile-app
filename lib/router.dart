@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'app_shell.dart';
+import 'components/nav/root_pop_scope.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/gallery_screen.dart';
@@ -136,17 +137,20 @@ final GoRouter appRouter = GoRouter(
       path: '/:slug/prayer',
       parentNavigatorKey: _rootNavigatorKey,
       redirect: _prayDeepLinkRedirect,
-      builder: (_, state) =>
-          PrayDeepLinkScreen(slug: state.pathParameters['slug']!),
+      builder: (_, state) => RootPopScope(
+        child: PrayDeepLinkScreen(slug: state.pathParameters['slug']!),
+      ),
       routes: [
         GoRoute(
           name: 'pray-deep-link-dated',
           path: ':date',
           parentNavigatorKey: _rootNavigatorKey,
           redirect: _prayDeepLinkRedirect,
-          builder: (_, state) => PrayDeepLinkScreen(
-            slug: state.pathParameters['slug']!,
-            date: DateTime.tryParse(state.pathParameters['date'] ?? ''),
+          builder: (_, state) => RootPopScope(
+            child: PrayDeepLinkScreen(
+              slug: state.pathParameters['slug']!,
+              date: DateTime.tryParse(state.pathParameters['date'] ?? ''),
+            ),
           ),
         ),
       ],
@@ -158,9 +162,11 @@ final GoRouter appRouter = GoRouter(
       builder: (_, state) {
         final extra = state.extra;
         final fromWizard = extra is Map && extra['fromWizard'] == true;
-        return PeopleGroupDetailsScreen(
-          slug: state.pathParameters['slug'],
-          fromWizard: fromWizard,
+        return RootPopScope(
+          child: PeopleGroupDetailsScreen(
+            slug: state.pathParameters['slug'],
+            fromWizard: fromWizard,
+          ),
         );
       },
     ),
@@ -168,19 +174,21 @@ final GoRouter appRouter = GoRouter(
       name: 'settings',
       path: '/settings',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const SettingsScreen(),
+      builder: (_, _) => const RootPopScope(child: SettingsScreen()),
       routes: [
         GoRoute(
           name: 'settings-news-signup',
           path: 'news-signup',
           parentNavigatorKey: _rootNavigatorKey,
-          builder: (_, _) => const NewsSignupSettingsScreen(),
+          builder: (_, _) =>
+              const RootPopScope(child: NewsSignupSettingsScreen()),
         ),
         GoRoute(
           name: 'settings-notifications',
           path: 'notifications',
           parentNavigatorKey: _rootNavigatorKey,
-          builder: (_, _) => const NotificationPermissionSettingsScreen(),
+          builder: (_, _) =>
+              const RootPopScope(child: NotificationPermissionSettingsScreen()),
         ),
       ],
     ),
@@ -188,19 +196,19 @@ final GoRouter appRouter = GoRouter(
       name: 'feedback',
       path: '/feedback',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const FeedbackScreen(),
+      builder: (_, _) => const RootPopScope(child: FeedbackScreen()),
     ),
     GoRoute(
       name: 'gallery',
       path: '/gallery',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const GalleryScreen(),
+      builder: (_, _) => const RootPopScope(child: GalleryScreen()),
     ),
     GoRoute(
       name: 'debug',
       path: '/debug',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const DebugScreen(),
+      builder: (_, _) => const RootPopScope(child: DebugScreen()),
     ),
     GoRoute(
       name: 'wizard',

@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/misc/plus_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +71,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
     return Scaffold(
       appBar: DetailsNavBar(
         title: 'Gallery',
-        onBack: () => Navigator.pop(context),
+        onBack: () => safeBack(context),
       ),
       body: SafeArea(
         child: ListView(

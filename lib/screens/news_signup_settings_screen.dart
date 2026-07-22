@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/nav/details_nav_bar.dart';
+import '../components/nav/root_pop_scope.dart';
 import '../components/notifications/enable_notifications_prompt.dart';
 import '../components/widgets/news_signup.dart';
 import '../l10n/app_localizations.dart';
@@ -26,7 +27,7 @@ class NewsSignupSettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: DetailsNavBar(
         title: l.signUpForUpdates,
-        onBack: () => Navigator.pop(context),
+        onBack: () => safeBack(context),
       ),
       body: SafeArea(
         child: PageContainer(

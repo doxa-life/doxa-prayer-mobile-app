@@ -5,6 +5,7 @@ import '../components/buttons/action_button.dart';
 import '../components/inputs/text_field.dart';
 import '../components/misc/titles.dart';
 import '../components/nav/details_nav_bar.dart';
+import '../components/nav/root_pop_scope.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
 import '../services/crash_reporting_service.dart';
@@ -39,7 +40,7 @@ class DebugScreen extends StatelessWidget {
     return Scaffold(
       appBar: DetailsNavBar(
         title: 'Debug',
-        onBack: () => Navigator.pop(context),
+        onBack: () => safeBack(context),
       ),
       body: SafeArea(
         child: ListView(

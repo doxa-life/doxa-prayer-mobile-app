@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/buttons/action_button.dart';
 import '../components/misc/titles.dart';
 import '../components/nav/details_nav_bar.dart';
+import '../components/nav/root_pop_scope.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
 import '../services/reminders_notifications.dart';
@@ -62,7 +63,7 @@ class _NotificationPermissionSettingsScreenState
     return Scaffold(
       appBar: DetailsNavBar(
         title: l.notifications,
-        onBack: () => Navigator.pop(context),
+        onBack: () => safeBack(context),
       ),
       body: SafeArea(
         child: PageContainer(

@@ -8,6 +8,7 @@ import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
+import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
@@ -70,7 +71,7 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
         backgroundColor: Colors.transparent,
         appBar: DetailsNavBar(
           title: l.peopleGroup,
-          onBack: () => Navigator.pop(context),
+          onBack: () => safeBack(context),
         ),
         body: SafeArea(
           child: PageContainer(

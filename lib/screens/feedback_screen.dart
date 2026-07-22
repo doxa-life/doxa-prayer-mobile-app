@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/nav/details_nav_bar.dart';
+import '../components/nav/root_pop_scope.dart';
 import '../components/widgets/feedback_form.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
@@ -17,7 +18,7 @@ class FeedbackScreen extends StatelessWidget {
     return Scaffold(
       appBar: DetailsNavBar(
         title: l.feedback,
-        onBack: () => Navigator.pop(context),
+        onBack: () => safeBack(context),
       ),
       body: SafeArea(
         child: PageContainer(
