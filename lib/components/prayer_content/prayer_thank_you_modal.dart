@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../misc/app_icon.dart';
 
 /// Shows an encouraging modal thanking the user for praying, affirming that
 /// their prayers make a difference. Shown after the user taps "Amen".
@@ -69,8 +71,12 @@ class PrayerThankYouModal extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             ActionButton.fullWidth(
-              label: l10n.continueLabel,
-              onPressed: () => Navigator.of(context).pop(),
+              label: l10n.home,
+              icon: const AppIcon(AppIconName.home),
+              onPressed: () {
+                Navigator.of(context).pop();
+                context.go('/home');
+              },
               color: ActionButtonColor.secondary,
             ),
           ],
