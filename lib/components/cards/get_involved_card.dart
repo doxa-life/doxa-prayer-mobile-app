@@ -27,22 +27,30 @@ class GetInvolvedCard extends StatelessWidget {
         spacing: AppSpacing.lg,
         children: [
           Text(l.getInvolved, style: AppTypography.h2),
-          Row(
-            spacing: AppSpacing.md,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconLabelButton(
-                icon: const AppIcon(AppIconName.heart),
-                label: l.donate,
-                onPressed: onDonate,
-              ),
-              IconLabelButton(
-                icon: const AppIcon(AppIconName.chat),
-                label: l.feedback,
-                onPressed: onFeedback,
-              ),
-            ],
+          // A Wrap (rather than a Row) so the buttons reflow onto a second line
+          // instead of overflowing when large font scales widen their labels.
+          // Full width so spaceEvenly spreads them across the card while they
+          // fit on one line.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceEvenly,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: AppSpacing.md,
+              runSpacing: AppSpacing.md,
+              children: [
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.heart),
+                  label: l.donate,
+                  onPressed: onDonate,
+                ),
+                IconLabelButton(
+                  icon: const AppIcon(AppIconName.chat),
+                  label: l.feedback,
+                  onPressed: onFeedback,
+                ),
+              ],
+            ),
           ),
         ],
       ),

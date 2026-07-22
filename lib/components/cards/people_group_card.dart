@@ -47,30 +47,38 @@ class PeopleGroupCard extends StatelessWidget {
               color: ActionButtonColor.secondary,
             ),
           if (prayedToday) _PrayedTodayPill(label: l.prayedToday),
-          Row(
-            spacing: AppSpacing.md,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (onDetails != null)
-                IconLabelButton(
-                  icon: const AppIcon(AppIconName.person),
-                  label: l.profile,
-                  onPressed: onDetails,
-                ),
-              if (onShare != null)
-                IconLabelButton(
-                  icon: const AppIcon(AppIconName.share),
-                  label: l.share,
-                  onPressed: onShare,
-                ),
-              if (onShowQr != null)
-                IconLabelButton(
-                  icon: const AppIcon(AppIconName.qrCode),
-                  label: l.qrCode,
-                  onPressed: onShowQr,
-                ),
-            ],
+          // A Wrap (rather than a Row) so the action buttons reflow onto a
+          // second line instead of overflowing when large font scales widen
+          // their labels. Full width so spaceEvenly spreads them across the
+          // card while they fit on one line.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceEvenly,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: AppSpacing.md,
+              runSpacing: AppSpacing.md,
+              children: [
+                if (onDetails != null)
+                  IconLabelButton(
+                    icon: const AppIcon(AppIconName.person),
+                    label: l.profile,
+                    onPressed: onDetails,
+                  ),
+                if (onShare != null)
+                  IconLabelButton(
+                    icon: const AppIcon(AppIconName.share),
+                    label: l.share,
+                    onPressed: onShare,
+                  ),
+                if (onShowQr != null)
+                  IconLabelButton(
+                    icon: const AppIcon(AppIconName.qrCode),
+                    label: l.qrCode,
+                    onPressed: onShowQr,
+                  ),
+              ],
+            ),
           ),
         ],
       ),
