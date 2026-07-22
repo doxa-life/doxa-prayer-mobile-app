@@ -5,6 +5,7 @@ import '../../services/reminders_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../buttons/button_bar_wrap.dart';
 import '../inputs/adaptive_time_picker.dart';
 import '../misc/titles.dart';
 import 'weekday_selector.dart';
@@ -151,17 +152,17 @@ class _ReminderFormState extends State<ReminderForm> {
       color: ActionButtonColor.secondary,
     );
     if (widget.onDelete != null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ActionButton(
-            label: l.delete,
-            color: ActionButtonColor.white,
-            isOutlined: true,
-            onPressed: _saving ? null : () => widget.onDelete!(),
-          ),
-          saveButton,
-        ],
+      // A button bar so delete + save sit side by side when they fit and stack
+      // full width (instead of overflowing) when a large font scale widens
+      // their labels.
+      return ButtonBarWrap(
+        leading: ActionButton(
+          label: l.delete,
+          color: ActionButtonColor.white,
+          isOutlined: true,
+          onPressed: _saving ? null : () => widget.onDelete!(),
+        ),
+        trailing: saveButton,
       );
     }
     return Row(

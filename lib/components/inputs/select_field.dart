@@ -23,7 +23,18 @@ class SelectField<T> extends StatelessWidget {
       initialValue: value,
       items: items,
       onChanged: onChanged,
-      decoration: InputDecoration(labelText: label, hintText: hint),
+      decoration: InputDecoration(
+        // Clamp the floating label's text scaling so it stays within the
+        // outline border's notch at large accessibility font sizes. Left
+        // unclamped, an over-large label is clipped by the top border and
+        // pushes the value down until its descenders clip too. The selected
+        // value itself is left unclamped.
+        label: MediaQuery.withClampedTextScaling(
+          maxScaleFactor: 1.3,
+          child: Text(label),
+        ),
+        hintText: hint,
+      ),
       icon: const Icon(Icons.expand_more),
       style: AppTypography.bodyMedium,
     );

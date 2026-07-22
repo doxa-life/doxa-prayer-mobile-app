@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/reminders_format.dart';
 import '../../theme/app_colors.dart';
+import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 
 class WeekdaySelector extends StatelessWidget {
@@ -17,8 +18,14 @@ class WeekdaySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final order = weekdaysInLocaleOrder(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // A Wrap (rather than a Row) so the seven day circles reflow onto a second
+    // line instead of overflowing when the available width is tight (e.g. a
+    // narrow screen at large font scales).
+    return Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: AppSpacing.xs,
+      runSpacing: AppSpacing.sm,
       children: [
         for (final wd in order)
           _WeekdayCircle(

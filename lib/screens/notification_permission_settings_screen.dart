@@ -99,7 +99,9 @@ class _NotificationPermissionSettingsScreenState
               size: 28,
             ),
             const SizedBox(width: AppSpacing.sm),
-            H2(l.notifications_enabled, textAlign: TextAlign.center),
+            Flexible(
+              child: H2(l.notifications_enabled, textAlign: TextAlign.center),
+            ),
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -126,7 +128,9 @@ class _NotificationPermissionSettingsScreenState
               size: 28,
             ),
             const SizedBox(width: AppSpacing.sm),
-            H2(l.notifications_disabled),
+            Flexible(
+              child: H2(l.notifications_disabled, textAlign: TextAlign.center),
+            ),
           ],
         ),
         const SizedBox(height: AppSpacing.lg),
