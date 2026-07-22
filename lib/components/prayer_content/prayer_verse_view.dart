@@ -54,11 +54,17 @@ class PrayerVerseView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  citation,
-                  style: AppTypography.caption.copyWith(
-                    color: AppColors.white.withValues(alpha: 0.7),
-                    fontWeight: FontWeight.w500,
+                // Flexible + right-aligned text so a long reference wraps onto
+                // another line (staying right-aligned) instead of overflowing
+                // at large font scales.
+                Flexible(
+                  child: Text(
+                    citation,
+                    textAlign: TextAlign.end,
+                    style: AppTypography.caption.copyWith(
+                      color: AppColors.white.withValues(alpha: 0.7),
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
