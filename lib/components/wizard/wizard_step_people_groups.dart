@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
-import '../buttons/button_link.dart';
 import '../misc/titles.dart';
 import '../widgets/people_groups_list.dart';
 
@@ -17,6 +16,10 @@ class WizardStepPeopleGroups extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    // The keyboard overlays this step (resizeToAvoidBottomInset is off on the
+    // wizard Scaffold) so the title and search field stay put while typing;
+    // matching bottom padding lets the results scroll clear of the keyboard.
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
     return PageContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,6 +30,7 @@ class WizardStepPeopleGroups extends StatelessWidget {
             child: PeopleGroupsList(
               onSelect: controller.proposePeopleGroup,
               onSelectionConfirmed: (_) => controller.next(),
+              listBottomPadding: keyboardInset + AppSpacing.lg,
             ),
           ),
           Row(

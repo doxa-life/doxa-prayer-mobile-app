@@ -40,9 +40,10 @@ class _WizardScreenState extends State<WizardScreen> {
         animation: _controller,
         builder: (context, _) {
           return Scaffold(
-            // The news signup step keeps its buttons in a scroll view and lets
-            // the keyboard overlay them, instead of riding up on the keyboard.
-            resizeToAvoidBottomInset: _controller.step != WizardStep.newsSignup,
+            // Steps keep their content in scroll views and let the keyboard
+            // overlay them (with matching scroll padding), instead of shrinking
+            // the layout — which at large font scales would clip the steps.
+            resizeToAvoidBottomInset: false,
             backgroundColor: (_controller.step == WizardStep.welcome)
                 ? Colors.white
                 : Colors.transparent,
@@ -62,6 +63,14 @@ class _WizardScreenState extends State<WizardScreen> {
                       Expanded(
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 250),
+                          // Top-aligned (the default centers): a step taller
+                          // than the viewport must clip at the bottom only,
+                          // never push its header off the top of the screen.
+                          layoutBuilder: (currentChild, previousChildren) =>
+                              Stack(
+                                alignment: Alignment.topCenter,
+                                children: [...previousChildren, ?currentChild],
+                              ),
                           child: KeyedSubtree(
                             key: ValueKey(_controller.step),
                             child: _buildStep(),

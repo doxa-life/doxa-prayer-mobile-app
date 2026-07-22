@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/layouts/fill_viewport_scroll_view.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,51 +55,39 @@ class WizardStepWelcome extends StatelessWidget {
         Positioned.fill(
           child: PageContainer(
             verticalPadding: 0,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
-                    ),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        spacing: 50.0,
-                        children: [
-                          Image.asset(
-                            'assets/images/doxa-logo-vertical.png',
-                            height: 140,
-                          ),
-                          H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
-                          Text(
-                            l.wizardWelcomeBody,
-                            style: AppTypography.bodyMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                          // Resolves a deferred "Pray on the app" referral (if any)
-                          // and jumps to the confirm step with that group pre-filled;
-                          // otherwise advances to the people-groups list. Shows a
-                          // spinner while the referred group is being looked up.
-                          if (controller.resolvingReferral)
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: AppSpacing.md,
-                              ),
-                              child: CircularProgressIndicator(),
-                            )
-                          else
-                            ActionButton(
-                              label: l.wizardGetStarted,
-                              onPressed: controller.startFromWelcome,
-                              color: ActionButtonColor.secondary,
-                            ),
-                        ],
-                      ),
-                    ),
+            child: FillViewportScrollView(
+              padKeyboardInset: false,
+              builder: (context, maxWidth) => Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 50.0,
+                children: [
+                  Image.asset(
+                    'assets/images/doxa-logo-vertical.png',
+                    height: 140,
                   ),
-                );
-              },
+                  H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
+                  Text(
+                    l.wizardWelcomeBody,
+                    style: AppTypography.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  // Resolves a deferred "Pray on the app" referral (if any)
+                  // and jumps to the confirm step with that group pre-filled;
+                  // otherwise advances to the people-groups list. Shows a
+                  // spinner while the referred group is being looked up.
+                  if (controller.resolvingReferral)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+                      child: CircularProgressIndicator(),
+                    )
+                  else
+                    ActionButton(
+                      label: l.wizardGetStarted,
+                      onPressed: controller.startFromWelcome,
+                      color: ActionButtonColor.secondary,
+                    ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
+import 'package:doxa_prayer_mobile_app/layouts/fill_viewport_scroll_view.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -62,37 +63,40 @@ class _WizardStepReminderState extends State<WizardStepReminder> {
     final l = AppLocalizations.of(context)!;
     final canSave = _current != null && !_saving;
     return PageContainer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
-          Text(
-            l.wizardSetReminderBody,
-            style: AppTypography.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          ReminderForm(
-            title: '',
-            onChanged: (r) => setState(() => _current = r),
-          ),
-          const SizedBox(height: AppSpacing.xxl),
-          Expanded(child: SizedBox.shrink()),
-          ButtonBarWrap(
-            leading: ActionButton(
-              label: l.skip,
-              color: ActionButtonColor.white,
-              isOutlined: true,
-              onPressed: _saving ? null : widget.controller.next,
+      child: FillViewportScrollView(
+        builder: (context, maxWidth) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            H1(l.wizardSetReminderTitle, textAlign: TextAlign.center),
+            Text(
+              l.wizardSetReminderBody,
+              style: AppTypography.bodyMedium,
+              textAlign: TextAlign.center,
             ),
-            trailing: ActionButton(
-              label: l.save,
-              color: ActionButtonColor.secondary,
-              onPressed: canSave ? _save : null,
+            const SizedBox(height: AppSpacing.xl),
+            ReminderForm(
+              title: '',
+              onChanged: (r) => setState(() => _current = r),
             ),
-          ),
-        ],
+            const SizedBox(height: AppSpacing.xxl),
+            const Expanded(child: SizedBox.shrink()),
+            ButtonBarWrap(
+              maxWidth: maxWidth,
+              leading: ActionButton(
+                label: l.skip,
+                color: ActionButtonColor.white,
+                isOutlined: true,
+                onPressed: _saving ? null : widget.controller.next,
+              ),
+              trailing: ActionButton(
+                label: l.save,
+                color: ActionButtonColor.secondary,
+                onPressed: canSave ? _save : null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

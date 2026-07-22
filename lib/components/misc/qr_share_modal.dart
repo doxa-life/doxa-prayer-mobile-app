@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -37,7 +39,9 @@ class QrShareModal extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSpacing.md),
       ),
-      child: Padding(
+      child: SingleChildScrollView(
+        // Scrolls when large accessibility font scales make the caption
+        // taller than the dialog; shrink-wraps otherwise.
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -55,7 +59,10 @@ class QrShareModal extends StatelessWidget {
             QrImageView(
               data: url,
               version: QrVersions.auto,
-              size: 240,
+              // Shrink on short viewports so a scannable code stays fully
+              // visible without scrolling (the QR itself never scales with
+              // font size, only the caption does).
+              size: math.min(240.0, MediaQuery.sizeOf(context).height * 0.4),
               backgroundColor: AppColors.white,
               eyeStyle: const QrEyeStyle(
                 eyeShape: QrEyeShape.square,

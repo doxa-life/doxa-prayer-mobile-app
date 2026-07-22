@@ -115,54 +115,49 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 );
               }
               final filtered = _filter(snapshot.data ?? const []);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: AppSpacing.lg,
-                children: [
-                  Text(
-                    AppLocalizations.of(
-                      context,
-                    )!.nPeopleGroups(filtered.length),
-                    style: AppTypography.caption,
-                  ),
-                  Expanded(
-                    child: ValueListenableBuilder<SelectedPeopleGroup?>(
-                      valueListenable: selectedPeopleGroupController,
-                      builder: (context, selected, _) {
-                        return ListView.separated(
-                          padding: EdgeInsets.only(
-                            bottom: widget.listBottomPadding,
-                          ),
-                          itemCount: filtered.length,
-                          separatorBuilder: (_, _) =>
-                              const SizedBox(height: AppSpacing.lg),
-                          itemBuilder: (context, i) {
-                            final g = filtered[i];
-                            return PeopleGroupListCard(
+              return ValueListenableBuilder<SelectedPeopleGroup?>(
+                valueListenable: selectedPeopleGroupController,
+                builder: (context, selected, _) {
+                  // The results count scrolls with the list (it is the first
+                  // entry) so only the search field stays fixed above it —
+                  // this keeps the fixed header small at large font scales.
+                  return ListView.separated(
+                    padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+                    itemCount: filtered.length + 1,
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(height: AppSpacing.lg),
+                    itemBuilder: (context, i) {
+                      if (i == 0) {
+                        return Text(
+                          AppLocalizations.of(
+                            context,
+                          )!.nPeopleGroups(filtered.length),
+                          style: AppTypography.caption,
+                        );
+                      }
+                      final g = filtered[i - 1];
+                      return PeopleGroupListCard(
+                        name: g.name,
+                        imageUrl: g.imageUrl,
+                        isSelected: selected?.slug == g.slug,
+                        onSelect: () {
+                          final cb = widget.onSelect;
+                          if (cb != null) {
+                            cb(g);
+                          } else {
+                            showSelectPeopleGroupConfirmation(
+                              context,
+                              slug: g.slug,
                               name: g.name,
                               imageUrl: g.imageUrl,
-                              isSelected: selected?.slug == g.slug,
-                              onSelect: () {
-                                final cb = widget.onSelect;
-                                if (cb != null) {
-                                  cb(g);
-                                } else {
-                                  showSelectPeopleGroupConfirmation(
-                                    context,
-                                    slug: g.slug,
-                                    name: g.name,
-                                    imageUrl: g.imageUrl,
-                                  );
-                                }
-                              },
-                              onDetails: () => _openDetails(g),
                             );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                          }
+                        },
+                        onDetails: () => _openDetails(g),
+                      );
+                    },
+                  );
+                },
               );
             },
           ),

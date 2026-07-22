@@ -32,7 +32,9 @@ class ActionModal extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSpacing.md),
       ),
-      child: Padding(
+      child: SingleChildScrollView(
+        // Scrolls when large accessibility font scales make the content
+        // taller than the dialog; shrink-wraps otherwise.
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.xxxl,
           vertical: AppSpacing.xxl,

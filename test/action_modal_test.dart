@@ -60,4 +60,27 @@ void main() {
     final allow = tester.getCenter(find.text('ALLOW EXACT ALARMS ALWAYS')).dy;
     expect(allow, isNot(notNow));
   });
+
+  testWidgets('scrolls (no overflow) on a small screen at 3x font scale', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 480);
+    tester.view.devicePixelRatio = 1.0;
+    tester.platformDispatcher.textScaleFactorTestValue = 3.0;
+    addTearDown(tester.view.reset);
+    addTearDown(tester.platformDispatcher.clearAllTestValues);
+
+    await tester.pumpWidget(_wrap(allowLabel: 'Allow'));
+
+    // No RenderFlex overflow at large font scales.
+    expect(tester.takeException(), isNull);
+
+    // Both buttons can be scrolled into view and hit.
+    final allow = find.text('ALLOW');
+    await tester.scrollUntilVisible(allow, 100);
+    expect(allow.hitTestable(), findsOneWidget);
+    final notNow = find.text('NOT NOW');
+    await tester.scrollUntilVisible(notNow, 100);
+    expect(notNow.hitTestable(), findsOneWidget);
+  });
 }

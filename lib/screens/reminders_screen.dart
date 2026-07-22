@@ -1,4 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
+import 'package:doxa_prayer_mobile_app/layouts/fill_viewport_scroll_view.dart';
 import 'package:flutter/material.dart';
 
 import '../components/buttons/action_button.dart';
@@ -23,22 +24,7 @@ class RemindersScreen extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: PageContainer(
-        child: Column(
-          children: [
-            ValueListenableBuilder<bool>(
-              valueListenable: notificationsBlocked,
-              // When notifications are off nothing fires at all, so show that
-              // banner alone; otherwise surface the exact-alarm warning (which
-              // self-hides when exact alarms are permitted).
-              builder: (context, blocked, _) => blocked
-                  ? const _NotificationsBlockedBanner()
-                  : const ExactAlarmWarningBanner(),
-            ),
-            Expanded(child: _buildReminders(context, l)),
-          ],
-        ),
-      ),
+      body: PageContainer(child: _buildReminders(context, l)),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showReminderEditor(context),
         backgroundColor: AppColors.primary,
@@ -50,25 +36,57 @@ class RemindersScreen extends StatelessWidget {
     );
   }
 
+  /// The warning banner scrolls with the content (rather than sitting in a
+  /// fixed slot above it) so that at large font scales it cannot swallow the
+  /// whole viewport. When notifications are off nothing fires at all, so show
+  /// that banner alone; otherwise surface the exact-alarm warning (which
+  /// self-hides when exact alarms are permitted).
+  Widget _buildBanner() {
+    return ValueListenableBuilder<bool>(
+      valueListenable: notificationsBlocked,
+      builder: (context, blocked, _) => blocked
+          ? const _NotificationsBlockedBanner()
+          : const ExactAlarmWarningBanner(),
+    );
+  }
+
   Widget _buildReminders(BuildContext context, AppLocalizations l) {
     return ValueListenableBuilder<Reminders?>(
           valueListenable: remindersController,
           builder: (context, reminders, _) {
             final list = reminders?.list ?? const <Reminder>[];
             if (list.isEmpty) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
-                  child: Text(
-                    l.noRemindersYet,
-                    style: AppTypography.bodyMedium,
-                    textAlign: TextAlign.center,
-                  ),
+              // Fills the viewport (message centered in the remaining space)
+              // and scrolls when the banner alone is taller than the screen.
+              return FillViewportScrollView(
+                padKeyboardInset: false,
+                builder: (context, _) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildBanner(),
+                    Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: AppSpacing.xxl,
+                          ),
+                          child: Text(
+                            l.noRemindersYet,
+                            style: AppTypography.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
             }
             return ListView(
+              // Bottom padding keeps the last reminder clear of the FAB.
+              padding: const EdgeInsets.only(bottom: 96),
               children: [
+                _buildBanner(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: AppSpacing.xxl,

@@ -28,7 +28,9 @@ class PrayerThankYouModal extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSpacing.md),
       ),
-      child: Padding(
+      child: SingleChildScrollView(
+        // Scrolls when large accessibility font scales make the content
+        // taller than the dialog; shrink-wraps otherwise.
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../models/prayer_content.dart';
 import '../../theme/app_spacing.dart';
-import '../../theme/app_typography.dart';
 import '../misc/app_image.dart';
 import '../misc/titles.dart';
 
