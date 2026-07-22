@@ -20,8 +20,7 @@
         "description": "A plural message for the number of people groups",
         "placeholders": {
             "count": {
-                "type": "num",
-                "format": "compact"
+                "type": "num"
             }
         }
     },

@@ -22,15 +22,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String nPeopleGroups(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString grupos de personas',
+      other: '$count grupos de personas',
       one: '1 grupo de personas',
       zero: 'Sin grupos de personas',
     );
