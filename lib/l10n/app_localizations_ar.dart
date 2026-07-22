@@ -154,6 +154,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get engagementStatus => 'حالة الانخراط';
 
   @override
+  String get engaged => 'مُنخرَط';
+
+  @override
   String get adoptionStatus => 'حالة التبنّي';
 
   @override

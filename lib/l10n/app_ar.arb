@@ -534,6 +534,7 @@
     "emailLabel": "البريد الإلكتروني",
     "enableNotifications": "تمكين الإشعارات",
     "engagementStatus": "حالة الانخراط",
+    "engaged": "مُنخرَط",
     "everyDay": "كل يوم",
     "exactAlarmsDisabledStatus": "التنبيهات الدقيقة غير مسموح بها لتطبيق Doxa، لذا قد تصل تذكيرات الصلاة متأخرة بعدة دقائق.",
     "exactAlarmsPromptBody": "لكي تصل تذكيرات الصلاة في وقتها تمامًا، اسمح لتطبيق Doxa باستخدام التنبيهات الدقيقة.",

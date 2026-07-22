@@ -534,6 +534,7 @@
     "emailLabel": "Email",
     "enableNotifications": "Activer les notifications",
     "engagementStatus": "Statut de l'engagement",
+    "engaged": "Engagé",
     "everyDay": "Tous les jours",
     "exactAlarmsDisabledStatus": "Les alarmes exactes ne sont pas autorisées pour Doxa ; vos rappels de prière peuvent donc arriver avec plusieurs minutes de retard.",
     "exactAlarmsPromptBody": "Pour que vos rappels de prière arrivent à l'heure pile, autorisez Doxa à utiliser des alarmes exactes.",

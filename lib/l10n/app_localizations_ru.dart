@@ -156,6 +156,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get engagementStatus => 'Статус вовлечения';
 
   @override
+  String get engaged => 'Вовлечён';
+
+  @override
   String get adoptionStatus => 'Статус принятия';
 
   @override

@@ -184,6 +184,10 @@
     "@engagementStatus": {
         "description": "The label of the engagement status field"
     },
+    "engaged": "Engaged",
+    "@engaged": {
+        "description": "Marker label shown when a people group is engaged"
+    },
     "adoptionStatus": "Adoption Status",
     "@adoptionStatus": {
         "description": "The label of the adoption status field"

@@ -158,6 +158,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get engagementStatus => 'Estado del compromiso';
 
   @override
+  String get engaged => 'Comprometido';
+
+  @override
   String get adoptionStatus => 'Estado de la adopción';
 
   @override

@@ -153,26 +153,35 @@ class _DetailBody extends StatelessWidget {
                           ? EngagementStatus.yes
                           : EngagementStatus.no,
                     ),
-                    _EngagementItem(
-                      label: l.crossCulturalWorkersPresent,
-                      status: detail.raw['workers_long_term'] != null
-                          ? EngagementStatus.yes
-                          : EngagementStatus.no,
-                    ),
-                    _EngagementItem(
-                      label: l.workInLocalLanguageAndCulture,
-                      status: detail.raw['work_in_local_language'] != null
-                          ? EngagementStatus.yes
-                          : EngagementStatus.no,
-                    ),
-                    _EngagementItem(
-                      label: l.discipleAndChurchMultiplication,
-                      status:
-                          detail.raw['disciple_and_church_multiplication'] !=
-                              null
-                          ? EngagementStatus.yes
-                          : EngagementStatus.no,
-                    ),
+                    // When the group is marked as engaged, the last three
+                    // markers are collapsed into a single "Engaged" marker.
+                    if (_isEngaged(detail))
+                      _EngagementItem(
+                        label: l.engaged,
+                        status: EngagementStatus.yes,
+                      )
+                    else ...[
+                      _EngagementItem(
+                        label: l.crossCulturalWorkersPresent,
+                        status: detail.raw['workers_long_term'] != null
+                            ? EngagementStatus.yes
+                            : EngagementStatus.no,
+                      ),
+                      _EngagementItem(
+                        label: l.workInLocalLanguageAndCulture,
+                        status: detail.raw['work_in_local_language'] != null
+                            ? EngagementStatus.yes
+                            : EngagementStatus.no,
+                      ),
+                      _EngagementItem(
+                        label: l.discipleAndChurchMultiplication,
+                        status:
+                            detail.raw['disciple_and_church_multiplication'] !=
+                                null
+                            ? EngagementStatus.yes
+                            : EngagementStatus.no,
+                      ),
+                    ],
                   ],
                 ),
               ],
@@ -557,6 +566,14 @@ class _ErrorView extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Whether the people group is marked as engaged, mirroring the doxa.life
+/// people group details page (engagement_status value == "engaged").
+bool _isEngaged(PeopleGroupDetail detail) {
+  final status = detail.raw['engagement_status'];
+  final value = status is Map<String, dynamic> ? status['value'] : status;
+  return value?.toString().toLowerCase() == 'engaged';
 }
 
 String? _label(dynamic field) {

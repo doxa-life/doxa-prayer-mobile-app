@@ -534,6 +534,7 @@
     "emailLabel": "Correo electrónico",
     "enableNotifications": "Activar notificaciones",
     "engagementStatus": "Estado del compromiso",
+    "engaged": "Comprometido",
     "everyDay": "Todos los días",
     "exactAlarmsDisabledStatus": "Las alarmas exactas no están permitidas para Doxa, por lo que tus recordatorios de oración pueden llegar con varios minutos de retraso.",
     "exactAlarmsPromptBody": "Para que tus recordatorios de oración lleguen justo a tiempo, permite que Doxa use alarmas exactas.",

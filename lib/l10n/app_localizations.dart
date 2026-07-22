@@ -376,6 +376,12 @@ abstract class AppLocalizations {
   /// **'Engagement status'**
   String get engagementStatus;
 
+  /// Marker label shown when a people group is engaged
+  ///
+  /// In en, this message translates to:
+  /// **'Engaged'**
+  String get engaged;
+
   /// The label of the adoption status field
   ///
   /// In en, this message translates to:
