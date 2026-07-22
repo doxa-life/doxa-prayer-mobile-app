@@ -483,6 +483,57 @@ class AppLocalizationsPt extends AppLocalizations {
   String get feedback => 'Comentários';
 
   @override
+  String get feedbackIntro =>
+      'Adoraríamos ouvir você. Conte-nos o que acha do aplicativo.';
+
+  @override
+  String get feedbackTypeLabel => 'Que tipo de comentário?';
+
+  @override
+  String get feedbackTypeCompliment => 'Elogio';
+
+  @override
+  String get feedbackTypeSuggestion => 'Sugestão';
+
+  @override
+  String get feedbackTypeProblem => 'Problema';
+
+  @override
+  String get feedbackTypeRequired => 'Escolha um tipo de comentário.';
+
+  @override
+  String get feedbackNameLabel => 'Nome (opcional)';
+
+  @override
+  String get feedbackMessageLabel => 'Mensagem';
+
+  @override
+  String get feedbackMessageRequired => 'Insira uma mensagem.';
+
+  @override
+  String get feedbackConsentLabel =>
+      'Mantenha-me atualizado com as novidades da Doxa';
+
+  @override
+  String get feedbackSubmit => 'Enviar comentários';
+
+  @override
+  String get feedbackError =>
+      'Algo deu errado. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get feedbackRateLimited =>
+      'Você enviou muitos comentários recentemente. Tente novamente mais tarde.';
+
+  @override
+  String get feedbackSuccessTitle => 'Obrigado!';
+
+  @override
+  String feedbackSuccessBody(String email) {
+    return 'Seus comentários foram enviados como $email. Se não for o endereço correto, envie-os novamente com o endereço certo.';
+  }
+
+  @override
   String shareMessage(String name) {
     return 'Ore comigo por $name — baixe o aplicativo Doxa Prayer:';
   }

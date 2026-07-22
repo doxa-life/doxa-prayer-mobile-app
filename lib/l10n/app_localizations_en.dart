@@ -482,6 +482,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedback => 'Feedback';
 
   @override
+  String get feedbackIntro =>
+      'We\'d love to hear from you. Tell us what you think of the app.';
+
+  @override
+  String get feedbackTypeLabel => 'What kind of feedback?';
+
+  @override
+  String get feedbackTypeCompliment => 'Compliment';
+
+  @override
+  String get feedbackTypeSuggestion => 'Suggestion';
+
+  @override
+  String get feedbackTypeProblem => 'Problem';
+
+  @override
+  String get feedbackTypeRequired => 'Please choose a feedback type.';
+
+  @override
+  String get feedbackNameLabel => 'Name (optional)';
+
+  @override
+  String get feedbackMessageLabel => 'Message';
+
+  @override
+  String get feedbackMessageRequired => 'Please enter a message.';
+
+  @override
+  String get feedbackConsentLabel => 'Keep me updated with news from Doxa';
+
+  @override
+  String get feedbackSubmit => 'Send feedback';
+
+  @override
+  String get feedbackError =>
+      'Something went wrong. Please check your connection and try again.';
+
+  @override
+  String get feedbackRateLimited =>
+      'You\'ve sent a lot of feedback recently. Please try again later.';
+
+  @override
+  String get feedbackSuccessTitle => 'Thank you!';
+
+  @override
+  String feedbackSuccessBody(String email) {
+    return 'Your feedback was sent as $email. If that isn\'t the right address, send it again with the correct one.';
+  }
+
+  @override
   String shareMessage(String name) {
     return 'Pray with me for the $name — get the Doxa Prayer app:';
   }

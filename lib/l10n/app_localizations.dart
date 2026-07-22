@@ -910,11 +910,101 @@ abstract class AppLocalizations {
   /// **'Donate'**
   String get donate;
 
-  /// Button that opens the feedback page in the browser
+  /// Button that opens the in-app feedback panel
   ///
   /// In en, this message translates to:
   /// **'Feedback'**
   String get feedback;
+
+  /// Intro text at the top of the feedback form
+  ///
+  /// In en, this message translates to:
+  /// **'We\'d love to hear from you. Tell us what you think of the app.'**
+  String get feedbackIntro;
+
+  /// Label above the feedback-type chooser
+  ///
+  /// In en, this message translates to:
+  /// **'What kind of feedback?'**
+  String get feedbackTypeLabel;
+
+  /// Feedback type option for positive feedback
+  ///
+  /// In en, this message translates to:
+  /// **'Compliment'**
+  String get feedbackTypeCompliment;
+
+  /// Feedback type option for a suggestion or idea
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get feedbackTypeSuggestion;
+
+  /// Feedback type option for reporting a problem
+  ///
+  /// In en, this message translates to:
+  /// **'Problem'**
+  String get feedbackTypeProblem;
+
+  /// Validation message when no feedback type is selected
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a feedback type.'**
+  String get feedbackTypeRequired;
+
+  /// Label for the optional name field on the feedback form
+  ///
+  /// In en, this message translates to:
+  /// **'Name (optional)'**
+  String get feedbackNameLabel;
+
+  /// Label for the feedback message field
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get feedbackMessageLabel;
+
+  /// Validation message when the feedback message is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a message.'**
+  String get feedbackMessageRequired;
+
+  /// Label for the marketing-consent toggle on the feedback form
+  ///
+  /// In en, this message translates to:
+  /// **'Keep me updated with news from Doxa'**
+  String get feedbackConsentLabel;
+
+  /// Button that submits the feedback form
+  ///
+  /// In en, this message translates to:
+  /// **'Send feedback'**
+  String get feedbackSubmit;
+
+  /// Generic error shown when feedback submission fails
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please check your connection and try again.'**
+  String get feedbackError;
+
+  /// Error shown when the feedback endpoint rate-limits the user
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve sent a lot of feedback recently. Please try again later.'**
+  String get feedbackRateLimited;
+
+  /// Title of the feedback success confirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you!'**
+  String get feedbackSuccessTitle;
+
+  /// Body of the feedback success confirmation, echoing the email used
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback was sent as {email}. If that isn\'t the right address, send it again with the correct one.'**
+  String feedbackSuccessBody(String email);
 
   /// Message text accompanying the shared app link for a people group
   ///

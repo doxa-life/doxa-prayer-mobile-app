@@ -485,6 +485,56 @@ class AppLocalizationsRu extends AppLocalizations {
   String get feedback => 'Отзывы';
 
   @override
+  String get feedbackIntro =>
+      'Мы будем рады услышать ваше мнение. Расскажите, что вы думаете о приложении.';
+
+  @override
+  String get feedbackTypeLabel => 'Какой тип отзыва?';
+
+  @override
+  String get feedbackTypeCompliment => 'Похвала';
+
+  @override
+  String get feedbackTypeSuggestion => 'Предложение';
+
+  @override
+  String get feedbackTypeProblem => 'Проблема';
+
+  @override
+  String get feedbackTypeRequired => 'Пожалуйста, выберите тип отзыва.';
+
+  @override
+  String get feedbackNameLabel => 'Имя (необязательно)';
+
+  @override
+  String get feedbackMessageLabel => 'Сообщение';
+
+  @override
+  String get feedbackMessageRequired => 'Пожалуйста, введите сообщение.';
+
+  @override
+  String get feedbackConsentLabel => 'Держите меня в курсе новостей от Doxa';
+
+  @override
+  String get feedbackSubmit => 'Отправить отзыв';
+
+  @override
+  String get feedbackError =>
+      'Произошла ошибка. Проверьте подключение и попробуйте ещё раз.';
+
+  @override
+  String get feedbackRateLimited =>
+      'Вы недавно отправили много отзывов. Пожалуйста, попробуйте позже.';
+
+  @override
+  String get feedbackSuccessTitle => 'Спасибо!';
+
+  @override
+  String feedbackSuccessBody(String email) {
+    return 'Ваш отзыв отправлен от имени $email. Если это неверный адрес, отправьте отзыв ещё раз с правильным адресом.';
+  }
+
+  @override
   String shareMessage(String name) {
     return 'Помолитесь вместе со мной за «$name» — скачайте приложение «Doxa Prayer»:';
   }

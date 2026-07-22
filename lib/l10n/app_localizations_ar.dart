@@ -478,6 +478,55 @@ class AppLocalizationsAr extends AppLocalizations {
   String get feedback => 'التعليقات';
 
   @override
+  String get feedbackIntro => 'يسعدنا أن نسمع رأيك. أخبرنا برأيك في التطبيق.';
+
+  @override
+  String get feedbackTypeLabel => 'ما نوع التعليق؟';
+
+  @override
+  String get feedbackTypeCompliment => 'إطراء';
+
+  @override
+  String get feedbackTypeSuggestion => 'اقتراح';
+
+  @override
+  String get feedbackTypeProblem => 'مشكلة';
+
+  @override
+  String get feedbackTypeRequired => 'يرجى اختيار نوع التعليق.';
+
+  @override
+  String get feedbackNameLabel => 'الاسم (اختياري)';
+
+  @override
+  String get feedbackMessageLabel => 'الرسالة';
+
+  @override
+  String get feedbackMessageRequired => 'يرجى إدخال رسالة.';
+
+  @override
+  String get feedbackConsentLabel => 'أبقِني على اطّلاع بآخر أخبار Doxa';
+
+  @override
+  String get feedbackSubmit => 'إرسال التعليقات';
+
+  @override
+  String get feedbackError =>
+      'حدث خطأ ما. يرجى التحقق من اتصالك ومحاولة الإجراء مرة أخرى.';
+
+  @override
+  String get feedbackRateLimited =>
+      'لقد أرسلت الكثير من التعليقات مؤخرًا. يرجى المحاولة مرة أخرى لاحقًا.';
+
+  @override
+  String get feedbackSuccessTitle => 'شكرًا لك!';
+
+  @override
+  String feedbackSuccessBody(String email) {
+    return 'تم إرسال تعليقاتك باسم $email. إذا لم يكن هذا هو العنوان الصحيح، فأعد إرسالها بالعنوان الصحيح.';
+  }
+
+  @override
   String shareMessage(String name) {
     return 'صلّوا معي من أجل «$name» — قوموا بتنزيل تطبيق «Doxa Prayer»:';
   }

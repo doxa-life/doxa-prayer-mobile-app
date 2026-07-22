@@ -53,6 +53,26 @@ Future<List<SignedUpEmail>> fetchProfileEmails(String profileId) async {
   return emails;
 }
 
+/// Fetches the subscriber's full (non-redacted) primary email for [profileId],
+/// or null when unavailable. Unlike the [SignedUpEmail.value] list — which is
+/// redacted server-side — the profile endpoint returns the primary email in
+/// plaintext under `subscriber.email`, so it can pre-fill the feedback form.
+/// Best-effort: never throws; any network/parse issue maps to null.
+Future<String?> fetchPrimaryEmail(String profileId) async {
+  try {
+    final uri = ApiConfig.buildUri('/api/profile/$profileId');
+    final response = await http.get(uri, headers: ApiConfig.signupHeaders);
+    if (response.statusCode != 200) return null;
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final subscriber = json['subscriber'] as Map<String, dynamic>?;
+    final email = (subscriber?['email'] as String?)?.trim();
+    return (email == null || email.isEmpty) ? null : email;
+  } catch (e, s) {
+    reportError(e, s, reason: 'fetch primary email failed');
+    return null;
+  }
+}
+
 /// Re-sends the verification email for [contactMethodId] belonging to the given
 /// profile. Never throws — network/parse issues map to [ResendVerificationStatus.failed].
 Future<ResendVerificationResult> resendVerification(
