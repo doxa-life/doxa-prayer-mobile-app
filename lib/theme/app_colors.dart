@@ -14,6 +14,7 @@ class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
   static const warning = Color(0xFFF5A623);
+  static const partial = Color(0xFFEACF73);
 
   static const outline = Color(0xFFD6D3CC);
   static const mutedSurface = Color(0xFFF4F2EC);

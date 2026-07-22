@@ -141,8 +141,10 @@ class _DetailBody extends StatelessWidget {
                   children: [
                     _EngagementItem(
                       label: l.prayerStatus,
-                      status: detail.peopleCommitted > 0
+                      status: detail.peopleCommitted >= _peopleCommittedGoal
                           ? EngagementStatus.yes
+                          : detail.peopleCommitted > 0
+                          ? EngagementStatus.partial
                           : EngagementStatus.no,
                     ),
                     _EngagementItem(
@@ -479,7 +481,7 @@ class _EngagementItem extends StatelessWidget {
     final color = switch (status) {
       EngagementStatus.yes => AppColors.secondary,
       EngagementStatus.no => AppColors.scheme.error,
-      EngagementStatus.partial => AppColors.warning,
+      EngagementStatus.partial => AppColors.partial,
     };
 
     final icon = switch (status) {
