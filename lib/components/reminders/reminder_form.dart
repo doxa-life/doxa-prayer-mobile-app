@@ -5,6 +5,7 @@ import '../../services/reminders_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../inputs/adaptive_time_picker.dart';
 import '../misc/titles.dart';
 import 'weekday_selector.dart';
 
@@ -80,7 +81,10 @@ class _ReminderFormState extends State<ReminderForm> {
   void _emitChanged() => widget.onChanged?.call(_currentValid());
 
   Future<void> _pickTime() async {
-    final picked = await showTimePicker(context: context, initialTime: _time);
+    final picked = await showAdaptiveTimePicker(
+      context: context,
+      initialTime: _time,
+    );
     if (picked != null) {
       setState(() => _time = picked);
       _emitChanged();

@@ -1,6 +1,8 @@
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
+import 'adaptive_time_picker.dart';
+
 class TimeField extends StatelessWidget {
   const TimeField({
     super.key,
@@ -14,7 +16,7 @@ class TimeField extends StatelessWidget {
   final ValueChanged<TimeOfDay> onChanged;
 
   Future<void> _pick(BuildContext context) async {
-    final picked = await showTimePicker(
+    final picked = await showAdaptiveTimePicker(
       context: context,
       initialTime: value ?? TimeOfDay.now(),
     );
