@@ -98,28 +98,32 @@ class _PrayedTodayPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.xxs,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.primaryLight,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        spacing: AppSpacing.xs,
-        children: [
-          const Icon(Icons.check, size: 16, color: AppColors.onSecondary),
-          Text(
-            label,
-            style: AppTypography.bodySmall.copyWith(
-              color: AppColors.onSecondary,
-              fontWeight: FontWeight.w600,
+    // A status indicator, not a control: merge the decorative check icon and
+    // label into a single node so screen readers announce just "<label>".
+    return MergeSemantics(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.xxs,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.primaryLight,
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          spacing: AppSpacing.xs,
+          children: [
+            const Icon(Icons.check, size: 16, color: AppColors.onSecondary),
+            Text(
+              label,
+              style: AppTypography.bodySmall.copyWith(
+                color: AppColors.onSecondary,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
