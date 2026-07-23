@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../misc/app_icon.dart';
 
 class SearchField extends StatelessWidget {
@@ -29,7 +30,11 @@ class SearchField extends StatelessWidget {
           child: AppIcon(AppIconName.search, size: 20),
         ),
         suffixIcon: hasText
-            ? IconButton(icon: const Icon(Icons.close), onPressed: onClear)
+            ? IconButton(
+                icon: const Icon(Icons.close),
+                tooltip: AppLocalizations.of(context)!.clearSearchLabel,
+                onPressed: onClear,
+              )
             : null,
       ),
     );

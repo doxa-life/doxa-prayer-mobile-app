@@ -116,15 +116,23 @@ class _ReminderFormState extends State<ReminderForm> {
       children: [
         Center(child: H2(title)),
         if (title.isNotEmpty) const SizedBox(height: AppSpacing.xxl),
-        InkWell(
-          onTap: _pickTime,
-          borderRadius: BorderRadius.circular(28),
-          child: InputDecorator(
-            decoration: InputDecoration(
-              labelText: l.time,
-              suffixIcon: const Icon(Icons.access_time),
+        MergeSemantics(
+          child: Semantics(
+            button: true,
+            child: InkWell(
+              onTap: _pickTime,
+              borderRadius: BorderRadius.circular(28),
+              child: InputDecorator(
+                decoration: InputDecoration(
+                  labelText: l.time,
+                  suffixIcon: const Icon(Icons.access_time),
+                ),
+                child: Text(
+                  _time.format(context),
+                  style: AppTypography.bodyMedium,
+                ),
+              ),
             ),
-            child: Text(_time.format(context), style: AppTypography.bodyMedium),
           ),
         ),
         const SizedBox(height: AppSpacing.xl),

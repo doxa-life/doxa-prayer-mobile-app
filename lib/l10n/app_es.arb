@@ -37,6 +37,9 @@
     "@bibleTranslation": {
         "description": "The label of the bible translation field"
     },
+    "@clearSearchLabel": {
+        "description": "Accessibility label for the button that clears the search field"
+    },
     "@continueLabel": {
         "description": "Continue button label (named to avoid the reserved word 'continue')"
     },
@@ -102,6 +105,9 @@
     },
     "@finish": {
         "description": "Finish button label on the final wizard step"
+    },
+    "@forwardLabel": {
+        "description": "Accessibility label for a forward navigation arrow button"
     },
     "@getInvolved": {
         "description": "Title of the home-screen section with share, donate and feedback buttons"
@@ -173,6 +179,18 @@
     },
     "@notNow": {
         "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
+    },
+    "@pictureCreditLabel": {
+        "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "@prayerRecordedAnnouncement": {
+        "description": "Screen-reader announcement made after a prayer session is successfully recorded"
+    },
+    "@prayForPeopleGroupLabel": {
+        "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
+        "placeholders": {
+            "peopleGroup": { "type": "String" }
+        }
     },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
@@ -517,6 +535,7 @@
     "back": "Volver",
     "bibleStories": "Historias bíblicas",
     "bibleTranslation": "Traducción de la Biblia",
+    "clearSearchLabel": "Borrar búsqueda",
     "continueLabel": "Continuar",
     "couldNotLoadPeopleGroupDetailsMessage": "No se han podido cargar los datos del grupo de personas.",
     "couldNotLoadPeopleGroupsMessage": "No se han podido cargar los grupos de personas.",
@@ -555,6 +574,7 @@
     "feedbackTypeRequired": "Elige un tipo de comentario.",
     "feedbackTypeSuggestion": "Sugerencia",
     "finish": "Finalizar",
+    "forwardLabel": "Adelante",
     "getInvolved": "Involúcrate",
     "gospelRecordings": "Grabaciones del Evangelio",
     "home": "Inicio",
@@ -573,6 +593,9 @@
     "emailVerified": "Verificado",
     "emailUnverified": "Sin verificar",
     "notNow": "Ahora no",
+    "pictureCreditLabel": "Crédito de la imagen",
+    "prayerRecordedAnnouncement": "Oración registrada",
+    "prayForPeopleGroupLabel": "Orar por {peopleGroup}",
     "resendVerification": "Reenviar correo de verificación",
     "resendVerificationSent": "Correo de verificación enviado. Revisa tu bandeja de entrada.",
     "resendVerificationCooldown": "Espera {seconds} s antes de solicitar otro correo.",

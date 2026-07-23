@@ -303,7 +303,12 @@ class _Hero extends StatelessWidget {
           Center(
             child: Stack(
               children: [
-                AppImage(url: detail.imageUrl, aspectRatio: 1, size: 240),
+                AppImage(
+                  url: detail.imageUrl,
+                  aspectRatio: 1,
+                  size: 240,
+                  semanticLabel: detail.name,
+                ),
                 if (credit.isNotEmpty)
                   Positioned(
                     right: AppSpacing.lg,

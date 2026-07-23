@@ -472,6 +472,36 @@ abstract class AppLocalizations {
   /// **'Dismiss reminder'**
   String get dismissReminderLabel;
 
+  /// Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for {peopleGroup}'**
+  String prayForPeopleGroupLabel(String peopleGroup);
+
+  /// Accessibility label for the info button that reveals a photo's attribution
+  ///
+  /// In en, this message translates to:
+  /// **'Picture credit'**
+  String get pictureCreditLabel;
+
+  /// Accessibility label for the button that clears the search field
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearchLabel;
+
+  /// Accessibility label for a forward navigation arrow button
+  ///
+  /// In en, this message translates to:
+  /// **'Forward'**
+  String get forwardLabel;
+
+  /// Screen-reader announcement made after a prayer session is successfully recorded
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer recorded'**
+  String get prayerRecordedAnnouncement;
+
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
   ///
   /// In en, this message translates to:

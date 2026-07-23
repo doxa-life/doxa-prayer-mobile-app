@@ -27,6 +27,7 @@ class WizardStepWelcome extends StatelessWidget {
           child: SvgPicture.asset(
             'assets/images/worldmap.svg',
             fit: BoxFit.contain,
+            excludeFromSemantics: true,
           ),
         ),
         Positioned(
@@ -45,6 +46,7 @@ class WizardStepWelcome extends StatelessWidget {
             child: Image.asset(
               'assets/images/pray-03-bottom-unsplash.jpg',
               fit: BoxFit.fitWidth,
+              excludeFromSemantics: true,
             ),
           ),
         ),
@@ -64,6 +66,7 @@ class WizardStepWelcome extends StatelessWidget {
                   Image.asset(
                     'assets/images/doxa-logo-vertical.png',
                     height: 140,
+                    semanticLabel: l.appName,
                   ),
                   H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
                   Text(

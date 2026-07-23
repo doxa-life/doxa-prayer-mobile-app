@@ -213,6 +213,23 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dismissReminderLabel => 'Скрыть напоминание';
 
   @override
+  String prayForPeopleGroupLabel(String peopleGroup) {
+    return 'Помолиться за «$peopleGroup»';
+  }
+
+  @override
+  String get pictureCreditLabel => 'Авторство изображения';
+
+  @override
+  String get clearSearchLabel => 'Очистить поиск';
+
+  @override
+  String get forwardLabel => 'Вперёд';
+
+  @override
+  String get prayerRecordedAnnouncement => 'Молитва записана';
+
+  @override
   String get newReminder => 'Новое напоминание';
 
   @override

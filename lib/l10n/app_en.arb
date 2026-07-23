@@ -259,6 +259,29 @@
     "@dismissReminderLabel": {
         "description": "Accessibility label for the close button on the home prayer reminder banner"
     },
+    "prayForPeopleGroupLabel": "Pray for {peopleGroup}",
+    "@prayForPeopleGroupLabel": {
+        "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
+        "placeholders": {
+            "peopleGroup": { "type": "String" }
+        }
+    },
+    "pictureCreditLabel": "Picture credit",
+    "@pictureCreditLabel": {
+        "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "clearSearchLabel": "Clear search",
+    "@clearSearchLabel": {
+        "description": "Accessibility label for the button that clears the search field"
+    },
+    "forwardLabel": "Forward",
+    "@forwardLabel": {
+        "description": "Accessibility label for a forward navigation arrow button"
+    },
+    "prayerRecordedAnnouncement": "Prayer recorded",
+    "@prayerRecordedAnnouncement": {
+        "description": "Screen-reader announcement made after a prayer session is successfully recorded"
+    },
     "newReminder": "New reminder",
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"

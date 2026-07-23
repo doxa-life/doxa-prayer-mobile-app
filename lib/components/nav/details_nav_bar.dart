@@ -25,13 +25,17 @@ class DetailsNavBar extends StatelessWidget implements PreferredSizeWidget {
                     : TriangleDirection.left,
                 size: 12,
               ),
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               onPressed: onBack,
             )
           : null,
       centerTitle: true,
-      title: Text(
-        title,
-        style: AppTypography.h2.copyWith(color: AppColors.onSurface),
+      title: Semantics(
+        header: true,
+        child: Text(
+          title,
+          style: AppTypography.h2.copyWith(color: AppColors.onSurface),
+        ),
       ),
       backgroundColor: AppColors.surface,
     );

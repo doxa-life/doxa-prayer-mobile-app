@@ -58,21 +58,30 @@ class _WeekdayCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = shortWeekdayLabel(context, weekday);
-    return Material(
-      color: selected ? AppColors.secondary : AppColors.mutedSurface,
-      shape: const CircleBorder(),
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: SizedBox(
-          width: _diameter,
-          height: _diameter,
-          child: Center(
-            child: Text(
-              label,
-              style: AppTypography.bodyMedium.copyWith(
-                color: selected ? AppColors.onSecondary : AppColors.onSurface,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: fullWeekdayLabel(context, weekday),
+      child: Material(
+        color: selected ? AppColors.secondary : AppColors.mutedSurface,
+        shape: const CircleBorder(),
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          child: SizedBox(
+            width: _diameter,
+            height: _diameter,
+            child: Center(
+              child: ExcludeSemantics(
+                child: Text(
+                  label,
+                  style: AppTypography.bodyMedium.copyWith(
+                    color: selected
+                        ? AppColors.onSecondary
+                        : AppColors.onSurface,
+                    fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+                  ),
+                ),
               ),
             ),
           ),

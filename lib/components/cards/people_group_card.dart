@@ -39,7 +39,12 @@ class PeopleGroupCard extends StatelessWidget {
         spacing: AppSpacing.xl,
         children: [
           Text(name, style: AppTypography.h2),
-          AppImage(url: imageUrl, aspectRatio: 1, size: 169.0),
+          AppImage(
+            url: imageUrl,
+            aspectRatio: 1,
+            size: 169.0,
+            semanticLabel: name,
+          ),
           if (onPray != null)
             ActionButton(
               label: l.pray,

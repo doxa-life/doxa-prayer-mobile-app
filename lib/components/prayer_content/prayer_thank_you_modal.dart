@@ -43,10 +43,13 @@ class PrayerThankYouModal extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
-            Text(
-              l10n.prayerThankYouTitle,
-              style: AppTypography.titleLarge,
-              textAlign: TextAlign.center,
+            Semantics(
+              header: true,
+              child: Text(
+                l10n.prayerThankYouTitle,
+                style: AppTypography.titleLarge,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: AppSpacing.md),
             Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../misc/app_icon.dart';
@@ -27,6 +28,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AppBar(
       leading: onBack != null
           ? IconButton(
@@ -37,19 +39,24 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                     : TriangleDirection.left,
                 size: 12,
               ),
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               onPressed: onBack,
             )
           : null,
       centerTitle: true,
       title: title != null
-          ? Text(
-              title!,
-              style: AppTypography.h2.copyWith(color: AppColors.onPrimary),
+          ? Semantics(
+              header: true,
+              child: Text(
+                title!,
+                style: AppTypography.h2.copyWith(color: AppColors.onPrimary),
+              ),
             )
           : Image.asset(
               'assets/images/doxa-logo.png',
               height: AppTypography.lg,
               fit: BoxFit.contain,
+              semanticLabel: l10n.appName,
             ),
       actions: [
         // Gallery ("Kitchen Sink") and Debug are dev-only tools — hidden in
@@ -76,7 +83,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
         if (onSettings != null)
           IconButton(
             icon: const AppIcon(AppIconName.gear, color: AppColors.onPrimary),
-            tooltip: 'Settings',
+            tooltip: l10n.settings,
             onPressed: onSettings,
           ),
       ],

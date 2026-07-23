@@ -39,7 +39,12 @@ class PeopleGroupOfTheDayView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: AppSpacing.xl,
           children: [
-            AppImage(url: data.imageUrl, aspectRatio: 1, size: 96.0),
+            AppImage(
+              url: data.imageUrl,
+              aspectRatio: 1,
+              size: 96.0,
+              semanticLabel: name,
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,

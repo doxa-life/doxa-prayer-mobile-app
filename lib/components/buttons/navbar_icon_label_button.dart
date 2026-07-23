@@ -19,6 +19,16 @@ class NavbarIconLabelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MergeSemantics(
+      child: Semantics(
+        button: true,
+        selected: selected,
+        child: _build(context),
+      ),
+    );
+  }
+
+  Widget _build(BuildContext context) {
     final color = selected ? AppColors.primary : AppColors.onSurface;
     return InkWell(
       onTap: onPressed,

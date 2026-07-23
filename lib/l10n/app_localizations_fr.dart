@@ -215,6 +215,23 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dismissReminderLabel => 'Ignorer le rappel';
 
   @override
+  String prayForPeopleGroupLabel(String peopleGroup) {
+    return 'Prier pour $peopleGroup';
+  }
+
+  @override
+  String get pictureCreditLabel => 'Crédit photo';
+
+  @override
+  String get clearSearchLabel => 'Effacer la recherche';
+
+  @override
+  String get forwardLabel => 'Suivant';
+
+  @override
+  String get prayerRecordedAnnouncement => 'Prière enregistrée';
+
+  @override
   String get newReminder => 'Nouveau rappel';
 
   @override

@@ -14,7 +14,8 @@ class ActionButton extends StatelessWidget {
     this.icon,
     this.color = ActionButtonColor.primary,
     this.isOutlined = false,
-  }) : _kind = _ActionButtonKind.label;
+  }) : _kind = _ActionButtonKind.label,
+       semanticLabel = null;
 
   const ActionButton.iconLabel({
     super.key,
@@ -23,12 +24,14 @@ class ActionButton extends StatelessWidget {
     required this.onPressed,
     this.color = ActionButtonColor.primary,
     this.isOutlined = false,
-  }) : _kind = _ActionButtonKind.iconLabel;
+  }) : _kind = _ActionButtonKind.iconLabel,
+       semanticLabel = null;
 
   const ActionButton.icon({
     super.key,
     required this.icon,
     required this.onPressed,
+    required this.semanticLabel,
     this.label = '',
     this.color = ActionButtonColor.primary,
     this.isOutlined = false,
@@ -41,13 +44,18 @@ class ActionButton extends StatelessWidget {
     this.icon,
     this.color = ActionButtonColor.primary,
     this.isOutlined = false,
-  }) : _kind = _ActionButtonKind.fullWidth;
+  }) : _kind = _ActionButtonKind.fullWidth,
+       semanticLabel = null;
 
   final String label;
   final Widget? icon;
   final VoidCallback? onPressed;
   final ActionButtonColor? color;
   final bool isOutlined;
+
+  /// Accessible label for the icon-only [ActionButton.icon] variant, which has
+  /// no visible text for a screen reader to announce.
+  final String? semanticLabel;
   final _ActionButtonKind _kind;
 
   static const borderWidth = 1.5;
@@ -107,14 +115,18 @@ class ActionButton extends StatelessWidget {
           label: Text(upper, textAlign: TextAlign.center),
         );
       case _ActionButtonKind.icon:
-        return FilledButton(
-          onPressed: onPressed,
-          style: FilledButton.styleFrom(
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(8),
-            minimumSize: const Size(48, 48),
+        return Semantics(
+          button: true,
+          label: semanticLabel,
+          child: FilledButton(
+            onPressed: onPressed,
+            style: FilledButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(8),
+              minimumSize: const Size(48, 48),
+            ),
+            child: ExcludeSemantics(child: icon!),
           ),
-          child: icon!,
         );
       case _ActionButtonKind.fullWidth:
         return SizedBox(

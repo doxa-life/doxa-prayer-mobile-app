@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
@@ -63,19 +64,23 @@ class _CreditPopoverButtonState extends State<CreditPopoverButton> {
         ),
       ],
       builder: (context, controller, _) {
-        return Material(
-          color: AppColors.black.withValues(alpha: 0.45),
-          shape: const CircleBorder(),
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: () =>
-                controller.isOpen ? controller.close() : controller.open(),
-            child: const Padding(
-              padding: EdgeInsets.all(AppSpacing.sm),
-              child: Icon(
-                Icons.info_outline,
-                size: AppTypography.lg,
-                color: AppColors.white,
+        return Semantics(
+          button: true,
+          label: AppLocalizations.of(context)!.pictureCreditLabel,
+          child: Material(
+            color: AppColors.black.withValues(alpha: 0.45),
+            shape: const CircleBorder(),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: () =>
+                  controller.isOpen ? controller.close() : controller.open(),
+              child: const Padding(
+                padding: EdgeInsets.all(AppSpacing.sm),
+                child: Icon(
+                  Icons.info_outline,
+                  size: AppTypography.lg,
+                  color: AppColors.white,
+                ),
               ),
             ),
           ),

@@ -24,10 +24,13 @@ class ElevatedAppCard extends StatelessWidget {
       elevation: 6,
       shadowColor: Colors.black.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(padding: EdgeInsets.all(padding), child: child),
+      child: Semantics(
+        button: onTap != null,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(padding: EdgeInsets.all(padding), child: child),
+        ),
       ),
     );
   }

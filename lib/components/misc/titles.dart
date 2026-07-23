@@ -13,7 +13,10 @@ class H1 extends StatelessWidget {
     final style = color != null
         ? AppTypography.h1.copyWith(color: color)
         : AppTypography.h1;
-    return Text(text, style: style, textAlign: textAlign);
+    return Semantics(
+      header: true,
+      child: Text(text, style: style, textAlign: textAlign),
+    );
   }
 }
 
@@ -23,6 +26,8 @@ class H2 extends StatelessWidget {
   final TextAlign? textAlign;
 
   @override
-  Widget build(BuildContext context) =>
-      Text(text, style: AppTypography.h2, textAlign: textAlign);
+  Widget build(BuildContext context) => Semantics(
+    header: true,
+    child: Text(text, style: AppTypography.h2, textAlign: textAlign),
+  );
 }

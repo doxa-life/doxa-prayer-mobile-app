@@ -37,7 +37,12 @@ class PeopleGroupListCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppImage(url: imageUrl, aspectRatio: 1, size: 96.0),
+              AppImage(
+                url: imageUrl,
+                aspectRatio: 1,
+                size: 96.0,
+                semanticLabel: name,
+              ),
               Expanded(
                 child: Text(
                   name,
@@ -62,10 +67,7 @@ class PeopleGroupListCard extends StatelessWidget {
               spacing: AppSpacing.md,
               runSpacing: AppSpacing.sm,
               children: [
-                ButtonLink(
-                  label: l10n.profile,
-                  onPressed: onDetails,
-                ),
+                ButtonLink(label: l10n.profile, onPressed: onDetails),
                 ActionButton(
                   label: isSelected ? l10n.selected : l10n.select,
                   onPressed: isSelected ? null : onSelect,

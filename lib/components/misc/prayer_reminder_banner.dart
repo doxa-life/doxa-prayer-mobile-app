@@ -72,40 +72,46 @@ class _Banner extends StatelessWidget {
       elevation: 4,
       borderRadius: borderRadius,
       color: AppColors.secondary.withValues(alpha: 0.92),
-      child: InkWell(
-        borderRadius: borderRadius,
-        onTap: () => context.goNamed(AppRoute.pray.name),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      l10n.prayerReminderTitle,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        color: AppColors.white,
-                      ),
+      child: Semantics(
+        button: true,
+        label: l10n.prayForPeopleGroupLabel(peopleGroupName),
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: () => context.goNamed(AppRoute.pray.name),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ExcludeSemantics(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          l10n.prayerReminderTitle,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          l10n.prayerReminderBody(peopleGroupName),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.prayerReminderBody(peopleGroupName),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.white,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.close, color: AppColors.white),
-                tooltip: l10n.dismissReminderLabel,
-                onPressed: dismissPrayerReminder,
-              ),
-            ],
+                IconButton(
+                  icon: const Icon(Icons.close, color: AppColors.white),
+                  tooltip: l10n.dismissReminderLabel,
+                  onPressed: dismissPrayerReminder,
+                ),
+              ],
+            ),
           ),
         ),
       ),

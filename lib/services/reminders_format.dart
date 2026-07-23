@@ -24,6 +24,17 @@ String shortWeekdayLabel(BuildContext context, int weekday) {
   return narrow[weekday == DateTime.sunday ? 0 : weekday];
 }
 
+/// The full localized weekday name (e.g. "Monday"), for accessibility labels
+/// where the single-letter [shortWeekdayLabel] would be ambiguous.
+String fullWeekdayLabel(BuildContext context, int weekday) {
+  // 2024-01-01 is a Monday, so the day-of-month lines up with DateTime's
+  // weekday numbering (1=Mon ... 7=Sun).
+  final date = DateTime(2024, 1, weekday);
+  return intl.DateFormat.EEEE(
+    Localizations.localeOf(context).toString(),
+  ).format(date);
+}
+
 String formatReminderDays(BuildContext context, Reminder r) {
   final l = AppLocalizations.of(context)!;
   if (r.weekdays.isEmpty) return l.noDaysSelected;

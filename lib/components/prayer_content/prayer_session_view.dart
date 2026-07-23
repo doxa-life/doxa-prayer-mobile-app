@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:doxa_prayer_mobile_app/components/misc/triangle_icon.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../l10n/app_localizations.dart';
@@ -265,6 +266,13 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
       if (mounted) setState(() => _submitting = false);
     }
     if (!mounted) return;
+    // Announce the outcome for screen-reader users, since the visual
+    // confirmation (the thank-you modal) isn't spoken automatically.
+    SemanticsService.sendAnnouncement(
+      View.of(context),
+      AppLocalizations.of(context)!.prayerRecordedAnnouncement,
+      Directionality.of(context),
+    );
     await showPrayerThankYouModal(context);
   }
 

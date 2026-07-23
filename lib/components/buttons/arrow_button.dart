@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 import '../misc/triangle_icon.dart';
 
@@ -21,18 +22,25 @@ class ArrowButton extends StatelessWidget {
     final triangleDirection = direction == ArrowDirection.back
         ? TriangleDirection.left
         : TriangleDirection.right;
-    return Material(
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onPressed,
-        child: SizedBox(
-          width: 48,
-          height: 48,
-          child: Center(
-            child: TriangleIcon(
-              direction: triangleDirection,
-              color: AppColors.primary,
-              size: AppTypography.sm,
+    final label = direction == ArrowDirection.back
+        ? MaterialLocalizations.of(context).backButtonTooltip
+        : AppLocalizations.of(context)!.forwardLabel;
+    return Semantics(
+      button: true,
+      label: label,
+      child: Material(
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onPressed,
+          child: SizedBox(
+            width: 48,
+            height: 48,
+            child: Center(
+              child: TriangleIcon(
+                direction: triangleDirection,
+                color: AppColors.primary,
+                size: AppTypography.sm,
+              ),
             ),
           ),
         ),

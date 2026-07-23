@@ -18,6 +18,10 @@ class ToggleField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MergeSemantics(child: _build(context));
+  }
+
+  Widget _build(BuildContext context) {
     return InkWell(
       onTap: () => onChanged(!value),
       borderRadius: BorderRadius.circular(8),

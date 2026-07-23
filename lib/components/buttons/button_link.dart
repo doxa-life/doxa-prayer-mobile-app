@@ -11,6 +11,12 @@ class ButtonLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MergeSemantics(
+      child: Semantics(link: true, button: true, child: _build(context)),
+    );
+  }
+
+  Widget _build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(4),

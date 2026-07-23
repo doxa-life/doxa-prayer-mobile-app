@@ -48,6 +48,9 @@ class AppIcon extends StatelessWidget {
       width: size,
       height: size,
       colorFilter: ColorFilter.mode(tint, BlendMode.srcIn),
+      // UI glyphs are decorative — they're always paired with a visible text
+      // label, so keep them out of the semantics tree to avoid double-reading.
+      excludeFromSemantics: true,
     );
   }
 }

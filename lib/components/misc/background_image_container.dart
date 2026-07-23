@@ -25,6 +25,7 @@ class BackgroundImageContainer extends StatelessWidget {
             child: SvgPicture.asset(
               backgroundAsset,
               fit: BoxFit.cover,
+              excludeFromSemantics: true,
               colorFilter: const ColorFilter.mode(
                 _kPatternColor,
                 BlendMode.srcIn,

@@ -10,6 +10,7 @@ class AppImage extends StatelessWidget {
     this.radius = 16,
     this.fit = BoxFit.cover,
     this.size = 96.0,
+    this.semanticLabel,
   });
 
   final String? url;
@@ -17,6 +18,10 @@ class AppImage extends StatelessWidget {
   final double radius;
   final BoxFit fit;
   final double size;
+
+  /// Describes the photo for screen readers. When null the image is treated as
+  /// decorative and excluded from the semantics tree.
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,12 @@ class AppImage extends StatelessWidget {
           : SizedBox(
               width: size,
               height: size,
-              child: Image.network(url!, fit: fit),
+              child: Image.network(
+                url!,
+                fit: fit,
+                semanticLabel: semanticLabel,
+                excludeFromSemantics: semanticLabel == null,
+              ),
             ),
     );
   }

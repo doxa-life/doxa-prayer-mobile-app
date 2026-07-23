@@ -215,6 +215,23 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dismissReminderLabel => 'Descartar recordatorio';
 
   @override
+  String prayForPeopleGroupLabel(String peopleGroup) {
+    return 'Orar por $peopleGroup';
+  }
+
+  @override
+  String get pictureCreditLabel => 'Crédito de la imagen';
+
+  @override
+  String get clearSearchLabel => 'Borrar búsqueda';
+
+  @override
+  String get forwardLabel => 'Adelante';
+
+  @override
+  String get prayerRecordedAnnouncement => 'Oración registrada';
+
+  @override
   String get newReminder => 'Nuevo recordatorio';
 
   @override

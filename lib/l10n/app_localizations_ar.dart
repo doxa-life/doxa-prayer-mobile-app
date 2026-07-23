@@ -209,6 +209,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dismissReminderLabel => 'تجاهل التذكير';
 
   @override
+  String prayForPeopleGroupLabel(String peopleGroup) {
+    return 'الصلاة من أجل «$peopleGroup»';
+  }
+
+  @override
+  String get pictureCreditLabel => 'حقوق الصورة';
+
+  @override
+  String get clearSearchLabel => 'مسح البحث';
+
+  @override
+  String get forwardLabel => 'التالي';
+
+  @override
+  String get prayerRecordedAnnouncement => 'تم تسجيل الصلاة';
+
+  @override
   String get newReminder => 'تذكير جديد';
 
   @override

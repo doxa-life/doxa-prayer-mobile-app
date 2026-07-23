@@ -26,15 +26,20 @@ class TimeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = value == null ? '--:--' : value!.format(context);
-    return InkWell(
-      onTap: () => _pick(context),
-      borderRadius: BorderRadius.circular(12),
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: label,
-          suffixIcon: const Icon(Icons.access_time),
+    return MergeSemantics(
+      child: Semantics(
+        button: true,
+        child: InkWell(
+          onTap: () => _pick(context),
+          borderRadius: BorderRadius.circular(12),
+          child: InputDecorator(
+            decoration: InputDecoration(
+              labelText: label,
+              suffixIcon: const Icon(Icons.access_time),
+            ),
+            child: Text(text, style: AppTypography.bodyMedium),
+          ),
         ),
-        child: Text(text, style: AppTypography.bodyMedium),
       ),
     );
   }
