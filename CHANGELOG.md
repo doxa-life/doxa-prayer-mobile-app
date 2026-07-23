@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.14.0+23 - 2026-07-23
+
+Features:
+Add accessibility for zoom and screen readers
+
 ## 1.14.0+21 - 2026-07-15
 
 Bug fixes:

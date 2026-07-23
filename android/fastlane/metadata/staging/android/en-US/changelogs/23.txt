@@ -1,0 +1,2 @@
+Features:
+Add accessibility for zoom and screen readers
