@@ -27,6 +27,9 @@ class ReminderCard extends StatelessWidget {
     return ElevatedAppCard(
       onTap: onTap,
       padding: AppSpacing.xl,
+      // Keep the trailing Switch as its own semantics node so screen readers
+      // can toggle it independently of tapping the card to edit.
+      mergeSemantics: false,
       child: Row(
         children: [
           const AppIcon(AppIconName.bell, color: AppColors.primary),
