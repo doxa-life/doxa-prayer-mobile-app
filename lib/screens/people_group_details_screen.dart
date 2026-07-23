@@ -1,5 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/engagement_item.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/icon_circle.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
@@ -140,7 +142,7 @@ class _DetailBody extends StatelessWidget {
                   runSpacing: AppSpacing.xl,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    _EngagementItem(
+                    EngagementItem(
                       label: l.prayerStatus,
                       status: detail.peopleCommitted >= _peopleCommittedGoal
                           ? EngagementStatus.yes
@@ -148,7 +150,7 @@ class _DetailBody extends StatelessWidget {
                           ? EngagementStatus.partial
                           : EngagementStatus.no,
                     ),
-                    _EngagementItem(
+                    EngagementItem(
                       label: l.adoptionStatus,
                       status: detail.raw['adopted_by_churches'] > 0
                           ? EngagementStatus.yes
@@ -157,24 +159,24 @@ class _DetailBody extends StatelessWidget {
                     // When the group is marked as engaged, the last three
                     // markers are collapsed into a single "Engaged" marker.
                     if (_isEngaged(detail))
-                      _EngagementItem(
+                      EngagementItem(
                         label: l.engaged,
                         status: EngagementStatus.yes,
                       )
                     else ...[
-                      _EngagementItem(
+                      EngagementItem(
                         label: l.crossCulturalWorkersPresent,
                         status: detail.raw['workers_long_term'] != null
                             ? EngagementStatus.yes
                             : EngagementStatus.no,
                       ),
-                      _EngagementItem(
+                      EngagementItem(
                         label: l.workInLocalLanguageAndCulture,
                         status: detail.raw['work_in_local_language'] != null
                             ? EngagementStatus.yes
                             : EngagementStatus.no,
                       ),
-                      _EngagementItem(
+                      EngagementItem(
                         label: l.discipleAndChurchMultiplication,
                         status:
                             detail.raw['disciple_and_church_multiplication'] !=
@@ -451,14 +453,14 @@ class _DetailRow extends StatelessWidget {
             children: [
               if (isChecked != null)
                 (isChecked == true)
-                    ? _IconCircle(
+                    ? IconCircle(
                         icon: CheckIcon(
                           size: AppTypography.xs,
                           color: AppColors.white,
                         ),
                         color: AppColors.secondary,
                       )
-                    : _IconCircle(
+                    : IconCircle(
                         icon: CloseIcon(
                           size: AppTypography.xs,
                           color: AppColors.white,
@@ -479,69 +481,6 @@ class _DetailRow extends StatelessWidget {
         ),
         Expanded(child: Text(value!, style: AppTypography.bodyMedium)),
       ],
-    );
-  }
-}
-
-enum EngagementStatus { yes, no, partial }
-
-class _EngagementItem extends StatelessWidget {
-  const _EngagementItem({required this.label, required this.status});
-
-  final String label;
-  final EngagementStatus status;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = switch (status) {
-      EngagementStatus.yes => AppColors.secondary,
-      EngagementStatus.no => AppColors.scheme.error,
-      EngagementStatus.partial => AppColors.partial,
-    };
-
-    final icon = switch (status) {
-      EngagementStatus.yes => const CheckIcon(
-        size: AppTypography.md,
-        color: AppColors.white,
-      ),
-      EngagementStatus.partial => const CheckIcon(
-        size: AppTypography.md,
-        color: AppColors.white,
-      ),
-      EngagementStatus.no => const CloseIcon(
-        size: AppTypography.md,
-        color: AppColors.white,
-      ),
-    };
-    return SizedBox(
-      width: 200,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _IconCircle(icon: icon, color: color),
-          Text(
-            label,
-            style: AppTypography.h1.copyWith(fontSize: AppTypography.md),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _IconCircle extends StatelessWidget {
-  const _IconCircle({required this.icon, required this.color});
-
-  final Widget icon;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: color,
-      shape: const CircleBorder(),
-      child: Padding(padding: const EdgeInsets.all(AppSpacing.xs), child: icon),
     );
   }
 }

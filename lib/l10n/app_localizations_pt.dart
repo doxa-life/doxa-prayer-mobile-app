@@ -151,6 +151,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get no => 'Não';
 
   @override
+  String get partial => 'Parcial';
+
+  @override
   String get status => 'Status';
 
   @override

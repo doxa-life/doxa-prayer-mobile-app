@@ -176,6 +176,10 @@
     "@no": {
         "description": "The no/cancel button"
     },
+    "partial": "Partial",
+    "@partial": {
+        "description": "Spoken status for an engagement marker that is partially met (e.g. some but not enough people committed to pray)"
+    },
     "status": "Status",
     "@status": {
         "description": "The label of the status field"

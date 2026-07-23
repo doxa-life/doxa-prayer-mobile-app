@@ -150,6 +150,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get no => 'Нет';
 
   @override
+  String get partial => 'Частично';
+
+  @override
   String get status => 'Статус';
 
   @override

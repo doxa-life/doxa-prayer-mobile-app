@@ -298,6 +298,9 @@
     "@overview": {
         "description": "The title of the overview section"
     },
+    "@partial": {
+        "description": "Spoken status for an engagement marker that is partially met (e.g. some but not enough people committed to pray)"
+    },
     "@pauseAndPray": {
         "description": "The message displayed when the user should pause and pray"
     },
@@ -622,6 +625,7 @@
     "notifications_enabled": "Notificações ativadas",
     "openSettings": "Abrir configurações",
     "overview": "Visão geral",
+    "partial": "Parcial",
     "pauseAndPray": "Pause e ore",
     "peopleCommittedToPraying": "Pessoas comprometidas a orar",
     "peopleGroup": "Povo",

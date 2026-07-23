@@ -364,6 +364,12 @@ abstract class AppLocalizations {
   /// **'No'**
   String get no;
 
+  /// Spoken status for an engagement marker that is partially met (e.g. some but not enough people committed to pray)
+  ///
+  /// In en, this message translates to:
+  /// **'Partial'**
+  String get partial;
+
   /// The label of the status field
   ///
   /// In en, this message translates to:

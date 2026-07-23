@@ -29,17 +29,27 @@ class ElevatedAppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget tappable = Semantics(
-      button: onTap != null,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(padding: EdgeInsets.all(padding), child: child),
-      ),
-    );
+    Widget content = Padding(padding: EdgeInsets.all(padding), child: child);
 
-    if (onTap != null && mergeSemantics) {
-      tappable = MergeSemantics(child: tappable);
+    // Only a tappable card wraps its contents in an InkWell + button semantics.
+    // For a non-tappable card those wrappers would still collapse every line of
+    // text into a single merged semantics node, so a screen reader reads the
+    // whole card at once instead of stopping on each item; leaving the padded
+    // child bare keeps its elements as individual accessibility stops.
+    if (onTap != null) {
+      content = Semantics(
+        button: true,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16),
+          child: content,
+        ),
+      );
+      // Announce the whole card as one button (matching [FilledButton] and
+      // friends). Skipped for cards with their own operable controls.
+      if (mergeSemantics) {
+        content = MergeSemantics(child: content);
+      }
     }
 
     return Material(
@@ -47,7 +57,7 @@ class ElevatedAppCard extends StatelessWidget {
       elevation: 6,
       shadowColor: Colors.black.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(16),
-      child: tappable,
+      child: content,
     );
   }
 }

@@ -150,6 +150,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get no => 'No';
 
   @override
+  String get partial => 'Partial';
+
+  @override
   String get status => 'Status';
 
   @override
