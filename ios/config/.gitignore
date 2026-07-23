@@ -1,0 +1,6 @@
+# Ignore Firebase config files (they contain sensitive keys)
+# Download these from Firebase Console
+GoogleService-Info.plist
+
+# Keep the README files
+!README.md
