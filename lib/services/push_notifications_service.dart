@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
@@ -121,7 +122,18 @@ void _onNotificationClick(OSNotificationClickEvent event) {
   if (route != null) {
     // Flows through _prayDeepLinkRedirect → setPrayOverride → /pray, so the
     // target group is shown even when the user isn't subscribed to it.
-    appRouter.go(route);
+    //
+    // On a cold start (app killed, then a notification tapped) this click fires
+    // during app bootstrap, before GoRouter has attached and resolved its
+    // `initialLocation: '/home'`. A direct go() here would be clobbered by that
+    // initial-location resolution and the app would land on Home. Deferring to
+    // after the first frame lets the deep link win — mirroring how the local
+    // reminders cold-start tap is applied post-frame in AppShell.
+    final binding = WidgetsBinding.instance;
+    binding.addPostFrameCallback((_) => appRouter.go(route));
+    // A cold-start click can arrive before runApp() has scheduled any frame;
+    // request one so the callback above is guaranteed to run.
+    binding.scheduleFrame();
     return;
   }
   // Generic "time to pray" push with no target group → user's own group,

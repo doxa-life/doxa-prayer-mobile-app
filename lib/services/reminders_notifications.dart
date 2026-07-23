@@ -69,10 +69,12 @@ void notificationTapBackground(NotificationResponse response) {
   // Top-level handler required by flutter_local_notifications. The app may not
   // be alive yet; routing is handled by the foreground listener once the app
   // is up. We seed the payload notifier so the foreground side picks it up.
+  debugPrint('REMINDER_TAP: notificationTapBackground payload=${response.payload}');
   reminderTapPayload.value = response.payload;
 }
 
 void _onTap(NotificationResponse response) {
+  debugPrint('REMINDER_TAP: _onTap (foreground) payload=${response.payload}');
   reminderTapPayload.value = response.payload;
 }
 
@@ -117,6 +119,11 @@ Future<void> initRemindersNotifications() async {
   // Cold-start: if the app was launched by tapping a notification, seed the
   // payload notifier so the shell can route once it's mounted.
   final launch = await _plugin.getNotificationAppLaunchDetails();
+  debugPrint(
+    'REMINDER_TAP: launch details '
+    'didLaunch=${launch?.didNotificationLaunchApp} '
+    'payload=${launch?.notificationResponse?.payload}',
+  );
   if (launch?.didNotificationLaunchApp ?? false) {
     reminderTapPayload.value = launch?.notificationResponse?.payload;
   }
@@ -307,6 +314,57 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
       reportError(e, s, reason: 'reminder schedule failed');
     }
   }
+}
+
+/// Debug-only id for the one-off test notification fired from the debug screen.
+/// Kept well clear of the (weekday, hour, minute) range used by [_notificationId]
+/// so it never collides with a real scheduled reminder.
+const int _testNotificationId = 0x7FFFFFF0;
+
+/// Debug helper: schedules a single local notification [delay] from now, using
+/// the same `'pray'` payload as real reminders. Lets you exercise the
+/// notification-tap → Pray deep-link flow on demand — background or kill the app
+/// during the delay to test warm- vs cold-start routing. Requests notification
+/// permission first; returns false if it isn't granted.
+Future<bool> scheduleTestReminder({
+  Duration delay = const Duration(seconds: 10),
+}) async {
+  if (!_initialized) await initRemindersNotifications();
+  final granted = await ensureNotificationPermission();
+  if (!granted) return false;
+
+  final canExact = await exactAlarmsAuthorized();
+  final scheduleMode = canExact
+      ? AndroidScheduleMode.exactAllowWhileIdle
+      : AndroidScheduleMode.inexactAllowWhileIdle;
+
+  final l = lookupAppLocalizations(localeController.value);
+  final androidDetails = AndroidNotificationDetails(
+    _androidChannelId,
+    _androidChannelName,
+    channelDescription: _androidChannelDescription,
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+  const iosDetails = DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+  );
+
+  await _plugin.zonedSchedule(
+    id: _testNotificationId,
+    title: l.reminderNotificationTitle,
+    body: l.reminderNotificationBody,
+    scheduledDate: tz.TZDateTime.now(tz.local).add(delay),
+    notificationDetails: NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    ),
+    androidScheduleMode: scheduleMode,
+    payload: 'pray',
+  );
+  return true;
 }
 
 /// Maps a (weekday, hour, minute) fire-time to a stable notification id.

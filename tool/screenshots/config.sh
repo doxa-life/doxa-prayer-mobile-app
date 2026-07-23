@@ -62,7 +62,9 @@ ANDROID_DEVICES=(
 )
 
 # iOS device matrix (macOS only). Canvases are App Store Connect required sizes:
-#   - iPhone 6.9" Display slot: 1290x2796 (also accepts 1260x2736 / 1320x2868)
+#   - iPhone 6.7" Display slot: 1284x2778 — the universal iPhone size, accepted
+#     in BOTH the 6.5" and 6.7" slots. (The 6.9"-only 1290x2796 is rejected by
+#     the 6.5"/6.7" slots, which is the upload error this avoids.)
 #   - iPad  13"  Display slot: 2064x2752 (also accepts 2048x2732)
 #
 # Real device frames (frames/*.png) replace the drawn bezel for iOS. Each frame
@@ -72,7 +74,7 @@ ANDROID_DEVICES=(
 # frameit-frames offsets.json entries for these devices).
 #   key | simulator device name | canvas W | canvas H | frame png | scrX | scrY | scrW | scrH
 IOS_DEVICES=(
-  "iphone69|iPhone 17 Pro Max|1290|2796|frames/iphone69.png|75|66|1320|2868"
+  "iphone69|iPhone 17 Pro Max|1284|2778|frames/iphone69.png|75|66|1320|2868"
   "ipad13|iPad Pro 13-inch (M5)|2064|2752|frames/ipad13.png|96|102|2048|2732"
 )
 

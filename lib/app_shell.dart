@@ -62,11 +62,16 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
 
   void _onReminderTap() {
     final payload = reminderTapPayload.value;
+    debugPrint('REMINDER_TAP: _onReminderTap payload=$payload mounted=$mounted');
     if (payload == null) return;
     reminderTapPayload.value = null;
     if (!mounted) return;
-    final prayIndex = AppRoute.values.indexOf(AppRoute.pray);
-    widget.navigationShell.goBranch(prayIndex, initialLocation: true);
+    // Navigate with go() rather than goBranch(): a reminder can be tapped while
+    // a full-screen route (Settings, Debug, a deep-link page) sits above the
+    // shell on the root navigator. goBranch() would switch the Pray tab
+    // *underneath* that overlay, leaving the user on the page they were on.
+    // go('/pray') rebuilds the stack to the Pray tab, popping any such overlay.
+    appRouter.go('/pray');
   }
 
   void _openSettings(BuildContext context) => context.push('/settings');

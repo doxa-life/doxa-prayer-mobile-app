@@ -15,6 +15,7 @@ import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/reminders_controller.dart';
+import '../services/reminders_notifications.dart';
 import '../services/selected_people_group_controller.dart';
 import '../services/update_controller.dart';
 import '../services/version_check_service.dart';
@@ -57,6 +58,7 @@ class DebugScreen extends StatelessWidget {
                   ),
                   _prefsSection(context),
                   const _SimulateReferralCard(),
+                  _notificationsSection(context),
                   _updateSection(context),
                   _crashlyticsSection(context),
                 ],
@@ -146,6 +148,40 @@ class DebugScreen extends StatelessWidget {
               ]);
             },
           ),
+        ),
+      ],
+    ),
+  );
+
+  Widget _notificationsSection(BuildContext context) => Section(
+    title: 'Notifications',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        Text(
+          'Fires a one-off local notification in ~10s with the real "pray" '
+          'payload. Background or kill the app during the countdown, then tap '
+          'the notification: it should open the Pray tab. Use this to test '
+          'warm- vs cold-start deep-link routing without waiting on a schedule.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Fire test reminder in 10s',
+          onPressed: () async {
+            final messenger = ScaffoldMessenger.of(context);
+            final scheduled = await scheduleTestReminder();
+            messenger.showSnackBar(
+              SnackBar(
+                content: Text(
+                  scheduled
+                      ? 'Test reminder scheduled — background or kill the app; '
+                            'it fires in ~10s.'
+                      : 'Notification permission not granted.',
+                ),
+              ),
+            );
+          },
         ),
       ],
     ),
