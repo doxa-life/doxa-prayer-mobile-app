@@ -9,6 +9,8 @@
 #
 #   ./release.sh deploy-ios [staging|production]         build + upload iOS app, update gate (macOS only)
 #   ./release.sh build-ios [staging|production]          build a signed iOS IPA only (macOS only)
+#   ./release.sh upload-ios [staging|production]         upload the built IPA to TestFlight, no gate change (macOS only)
+#   ./release.sh verify-upload-ios [staging|production]  preflight the upload: auth + app record, no upload (macOS only)
 #   ./release.sh validate-ios [staging|production]       compile iOS unsigned — no Apple account (macOS only)
 #   ./release.sh screenshots-ios                         capture + frame iOS App Store screenshots (macOS only)
 #   ./release.sh deploy-screenshots-ios [staging|production]  upload iOS screenshots to App Store Connect (macOS only)
@@ -19,6 +21,16 @@
 #   git push --follow-tags
 #
 set -euo pipefail
+
+# Run under the project's pinned Ruby (.ruby-version, currently 3.3.5) regardless
+# of how the caller's shell is set up. `bundle exec` below needs rbenv's Ruby;
+# without this, a shell that hasn't initialised rbenv falls back to system Ruby
+# and fastlane/bundler fail. rbenv shims honour .ruby-version automatically.
+if command -v rbenv >/dev/null 2>&1; then
+  export PATH="$(rbenv root)/shims:$PATH"
+elif [ -d "$HOME/.rbenv/shims" ]; then
+  export PATH="$HOME/.rbenv/shims:$PATH"
+fi
 
 cmd="${1:-}"
 arg="${2:-}"
@@ -52,6 +64,12 @@ case "$cmd" in
   build-ios)
     (cd "$here/ios" && bundle exec fastlane build_ipa flavor:"${arg:-staging}")
     ;;
+  upload-ios)
+    (cd "$here/ios" && bundle exec fastlane upload flavor:"${arg:-staging}")
+    ;;
+  verify-upload-ios)
+    (cd "$here/ios" && bundle exec fastlane verify_upload flavor:"${arg:-staging}")
+    ;;
   validate-ios)
     (cd "$here/ios" && bundle exec fastlane build_unsigned flavor:"${arg:-staging}")
     ;;
@@ -64,7 +82,7 @@ case "$cmd" in
   *)
     echo "usage: ./release.sh {deploy|build|upload [staging|production] | bump [build|patch|minor|major]" >&2
     echo "                     | deploy-screenshots [staging|production]" >&2
-    echo "                     | deploy-ios|build-ios|validate-ios [staging|production]" >&2
+    echo "                     | deploy-ios|build-ios|upload-ios|verify-upload-ios|validate-ios [staging|production]" >&2
     echo "                     | screenshots-ios | deploy-screenshots-ios [staging|production]}" >&2
     exit 1
     ;;

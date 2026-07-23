@@ -86,14 +86,20 @@ platform :ios do
     flavor = (options[:flavor] || "staging").to_s
     cfg = require_flavor(flavor)
 
-    setup_ci if ENV["CI"]
+    # Always sign against a dedicated temporary keychain, even off CI. Without it,
+    # codesign can't reach the login keychain non-interactively and the archive
+    # fails with "Command CodeSign failed" / "User interaction is not allowed".
+    # force: true makes setup_ci run locally too, so no CI=true env var is needed.
+    setup_ci(force: true)
     api_key = asc_api_key
 
-    # Every bundle id that ships inside the .ipa needs its own App Store profile
-    # (main app + OneSignal Notification Service Extension). match syncs them
-    # all in a single call.
+    # Every bundle id that ships inside the .ipa needs its own App Store profile.
+    # The OneSignal Notification Service Extension is optional: when its bundle id
+    # is set (ONESIGNAL_APP_ID / _STAGING in fastlane/.env) AND the extension
+    # target exists in the Xcode project, it's signed alongside the main app.
+    # Until then only the main app is signed. match syncs all of them in one call.
     bundle_ids = [cfg[:bundle], cfg[:ext_bundle]].reject { |id| id.to_s.strip.empty? }
-    UI.user_error!("ONESIGNAL_APP_ID#{flavor == 'staging' ? '_STAGING' : ''} is not set — the OneSignal extension needs its own bundle id in fastlane/.env") if bundle_ids.length < 2
+    UI.message("Signing bundle id(s): #{bundle_ids.join(', ')}")
 
     match(
       type: "appstore",
@@ -135,6 +141,57 @@ platform :ios do
     UI.user_error!("No IPA produced in build/ios/ipa") unless ipa
     UI.success("Built #{ipa}")
     ipa
+  end
+
+  desc "Preflight the TestFlight upload WITHOUT uploading: verifies API-key auth, the app record exists, and reports the latest TestFlight build number vs this build. flavor: staging|production"
+  lane :verify_upload do |options|
+    flavor = (options[:flavor] || "production").to_s
+    cfg = require_flavor(flavor)
+
+    api_key = asc_api_key
+    UI.user_error!("ASC_KEY_ID is not set — TestFlight upload needs the App Store Connect API key (see fastlane/.env.example)") if api_key.nil?
+
+    semver = read_semver
+    current = File.read(PUBSPEC)[/^version:\s*\d+\.\d+\.\d+\+(\d+)/, 1].to_i
+
+    # This call authenticates with the API key AND resolves the app record; it
+    # raises if the key is bad or the app id isn't on the account — i.e. it fails
+    # exactly where a real upload would. Returns 0 when the version has no builds.
+    latest = latest_testflight_build_number(
+      app_identifier: cfg[:bundle],
+      api_key: api_key,
+      version: semver,
+      initial_build_number: 0,
+    )
+
+    UI.success("API-key auth OK; app record found for #{cfg[:bundle]}")
+    UI.message("Latest TestFlight build for #{semver}: #{latest}")
+    UI.message("This IPA:                      #{semver} (#{current})")
+    if current > latest
+      UI.success("Build #{current} > #{latest} — ready to upload #{semver} (#{current}).")
+    else
+      UI.error("Build #{current} is NOT greater than #{latest} — bump first (./release.sh bump build), rebuild, then upload.")
+    end
+  end
+
+  desc "Upload an already-built IPA to TestFlight, WITHOUT touching the server version gate (builds one if none present). flavor: staging|production"
+  lane :upload do |options|
+    flavor = (options[:flavor] || "").to_s
+    cfg = require_flavor(flavor)
+
+    api_key = asc_api_key
+    UI.user_error!("ASC_KEY_ID is not set — TestFlight upload needs the App Store Connect API key (see fastlane/.env.example)") if api_key.nil?
+
+    ipa = File.join(ROOT, "build", "ios", "ipa", "#{cfg[:scheme]}.ipa")
+    ipa = build_ipa(flavor: flavor) unless File.exist?(ipa)
+
+    upload_to_testflight(
+      app_identifier: cfg[:bundle],
+      ipa: ipa,
+      api_key: api_key,
+      skip_waiting_for_build_processing: true,
+    )
+    UI.success("Uploaded #{File.basename(ipa)} to TestFlight (#{flavor}). Version gate NOT changed.")
   end
 
   desc "Build + upload to TestFlight and update the server gate. flavor: staging|production"
