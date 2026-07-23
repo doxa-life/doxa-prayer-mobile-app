@@ -25,20 +25,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // A single ListView child wrapping this Column collapses every card's
+    // loose (non-button) text into one merged semantics node — a screen reader
+    // reads the whole page at once instead of stopping on each item. A
+    // SingleChildScrollView keeps each element as its own accessibility stop.
     return PrayerReminderBanner(
-      child: ListView(
-        children: [
-          PageContainer(
-            child: Column(
-              spacing: AppSpacing.xxl,
-              children: [
-                _peopleGroupCardOrCTA(),
-                _remindersCardOrCTA(),
-                _getInvolvedCard(context),
-              ],
-            ),
+      child: SingleChildScrollView(
+        child: PageContainer(
+          child: Column(
+            spacing: AppSpacing.xxl,
+            children: [
+              _peopleGroupCardOrCTA(),
+              _remindersCardOrCTA(),
+              _getInvolvedCard(context),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

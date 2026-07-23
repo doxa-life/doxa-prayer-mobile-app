@@ -332,44 +332,53 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
                   if (data.metadata.copyrightNotices.isNotEmpty)
                     _CopyrightNotices(notices: data.metadata.copyrightNotices),
                 ];
-                return ListView(
-                  children: [
-                    // Action zone: an explicit white surface so the prayer
-                    // content reads as a distinct zone against both the app's
-                    // patterned background and the muted info band below. The
-                    // scaffold is transparent over that pattern, so without this
-                    // the prayer section and the band have too little contrast.
-                    ColoredBox(
-                      color: AppColors.surface,
-                      child: PageContainer(
-                        bottomPadding: AppSpacing.xxxl,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: AppSpacing.xxl,
-                          children: [
-                            PrayerContentView(response: data),
-                            ActionButton(
-                              label: l10n.amen,
-                              onPressed: _submitting ? null : _onAmen,
-                              color: ActionButtonColor.secondary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (infoBlocks.isNotEmpty)
+                // A ListView here collapsed the entire prayer body into a
+                // single merged semantics node (TalkBack read the whole page at
+                // once, only stopping on headings); a SingleChildScrollView +
+                // Column keeps every block as its own accessibility stop. The
+                // Column must stretch so the full-bleed colour bands still fill
+                // the width the way ListView children did.
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Action zone: an explicit white surface so the prayer
+                      // content reads as a distinct zone against both the app's
+                      // patterned background and the muted info band below. The
+                      // scaffold is transparent over that pattern, so without this
+                      // the prayer section and the band have too little contrast.
                       ColoredBox(
-                        color: AppColors.mutedSurface,
+                        color: AppColors.surface,
                         child: PageContainer(
-                          verticalPadding: AppSpacing.xxxl,
+                          bottomPadding: AppSpacing.xxxl,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             spacing: AppSpacing.xxl,
-                            children: infoBlocks,
+                            children: [
+                              PrayerContentView(response: data),
+                              ActionButton(
+                                label: l10n.amen,
+                                onPressed: _submitting ? null : _onAmen,
+                                color: ActionButtonColor.secondary,
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                  ],
+                      if (infoBlocks.isNotEmpty)
+                        ColoredBox(
+                          color: AppColors.mutedSurface,
+                          child: PageContainer(
+                            verticalPadding: AppSpacing.xxxl,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              spacing: AppSpacing.xxl,
+                              children: infoBlocks,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 );
               },
             ),

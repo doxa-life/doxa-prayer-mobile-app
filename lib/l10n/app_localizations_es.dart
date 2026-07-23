@@ -152,6 +152,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get no => 'No';
 
   @override
+  String get partial => 'Parcial';
+
+  @override
   String get status => 'Estado';
 
   @override

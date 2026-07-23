@@ -148,6 +148,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get no => 'لا';
 
   @override
+  String get partial => 'جزئي';
+
+  @override
   String get status => 'الحالة';
 
   @override
