@@ -1,2 +1,8 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
 #include "Generated.xcconfig"
+
+// Production flavor display name (Debug-production uses this file as its base config).
+// Without these, CFBundleName/CFBundleDisplayName resolve empty. Staging sets its own
+// in stagingDebug.xcconfig. Mirrors ios/Flutter/productionDebug.xcconfig.
+BUNDLE_NAME=Doxa Prayer
+BUNDLE_DISPLAY_NAME=Doxa Prayer

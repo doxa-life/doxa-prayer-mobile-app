@@ -1,2 +1,9 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
 #include "Generated.xcconfig"
+
+// Production flavor display name (Release- and Profile-production use this file as
+// their base config). Without these, CFBundleName/CFBundleDisplayName resolve empty
+// and App Store Connect warns 90784 "Missing bundle name". Staging sets its own in
+// stagingRelease.xcconfig. Mirrors ios/Flutter/productionRelease.xcconfig.
+BUNDLE_NAME=Doxa Prayer
+BUNDLE_DISPLAY_NAME=Doxa Prayer

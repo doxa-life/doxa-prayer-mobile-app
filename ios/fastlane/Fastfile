@@ -174,7 +174,7 @@ platform :ios do
     end
   end
 
-  desc "Upload an already-built IPA to TestFlight, WITHOUT touching the server version gate (builds one if none present). flavor: staging|production"
+  desc "Build a signed IPA and upload it to TestFlight, WITHOUT touching the server version gate. flavor: staging|production"
   lane :upload do |options|
     flavor = (options[:flavor] || "").to_s
     cfg = require_flavor(flavor)
@@ -182,8 +182,11 @@ platform :ios do
     api_key = asc_api_key
     UI.user_error!("ASC_KEY_ID is not set — TestFlight upload needs the App Store Connect API key (see fastlane/.env.example)") if api_key.nil?
 
-    ipa = File.join(ROOT, "build", "ios", "ipa", "#{cfg[:scheme]}.ipa")
-    ipa = build_ipa(flavor: flavor) unless File.exist?(ipa)
+    # Always build fresh: the produced .ipa is named after the flavor's display
+    # name (e.g. "Doxa Prayer.ipa"), so reusing a file by scheme name is unsafe
+    # (it could grab a stale or wrong-flavor artifact). build_ipa returns the
+    # exact path it just produced.
+    ipa = build_ipa(flavor: flavor)
 
     upload_to_testflight(
       app_identifier: cfg[:bundle],

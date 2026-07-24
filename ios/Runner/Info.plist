@@ -41,6 +41,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Doxa does not use your location. This notice appears only because our push-notification provider (OneSignal) includes location features, which Doxa leaves disabled.</string>
 	<key>OneSignal_app_groups_key</key>
 	<string>group.life.doxa.pray.onesignal</string>
 	<key>UIApplicationSceneManifest</key>
