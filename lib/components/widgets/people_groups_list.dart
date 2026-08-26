@@ -142,6 +142,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                       final g = filtered[i - 1];
                       return PeopleGroupListCard(
                         name: g.name,
+                        country: g.countryLabel ?? '',
                         imageUrl: g.imageUrl,
                         isSelected: selected?.slug == g.slug,
                         onSelect: () {

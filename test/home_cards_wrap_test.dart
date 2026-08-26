@@ -58,6 +58,7 @@ void main() {
         const SingleChildScrollView(
           child: PeopleGroupListCard(
             name: 'A very long people group name that pushes the layout',
+            country: 'A very long country name that pushes the layout',
             imageUrl: null,
             onSelect: _noop,
             onDetails: _noop,

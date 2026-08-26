@@ -1,3 +1,4 @@
+import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class PeopleGroupListCard extends StatelessWidget {
   const PeopleGroupListCard({
     super.key,
     required this.name,
+    required this.country,
     required this.imageUrl,
     required this.onSelect,
     required this.onDetails,
@@ -20,6 +22,7 @@ class PeopleGroupListCard extends StatelessWidget {
   });
 
   final String name;
+  final String country;
   final String? imageUrl;
   final VoidCallback onSelect;
   final VoidCallback onDetails;
@@ -45,12 +48,27 @@ class PeopleGroupListCard extends StatelessWidget {
                 semanticLabel: name,
               ),
               Expanded(
-                child: HyphenatedText(
-                  name,
-                  softWrap: true,
-                  style: AppTypography.bodyMedium.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Column(
+                  spacing: 0,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    HyphenatedText(
+                      name,
+                      softWrap: true,
+                      style: AppTypography.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    HyphenatedText(
+                      country,
+                      softWrap: true,
+                      style: AppTypography.bodySmall.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: AppColors.primaryLight,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
