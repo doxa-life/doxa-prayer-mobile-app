@@ -193,17 +193,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get prayerThankYouTitle => 'Merci de vos prières';
 
   @override
-  String get prayerThankYouMessage =>
-      'Votre assiduité dans la prière compte. Dieu vous écoute, et vos prières font la différence.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Réjouissez-vous toujours, priez sans cesse, rendez grâce en toutes circonstances ; car telle est la volonté de Dieu à votre égard en Jésus-Christ.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Thessaloniciens 5, 16-18';
-
-  @override
   String get prayedToday => 'J\'ai prié aujourd\'hui';
 
   @override

@@ -157,6 +157,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/thank_you_verses.json
     - .env
 
   fonts:

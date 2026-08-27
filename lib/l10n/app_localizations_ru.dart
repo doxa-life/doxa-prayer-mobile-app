@@ -193,17 +193,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerThankYouTitle => 'Спасибо за ваши молитвы';
 
   @override
-  String get prayerThankYouMessage =>
-      'Ваша верность в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Всегда радуйтесь, непрестанно молитесь, за всё благодарите; ибо такова воля Божья для вас во Христе Иисусе.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Фессалоникийцам 5:16–18';
-
-  @override
   String get prayedToday => 'Помолились сегодня';
 
   @override

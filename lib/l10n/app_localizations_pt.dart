@@ -190,17 +190,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get prayerThankYouTitle => 'Obrigado por orar';
 
   @override
-  String get prayerThankYouMessage =>
-      'Sua fidelidade na oração importa. Deus ouve você, e suas orações fazem a diferença.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Regozijai-vos sempre. Orai sem cessar. Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tessalonicenses 5:16-18';
-
-  @override
   String get prayedToday => 'Orei hoje';
 
   @override

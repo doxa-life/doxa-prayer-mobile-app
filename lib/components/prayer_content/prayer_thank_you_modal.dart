@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -9,17 +10,24 @@ import '../buttons/action_button.dart';
 import '../misc/app_icon.dart';
 import '../misc/hyphenated_text.dart';
 
-/// Shows an encouraging modal thanking the user for praying, affirming that
-/// their prayers make a difference. Shown after the user taps "Amen".
-Future<void> showPrayerThankYouModal(BuildContext context) {
+/// Shows a modal thanking the user for praying, with [verse] as the day's
+/// encouragement. Shown after the user taps "Amen".
+Future<void> showPrayerThankYouModal(
+  BuildContext context, {
+  ThankYouVerse? verse,
+}) {
   return showDialog<void>(
     context: context,
-    builder: (ctx) => const PrayerThankYouModal(),
+    builder: (ctx) => PrayerThankYouModal(verse: verse),
   );
 }
 
 class PrayerThankYouModal extends StatelessWidget {
-  const PrayerThankYouModal({super.key});
+  const PrayerThankYouModal({super.key, this.verse});
+
+  /// The verse to show. Null when the verse set could not be loaded, in which
+  /// case the modal falls back to the title and the Home button alone.
+  final ThankYouVerse? verse;
 
   @override
   Widget build(BuildContext context) {
@@ -52,29 +60,25 @@ class PrayerThankYouModal extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(height: AppSpacing.md),
-            HyphenatedText(
-              l10n.prayerThankYouMessage,
-              style: AppTypography.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            HyphenatedText(
-              l10n.prayerThankYouVerse,
-              style: AppTypography.bodyMedium.copyWith(
-                fontStyle: FontStyle.italic,
-                color: AppColors.primaryLight,
+            if (verse != null) ...[
+              const SizedBox(height: AppSpacing.lg),
+              HyphenatedText(
+                verse!.text,
+                style: AppTypography.bodyMedium.copyWith(
+                  fontStyle: FontStyle.italic,
+                  color: AppColors.primaryLight,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            HyphenatedText(
-              l10n.prayerThankYouVerseReference,
-              style: AppTypography.caption.copyWith(
-                color: AppColors.primaryLight,
+              const SizedBox(height: AppSpacing.sm),
+              HyphenatedText(
+                verse!.reference,
+                style: AppTypography.caption.copyWith(
+                  color: AppColors.primaryLight,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
+            ],
             const SizedBox(height: AppSpacing.xl),
             ActionButton.fullWidth(
               label: l10n.home,

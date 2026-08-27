@@ -189,17 +189,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerThankYouTitle => 'Thank you for praying';
 
   @override
-  String get prayerThankYouMessage =>
-      'Your faithfulness in prayer matters. God hears you, and your prayers make a difference.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Rejoice always, pray continually, give thanks in all circumstances; for this is God\'s will for you in Christ Jesus.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Thessalonians 5:16-18';
-
-  @override
   String get prayedToday => 'Prayed today';
 
   @override

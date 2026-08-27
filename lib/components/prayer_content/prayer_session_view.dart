@@ -15,6 +15,7 @@ import '../../services/crash_reporting_service.dart';
 import '../../services/identity_service.dart';
 import '../../services/prayer_content_service.dart';
 import '../../services/prayer_history_service.dart';
+import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
@@ -275,7 +276,12 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
       AppLocalizations.of(context)!.prayerRecordedAnnouncement,
       Directionality.of(context),
     );
-    await showPrayerThankYouModal(context);
+    // Each "Amen" advances the rotation, so a returning user gets a new verse.
+    final verse = await nextThankYouVerse(
+      Localizations.localeOf(context).languageCode,
+    );
+    if (!mounted) return;
+    await showPrayerThankYouModal(context, verse: verse);
   }
 
   @override

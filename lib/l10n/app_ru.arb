@@ -409,17 +409,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -708,10 +699,7 @@
     "prayerReminderBody": "Нажмите, чтобы помолиться за народ «{peopleGroup}».",
     "dismissReminderLabel": "Скрыть напоминание",
     "prayerStatus": "Статус молитвы",
-    "prayerThankYouMessage": "Ваша верность в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.",
     "prayerThankYouTitle": "Спасибо за ваши молитвы",
-    "prayerThankYouVerse": "Всегда радуйтесь, непрестанно молитесь, за всё благодарите; ибо такова воля Божья для вас во Христе Иисусе.",
-    "prayerThankYouVerseReference": "1 Фессалоникийцам 5:16–18",
     "pressBackAgainToExit": "Нажмите «Назад» ещё раз, чтобы выйти",
     "previousDay": "Предыдущий день",
     "primaryLanguage": "Основной язык",

@@ -409,17 +409,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -708,10 +699,7 @@
     "prayerReminderBody": "Toca para orar por «{peopleGroup}».",
     "dismissReminderLabel": "Descartar recordatorio",
     "prayerStatus": "Estado de la oración",
-    "prayerThankYouMessage": "Tu constancia en la oración es importante. Dios te escucha, y tus oraciones marcan la diferencia.",
     "prayerThankYouTitle": "Gracias por orar",
-    "prayerThankYouVerse": "Estad siempre gozosos, orad sin cesar, dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.",
-    "prayerThankYouVerseReference": "1 Tesalonicenses 5:16-18",
     "pressBackAgainToExit": "Vuelve a pulsar para salir",
     "previousDay": "Día anterior",
     "primaryLanguage": "Idioma principal",

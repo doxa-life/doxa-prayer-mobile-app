@@ -409,17 +409,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -708,10 +699,7 @@
     "prayerReminderBody": "Appuyez ici pour prier pour « {peopleGroup} ».",
     "dismissReminderLabel": "Ignorer le rappel",
     "prayerStatus": "Statut de prière",
-    "prayerThankYouMessage": "Votre assiduité dans la prière compte. Dieu vous écoute, et vos prières font la différence.",
     "prayerThankYouTitle": "Merci de vos prières",
-    "prayerThankYouVerse": "Réjouissez-vous toujours, priez sans cesse, rendez grâce en toutes circonstances ; car telle est la volonté de Dieu à votre égard en Jésus-Christ.",
-    "prayerThankYouVerseReference": "1 Thessaloniciens 5, 16-18",
     "pressBackAgainToExit": "Appuyez à nouveau sur cette touche pour quitter",
     "previousDay": "Jour précédent",
     "primaryLanguage": "Langue principale",

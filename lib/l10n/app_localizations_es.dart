@@ -193,17 +193,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get prayerThankYouTitle => 'Gracias por orar';
 
   @override
-  String get prayerThankYouMessage =>
-      'Tu constancia en la oración es importante. Dios te escucha, y tus oraciones marcan la diferencia.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Estad siempre gozosos, orad sin cesar, dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
-
-  @override
   String get prayedToday => 'Hoy he orado';
 
   @override
