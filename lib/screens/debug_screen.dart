@@ -9,12 +9,15 @@ import '../components/nav/details_nav_bar.dart';
 import '../components/nav/root_pop_scope.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
+import '../services/cache_policy.dart';
 import '../services/crash_reporting_service.dart';
 import '../services/identity_service.dart';
+import '../services/image_cache_manager.dart';
 import '../services/install_referrer_service.dart';
 import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
+import '../services/response_cache.dart';
 import '../services/reminders_controller.dart';
 import '../services/selected_people_group_controller.dart';
 import '../services/update_controller.dart';
@@ -58,6 +61,7 @@ class DebugScreen extends StatelessWidget {
                     style: AppTypography.bodyMedium,
                   ),
                   _prefsSection(context),
+                  _cacheSection(context),
                   const _SimulateReferralCard(),
                   _updateSection(context),
                   _crashlyticsSection(context),
@@ -148,6 +152,38 @@ class DebugScreen extends StatelessWidget {
               ]);
             },
           ),
+        ),
+      ],
+    ),
+  );
+
+  Widget _cacheSection(BuildContext context) => Section(
+    title: 'Caches',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        HyphenatedText(
+          'Fetched data is held on disk: prayer content and photos for '
+          '${CachePolicy.prayerContent.inDays} days, the people-group list and '
+          'detail pages for ${CachePolicy.peopleGroupList.inDays} — those two '
+          'also refresh in the background once the cached copy is over '
+          '${CachePolicy.peopleGroupCounts.inHours}h old, to keep the praying '
+          'counts current. Clear a cache to force the next screen to refetch.',
+          style: AppTypography.caption,
+        ),
+        _clearRow(
+          context,
+          label: 'API responses',
+          description:
+              'Prayer content, the UUPG list, and people-group details.',
+          onClear: ResponseCache.clear,
+        ),
+        _clearRow(
+          context,
+          label: 'Cached images',
+          description: 'People-group photos held on disk.',
+          onClear: AppImageCacheManager.clear,
         ),
       ],
     ),

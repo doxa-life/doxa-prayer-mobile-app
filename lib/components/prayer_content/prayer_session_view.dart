@@ -19,6 +19,7 @@ import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../misc/cached_data_builder.dart';
 import 'people_group_of_the_day_view.dart';
 import 'prayer_content_skeleton.dart';
 import 'prayer_content_view.dart';
@@ -55,7 +56,6 @@ class PrayerSessionView extends StatefulWidget {
 
 class _PrayerSessionViewState extends State<PrayerSessionView>
     with WidgetsBindingObserver {
-  late Future<PrayerContentResponse> _future;
   late DateTime _date;
   DateTime? _campaignStartDate;
   DateTime? _openedAt;
@@ -69,11 +69,6 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     WidgetsBinding.instance.addObserver(this);
     appRouter.routerDelegate.addListener(_onRouteChanged);
     _date = widget.initialDate ?? DateTime.now();
-    _future = fetchPrayerContent(
-      slug: widget.slug,
-      date: _date,
-      language: widget.language,
-    );
     if (widget.isActive()) {
       _startSession();
     }
@@ -161,16 +156,22 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     });
   }
 
-  void _reload() {
+  Future<PrayerContentResponse> _load({bool forceRefresh = false}) =>
+      fetchPrayerContent(
+        slug: widget.slug,
+        date: _date,
+        language: widget.language,
+        forceRefresh: forceRefresh,
+      );
+
+  /// Repaints for the new [_date]. The load itself is driven by
+  /// [CachedDataBuilder] keying on the date, so stepping back to a day already
+  /// read shows it immediately, with no skeleton.
+  void _showCurrentDate() {
     setState(() {
       if (_sessionActive) {
         _openedAt = DateTime.now();
       }
-      _future = fetchPrayerContent(
-        slug: widget.slug,
-        date: _date,
-        language: widget.language,
-      );
     });
   }
 
@@ -187,13 +188,13 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   void _goToPreviousDay() {
     if (!_canGoPrevious) return;
     _date = _date.subtract(const Duration(days: 1));
-    _reload();
+    _showCurrentDate();
   }
 
   void _goToNextDay() {
     if (!_canGoNext) return;
     _date = _date.add(const Duration(days: 1));
-    _reload();
+    _showCurrentDate();
   }
 
   /// Capture the campaign start date from a resolved response so the previous
@@ -298,21 +299,21 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
             onNext: _goToNextDay,
           ),
           Expanded(
-            child: FutureBuilder<PrayerContentResponse>(
-              future: _future,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const PrayerContentSkeleton();
-                }
-                if (snapshot.hasError) {
-                  return PageContainer(
-                    child: _ErrorView(
-                      message: l10n.couldNotLoadPrayerContent,
-                      onRetry: _reload,
-                    ),
-                  );
-                }
-                final data = snapshot.data!;
+            child: CachedDataBuilder<PrayerContentResponse>(
+              cacheKey: prayerContentCacheKey(
+                slug: widget.slug,
+                date: _date,
+                language: widget.language,
+              ),
+              fetch: _load,
+              loading: (context) => const PrayerContentSkeleton(),
+              error: (context, retry) => PageContainer(
+                child: _ErrorView(
+                  message: l10n.couldNotLoadPrayerContent,
+                  onRetry: retry,
+                ),
+              ),
+              builder: (context, data) {
                 _captureStartDate(data.globalStartDate);
                 if (!data.hasContent || data.content.isEmpty) {
                   return PageContainer(

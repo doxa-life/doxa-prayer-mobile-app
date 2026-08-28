@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 
 import '../models/prayer_content.dart';
 import 'api_config.dart';
+import 'cache_policy.dart';
+import 'response_cache.dart';
 
 String _formatDate(DateTime date) {
   final y = date.year.toString().padLeft(4, '0');
@@ -14,24 +16,41 @@ String _formatDate(DateTime date) {
   return '$y-$m-$d';
 }
 
+/// Cache key for one day's prayer content. Exposed so the Pray screen can peek
+/// the in-memory cache before its first frame (see `CachedDataBuilder`); must
+/// match what [fetchPrayerContent] stores under.
+String prayerContentCacheKey({
+  required String slug,
+  required DateTime date,
+  required String language,
+}) => 'prayer-$slug-${_formatDate(date)}-$language';
+
+/// One day's prayer content for [slug] in [language].
+///
+/// Cached on disk for [CachePolicy.prayerContent], keyed by group, date and
+/// language — so revisiting the Pray tab, or stepping back to a day already
+/// read, paints without a network round-trip. A day's content doesn't change
+/// once that day has started, so there is no background revalidation here.
+/// Pass [forceRefresh] for an explicit user retry.
 Future<PrayerContentResponse> fetchPrayerContent({
   required String slug,
   required DateTime date,
   required String language,
-}) async {
-  final uri = ApiConfig.buildUri(
-    '/api/people-groups/$slug/prayer-content/${_formatDate(date)}',
-    {'language': language},
+  bool forceRefresh = false,
+}) {
+  final day = _formatDate(date);
+  return getJsonCached(
+    uri: ApiConfig.buildUri('/api/people-groups/$slug/prayer-content/$day', {
+      'language': language,
+    }),
+    cacheKey: prayerContentCacheKey(slug: slug, date: date, language: language),
+    ttl: CachePolicy.prayerContent,
+    forceRefresh: forceRefresh,
+    decode: (body) => PrayerContentResponse.fromJson(
+      jsonDecode(body) as Map<String, dynamic>,
+    ),
+    errorMessage: (status) => 'Failed to load prayer content ($status)',
   );
-  final response = await http.get(
-    uri,
-    headers: const {'Accept': 'application/json'},
-  );
-  if (response.statusCode != 200) {
-    throw Exception('Failed to load prayer content (${response.statusCode})');
-  }
-  final body = jsonDecode(response.body) as Map<String, dynamic>;
-  return PrayerContentResponse.fromJson(body);
 }
 
 class PrayerSessionReport {
