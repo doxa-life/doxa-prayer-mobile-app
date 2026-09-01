@@ -173,10 +173,37 @@ APP=build/ios/iphoneos/Runner.app
 
 ### iOS crash symbolication (dSYM upload)
 
-For **native iOS** crash stack traces to be readable, add the Crashlytics dSYM upload build phase
-(runs `${PODS_ROOT}/FirebaseCrashlytics/run`) with input files `${DWARF_DSYM_FOLDER_PATH}/...` and
-`$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)`, per the FlutterFire iOS docs. Flutter/Dart crashes are
-symbolicated via Dart and don't depend on this; it matters for native frames.
+Handled by **fastlane**, not an Xcode build phase — the release path is `./release.sh deploy-ios`, so the
+upload lives where the build lives and the flavor → Firebase-app mapping stays explicit.
+
+`build_ipa` calls `upload_dsyms` automatically once the IPA is produced, uploading
+`build/ios/archive/Runner.xcarchive/dSYMs` with `ios/config/<flavor>/GoogleService-Info.plist` naming the
+target Firebase app. Two guards around it:
+
+- **Preflight** (`check_crashlytics_setup!`, run *before* the archive): fails immediately if
+  `ios/Pods/FirebaseCrashlytics/upload-symbols` is missing (→ `cd ios && pod install`) or the flavor plist
+  is absent — rather than after a multi-minute build.
+- **Non-strict upload**: a failure *after* a successful archive warns instead of aborting. The archive is
+  still on disk, so retry standalone:
+
+  ```
+  ./release.sh upload-dsyms-ios staging
+  ```
+
+  That lane is strict, and also takes `dsym_path:` to symbolicate an older or already-shipped build:
+
+  ```
+  cd ios && bundle exec fastlane upload_dsyms flavor:production dsym_path:/path/to/dSYMs
+  ```
+
+Flutter/Dart crashes are symbolic without any of this — it matters for native and engine frames. Bitcode
+is gone as of Xcode 14, so the locally built dSYMs are the real ones; no need to `download_dsyms` from App
+Store Connect.
+
+**Android needs no equivalent step.** The `com.google.firebase.crashlytics` Gradle plugin uploads the
+mapping file on every release variant, routed by the per-flavor `google-services.json`. Native (NDK)
+symbol upload is deliberately off: it would only cover `libapp.so`/`libflutter.so`, and capturing native
+crashes at all would additionally need the `firebase-crashlytics-ndk` dependency.
 
 ---
 

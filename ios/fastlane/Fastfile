@@ -21,6 +21,10 @@ FASTLANE_DIR = File.expand_path(__dir__)
 ROOT = File.expand_path("../..", FASTLANE_DIR)
 PUBSPEC = File.join(ROOT, "pubspec.yaml")
 
+# `flutter build ipa` archives here, and Xcode leaves the debug symbols for the
+# app + every embedded framework inside the archive.
+ARCHIVE_DSYMS = File.join(ROOT, "build", "ios", "archive", "Runner.xcarchive", "dSYMs")
+
 FLAVORS = {
   "staging" => {
     bundle: "life.doxa.pray.staging",
@@ -71,6 +75,33 @@ platform :ios do
     )
   end
 
+  # ---- Crashlytics dSYMs --------------------------------------------------
+  # Crashlytics needs the build's dSYMs to turn native crash addresses into
+  # frames. Dart-level traces arrive symbolic already (release builds don't pass
+  # --obfuscate), so this only matters for native/engine crashes — but without it
+  # those reports are unreadable hex.
+
+  # Each flavor is a distinct Firebase iOS app; the plist decides which one the
+  # symbols land in. Same files the Xcode copy phase bundles.
+  def crashlytics_gsp_path(flavor)
+    File.join(ROOT, "ios", "config", flavor, "GoogleService-Info.plist")
+  end
+
+  # Vendored by the FirebaseCrashlytics pod — only exists after `pod install`.
+  def crashlytics_upload_binary
+    File.join(ROOT, "ios", "Pods", "FirebaseCrashlytics", "upload-symbols")
+  end
+
+  # Run before a build, not after: an archive takes minutes and both of these
+  # failures are pure setup, detectable up front.
+  def check_crashlytics_setup!(flavor)
+    binary = crashlytics_upload_binary
+    UI.user_error!("Crashlytics upload-symbols not found at #{binary} — run `cd ios && pod install`.") unless File.exist?(binary)
+
+    gsp = crashlytics_gsp_path(flavor)
+    UI.user_error!("Missing #{gsp} — Crashlytics can't tell which Firebase app to upload dSYMs to.") unless File.exist?(gsp)
+  end
+
   # ---- lanes --------------------------------------------------------------
 
   desc "Compile the iOS app WITHOUT signing — validates the build with no Apple account. flavor: staging|production"
@@ -85,6 +116,7 @@ platform :ios do
   lane :build_ipa do |options|
     flavor = (options[:flavor] || "staging").to_s
     cfg = require_flavor(flavor)
+    check_crashlytics_setup!(flavor)
 
     # Always sign against a dedicated temporary keychain, even off CI. Without it,
     # codesign can't reach the login keychain non-interactively and the archive
@@ -140,7 +172,42 @@ platform :ios do
     ipa = Dir[File.join(ROOT, "build", "ios", "ipa", "*.ipa")].max_by { |f| File.mtime(f) }
     UI.user_error!("No IPA produced in build/ios/ipa") unless ipa
     UI.success("Built #{ipa}")
+
+    # Non-strict: the archive is on disk and the upload is re-runnable, so a
+    # transient Crashlytics error must not sink a build that otherwise succeeded.
+    upload_dsyms(flavor: flavor, strict: false)
+
     ipa
+  end
+
+  desc "Upload the latest archive's dSYMs to Crashlytics so native crashes symbolicate. Runs automatically after `build_ipa`; use standalone to retry or to symbolicate an already-shipped build. flavor: staging|production, dsym_path: override, strict: false to warn instead of fail"
+  lane :upload_dsyms do |options|
+    flavor = (options[:flavor] || "staging").to_s
+    require_flavor(flavor)
+    # false from a Ruby caller, "false" from the fastlane CLI — both mean warn-only.
+    strict = options[:strict].to_s != "false"
+
+    dsym_path = options[:dsym_path] || ARCHIVE_DSYMS
+    unless File.exist?(dsym_path)
+      msg = "No dSYMs at #{dsym_path} — build first: ./release.sh build-ios #{flavor}"
+      UI.user_error!(msg) if strict
+      UI.important(msg)
+      next
+    end
+
+    begin
+      check_crashlytics_setup!(flavor)
+      upload_symbols_to_crashlytics(
+        dsym_path: dsym_path,
+        gsp_path: crashlytics_gsp_path(flavor),
+        binary_path: crashlytics_upload_binary,
+      )
+      UI.success("Uploaded dSYMs from #{dsym_path} to Crashlytics (#{flavor}).")
+    rescue StandardError => e
+      raise if strict
+      UI.important("dSYM upload failed: #{e.message}")
+      UI.important("The build is unaffected. Retry with: ./release.sh upload-dsyms-ios #{flavor}")
+    end
   end
 
   desc "Preflight the TestFlight upload WITHOUT uploading: verifies API-key auth, the app record exists, and reports the latest TestFlight build number vs this build. flavor: staging|production"

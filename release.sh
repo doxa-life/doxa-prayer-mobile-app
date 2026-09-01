@@ -13,6 +13,7 @@
 #   ./release.sh build-ios [staging|production]          build a signed iOS IPA only (macOS only)
 #   ./release.sh upload-ios [staging|production]         upload the built IPA to TestFlight, no gate change (macOS only)
 #   ./release.sh verify-upload-ios [staging|production]  preflight the upload: auth + app record, no upload (macOS only)
+#   ./release.sh upload-dsyms-ios [staging|production]   upload the last archive's dSYMs to Crashlytics (macOS only)
 #   ./release.sh validate-ios [staging|production]       compile iOS unsigned — no Apple account (macOS only)
 #   ./release.sh screenshots-ios                         capture + frame iOS App Store screenshots (macOS only)
 #   ./release.sh deploy-screenshots-ios [staging|production]  upload iOS screenshots to App Store Connect (macOS only)
@@ -86,13 +87,14 @@ case "$cmd" in
   build-ios)              fl ios build_ipa flavor:"${arg:-staging}" ;;
   upload-ios)             fl ios upload flavor:"${arg:-staging}" ;;
   verify-upload-ios)      fl ios verify_upload flavor:"${arg:-staging}" ;;
+  upload-dsyms-ios)       fl ios upload_dsyms flavor:"${arg:-staging}" ;;
   validate-ios)           fl ios build_unsigned flavor:"${arg:-staging}" ;;
   screenshots-ios)        fl ios screenshots ;;
   deploy-screenshots-ios) fl ios upload_screenshots flavor:"${arg:-staging}" ;;
   *)
     echo "usage: ./release.sh {deploy|build|gate [staging|production] | bump [build|patch|minor|major]" >&2
     echo "                     | deploy-screenshots [staging|production]" >&2
-    echo "                     | deploy-ios|build-ios|upload-ios|verify-upload-ios|validate-ios [staging|production]" >&2
+    echo "                     | deploy-ios|build-ios|upload-ios|verify-upload-ios|validate-ios|upload-dsyms-ios [staging|production]" >&2
     echo "                     | screenshots-ios | deploy-screenshots-ios [staging|production]}" >&2
     exit 1
     ;;
