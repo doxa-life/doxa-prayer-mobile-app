@@ -887,17 +887,49 @@ const actions = <UserAction>[
       Step(
         from: Actor.ui,
         to: Actor.ui,
-        text: 'Start the session clock',
+        text: 'Start the session clock and mint the session id',
         anchor: Anchor(
           'lib/components/prayer_content/prayer_session_view.dart',
           '_startSession',
         ),
         background: true,
       ),
+      Step(
+        from: Actor.ui,
+        to: Actor.server,
+        text:
+            'Report the session as open, then re-report every 60s for up to 15 '
+            'minutes so it stays visible in the praying-now count',
+        anchor: Anchor(
+          'lib/components/prayer_content/prayer_session_view.dart',
+          '_postSessionPing',
+        ),
+        endpoint:
+            'POST /api/people-groups/{slug}/prayer-content/{date}/session',
+        when: 'the visit outlasts the minimum duration',
+        background: true,
+      ),
+      Step(
+        from: Actor.ui,
+        to: Actor.server,
+        text: 'Fetch how many people are praying right now, for the banner',
+        anchor: Anchor(
+          'lib/services/prayer_stats_service.dart',
+          'fetchPrayingNow',
+        ),
+        endpoint: 'GET /api/people-groups/statistics',
+        background: true,
+      ),
     ],
     notes: [
       'A past day\'s content never changes, so this is the one cached read with '
           'no background revalidation.',
+      'The open report and every later ping upsert the SAME row server-side, '
+          'keyed on the session id minted at start — so one visit is one row, '
+          'whose timestamp tracks when the user was last seen.',
+      'The praying-now count is read uncached on purpose: the shared response '
+          'cache falls back to expired data when a refetch fails, which would '
+          'show a stale live number rather than nothing.',
     ],
   ),
 
@@ -911,14 +943,16 @@ const actions = <UserAction>[
     ),
     visible: 'The thank-you modal with a rolling verse.',
     background:
-        'Posts the session duration and a client-generated session id, then '
-        'writes a local prayer record. Both are best-effort — a failure never '
-        'reaches the user.',
+        'Posts the session duration against the id minted when the session '
+        'started, then writes a local prayer record. Both are best-effort — a '
+        'failure never reaches the user.',
     steps: [
       Step(
         from: Actor.ui,
         to: Actor.server,
-        text: 'Post session id, tracking id, duration and timestamp',
+        text:
+            'Post session id, tracking id, duration, timestamp and the '
+            'prayer_logged flag',
         anchor: Anchor(
           'lib/services/prayer_content_service.dart',
           'postPrayerSession',
@@ -955,6 +989,9 @@ const actions = <UserAction>[
           'when the app secret is missing. Every other service skips only on a '
           'missing secret — so this is the one endpoint you cannot exercise from a '
           'debug or profile build.',
+      'Only the Amen carries `track_event: prayer_logged`; the pings a running '
+          'session makes leave it unset. The server, not the app, forwards that '
+          'to the analytics backend — the app never talks to it directly.',
     ],
   ),
 

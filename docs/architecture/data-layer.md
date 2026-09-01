@@ -19,9 +19,10 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | POST | `/api/news-signup` | — | — | — | `news_signup_service.dart:25` |
 | GET | `/api/people-groups/detail/{slug}` | yes | 7 days (`peopleGroupDetail`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:67` |
 | GET | `/api/people-groups/list` | yes | 7 days (`peopleGroupList`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:43` |
+| GET | `/api/people-groups/statistics` | — | — | — | `prayer_stats_service.dart:20` |
 | POST | `/api/people-groups/{slug}/anon-signup` | — | — | — | `anon_signup_service.dart:38` |
 | GET | `/api/people-groups/{slug}/prayer-content/{date}` | yes | 30 days (`prayerContent`) | — | `prayer_content_service.dart:43` |
-| POST | `/api/people-groups/{slug}/prayer-content/{date}/session` | — | — | — | `prayer_content_service.dart:82` |
+| POST | `/api/people-groups/{slug}/prayer-content/{date}/session` | — | — | — | `prayer_content_service.dart:91` |
 | GET | `/api/profile/{profileId}` | — | — | — | `profile_service.dart:44`<br>`profile_service.dart:63` |
 | PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:38` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
@@ -43,9 +44,10 @@ The reverse index: change an endpoint, and these are the actions to retest.
 | `POST /api/news-signup` | News step → Sign up; Settings → Sign up for updates → Sign up |
 | `GET /api/people-groups/detail/{slug}` | Welcome → Start; Open an /app/<slug> share link |
 | `GET /api/people-groups/list` | Open the Browse tab |
+| `GET /api/people-groups/statistics` | Open the Pray tab |
 | `POST /api/people-groups/{slug}/anon-signup` | News step → Sign up; News step → Skip; Group details → pray for this group |
 | `GET /api/people-groups/{slug}/prayer-content/{date}` | Cold start; Open the Pray tab; Open a /<slug>/prayer link |
-| `POST /api/people-groups/{slug}/prayer-content/{date}/session` | Tap Amen; Leave the Pray tab without tapping Amen |
+| `POST /api/people-groups/{slug}/prayer-content/{date}/session` | Open the Pray tab; Tap Amen; Leave the Pray tab without tapping Amen |
 | `GET /api/profile/{profileId}` | Settings → view signed-up emails; Send feedback |
 | `PUT /api/profile/{profileId}` | Group details → pray for this group; Add or edit a reminder |
 | `POST /api/profile/{profileId}/resend-verification` | Settings → Resend verification email |

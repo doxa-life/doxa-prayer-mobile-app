@@ -21,7 +21,7 @@ Each entry pairs what the user perceives with what actually happens. In the diag
 | Onboarding wizard | [News step → Sign up](#news-step--sign-up) | `POST /api/people-groups/{slug}/anon-signup`<br>`POST /api/news-signup`<br>`POST /api/push/register` | `identity_tracking_id`<br>`identity_profile_id`<br>`identity_subscription_id` |
 | Onboarding wizard | [News step → Finish](#news-step--finish) | — | `wizard_completed` |
 | Onboarding wizard | [News step → Skip](#news-step--skip) | `POST /api/people-groups/{slug}/anon-signup` | `identity_tracking_id`<br>`identity_profile_id`<br>`identity_subscription_id`<br>`wizard_completed` |
-| Pray tab | [Open the Pray tab](#open-the-pray-tab) | `GET /api/people-groups/{slug}/prayer-content/{date}` | — |
+| Pray tab | [Open the Pray tab](#open-the-pray-tab) | `GET /api/people-groups/{slug}/prayer-content/{date}`<br>`POST /api/people-groups/{slug}/prayer-content/{date}/session`<br>`GET /api/people-groups/statistics` | — |
 | Pray tab | [Tap Amen](#tap-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history`<br>`thank_you_verse_index` |
 | Pray tab | [Leave the Pray tab without tapping Amen](#leave-the-pray-tab-without-tapping-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history` |
 | Browse tab and group details | [Open the Browse tab](#open-the-browse-tab) | `GET /api/people-groups/list` | — |
@@ -317,13 +317,19 @@ sequenceDiagram
     opt no cache entry younger than the TTL
         UI->>S: GET /api/people-groups/{slug}/prayer-content/{date} — Fetch the day's content, keyed by group + date + language
     end
-    UI-->>UI: Start the session clock
+    UI-->>UI: Start the session clock and mint the session id
+    opt the visit outlasts the minimum duration
+        UI-->>S: POST /api/people-groups/{slug}/prayer-content/{date}/session — Report the session as open, then re-report every 60s for up to 15 minutes so it stays visible in the praying-now count
+    end
+    UI-->>S: GET /api/people-groups/statistics — Fetch how many people are praying right now, for the banner
 ```
 
 
 **Worth knowing**
 
 - A past day's content never changes, so this is the one cached read with no background revalidation.
+- The open report and every later ping upsert the SAME row server-side, keyed on the session id minted at start — so one visit is one row, whose timestamp tracks when the user was last seen.
+- The praying-now count is read uncached on purpose: the shared response cache falls back to expired data when a refetch fails, which would show a stale live number rather than nothing.
 
 ### Tap Amen
 
@@ -331,7 +337,7 @@ Entered at `_onAmen` in [lib/components/prayer_content/prayer_session_view.dart]
 
 **Visible** — The thank-you modal with a rolling verse.
 
-**Background** — Posts the session duration and a client-generated session id, then writes a local prayer record. Both are best-effort — a failure never reaches the user.
+**Background** — Posts the session duration against the id minted when the session started, then writes a local prayer record. Both are best-effort — a failure never reaches the user.
 
 ```mermaid
 sequenceDiagram
@@ -341,7 +347,7 @@ sequenceDiagram
     participant L as On device
     participant S as Campaigns server
     U->>UI: Tap Amen
-    UI->>S: POST /api/people-groups/{slug}/prayer-content/{date}/session — Post session id, tracking id, duration and timestamp
+    UI->>S: POST /api/people-groups/{slug}/prayer-content/{date}/session — Post session id, tracking id, duration, timestamp and the prayer_logged flag
     UI->>L: Append to the local prayer history, driving the prayed-today state
     Note over L: writes prayer_history
     UI->>L: Advance the verse rotation, so the next Amen shows a different verse
@@ -352,6 +358,7 @@ sequenceDiagram
 **Worth knowing**
 
 - `postPrayerSession` is skipped on **any non-release build**, not just when the app secret is missing. Every other service skips only on a missing secret — so this is the one endpoint you cannot exercise from a debug or profile build.
+- Only the Amen carries `track_event: prayer_logged`; the pings a running session makes leave it unset. The server, not the app, forwards that to the analytics backend — the app never talks to it directly.
 
 ### Leave the Pray tab without tapping Amen
 
