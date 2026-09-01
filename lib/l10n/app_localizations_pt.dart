@@ -190,17 +190,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get prayerThankYouTitle => 'Obrigado por orar';
 
   @override
-  String get prayerThankYouMessage =>
-      'Sua fidelidade na oração importa. Deus ouve você, e suas orações fazem a diferença.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Regozijai-vos sempre. Orai sem cessar. Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tessalonicenses 5:16-18';
-
-  @override
   String get prayedToday => 'Orei hoje';
 
   @override
@@ -230,6 +219,22 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'Oração registrada';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString pessoas orando com você agora',
+      one: '1 pessoa orando com você agora',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'Novo lembrete';

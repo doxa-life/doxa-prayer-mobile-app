@@ -73,6 +73,17 @@ dependencies:
   firebase_core: ^4.11.0
   firebase_crashlytics: ^5.2.4
   hyphenatorx: ^1.5.11
+  # Disk-backed image cache (see services/image_cache_manager.dart). Replaces
+  # Image.network in components/misc/app_image.dart so people-group photos
+  # survive app restarts instead of being refetched on every view.
+  cached_network_image: ^3.4.1
+  # The cache backend behind cached_network_image; declared directly because
+  # services/image_cache_manager.dart configures its own CacheManager.
+  flutter_cache_manager: ^3.4.1
+  # Resolves the on-disk directory for the API response cache
+  # (services/response_cache.dart). Already present transitively; declared here
+  # because it is used directly.
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -157,6 +168,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/thank_you_verses.json
     - .env
 
   fonts:

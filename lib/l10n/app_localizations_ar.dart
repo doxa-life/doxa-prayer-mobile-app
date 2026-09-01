@@ -187,17 +187,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerThankYouTitle => 'شكرًا لكم على صلواتكم';
 
   @override
-  String get prayerThankYouMessage =>
-      'إخلاصك في الصلاة له أهمية كبيرة. الله يسمعك، وصلواتك تُحدث فرقًا.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'افرحوا دائمًا، صلّوا بلا انقطاع، اشكروا في كل الأحوال؛ فهذه هي مشيئة الله لكم في المسيح يسوع.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 تسالونيكي 5:16-18';
-
-  @override
   String get prayedToday => 'صليت اليوم';
 
   @override
@@ -227,6 +216,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'تم تسجيل الصلاة';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString شخص يصلّي معك الآن',
+      many: '$countString شخصًا يصلّي معك الآن',
+      few: '$countString أشخاص يصلّون معك الآن',
+      two: 'شخصان يصلّيان معك الآن',
+      one: 'شخص واحد يصلّي معك الآن',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'تذكير جديد';

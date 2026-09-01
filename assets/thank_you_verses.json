@@ -1,0 +1,1025 @@
+{
+  "_comment": "GENERATED FILE - do not edit by hand, and do not send through DeepL. Each locale's text is reproduced verbatim from that locale's Bible translation and must not be machine-translated. Regenerate with: python3 tool/fetch_thank_you_verses.py",
+  "verses": [
+    {
+      "locales": {
+        "en": {
+          "text": "Rejoice always, pray without ceasing, in everything give thanks; for this is the will of God in Christ Jesus for you.",
+          "reference": "1 Thessalonians 5:16-18",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Estén siempre alegres, oren sin cesar, den gracias a Dios en toda situación, porque esta es su voluntad para ustedes en Cristo Jesús.",
+          "reference": "1 Tesalonicenses 5:16-18",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Estejam sempre alegres. Orem sem cessar. Em tudo, deem graças, porque esta é a vontade de Deus para vocês em Cristo Jesus.",
+          "reference": "1 Tessalonicenses 5:16-18",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Soyez toujours joyeux. Priez sans cesse. Rendez grâces en toutes choses, car c’est à votre égard la volonté de Dieu en Jésus-Christ.",
+          "reference": "1 Thessaloniciens 5, 16-18",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Всегда радуйтесь. Непрестанно молитесь. За все благодарите: ибо такова о вас воля Божия во Христе Иисусе.",
+          "reference": "1 Фессалоникийцам 5:16–18",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "افْرَحُوا كُلَّ حِينٍ. صَلُّوا بِلاَ انْقِطَاعٍ. اشْكُرُوا فِي كُلِّ شَيْءٍ، لأَنَّ هذِهِ هِيَ مَشِيئَةُ اللهِ فِي الْمَسِيحِ يَسُوعَ مِنْ جِهَتِكُمْ.",
+          "reference": "1 تسالونيكي 5:16-18",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Let my prayer be set before You as incense, The lifting up of my hands as the evening sacrifice.",
+          "reference": "Psalm 141:2",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Que suba a tu presencia mi plegaria como una ofrenda de incienso; que hacia ti se eleven mis manos como un sacrificio vespertino.",
+          "reference": "Salmo 141:2",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Suba à tua presença a minha oração como incenso, e seja o erguer de minhas mãos como oferenda vespertina.",
+          "reference": "Salmos 141:2",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Que ma prière soit devant ta face comme l’encens, Et l’élévation de mes mains comme l’offrande du soir!",
+          "reference": "Psaumes 141, 2",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Да направится молитва моя, как фимиам, пред лице Твое, воздеяние рук моих - как жертва вечерняя.",
+          "reference": "Псалтирь 140:2",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لِتَسْتَقِمْ صَلاَتِي كَالْبَخُورِ قُدَّامَكَ. لِيَكُنْ رَفْعُ يَدَيَّ كَذَبِيحَةٍ مَسَائِيَّةٍ.",
+          "reference": "مزمور 141:2",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "I love the LORD, because He has heard My voice and my supplications. Because He has inclined His ear to me, Therefore I will call upon Him as long as I live.",
+          "reference": "Psalm 116:1-2",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Yo amo al SEÑOR porque él escucha mi voz suplicante. Por cuanto él inclina a mí su oído, lo invocaré toda mi vida.",
+          "reference": "Salmo 116:1-2",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Amo o SENHOR, porque ele ouve a minha voz e as minhas súplicas. Porque inclinou para mim os seus ouvidos, eu o invocarei por toda a minha vida.",
+          "reference": "Salmos 116:1-2",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "J’aime l’Éternel, car il entend Ma voix, mes supplications; Car il a penché son oreille vers moi; Et je l’invoquerai toute ma vie.",
+          "reference": "Psaumes 116, 1-2",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Я радуюсь, что Господь услышал голос мой, моление мое; приклонил ко мне ухо Свое, и потому буду призывать Его во все дни мои.",
+          "reference": "Псалтирь 114:1–2",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "أَحْبَبْتُ لأَنَّ الرَّبَّ يَسْمَعُ صَوْتِي، تَضَرُّعَاتِي. لأَنَّهُ أَمَالَ أُذْنَهُ إِلَيَّ فَأَدْعُوهُ مُدَّةَ حَيَاتِي.",
+          "reference": "مزمور 116:1-2",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Then you will call upon Me and go and pray to Me, and I will listen to you.",
+          "reference": "Jeremiah 29:12",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Entonces ustedes me invocarán, y vendrán a suplicarme, y yo los escucharé.",
+          "reference": "Jeremías 29:12",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Então vocês me invocarão, se aproximarão de mim em oração, e eu os ouvirei.",
+          "reference": "Jeremias 29:12",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Vous m’invoquerez, et vous partirez; vous me prierez, et je vous exaucerai.",
+          "reference": "Jérémie 29, 12",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "И воззовете ко Мне, и пойдете и помолитесь Мне, и Я услышу вас;",
+          "reference": "Иеремия 29:12",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَتَدْعُونَنِي وَتَذْهَبُونَ وَتُصَلُّونَ إِلَيَّ فَأَسْمَعُ لَكُمْ.",
+          "reference": "إرميا 29:12",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "The LORD is near to all who call upon Him, To all who call upon Him in truth.",
+          "reference": "Psalm 145:18",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "El SEÑOR está cerca de quienes lo invocan, de quienes lo invocan en verdad.",
+          "reference": "Salmo 145:18",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Perto está o SENHOR de todos os que o invocam, de todos os que o invocam em verdade.",
+          "reference": "Salmos 145:18",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "L’Éternel est près de tous ceux qui l’invoquent, De tous ceux qui l’invoquent avec sincérité;",
+          "reference": "Psaumes 145, 18",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Близок Господь ко всем призывающим Его, ко всем призывающим Его в истине.",
+          "reference": "Псалтирь 144:18",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "الرَّبُّ قَرِيبٌ لِكُلِّ الَّذِينَ يَدْعُونَهُ، الَّذِينَ يَدْعُونَهُ بِالْحَقِّ.",
+          "reference": "مزمور 145:18",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "For the eyes of the LORD are on the righteous, And His ears are open to their prayers; But the face of the LORD is against those who do evil.”",
+          "reference": "1 Peter 3:12",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Porque los ojos del Señor están sobre los justos, y sus oídos, atentos a sus oraciones; pero el rostro del Señor está contra los que hacen el mal».",
+          "reference": "1 Pedro 3:12",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Porque os olhos do Senhor repousam sobre os justos, e os seus ouvidos estão abertos às suas súplicas, mas o rosto do Senhor está contra aqueles que praticam o mal.”",
+          "reference": "1 Pedro 3:12",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Car les yeux du Seigneur sont sur les justes Et ses oreilles sont attentives à leur prière, Mais la face du Seigneur est contre ceux qui font le mal.",
+          "reference": "1 Pierre 3, 12",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "потому что очи Господа обращены к праведным и уши Его к молитве их, но лице Господне против делающих зло, (чтобы истребить их с земли).",
+          "reference": "1 Петра 3:12",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لأَنَّ عَيْنَيِ الرَّبِّ عَلَى الأَبْرَارِ، وَأُذْنَيْهِ إِلَى طَلِبَتِهِمْ، وَلكِنَّ وَجْهَ الرَّبِّ ضِدُّ فَاعِلِي الشَّرِّ».",
+          "reference": "1 بطرس 3:12",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "“It shall come to pass That before they call, I will answer; And while they are still speaking, I will hear.",
+          "reference": "Isaiah 65:24",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Antes que me llamen, yo les responderé; todavía estarán hablando cuando ya los habré escuchado.",
+          "reference": "Isaías 65:24",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Antes mesmo que clamem, eu responderei; estando eles ainda falando, eu os ouvirei.",
+          "reference": "Isaías 65:24",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Avant qu’ils m’invoquent, je répondrai; Avant qu’ils aient cessé de parler, j’exaucerai.",
+          "reference": "Ésaïe 65, 24",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "И будет, прежде нежели они воззовут, Я отвечу; они еще будут говорить, и Я уже услышу.",
+          "reference": "Исаия 65:24",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "وَيَكُونُ أَنِّي قَبْلَمَا يَدْعُونَ أَنَا أُجِيبُ، وَفِيمَا هُمْ يَتَكَلَّمُونَ بَعْدُ أَنَا أَسْمَعُ.",
+          "reference": "إشعياء 65:24",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "But you, when you pray, go into your room, and when you have shut your door, pray to your Father who is in the secret place; and your Father who sees in secret will reward you openly.",
+          "reference": "Matthew 6:6",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Pero tú, cuando te pongas a orar, entra en tu cuarto, cierra la puerta y ora a tu Padre, que está en lo secreto. Así tu Padre, que ve lo que se hace en secreto, te recompensará.",
+          "reference": "Mateo 6:6",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Mas, ao orar, entre no seu quarto e, fechada a porta, ore ao seu Pai, que está em secreto. E o seu Pai, que vê em secreto, lhe dará a recompensa.",
+          "reference": "Mateus 6:6",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Mais quand tu pries, entre dans ta chambre, ferme ta porte, et prie ton Père qui est là dans le lieu secret; et ton Père, qui voit dans le secret, te le rendra.",
+          "reference": "Matthieu 6, 6",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Ты же, когда молишься, войди в комнату твою и, затворив дверь твою, помолись Отцу твоему, Который втайне; и Отец твой, видящий тайное, воздаст тебе явно.",
+          "reference": "Матфея 6:6",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "وَأَمَّا أَنْتَ فَمَتَى صَلَّيْتَ فَادْخُلْ إِلَى مِخْدَعِكَ وَأَغْلِقْ بَابَكَ، وَصَلِّ إِلَى أَبِيكَ الَّذِي فِي الْخَفَاءِ. فَأَبُوكَ الَّذِي يَرَى فِي الْخَفَاءِ يُجَازِيكَ عَلاَنِيَةً.",
+          "reference": "متى 6:6",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "All nations whom You have made Shall come and worship before You, O Lord, And shall glorify Your name.",
+          "reference": "Psalm 86:9",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Todas las naciones que has creado vendrán, Señor, y ante ti se postrarán y glorificarán tu nombre.",
+          "reference": "Salmo 86:9",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Todas as nações que fizeste virão, se prostrarão diante de ti, Senhor, e glorificarão o teu nome.",
+          "reference": "Salmos 86:9",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Toutes les nations que tu as faites viendront Se prosterner devant ta face, Seigneur, Et rendre gloire à ton nom.",
+          "reference": "Psaumes 86, 9",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Все народы, Тобою сотворенные, приидут и поклонятся пред Тобою, Господи, и прославят имя Твое,",
+          "reference": "Псалтирь 85:9",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "كُلُّ الأُمَمِ الَّذِينَ صَنَعْتَهُمْ يَأْتُونَ وَيَسْجُدُونَ أَمَامَكَ يَا رَبُّ، وَيُمَجِّدُونَ اسْمَكَ.",
+          "reference": "مزمور 86:9",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Ask of Me, and I will give You The nations for Your inheritance, And the ends of the earth for Your possession.",
+          "reference": "Psalm 2:8",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Pídeme, y como herencia te entregaré las naciones; ¡tuyos serán los confines de la tierra!",
+          "reference": "Salmo 2:8",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Peça, e eu lhe darei as nações por herança e as extremidades da terra por sua possessão.",
+          "reference": "Salmos 2:8",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Demande-moi et je te donnerai les nations pour héritage, Les extrémités de la terre pour possession;",
+          "reference": "Psaumes 2, 8",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "проси у Меня, и дам народы в наследие Тебе и пределы земли во владение Тебе;",
+          "reference": "Псалтирь 2:8",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "اسْأَلْنِي فَأُعْطِيَكَ الأُمَمَ مِيرَاثًا لَكَ، وَأَقَاصِيَ الأَرْضِ مُلْكًا لَكَ.",
+          "reference": "مزمور 2:8",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "After these things I looked, and behold, a great multitude which no one could number, of all nations, tribes, peoples, and tongues, standing before the throne and before the Lamb, clothed with white robes, with palm branches in their hands,",
+          "reference": "Revelation 7:9",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Después de esto miré, y apareció una multitud tomada de todas las naciones, tribus, pueblos y lenguas; era tan grande que nadie podía contarla. Estaban de pie delante del trono y del Cordero, vestidos de túnicas blancas y con ramas de palma en la mano.",
+          "reference": "Apocalipsis 7:9",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Depois destas coisas, vi, e eis grande multidão que ninguém podia contar, de todas as nações, tribos, povos e línguas, em pé diante do trono e diante do Cordeiro, vestidos de vestes brancas, com ramos de palmeira nas mãos.",
+          "reference": "Apocalipse 7:9",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Après cela, je regardai, et voici, il y avait une grande foule, que personne ne pouvait compter, de toute nation, de toute tribu, de tout peuple, et de toute langue. Ils se tenaient devant le trône et devant l’agneau, revêtus de robes blanches, et des palmes dans leurs mains.",
+          "reference": "Apocalypse 7, 9",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "После сего взглянул я, и вот, великое множество людей, которого никто не мог перечесть, из всех племен и колен, и народов и языков, стояло пред престолом и пред Агнцем в белых одеждах и с пальмовыми ветвями в руках своих.",
+          "reference": "Откровение 7:9",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "بَعْدَ هذَا نَظَرْتُ وَإِذَا جَمْعٌ كَثِيرٌ لَمْ يَسْتَطِعْ أَحَدٌ أَنْ يَعُدَّهُ، مِنْ كُلِّ الأُمَمِ وَالْقَبَائِلِ وَالشُّعُوبِ وَالأَلْسِنَةِ، وَاقِفُونَ أَمَامَ الْعَرْشِ وَأَمَامَ الْخَرُوفِ، مُتَسَرْبِلِينَ بِثِيَابٍ بِيضٍ وَفِي أَيْدِيهِمْ سَعَفُ النَّخْلِ",
+          "reference": "رؤيا 7:9",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Therefore pray the Lord of the harvest to send out laborers into His harvest.”",
+          "reference": "Matthew 9:38",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Pídanle, por tanto, al Señor de la cosecha que envíe obreros a su campo».",
+          "reference": "Mateo 9:38",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Por isso, peçam ao Senhor da seara que mande trabalhadores para a sua seara.",
+          "reference": "Mateus 9:38",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Priez donc le maître de la moisson d’envoyer des ouvriers dans sa moisson.",
+          "reference": "Matthieu 9, 38",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "итак молите Господина жатвы, чтобы выслал делателей на жатву Свою.",
+          "reference": "Матфея 9:38",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَاطْلُبُوا مِنْ رَبِّ الْحَصَادِ أَنْ يُرْسِلَ فَعَلَةً إِلَى حَصَادِهِ».",
+          "reference": "متى 9:38",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "God be merciful to us and bless us, And cause His face to shine upon us, That Your way may be known on earth, Your salvation among all nations.",
+          "reference": "Psalm 67:1-2",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Al director musical. Acompáñese con instrumentos de cuerda. Salmo. Cántico. Dios nos tenga compasión y nos bendiga; Dios haga resplandecer su rostro sobre nosotros, para que se conozcan en la tierra sus caminos, y entre todas las naciones su salvación.",
+          "reference": "Salmo 67:1-2",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Ao mestre de canto. Para instrumentos de cordas. Salmo. Cântico Seja Deus gracioso para conosco, e nos abençoe, e faça resplandecer sobre nós o seu rosto; para que se conheça na terra o teu caminho e, em todas as nações, a tua salvação.",
+          "reference": "Salmos 67:1-2",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Que Dieu ait pitié de nous et qu’il nous bénisse, Qu’il fasse luire sur nous sa face, Afin que l’on connaisse sur la terre ta voie, Et parmi toutes les nations ton salut!",
+          "reference": "Psaumes 67, 2-3",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Боже! будь милостив к нам и благослови нас, освети нас лицем Твоим, дабы познали на земле путь Твой, во всех народах спасение Твое.",
+          "reference": "Псалтирь 66:2–3",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لِيَتَحَنَّنِ اللهُ عَلَيْنَا وَلْيُبَارِكْنَا. لِيُنِرْ بِوَجْهِهِ عَلَيْنَا. لِكَيْ يُعْرَفَ فِي الأَرْضِ طَرِيقُكَ، وَفِي كُلِّ الأُمَمِ خَلاَصُكَ.",
+          "reference": "مزمور 67:1-2",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "For the earth will be filled With the knowledge of the glory of the LORD, As the waters cover the sea.",
+          "reference": "Habakkuk 2:14",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Porque así como las aguas cubren los mares, así también se llenará la tierra del conocimiento de la gloria del SEÑOR.",
+          "reference": "Habacuc 2:14",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Porque a terra se encherá do conhecimento da glória do SENHOR, como as águas cobrem o mar.",
+          "reference": "Habacuque 2:14",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Car la terre sera remplie de la connaissance de la gloire de l’Éternel, Comme le fond de la mer par les eaux qui le couvrent.",
+          "reference": "Habacuc 2, 14",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Ибо земля наполнится познанием славы Господа, как воды наполняют море.",
+          "reference": "Аввакум 2:14",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لأَنَّ الأَرْضَ تَمْتَلِئُ مِنْ مَعْرِفَةِ مَجْدِ الرَّبِّ كَمَا تُغَطِّي الْمِيَاهُ الْبَحْرَ.",
+          "reference": "حبقوق 2:14",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "How then shall they call on Him in whom they have not believed? And how shall they believe in Him of whom they have not heard? And how shall they hear without a preacher?",
+          "reference": "Romans 10:14",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Ahora bien, ¿cómo invocarán a aquel en quien no han creído? ¿Y cómo creerán en aquel de quien no han oído? ¿Y cómo oirán si no hay quien les predique?",
+          "reference": "Romanos 10:14",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Como, porém, invocarão aquele em quem não creram? E como crerão naquele de quem nada ouviram? E como ouvirão, se não há quem pregue?",
+          "reference": "Romanos 10:14",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Comment donc invoqueront-ils celui en qui ils n’ont pas cru? Et comment croiront-ils en celui dont ils n’ont pas entendu parler? Et comment en entendront-ils parler, s’il n’y a personne qui prêche?",
+          "reference": "Romains 10, 14",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Но как призывать Того, в Кого не уверовали? как веровать в Того, о Ком не слыхали? как слышать без проповедующего?",
+          "reference": "Римлянам 10:14",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَكَيْفَ يَدْعُونَ بِمَنْ لَمْ يُؤْمِنُوا بِهِ؟ وَكَيْفَ يُؤْمِنُونَ بِمَنْ لَمْ يَسْمَعُوا بِهِ؟ وَكَيْفَ يَسْمَعُونَ بِلاَ كَارِزٍ؟",
+          "reference": "رومية 10:14",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "meanwhile praying also for us, that God would open to us a door for the word, to speak the mystery of Christ, for which I am also in chains,",
+          "reference": "Colossians 4:3",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "y, al mismo tiempo, intercedan por nosotros a fin de que Dios nos abra las puertas para proclamar la palabra, el misterio de Cristo por el cual estoy preso.",
+          "reference": "Colosenses 4:3",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Ao mesmo tempo, orem também por nós, para que Deus nos abra uma porta à palavra, a fim de falarmos do mistério de Cristo, pelo qual também estou algemado.",
+          "reference": "Colossenses 4:3",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Priez en même temps pour nous, afin que Dieu nous ouvre une porte pour la parole, en sorte que je puisse annoncer le mystère de Christ, pour lequel je suis dans les chaînes,",
+          "reference": "Colossiens 4, 3",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Молитесь также и о нас, чтобы Бог отверз нам дверь для слова, возвещать тайну Христову, за которую я и в узах,",
+          "reference": "Колоссянам 4:3",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "مُصَلِّينَ فِي ذلِكَ لأَجْلِنَا نَحْنُ أَيْضًا، لِيَفْتَحَ الرَّبُّ لَنَا بَابًا لِلْكَلاَمِ، لِنَتَكَلَّمَ بِسِرِّ الْمَسِيحِ، الَّذِي مِنْ أَجْلِهِ أَنَا مُوثَقٌ أَيْضًا،",
+          "reference": "كولوسي 4:3",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "who desires all men to be saved and to come to the knowledge of the truth.",
+          "reference": "1 Timothy 2:4",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "pues él quiere que todos sean salvos y lleguen a conocer la verdad.",
+          "reference": "1 Timoteo 2:4",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "que deseja que todos sejam salvos e cheguem ao pleno conhecimento da verdade.",
+          "reference": "1 Timóteo 2:4",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "qui veut que tous les hommes soient sauvés et parviennent à la connaissance de la vérité.",
+          "reference": "1 Timothée 2, 4",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Который хочет, чтобы все люди спаслись и достигли познания истины.",
+          "reference": "1 Тимофею 2:4",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "الَّذِي يُرِيدُ أَنَّ جَمِيعَ النَّاسِ يَخْلُصُونَ، وَإِلَى مَعْرِفَةِ الْحَقِّ يُقْبِلُونَ.",
+          "reference": "1 تيموثاوس 2:4",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "The Lord is not slack concerning His promise, as some count slackness, but is longsuffering toward us, not willing that any should perish but that all should come to repentance.",
+          "reference": "2 Peter 3:9",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "El Señor no tarda en cumplir su promesa, según entienden algunos la tardanza. Más bien, él tiene paciencia con ustedes, porque no quiere que nadie perezca, sino que todos se arrepientan.",
+          "reference": "2 Pedro 3:9",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "O Senhor não retarda a sua promessa, ainda que alguns a julguem demorada. Pelo contrário, ele é paciente com vocês, não querendo que ninguém pereça, mas que todos cheguem ao arrependimento.",
+          "reference": "2 Pedro 3:9",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Le Seigneur ne tarde pas dans l’accomplissement de la promesse, comme quelques-uns le croient; mais il use de patience envers vous, ne voulant pas qu’aucun périsse, mais voulant que tous arrivent à la repentance.",
+          "reference": "2 Pierre 3, 9",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Не медлит Господь исполнением обетования, как некоторые почитают то медлением; но долготерпит нас, не желая, чтобы кто погиб, но чтобы все пришли к покаянию.",
+          "reference": "2 Петра 3:9",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "Pلاَ يَتَبَاطَأُ الرَّبُّ عَنْ وَعْدِهِ كَمَا يَحْسِبُ قَوْمٌ التَّبَاطُؤَ، لكِنَّهُ يَتَأَنَّى عَلَيْنَا، وَهُوَ لاَ يَشَاءُ أَنْ يَهْلِكَ أُنَاسٌ، بَلْ أَنْ يُقْبِلَ الْجَمِيعُ إِلَى التَّوْبَةِ. P",
+          "reference": "2 بطرس 3:9",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "And this gospel of the kingdom will be preached in all the world as a witness to all the nations, and then the end will come.",
+          "reference": "Matthew 24:14",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Y este evangelio del reino se predicará en todo el mundo como testimonio a todas las naciones, y entonces vendrá el fin.",
+          "reference": "Mateo 24:14",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "E será pregado este evangelho do Reino por todo o mundo, para testemunho a todas as nações. Então virá o fim.",
+          "reference": "Mateus 24:14",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Cette bonne nouvelle du royaume sera prêchée dans le monde entier, pour servir de témoignage à toutes les nations. Alors viendra la fin.",
+          "reference": "Matthieu 24, 14",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "И проповедано будет сие Евангелие Царствия по всей вселенной, во свидетельство всем народам; и тогда придет конец.",
+          "reference": "Матфея 24:14",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "وَيُكْرَزُ بِبِشَارَةِ الْمَلَكُوتِ هذِهِ فِي كُلِّ الْمَسْكُونَةِ شَهَادَةً لِجَمِيعِ الأُمَمِ. ثُمَّ يَأْتِي الْمُنْتَهَى.",
+          "reference": "متى 24:14",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Your kingdom come. Your will be done On earth as it is in heaven.",
+          "reference": "Matthew 6:10",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "venga tu reino, hágase tu voluntad en la tierra como en el cielo.",
+          "reference": "Mateo 6:10",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "venha o teu Reino; seja feita a tua vontade, assim na terra como no céu;",
+          "reference": "Mateus 6:10",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "que ton règne vienne; que ta volonté soit faite sur la terre comme au ciel.",
+          "reference": "Matthieu 6, 10",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "да приидет Царствие Твое; да будет воля Твоя и на земле, как на небе;",
+          "reference": "Матфея 6:10",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لِيَأْتِ مَلَكُوتُكَ. لِتَكُنْ مَشِيئَتُكَ كَمَا فِي السَّمَاءِ كَذلِكَ عَلَى الأَرْضِ.",
+          "reference": "متى 6:10",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Also I heard the voice of the Lord, saying: “Whom shall I send, And who will go for Us?” Then I said, “Here am I! Send me.”",
+          "reference": "Isaiah 6:8",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Entonces oí la voz del Señor que decía: —¿A quién enviaré? ¿Quién irá por nosotros? Y respondí: —Aquí estoy. ¡Envíame a mí!",
+          "reference": "Isaías 6:8",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Depois disto, ouvi a voz do Senhor, que dizia: — A quem enviarei, e quem há de ir por nós? Eu respondi: — Eis-me aqui, envia-me a mim.",
+          "reference": "Isaías 6:8",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "J’entendis la voix du Seigneur, disant: Qui enverrai-je, et qui marchera pour nous? Je répondis: Me voici, envoie-moi.",
+          "reference": "Ésaïe 6, 8",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "И услышал я голос Господа, говорящего: кого Мне послать? и кто пойдет для Нас? И я сказал: вот я, пошли меня.",
+          "reference": "Исаия 6:8",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "ثُمَّ سَمِعْتُ صَوْتَ السَّيِّدِ قَائِلاً: «مَنْ أُرْسِلُ؟ وَمَنْ يَذْهَبُ مِنْ أَجْلِنَا؟» فَقُلْتُ: «هأَنَذَا أَرْسِلْنِي».",
+          "reference": "إشعياء 6:8",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Continue earnestly in prayer, being vigilant in it with thanksgiving;",
+          "reference": "Colossians 4:2",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Dedíquense a la oración: perseveren en ella con agradecimiento",
+          "reference": "Colosenses 4:2",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Continuem a orar, vigiando em oração com ação de graças.",
+          "reference": "Colossenses 4:2",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Persévérez dans la prière, veillez-y avec actions de grâces.",
+          "reference": "Colossiens 4, 2",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Будьте постоянны в молитве, бодрствуя в ней с благодарением.",
+          "reference": "Колоссянам 4:2",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "وَاظِبُوا عَلَى الصَّلاَةِ سَاهِرِينَ فِيهَا بِالشُّكْرِ،",
+          "reference": "كولوسي 4:2",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Those who sow in tears Shall reap in joy.",
+          "reference": "Psalm 126:5",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "El que con lágrimas siembra, con regocijo cosecha.",
+          "reference": "Salmo 126:5",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Os que com lágrimas semeiam com júbilo ceifarão.",
+          "reference": "Salmos 126:5",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Ceux qui sèment avec larmes Moissonneront avec chants d’allégresse.",
+          "reference": "Psaumes 126, 5",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Сеявшие со слезами будут пожинать с радостью.",
+          "reference": "Псалтирь 125:5",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "الَّذِينَ يَزْرَعُونَ بِالدُّمُوعِ يَحْصُدُونَ بِالابْتِهَاجِ.",
+          "reference": "مزمور 126:5",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "praying always with all prayer and supplication in the Spirit, being watchful to this end with all perseverance and supplication for all the saints—",
+          "reference": "Ephesians 6:18",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Oren en el Espíritu en todo momento, con peticiones y ruegos. Manténganse alerta y perseveren en oración por todos los santos.",
+          "reference": "Efesios 6:18",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Orem em todo tempo no Espírito, com todo tipo de oração e súplica, e para isto vigiem com toda perseverança e súplica por todos os santos.",
+          "reference": "Efésios 6:18",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Faites en tout temps par l’Esprit toutes sortes de prières et de supplications. Veillez à cela avec une entière persévérance, et priez pour tous les saints.",
+          "reference": "Éphésiens 6, 18",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Всякою молитвою и прошением молитесь во всякое время духом, и старайтесь о сем самом со всяким постоянством и молением о всех святых",
+          "reference": "Ефесянам 6:18",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "مُصَلِّينَ بِكُلِّ صَلاَةٍ وَطِلْبَةٍ كُلَّ وَقْتٍ فِي الرُّوحِ، وَسَاهِرِينَ لِهذَا بِعَيْنِهِ بِكُلِّ مُواظَبَةٍ وَطِلْبَةٍ، لأَجْلِ جَمِيعِ الْقِدِّيسِينَ،",
+          "reference": "أفسس 6:18",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Therefore I exhort first of all that supplications, prayers, intercessions, and giving of thanks be made for all men,",
+          "reference": "1 Timothy 2:1",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Así que recomiendo, ante todo, que se hagan plegarias, oraciones, súplicas y acciones de gracias por todos,",
+          "reference": "1 Timoteo 2:1",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Antes de tudo, peço que se façam súplicas, orações, intercessões e ações de graças em favor de todas as pessoas.",
+          "reference": "1 Timóteo 2:1",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "J’exhorte donc, avant toutes choses, à faire des prières, des supplications, des requêtes, des actions de grâces, pour tous les hommes,",
+          "reference": "1 Timothée 2, 1",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Итак прежде всего прошу совершать молитвы, прошения, моления, благодарения за всех человеков,",
+          "reference": "1 Тимофею 2:1",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَأَطْلُبُ أَوَّلَ كُلِّ شَيْءٍ، أَنْ تُقَامَ طَلِبَاتٌ وَصَلَوَاتٌ وَابْتِهَالاَتٌ وَتَشَكُّرَاتٌ لأَجْلِ جَمِيعِ النَّاسِ،",
+          "reference": "1 تيموثاوس 2:1",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "rejoicing in hope, patient in tribulation, continuing steadfastly in prayer;",
+          "reference": "Romans 12:12",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Alégrense en la esperanza, muestren paciencia en el sufrimiento, perseveren en la oración.",
+          "reference": "Romanos 12:12",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Alegrem-se na esperança, sejam pacientes na tribulação e perseverem na oração.",
+          "reference": "Romanos 12:12",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Réjouissez-vous en espérance. Soyez patients dans l’affliction. Persévérez dans la prière.",
+          "reference": "Romains 12, 12",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "утешайтесь надеждою; в скорби будьте терпеливы, в молитве постоянны;",
+          "reference": "Римлянам 12:12",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَرِحِينَ فِي الرَّجَاءِ، صَابِرِينَ فِي الضَِّيْقِ، مُواظِبِينَ عَلَى الصَّلاَةِ،",
+          "reference": "رومية 12:12",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "“So I say to you, ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you.",
+          "reference": "Luke 11:9",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "»Así que yo les digo: Pidan, y se les dará; busquen, y encontrarán; llamen, y se les abrirá la puerta.",
+          "reference": "Lucas 11:9",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "— Por isso, digo a vocês: Peçam e lhes será dado; busquem e acharão; batam, e a porta será aberta para vocês.",
+          "reference": "Lucas 11:9",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Et moi, je vous dis: Demandez, et l’on vous donnera; cherchez, et vous trouverez; frappez, et l’on vous ouvrira.",
+          "reference": "Luc 11, 9",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "И Я скажу вам: просите, и дано будет вам; ищите, и найдете; стучите, и отворят вам,",
+          "reference": "Луки 11:9",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "وَأَنَا أَقُولُ لَكُمُ: اسْأَلُوا تُعْطَوْا، اُطْلُبُوا تَجِدُوا، اِقْرَعُوا يُفْتَحْ لَكُمْ.",
+          "reference": "لوقا 11:9",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "So he answered and said to me: “This is the word of the LORD to Zerubbabel: ‘Not by might nor by power, but by My Spirit,’ Says the LORD of hosts.",
+          "reference": "Zechariah 4:6",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "Así que el ángel me dijo: «Esta es la palabra del SEÑOR para Zorobabel: »“No será por la fuerza ni por ningún poder, sino por mi Espíritu —dice el SEÑOR Todopoderoso—.",
+          "reference": "Zacarías 4:6",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Ele prosseguiu e me disse: — Esta é a palavra do SENHOR a Zorobabel: “Não por força nem por poder, mas pelo meu Espírito”, diz o SENHOR dos Exércitos.",
+          "reference": "Zacarias 4:6",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Alors il reprit et me dit: C’est ici la parole que l’Éternel adresse à Zorobabel: Ce n’est ni par la puissance ni par la force, mais c’est par mon esprit, dit l’Éternel des armées.",
+          "reference": "Zacharie 4, 6",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Тогда отвечал он и сказал мне так: это слово Господа к Зоровавелю, выражающее: не воинством и не силою, но Духом Моим, говорит Господь Саваоф.",
+          "reference": "Захария 4:6",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "فَأَجَابَ وَكَلَّمَنِي قَائِلاً: «هذِهِ كَلِمَةُ الرَّبِّ إِلَى زَرُبَّابِلَ قَائِلاً: لاَ بِالْقُدْرَةِ وَلاَ بِالْقُوَّةِ، بَلْ بِرُوحِي قَالَ رَبُّ الْجُنُودِ.",
+          "reference": "زكريا 4:6",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "So shall My word be that goes forth from My mouth; It shall not return to Me void, But it shall accomplish what I please, And it shall prosper in the thing for which I sent it.",
+          "reference": "Isaiah 55:11",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "así es también la palabra que sale de mi boca: No volverá a mí vacía, sino que hará lo que yo deseo y cumplirá con mis propósitos.",
+          "reference": "Isaías 55:11",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "assim será a palavra que sair da minha boca: não voltará para mim vazia, mas fará o que me apraz e prosperará naquilo para que a designei.”",
+          "reference": "Isaías 55:11",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Ainsi en est-il de ma parole, qui sort de ma bouche: Elle ne retourne point à moi sans effet, Sans avoir exécuté ma volonté Et accompli mes desseins.",
+          "reference": "Ésaïe 55, 11",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "так и слово Мое, которое исходит из уст Моих, - оно не возвращается ко Мне тщетным, но исполняет то, что Мне угодно, и совершает то, для чего Я послал его.",
+          "reference": "Исаия 55:11",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "هكَذَا تَكُونُ كَلِمَتِي الَّتِي تَخْرُجُ مِنْ فَمِي. لاَ تَرْجعُ إِلَيَّ فَارِغَةً، بَلْ تَعْمَلُ مَا سُرِرْتُ بِهِ وَتَنْجَحُ فِي مَا أَرْسَلْتُهَا لَهُ.",
+          "reference": "إشعياء 55:11",
+          "translation": "SVD"
+        }
+      }
+    },
+    {
+      "locales": {
+        "en": {
+          "text": "Be anxious for nothing, but in everything by prayer and supplication, with thanksgiving, let your requests be made known to God;",
+          "reference": "Philippians 4:6",
+          "translation": "NKJV"
+        },
+        "es": {
+          "text": "No se inquieten por nada; más bien, en toda ocasión, con oración y ruego, presenten sus peticiones a Dios y denle gracias.",
+          "reference": "Filipenses 4:6",
+          "translation": "NVI"
+        },
+        "pt": {
+          "text": "Não fiquem preocupados com coisa alguma, mas, em tudo, sejam conhecidos diante de Deus os pedidos de vocês, pela oração e pela súplica, com ações de graças.",
+          "reference": "Filipenses 4:6",
+          "translation": "NAA"
+        },
+        "fr": {
+          "text": "Ne vous inquiétez de rien; mais en toute chose faites connaître vos besoins à Dieu par des prières et des supplications, avec des actions de grâces.",
+          "reference": "Philippiens 4, 6",
+          "translation": "LSG"
+        },
+        "ru": {
+          "text": "Не заботьтесь ни о чем, но всегда в молитве и прошении с благодарением открывайте свои желания пред Богом,",
+          "reference": "Филиппийцам 4:6",
+          "translation": "SYNOD"
+        },
+        "ar": {
+          "text": "لاَ تَهْتَمُّوا بِشَيْءٍ، بَلْ فِي كُلِّ شَيْءٍ بِالصَّلاَةِ وَالدُّعَاءِ مَعَ الشُّكْرِ، لِتُعْلَمْ طِلْبَاتُكُمْ لَدَى اللهِ.",
+          "reference": "فيلبي 4:6",
+          "translation": "SVD"
+        }
+      }
+    }
+  ]
+}

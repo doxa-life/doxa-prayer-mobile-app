@@ -436,24 +436,6 @@ abstract class AppLocalizations {
   /// **'Thank you for praying'**
   String get prayerThankYouTitle;
 
-  /// Encouraging body message of the modal shown after the user taps Amen
-  ///
-  /// In en, this message translates to:
-  /// **'Your faithfulness in prayer matters. God hears you, and your prayers make a difference.'**
-  String get prayerThankYouMessage;
-
-  /// Bible verse text shown in the thank-you-for-praying modal
-  ///
-  /// In en, this message translates to:
-  /// **'Rejoice always, pray continually, give thanks in all circumstances; for this is God\'s will for you in Christ Jesus.'**
-  String get prayerThankYouVerse;
-
-  /// Bible verse reference shown beneath the verse in the thank-you-for-praying modal
-  ///
-  /// In en, this message translates to:
-  /// **'1 Thessalonians 5:16-18'**
-  String get prayerThankYouVerseReference;
-
   /// Pill shown on the home people group card when the user has prayed for it today
   ///
   /// In en, this message translates to:
@@ -507,6 +489,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Prayer recorded'**
   String get prayerRecordedAnnouncement;
+
+  /// Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person praying with you now} other{{count} people praying with you now}}'**
+  String prayingWithYou(num count);
 
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
   ///

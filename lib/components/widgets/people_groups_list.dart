@@ -9,10 +9,12 @@ import '../../components/cards/people_group_list_card.dart';
 import '../../components/inputs/search_field.dart';
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
+import '../../services/locale_controller.dart';
 import '../../services/people_groups_service.dart';
 import '../../services/select_people_group_flow.dart';
 import '../../services/selected_people_group_controller.dart';
 import '../../theme/app_spacing.dart';
+import '../misc/cached_data_builder.dart';
 import '../misc/hyphenated_text.dart';
 
 class PeopleGroupsList extends StatefulWidget {
@@ -43,24 +45,13 @@ class PeopleGroupsList extends StatefulWidget {
 }
 
 class _PeopleGroupsListState extends State<PeopleGroupsList> {
-  late Future<List<PeopleGroup>> _future;
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _future = fetchPeopleGroups();
-  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
-  }
-
-  void _reload() {
-    setState(() => _future = fetchPeopleGroups());
   }
 
   List<PeopleGroup> _filter(List<PeopleGroup> groups) {
@@ -102,71 +93,77 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           ],
         ),
         Expanded(
-          child: FutureBuilder<List<PeopleGroup>>(
-            future: _future,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return PeopleGroupsListSkeleton(
+          // The list is fetched in the app's language, so switching language
+          // re-reads it under that language's cache key.
+          child: ValueListenableBuilder<Locale>(
+            valueListenable: localeController,
+            builder: (context, locale, _) {
+              final lang = locale.languageCode;
+              return CachedDataBuilder<List<PeopleGroup>>(
+                cacheKey: peopleGroupListCacheKey(lang),
+                fetch: ({bool forceRefresh = false}) =>
+                    fetchPeopleGroups(lang: lang, forceRefresh: forceRefresh),
+                loading: (context) => PeopleGroupsListSkeleton(
                   bottomPadding: widget.listBottomPadding,
-                );
-              }
-              if (snapshot.hasError) {
-                return _ErrorView(
+                ),
+                error: (context, retry) => _ErrorView(
                   message: AppLocalizations.of(
                     context,
                   )!.couldNotLoadPeopleGroupsMessage,
-                  onRetry: _reload,
-                );
-              }
-              final filtered = _filter(snapshot.data ?? const []);
-              return ValueListenableBuilder<SelectedPeopleGroup?>(
-                valueListenable: selectedPeopleGroupController,
-                builder: (context, selected, _) {
-                  // The results count scrolls with the list (it is the first
-                  // entry) so only the search field stays fixed above it —
-                  // this keeps the fixed header small at large font scales.
-                  return ListView.separated(
-                    padding: EdgeInsets.only(bottom: widget.listBottomPadding),
-                    itemCount: filtered.length + 1,
-                    separatorBuilder: (_, _) =>
-                        const SizedBox(height: AppSpacing.lg),
-                    itemBuilder: (context, i) {
-                      if (i == 0) {
-                        return HyphenatedText(
-                          AppLocalizations.of(
-                            context,
-                          )!.nPeopleGroups(filtered.length),
-                          style: AppTypography.caption,
-                        );
-                      }
-                      final g = filtered[i - 1];
-                      return PeopleGroupListCard(
-                        name: g.name,
-                        imageUrl: g.imageUrl,
-                        isSelected: selected?.slug == g.slug,
-                        onSelect: () {
-                          final cb = widget.onSelect;
-                          if (cb != null) {
-                            cb(g);
-                          } else {
-                            showSelectPeopleGroupConfirmation(
-                              context,
-                              slug: g.slug,
-                              name: g.name,
-                              imageUrl: g.imageUrl,
-                            );
-                          }
-                        },
-                        onDetails: () => _openDetails(g),
-                      );
-                    },
-                  );
-                },
+                  onRetry: retry,
+                ),
+                builder: (context, groups) => _buildList(context, groups),
               );
             },
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildList(BuildContext context, List<PeopleGroup> groups) {
+    final filtered = _filter(groups);
+    return ValueListenableBuilder<SelectedPeopleGroup?>(
+      valueListenable: selectedPeopleGroupController,
+      builder: (context, selected, _) {
+        // The results count scrolls with the list (it is the first
+        // entry) so only the search field stays fixed above it —
+        // this keeps the fixed header small at large font scales.
+        return ListView.separated(
+          padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+          itemCount: filtered.length + 1,
+          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
+          itemBuilder: (context, i) {
+            if (i == 0) {
+              return HyphenatedText(
+                AppLocalizations.of(context)!.nPeopleGroups(filtered.length),
+                style: AppTypography.caption,
+              );
+            }
+            final g = filtered[i - 1];
+            return PeopleGroupListCard(
+              name: g.name,
+              country: g.countryLabel ?? '',
+              imageUrl: g.imageUrl,
+              isSelected: selected?.slug == g.slug,
+              onSelect: () {
+                final cb = widget.onSelect;
+                if (cb != null) {
+                  cb(g);
+                } else {
+                  showSelectPeopleGroupConfirmation(
+                    context,
+                    slug: g.slug,
+                    name: g.name,
+                    imageUrl: g.imageUrl,
+                  );
+                }
+              },
+              onDetails: () => _openDetails(g),
+            );
+          },
+        );
+      },
     );
   }
 }

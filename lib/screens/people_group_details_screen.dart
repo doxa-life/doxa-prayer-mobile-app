@@ -6,6 +6,7 @@ import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/check_icon.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/cached_data_builder.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
@@ -44,15 +45,7 @@ class PeopleGroupDetailsScreen extends StatefulWidget {
 }
 
 class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
-  late Future<PeopleGroupDetail> _future;
-
-  @override
-  void initState() {
-    super.initState();
-    _future = _load();
-  }
-
-  Future<PeopleGroupDetail> _load() {
+  Future<PeopleGroupDetail> _load({bool forceRefresh = false}) {
     final slug = widget.slug;
     if (slug == null || slug.isEmpty) {
       return Future.error('Missing people group slug');
@@ -60,11 +53,8 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
     return fetchPeopleGroupDetail(
       slug,
       lang: localeController.value.languageCode,
+      forceRefresh: forceRefresh,
     );
-  }
-
-  void _reload() {
-    setState(() => _future = _load());
   }
 
   @override
@@ -80,24 +70,19 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
         ),
         body: SafeArea(
           child: PageContainer(
-            child: FutureBuilder<PeopleGroupDetail>(
-              future: _future,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const PeopleGroupDetailsSkeleton();
-                }
-                if (snapshot.hasError) {
-                  return _ErrorView(
-                    message: l.couldNotLoadPeopleGroupDetailsMessage,
-                    onRetry: _reload,
-                  );
-                }
-                final detail = snapshot.data!;
-                return _DetailBody(
-                  detail: detail,
-                  fromWizard: widget.fromWizard,
-                );
-              },
+            child: CachedDataBuilder<PeopleGroupDetail>(
+              cacheKey: peopleGroupDetailCacheKey(
+                widget.slug ?? '',
+                localeController.value.languageCode,
+              ),
+              fetch: _load,
+              loading: (context) => const PeopleGroupDetailsSkeleton(),
+              error: (context, retry) => _ErrorView(
+                message: l.couldNotLoadPeopleGroupDetailsMessage,
+                onRetry: retry,
+              ),
+              builder: (context, detail) =>
+                  _DetailBody(detail: detail, fromWizard: widget.fromWizard),
             ),
           ),
         ),

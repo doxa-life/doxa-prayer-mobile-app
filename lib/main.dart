@@ -11,6 +11,7 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
+import 'services/cache_warmup.dart';
 import 'services/crash_reporting_service.dart';
 import 'services/identity_service.dart';
 import 'services/install_referrer_service.dart';
@@ -22,6 +23,7 @@ import 'services/push_notifications_service.dart';
 import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
+import 'services/response_cache.dart';
 import 'services/selected_people_group_controller.dart';
 import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
@@ -61,6 +63,13 @@ Future<void> main() async {
   // referred slug is loaded, so it can't be clobbered; it updates the referral
   // controller within a second or two — before the user finishes the welcome step.
   unawaited(fetchInstallReferrer());
+  // Load the cached people-group list and prefetch today's prayer content while
+  // the user is still on the home screen, so opening a tab is instant. Needs
+  // the selected group and locale above, hence its position here.
+  unawaited(warmCachesOnLaunch());
+  // Drop cache entries past the longest TTL, so a user who browses back
+  // through many days of prayer content doesn't accumulate files forever.
+  unawaited(ResponseCache.prune());
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
   // Revert the Pray tab to the user's own selection once they leave it after a

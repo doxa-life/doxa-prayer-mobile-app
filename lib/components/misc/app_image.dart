@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/image_cache_manager.dart';
 import '../../theme/app_colors.dart';
 import 'skeleton_box.dart';
 
@@ -33,22 +35,41 @@ class AppImage extends StatelessWidget {
           : SizedBox(
               width: size,
               height: size,
-              child: Image.network(
-                url!,
-                fit: fit,
-                semanticLabel: semanticLabel,
-                excludeFromSemantics: semanticLabel == null,
-                // These images come off the network uncached, so without a
-                // placeholder the layout holds an empty gap until the bytes
-                // arrive. A pulsing block fills the exact final footprint.
-                loadingBuilder: (context, child, progress) {
-                  if (progress == null) return child;
-                  return SkeletonBox(width: size, height: size, radius: radius);
-                },
-                errorBuilder: (context, error, stackTrace) => _placeholder(),
+              child: _semantics(
+                CachedNetworkImage(
+                  imageUrl: url!,
+                  // Held on disk for 30 days, so a photo the user has already
+                  // seen paints immediately on later launches instead of
+                  // being refetched. See services/image_cache_manager.dart.
+                  cacheManager: AppImageCacheManager.instance,
+                  fit: fit,
+                  // The default 500ms fade-in over a 1s placeholder fade-out
+                  // makes a photo already on disk look like it is still
+                  // loading. Swapping straight to it is what makes the cache
+                  // feel like a cache.
+                  fadeInDuration: Duration.zero,
+                  fadeOutDuration: Duration.zero,
+                  // On a cache miss the bytes still come off the network,
+                  // and without a placeholder the layout would hold an empty
+                  // gap until they arrive. A pulsing block fills the exact
+                  // final footprint. A cache hit skips this entirely.
+                  placeholder: (context, url) =>
+                      SkeletonBox(width: size, height: size, radius: radius),
+                  errorWidget: (context, url, error) => _placeholder(),
+                ),
               ),
             ),
     );
+  }
+
+  /// [CachedNetworkImage] has no semantics parameters of its own, so the
+  /// treatment `Image.network` applies is reproduced here: a labelled photo is
+  /// announced as an image, an unlabelled one is decorative and kept out of the
+  /// semantics tree entirely.
+  Widget _semantics(Widget image) {
+    final label = semanticLabel;
+    if (label == null) return ExcludeSemantics(child: image);
+    return Semantics(image: true, label: label, child: image);
   }
 
   /// Shown when there is no image to load, and when loading fails — both leave

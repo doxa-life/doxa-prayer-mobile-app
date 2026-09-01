@@ -251,6 +251,15 @@
             "peopleGroup": { "type": "String" }
         }
     },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
     },
@@ -409,17 +418,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -668,6 +668,7 @@
     "pictureCreditLabel": "حقوق الصورة",
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
+    "prayingWithYou": "{count, plural, =1{شخص واحد يصلّي معك الآن} =2{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
     "resendVerification": "إعادة إرسال رسالة التحقق",
     "resendVerificationSent": "تم إرسال رسالة التحقق. تفقَّد صندوق الوارد.",
     "resendVerificationCooldown": "{seconds, plural, zero{يُرجى الانتظار قليلًا قبل طلب رسالة أخرى.} one{يُرجى الانتظار ثانية واحدة قبل طلب رسالة أخرى.} two{يُرجى الانتظار ثانيتين قبل طلب رسالة أخرى.} few{يُرجى الانتظار {seconds} ثوانٍ قبل طلب رسالة أخرى.} many{يُرجى الانتظار {seconds} ثانية قبل طلب رسالة أخرى.} other{يُرجى الانتظار {seconds} ثانية قبل طلب رسالة أخرى.}}",
@@ -708,10 +709,7 @@
     "prayerReminderBody": "اضغط للصلاة من أجل «{peopleGroup}».",
     "dismissReminderLabel": "تجاهل التذكير",
     "prayerStatus": "حالة الصلاة",
-    "prayerThankYouMessage": "إخلاصك في الصلاة له أهمية كبيرة. الله يسمعك، وصلواتك تُحدث فرقًا.",
     "prayerThankYouTitle": "شكرًا لكم على صلواتكم",
-    "prayerThankYouVerse": "افرحوا دائمًا، صلّوا بلا انقطاع، اشكروا في كل الأحوال؛ فهذه هي مشيئة الله لكم في المسيح يسوع.",
-    "prayerThankYouVerseReference": "1 تسالونيكي 5:16-18",
     "pressBackAgainToExit": "اضغط على زر الرجوع مرة أخرى للخروج",
     "previousDay": "اليوم السابق",
     "primaryLanguage": "اللغة الأساسية",

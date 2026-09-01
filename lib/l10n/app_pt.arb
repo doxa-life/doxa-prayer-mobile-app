@@ -254,6 +254,15 @@
             "peopleGroup": { "type": "String" }
         }
     },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@prayerReminderBody": {
         "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
         "placeholders": {
@@ -409,17 +418,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -668,6 +668,7 @@
     "pictureCreditLabel": "Crédito da imagem",
     "prayerRecordedAnnouncement": "Oração registrada",
     "prayForPeopleGroupLabel": "Orar por “{peopleGroup}”",
+    "prayingWithYou": "{count, plural, =1{1 pessoa orando com você agora} other{{count} pessoas orando com você agora}}",
     "resendVerification": "Reenviar e-mail de verificação",
     "resendVerificationSent": "E-mail de verificação enviado. Confira sua caixa de entrada.",
     "resendVerificationCooldown": "Aguarde {seconds} s antes de solicitar outro e-mail.",
@@ -708,10 +709,7 @@
     "prayerReminderBody": "Toque para orar por “{peopleGroup}”.",
     "dismissReminderLabel": "Dispensar lembrete",
     "prayerStatus": "Status de oração",
-    "prayerThankYouMessage": "Sua fidelidade na oração importa. Deus ouve você, e suas orações fazem a diferença.",
     "prayerThankYouTitle": "Obrigado por orar",
-    "prayerThankYouVerse": "Regozijai-vos sempre. Orai sem cessar. Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.",
-    "prayerThankYouVerseReference": "1 Tessalonicenses 5:16-18",
     "pressBackAgainToExit": "Pressione voltar novamente para sair",
     "previousDay": "Dia anterior",
     "primaryLanguage": "Idioma principal",
