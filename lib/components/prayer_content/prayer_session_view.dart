@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:developer' as developer;
 
@@ -21,12 +22,20 @@ import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../misc/cached_data_builder.dart';
 import 'people_group_of_the_day_view.dart';
+import 'praying_now_banner.dart';
 import 'prayer_content_skeleton.dart';
 import 'prayer_content_view.dart';
 import 'prayer_thank_you_modal.dart';
 import '../misc/hyphenated_text.dart';
 
 const _minimumDurationInSeconds = 5;
+
+/// How often a running session re-reports itself, and for how long. The server
+/// treats a session's most recent report as its "last seen" time, so these pings
+/// are what keep a live prayer visible in the "praying now" count. Mirrors the
+/// web prayer page's cadence.
+const _sessionPingInterval = Duration(seconds: 60);
+const _sessionPingMaxAge = Duration(minutes: 15);
 
 /// Renders the prayer content for a single people group [slug] on a given date,
 /// with day navigation, the Amen action, and prayer-session tracking.
@@ -59,6 +68,9 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   late DateTime _date;
   DateTime? _campaignStartDate;
   DateTime? _openedAt;
+  String? _sessionId;
+  Timer? _sessionOpenTimer;
+  Timer? _sessionPingTimer;
   bool _submitting = false;
   bool _amenFired = false;
   bool _sessionActive = false;
@@ -81,6 +93,7 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     if (_sessionActive) {
       _endSession();
     }
+    _cancelSessionPings();
     super.dispose();
   }
 
@@ -110,17 +123,87 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
 
   void _startSession() {
     _openedAt = DateTime.now();
+    // Generated up front, not at the end: every report a session makes upserts
+    // on this id, so the open report, the pings and the final Amen all land on
+    // one row rather than creating several.
+    _sessionId = _generateId();
     _amenFired = false;
     _sessionActive = true;
+    _scheduleSessionPings();
     developer.log('Session started at: $_openedAt', name: 'pray_screen');
   }
 
   void _endSession() {
     _sessionActive = false;
+    _cancelSessionPings();
     if (!_amenFired) {
       _amenFired = true;
       _recordAmenInBackground();
     }
+  }
+
+  /// Reports the session as it runs, so it shows up in the "praying now" count
+  /// for as long as the user is actually here.
+  ///
+  /// The first report waits out [_minimumDurationInSeconds] so that merely
+  /// glancing at the screen doesn't register as a prayer session — the same
+  /// threshold the end-of-session record already applies.
+  void _scheduleSessionPings() {
+    _cancelSessionPings();
+    _sessionOpenTimer = Timer(
+      const Duration(seconds: _minimumDurationInSeconds),
+      () {
+        _postSessionPing();
+        _sessionPingTimer = Timer.periodic(_sessionPingInterval, (timer) {
+          final openedAt = _openedAt;
+          // Stop reporting well after anyone is plausibly still praying, rather
+          // than pinging forever on a screen left open.
+          if (openedAt != null &&
+              DateTime.now().difference(openedAt) > _sessionPingMaxAge) {
+            timer.cancel();
+            return;
+          }
+          _postSessionPing();
+        });
+      },
+    );
+  }
+
+  void _cancelSessionPings() {
+    _sessionOpenTimer?.cancel();
+    _sessionOpenTimer = null;
+    _sessionPingTimer?.cancel();
+    _sessionPingTimer = null;
+  }
+
+  /// One "still here" report. Best-effort and silent: a dropped ping only means
+  /// this session is briefly missing from a count.
+  void _postSessionPing() {
+    final openedAt = _openedAt;
+    final sessionId = _sessionId;
+    if (openedAt == null || sessionId == null || !_sessionActive) return;
+    final now = DateTime.now();
+    final report = PrayerSessionReport(
+      sessionId: sessionId,
+      trackingId: identityController.value?.trackingId ?? '',
+      duration: now.difference(openedAt).inSeconds,
+      timestamp: now.toUtc().toIso8601String(),
+    );
+    final slug = widget.slug;
+    final date = _date;
+    unawaited(
+      postPrayerSession(slug: slug, date: date, report: report).catchError((
+        Object e,
+        StackTrace s,
+      ) {
+        developer.log(
+          'prayer session ping failed',
+          name: 'pray_screen',
+          error: e,
+          stackTrace: s,
+        );
+      }),
+    );
   }
 
   void _recordAmenInBackground() {
@@ -129,9 +212,9 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     final now = DateTime.now();
     final duration = now.difference(openedAt).inSeconds;
     if (duration <= _minimumDurationInSeconds) return;
-    final timestamp = now.toUtc().toLocal().toIso8601String();
+    final timestamp = now.toUtc().toIso8601String();
     final report = PrayerSessionReport(
-      sessionId: _generateId(),
+      sessionId: _sessionId ?? _generateId(),
       trackingId: identityController.value?.trackingId ?? '',
       duration: duration,
       timestamp: timestamp,
@@ -146,7 +229,7 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
             slug: slug,
             durationSeconds: duration,
             timestamp: timestamp,
-            openedAtTimestamp: openedAt.toUtc().toLocal().toIso8601String(),
+            openedAtTimestamp: openedAt.toUtc().toIso8601String(),
           ),
         );
       } catch (e, s) {
@@ -170,7 +253,12 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   void _showCurrentDate() {
     setState(() {
       if (_sessionActive) {
+        // Stepping to another day is a new prayer session, not a continuation —
+        // a fresh id keeps the two days on separate rows, as they are on the web
+        // where changing day is a full page navigation.
         _openedAt = DateTime.now();
+        _sessionId = _generateId();
+        _scheduleSessionPings();
       }
     });
   }
@@ -236,15 +324,19 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     if (openedAt == null) return;
     _amenFired = true;
     _sessionActive = false;
+    _cancelSessionPings();
     setState(() => _submitting = true);
     final now = DateTime.now();
     final duration = now.difference(openedAt).inSeconds;
-    final timestamp = now.toUtc().toLocal().toIso8601String();
+    final timestamp = now.toUtc().toIso8601String();
     final report = PrayerSessionReport(
-      sessionId: _generateId(),
+      sessionId: _sessionId ?? _generateId(),
       trackingId: identityController.value?.trackingId ?? '',
       duration: duration,
       timestamp: timestamp,
+      // Only the explicit Amen raises an analytics event, matching the web page
+      // — the pings a running session makes are not each a prayer.
+      trackEvent: 'prayer_logged',
     );
     try {
       await postPrayerSession(slug: widget.slug, date: _date, report: report);
@@ -253,7 +345,7 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
           slug: widget.slug,
           durationSeconds: duration,
           timestamp: timestamp,
-          openedAtTimestamp: openedAt.toUtc().toLocal().toIso8601String(),
+          openedAtTimestamp: openedAt.toUtc().toIso8601String(),
         ),
       );
     } catch (error, stackTrace) {
@@ -290,6 +382,7 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _DateNavigator(
             date: _date,
@@ -359,12 +452,14 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
                       ColoredBox(
                         color: AppColors.surface,
                         child: PageContainer(
+                          verticalPadding: AppSpacing.xs,
                           bottomPadding: AppSpacing.xxxl,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            spacing: AppSpacing.xxl,
                             children: [
+                              const PrayingNowBanner(),
                               PrayerContentView(response: data),
+                              const SizedBox(height: AppSpacing.xxl),
                               ActionButton(
                                 label: l10n.amen,
                                 onPressed: _submitting ? null : _onAmen,

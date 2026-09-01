@@ -59,6 +59,7 @@ class PrayerSessionReport {
     required this.trackingId,
     required this.duration,
     required this.timestamp,
+    this.trackEvent,
   });
 
   final String sessionId;
@@ -66,11 +67,19 @@ class PrayerSessionReport {
   final int duration;
   final String timestamp;
 
+  /// Tells the server to forward this save to the analytics backend. The app
+  /// never calls that backend itself — `/session` does it for us, but only when
+  /// this flag is set (it allows `prayer_auto_tracked` and `prayer_logged`).
+  /// Set it on the explicit Amen only, so the pings a session makes while it is
+  /// still running don't each raise an event. Left null, nothing is forwarded.
+  final String? trackEvent;
+
   Map<String, dynamic> toJson() => {
     'session_id': sessionId,
     'tracking_id': trackingId,
     'duration': duration,
     'timestamp': timestamp,
+    if (trackEvent != null) 'track_event': trackEvent,
   };
 }
 

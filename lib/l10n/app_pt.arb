@@ -254,6 +254,15 @@
             "peopleGroup": { "type": "String" }
         }
     },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@prayerReminderBody": {
         "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
         "placeholders": {
@@ -659,6 +668,7 @@
     "pictureCreditLabel": "Crédito da imagem",
     "prayerRecordedAnnouncement": "Oração registrada",
     "prayForPeopleGroupLabel": "Orar por “{peopleGroup}”",
+    "prayingWithYou": "{count, plural, =1{1 pessoa orando com você agora} other{{count} pessoas orando com você agora}}",
     "resendVerification": "Reenviar e-mail de verificação",
     "resendVerificationSent": "E-mail de verificação enviado. Confira sua caixa de entrada.",
     "resendVerificationCooldown": "Aguarde {seconds} s antes de solicitar outro e-mail.",

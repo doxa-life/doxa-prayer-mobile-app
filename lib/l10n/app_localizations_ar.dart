@@ -218,6 +218,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerRecordedAnnouncement => 'تم تسجيل الصلاة';
 
   @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString شخص يصلّي معك الآن',
+      many: '$countString شخصًا يصلّي معك الآن',
+      few: '$countString أشخاص يصلّون معك الآن',
+      two: 'شخصان يصلّيان معك الآن',
+      one: 'شخص واحد يصلّي معك الآن',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get newReminder => 'تذكير جديد';
 
   @override

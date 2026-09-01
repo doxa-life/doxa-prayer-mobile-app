@@ -251,6 +251,15 @@
             "peopleGroup": { "type": "String" }
         }
     },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
     },
@@ -659,6 +668,7 @@
     "pictureCreditLabel": "حقوق الصورة",
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
+    "prayingWithYou": "{count, plural, =1{شخص واحد يصلّي معك الآن} =2{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
     "resendVerification": "إعادة إرسال رسالة التحقق",
     "resendVerificationSent": "تم إرسال رسالة التحقق. تفقَّد صندوق الوارد.",
     "resendVerificationCooldown": "{seconds, plural, zero{يُرجى الانتظار قليلًا قبل طلب رسالة أخرى.} one{يُرجى الانتظار ثانية واحدة قبل طلب رسالة أخرى.} two{يُرجى الانتظار ثانيتين قبل طلب رسالة أخرى.} few{يُرجى الانتظار {seconds} ثوانٍ قبل طلب رسالة أخرى.} many{يُرجى الانتظار {seconds} ثانية قبل طلب رسالة أخرى.} other{يُرجى الانتظار {seconds} ثانية قبل طلب رسالة أخرى.}}",

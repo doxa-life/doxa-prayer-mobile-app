@@ -224,6 +224,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerRecordedAnnouncement => 'Молитва записана';
 
   @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString человек молятся с вами сейчас',
+      many: '$countString человек молятся с вами сейчас',
+      few: '$countString человека молятся с вами сейчас',
+      one: '$countString человек молится с вами сейчас',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get newReminder => 'Новое напоминание';
 
   @override

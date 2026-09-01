@@ -251,6 +251,15 @@
             "peopleGroup": { "type": "String" }
         }
     },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
     "@resendVerification": {
         "description": "Button that re-sends the verification email for an unverified address"
     },
@@ -659,6 +668,7 @@
     "pictureCreditLabel": "Crédito de la imagen",
     "prayerRecordedAnnouncement": "Oración registrada",
     "prayForPeopleGroupLabel": "Orar por «{peopleGroup}»",
+    "prayingWithYou": "{count, plural, =1{1 persona orando contigo ahora} other{{count} personas orando contigo ahora}}",
     "resendVerification": "Reenviar correo de verificación",
     "resendVerificationSent": "Correo de verificación enviado. Revisa tu bandeja de entrada.",
     "resendVerificationCooldown": "Espera {seconds} s antes de solicitar otro correo.",

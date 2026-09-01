@@ -220,6 +220,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerRecordedAnnouncement => 'Prayer recorded';
 
   @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString people praying with you now',
+      one: '1 person praying with you now',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get newReminder => 'New reminder';
 
   @override
