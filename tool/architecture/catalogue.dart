@@ -912,10 +912,13 @@ const actions = <UserAction>[
       Step(
         from: Actor.ui,
         to: Actor.server,
-        text: 'Fetch how many people are praying right now, for the banner',
+        text:
+            'Refresh how many people are praying right now, for the banner. '
+            'Runs on every session start, which is the only thing that moves '
+            'the number',
         anchor: Anchor(
           'lib/services/prayer_stats_service.dart',
-          'fetchPrayingNow',
+          'refreshPrayingNow',
         ),
         endpoint: 'GET /api/people-groups/statistics',
         background: true,
@@ -930,6 +933,9 @@ const actions = <UserAction>[
       'The praying-now count is read uncached on purpose: the shared response '
           'cache falls back to expired data when a refetch fails, which would '
           'show a stale live number rather than nothing.',
+      'The banner reads a controller instead of fetching on mount. The Pray tab '
+          'sits in an `IndexedStack`, so its widgets are never disposed and an '
+          '`initState` fetch would run once per app launch and then sit frozen.',
     ],
   ),
 

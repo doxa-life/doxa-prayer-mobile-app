@@ -19,7 +19,7 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | POST | `/api/news-signup` | — | — | — | `news_signup_service.dart:25` |
 | GET | `/api/people-groups/detail/{slug}` | yes | 7 days (`peopleGroupDetail`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:67` |
 | GET | `/api/people-groups/list` | yes | 7 days (`peopleGroupList`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:43` |
-| GET | `/api/people-groups/statistics` | — | — | — | `prayer_stats_service.dart:20` |
+| GET | `/api/people-groups/statistics` | — | — | — | `prayer_stats_service.dart:21` |
 | POST | `/api/people-groups/{slug}/anon-signup` | — | — | — | `anon_signup_service.dart:38` |
 | GET | `/api/people-groups/{slug}/prayer-content/{date}` | yes | 30 days (`prayerContent`) | — | `prayer_content_service.dart:43` |
 | POST | `/api/people-groups/{slug}/prayer-content/{date}/session` | — | — | — | `prayer_content_service.dart:91` |

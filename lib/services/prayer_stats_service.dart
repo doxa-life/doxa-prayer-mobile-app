@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'api_config.dart';
@@ -37,4 +38,24 @@ Future<int?> fetchPrayingNow() async {
     );
     return null;
   }
+}
+
+/// The most recently fetched "praying now" count, or null before the first
+/// successful fetch. Drives the banner on the Pray screen.
+///
+/// A controller rather than per-widget state because the Pray tab lives in an
+/// `IndexedStack` — its widgets are never disposed, so a `initState` fetch would
+/// run once for the app's whole lifetime. Refreshing is therefore driven by the
+/// session lifecycle (see `_startSession`), not by mounting.
+final ValueNotifier<int?> prayingNowController = ValueNotifier<int?>(null);
+
+/// Refetches the count and publishes it to [prayingNowController].
+///
+/// A failed fetch leaves the previous value in place rather than clearing it:
+/// the banner hides on null, and blinking out on one dropped request reads worse
+/// than briefly showing the last known figure.
+Future<void> refreshPrayingNow() async {
+  final count = await fetchPrayingNow();
+  if (count == null) return;
+  prayingNowController.value = count;
 }

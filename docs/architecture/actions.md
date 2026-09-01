@@ -321,7 +321,7 @@ sequenceDiagram
     opt the visit outlasts the minimum duration
         UI-->>S: POST /api/people-groups/{slug}/prayer-content/{date}/session — Report the session as open, then re-report every 60s for up to 15 minutes so it stays visible in the praying-now count
     end
-    UI-->>S: GET /api/people-groups/statistics — Fetch how many people are praying right now, for the banner
+    UI-->>S: GET /api/people-groups/statistics — Refresh how many people are praying right now, for the banner. Runs on every session start, which is the only thing that moves the number
 ```
 
 
@@ -330,6 +330,7 @@ sequenceDiagram
 - A past day's content never changes, so this is the one cached read with no background revalidation.
 - The open report and every later ping upsert the SAME row server-side, keyed on the session id minted at start — so one visit is one row, whose timestamp tracks when the user was last seen.
 - The praying-now count is read uncached on purpose: the shared response cache falls back to expired data when a refetch fails, which would show a stale live number rather than nothing.
+- The banner reads a controller instead of fetching on mount. The Pray tab sits in an `IndexedStack`, so its widgets are never disposed and an `initState` fetch would run once per app launch and then sit frozen.
 
 ### Tap Amen
 

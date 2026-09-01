@@ -16,6 +16,7 @@ import '../../services/crash_reporting_service.dart';
 import '../../services/identity_service.dart';
 import '../../services/prayer_content_service.dart';
 import '../../services/prayer_history_service.dart';
+import '../../services/prayer_stats_service.dart';
 import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -130,6 +131,11 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     _amenFired = false;
     _sessionActive = true;
     _scheduleSessionPings();
+    // Refresh the praying-now count on every session start. This is the only
+    // thing that moves the number: the Pray tab sits in an IndexedStack, so the
+    // banner is never disposed and cannot refetch on mount. Fires on first open,
+    // on app resume, and whenever the tab becomes current.
+    unawaited(refreshPrayingNow());
     developer.log('Session started at: $_openedAt', name: 'pray_screen');
   }
 
