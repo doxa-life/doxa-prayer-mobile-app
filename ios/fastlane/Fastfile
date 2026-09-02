@@ -87,19 +87,40 @@ platform :ios do
     File.join(ROOT, "ios", "config", flavor, "GoogleService-Info.plist")
   end
 
-  # Vendored by the FirebaseCrashlytics pod — only exists after `pod install`.
+  # The Crashlytics symbol uploader. This app integrates Firebase via Swift
+  # Package Manager, NOT CocoaPods, so `upload-symbols` is not under ios/Pods —
+  # it ships inside the firebase-ios-sdk SPM checkout that Xcode clones into
+  # DerivedData while archiving. The `Runner-<hash>` segment is derived per
+  # machine/checkout, so glob for it and take the newest; a build must have run
+  # first (the archive is what resolves the package). Returns nil if not found.
+  # Override with CRASHLYTICS_UPLOAD_SYMBOLS if DerivedData lives elsewhere.
   def crashlytics_upload_binary
-    File.join(ROOT, "ios", "Pods", "FirebaseCrashlytics", "upload-symbols")
+    env = ENV["CRASHLYTICS_UPLOAD_SYMBOLS"].to_s
+    return env if !env.empty? && File.exist?(env)
+
+    globs = [
+      File.expand_path("~/Library/Developer/Xcode/DerivedData/Runner-*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"),
+      # Legacy CocoaPods layout, in case the app ever moves back off SPM.
+      File.join(ROOT, "ios", "Pods", "FirebaseCrashlytics", "upload-symbols"),
+    ]
+    globs.flat_map { |g| Dir.glob(g) }.max_by { |f| File.mtime(f) }
   end
 
-  # Run before a build, not after: an archive takes minutes and both of these
-  # failures are pure setup, detectable up front.
-  def check_crashlytics_setup!(flavor)
-    binary = crashlytics_upload_binary
-    UI.user_error!("Crashlytics upload-symbols not found at #{binary} — run `cd ios && pod install`.") unless File.exist?(binary)
-
+  # The plist is knowable before the archive, so its absence is a pure setup
+  # error worth catching up front (an archive takes minutes). Split out from the
+  # binary check because under SPM the binary only exists *after* a build.
+  def check_crashlytics_gsp!(flavor)
     gsp = crashlytics_gsp_path(flavor)
     UI.user_error!("Missing #{gsp} — Crashlytics can't tell which Firebase app to upload dSYMs to.") unless File.exist?(gsp)
+  end
+
+  # Full check for the actual upload (post-build): plist + the SPM-resolved
+  # binary. "Build first" is the right remedy for a missing binary — the SPM
+  # checkout only exists once an archive has resolved the package.
+  def check_crashlytics_setup!(flavor)
+    check_crashlytics_gsp!(flavor)
+    binary = crashlytics_upload_binary
+    UI.user_error!("Crashlytics upload-symbols not found — build first so Xcode resolves the firebase-ios-sdk Swift package (`./release.sh build-ios #{flavor}`), or set CRASHLYTICS_UPLOAD_SYMBOLS to its path.") if binary.nil?
   end
 
   # ---- lanes --------------------------------------------------------------
@@ -116,7 +137,10 @@ platform :ios do
   lane :build_ipa do |options|
     flavor = (options[:flavor] || "staging").to_s
     cfg = require_flavor(flavor)
-    check_crashlytics_setup!(flavor)
+    # Only the plist can be validated up front; the SPM-resolved upload-symbols
+    # binary is a product of this very archive, so it's checked post-build in
+    # upload_dsyms (called at the end of this lane).
+    check_crashlytics_gsp!(flavor)
 
     # Always sign against a dedicated temporary keychain, even off CI. Without it,
     # codesign can't reach the login keychain non-interactively and the archive
@@ -197,11 +221,13 @@ platform :ios do
 
     begin
       check_crashlytics_setup!(flavor)
-      upload_symbols_to_crashlytics(
-        dsym_path: dsym_path,
-        gsp_path: crashlytics_gsp_path(flavor),
-        binary_path: crashlytics_upload_binary,
-      )
+      binary = crashlytics_upload_binary
+      gsp = crashlytics_gsp_path(flavor)
+      # upload-symbols walks a directory of .dSYM bundles (app + every embedded
+      # framework) and uploads them in a single pass; it also accepts one .dSYM.
+      # Called directly rather than via the upload_symbols_to_crashlytics action
+      # because that action rejects a directory ("needs to be dSYM or zip").
+      sh("#{binary.shellescape} -gsp #{gsp.shellescape} -p ios #{dsym_path.shellescape}")
       UI.success("Uploaded dSYMs from #{dsym_path} to Crashlytics (#{flavor}).")
     rescue StandardError => e
       raise if strict

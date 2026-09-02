@@ -176,13 +176,20 @@ APP=build/ios/iphoneos/Runner.app
 Handled by **fastlane**, not an Xcode build phase — the release path is `./release.sh deploy-ios`, so the
 upload lives where the build lives and the flavor → Firebase-app mapping stays explicit.
 
-`build_ipa` calls `upload_dsyms` automatically once the IPA is produced, uploading
-`build/ios/archive/Runner.xcarchive/dSYMs` with `ios/config/<flavor>/GoogleService-Info.plist` naming the
-target Firebase app. Two guards around it:
+`build_ipa` calls `upload_dsyms` automatically once the IPA is produced, uploading the whole
+`build/ios/archive/Runner.xcarchive/dSYMs` directory (the app plus every embedded framework, in one pass)
+with `ios/config/<flavor>/GoogleService-Info.plist` naming the target Firebase app.
 
-- **Preflight** (`check_crashlytics_setup!`, run *before* the archive): fails immediately if
-  `ios/Pods/FirebaseCrashlytics/upload-symbols` is missing (→ `cd ios && pod install`) or the flavor plist
-  is absent — rather than after a multi-minute build.
+**Where `upload-symbols` comes from.** Firebase is integrated via **Swift Package Manager**, not CocoaPods,
+so the uploader is *not* under `ios/Pods` — it ships inside the `firebase-ios-sdk` SPM checkout that Xcode
+clones into DerivedData while archiving (`…/DerivedData/Runner-<hash>/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols`).
+The lane globs for the newest such binary; set `CRASHLYTICS_UPLOAD_SYMBOLS` to override if DerivedData lives
+elsewhere. Because that binary only exists *after* a build resolves the package, it is checked post-build,
+not up front. Two guards around the upload:
+
+- **Preflight** (`check_crashlytics_gsp!`, run *before* the archive): fails immediately if the flavor plist
+  is absent — the one thing knowable before a multi-minute build. The `upload-symbols` binary is validated
+  post-build in `upload_dsyms` (via `check_crashlytics_setup!`), since the SPM checkout is a build product.
 - **Non-strict upload**: a failure *after* a successful archive warns instead of aborting. The archive is
   still on disk, so retry standalone:
 
