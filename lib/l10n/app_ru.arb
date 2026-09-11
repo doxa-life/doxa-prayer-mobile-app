@@ -1,4 +1,18 @@
 {
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "@addPeopleGroup": {
+        "description": "Button that subscribes the user to a people group"
+    },
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
@@ -36,6 +50,12 @@
     },
     "@bibleTranslation": {
         "description": "The label of the bible translation field"
+    },
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
     },
     "@clearSearchLabel": {
         "description": "Accessibility label for the button that clears the search field"
@@ -239,11 +259,49 @@
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
     },
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
     "@notNow": {
         "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "@pictureCreditLabel": {
         "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@prayerRecordedAnnouncement": {
         "description": "Screen-reader announcement made after a prayer session is successfully recorded"
@@ -251,8 +309,13 @@
     "@prayForPeopleGroupLabel": {
         "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
+    },
+    "@praying": {
+        "description": "State of the add button when the user already prays for this people group"
     },
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
@@ -260,6 +323,36 @@
             "count": {
                 "format": "compact",
                 "type": "num"
+            }
+        }
+    },
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
             }
         }
     },
@@ -290,6 +383,20 @@
     },
     "@resendVerificationFailed": {
         "description": "SnackBar shown when resending the verification email fails"
+    },
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@viewProfile": {
         "description": "Button in settings that opens the user's profile page on the web"
@@ -594,6 +701,9 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "addAnotherPeopleGroup": "Добавить ещё один народ",
+    "addPeopleGroup": "Добавить",
+    "addPeopleGroupConfirm": "Хотите начать молиться за народ «{name}»?",
     "adoptionStatus": "Статус принятия",
     "allow": "Разрешить",
     "allowExactAlarms": "Разрешить точные будильники",
@@ -605,6 +715,8 @@
     "back": "Назад",
     "bibleStories": "Библейские истории",
     "bibleTranslation": "Перевод Библии",
+    "cancel": "Отмена",
+    "choosePeopleGroup": "Выбрать народ",
     "clearSearchLabel": "Очистить поиск",
     "continueLabel": "Продолжить",
     "couldNotLoadPeopleGroupDetailsMessage": "Не удалось загрузить сведения о народе.",
@@ -664,17 +776,31 @@
     "accountSectionTitle": "Ваш аккаунт",
     "emailVerified": "Подтверждён",
     "emailUnverified": "Не подтверждён",
+    "nextReminderForGroup": "{time} за народ «{name}»",
+    "noPeopleGroupsForReminder": "Выберите народ, прежде чем настраивать напоминание.",
     "notNow": "Не сейчас",
+    "peopleGroupLimitBody": "Это максимум, за который можно молиться одновременно. Чтобы добавить народ «{name}», выберите, за какой перестать молиться.",
+    "peopleGroupLimitTitle": "Вы молитесь за {count} народов",
     "pictureCreditLabel": "Авторство изображения",
+    "prayForNextGroup": "Помолиться за народ «{name}»",
     "prayerRecordedAnnouncement": "Молитва записана",
     "prayForPeopleGroupLabel": "Помолиться за народ «{peopleGroup}»",
+    "praying": "Молитесь",
     "prayingWithYou": "{count, plural, one{{count} человек молится с вами сейчас} few{{count} человека молятся с вами сейчас} many{{count} человек молятся с вами сейчас} other{{count} человек молятся с вами сейчас}}",
+    "reminderNotificationBodyForGroup": "Откройте Doxa, чтобы помолиться за народ «{name}».",
+    "reminderPeopleGroup": "Народ",
+    "removePeopleGroupBody": "Он исчезнет с главного экрана. Вы сможете добавить его снова в любое время.",
+    "removePeopleGroupReminders": "{count, plural, =1{Его напоминание будет удалено.} one{Его {count} напоминание будет удалено.} few{Его {count} напоминания будут удалены.} many{Его {count} напоминаний будут удалены.} other{Его {count} напоминаний будут удалены.}}",
+    "removePeopleGroupTitle": "Перестать молиться за народ «{name}»?",
     "resendVerification": "Отправить письмо повторно",
     "resendVerificationSent": "Письмо для подтверждения отправлено. Проверьте почту.",
     "resendVerificationCooldown": "Подождите {seconds} с, прежде чем запрашивать новое письмо.",
     "resendVerificationCountdown": "Повторить через {seconds} с",
     "signUp": "Зарегистрироваться",
     "resendVerificationFailed": "Не удалось отправить письмо. Попробуйте ещё раз.",
+    "stopPraying": "Перестать молиться",
+    "swapPeopleGroupAction": "Заменить",
+    "switchToPeopleGroup": "Перейти к народу «{name}»",
     "viewProfile": "Открыть профиль",
     "emailsLoadError": "Не удалось загрузить ваши адреса электронной почты.",
     "nextDay": "Следующий день",

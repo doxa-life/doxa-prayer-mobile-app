@@ -594,4 +594,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Notifications disabled';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get addPeopleGroup => 'Add';
+
+  @override
+  String get praying => 'Praying';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'Do you want to start praying for $name?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Choose a people group';
+
+  @override
+  String get addAnotherPeopleGroup => 'Add another people group';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'You are praying for $count people groups';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'That is as many as you can pray for at once. To add $name, choose one to stop praying for.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Swap';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'Stop praying for $name?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'They will be removed from your home screen. You can add them again at any time.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Its $count reminders will be deleted.',
+      one: 'Its reminder will be deleted.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Stop praying';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Choose a people group before setting a reminder.';
+
+  @override
+  String get reminderPeopleGroup => 'People group';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Open Doxa to pray for $name.';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time for $name';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Pray for $name';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Switch to $name';
+  }
 }

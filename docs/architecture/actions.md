@@ -13,9 +13,9 @@ Each entry pairs what the user perceives with what actually happens. In the diag
 
 | Surface | Action | Requests it can fire | Writes |
 | --- | --- | --- | --- |
-| Launch and background work | [Cold start](#cold-start) | `GET /api/people-groups/{slug}/prayer-content/{date}`<br>`GET /api/app/version`<br>`POST /api/collect/app` | `install_referrer_checked`<br>`referred_people_group_slug` |
+| Launch and background work | [Cold start](#cold-start) | `GET /api/people-groups/{slug}/prayer-content/{date}`<br>`GET /api/app/version`<br>`POST /api/collect/app` | `people_group_subscriptions`<br>`active_people_group_slug`<br>`selected_people_group_slug`<br>`selected_people_group_name`<br>`selected_people_group_image_url`<br>`install_referrer_checked`<br>`referred_people_group_slug` |
 | Onboarding wizard | [Welcome → Start](#welcome--start) | `GET /api/people-groups/detail/{slug}` | `referred_people_group_slug` |
-| Onboarding wizard | [Confirm a people group](#confirm-a-people-group) | — | `selected_people_group_slug`<br>`selected_people_group_name`<br>`selected_people_group_image_url` |
+| Onboarding wizard | [Confirm a people group](#confirm-a-people-group) | — | `people_group_subscriptions`<br>`active_people_group_slug` |
 | Onboarding wizard | [People-groups step → Skip](#people-groups-step--skip) | — | — |
 | Onboarding wizard | [Reminder step → Save](#reminder-step--save) | — | `reminders` |
 | Onboarding wizard | [News step → Sign up](#news-step--sign-up) | `POST /api/people-groups/{slug}/anon-signup`<br>`POST /api/news-signup`<br>`POST /api/push/register` | `identity_tracking_id`<br>`identity_profile_id`<br>`identity_subscription_id` |
@@ -25,7 +25,8 @@ Each entry pairs what the user perceives with what actually happens. In the diag
 | Pray tab | [Tap Amen](#tap-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history`<br>`thank_you_verse_index` |
 | Pray tab | [Leave the Pray tab without tapping Amen](#leave-the-pray-tab-without-tapping-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history` |
 | Browse tab and group details | [Open the Browse tab](#open-the-browse-tab) | `GET /api/people-groups/list` | — |
-| Browse tab and group details | [Group details → pray for this group](#group-details--pray-for-this-group) | `PUT /api/profile/{profileId}`<br>`POST /api/people-groups/{slug}/anon-signup` | `selected_people_group_slug`<br>`selected_people_group_name`<br>`selected_people_group_image_url`<br>`identity_subscription_id` |
+| Browse tab and group details | [Group details → pray for this group](#group-details--pray-for-this-group) | `POST /api/people-groups/{slug}/anon-signup` | `people_group_subscriptions`<br>`active_people_group_slug` |
+| Browse tab and group details | [Group details → stop praying for this group](#group-details--stop-praying-for-this-group) | `POST /api/people-groups/{slug}/unsubscribe` | `reminders`<br>`people_group_subscriptions`<br>`active_people_group_slug` |
 | Reminders tab | [Add or edit a reminder](#add-or-edit-a-reminder) | `PUT /api/profile/{profileId}`<br>`POST /api/push/register` | `reminders` |
 | Settings | [Settings → Sign up for updates → Sign up](#settings--sign-up-for-updates--sign-up) | `POST /api/news-signup`<br>`POST /api/push/register` | `identity_tracking_id`<br>`identity_profile_id` |
 | Settings | [Enable notifications (prompt or settings row)](#enable-notifications-prompt-or-settings-row) | `POST /api/push/register` | — |
@@ -51,7 +52,7 @@ Entered at `main` in [lib/main.dart](../../lib/main.dart).
 
 **Visible** — Splash, then either the wizard or the home tab.
 
-**Background** — Seven persisted values are loaded in parallel, then push is initialised, three listeners are installed that will later fire network calls on their own, the caches are warmed and pruned, an update check runs and an app_open event is posted.
+**Background** — The subscription list is loaded first, then six more persisted values in parallel, then push is initialised, three listeners are installed that will later fire network calls on their own, the caches are warmed and pruned, an update check runs and an app_open event is posted.
 
 ```mermaid
 sequenceDiagram
@@ -62,12 +63,14 @@ sequenceDiagram
     participant OS1 as OneSignal
     participant S as Campaigns server
     U->>UI: Cold start
-    UI->>L: Load selected group, prayed-today, reminders, wizard flag, locale, identity and referred slug — in parallel
+    UI->>L: Load the people groups the user prays for. First and on its own: a build before multi-group support stored a single selection, which is migrated into the list here, and the reminder load below reads the active group to adopt reminders that predate belonging to one.
+    Note over L: writes people_group_subscriptions, active_people_group_slug, selected_people_group_slug, selected_people_group_name, selected_people_group_image_url
+    UI->>L: Load prayed-today, reminders, wizard flag, locale, identity and referred slug — in parallel
     UI-->>OS1: Initialise the SDK. Deliberately no permission prompt here, so a fresh install has no push token yet
-    UI-->>UI: Install the deferred anon-signup listener — it watches the selected group and can POST a signup with no user action at all
-    UI-->>UI: Install the profile-sync listeners on reminders and selected group
+    UI-->>UI: Install the deferred anon-signup listener — it watches the subscription list and can POST a signup with no user action at all
+    UI-->>UI: Install the profile-sync listeners on reminders and the subscription list. The state at this moment is taken as already synced, so a cold start re-sends nothing.
     opt a group is already selected
-        UI-->>S: GET /api/people-groups/{slug}/prayer-content/{date} — Warm the group caches from disk, prefetch today's prayer content
+        UI-->>S: GET /api/people-groups/{slug}/prayer-content/{date} — Warm the group caches from disk, prefetch today's prayer content for every subscribed group, one after another
     end
     UI-->>S: GET /api/app/version — Version check, feeding the update gate
     UI-->>S: POST /api/collect/app — Post an app_open analytics event
@@ -119,11 +122,11 @@ sequenceDiagram
 
 ### Confirm a people group
 
-Entered at `setSelectedPeopleGroup` in [lib/components/wizard/wizard_step_people_group_confirm.dart](../../lib/components/wizard/wizard_step_people_group_confirm.dart).
+Entered at `addPeopleGroup` in [lib/components/wizard/wizard_step_people_group_confirm.dart](../../lib/components/wizard/wizard_step_people_group_confirm.dart).
 
 **Visible** — The wizard advances to the reminder step.
 
-**Background** — Three prefs keys are written and two listeners fire — but both no-op at this point, because the wizard is not complete and there is no profile yet. The same tap after onboarding does hit the network.
+**Background** — The subscription list is written and two listeners fire — but both no-op at this point, because the wizard is not complete and there is no profile yet. The same tap after onboarding does hit the network.
 
 ```mermaid
 sequenceDiagram
@@ -132,8 +135,8 @@ sequenceDiagram
     participant UI as App UI
     participant L as On device
     U->>UI: Confirm a people group
-    UI->>L: Persist slug, name and image url
-    Note over L: writes selected_people_group_slug, selected_people_group_name, selected_people_group_image_url
+    UI->>L: Append the group to the subscription list and make it active. The wizard adds exactly one, further groups are added later from the browse tab.
+    Note over L: writes people_group_subscriptions, active_people_group_slug
     UI-->>UI: Deferred anon-signup listener wakes and bails: the wizard is not complete yet
     UI-->>UI: Profile-sync listener wakes and bails: no profileId yet
 ```
@@ -422,11 +425,11 @@ sequenceDiagram
 
 ### Group details → pray for this group
 
-Entered at `showSelectPeopleGroupConfirmation` in [lib/services/select_people_group_flow.dart](../../lib/services/select_people_group_flow.dart).
+Entered at `addPeopleGroupFlow` in [lib/services/people_group_subscription_flow.dart](../../lib/services/people_group_subscription_flow.dart).
 
-**Visible** — A confirm dialog, then the group becomes theirs.
+**Visible** — A confirm dialog — or, at the limit, the swap modal — then the group joins their home carousel.
 
-**Background** — The single most consequential tap outside onboarding. For an existing subscriber it moves the prayer subscription to the new group. For someone who skipped group selection in the wizard it is the moment their anonymous subscriber is created server-side and the app gains an identity at last — which is also what finally lets push register.
+**Background** — Adds a subscription rather than moving one: the server keeps one row per (subscriber, people group), so this leaves any existing groups alone. For someone who skipped group selection in the wizard it is also the moment their anonymous subscriber is created server-side and the app gains an identity at last — which is what finally lets push register.
 
 ```mermaid
 sequenceDiagram
@@ -436,27 +439,62 @@ sequenceDiagram
     participant L as On device
     participant S as Campaigns server
     U->>UI: Group details → pray for this group
-    UI->>L: Persist the new selection
-    Note over L: writes selected_people_group_slug, selected_people_group_name, selected_people_group_image_url
-    opt a profileId exists
-        UI-->>S: PUT /api/profile/{profileId} — Profile sync moves the subscription to the new group and re-sends the reminder schedule
-    end
+    UI->>L: Append the group and make it active. At the limit the swap modal first removes the group the user picked, reminders and all.
+    Note over L: writes people_group_subscriptions, active_people_group_slug
+    UI-->>S: POST /api/people-groups/{slug}/anon-signup — Register the prayer commitment for the new group
     opt onboarding is complete and there is still no subscriptionId
         UI-->>S: POST /api/people-groups/{slug}/anon-signup — Deferred anon-signup creates the missing prayer subscription
     end
-    S-->>L: A merge server-side can return a different subscription id, which is adopted so the cached identity stays correct
-    Note over L: writes identity_subscription_id
+    S-->>L: The returned subscription id is stored against the group, so a later unsubscribe can name that exact row
+    Note over L: writes people_group_subscriptions
 ```
 
 
 **On the server**
 
+- `POST /api/people-groups/{slug}/anon-signup` — Upserts the single app subscription for this (subscriber, people group). Other groups the subscriber prays for are untouched.
 - `POST /api/people-groups/{slug}/anon-signup` — For a user who has no identity yet this is where their anonymous subscriber is created: empty tracking_id → `findOrCreateByTrackingId` → a fresh `Anonymous` subscriber, plus the app subscription. The app then adopts all three ids from the response.
 
 **Worth knowing**
 
-- Both background calls can fire from one tap, and both are best-effort: a failure is reported to Crashlytics and never shown, so the user believes the switch fully succeeded.
-- This is the only path to a first prayer subscription outside the wizard, and the deferred listener does it with no extra UI — selecting a group is all the user has to do.
+- Both background calls can fire from one tap, and both are best-effort: a failure is reported to Crashlytics and never shown, so the user believes the add fully succeeded.
+- This is the only path to a first prayer subscription outside the wizard, and the deferred listener does it with no extra UI — adding a group is all the user has to do.
+- Every add route lands here: the browse list, a group's details page and an `/app/<slug>` share link all call `addPeopleGroupFlow`, so the limit and its swap modal cannot be routed around.
+
+### Group details → stop praying for this group
+
+Entered at `removePeopleGroupFlow` in [lib/services/people_group_subscription_flow.dart](../../lib/services/people_group_subscription_flow.dart).
+
+**Visible** — A confirm dialog naming the reminders that go with it, then the group leaves the home carousel.
+
+**Background** — The only destructive action in the app, and it is not undoable from the app: the group's reminders are deleted, its notifications unscheduled, and the server is told to end the subscription. The confirm dialog spells out the reminder count because that is the part the user cannot see.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant UI as App UI
+    participant L as On device
+    participant S as Campaigns server
+    U->>UI: Group details → stop praying for this group
+    UI->>L: Delete every reminder for the group and reschedule what is left. Before forgetting the subscription, so a failure can never leave alarms for a group the user can no longer see.
+    Note over L: writes reminders
+    UI->>L: Drop the group from the subscription list
+    Note over L: writes people_group_subscriptions, active_people_group_slug
+    opt a profileId and a subscription id both exist
+        UI-->>S: POST /api/people-groups/{slug}/unsubscribe — End the subscription, naming the exact row via sid
+    end
+```
+
+
+**On the server**
+
+- `POST /api/people-groups/{slug}/unsubscribe` — Unsubscribes that one subscription. The endpoint also accepts `all=true`, which would end every subscription the person has for the group — including email reminders signed up for on the web — so the app never sends it.
+
+**Worth knowing**
+
+- The same cascade runs when the swap modal drops a group to make room for a new one, so a share link tapped at the limit can end a commitment — which is why nothing in that modal is preselected.
+- Without a profileId there is nothing on the server to end yet, so the unsubscribe is skipped rather than retried; the server's own inactive-subscription sweep catches that case.
 
 ---
 
@@ -489,7 +527,7 @@ sequenceDiagram
     UI->>L: Persist and reschedule all reminders
     Note over L: writes reminders
     opt a profileId exists
-        UI-->>S: PUT /api/profile/{profileId} — Profile sync sends frequency, time, days-of-week and timezone — derived from the *earliest enabled* reminder, with the union of all enabled weekdays
+        UI-->>S: PUT /api/profile/{profileId} — Profile sync sends frequency, time, days-of-week and timezone for the reminder's own people group — derived from the *earliest enabled* reminder for that group, with the union of its enabled weekdays
     end
     opt identity exists and this subscription/external-id pair is new
         UI-->>S: POST /api/push/register — Register the push subscription now that a token exists
@@ -499,7 +537,7 @@ sequenceDiagram
 
 **Worth knowing**
 
-- The server only ever learns one schedule, however many reminders the user has locally. Weekdays are converted from Dart's Mon=1..Sun=7 to the backend's Sun=0..Sat=6.
+- The server learns one schedule per people group, however many reminders the user has for it locally. Only groups whose schedule actually changed are sent, so editing one reminder is one PUT rather than one per subscription. Weekdays are converted from Dart's Mon=1..Sun=7 to the backend's Sun=0..Sat=6.
 - Toggling, editing and deleting a reminder all trigger the same profile sync, because the listener is on the reminders controller rather than on any one button.
 
 ---

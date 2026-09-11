@@ -1,4 +1,4 @@
-import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_button.dart';
+import 'package:doxa_prayer_mobile_app/components/buttons/subscribe_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/engagement_item.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/icon_circle.dart';
@@ -105,11 +105,11 @@ class _DetailBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: AppSpacing.xl,
         children: [
-          SelectPeopleGroupButton(
+          SubscribePeopleGroupButton(
             slug: detail.slug,
             name: detail.name,
             imageUrl: detail.imageUrl,
-            onConfirmed: fromWizard
+            onAdded: fromWizard
                 ? () {
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop(true);

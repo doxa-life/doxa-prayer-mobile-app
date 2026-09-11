@@ -596,4 +596,87 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Notificações desativadas';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get addPeopleGroup => 'Adicionar';
+
+  @override
+  String get praying => 'Orando';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'Você quer começar a orar por “$name”?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Escolher um povo';
+
+  @override
+  String get addAnotherPeopleGroup => 'Adicionar outro povo';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'Você está orando por $count povos';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'Esse é o máximo pelo qual você pode orar de uma vez. Para adicionar “$name”, escolha um pelo qual parar de orar.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Trocar';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'Parar de orar por “$name”?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'Ele será removido da sua tela inicial. Você pode adicioná-lo novamente quando quiser.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Os $count lembretes dele serão excluídos.',
+      one: 'O lembrete dele será excluído.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Parar de orar';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Escolha um povo antes de definir um lembrete.';
+
+  @override
+  String get reminderPeopleGroup => 'Povo';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Abra o Doxa para orar por “$name”.';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time por “$name”';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Orar por “$name”';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Mudar para “$name”';
+  }
 }

@@ -10,6 +10,7 @@ import '../buttons/action_button.dart';
 import '../misc/app_image.dart';
 import 'elevated_card.dart';
 import '../misc/hyphenated_text.dart';
+import '../misc/prayed_today_pill.dart';
 
 class PeopleGroupCard extends StatelessWidget {
   const PeopleGroupCard({
@@ -52,7 +53,7 @@ class PeopleGroupCard extends StatelessWidget {
               onPressed: onPray,
               color: ActionButtonColor.secondary,
             ),
-          if (prayedToday) _PrayedTodayPill(label: l.prayedToday),
+          if (prayedToday) PrayedTodayPill(label: l.prayedToday),
           // A Wrap (rather than a Row) so the action buttons reflow onto a
           // second line instead of overflowing when large font scales widen
           // their labels. Full width so spaceEvenly spreads them across the
@@ -87,44 +88,6 @@ class PeopleGroupCard extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PrayedTodayPill extends StatelessWidget {
-  const _PrayedTodayPill({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    // A status indicator, not a control: merge the decorative check icon and
-    // label into a single node so screen readers announce just "<label>".
-    return MergeSemantics(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.xxs,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.xs,
-          children: [
-            const Icon(Icons.check, size: 16, color: AppColors.onSecondary),
-            HyphenatedText(
-              label,
-              style: AppTypography.bodySmall.copyWith(
-                color: AppColors.onSecondary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -317,17 +317,38 @@ const actions = <UserAction>[
     trigger: Anchor('lib/main.dart', 'main'),
     visible: 'Splash, then either the wizard or the home tab.',
     background:
-        'Seven persisted values are loaded in parallel, then push is '
-        'initialised, three listeners are installed that will later fire '
-        'network calls on their own, the caches are warmed and pruned, an '
-        'update check runs and an app_open event is posted.',
+        'The subscription list is loaded first, then six more persisted values '
+        'in parallel, then push is initialised, three listeners are installed '
+        'that will later fire network calls on their own, the caches are warmed '
+        'and pruned, an update check runs and an app_open event is posted.',
     steps: [
       Step(
         from: Actor.ui,
         to: Actor.local,
         text:
-            'Load selected group, prayed-today, reminders, wizard flag, locale, '
-            'identity and referred slug — in parallel',
+            'Load the people groups the user prays for. First and on its own: '
+            'a build before multi-group support stored a single selection, '
+            'which is migrated into the list here, and the reminder load below '
+            'reads the active group to adopt reminders that predate belonging '
+            'to one.',
+        anchor: Anchor(
+          'lib/services/subscribed_people_groups_controller.dart',
+          'loadPeopleGroups',
+        ),
+        writes: [
+          'people_group_subscriptions',
+          'active_people_group_slug',
+          'selected_people_group_slug',
+          'selected_people_group_name',
+          'selected_people_group_image_url',
+        ],
+      ),
+      Step(
+        from: Actor.ui,
+        to: Actor.local,
+        text:
+            'Load prayed-today, reminders, wizard flag, locale, identity and '
+            'referred slug — in parallel',
         anchor: Anchor('lib/main.dart', 'loadIdentity'),
       ),
       Step(
@@ -346,8 +367,8 @@ const actions = <UserAction>[
         from: Actor.ui,
         to: Actor.ui,
         text:
-            'Install the deferred anon-signup listener — it watches the selected '
-            'group and can POST a signup with no user action at all',
+            'Install the deferred anon-signup listener — it watches the '
+            'subscription list and can POST a signup with no user action at all',
         anchor: Anchor(
           'lib/services/anon_signup_service.dart',
           'installDeferredAnonSignupListener',
@@ -358,7 +379,9 @@ const actions = <UserAction>[
         from: Actor.ui,
         to: Actor.ui,
         text:
-            'Install the profile-sync listeners on reminders and selected group',
+            'Install the profile-sync listeners on reminders and the '
+            'subscription list. The state at this moment is taken as already '
+            'synced, so a cold start re-sends nothing.',
         anchor: Anchor(
           'lib/services/profile_update_service.dart',
           'installProfileUpdateListeners',
@@ -369,7 +392,8 @@ const actions = <UserAction>[
         from: Actor.ui,
         to: Actor.server,
         text:
-            'Warm the group caches from disk; prefetch today\'s prayer content',
+            'Warm the group caches from disk; prefetch today\'s prayer content '
+            'for every subscribed group, one after another',
         anchor: Anchor('lib/services/cache_warmup.dart', 'warmCachesOnLaunch'),
         endpoint: 'GET /api/people-groups/{slug}/prayer-content/{date}',
         when: 'a group is already selected',
@@ -479,27 +503,26 @@ const actions = <UserAction>[
     title: 'Confirm a people group',
     trigger: Anchor(
       'lib/components/wizard/wizard_step_people_group_confirm.dart',
-      'setSelectedPeopleGroup',
+      'addPeopleGroup',
     ),
     visible: 'The wizard advances to the reminder step.',
     background:
-        'Three prefs keys are written and two listeners fire — but both '
+        'The subscription list is written and two listeners fire — but both '
         'no-op at this point, because the wizard is not complete and there is '
         'no profile yet. The same tap after onboarding does hit the network.',
     steps: [
       Step(
         from: Actor.ui,
         to: Actor.local,
-        text: 'Persist slug, name and image url',
+        text:
+            'Append the group to the subscription list and make it active. The '
+            'wizard adds exactly one; further groups are added later from the '
+            'browse tab.',
         anchor: Anchor(
-          'lib/services/selected_people_group_controller.dart',
-          'setSelectedPeopleGroup',
+          'lib/services/subscribed_people_groups_controller.dart',
+          'addPeopleGroup',
         ),
-        writes: [
-          'selected_people_group_slug',
-          'selected_people_group_name',
-          'selected_people_group_image_url',
-        ],
+        writes: ['people_group_subscriptions', 'active_people_group_slug'],
       ),
       Step(
         from: Actor.ui,
@@ -1108,43 +1131,41 @@ const actions = <UserAction>[
     surface: 'browse',
     title: 'Group details → pray for this group',
     trigger: Anchor(
-      'lib/services/select_people_group_flow.dart',
-      'showSelectPeopleGroupConfirmation',
+      'lib/services/people_group_subscription_flow.dart',
+      'addPeopleGroupFlow',
     ),
-    visible: 'A confirm dialog, then the group becomes theirs.',
+    visible:
+        'A confirm dialog — or, at the limit, the swap modal — then the group '
+        'joins their home carousel.',
     background:
-        'The single most consequential tap outside onboarding. For an existing '
-        'subscriber it moves the prayer subscription to the new group. For '
-        'someone who skipped group selection in the wizard it is the moment '
-        'their anonymous subscriber is created server-side and the app gains an '
-        'identity at last — which is also what finally lets push register.',
+        'Adds a subscription rather than moving one: the server keeps one row '
+        'per (subscriber, people group), so this leaves any existing groups '
+        'alone. For someone who skipped group selection in the wizard it is '
+        'also the moment their anonymous subscriber is created server-side and '
+        'the app gains an identity at last — which is what finally lets push '
+        'register.',
     steps: [
       Step(
         from: Actor.ui,
         to: Actor.local,
-        text: 'Persist the new selection',
+        text:
+            'Append the group and make it active. At the limit the swap modal '
+            'first removes the group the user picked, reminders and all.',
         anchor: Anchor(
-          'lib/services/selected_people_group_controller.dart',
-          'setSelectedPeopleGroup',
+          'lib/services/subscribed_people_groups_controller.dart',
+          'addPeopleGroup',
         ),
-        writes: [
-          'selected_people_group_slug',
-          'selected_people_group_name',
-          'selected_people_group_image_url',
-        ],
+        writes: ['people_group_subscriptions', 'active_people_group_slug'],
       ),
       Step(
         from: Actor.ui,
         to: Actor.server,
-        text:
-            'Profile sync moves the subscription to the new group and re-sends '
-            'the reminder schedule',
-        anchor: Anchor(
-          'lib/services/profile_update_service.dart',
-          'submitProfileUpdate',
-        ),
-        endpoint: 'PUT /api/profile/{profileId}',
-        when: 'a profileId exists',
+        text: 'Register the prayer commitment for the new group',
+        anchor: Anchor('lib/services/anon_signup_service.dart', 'submitAnonSignup'),
+        endpoint: 'POST /api/people-groups/{slug}/anon-signup',
+        server:
+            'Upserts the single app subscription for this (subscriber, people '
+            'group). Other groups the subscriber prays for are untouched.',
         background: true,
       ),
       Step(
@@ -1169,23 +1190,95 @@ const actions = <UserAction>[
         from: Actor.server,
         to: Actor.local,
         text:
-            'A merge server-side can return a different subscription id, which '
-            'is adopted so the cached identity stays correct',
+            'The returned subscription id is stored against the group, so a '
+            'later unsubscribe can name that exact row',
         anchor: Anchor(
-          'lib/services/profile_update_service.dart',
-          'setIdentity',
+          'lib/services/subscribed_people_groups_controller.dart',
+          'setPeopleGroupSubscriptionId',
         ),
-        writes: ['identity_subscription_id'],
+        writes: ['people_group_subscriptions'],
         background: true,
       ),
     ],
     notes: [
       'Both background calls can fire from one tap, and both are best-effort: a '
           'failure is reported to Crashlytics and never shown, so the user believes '
-          'the switch fully succeeded.',
+          'the add fully succeeded.',
       'This is the only path to a first prayer subscription outside the '
           'wizard, and the deferred listener does it with no extra UI — '
-          'selecting a group is all the user has to do.',
+          'adding a group is all the user has to do.',
+      'Every add route lands here: the browse list, a group\'s details page and '
+          'an `/app/<slug>` share link all call `addPeopleGroupFlow`, so the '
+          'limit and its swap modal cannot be routed around.',
+    ],
+  ),
+
+  UserAction(
+    id: 'browse-remove-group',
+    surface: 'browse',
+    title: 'Group details → stop praying for this group',
+    trigger: Anchor(
+      'lib/services/people_group_subscription_flow.dart',
+      'removePeopleGroupFlow',
+    ),
+    visible:
+        'A confirm dialog naming the reminders that go with it, then the group '
+        'leaves the home carousel.',
+    background:
+        'The only destructive action in the app, and it is not undoable from '
+        'the app: the group\'s reminders are deleted, its notifications '
+        'unscheduled, and the server is told to end the subscription. The '
+        'confirm dialog spells out the reminder count because that is the part '
+        'the user cannot see.',
+    steps: [
+      Step(
+        from: Actor.ui,
+        to: Actor.local,
+        text:
+            'Delete every reminder for the group and reschedule what is left. '
+            'Before forgetting the subscription, so a failure can never leave '
+            'alarms for a group the user can no longer see.',
+        anchor: Anchor(
+          'lib/services/reminders_controller.dart',
+          'deleteRemindersForGroup',
+        ),
+        writes: ['reminders'],
+      ),
+      Step(
+        from: Actor.ui,
+        to: Actor.local,
+        text: 'Drop the group from the subscription list',
+        anchor: Anchor(
+          'lib/services/subscribed_people_groups_controller.dart',
+          'removePeopleGroup',
+        ),
+        writes: ['people_group_subscriptions', 'active_people_group_slug'],
+      ),
+      Step(
+        from: Actor.ui,
+        to: Actor.server,
+        text: 'End the subscription, naming the exact row via `sid`',
+        anchor: Anchor(
+          'lib/services/unsubscribe_service.dart',
+          'submitUnsubscribe',
+        ),
+        endpoint: 'POST /api/people-groups/{slug}/unsubscribe',
+        when: 'a profileId and a subscription id both exist',
+        server:
+            'Unsubscribes that one subscription. The endpoint also accepts '
+            '`all=true`, which would end every subscription the person has for '
+            'the group — including email reminders signed up for on the '
+            'web — so the app never sends it.',
+        background: true,
+      ),
+    ],
+    notes: [
+      'The same cascade runs when the swap modal drops a group to make room '
+          'for a new one, so a share link tapped at the limit can end a '
+          'commitment — which is why nothing in that modal is preselected.',
+      'Without a profileId there is nothing on the server to end yet, so the '
+          'unsubscribe is skipped rather than retried; the server\'s own '
+          'inactive-subscription sweep catches that case.',
     ],
   ),
 
@@ -1238,12 +1331,13 @@ const actions = <UserAction>[
         from: Actor.ui,
         to: Actor.server,
         text:
-            'Profile sync sends frequency, time, days-of-week and timezone — '
-            'derived from the *earliest enabled* reminder, with the union of all '
-            'enabled weekdays',
+            'Profile sync sends frequency, time, days-of-week and timezone for '
+            'the reminder\'s own people group — derived from the *earliest '
+            'enabled* reminder for that group, with the union of its enabled '
+            'weekdays',
         anchor: Anchor(
           'lib/services/profile_update_service.dart',
-          'submitProfileUpdate',
+          'submitProfileUpdateForGroup',
         ),
         endpoint: 'PUT /api/profile/{profileId}',
         when: 'a profileId exists',
@@ -1263,9 +1357,11 @@ const actions = <UserAction>[
       ),
     ],
     notes: [
-      'The server only ever learns one schedule, however many reminders the user '
-          'has locally. Weekdays are converted from Dart\'s Mon=1..Sun=7 to the '
-          'backend\'s Sun=0..Sat=6.',
+      'The server learns one schedule per people group, however many reminders '
+          'the user has for it locally. Only groups whose schedule actually '
+          'changed are sent, so editing one reminder is one PUT rather than one '
+          'per subscription. Weekdays are converted from Dart\'s Mon=1..Sun=7 to '
+          'the backend\'s Sun=0..Sat=6.',
       'Toggling, editing and deleting a reminder all trigger the same profile '
           'sync, because the listener is on the reminders controller rather than on '
           'any one button.',

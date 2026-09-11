@@ -15,7 +15,7 @@ What happens in the background when someone taps something. Written for the case
 
 ## Scale
 
-14 HTTP endpoints across 16 built URIs · 15 persisted keys · 15 routes · 25 documented actions.
+15 HTTP endpoints across 17 built URIs · 18 persisted keys · 15 routes · 26 documented actions.
 
 ## Keeping this true
 

@@ -79,7 +79,7 @@ Future<PeopleGroupDetail> fetchPeopleGroupDetail(
 /// and a returning user's own group paint without a skeleton. Never fetches.
 Future<void> warmPeopleGroupCaches({
   required String lang,
-  String? selectedSlug,
+  List<String> subscribedSlugs = const <String>[],
 }) async {
   await Future.wait([
     warmCachedValue<List<PeopleGroup>>(
@@ -87,13 +87,14 @@ Future<void> warmPeopleGroupCaches({
       ttl: CachePolicy.peopleGroupList,
       decode: _parseList,
     ),
-    if (selectedSlug != null && selectedSlug.isNotEmpty)
-      warmCachedValue<PeopleGroupDetail>(
-        cacheKey: peopleGroupDetailCacheKey(selectedSlug, lang),
-        ttl: CachePolicy.peopleGroupDetail,
-        decode: (body) => PeopleGroupDetail.fromJson(
-          jsonDecode(body) as Map<String, dynamic>,
+    for (final slug in subscribedSlugs)
+      if (slug.isNotEmpty)
+        warmCachedValue<PeopleGroupDetail>(
+          cacheKey: peopleGroupDetailCacheKey(slug, lang),
+          ttl: CachePolicy.peopleGroupDetail,
+          decode: (body) => PeopleGroupDetail.fromJson(
+            jsonDecode(body) as Map<String, dynamic>,
+          ),
         ),
-      ),
   ]);
 }

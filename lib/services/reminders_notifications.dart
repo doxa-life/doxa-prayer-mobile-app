@@ -12,6 +12,7 @@ import 'api_config.dart';
 import 'crash_reporting_service.dart';
 import 'locale_controller.dart';
 import 'reminders_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 
 const String _androidChannelId = 'prayer_reminders';
 const String _androidChannelName = 'Prayer Reminders';
@@ -273,27 +274,19 @@ Future<bool> promptEnableExactAlarms() async {
   return granted;
 }
 
-/// Cancels every scheduled reminder notification and reschedules exactly one
-/// per distinct fire-time across all enabled reminders. Keying notifications by
-/// time slot (not by reminder) means several reminders that land on the same
-/// weekday + time collapse into a single notification — no duplicate alerts.
+/// Cancels every scheduled reminder notification and reschedules one per
+/// distinct (people group, weekday, hour, minute) slot across all enabled
+/// reminders.
+///
+/// The slug is part of the key on purpose. Two reminders for the *same* group
+/// at the same time still collapse into a single alert — they mean the same
+/// thing. Two *different* groups at the same time do not: each names its own
+/// group and deep-links into its own prayer, so both are delivered.
 Future<void> rescheduleAllReminders(List<Reminder> all) async {
   if (!_initialized) await initRemindersNotifications();
   await _plugin.cancelAll();
 
-  // Distinct (weekday, hour, minute) slots across every enabled reminder,
-  // keyed by the slot id so duplicates collapse.
-  final slots = <int, ({int weekday, int hour, int minute})>{};
-  for (final r in all) {
-    if (!r.enabled) continue;
-    for (final weekday in r.weekdays) {
-      slots[_notificationId(weekday, r.hour, r.minute)] = (
-        weekday: weekday,
-        hour: r.hour,
-        minute: r.minute,
-      );
-    }
-  }
+  final slots = reminderNotificationSlots(all);
   if (slots.isEmpty) return;
 
   // Prefer exact alarms so reminders fire at the chosen minute, but fall back
@@ -308,7 +301,6 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
 
   final l = lookupAppLocalizations(localeController.value);
   final title = l.reminderNotificationTitle;
-  final body = l.reminderNotificationBody;
 
   final androidDetails = AndroidNotificationDetails(
     _androidChannelId,
@@ -334,6 +326,13 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
     final id = entry.key;
     final slot = entry.value;
     final fireAt = _nextInstanceOf(slot.weekday, slot.hour, slot.minute);
+    // Naming the group is what makes a stack of same-minute reminders
+    // readable; a reminder whose group has since been removed falls back to
+    // the generic copy rather than showing a blank name.
+    final name = peopleGroupsController.value.bySlug(slot.slug)?.name;
+    final body = name == null
+        ? l.reminderNotificationBody
+        : l.reminderNotificationBodyForGroup(name);
     try {
       await _plugin.zonedSchedule(
         id: id,
@@ -343,7 +342,9 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
         notificationDetails: details,
         androidScheduleMode: scheduleMode,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-        payload: 'pray',
+        // The tapped notification routes to this group's prayer, so the slug
+        // travels with it.
+        payload: slot.slug,
       );
     } catch (e, s) {
       debugPrint('reminders_notifications: schedule failed for $id: $e');
@@ -352,12 +353,57 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
   }
 }
 
-/// Maps a (weekday, hour, minute) fire-time to a stable notification id.
-/// Reminders that share a fire time share an id, so only one notification is
-/// ever scheduled per distinct time — no duplicate alerts.
-/// Bit layout (all positive, well under 32 bits): hour<<9 | minute<<3 | weekday.
-int _notificationId(int weekday, int hour, int minute) =>
-    (hour << 9) | (minute << 3) | (weekday & 0x7);
+/// One scheduled notification. Several reminders can share a slot; only the
+/// group, weekday and time survive into what is actually delivered.
+typedef ReminderSlot = ({String slug, int weekday, int hour, int minute});
+
+/// The distinct notification slots across every enabled reminder, keyed by the
+/// id each will be scheduled under. Same-group duplicates collapse because
+/// they land on the same key; different groups at the same minute do not.
+@visibleForTesting
+Map<int, ReminderSlot> reminderNotificationSlots(List<Reminder> all) {
+  final slots = <int, ReminderSlot>{};
+  for (final r in all) {
+    if (!r.enabled) continue;
+    for (final weekday in r.weekdays) {
+      slots[_notificationId(r.slug, weekday, r.hour, r.minute)] = (
+        slug: r.slug,
+        weekday: weekday,
+        hour: r.hour,
+        minute: r.minute,
+      );
+    }
+  }
+  return slots;
+}
+
+/// Maps a (people group, weekday, hour, minute) slot to a stable notification
+/// id. Reminders for the same group at the same fire time share an id, so only
+/// one notification is scheduled for them; different groups get different ids
+/// and are delivered alongside each other.
+///
+/// Bit layout, all positive and well inside the 32-bit ids the platforms
+/// accept: slugHash<<14 | hour<<9 | minute<<3 | weekday, where slugHash is 13
+/// bits — so the whole id stays under 2^27.
+int _notificationId(String slug, int weekday, int hour, int minute) {
+  final time = (hour << 9) | (minute << 3) | (weekday & 0x7);
+  return (_slugHash(slug) << 14) | time;
+}
+
+/// A 13-bit FNV-1a hash of the slug. Deliberately not `String.hashCode`, which
+/// Dart does not promise to keep stable between runs — these ids are what a
+/// later cancel has to match.
+///
+/// A collision between two slugs would merge their notifications at the same
+/// minute; at five subscriptions out of 8192 buckets that is remote, and the
+/// cost if it happened is one alert instead of two.
+int _slugHash(String slug) {
+  var hash = 0x811c9dc5;
+  for (final unit in slug.codeUnits) {
+    hash = ((hash ^ unit) * 0x01000193) & 0x7fffffff;
+  }
+  return hash & 0x1fff;
+}
 
 tz.TZDateTime _nextInstanceOf(int weekday, int hour, int minute) {
   final now = tz.TZDateTime.now(tz.local);

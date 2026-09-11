@@ -731,5 +731,129 @@
     "notifications_disabled": "Notifications disabled",
     "@notifications_disabled": {
         "description": "Title of the notifications disabled section"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "addPeopleGroup": "Add",
+    "@addPeopleGroup": {
+        "description": "Button that subscribes the user to a people group"
+    },
+    "praying": "Praying",
+    "@praying": {
+        "description": "State of the add button when the user already prays for this people group"
+    },
+    "addPeopleGroupConfirm": "Do you want to start praying for {name}?",
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "choosePeopleGroup": "Choose a people group",
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
+    },
+    "addAnotherPeopleGroup": "Add another people group",
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "peopleGroupLimitTitle": "You are praying for {count} people groups",
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "peopleGroupLimitBody": "That is as many as you can pray for at once. To add {name}, choose one to stop praying for.",
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "swapPeopleGroupAction": "Swap",
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "removePeopleGroupTitle": "Stop praying for {name}?",
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "removePeopleGroupBody": "They will be removed from your home screen. You can add them again at any time.",
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "removePeopleGroupReminders": "{count, plural, =1{Its reminder will be deleted.} other{Its {count} reminders will be deleted.}}",
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "stopPraying": "Stop praying",
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "noPeopleGroupsForReminder": "Choose a people group before setting a reminder.",
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
+    "reminderPeopleGroup": "People group",
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "reminderNotificationBodyForGroup": "Open Doxa to pray for {name}.",
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nextReminderForGroup": "{time} for {name}",
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "prayForNextGroup": "Pray for {name}",
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "switchToPeopleGroup": "Switch to {name}",
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     }
 }

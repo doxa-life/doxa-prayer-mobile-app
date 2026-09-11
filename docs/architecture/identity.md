@@ -47,7 +47,7 @@ Derived from the catalogue, so it stays complete as actions are added.
 | --- | --- |
 | `identity_tracking_id` | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
 | `identity_profile_id` | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
-| `identity_subscription_id` | News step → Sign up; News step → Skip; Group details → pray for this group |
+| `identity_subscription_id` | News step → Sign up; News step → Skip |
 
 ## Wizard signup vs settings signup
 

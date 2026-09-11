@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../services/pray_override_controller.dart';
+import '../../services/prayer_history_service.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
@@ -28,6 +31,17 @@ class PrayerThankYouModal extends StatelessWidget {
   /// The verse to show. Null when the verse set could not be loaded, in which
   /// case the modal falls back to the title and the Home button alone.
   final ThankYouVerse? verse;
+
+  /// The first subscribed group with no prayer recorded today, or null when
+  /// there is none left — which is also the case for a single-group user, who
+  /// has just prayed for their only one.
+  SubscribedPeopleGroup? _nextUnprayed() {
+    final prayed = prayedTodayController.value;
+    for (final group in peopleGroupsController.value.list) {
+      if (!prayed.contains(group.slug)) return group;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +94,23 @@ class PrayerThankYouModal extends StatelessWidget {
               ),
             ],
             const SizedBox(height: AppSpacing.xl),
+            // Someone praying for several groups usually means to pray for all
+            // of them today. Offering the next one here is the nudge; it stays
+            // a choice, rather than the tab pulling them along.
+            if (_nextUnprayed() case final next?) ...[
+              ActionButton.fullWidth(
+                label: l10n.prayForNextGroup(next.name),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  // A deep-link override outranks the active group on this
+                  // tab, so it has to go or the switch would do nothing.
+                  clearPrayOverride();
+                  setActivePeopleGroup(next.slug);
+                },
+                color: ActionButtonColor.secondary,
+              ),
+              const SizedBox(height: AppSpacing.md),
+            ],
             ActionButton.fullWidth(
               label: l10n.home,
               icon: const AppIcon(AppIconName.home),
@@ -87,7 +118,11 @@ class PrayerThankYouModal extends StatelessWidget {
                 Navigator.of(context).pop();
                 context.go('/home');
               },
-              color: ActionButtonColor.secondary,
+              // Quieter than the "pray for the next group" action above it,
+              // which is the one worth taking while they are still here.
+              color: _nextUnprayed() == null
+                  ? ActionButtonColor.secondary
+                  : ActionButtonColor.white,
             ),
           ],
         ),

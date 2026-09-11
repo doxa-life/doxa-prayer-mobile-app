@@ -612,4 +612,86 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'الإشعارات معطلة';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get addPeopleGroup => 'إضافة';
+
+  @override
+  String get praying => 'تصلّي';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'هل تريد البدء في الصلاة من أجل «$name»؟';
+  }
+
+  @override
+  String get choosePeopleGroup => 'اختر مجموعة شعبية';
+
+  @override
+  String get addAnotherPeopleGroup => 'أضف مجموعة شعبية أخرى';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'أنت تصلّي من أجل $count مجموعات شعبية';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'هذا أقصى عدد يمكنك الصلاة من أجله في الوقت نفسه. لإضافة «$name»، اختر مجموعة تتوقف عن الصلاة من أجلها.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'استبدال';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'هل تتوقف عن الصلاة من أجل «$name»؟';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'ستُزال من الصفحة الرئيسية. يمكنك إضافتها مرة أخرى في أي وقت.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'سيتم حذف تذكيراتها البالغة $count.',
+      one: 'سيتم حذف تذكيرها.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'التوقف عن الصلاة';
+
+  @override
+  String get noPeopleGroupsForReminder => 'اختر مجموعة شعبية قبل تعيين تذكير.';
+
+  @override
+  String get reminderPeopleGroup => 'المجموعة الشعبية';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'افتح تطبيق Doxa للصلاة من أجل «$name».';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time من أجل «$name»';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'الصلاة من أجل «$name»';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'التبديل إلى «$name»';
+  }
 }

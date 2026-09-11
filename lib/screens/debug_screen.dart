@@ -18,8 +18,9 @@ import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/response_cache.dart';
+import '../services/profile_update_service.dart';
 import '../services/reminders_controller.dart';
-import '../services/selected_people_group_controller.dart';
+import '../services/subscribed_people_groups_controller.dart';
 import '../services/update_controller.dart';
 import '../services/version_check_service.dart';
 import '../services/wizard_completion_controller.dart';
@@ -94,8 +95,14 @@ class DebugScreen extends StatelessWidget {
         ),
         _clearRow(
           context,
-          label: 'Selected people group',
-          onClear: clearSelectedPeopleGroup,
+          label: 'People groups',
+          description: 'Unsubscribes from all of them locally.',
+          onClear: () async {
+            await clearPeopleGroups();
+            // Otherwise the sync still believes the server holds the old
+            // schedules and skips the next PUT for a re-added group.
+            resetProfileUpdateState();
+          },
         ),
         _clearRow(
           context,
@@ -143,7 +150,7 @@ class DebugScreen extends StatelessWidget {
               await Future.wait([
                 clearLocale(),
                 clearWizardCompleted(),
-                clearSelectedPeopleGroup(),
+                clearPeopleGroups().then((_) => resetProfileUpdateState()),
                 clearReminders(),
                 clearPrayerHistory(),
                 clearIdentity(),
@@ -355,9 +362,9 @@ class _SimulateReferralCardState extends State<_SimulateReferralCard> {
           ValueListenableBuilder<String?>(
             valueListenable: referredPeopleGroupController,
             builder: (_, referredSlug, _) {
-              return ValueListenableBuilder<SelectedPeopleGroup?>(
-                valueListenable: selectedPeopleGroupController,
-                builder: (_, selected, _) {
+              return ValueListenableBuilder<SubscribedPeopleGroups>(
+                valueListenable: peopleGroupsController,
+                builder: (_, subscribed, _) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -366,7 +373,8 @@ class _SimulateReferralCardState extends State<_SimulateReferralCard> {
                         style: AppTypography.titleMedium,
                       ),
                       HyphenatedText(
-                        'Selected people group: ${selected?.slug ?? '(none)'}',
+                        'People groups: '
+                        '${subscribed.isEmpty ? '(none)' : subscribed.list.map((g) => g.slug).join(', ')}',
                         style: AppTypography.titleMedium,
                       ),
                     ],

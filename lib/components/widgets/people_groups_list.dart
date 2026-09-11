@@ -11,8 +11,8 @@ import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../services/locale_controller.dart';
 import '../../services/people_groups_service.dart';
-import '../../services/select_people_group_flow.dart';
-import '../../services/selected_people_group_controller.dart';
+import '../../services/people_group_subscription_flow.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../misc/cached_data_builder.dart';
 import '../misc/hyphenated_text.dart';
@@ -123,9 +123,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   Widget _buildList(BuildContext context, List<PeopleGroup> groups) {
     final filtered = _filter(groups);
-    return ValueListenableBuilder<SelectedPeopleGroup?>(
-      valueListenable: selectedPeopleGroupController,
-      builder: (context, selected, _) {
+    return ValueListenableBuilder<SubscribedPeopleGroups>(
+      valueListenable: peopleGroupsController,
+      builder: (context, subscribed, _) {
         // The results count scrolls with the list (it is the first
         // entry) so only the search field stays fixed above it —
         // this keeps the fixed header small at large font scales.
@@ -145,13 +145,13 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
               name: g.name,
               country: g.countryLabel ?? '',
               imageUrl: g.imageUrl,
-              isSelected: selected?.slug == g.slug,
+              isSelected: subscribed.contains(g.slug),
               onSelect: () {
                 final cb = widget.onSelect;
                 if (cb != null) {
                   cb(g);
                 } else {
-                  showSelectPeopleGroupConfirmation(
+                  addPeopleGroupFlow(
                     context,
                     slug: g.slug,
                     name: g.name,

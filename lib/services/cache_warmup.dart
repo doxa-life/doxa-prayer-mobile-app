@@ -5,7 +5,7 @@ import 'image_cache_manager.dart';
 import 'locale_controller.dart';
 import 'people_groups_service.dart';
 import 'prayer_content_service.dart';
-import 'selected_people_group_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 
 /// Prepares the caches at launch so the first tap on a tab has nothing to wait
 /// for.
@@ -18,25 +18,28 @@ import 'selected_people_group_controller.dart';
 ///    flashing a skeleton, which is the slow part on a relaunch.
 ///  * Today's prayer content is genuinely *prefetched* — downloaded if missing,
 ///    along with the photos it renders — because the Pray tab is the point of
-///    the app and it is one small request.
+///    the app and each one is a small request. Every subscribed group is
+///    fetched, one after another rather than all at once, so five
+///    subscriptions trickle over a poor connection instead of bursting.
 ///
 /// Fire-and-forget, and silent on failure: nothing here may block or break app
 /// start, and every screen still fetches for itself.
 Future<void> warmCachesOnLaunch() async {
   final lang = localeController.value.languageCode;
-  final slug = selectedPeopleGroupController.value?.slug;
+  final groups = peopleGroupsController.value;
+  final slugs = [for (final g in groups.list) g.slug];
   await Future.wait([
-    _warmPeopleGroups(lang: lang, slug: slug),
-    _prefetchTodaysPrayerContent(lang: lang, slug: slug),
+    _warmPeopleGroups(lang: lang, slugs: slugs),
+    _prefetchTodaysPrayerContent(lang: lang, slugs: slugs),
   ]);
 }
 
 Future<void> _warmPeopleGroups({
   required String lang,
-  required String? slug,
+  required List<String> slugs,
 }) async {
   try {
-    await warmPeopleGroupCaches(lang: lang, selectedSlug: slug);
+    await warmPeopleGroupCaches(lang: lang, subscribedSlugs: slugs);
   } catch (e) {
     developer.log(
       'people group warm-up failed',
@@ -48,24 +51,26 @@ Future<void> _warmPeopleGroups({
 
 Future<void> _prefetchTodaysPrayerContent({
   required String lang,
-  required String? slug,
+  required List<String> slugs,
 }) async {
-  // No selection yet — the user is heading into the wizard, and there is no way
-  // to know which group they'll pick.
-  if (slug == null || slug.isEmpty) return;
-  try {
-    final content = await fetchPrayerContent(
-      slug: slug,
-      date: DateTime.now(),
-      language: lang,
-    );
-    await _warmImages(content);
-  } catch (e) {
-    developer.log(
-      'prayer content prefetch failed',
-      name: 'cache_warmup',
-      error: e,
-    );
+  // No subscriptions yet — the user is heading into the wizard, and there is no
+  // way to know which group they'll pick.
+  final date = DateTime.now();
+  for (final slug in slugs) {
+    try {
+      final content = await fetchPrayerContent(
+        slug: slug,
+        date: date,
+        language: lang,
+      );
+      await _warmImages(content);
+    } catch (e) {
+      developer.log(
+        'prayer content prefetch failed for $slug',
+        name: 'cache_warmup',
+        error: e,
+      );
+    }
   }
 }
 

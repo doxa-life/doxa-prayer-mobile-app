@@ -1101,6 +1101,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications disabled'**
   String get notifications_disabled;
+
+  /// Button that dismisses a modal without doing anything
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button that subscribes the user to a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addPeopleGroup;
+
+  /// State of the add button when the user already prays for this people group
+  ///
+  /// In en, this message translates to:
+  /// **'Praying'**
+  String get praying;
+
+  /// Confirmation asked before subscribing to a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to start praying for {name}?'**
+  String addPeopleGroupConfirm(String name);
+
+  /// Button that takes the user to the people groups list
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group'**
+  String get choosePeopleGroup;
+
+  /// Label on the last card of the home carousel, which opens the people groups list
+  ///
+  /// In en, this message translates to:
+  /// **'Add another people group'**
+  String get addAnotherPeopleGroup;
+
+  /// Title of the modal shown when adding a people group would exceed the limit
+  ///
+  /// In en, this message translates to:
+  /// **'You are praying for {count} people groups'**
+  String peopleGroupLimitTitle(num count);
+
+  /// Body of the modal shown when adding a people group would exceed the limit
+  ///
+  /// In en, this message translates to:
+  /// **'That is as many as you can pray for at once. To add {name}, choose one to stop praying for.'**
+  String peopleGroupLimitBody(String name);
+
+  /// Confirm button of the modal that swaps one people group for another
+  ///
+  /// In en, this message translates to:
+  /// **'Swap'**
+  String get swapPeopleGroupAction;
+
+  /// Title of the modal that confirms unsubscribing from a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Stop praying for {name}?'**
+  String removePeopleGroupTitle(String name);
+
+  /// Body of the modal that confirms unsubscribing from a people group with no reminders
+  ///
+  /// In en, this message translates to:
+  /// **'They will be removed from your home screen. You can add them again at any time.'**
+  String get removePeopleGroupBody;
+
+  /// Extra line in the remove modal when the people group has reminders that will be deleted with it
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Its reminder will be deleted.} other{Its {count} reminders will be deleted.}}'**
+  String removePeopleGroupReminders(num count);
+
+  /// Confirm button of the modal that unsubscribes from a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Stop praying'**
+  String get stopPraying;
+
+  /// Message on the reminders screen when the user prays for no people groups, so no reminder can be set
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group before setting a reminder.'**
+  String get noPeopleGroupsForReminder;
+
+  /// Label of the people group field in the reminder editor
+  ///
+  /// In en, this message translates to:
+  /// **'People group'**
+  String get reminderPeopleGroup;
+
+  /// Body of a reminder notification that is for a specific people group
+  ///
+  /// In en, this message translates to:
+  /// **'Open Doxa to pray for {name}.'**
+  String reminderNotificationBodyForGroup(String name);
+
+  /// The next reminder on the home screen summary card, naming the people group it is for
+  ///
+  /// In en, this message translates to:
+  /// **'{time} for {name}'**
+  String nextReminderForGroup(String time, String name);
+
+  /// Action in the thank you modal that moves on to another people group the user has not prayed for today
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for {name}'**
+  String prayForNextGroup(String name);
+
+  /// Accessibility label for an avatar in the pray screen people group row
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {name}'**
+  String switchToPeopleGroup(String name);
 }
 
 class _AppLocalizationsDelegate

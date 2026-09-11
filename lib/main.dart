@@ -24,7 +24,7 @@ import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
 import 'services/response_cache.dart';
-import 'services/selected_people_group_controller.dart';
+import 'services/subscribed_people_groups_controller.dart';
 import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
 import 'theme/app_theme.dart';
@@ -45,8 +45,11 @@ Future<void> main() async {
     );
   }
   await initRemindersNotifications();
+  // The subscription list first and on its own: loadReminders() adopts the
+  // active group for any reminder stored before reminders belonged to a group,
+  // so it cannot race this.
+  await loadPeopleGroups();
   await Future.wait([
-    loadSelectedPeopleGroup(),
     refreshPrayedToday(),
     loadReminders(),
     loadWizardCompleted(),

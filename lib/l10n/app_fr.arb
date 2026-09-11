@@ -1,4 +1,18 @@
 {
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "@addPeopleGroup": {
+        "description": "Button that subscribes the user to a people group"
+    },
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
@@ -36,6 +50,12 @@
     },
     "@bibleTranslation": {
         "description": "The label of the bible translation field"
+    },
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
     },
     "@clearSearchLabel": {
         "description": "Accessibility label for the button that clears the search field"
@@ -236,11 +256,49 @@
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
     },
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
     "@notNow": {
         "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "@pictureCreditLabel": {
         "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@prayerRecordedAnnouncement": {
         "description": "Screen-reader announcement made after a prayer session is successfully recorded"
@@ -248,8 +306,13 @@
     "@prayForPeopleGroupLabel": {
         "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
+    },
+    "@praying": {
+        "description": "State of the add button when the user already prays for this people group"
     },
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
@@ -257,6 +320,36 @@
             "count": {
                 "format": "compact",
                 "type": "num"
+            }
+        }
+    },
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
             }
         }
     },
@@ -287,6 +380,20 @@
     },
     "@resendVerificationFailed": {
         "description": "SnackBar shown when resending the verification email fails"
+    },
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@viewProfile": {
         "description": "Button in settings that opens the user's profile page on the web"
@@ -594,6 +701,9 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "addAnotherPeopleGroup": "Ajouter un autre peuple",
+    "addPeopleGroup": "Ajouter",
+    "addPeopleGroupConfirm": "Voulez-vous commencer à prier pour « {name} » ?",
     "adoptionStatus": "Statut d'adoption",
     "allow": "Autoriser",
     "allowExactAlarms": "Autoriser les alarmes exactes",
@@ -605,6 +715,8 @@
     "back": "Retour",
     "bibleStories": "Histoires bibliques",
     "bibleTranslation": "Traduction de la Bible",
+    "cancel": "Annuler",
+    "choosePeopleGroup": "Choisir un peuple",
     "clearSearchLabel": "Effacer la recherche",
     "continueLabel": "Continuer",
     "couldNotLoadPeopleGroupDetailsMessage": "Impossible de charger les informations relatives au peuple.",
@@ -664,17 +776,31 @@
     "accountSectionTitle": "Votre compte",
     "emailVerified": "Vérifié",
     "emailUnverified": "Non vérifié",
+    "nextReminderForGroup": "{time} pour « {name} »",
+    "noPeopleGroupsForReminder": "Choisissez un peuple avant de définir un rappel.",
     "notNow": "Pas maintenant",
+    "peopleGroupLimitBody": "C'est le maximum pour lequel vous pouvez prier à la fois. Pour ajouter « {name} », choisissez un peuple pour lequel cesser de prier.",
+    "peopleGroupLimitTitle": "Vous priez pour {count} peuples",
     "pictureCreditLabel": "Crédit photo",
+    "prayForNextGroup": "Prier pour « {name} »",
     "prayerRecordedAnnouncement": "Prière enregistrée",
     "prayForPeopleGroupLabel": "Prier pour « {peopleGroup} »",
+    "praying": "En prière",
     "prayingWithYou": "{count, plural, =1{1 personne prie avec vous en ce moment} other{{count} personnes prient avec vous en ce moment}}",
+    "reminderNotificationBodyForGroup": "Ouvrez Doxa pour prier pour « {name} ».",
+    "reminderPeopleGroup": "Peuple",
+    "removePeopleGroupBody": "Il sera retiré de votre écran d'accueil. Vous pourrez l'ajouter à nouveau à tout moment.",
+    "removePeopleGroupReminders": "{count, plural, =1{Son rappel sera supprimé.} other{Ses {count} rappels seront supprimés.}}",
+    "removePeopleGroupTitle": "Cesser de prier pour « {name} » ?",
     "resendVerification": "Renvoyer l'e-mail de vérification",
     "resendVerificationSent": "E-mail de vérification envoyé. Vérifiez votre boîte de réception.",
     "resendVerificationCooldown": "Veuillez patienter {seconds} s avant de demander un autre e-mail.",
     "resendVerificationCountdown": "Renvoyer dans {seconds} s",
     "signUp": "S'inscrire",
     "resendVerificationFailed": "Impossible d'envoyer l'e-mail. Veuillez réessayer.",
+    "stopPraying": "Cesser de prier",
+    "swapPeopleGroupAction": "Remplacer",
+    "switchToPeopleGroup": "Passer à « {name} »",
     "viewProfile": "Voir le profil",
     "emailsLoadError": "Impossible de charger vos adresses e-mail.",
     "nextDay": "Jour suivant",

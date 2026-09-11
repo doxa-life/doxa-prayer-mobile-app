@@ -12,7 +12,7 @@ import 'locale_controller.dart';
 import 'news_signup_service.dart';
 import 'people_groups_service.dart';
 import 'referral_controller.dart';
-import 'selected_people_group_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 import 'wizard_completion_controller.dart';
 
 enum WizardStep {
@@ -244,7 +244,7 @@ class WizardController extends ChangeNotifier {
   /// Registers the selected people group's prayer subscription. Best-effort: a
   /// failure is logged and swallowed so onboarding is never blocked by it.
   Future<void> _submitPeopleGroupSignup(NewsSignupData? newsSignup) async {
-    final slug = selectedPeopleGroupController.value?.slug;
+    final slug = activePeopleGroup?.slug;
     if (slug == null || slug.isEmpty) return;
     try {
       await submitAnonSignup(

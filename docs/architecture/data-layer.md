@@ -14,20 +14,21 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | Method | Path | Cached | TTL | Bg refresh | Built in |
 | --- | --- | --- | --- | --- | --- |
 | GET | `/api/app/version` | — | — | — | `version_check_service.dart:39` |
-| POST | `/api/collect/app` | — | — | — | `analytics_service.dart:84` |
+| POST | `/api/collect/app` | — | — | — | `analytics_service.dart:82` |
 | POST | `/api/feedback` | — | — | — | `feedback_service.dart:64` |
 | POST | `/api/news-signup` | — | — | — | `news_signup_service.dart:25` |
 | GET | `/api/people-groups/detail/{slug}` | yes | 7 days (`peopleGroupDetail`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:67` |
 | GET | `/api/people-groups/list` | yes | 7 days (`peopleGroupList`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:43` |
 | GET | `/api/people-groups/statistics` | — | — | — | `prayer_stats_service.dart:21` |
-| POST | `/api/people-groups/{slug}/anon-signup` | — | — | — | `anon_signup_service.dart:38` |
+| POST | `/api/people-groups/{slug}/anon-signup` | — | — | — | `anon_signup_service.dart:43` |
 | GET | `/api/people-groups/{slug}/prayer-content/{date}` | yes | 30 days (`prayerContent`) | — | `prayer_content_service.dart:43` |
 | POST | `/api/people-groups/{slug}/prayer-content/{date}/session` | — | — | — | `prayer_content_service.dart:91` |
+| POST | `/api/people-groups/{slug}/unsubscribe` | — | — | — | `unsubscribe_service.dart:38` |
 | GET | `/api/profile/{profileId}` | — | — | — | `profile_service.dart:44`<br>`profile_service.dart:63` |
-| PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:38` |
+| PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:44` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
 | POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:164` |
-| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:101` |
+| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:102` |
 | LINK | `/subscriber` | — | — | — | `profile_service.dart:127` |
 
 `LINK` rows are URIs built for sharing or opening in a browser — they are never requested by the app.
@@ -48,8 +49,9 @@ The reverse index: change an endpoint, and these are the actions to retest.
 | `POST /api/people-groups/{slug}/anon-signup` | News step → Sign up; News step → Skip; Group details → pray for this group |
 | `GET /api/people-groups/{slug}/prayer-content/{date}` | Cold start; Open the Pray tab; Open a /<slug>/prayer link |
 | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | Open the Pray tab; Tap Amen; Leave the Pray tab without tapping Amen |
+| `POST /api/people-groups/{slug}/unsubscribe` | Group details → stop praying for this group |
 | `GET /api/profile/{profileId}` | Settings → view signed-up emails; Send feedback |
-| `PUT /api/profile/{profileId}` | Group details → pray for this group; Add or edit a reminder |
+| `PUT /api/profile/{profileId}` | Add or edit a reminder |
 | `POST /api/profile/{profileId}/resend-verification` | Settings → Resend verification email |
 | `POST /api/push/register` | News step → Sign up; Add or edit a reminder; Settings → Sign up for updates → Sign up; Enable notifications (prompt or settings row) |
 
@@ -80,17 +82,20 @@ Language is part of every content cache key, which is why switching language inv
 
 | Key | Constant | Declared in | Written by |
 | --- | --- | --- | --- |
+| `active_people_group_slug` | `_activeSlugKey` | [subscribed_people_groups_controller.dart:98](../../lib/services/subscribed_people_groups_controller.dart#L98) | Cold start; Confirm a people group; Group details → pray for this group; Group details → stop praying for this group |
 | `app_locale_language_code` | `_storageKey` | [locale_controller.dart:25](../../lib/services/locale_controller.dart#L25) | Change language |
 | `identity_profile_id` | `_profileIdKey` | [identity_service.dart:17](../../lib/services/identity_service.dart#L17) | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
-| `identity_subscription_id` | `_subscriptionIdKey` | [identity_service.dart:18](../../lib/services/identity_service.dart#L18) | News step → Sign up; News step → Skip; Group details → pray for this group |
+| `identity_subscription_id` | `_legacySubscriptionIdKey` | [subscribed_people_groups_controller.dart:104](../../lib/services/subscribed_people_groups_controller.dart#L104) | News step → Sign up; News step → Skip |
+| `identity_subscription_id` | `_subscriptionIdKey` | [identity_service.dart:18](../../lib/services/identity_service.dart#L18) | News step → Sign up; News step → Skip |
 | `identity_tracking_id` | `_trackingIdKey` | [identity_service.dart:16](../../lib/services/identity_service.dart#L16) | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
 | `install_referrer_checked` | `_checkedFlagKey` | [install_referrer_service.dart:14](../../lib/services/install_referrer_service.dart#L14) | Cold start |
+| `people_group_subscriptions` | `_subscriptionsKey` | [subscribed_people_groups_controller.dart:97](../../lib/services/subscribed_people_groups_controller.dart#L97) | Cold start; Confirm a people group; Group details → pray for this group; Group details → stop praying for this group |
 | `prayer_history` | `_historyKey` | [prayer_history_service.dart:7](../../lib/services/prayer_history_service.dart#L7) | Tap Amen; Leave the Pray tab without tapping Amen |
 | `referred_people_group_slug` | `_referredSlugKey` | [referral_controller.dart:15](../../lib/services/referral_controller.dart#L15) | Cold start; Welcome → Start; Open an /app/<slug> share link |
-| `reminders` | `_storageKey` | [reminders_controller.dart:8](../../lib/services/reminders_controller.dart#L8) | Reminder step → Save; Add or edit a reminder |
-| `selected_people_group_image_url` | `_imageUrlKey` | [selected_people_group_controller.dart:18](../../lib/services/selected_people_group_controller.dart#L18) | Confirm a people group; Group details → pray for this group |
-| `selected_people_group_name` | `_nameKey` | [selected_people_group_controller.dart:17](../../lib/services/selected_people_group_controller.dart#L17) | Confirm a people group; Group details → pray for this group |
-| `selected_people_group_slug` | `_slugKey` | [selected_people_group_controller.dart:16](../../lib/services/selected_people_group_controller.dart#L16) | Confirm a people group; Group details → pray for this group |
+| `reminders` | `_storageKey` | [reminders_controller.dart:9](../../lib/services/reminders_controller.dart#L9) | Reminder step → Save; Group details → stop praying for this group; Add or edit a reminder |
+| `selected_people_group_image_url` | `_legacyImageUrlKey` | [subscribed_people_groups_controller.dart:103](../../lib/services/subscribed_people_groups_controller.dart#L103) | Cold start |
+| `selected_people_group_name` | `_legacyNameKey` | [subscribed_people_groups_controller.dart:102](../../lib/services/subscribed_people_groups_controller.dart#L102) | Cold start |
+| `selected_people_group_slug` | `_legacySlugKey` | [subscribed_people_groups_controller.dart:101](../../lib/services/subscribed_people_groups_controller.dart#L101) | Cold start |
 | `thank_you_verse_index` | `_indexKey` | [thank_you_verse_service.dart:8](../../lib/services/thank_you_verse_service.dart#L8) | Tap Amen |
 | `update_dismissed_version` | `_dismissedVersionKey` | [update_controller.dart:13](../../lib/services/update_controller.dart#L13) | Dismiss the optional update banner |
 | `update_snooze_until` | `_snoozeUntilKey` | [update_controller.dart:14](../../lib/services/update_controller.dart#L14) | Dismiss the optional update banner |

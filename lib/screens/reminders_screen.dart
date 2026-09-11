@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/layouts/fill_viewport_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/buttons/action_button.dart';
 import '../components/cards/reminder_card.dart';
@@ -13,6 +14,7 @@ import '../layouts/page_scaffold.dart';
 import '../services/reminders_controller.dart';
 import '../services/reminders_format.dart';
 import '../services/reminders_notifications.dart';
+import '../services/subscribed_people_groups_controller.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
@@ -26,13 +28,21 @@ class RemindersScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: PageContainer(child: _buildReminders(context, l)),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showReminderEditor(context),
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
-        shape: const CircleBorder(),
-        tooltip: l.newReminder,
-        child: const PlusIcon(color: AppColors.onPrimary, size: 24),
+      // No people groups means no reminder can be created — every reminder
+      // belongs to one. The empty state offers the way out instead.
+      floatingActionButton: ValueListenableBuilder<SubscribedPeopleGroups>(
+        valueListenable: peopleGroupsController,
+        builder: (context, groups, _) {
+          if (groups.isEmpty) return const SizedBox.shrink();
+          return FloatingActionButton(
+            onPressed: () => showReminderEditor(context),
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.onPrimary,
+            shape: const CircleBorder(),
+            tooltip: l.newReminder,
+            child: const PlusIcon(color: AppColors.onPrimary, size: 24),
+          );
+        },
       ),
     );
   }
@@ -52,65 +62,96 @@ class RemindersScreen extends StatelessWidget {
   }
 
   Widget _buildReminders(BuildContext context, AppLocalizations l) {
-    return ValueListenableBuilder<Reminders?>(
-      valueListenable: remindersController,
-      builder: (context, reminders, _) {
-        final list = reminders?.list ?? const <Reminder>[];
-        if (list.isEmpty) {
-          // Fills the viewport (message centered in the remaining space)
-          // and scrolls when the banner alone is taller than the screen.
-          return FillViewportScrollView(
-            padKeyboardInset: false,
-            builder: (context, _) => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              // Equal slack above and below the message centres it in the
-              // space left under the banner, without a flex child.
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildBanner(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
-                  child: HyphenatedText(
-                    l.noRemindersYet,
+    return ValueListenableBuilder<SubscribedPeopleGroups>(
+      valueListenable: peopleGroupsController,
+      builder: (context, groups, _) => ValueListenableBuilder<Reminders?>(
+        valueListenable: remindersController,
+        builder: (context, reminders, _) =>
+            _buildList(context, l, groups, reminders),
+      ),
+    );
+  }
+
+  Widget _buildList(
+    BuildContext context,
+    AppLocalizations l,
+    SubscribedPeopleGroups groups,
+    Reminders? reminders,
+  ) {
+    // Sorted by time: the screen answers "when do I get reminded?", and the
+    // group name on each card carries the grouping.
+    final list = [...(reminders?.list ?? const <Reminder>[])]
+      ..sort(
+        (a, b) => (a.hour * 60 + a.minute).compareTo(b.hour * 60 + b.minute),
+      );
+    if (list.isEmpty) {
+      // Fills the viewport (message centered in the remaining space)
+      // and scrolls when the banner alone is taller than the screen.
+      return FillViewportScrollView(
+        padKeyboardInset: false,
+        builder: (context, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // Equal slack above and below the message centres it in the
+          // space left under the banner, without a flex child.
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildBanner(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxl),
+              child: Column(
+                children: [
+                  HyphenatedText(
+                    groups.isEmpty
+                        ? l.noPeopleGroupsForReminder
+                        : l.noRemindersYet,
                     style: AppTypography.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox.shrink(),
-              ],
-            ),
-          );
-        }
-        return ListView(
-          // Bottom padding keeps the last reminder clear of the FAB.
-          padding: const EdgeInsets.only(bottom: 96),
-          children: [
-            _buildBanner(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: AppSpacing.xxl,
-              children: [
-                H1(l.reminders),
-                Column(
-                  children: [
-                    for (final r in list)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                        child: ReminderCard(
-                          time: formatReminderTime(context, r),
-                          daysSummary: formatReminderDays(context, r),
-                          enabled: r.enabled,
-                          onToggle: (v) => setReminderEnabled(r.id, v),
-                          onTap: () => showReminderEditor(context, existing: r),
-                        ),
-                      ),
+                  if (groups.isEmpty) ...[
+                    const SizedBox(height: AppSpacing.xl),
+                    ActionButton(
+                      label: l.choosePeopleGroup,
+                      color: ActionButtonColor.secondary,
+                      onPressed: () => context.go('/people-groups'),
+                    ),
                   ],
-                ),
+                ],
+              ),
+            ),
+            const SizedBox.shrink(),
+          ],
+        ),
+      );
+    }
+    return ListView(
+      // Bottom padding keeps the last reminder clear of the FAB.
+      padding: const EdgeInsets.only(bottom: 96),
+      children: [
+        _buildBanner(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: AppSpacing.xxl,
+          children: [
+            H1(l.reminders),
+            Column(
+              children: [
+                for (final r in list)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                    child: ReminderCard(
+                      peopleGroupName: groups.bySlug(r.slug)?.name,
+                      time: formatReminderTime(context, r),
+                      daysSummary: formatReminderDays(context, r),
+                      enabled: r.enabled,
+                      onToggle: (v) => setReminderEnabled(r.id, v),
+                      onTap: () => showReminderEditor(context, existing: r),
+                    ),
+                  ),
               ],
             ),
           ],
-        );
-      },
+        ),
+      ],
     );
   }
 }
