@@ -686,4 +686,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String switchToPeopleGroup(String name) {
     return 'Перейти к народу «$name»';
   }
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String mapOf(String name) {
+    return 'Map of $name';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'Nearby people groups';
+
+  @override
+  String get recentreMap => 'Recentre map';
+
+  @override
+  String get mapUnavailableOffline => 'Map images unavailable offline';
+
+  @override
+  String get couldNotLoadMapMessage => 'Could not load the map.';
+
+  @override
+  String get prayingForThisGroup => 'You\'re praying for this group';
 }

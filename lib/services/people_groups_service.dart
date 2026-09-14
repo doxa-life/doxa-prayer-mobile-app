@@ -6,14 +6,29 @@ import '../models/people_group.dart';
 import '../models/people_group_detail.dart';
 import 'api_config.dart';
 import 'cache_policy.dart';
+import 'people_group_locations.dart';
 import 'response_cache.dart';
 
-const _listFields = 'name,slug,image_url,country_code,religion,people_praying';
+// `latitude,longitude` are here for the people-group map, not the browse
+// list: the map draws every group as a pin and reads them straight off this
+// cached list, so no second request is needed. They add roughly 60 KB to an
+// ~850 KB response.
+const _listFields =
+    'name,slug,image_url,country_code,religion,people_praying,latitude,longitude';
+
+/// Bumped whenever [_listFields] changes. The cached body is a *projection* of
+/// the people group, not the whole record, so a build that asks for a new field
+/// must not be served the old body that lacks it — which is what happened when
+/// the map's `latitude,longitude` were added: existing installs kept serving a
+/// coordinate-less list for the rest of its 7-day TTL, and the map button never
+/// appeared. Old files are swept by `maxResponseAge`.
+const String _listFieldsRevision = 'v2';
 
 /// Cache keys are exposed so a screen can peek the in-memory cache before its
 /// first frame (see `CachedDataBuilder`); they must match what the fetch below
 /// stores under.
-String peopleGroupListCacheKey(String lang) => 'pg-list-$lang';
+String peopleGroupListCacheKey(String lang) =>
+    'pg-list-$lang-$_listFieldsRevision';
 
 String peopleGroupDetailCacheKey(String slug, String lang) =>
     'pg-detail-$slug-$lang';
@@ -25,9 +40,14 @@ String peopleGroupDetailCacheKey(String slug, String lang) =>
 Future<List<PeopleGroup>> _parseList(String body) async {
   final json = await compute(jsonDecode, body) as Map<String, dynamic>;
   final posts = json['posts'] as List<dynamic>;
-  return posts
+  final groups = posts
       .map((e) => PeopleGroup.fromJson(e as Map<String, dynamic>))
       .toList(growable: false);
+  // Every path that decodes the list — fetch, background refresh and the
+  // startup warm — lands here, so this is the one place that has to publish
+  // the coordinates the home cards and the map read.
+  publishPeopleGroupLocations(groups);
+  return groups;
 }
 
 /// The UUPG browse list in [lang], cached on disk for

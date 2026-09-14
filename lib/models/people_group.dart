@@ -6,6 +6,8 @@ class PeopleGroup {
     required this.countryLabel,
     required this.religionLabel,
     required this.peoplePraying,
+    this.latitude,
+    this.longitude,
   });
 
   final String name;
@@ -14,6 +16,24 @@ class PeopleGroup {
   final String? countryLabel;
   final String? religionLabel;
   final int peoplePraying;
+
+  /// Where the group sits on the map, in degrees. Null for a group the API has
+  /// no location for — every group has one today, but the columns are nullable
+  /// server-side, so the map button is hidden rather than assuming.
+  final double? latitude;
+  final double? longitude;
+
+  bool get hasLocation => latitude != null && longitude != null;
+
+  /// The API returns the coordinates as decimal *strings*
+  /// (`"5.68736400"`), not numbers — they come straight off a Postgres
+  /// NUMERIC column. Accepts either shape so a future change to the response
+  /// doesn't silently drop every pin.
+  static double? _coordinate(dynamic value) {
+    if (value is num) return value.toDouble();
+    if (value is String) return double.tryParse(value);
+    return null;
+  }
 
   static PeopleGroup fromJson(Map<String, dynamic> json) {
     final country = json['country_code'];
@@ -29,6 +49,8 @@ class PeopleGroup {
           ? religion['label'] as String?
           : null,
       peoplePraying: (json['people_praying'] as num?)?.toInt() ?? 0,
+      latitude: _coordinate(json['latitude']),
+      longitude: _coordinate(json['longitude']),
     );
   }
 }

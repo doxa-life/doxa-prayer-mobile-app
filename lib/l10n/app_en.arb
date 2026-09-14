@@ -881,5 +881,38 @@
                 "type": "String"
             }
         }
+    },
+  "map": "Map",
+  "@map": {
+    "description": "Button on the people group card that opens the map of where the group lives"
+  },
+  "mapOf": "Map of {name}",
+  "@mapOf": {
+    "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
     }
+  },
+  "nearbyPeopleGroups": "Nearby people groups",
+  "@nearbyPeopleGroups": {
+    "description": "Accessibility description of the other pins shown around the focused people group"
+  },
+  "recentreMap": "Recentre map",
+  "@recentreMap": {
+    "description": "Button that moves the map back to the people group it opened on"
+  },
+  "mapUnavailableOffline": "Map images unavailable offline",
+  "@mapUnavailableOffline": {
+    "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+  },
+  "couldNotLoadMapMessage": "Could not load the map.",
+  "@couldNotLoadMapMessage": {
+    "description": "Error shown when the people-group list the map needs could not be loaded"
+  },
+  "prayingForThisGroup": "You're praying for this group",
+  "@prayingForThisGroup": {
+    "description": "Shown on a map pin's card when the tapped people group is one the user has subscribed to"
+  }
 }

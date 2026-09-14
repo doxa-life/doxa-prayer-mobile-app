@@ -1209,6 +1209,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Switch to {name}'**
   String switchToPeopleGroup(String name);
+
+  /// Button on the people group card that opens the map of where the group lives
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// Accessibility label for the people-group map. {name} is the people group being shown.
+  ///
+  /// In en, this message translates to:
+  /// **'Map of {name}'**
+  String mapOf(String name);
+
+  /// Accessibility description of the other pins shown around the focused people group
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby people groups'**
+  String get nearbyPeopleGroups;
+
+  /// Button that moves the map back to the people group it opened on
+  ///
+  /// In en, this message translates to:
+  /// **'Recentre map'**
+  String get recentreMap;
+
+  /// Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown
+  ///
+  /// In en, this message translates to:
+  /// **'Map images unavailable offline'**
+  String get mapUnavailableOffline;
+
+  /// Error shown when the people-group list the map needs could not be loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the map.'**
+  String get couldNotLoadMapMessage;
+
+  /// Shown on a map pin's card when the tapped people group is one the user has subscribed to
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re praying for this group'**
+  String get prayingForThisGroup;
 }
 
 class _AppLocalizationsDelegate

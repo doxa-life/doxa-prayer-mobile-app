@@ -30,6 +30,14 @@ class CachePolicy {
   /// place, so the user never waits for it.
   static const Duration peopleGroupCounts = Duration(hours: 1);
 
+  /// Mapbox map tiles, held on disk by `map_tile_cache_manager.dart`.
+  ///
+  /// Days, not weeks: Mapbox's terms allow caching tiles to make the map fast,
+  /// not to build a persistent offline map out of them. Long enough that
+  /// reopening the same group's map in the same week is instant and works
+  /// without a connection.
+  static const Duration mapTiles = Duration(days: 3);
+
   /// The longest of the response TTLs — how far back the startup sweep in
   /// `response_cache.dart` keeps files before deleting them.
   static const Duration maxResponseAge = prayerContent;

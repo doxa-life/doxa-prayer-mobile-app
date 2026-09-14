@@ -17,8 +17,8 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | POST | `/api/collect/app` | — | — | — | `analytics_service.dart:82` |
 | POST | `/api/feedback` | — | — | — | `feedback_service.dart:64` |
 | POST | `/api/news-signup` | — | — | — | `news_signup_service.dart:25` |
-| GET | `/api/people-groups/detail/{slug}` | yes | 7 days (`peopleGroupDetail`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:67` |
-| GET | `/api/people-groups/list` | yes | 7 days (`peopleGroupList`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:43` |
+| GET | `/api/people-groups/detail/{slug}` | yes | 7 days (`peopleGroupDetail`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:87` |
+| GET | `/api/people-groups/list` | yes | 7 days (`peopleGroupList`) | 1 hour (`peopleGroupCounts`) | `people_groups_service.dart:63` |
 | GET | `/api/people-groups/statistics` | — | — | — | `prayer_stats_service.dart:21` |
 | POST | `/api/people-groups/{slug}/anon-signup` | — | — | — | `anon_signup_service.dart:43` |
 | GET | `/api/people-groups/{slug}/prayer-content/{date}` | yes | 30 days (`prayerContent`) | — | `prayer_content_service.dart:43` |
@@ -28,7 +28,7 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:44` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
 | POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:164` |
-| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:102` |
+| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:103` |
 | LINK | `/subscriber` | — | — | — | `profile_service.dart:127` |
 
 `LINK` rows are URIs built for sharing or opening in a browser — they are never requested by the app.
@@ -66,6 +66,7 @@ Every entry is a *soft* expiry: past it the app refetches, but a failed refetch 
 | `peopleGroupList` | 7 days | The UUPG (unreached people group) browse list. |
 | `peopleGroupDetail` | 7 days | One people group's detail page. |
 | `peopleGroupCounts` | 1 hour | How long a people-group payload may go without a background refresh.  The list and detail responses carry the people-praying and people-committed counts, which move as others pray and shouldn't sit frozen for the whole 7 days. Past this the cached copy is still shown immediately — the refresh happens behind it and the counts update in place, so the user never waits for it. |
+| `mapTiles` | 3 days | Mapbox map tiles, held on disk by `map_tile_cache_manager.dart`.  Days, not weeks: Mapbox's terms allow caching tiles to make the map fast, not to build a persistent offline map out of them. Long enough that reopening the same group's map in the same week is instant and works without a connection. |
 | `maxResponseAge` | prayerContent | The longest of the response TTLs — how far back the startup sweep in `response_cache.dart` keeps files before deleting them. |
 
 ## Cache keys
@@ -116,6 +117,8 @@ Cached API responses are not in SharedPreferences — they are files under the r
 | `pray-deep-link` | `/:slug/prayer` |
 | `pray-deep-link-dated` | `/:slug/prayer/:date` |
 | `people-group-details` | `/people-groups/:slug` |
+| `people-group-map` | `/people-groups/:slug/map` |
+| `people-group-prayer` | `/people-groups/:slug/pray` |
 | `settings` | `/settings` |
 | `settings-news-signup` | `/settings/news-signup` |
 | `settings-notifications` | `/settings/notifications` |

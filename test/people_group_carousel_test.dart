@@ -34,6 +34,7 @@ Future<void> _pump(
             onDetails: (_) {},
             onShare: (_) {},
             onShowQr: (_) {},
+            onMap: (_) {},
             onAdd: () {},
           ),
         ),

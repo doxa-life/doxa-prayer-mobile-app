@@ -84,6 +84,15 @@ dependencies:
   # (services/response_cache.dart). Already present transitively; declared here
   # because it is used directly.
   path_provider: ^2.1.5
+  # The people-group map (screens/people_group_map_screen.dart). Pure Dart —
+  # no native map SDK — so it adds nothing to the iOS/Android build. Tiles come
+  # from Mapbox (services/map_config.dart); the pins are painted onto a single
+  # canvas by components/map/people_group_pin_layer.dart rather than being
+  # widgets, so all ~2,100 groups can be on the map at once.
+  flutter_map: ^8.3.2
+  # flutter_map's coordinate type. Declared directly because the map data
+  # helpers and pin layer use LatLng themselves.
+  latlong2: ^0.10.1
 
 dev_dependencies:
   flutter_test:

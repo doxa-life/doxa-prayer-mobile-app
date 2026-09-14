@@ -80,6 +80,7 @@ class HomeScreen extends StatelessWidget {
             url: _shareLink(g.slug),
             peopleGroupName: g.name,
           ),
+          onMap: (g) => context.push('/people-groups/${g.slug}/map'),
           onAdd: () => context.go('/people-groups'),
         );
       },

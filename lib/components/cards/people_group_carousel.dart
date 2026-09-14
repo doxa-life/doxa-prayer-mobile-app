@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/people_group_locations.dart';
 import '../../services/prayer_history_service.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_spacing.dart';
@@ -24,6 +25,7 @@ class PeopleGroupCarousel extends StatefulWidget {
     required this.onDetails,
     required this.onShare,
     required this.onShowQr,
+    required this.onMap,
     required this.onAdd,
   });
 
@@ -33,6 +35,7 @@ class PeopleGroupCarousel extends StatefulWidget {
   final ValueChanged<SubscribedPeopleGroup> onDetails;
   final ValueChanged<SubscribedPeopleGroup> onShare;
   final ValueChanged<SubscribedPeopleGroup> onShowQr;
+  final ValueChanged<SubscribedPeopleGroup> onMap;
   final VoidCallback onAdd;
 
   @override
@@ -127,44 +130,53 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
         return ValueListenableBuilder<Set<String>>(
           valueListenable: prayedTodayController,
           builder: (context, prayedSlugs, _) {
-            return SingleChildScrollView(
-              controller: _controller,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: _gutter,
-                vertical: _gutter,
-              ),
-              // A Row (rather than a horizontal ListView) keeps the carousel's
-              // height intrinsic, so a card that grows at a large font scale is
-              // not clipped by a height guessed here. IntrinsicHeight is what
-              // makes `stretch` legal: the home screen leaves our height
-              // unbounded, and stretching against that forces an infinite
-              // height. It measures the tallest card and gives every card that
-              // height, so the cards line up without one being guessed.
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: _gap,
-                  children: [
-                    for (final group in widget.groups)
-                      SizedBox(
-                        width: cardWidth,
-                        child: PeopleGroupCard(
-                          name: group.name,
-                          imageUrl: group.imageUrl ?? '',
-                          prayedToday: prayedSlugs.contains(group.slug),
-                          onPray: () => widget.onPray(group),
-                          onDetails: () => widget.onDetails(group),
-                          onShare: () => widget.onShare(group),
-                          onShowQr: () => widget.onShowQr(group),
+            // Which groups the app knows a location for, and so can show a map
+            // button for. Empty until the UUPG list has been read from the disk
+            // cache, which normally happens during startup warming.
+            return ValueListenableBuilder<Set<String>>(
+              valueListenable: mappablePeopleGroupSlugs,
+              builder: (context, mappableSlugs, _) => SingleChildScrollView(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _gutter,
+                  vertical: _gutter,
+                ),
+                // A Row (rather than a horizontal ListView) keeps the carousel's
+                // height intrinsic, so a card that grows at a large font scale is
+                // not clipped by a height guessed here. IntrinsicHeight is what
+                // makes `stretch` legal: the home screen leaves our height
+                // unbounded, and stretching against that forces an infinite
+                // height. It measures the tallest card and gives every card that
+                // height, so the cards line up without one being guessed.
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: _gap,
+                    children: [
+                      for (final group in widget.groups)
+                        SizedBox(
+                          width: cardWidth,
+                          child: PeopleGroupCard(
+                            name: group.name,
+                            imageUrl: group.imageUrl ?? '',
+                            prayedToday: prayedSlugs.contains(group.slug),
+                            onPray: () => widget.onPray(group),
+                            onDetails: () => widget.onDetails(group),
+                            onShare: () => widget.onShare(group),
+                            onShowQr: () => widget.onShowQr(group),
+                            onMap: mappableSlugs.contains(group.slug)
+                                ? () => widget.onMap(group)
+                                : null,
+                          ),
                         ),
-                      ),
-                    if (widget.groups.length < kMaxPeopleGroups)
-                      SizedBox(
-                        width: cardWidth,
-                        child: AddPeopleGroupCard(onTap: widget.onAdd),
-                      ),
-                  ],
+                      if (widget.groups.length < kMaxPeopleGroups)
+                        SizedBox(
+                          width: cardWidth,
+                          child: AddPeopleGroupCard(onTap: widget.onAdd),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             );

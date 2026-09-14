@@ -22,6 +22,7 @@ class PeopleGroupCard extends StatelessWidget {
     this.onShare,
     this.onShowQr,
     this.onDetails,
+    this.onMap,
   });
 
   final String name;
@@ -31,6 +32,11 @@ class PeopleGroupCard extends StatelessWidget {
   final VoidCallback? onShare;
   final VoidCallback? onShowQr;
   final VoidCallback? onDetails;
+
+  /// Opens the map of where this group lives. Null — and so hidden — when the
+  /// app has no coordinates for the group, which in practice means the UUPG
+  /// list hasn't been cached yet.
+  final VoidCallback? onMap;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +89,12 @@ class PeopleGroupCard extends StatelessWidget {
                     icon: const AppIcon(AppIconName.qrCode),
                     label: l.qrCode,
                     onPressed: onShowQr,
+                  ),
+                if (onMap != null)
+                  IconLabelButton(
+                    icon: const AppIcon(AppIconName.geoAlt),
+                    label: l.map,
+                    onPressed: onMap,
                   ),
               ],
             ),
