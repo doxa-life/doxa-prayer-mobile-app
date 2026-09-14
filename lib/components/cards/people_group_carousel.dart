@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../services/map_config.dart';
 import '../../services/people_group_locations.dart';
 import '../../services/prayer_history_service.dart';
 import '../../services/subscribed_people_groups_controller.dart';
@@ -130,12 +131,12 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
         return ValueListenableBuilder<Set<String>>(
           valueListenable: prayedTodayController,
           builder: (context, prayedSlugs, _) {
-            // Which groups the app knows a location for, and so can show a map
-            // button for. Empty until the UUPG list has been read from the disk
-            // cache, which normally happens during startup warming.
-            return ValueListenableBuilder<Set<String>>(
-              valueListenable: mappablePeopleGroupSlugs,
-              builder: (context, mappableSlugs, _) => SingleChildScrollView(
+            // Which groups are known to have coordinates — null while the UUPG
+            // list hasn't been read yet, which canMapPeopleGroup treats as
+            // "show the button and let the map screen fetch".
+            return ValueListenableBuilder<Set<String>?>(
+              valueListenable: peopleGroupSlugsWithLocation,
+              builder: (context, locatedSlugs, _) => SingleChildScrollView(
                 controller: _controller,
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
@@ -165,7 +166,8 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
                             onDetails: () => widget.onDetails(group),
                             onShare: () => widget.onShare(group),
                             onShowQr: () => widget.onShowQr(group),
-                            onMap: mappableSlugs.contains(group.slug)
+                            showMap: MapConfig.isConfigured,
+                            onMap: canMapPeopleGroup(group.slug, locatedSlugs)
                                 ? () => widget.onMap(group)
                                 : null,
                           ),

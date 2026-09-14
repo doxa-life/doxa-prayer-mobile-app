@@ -23,6 +23,7 @@ class PeopleGroupCard extends StatelessWidget {
     this.onShowQr,
     this.onDetails,
     this.onMap,
+    this.showMap = false,
   });
 
   final String name;
@@ -33,10 +34,14 @@ class PeopleGroupCard extends StatelessWidget {
   final VoidCallback? onShowQr;
   final VoidCallback? onDetails;
 
-  /// Opens the map of where this group lives. Null — and so hidden — when the
-  /// app has no coordinates for the group, which in practice means the UUPG
-  /// list hasn't been cached yet.
+  /// Opens the map of where this group lives. Null leaves the button in place
+  /// but disabled, labelled to say the group's location isn't available —
+  /// a card that silently loses a button its neighbours have looks broken.
   final VoidCallback? onMap;
+
+  /// Whether the map button belongs on this card at all. False in a build with
+  /// no Mapbox token, where there is no map to offer.
+  final bool showMap;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +95,10 @@ class PeopleGroupCard extends StatelessWidget {
                     label: l.qrCode,
                     onPressed: onShowQr,
                   ),
-                if (onMap != null)
+                if (showMap)
                   IconLabelButton(
                     icon: const AppIcon(AppIconName.geoAlt),
-                    label: l.map,
+                    label: onMap == null ? l.locationNotAvailable : l.map,
                     onPressed: onMap,
                   ),
               ],

@@ -17,14 +17,19 @@ class IconLabelButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
 
+  bool get _enabled => onPressed != null;
+
   @override
   Widget build(BuildContext context) {
     return MergeSemantics(
-      child: Semantics(button: true, child: _build(context)),
+      child: Semantics(button: true, enabled: _enabled, child: _build(context)),
     );
   }
 
   Widget _build(BuildContext context) {
+    // A button with no callback is inert either way; muting it is what tells
+    // the user that, rather than leaving it looking tappable.
+    final tint = _enabled ? AppColors.primary : AppColors.primaryLight;
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(12),
@@ -37,13 +42,13 @@ class IconLabelButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             IconTheme.merge(
-              data: const IconThemeData(color: AppColors.primary, size: 28),
+              data: IconThemeData(color: tint, size: 28),
               child: icon,
             ),
             const SizedBox(height: 6),
             HyphenatedText(
               label.toUpperCase(),
-              style: AppTypography.caption.copyWith(color: AppColors.primary),
+              style: AppTypography.caption.copyWith(color: tint),
               textAlign: TextAlign.center,
             ),
           ],

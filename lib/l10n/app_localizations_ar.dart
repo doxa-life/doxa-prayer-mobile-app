@@ -704,14 +704,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get nearbyPeopleGroups => 'Nearby people groups';
 
   @override
-  String get recentreMap => 'Recentre map';
+  String get recenter => 'Recenter';
 
   @override
   String get mapUnavailableOffline => 'Map images unavailable offline';
 
   @override
-  String get couldNotLoadMapMessage => 'Could not load the map.';
+  String get locationNotAvailable => 'Location not available';
 
   @override
-  String get prayingForThisGroup => 'You\'re praying for this group';
+  String get couldNotLoadMapMessage => 'Could not load the map.';
 }

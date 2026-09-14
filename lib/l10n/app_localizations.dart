@@ -1228,11 +1228,11 @@ abstract class AppLocalizations {
   /// **'Nearby people groups'**
   String get nearbyPeopleGroups;
 
-  /// Button that moves the map back to the people group it opened on
+  /// Button that moves the map back to the people group it opened on, shown once that group has been panned off screen
   ///
   /// In en, this message translates to:
-  /// **'Recentre map'**
-  String get recentreMap;
+  /// **'Recenter'**
+  String get recenter;
 
   /// Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown
   ///
@@ -1240,17 +1240,17 @@ abstract class AppLocalizations {
   /// **'Map images unavailable offline'**
   String get mapUnavailableOffline;
 
+  /// Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled
+  ///
+  /// In en, this message translates to:
+  /// **'Location not available'**
+  String get locationNotAvailable;
+
   /// Error shown when the people-group list the map needs could not be loaded
   ///
   /// In en, this message translates to:
   /// **'Could not load the map.'**
   String get couldNotLoadMapMessage;
-
-  /// Shown on a map pin's card when the tapped people group is one the user has subscribed to
-  ///
-  /// In en, this message translates to:
-  /// **'You\'re praying for this group'**
-  String get prayingForThisGroup;
 }
 
 class _AppLocalizationsDelegate

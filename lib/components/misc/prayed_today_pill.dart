@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
-import '../../theme/app_spacing.dart';
-import '../../theme/app_typography.dart';
-import 'hyphenated_text.dart';
+import 'status_pill.dart';
 
-/// "Prayed today" badge. Shared by the home carousel's cards and the Pray
-/// tab's people group row, so today's progress reads the same in both places.
+/// "Prayed today" badge. Shared by the home carousel's cards, the Pray tab's
+/// people group row and the map's pin card, so today's progress reads the same
+/// in all three.
 class PrayedTodayPill extends StatelessWidget {
   const PrayedTodayPill({super.key, required this.label, this.compact = false});
 
@@ -18,37 +17,13 @@ class PrayedTodayPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // A status indicator, not a control: merge the decorative check icon and
-    // label into a single node so screen readers announce just "<label>".
-    return MergeSemantics(
-      child: Semantics(
-        label: compact ? label : null,
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: compact ? AppSpacing.xxs : AppSpacing.md,
-            vertical: AppSpacing.xxs,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.primaryLight,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: AppSpacing.xs,
-            children: [
-              const Icon(Icons.check, size: 16, color: AppColors.onSecondary),
-              if (!compact)
-                HyphenatedText(
-                  label,
-                  style: AppTypography.bodySmall.copyWith(
-                    color: AppColors.onSecondary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      ),
+    return StatusPill(
+      label: label,
+      // Muted rather than accent: having prayed is a completed fact, and the
+      // accent is reserved for the groups the user has committed to.
+      color: AppColors.primaryLight,
+      icon: Icons.check,
+      compact: compact,
     );
   }
 }

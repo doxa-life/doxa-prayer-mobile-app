@@ -9,9 +9,11 @@ import '../../theme/app_colors.dart';
 /// Radius of an ordinary people-group pin, in logical pixels.
 const double _pinRadius = 5.0;
 
-/// The focused group's pin — the one the map was opened for — is drawn a little
-/// larger so it can be picked out of a crowded region at a glance.
-const double _focusedPinRadius = 8.0;
+/// Radius of a pin for a group the user prays for, including the focused one.
+/// Larger than its neighbours so the groups that matter to this user can be
+/// picked out of a crowded region at a glance; which of them is currently
+/// selected is said by the ring, not by the size.
+const double _primaryPinRadius = 8.0;
 
 /// White border around every pin, so pins stay legible against both the pale
 /// land and the water of the `light-v11` basemap.
@@ -74,31 +76,46 @@ class PeopleGroupPinLayer extends StatelessWidget {
   }
 }
 
+/// Pins closer together than this are treated as equally aimed at, and the one
+/// painted on top wins. Without it a tap into a cluster can select a pin that
+/// is hidden underneath the one the user can actually see.
+const double _tapTieTolerance = 6.0;
+
 /// The group whose pin lies under [point] on screen, or null if the tap missed
 /// every pin.
 ///
-/// Returns the *closest* pin within [_tapRadius] rather than the first match,
-/// so tapping into a cluster selects the one actually aimed at. The focused
-/// group wins ties, being the larger target.
+/// Returns the closest pin within [_tapRadius], so tapping into a cluster
+/// selects the one actually aimed at — but among pins that are effectively on
+/// top of each other it returns whichever is drawn highest, matching what the
+/// user sees: the focused group, then a subscribed one, then any other.
 PeopleGroup? pinAt(
   Offset point, {
   required MapCamera camera,
   required List<PeopleGroup> groups,
   required String focusedSlug,
+  required Set<String> subscribedSlugs,
 }) {
+  int layerOf(PeopleGroup g) => g.slug == focusedSlug
+      ? 2
+      : subscribedSlugs.contains(g.slug)
+      ? 1
+      : 0;
+
   PeopleGroup? best;
   var bestDistance = double.infinity;
+  var bestLayer = -1;
   for (final group in groups) {
     final offset = camera.latLngToScreenOffset(
       LatLng(group.latitude!, group.longitude!),
     );
     final distance = (offset - point).distance;
     if (distance > _tapRadius) continue;
-    // A tie inside a fraction of a pixel is arbitrary; prefer the focused pin.
-    if (distance < bestDistance ||
-        (distance == bestDistance && group.slug == focusedSlug)) {
+    final layer = layerOf(group);
+    final tied = (distance - bestDistance).abs() <= _tapTieTolerance;
+    if (tied ? layer > bestLayer : distance < bestDistance) {
       best = group;
       bestDistance = distance;
+      bestLayer = layer;
     }
   }
   return best;
@@ -131,19 +148,52 @@ class _PinPainter extends CustomPainter {
       ..color = AppColors.primary;
     final fill = Paint()..style = PaintingStyle.fill;
 
-    // The focused pin is painted last so it is never buried under a neighbour
-    // in a dense region.
+    // Four passes, back to front. In a dense region pins overlap heavily, and
+    // whichever is painted last is the one the user can actually see — so the
+    // groups that matter to this user must never be buried under a stranger's
+    // pin: ordinary groups first, then the ones they pray for, then the group
+    // this map was opened for, and above everything the selected pin.
+    //
+    // The selected pin is lifted out of whichever pass it would otherwise
+    // belong to and drawn last *with* its ring. Painting only the ring on top
+    // isn't enough: the pin under it can still be covered by a later
+    // neighbour, and the ring is then left circling somebody else's dot — or,
+    // zoomed out, nothing at all.
+    PeopleGroup? selected;
     PeopleGroup? focused;
+    final subscribed = <PeopleGroup>[];
     for (final group in groups) {
-      if (group.slug == focusedSlug) {
+      if (group.slug == selectedSlug) {
+        selected = group;
+      } else if (group.slug == focusedSlug) {
         focused = group;
-        continue;
+      } else if (subscribedSlugs.contains(group.slug)) {
+        subscribed.add(group);
+      } else {
+        _paintPin(canvas, size, group, fill, border);
       }
-      _paintPin(canvas, size, group, fill, border, selectionRing);
+    }
+    for (final group in subscribed) {
+      _paintPin(canvas, size, group, fill, border);
     }
     if (focused != null) {
-      _paintPin(canvas, size, focused, fill, border, selectionRing);
+      _paintPin(canvas, size, focused, fill, border);
     }
+    if (selected != null) {
+      _paintPin(canvas, size, selected, fill, border);
+      _paintSelectionRing(canvas, selected, selectionRing);
+    }
+  }
+
+  void _paintSelectionRing(Canvas canvas, PeopleGroup group, Paint ring) {
+    final isPrimary =
+        group.slug == focusedSlug || subscribedSlugs.contains(group.slug);
+    final radius = isPrimary ? _primaryPinRadius : _pinRadius;
+    canvas.drawCircle(
+      camera.latLngToScreenOffset(LatLng(group.latitude!, group.longitude!)),
+      radius + _borderWidth + 2,
+      ring,
+    );
   }
 
   void _paintPin(
@@ -152,13 +202,13 @@ class _PinPainter extends CustomPainter {
     PeopleGroup group,
     Paint fill,
     Paint border,
-    Paint selectionRing,
   ) {
     final offset = camera.latLngToScreenOffset(
       LatLng(group.latitude!, group.longitude!),
     );
-    final isFocused = group.slug == focusedSlug;
-    final radius = isFocused ? _focusedPinRadius : _pinRadius;
+    final isPrimary =
+        group.slug == focusedSlug || subscribedSlugs.contains(group.slug);
+    final radius = isPrimary ? _primaryPinRadius : _pinRadius;
     // Culling by the painted extent rather than the tap radius: an off-screen
     // pin can still be tapped near the edge, but it must not be drawn.
     final margin = radius + _borderWidth + 4;
@@ -169,14 +219,9 @@ class _PinPainter extends CustomPainter {
       return;
     }
 
-    fill.color = isFocused || subscribedSlugs.contains(group.slug)
-        ? AppColors.secondary
-        : AppColors.primaryLight;
+    fill.color = isPrimary ? AppColors.secondary : AppColors.primaryLight;
     canvas.drawCircle(offset, radius, fill);
     canvas.drawCircle(offset, radius, border);
-    if (group.slug == selectedSlug) {
-      canvas.drawCircle(offset, radius + _borderWidth + 2, selectionRing);
-    }
   }
 
   @override

@@ -35,6 +35,10 @@ class MapConfig {
 
   static String get token {
     if (_dartDefineToken.isNotEmpty) return _dartDefineToken;
+    // `.env` is loaded at app start, but this is read from widget builds —
+    // including in widget tests, which never load it. `maybeGet` throws rather
+    // than returning its fallback when dotenv is uninitialised.
+    if (!dotenv.isInitialized) return '';
     return dotenv.maybeGet('MAPBOX_TOKEN', fallback: '') ?? '';
   }
 

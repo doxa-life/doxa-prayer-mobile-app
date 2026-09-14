@@ -71,6 +71,17 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
   /// would never appear.
   DateTime _lastTileSuccessAt = DateTime.fromMillisecondsSinceEpoch(0);
 
+  /// Whether the focused group has been panned or zoomed off screen. The
+  /// recentre button only appears then: while the pin the map was opened for is
+  /// still in view there is nothing to go back to.
+  bool _focusOffScreen = false;
+
+  /// The groups the user prays for. Read from the controller rather than held,
+  /// so a tap and a repaint can never disagree about who is subscribed.
+  Set<String> get _subscribedSlugs => {
+    for (final g in peopleGroupsController.value.list) g.slug,
+  };
+
   @override
   void initState() {
     super.initState();
@@ -96,6 +107,7 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
       camera: _controller.camera,
       groups: widget.groups,
       focusedSlug: widget.focus.slug,
+      subscribedSlugs: _subscribedSlugs,
     );
     // A tap on empty map dismisses the card; a tap on a pin swaps to it.
     setState(() => _selected = hit);
@@ -103,7 +115,18 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
 
   void _recentre() {
     _controller.fitCamera(_openingFit);
-    setState(() => _selected = widget.focus);
+    setState(() {
+      _selected = widget.focus;
+      _focusOffScreen = false;
+    });
+  }
+
+  void _onPositionChanged(MapCamera camera, bool hasGesture) {
+    final focus = locationOf(widget.focus);
+    if (focus == null) return;
+    final offScreen = !camera.visibleBounds.contains(focus);
+    if (offScreen == _focusOffScreen) return;
+    setState(() => _focusOffScreen = offScreen);
   }
 
   void _onTileError(TileImage tile, Object error, StackTrace? stackTrace) {
@@ -133,8 +156,8 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
     final l = AppLocalizations.of(context)!;
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
-      builder: (context, subscribed, _) {
-        final subscribedSlugs = subscribed.list.map((g) => g.slug).toSet();
+      builder: (context, _, _) {
+        final subscribedSlugs = _subscribedSlugs;
         return Stack(
           children: [
             // The pins carry no semantics of their own — they are painted, not
@@ -149,10 +172,19 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
                   initialCameraFit: _openingFit,
                   onTap: _onTap,
                   backgroundColor: AppColors.mutedSurface,
+                  onPositionChanged: _onPositionChanged,
                   interactionOptions: const InteractionOptions(
                     // Rotation without a compass to undo it leaves users stuck
                     // on a crooked map they can't straighten.
-                    flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+                    //
+                    // Double-tap zoom costs every single tap a 250ms wait while
+                    // flutter_map decides whether a second one is coming — and
+                    // tapping pins is what this map is for, so the lag is worse
+                    // than the missing gesture. Pinch still zooms.
+                    flags:
+                        InteractiveFlag.all &
+                        ~InteractiveFlag.rotate &
+                        ~InteractiveFlag.doubleTapZoom,
                   ),
                 ),
                 children: [
@@ -196,14 +228,15 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
                   child: MapOfflineNotice(message: l.mapUnavailableOffline),
                 ),
               ),
-            Positioned(
-              top: AppSpacing.md,
-              right: AppSpacing.md,
-              child: MapRecentreButton(
-                onPressed: _recentre,
-                semanticLabel: l.recentreMap,
+            if (_focusOffScreen)
+              Positioned(
+                top: AppSpacing.md,
+                right: AppSpacing.md,
+                child: MapRecentreButton(
+                  onPressed: _recentre,
+                  label: l.recenter,
+                ),
               ),
-            ),
             // Card and attribution share one bottom-aligned column so the
             // attribution is never covered by the card — Mapbox requires it to
             // stay visible, and an open card would otherwise sit on top of it.

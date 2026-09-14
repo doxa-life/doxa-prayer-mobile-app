@@ -8,8 +8,10 @@ import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../buttons/button_link.dart';
 import '../cards/elevated_card.dart';
+import '../misc/app_image.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/prayed_today_pill.dart';
+import '../misc/selected_pill.dart';
 
 /// The card that identifies whichever pin is currently selected on the
 /// people-group map.
@@ -54,10 +56,21 @@ class PeopleGroupPinCard extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppSpacing.md,
             children: [
+              // Same treatment as the browse list's card. AppImage shows a
+              // skeleton while the photo loads and falls back to a placeholder
+              // when there isn't one, so the row never changes height.
+              AppImage(
+                url: group.imageUrl,
+                aspectRatio: 1,
+                size: 64.0,
+                semanticLabel: group.name,
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: AppSpacing.xs,
                   children: [
                     HyphenatedText(
                       group.name,
@@ -85,18 +98,21 @@ class PeopleGroupPinCard extends StatelessWidget {
               ),
             ],
           ),
-          // Prayer status, when there is any to report. Kept on the card rather
-          // than on the pins: at pin size there is room for a colour and
-          // nothing else.
-          if (prayedToday)
-            PrayedTodayPill(label: l.prayedToday)
-          else if (isSubscribed)
-            HyphenatedText(
-              l.prayingForThisGroup,
-              softWrap: true,
-              style: AppTypography.bodySmall.copyWith(
-                color: AppColors.secondary,
-                fontWeight: FontWeight.w600,
+          // Status, when there is any to report. Kept on the card rather than
+          // on the pins: at pin size there is room for a colour and nothing
+          // else. Full card width — running under the photo rather than beside
+          // it — so both pills fit on one line and only wrap when they truly
+          // cannot, such as at a large font scale.
+          if (isSubscribed || prayedToday)
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                spacing: AppSpacing.xs,
+                runSpacing: AppSpacing.xs,
+                children: [
+                  if (isSubscribed) SelectedPill(label: l.selected),
+                  if (prayedToday) PrayedTodayPill(label: l.prayedToday),
+                ],
               ),
             ),
           // A Wrap so the link and button reflow onto separate lines instead of
