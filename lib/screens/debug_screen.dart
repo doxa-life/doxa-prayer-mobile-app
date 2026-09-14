@@ -18,6 +18,7 @@ import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
 import '../services/response_cache.dart';
+import '../services/pray_selector_controller.dart';
 import '../services/profile_update_service.dart';
 import '../services/reminders_controller.dart';
 import '../services/subscribed_people_groups_controller.dart';
@@ -156,6 +157,7 @@ class DebugScreen extends StatelessWidget {
                 clearIdentity(),
                 clearReferredPeopleGroup(),
                 clearInstallReferrerChecked(),
+                clearPraySelectorSeen(),
               ]);
             },
           ),

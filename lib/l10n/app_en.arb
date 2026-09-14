@@ -60,7 +60,11 @@
     "@crossCulturalWorkersPresent": {
         "description": "The label of the cross-cultural workers present field"
     },
+    "unselect": "Unselect",
     "workInLocalLanguageAndCulture": "Work in local language & culture",
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
+    },
     "@workInLocalLanguageAndCulture": {
         "description": "The label of the work in local language and culture field"
     },
@@ -244,7 +248,9 @@
     "@prayerReminderBody": {
         "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
     },
     "dismissReminderLabel": "Dismiss reminder",
@@ -255,7 +261,9 @@
     "@prayForPeopleGroupLabel": {
         "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
     },
     "pictureCreditLabel": "Picture credit",
@@ -278,7 +286,10 @@
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
         "placeholders": {
-            "count": { "type": "num", "format": "compact" }
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
         }
     },
     "newReminder": "New reminder",
@@ -377,29 +388,40 @@
     "@nextReminderToday": {
         "description": "Next-reminder summary when it fires later today",
         "placeholders": {
-            "time": { "type": "String" }
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nextReminderTomorrow": "Tomorrow at {time}",
     "@nextReminderTomorrow": {
         "description": "Next-reminder summary when it fires tomorrow",
         "placeholders": {
-            "time": { "type": "String" }
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nextReminderOn": "{weekday} at {time}",
     "@nextReminderOn": {
         "description": "Next-reminder summary when it fires later this week",
         "placeholders": {
-            "weekday": { "type": "String" },
-            "time": { "type": "String" }
+            "weekday": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nRemindersSet": "{count, plural, =0{No reminders set} =1{1 reminder set} other{{count} reminders set}}",
     "@nRemindersSet": {
         "description": "Total reminder count shown on the home-screen next-reminder card",
         "placeholders": {
-            "count": { "type": "num", "format": "compact" }
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
         }
     },
     "wizardWelcomeTitle": "Welcome to Doxa Prayer",
@@ -422,7 +444,9 @@
     "@wizardConfirmPeopleGroupTitle": {
         "description": "Title of the wizard confirm-people-group sub-step",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "wizardConfirmPeopleGroupBody": "We'll show you prayer content and reminders for this group. You can change this later.",
@@ -665,14 +689,18 @@
     "@feedbackSuccessBody": {
         "description": "Body of the feedback success confirmation, echoing the email used",
         "placeholders": {
-            "email": { "type": "String" }
+            "email": {
+                "type": "String"
+            }
         }
     },
     "shareMessage": "Pray with me for the {name} — get the Doxa Prayer app:",
     "@shareMessage": {
         "description": "Message text accompanying the shared app link for a people group",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "qrCode": "QR code",
@@ -683,14 +711,18 @@
     "@scanToPray": {
         "description": "Caption under the QR code in the share modal",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "appVersion": "Version {version}",
     "@appVersion": {
         "description": "App version label shown at the bottom of the settings screen",
         "placeholders": {
-            "version": { "type": "String" }
+            "version": {
+                "type": "String"
+            }
         }
     },
     "previousDay": "Previous day",
@@ -713,7 +745,9 @@
     "@peopleGroupIntroTitle": {
         "description": "The title of the people group intro section",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "peopleGroupOfTheDay": "People Group of the Day",
@@ -735,14 +769,6 @@
     "cancel": "Cancel",
     "@cancel": {
         "description": "Button that dismisses a modal without doing anything"
-    },
-    "addPeopleGroup": "Add",
-    "@addPeopleGroup": {
-        "description": "Button that subscribes the user to a people group"
-    },
-    "praying": "Praying",
-    "@praying": {
-        "description": "State of the add button when the user already prays for this people group"
     },
     "addPeopleGroupConfirm": "Do you want to start praying for {name}?",
     "@addPeopleGroupConfirm": {

@@ -18,6 +18,7 @@ class PeopleGroupListCard extends StatelessWidget {
     required this.imageUrl,
     required this.onSelect,
     required this.onDetails,
+    this.onUnselect,
     this.isSelected = false,
   });
 
@@ -26,6 +27,11 @@ class PeopleGroupListCard extends StatelessWidget {
   final String? imageUrl;
   final VoidCallback onSelect;
   final VoidCallback onDetails;
+
+  /// What an already-selected group's button does. When null the button falls
+  /// back to an inert "Selected" — the wizard passes null, because unselecting
+  /// the group being chosen mid-onboarding has nowhere sensible to go.
+  final VoidCallback? onUnselect;
   final bool isSelected;
 
   @override
@@ -88,9 +94,18 @@ class PeopleGroupListCard extends StatelessWidget {
               children: [
                 ButtonLink(label: l10n.profile, onPressed: onDetails),
                 ActionButton(
-                  label: isSelected ? l10n.selected : l10n.select,
-                  onPressed: isSelected ? null : onSelect,
-                  color: ActionButtonColor.secondary,
+                  // A selected group's button offers the action it performs
+                  // rather than restating the state the card already shows.
+                  label: isSelected
+                      ? (onUnselect == null ? l10n.selected : l10n.unselect)
+                      : l10n.select,
+                  onPressed: isSelected ? onUnselect : onSelect,
+                  // Quieter than the green select: removing a commitment should
+                  // not be the most inviting thing on the card.
+                  color: isSelected
+                      ? ActionButtonColor.white
+                      : ActionButtonColor.secondary,
+                  isOutlined: isSelected,
                 ),
               ],
             ),

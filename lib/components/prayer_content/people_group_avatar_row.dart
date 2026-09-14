@@ -65,6 +65,10 @@ class _PeopleGroupAvatarRowState extends State<PeopleGroupAvatarRow> {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
               child: Row(
+                // Top-aligned so every photo sits on the same line: a name that
+                // wraps to two lines must push its own label down, not shunt
+                // its avatar up relative to the others.
+                crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: AppSpacing.sm,
                 children: [
                   for (final group in groups.list)

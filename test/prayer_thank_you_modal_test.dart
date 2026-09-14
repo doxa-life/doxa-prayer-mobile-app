@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'helpers/pump_at_scale.dart';
 
 const _verse = ThankYouVerse(
-  text: 'Let my prayer be set before You as incense, '
+  text:
+      'Let my prayer be set before You as incense, '
       'The lifting up of my hands as the evening sacrifice.',
   reference: 'Psalm 141:2',
   translation: 'NKJV',

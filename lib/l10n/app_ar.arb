@@ -2,9 +2,6 @@
     "@addAnotherPeopleGroup": {
         "description": "Label on the last card of the home carousel, which opens the people groups list"
     },
-    "@addPeopleGroup": {
-        "description": "Button that subscribes the user to a people group"
-    },
     "@addPeopleGroupConfirm": {
         "description": "Confirmation asked before subscribing to a people group",
         "placeholders": {
@@ -311,9 +308,6 @@
             }
         }
     },
-    "@praying": {
-        "description": "State of the add button when the user already prays for this people group"
-    },
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
         "placeholders": {
@@ -394,6 +388,9 @@
                 "type": "String"
             }
         }
+    },
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
         "description": "Button in settings that opens the user's profile page on the web"
@@ -702,7 +699,6 @@
         "description": "The yes confirmation button"
     },
     "addAnotherPeopleGroup": "أضف مجموعة شعبية أخرى",
-    "addPeopleGroup": "إضافة",
     "addPeopleGroupConfirm": "هل تريد البدء في الصلاة من أجل «{name}»؟",
     "adoptionStatus": "حالة التبنّي",
     "allow": "السماح",
@@ -785,7 +781,6 @@
     "prayForNextGroup": "الصلاة من أجل «{name}»",
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
-    "praying": "تصلّي",
     "prayingWithYou": "{count, plural, =1{شخص واحد يصلّي معك الآن} =2{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
     "reminderNotificationBodyForGroup": "افتح تطبيق Doxa للصلاة من أجل «{name}».",
     "reminderPeopleGroup": "المجموعة الشعبية",
@@ -801,6 +796,7 @@
     "stopPraying": "التوقف عن الصلاة",
     "swapPeopleGroupAction": "استبدال",
     "switchToPeopleGroup": "التبديل إلى «{name}»",
+    "unselect": "إلغاء الاختيار",
     "viewProfile": "عرض الملف الشخصي",
     "emailsLoadError": "تعذّر تحميل عناوين بريدك الإلكتروني.",
     "nextDay": "في اليوم التالي",

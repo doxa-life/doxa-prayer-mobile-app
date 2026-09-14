@@ -21,7 +21,7 @@ Each entry pairs what the user perceives with what actually happens. In the diag
 | Onboarding wizard | [News step → Sign up](#news-step--sign-up) | `POST /api/people-groups/{slug}/anon-signup`<br>`POST /api/news-signup`<br>`POST /api/push/register` | `identity_tracking_id`<br>`identity_profile_id`<br>`identity_subscription_id` |
 | Onboarding wizard | [News step → Finish](#news-step--finish) | — | `wizard_completed` |
 | Onboarding wizard | [News step → Skip](#news-step--skip) | `POST /api/people-groups/{slug}/anon-signup` | `identity_tracking_id`<br>`identity_profile_id`<br>`identity_subscription_id`<br>`wizard_completed` |
-| Pray tab | [Open the Pray tab](#open-the-pray-tab) | `GET /api/people-groups/{slug}/prayer-content/{date}`<br>`POST /api/people-groups/{slug}/prayer-content/{date}/session`<br>`GET /api/people-groups/statistics` | — |
+| Pray tab | [Open the Pray tab](#open-the-pray-tab) | `GET /api/people-groups/{slug}/prayer-content/{date}`<br>`POST /api/people-groups/{slug}/prayer-content/{date}/session`<br>`GET /api/people-groups/statistics` | `pray_selector_seen` |
 | Pray tab | [Tap Amen](#tap-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history`<br>`thank_you_verse_index` |
 | Pray tab | [Leave the Pray tab without tapping Amen](#leave-the-pray-tab-without-tapping-amen) | `POST /api/people-groups/{slug}/prayer-content/{date}/session` | `prayer_history` |
 | Browse tab and group details | [Open the Browse tab](#open-the-browse-tab) | `GET /api/people-groups/list` | — |
@@ -304,7 +304,7 @@ Reads are cached per group/date/language. Writes are fire-and-forget and happen 
 
 Entered at `_startSession` in [lib/components/prayer_content/prayer_session_view.dart](../../lib/components/prayer_content/prayer_session_view.dart).
 
-**Visible** — Today's prayer content, usually with no skeleton.
+**Visible** — Today's prayer content, usually with no skeleton — and, on the very first visit with more than one group, the group switcher already open.
 
 **Background** — A session timer starts. Leaving the tab later posts that duration even if the user never taps Amen.
 
@@ -316,6 +316,10 @@ sequenceDiagram
     participant L as On device
     participant S as Campaigns server
     U->>UI: Open the Pray tab
+    opt the user prays for more than one group and has not seen it
+        UI->>L: Open the people-group switcher, once ever: the first arrival with more than one group is the only time it shows itself unasked. The flag is written immediately, so a second visit opens on the content and the app bar avatar is the way back to the switcher.
+    end
+    Note over L: writes pray_selector_seen
     UI->>L: Peek the in-memory cache before the first frame, so a warm cache paints with no skeleton
     opt no cache entry younger than the TTL
         UI->>S: GET /api/people-groups/{slug}/prayer-content/{date} — Fetch the day's content, keyed by group + date + language

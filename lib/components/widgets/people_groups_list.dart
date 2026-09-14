@@ -146,6 +146,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
               country: g.countryLabel ?? '',
               imageUrl: g.imageUrl,
               isSelected: subscribed.contains(g.slug),
+              // Only outside the wizard: mid-onboarding the list is choosing a
+              // first group, not managing a set.
+              onUnselect: widget.onSelect != null
+                  ? null
+                  : () => removePeopleGroupFlow(context, slug: g.slug),
               onSelect: () {
                 final cb = widget.onSelect;
                 if (cb != null) {

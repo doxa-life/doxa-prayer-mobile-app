@@ -190,6 +190,12 @@ abstract class AppLocalizations {
   /// **'Cross-cultural workers present'**
   String get crossCulturalWorkersPresent;
 
+  /// Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Unselect'**
+  String get unselect;
+
   /// The label of the work in local language and culture field
   ///
   /// In en, this message translates to:
@@ -1107,18 +1113,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
-
-  /// Button that subscribes the user to a people group
-  ///
-  /// In en, this message translates to:
-  /// **'Add'**
-  String get addPeopleGroup;
-
-  /// State of the add button when the user already prays for this people group
-  ///
-  /// In en, this message translates to:
-  /// **'Praying'**
-  String get praying;
 
   /// Confirmation asked before subscribing to a people group
   ///

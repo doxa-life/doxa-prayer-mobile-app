@@ -60,6 +60,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'وجود عمّال عابرين للثقافات';
 
   @override
+  String get unselect => 'إلغاء الاختيار';
+
+  @override
   String get workInLocalLanguageAndCulture => 'العمل باللغة والثقافة المحلية';
 
   @override
@@ -615,12 +618,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cancel => 'إلغاء';
-
-  @override
-  String get addPeopleGroup => 'إضافة';
-
-  @override
-  String get praying => 'تصلّي';
 
   @override
   String addPeopleGroupConfirm(String name) {

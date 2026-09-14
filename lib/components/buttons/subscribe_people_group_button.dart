@@ -36,7 +36,10 @@ class SubscribePeopleGroupButton extends StatelessWidget {
       builder: (context, groups, _) {
         final subscribed = groups.contains(slug);
         return ActionButton.fullWidth(
-          label: subscribed ? l10n.praying : l10n.addPeopleGroup,
+          // "Unselect", not a state word: the button has to read as the
+          // action it performs, and it matches the browse list's wording so
+          // the two screens offer the same thing by the same name.
+          label: subscribed ? l10n.unselect : l10n.select,
           onPressed: () async {
             if (subscribed) {
               await removePeopleGroupFlow(context, slug: slug);

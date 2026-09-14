@@ -2,9 +2,6 @@
     "@addAnotherPeopleGroup": {
         "description": "Label on the last card of the home carousel, which opens the people groups list"
     },
-    "@addPeopleGroup": {
-        "description": "Button that subscribes the user to a people group"
-    },
     "@addPeopleGroupConfirm": {
         "description": "Confirmation asked before subscribing to a people group",
         "placeholders": {
@@ -314,9 +311,6 @@
             }
         }
     },
-    "@praying": {
-        "description": "State of the add button when the user already prays for this people group"
-    },
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
         "placeholders": {
@@ -397,6 +391,9 @@
                 "type": "String"
             }
         }
+    },
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
         "description": "Button in settings that opens the user's profile page on the web"
@@ -702,7 +699,6 @@
         "description": "The yes confirmation button"
     },
     "addAnotherPeopleGroup": "Добавить ещё один народ",
-    "addPeopleGroup": "Добавить",
     "addPeopleGroupConfirm": "Хотите начать молиться за народ «{name}»?",
     "adoptionStatus": "Статус принятия",
     "allow": "Разрешить",
@@ -785,7 +781,6 @@
     "prayForNextGroup": "Помолиться за народ «{name}»",
     "prayerRecordedAnnouncement": "Молитва записана",
     "prayForPeopleGroupLabel": "Помолиться за народ «{peopleGroup}»",
-    "praying": "Молитесь",
     "prayingWithYou": "{count, plural, one{{count} человек молится с вами сейчас} few{{count} человека молятся с вами сейчас} many{{count} человек молятся с вами сейчас} other{{count} человек молятся с вами сейчас}}",
     "reminderNotificationBodyForGroup": "Откройте Doxa, чтобы помолиться за народ «{name}».",
     "reminderPeopleGroup": "Народ",
@@ -801,6 +796,7 @@
     "stopPraying": "Перестать молиться",
     "swapPeopleGroupAction": "Заменить",
     "switchToPeopleGroup": "Перейти к народу «{name}»",
+    "unselect": "Отменить выбор",
     "viewProfile": "Открыть профиль",
     "emailsLoadError": "Не удалось загрузить ваши адреса электронной почты.",
     "nextDay": "Следующий день",

@@ -61,6 +61,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Ouvriers transculturels présents';
 
   @override
+  String get unselect => 'Désélectionner';
+
+  @override
   String get workInLocalLanguageAndCulture =>
       'Travail dans la langue et la culture locales';
 
@@ -603,12 +606,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cancel => 'Annuler';
-
-  @override
-  String get addPeopleGroup => 'Ajouter';
-
-  @override
-  String get praying => 'En prière';
 
   @override
   String addPeopleGroupConfirm(String name) {

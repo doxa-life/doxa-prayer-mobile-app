@@ -880,11 +880,28 @@ const actions = <UserAction>[
       'lib/components/prayer_content/prayer_session_view.dart',
       '_startSession',
     ),
-    visible: 'Today\'s prayer content, usually with no skeleton.',
+    visible:
+        'Today\'s prayer content, usually with no skeleton — and, on the very '
+        'first visit with more than one group, the group switcher already open.',
     background:
         'A session timer starts. Leaving the tab later posts that duration even '
         'if the user never taps Amen.',
     steps: [
+      Step(
+        from: Actor.ui,
+        to: Actor.local,
+        text:
+            'Open the people-group switcher, once ever: the first arrival with '
+            'more than one group is the only time it shows itself unasked. The '
+            'flag is written immediately, so a second visit opens on the '
+            'content and the app bar avatar is the way back to the switcher.',
+        anchor: Anchor(
+          'lib/services/pray_selector_controller.dart',
+          'openPraySelectorIfUnseen',
+        ),
+        writes: ['pray_selector_seen'],
+        when: 'the user prays for more than one group and has not seen it',
+      ),
       Step(
         from: Actor.ui,
         to: Actor.local,

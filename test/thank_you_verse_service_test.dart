@@ -10,7 +10,11 @@ List<Map<String, dynamic>> _fixture(int count) => List.generate(
   (i) => <String, dynamic>{
     'locales': <String, dynamic>{
       'en': {'text': 'text $i', 'reference': 'ref $i', 'translation': 'NKJV'},
-      'ru': {'text': 'текст $i', 'reference': 'ссылка $i', 'translation': 'SYNOD'},
+      'ru': {
+        'text': 'текст $i',
+        'reference': 'ссылка $i',
+        'translation': 'SYNOD',
+      },
     },
   },
 );
@@ -59,9 +63,7 @@ void main() {
       final verses = (data['verses'] as List).cast<Map<String, dynamic>>();
       expect(verses, isNotEmpty);
 
-      final expected = appLanguages
-          .map((l) => l.locale.languageCode)
-          .toSet();
+      final expected = appLanguages.map((l) => l.locale.languageCode).toSet();
       for (var i = 0; i < verses.length; i++) {
         final locales = verses[i]['locales'] as Map<String, dynamic>;
         expect(

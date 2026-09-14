@@ -43,6 +43,15 @@ Future<void> _pump(
   await tester.pumpAndSettle();
 }
 
+/// The carousel's own (horizontal) scrollable, not the page's vertical one.
+Finder _carouselScrollable() => find.descendant(
+  of: find.byType(PeopleGroupCarousel),
+  matching: find.byType(Scrollable),
+);
+
+double _controllerOffset(WidgetTester tester) =>
+    tester.widget<Scrollable>(_carouselScrollable()).controller!.offset;
+
 void main() {
   tearDown(() => prayedTodayController.value = <String>{});
 
@@ -58,33 +67,85 @@ void main() {
     expect(find.byType(AddPeopleGroupCard), findsNothing);
   });
 
-  testWidgets('opens scrolled to the active group', (tester) async {
-    await _pump(tester, _groups(4), activeSlug: 'group-2');
+  testWidgets('centres the active group', (tester) async {
+    await _pump(tester, _groups(5), activeSlug: 'group-2');
 
-    // The carousel's own (horizontal) scrollable, not the page's vertical one.
-    final scrollable = tester.widget<Scrollable>(
-      find.descendant(
-        of: find.byType(PeopleGroupCarousel),
-        matching: find.byType(Scrollable),
-      ),
-    );
-    // The whole point of the scroll: the active card is not the one at rest
-    // when it is not first in the list.
-    expect(scrollable.controller!.offset, greaterThan(0));
+    final card = tester.getRect(find.byType(PeopleGroupCard).at(2));
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.center.dx, moreOrLessEquals(viewport.center.dx, epsilon: 1));
   });
 
-  testWidgets('stays at rest when the active group is already first', (
+  testWidgets('the first group rests fully visible, not half off the left', (
     tester,
   ) async {
-    await _pump(tester, _groups(4), activeSlug: 'group-0');
-    // The carousel's own (horizontal) scrollable, not the page's vertical one.
-    final scrollable = tester.widget<Scrollable>(
-      find.descendant(
-        of: find.byType(PeopleGroupCarousel),
-        matching: find.byType(Scrollable),
-      ),
+    await _pump(tester, _groups(5), activeSlug: 'group-0');
+
+    expect(_controllerOffset(tester), 0);
+    final card = tester.getRect(find.byType(PeopleGroupCard).first);
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.left, greaterThanOrEqualTo(viewport.left));
+    expect(card.right, lessThanOrEqualTo(viewport.right));
+  });
+
+  testWidgets('the last group rests fully visible at the far end', (
+    tester,
+  ) async {
+    // At the cap there is no "add another" card after the last group, so this
+    // is the case that has to clamp rather than centre.
+    await _pump(
+      tester,
+      _groups(kMaxPeopleGroups),
+      activeSlug: 'group-${kMaxPeopleGroups - 1}',
     );
-    expect(scrollable.controller!.offset, 0);
+
+    final position = tester
+        .state<ScrollableState>(_carouselScrollable())
+        .position;
+    expect(_controllerOffset(tester), position.maxScrollExtent);
+
+    final card = tester.getRect(find.byType(PeopleGroupCard).last);
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.right, lessThanOrEqualTo(viewport.right + 0.01));
+    expect(card.left, greaterThanOrEqualTo(viewport.left));
+  });
+
+  testWidgets('the add card counts as the last card, so the final group '
+      'can still be centred', (tester) async {
+    // Four groups plus the add card: group-3 has content after it, so unlike
+    // the capped case above it centres instead of clamping.
+    await _pump(tester, _groups(4), activeSlug: 'group-3');
+
+    final card = tester.getRect(find.byType(PeopleGroupCard).at(3));
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.center.dx, moreOrLessEquals(viewport.center.dx, epsilon: 1));
+  });
+
+  testWidgets('follows the active group when it changes', (tester) async {
+    await _pump(tester, _groups(5), activeSlug: 'group-0');
+    expect(_controllerOffset(tester), 0);
+
+    // A switch made from the Pray tab arrives as a changed activeSlug.
+    await _pump(tester, _groups(5), activeSlug: 'group-4');
+    await tester.pumpAndSettle();
+
+    expect(_controllerOffset(tester), greaterThan(0));
+    final card = tester.getRect(find.byType(PeopleGroupCard).last);
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.right, lessThanOrEqualTo(viewport.right + 0.01));
+  });
+
+  testWidgets('cards are inset so their shadows are not clipped away', (
+    tester,
+  ) async {
+    await _pump(tester, _groups(3), activeSlug: 'group-0');
+
+    final viewport = tester.getRect(_carouselScrollable());
+    final card = tester.getRect(find.byType(PeopleGroupCard).first);
+    // Room on the left of the first card, and above/below every card, for the
+    // elevation shadow to fall inside the scroll view's clip.
+    expect(card.left - viewport.left, greaterThan(0));
+    expect(card.top - viewport.top, greaterThan(0));
+    expect(viewport.bottom - card.bottom, greaterThan(0));
   });
 
   testWidgets('scrolls horizontally without overflowing', (tester) async {

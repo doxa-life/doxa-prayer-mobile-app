@@ -8,10 +8,13 @@ import 'people_group_card.dart';
 
 /// The people groups the user prays for, side by side. Cards stay in the order
 /// they were added — a card the user is reaching for never slides away — and
-/// the next card is deliberately left peeking so the row reads as scrollable.
+/// the neighbouring cards are left peeking so the row reads as scrollable.
 ///
-/// Opens scrolled to the active group (the one the Pray tab will show), which
-/// is the only cue that says which one that is.
+/// The active group (the one the Pray tab will show) is centred whenever there
+/// is room, and comes to rest fully visible against whichever end it is at.
+/// That position is the only cue saying which group is active, so it follows
+/// the active group whenever it changes — including a switch made from the Pray
+/// tab while this screen sat in the background.
 class PeopleGroupCarousel extends StatefulWidget {
   const PeopleGroupCarousel({
     super.key,
@@ -38,9 +41,26 @@ class PeopleGroupCarousel extends StatefulWidget {
 
 class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
   final ScrollController _controller = ScrollController();
-  // Set once the first layout has told us how wide a card ended up, so the
-  // jump to the active card can only happen when it can land accurately.
-  bool _scrolledToActive = false;
+
+  /// The cards sit inside this padding so their shadows have somewhere to fall.
+  /// A scroll view clips at its own bounds, so without it the first and last
+  /// cards lose their shadow to the left and right edges and every card loses
+  /// it along the bottom.
+  static const double _gutter = AppSpacing.md;
+
+  static const double _gap = AppSpacing.lg;
+
+  /// How much of each neighbouring card shows beside a centred one.
+  static const double _peek = AppSpacing.lg;
+
+  /// The slug the scroll position was last aligned to, so an alignment runs
+  /// once per change of active group rather than on every rebuild.
+  String? _alignedTo;
+
+  /// False until the first alignment has happened, which is the one that must
+  /// not animate — the carousel should already be in place when it is first
+  /// looked at.
+  bool _hasAligned = false;
 
   @override
   void dispose() {
@@ -48,15 +68,42 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
     super.dispose();
   }
 
-  void _scrollToActive(double cardWidth) {
-    if (_scrolledToActive) return;
-    _scrolledToActive = true;
+  /// Where the scroll view must sit for card [index] to be centred. Clamping by
+  /// the caller does the rest: at either end the target falls outside the
+  /// scrollable range and the card comes to rest fully visible instead.
+  ///
+  /// The "add another" card is part of the row, so it counts as the last card —
+  /// which is what lets the final *group* be centred while there is still room
+  /// under the cap.
+  double _centredOffset(int index, double cardWidth, double viewportWidth) =>
+      _gutter + index * (cardWidth + _gap) - (viewportWidth - cardWidth) / 2;
+
+  void _alignToActive(double cardWidth, double viewportWidth) {
+    if (_alignedTo == widget.activeSlug) return;
+    _alignedTo = widget.activeSlug;
     final index = widget.groups.indexWhere((g) => g.slug == widget.activeSlug);
-    if (index <= 0) return;
-    final offset = index * (cardWidth + AppSpacing.lg);
+    if (index < 0) return;
+    final animate = _hasAligned;
+    _hasAligned = true;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_controller.hasClients) return;
-      _controller.jumpTo(offset.clamp(0, _controller.position.maxScrollExtent));
+      if (!mounted || !_controller.hasClients) return;
+      final target = _centredOffset(
+        index,
+        cardWidth,
+        viewportWidth,
+      ).clamp(0.0, _controller.position.maxScrollExtent);
+      // Animating only matters when the user can see it happen; a switch made
+      // from the Pray tab lands here before this screen is looked at again.
+      if (animate && (_controller.offset - target).abs() > 1) {
+        _controller.animateTo(
+          target,
+          duration: const Duration(milliseconds: 280),
+          curve: Curves.easeOutCubic,
+        );
+      } else {
+        _controller.jumpTo(target);
+      }
     });
   }
 
@@ -64,12 +111,18 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Leave a sliver of the next card visible: that peek, not a marker, is
-        // what tells someone there is more than one.
-        final cardWidth = constraints.maxWidth.isFinite
-            ? (constraints.maxWidth * 0.86).clamp(200.0, 340.0)
-            : 300.0;
-        _scrollToActive(cardWidth);
+        final viewportWidth = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : 360.0;
+        // Sized off a fixed peek rather than a fraction of the viewport: a
+        // centred card leaves both neighbours showing — the peek, not a
+        // marker, is what says there is more than one — while the card keeps
+        // enough width for its three action buttons to stay on one line.
+        final cardWidth = (viewportWidth - _gutter * 2 - _peek * 2).clamp(
+          200.0,
+          340.0,
+        );
+        _alignToActive(cardWidth, viewportWidth);
 
         return ValueListenableBuilder<Set<String>>(
           valueListenable: prayedTodayController,
@@ -77,6 +130,10 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
             return SingleChildScrollView(
               controller: _controller,
               scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(
+                horizontal: _gutter,
+                vertical: _gutter,
+              ),
               // A Row (rather than a horizontal ListView) keeps the carousel's
               // height intrinsic, so a card that grows at a large font scale is
               // not clipped by a height guessed here. IntrinsicHeight is what
@@ -87,7 +144,7 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
               child: IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: AppSpacing.lg,
+                  spacing: _gap,
                   children: [
                     for (final group in widget.groups)
                       SizedBox(

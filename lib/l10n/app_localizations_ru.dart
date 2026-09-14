@@ -63,6 +63,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Межкультурные служители присутствуют';
 
   @override
+  String get unselect => 'Отменить выбор';
+
+  @override
   String get workInLocalLanguageAndCulture =>
       'Работа на родном языке и в местной культуре';
 
@@ -607,12 +610,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cancel => 'Отмена';
-
-  @override
-  String get addPeopleGroup => 'Добавить';
-
-  @override
-  String get praying => 'Молитесь';
 
   @override
   String addPeopleGroupConfirm(String name) {

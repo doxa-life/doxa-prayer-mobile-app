@@ -90,6 +90,7 @@ Language is part of every content cache key, which is why switching language inv
 | `identity_tracking_id` | `_trackingIdKey` | [identity_service.dart:16](../../lib/services/identity_service.dart#L16) | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
 | `install_referrer_checked` | `_checkedFlagKey` | [install_referrer_service.dart:14](../../lib/services/install_referrer_service.dart#L14) | Cold start |
 | `people_group_subscriptions` | `_subscriptionsKey` | [subscribed_people_groups_controller.dart:97](../../lib/services/subscribed_people_groups_controller.dart#L97) | Cold start; Confirm a people group; Group details → pray for this group; Group details → stop praying for this group |
+| `pray_selector_seen` | `_seenKey` | [pray_selector_controller.dart:10](../../lib/services/pray_selector_controller.dart#L10) | Open the Pray tab |
 | `prayer_history` | `_historyKey` | [prayer_history_service.dart:7](../../lib/services/prayer_history_service.dart#L7) | Tap Amen; Leave the Pray tab without tapping Amen |
 | `referred_people_group_slug` | `_referredSlugKey` | [referral_controller.dart:15](../../lib/services/referral_controller.dart#L15) | Cold start; Welcome → Start; Open an /app/<slug> share link |
 | `reminders` | `_storageKey` | [reminders_controller.dart:9](../../lib/services/reminders_controller.dart#L9) | Reminder step → Save; Group details → stop praying for this group; Add or edit a reminder |
