@@ -1,48 +1,121 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart' show compute;
 
 import '../models/people_group.dart';
 import '../models/people_group_detail.dart';
 import 'api_config.dart';
+import 'cache_policy.dart';
+import 'people_group_locations.dart';
+import 'response_cache.dart';
 
-const _listFields = 'name,slug,image_url,country_code,religion,people_praying';
+// `latitude,longitude` are here for the people-group map, not the browse
+// list: the map draws every group as a pin and reads them straight off this
+// cached list, so no second request is needed. They add roughly 60 KB to an
+// ~850 KB response.
+const _listFields =
+    'name,slug,image_url,country_code,religion,people_praying,people_committed,'
+    'latitude,longitude';
 
-Future<List<PeopleGroup>> fetchPeopleGroups({String lang = 'en'}) async {
-  final uri = ApiConfig.buildUri('/api/people-groups/list', {
-    'lang': lang,
-    'fields': _listFields,
-  });
-  final response = await http.get(
-    uri,
-    headers: const {'Accept': 'application/json'},
-  );
-  if (response.statusCode != 200) {
-    throw Exception('Failed to load people groups (${response.statusCode})');
-  }
-  final body = jsonDecode(response.body) as Map<String, dynamic>;
-  final posts = body['posts'] as List<dynamic>;
-  return posts
+/// Bumped whenever [_listFields] changes. The cached body is a *projection* of
+/// the people group, not the whole record, so a build that asks for a new field
+/// must not be served the old body that lacks it — which is what happened when
+/// the map's `latitude,longitude` were added: existing installs kept serving a
+/// coordinate-less list for the rest of its 7-day TTL, and the map button never
+/// appeared. Old files are swept by `maxResponseAge`.
+const String _listFieldsRevision = 'v3';
+
+/// Cache keys are exposed so a screen can peek the in-memory cache before its
+/// first frame (see `CachedDataBuilder`); they must match what the fetch below
+/// stores under.
+String peopleGroupListCacheKey(String lang) =>
+    'pg-list-$lang-$_listFieldsRevision';
+
+String peopleGroupDetailCacheKey(String slug, String lang) =>
+    'pg-detail-$slug-$lang';
+
+/// The response is ~850 KB for the full list, and `jsonDecode` on that blocks
+/// long enough to drop frames — so parsing happens in a background isolate.
+/// Only the decode is offloaded: building the 2,000-odd small model objects is
+/// cheap, and doing it here keeps the isolate boundary to plain JSON.
+Future<List<PeopleGroup>> _parseList(String body) async {
+  final json = await compute(jsonDecode, body) as Map<String, dynamic>;
+  final posts = json['posts'] as List<dynamic>;
+  final groups = posts
       .map((e) => PeopleGroup.fromJson(e as Map<String, dynamic>))
       .toList(growable: false);
+  // Every path that decodes the list — fetch, background refresh and the
+  // startup warm — lands here, so this is the one place that has to publish
+  // the coordinates the home cards and the map read.
+  publishPeopleGroupLocations(groups);
+  return groups;
 }
 
+/// The UUPG browse list in [lang], cached on disk for
+/// [CachePolicy.peopleGroupList] and refreshed in the background once the
+/// cached copy is older than [CachePolicy.peopleGroupCounts].
+///
+/// Pass [forceRefresh] for an explicit user retry.
+Future<List<PeopleGroup>> fetchPeopleGroups({
+  required String lang,
+  bool forceRefresh = false,
+}) {
+  return getJsonCached(
+    uri: ApiConfig.buildUri('/api/people-groups/list', {
+      'lang': lang,
+      'fields': _listFields,
+    }),
+    cacheKey: peopleGroupListCacheKey(lang),
+    ttl: CachePolicy.peopleGroupList,
+    refreshAfter: CachePolicy.peopleGroupCounts,
+    forceRefresh: forceRefresh,
+    decode: _parseList,
+    errorMessage: (status) => 'Failed to load people groups ($status)',
+  );
+}
+
+/// One people group's detail page, cached for
+/// [CachePolicy.peopleGroupDetail] and refreshed in the background once the
+/// cached copy is older than [CachePolicy.peopleGroupCounts].
+///
+/// Pass [forceRefresh] for an explicit user retry.
 Future<PeopleGroupDetail> fetchPeopleGroupDetail(
   String slug, {
-  String lang = 'en',
-}) async {
-  final uri = ApiConfig.buildUri('/api/people-groups/detail/$slug', {
-    'lang': lang,
-  });
-  final response = await http.get(
-    uri,
-    headers: const {'Accept': 'application/json'},
+  required String lang,
+  bool forceRefresh = false,
+}) {
+  return getJsonCached(
+    uri: ApiConfig.buildUri('/api/people-groups/detail/$slug', {'lang': lang}),
+    cacheKey: peopleGroupDetailCacheKey(slug, lang),
+    ttl: CachePolicy.peopleGroupDetail,
+    refreshAfter: CachePolicy.peopleGroupCounts,
+    forceRefresh: forceRefresh,
+    decode: (body) =>
+        PeopleGroupDetail.fromJson(jsonDecode(body) as Map<String, dynamic>),
+    errorMessage: (status) => 'Failed to load people group detail ($status)',
   );
-  if (response.statusCode != 200) {
-    throw Exception(
-      'Failed to load people group detail (${response.statusCode})',
-    );
-  }
-  final body = jsonDecode(response.body) as Map<String, dynamic>;
-  return PeopleGroupDetail.fromJson(body);
+}
+
+/// Loads an already-cached list and detail page into memory so the browse tab
+/// and a returning user's own group paint without a skeleton. Never fetches.
+Future<void> warmPeopleGroupCaches({
+  required String lang,
+  List<String> subscribedSlugs = const <String>[],
+}) async {
+  await Future.wait([
+    warmCachedValue<List<PeopleGroup>>(
+      cacheKey: peopleGroupListCacheKey(lang),
+      ttl: CachePolicy.peopleGroupList,
+      decode: _parseList,
+    ),
+    for (final slug in subscribedSlugs)
+      if (slug.isNotEmpty)
+        warmCachedValue<PeopleGroupDetail>(
+          cacheKey: peopleGroupDetailCacheKey(slug, lang),
+          ttl: CachePolicy.peopleGroupDetail,
+          decode: (body) => PeopleGroupDetail.fromJson(
+            jsonDecode(body) as Map<String, dynamic>,
+          ),
+        ),
+  ]);
 }

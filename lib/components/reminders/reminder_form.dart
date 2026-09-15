@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../services/reminders_controller.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
@@ -9,6 +10,7 @@ import '../buttons/button_bar_wrap.dart';
 import '../inputs/adaptive_time_picker.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/titles.dart';
+import 'reminder_group_field.dart';
 import 'weekday_selector.dart';
 
 class ReminderForm extends StatefulWidget {
@@ -35,6 +37,7 @@ class ReminderForm extends StatefulWidget {
 
 class _ReminderFormState extends State<ReminderForm> {
   late final String _id;
+  late String _slug;
   late TimeOfDay _time;
   late Set<int> _weekdays;
   bool _saving = false;
@@ -44,6 +47,9 @@ class _ReminderFormState extends State<ReminderForm> {
     super.initState();
     final r = widget.initialReminder;
     _id = r?.id ?? generateReminderId();
+    // A new reminder is for the group the user is currently praying for —
+    // by far the most likely answer, and one tap saves without touching it.
+    _slug = r?.slug ?? activePeopleGroup?.slug ?? '';
     _time = r != null
         ? TimeOfDay(hour: r.hour, minute: r.minute)
         : const TimeOfDay(hour: 8, minute: 0);
@@ -73,6 +79,7 @@ class _ReminderFormState extends State<ReminderForm> {
     final r = widget.initialReminder;
     return Reminder(
       id: _id,
+      slug: _slug,
       hour: _time.hour,
       minute: _time.minute,
       weekdays: _weekdays.toList()..sort(),
@@ -117,6 +124,15 @@ class _ReminderFormState extends State<ReminderForm> {
       children: [
         Center(child: H2(title)),
         if (title.isNotEmpty) const SizedBox(height: AppSpacing.xxl),
+        ReminderGroupField(
+          slug: _slug,
+          onChanged: (value) {
+            setState(() => _slug = value);
+            _emitChanged();
+          },
+        ),
+        if (peopleGroupsController.value.list.length > 1)
+          const SizedBox(height: AppSpacing.xl),
         MergeSemantics(
           child: Semantics(
             button: true,

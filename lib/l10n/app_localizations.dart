@@ -6,11 +6,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ar.dart';
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_it.dart';
 import 'app_localizations_pt.dart';
+import 'app_localizations_ro.dart';
 import 'app_localizations_ru.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -99,11 +104,16 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
+    Locale('de'),
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('hi'),
+    Locale('it'),
     Locale('pt'),
+    Locale('ro'),
     Locale('ru'),
+    Locale('zh'),
   ];
 
   /// The name of the app
@@ -189,6 +199,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cross-cultural workers present'**
   String get crossCulturalWorkersPresent;
+
+  /// Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Unselect'**
+  String get unselect;
 
   /// The label of the work in local language and culture field
   ///
@@ -436,24 +452,6 @@ abstract class AppLocalizations {
   /// **'Thank you for praying'**
   String get prayerThankYouTitle;
 
-  /// Encouraging body message of the modal shown after the user taps Amen
-  ///
-  /// In en, this message translates to:
-  /// **'Your faithfulness in prayer matters. God hears you, and your prayers make a difference.'**
-  String get prayerThankYouMessage;
-
-  /// Bible verse text shown in the thank-you-for-praying modal
-  ///
-  /// In en, this message translates to:
-  /// **'Rejoice always, pray continually, give thanks in all circumstances; for this is God\'s will for you in Christ Jesus.'**
-  String get prayerThankYouVerse;
-
-  /// Bible verse reference shown beneath the verse in the thank-you-for-praying modal
-  ///
-  /// In en, this message translates to:
-  /// **'1 Thessalonians 5:16-18'**
-  String get prayerThankYouVerseReference;
-
   /// Pill shown on the home people group card when the user has prayed for it today
   ///
   /// In en, this message translates to:
@@ -507,6 +505,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Prayer recorded'**
   String get prayerRecordedAnnouncement;
+
+  /// Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 person praying with you now} other{{count} people praying with you now}}'**
+  String prayingWithYou(num count);
 
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen
   ///
@@ -928,18 +932,6 @@ abstract class AppLocalizations {
   /// **'Not now'**
   String get updateDismiss;
 
-  /// Title of the home-screen section with share, donate and feedback buttons
-  ///
-  /// In en, this message translates to:
-  /// **'Get involved'**
-  String get getInvolved;
-
-  /// Button that opens the donation page in the browser
-  ///
-  /// In en, this message translates to:
-  /// **'Donate'**
-  String get donate;
-
   /// Button that opens the in-app feedback panel
   ///
   /// In en, this message translates to:
@@ -1042,11 +1034,11 @@ abstract class AppLocalizations {
   /// **'Pray with me for the {name} — get the Doxa Prayer app:'**
   String shareMessage(String name);
 
-  /// Button on the people group card that shows a QR code of the share link
+  /// Button in the share modal that hands the people group link to the device's share sheet
   ///
   /// In en, this message translates to:
-  /// **'QR code'**
-  String get qrCode;
+  /// **'Share link'**
+  String get shareLink;
 
   /// Caption under the QR code in the share modal
   ///
@@ -1113,6 +1105,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications disabled'**
   String get notifications_disabled;
+
+  /// Button that dismisses a modal without doing anything
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Confirmation asked before subscribing to a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to start praying for {name}?'**
+  String addPeopleGroupConfirm(String name);
+
+  /// Button that takes the user to the people groups list
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group'**
+  String get choosePeopleGroup;
+
+  /// Label on the last card of the home carousel, which opens the people groups list
+  ///
+  /// In en, this message translates to:
+  /// **'Add another people group'**
+  String get addAnotherPeopleGroup;
+
+  /// Title of the modal shown when adding a people group would exceed the limit
+  ///
+  /// In en, this message translates to:
+  /// **'You are praying for {count} people groups'**
+  String peopleGroupLimitTitle(num count);
+
+  /// Body of the modal shown when adding a people group would exceed the limit
+  ///
+  /// In en, this message translates to:
+  /// **'That is as many as you can pray for at once. To add {name}, choose one to stop praying for.'**
+  String peopleGroupLimitBody(String name);
+
+  /// Confirm button of the modal that swaps one people group for another
+  ///
+  /// In en, this message translates to:
+  /// **'Swap'**
+  String get swapPeopleGroupAction;
+
+  /// Title of the modal that confirms unsubscribing from a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Stop praying for {name}?'**
+  String removePeopleGroupTitle(String name);
+
+  /// Body of the modal that confirms unsubscribing from a people group with no reminders
+  ///
+  /// In en, this message translates to:
+  /// **'They will be removed from your home screen. You can add them again at any time.'**
+  String get removePeopleGroupBody;
+
+  /// Extra line in the remove modal when the people group has reminders that will be deleted with it
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Its reminder will be deleted.} other{Its {count} reminders will be deleted.}}'**
+  String removePeopleGroupReminders(num count);
+
+  /// Confirm button of the modal that unsubscribes from a people group
+  ///
+  /// In en, this message translates to:
+  /// **'Stop praying'**
+  String get stopPraying;
+
+  /// Message on the reminders screen when the user prays for no people groups, so no reminder can be set
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a people group before setting a reminder.'**
+  String get noPeopleGroupsForReminder;
+
+  /// Label of the people group field in the reminder editor
+  ///
+  /// In en, this message translates to:
+  /// **'People group'**
+  String get reminderPeopleGroup;
+
+  /// Body of a reminder notification that is for a specific people group
+  ///
+  /// In en, this message translates to:
+  /// **'Open Doxa to pray for {name}.'**
+  String reminderNotificationBodyForGroup(String name);
+
+  /// The next reminder on the home screen summary card, naming the people group it is for
+  ///
+  /// In en, this message translates to:
+  /// **'{time} for {name}'**
+  String nextReminderForGroup(String time, String name);
+
+  /// Action in the thank you modal that moves on to another people group the user has not prayed for today
+  ///
+  /// In en, this message translates to:
+  /// **'Pray for {name}'**
+  String prayForNextGroup(String name);
+
+  /// Accessibility label for an avatar in the pray screen people group row
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {name}'**
+  String switchToPeopleGroup(String name);
+
+  /// Button on the people group card that opens the map of where the group lives
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// Accessibility label for the people-group map. {name} is the people group being shown.
+  ///
+  /// In en, this message translates to:
+  /// **'Map of {name}'**
+  String mapOf(String name);
+
+  /// Accessibility description of the other pins shown around the focused people group
+  ///
+  /// In en, this message translates to:
+  /// **'Nearby people groups'**
+  String get nearbyPeopleGroups;
+
+  /// Button that moves the map back to the people group it opened on, shown once that group has been panned off screen
+  ///
+  /// In en, this message translates to:
+  /// **'Recenter'**
+  String get recenter;
+
+  /// Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown
+  ///
+  /// In en, this message translates to:
+  /// **'Map images unavailable offline'**
+  String get mapUnavailableOffline;
+
+  /// Map legend row explaining that heart-shaped pins are the people groups the user prays for
+  ///
+  /// In en, this message translates to:
+  /// **'Your people groups'**
+  String get yourPeopleGroups;
+
+  /// Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled
+  ///
+  /// In en, this message translates to:
+  /// **'Location not available'**
+  String get locationNotAvailable;
+
+  /// Error shown when the people-group list the map needs could not be loaded
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the map.'**
+  String get couldNotLoadMapMessage;
 }
 
 class _AppLocalizationsDelegate
@@ -1127,11 +1269,16 @@ class _AppLocalizationsDelegate
   @override
   bool isSupported(Locale locale) => <String>[
     'ar',
+    'de',
     'en',
     'es',
     'fr',
+    'hi',
+    'it',
     'pt',
+    'ro',
     'ru',
+    'zh',
   ].contains(locale.languageCode);
 
   @override
@@ -1143,16 +1290,26 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'ar':
       return AppLocalizationsAr();
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
     case 'es':
       return AppLocalizationsEs();
     case 'fr':
       return AppLocalizationsFr();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'it':
+      return AppLocalizationsIt();
     case 'pt':
       return AppLocalizationsPt();
+    case 'ro':
+      return AppLocalizationsRo();
     case 'ru':
       return AppLocalizationsRu();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

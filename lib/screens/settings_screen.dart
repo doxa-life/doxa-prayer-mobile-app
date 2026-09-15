@@ -76,6 +76,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: () => context.push('/settings/notifications'),
                       ),
                     ),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: HyphenatedText(l.feedback),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.push('/feedback'),
+                    ),
                     AccountSettingsSection(key: _accountKey),
                   ],
                 ),

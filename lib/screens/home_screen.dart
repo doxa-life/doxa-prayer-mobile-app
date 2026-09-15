@@ -1,24 +1,19 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/get_involved_card.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/prayer_reminder_banner.dart';
-import 'package:doxa_prayer_mobile_app/components/misc/qr_share_modal.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
-import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
-import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
+import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-const _donateUrl = 'https://giving.ag.org/donate/600001-6c2327';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -34,11 +29,7 @@ class HomeScreen extends StatelessWidget {
         child: PageContainer(
           child: Column(
             spacing: AppSpacing.xxl,
-            children: [
-              _peopleGroupCardOrCTA(),
-              _remindersCardOrCTA(),
-              _getInvolvedCard(context),
-            ],
+            children: [_peopleGroupsCardOrCTA(), _remindersCardOrCTA()],
           ),
         ),
       ),
@@ -49,71 +40,63 @@ class HomeScreen extends StatelessWidget {
     context.push('/people-groups/$slug');
   }
 
-  void _openPray(BuildContext context) {
-    context.goNamed(AppRoute.pray.name);
+  /// Praying for a group from its card also makes it the active group, so the
+  /// Pray tab shows what the user just tapped rather than whatever it showed
+  /// last.
+  Future<void> _openPray(BuildContext context, String slug) async {
+    await setActivePeopleGroup(slug);
+    if (context.mounted) context.goNamed(AppRoute.pray.name);
   }
 
-  Widget _peopleGroupCardOrCTA() {
-    return ValueListenableBuilder<SelectedPeopleGroup?>(
-      valueListenable: selectedPeopleGroupController,
-      builder: (context, selected, _) {
-        if (selected == null) {
+  Widget _peopleGroupsCardOrCTA() {
+    return ValueListenableBuilder<SubscribedPeopleGroups>(
+      valueListenable: peopleGroupsController,
+      builder: (context, groups, _) {
+        if (groups.isEmpty) {
           return CtaButton(
             label: AppLocalizations.of(context)!.selectPeopleGroup,
             onPressed: () => context.go('/people-groups'),
           );
         }
-        return ValueListenableBuilder<Set<String>>(
-          valueListenable: prayedTodayController,
-          builder: (context, prayedSlugs, _) {
-            return PeopleGroupCard(
-              name: selected.name,
-              imageUrl: selected.imageUrl ?? '',
-              prayedToday: prayedSlugs.contains(selected.slug),
-              onPray: () => _openPray(context),
-              onDetails: () => _openDetails(selected.slug, context),
-              onShare: () => _share(context, selected),
-              onShowQr: () => showQrShareModal(
-                context,
-                url: _shareLink(selected.slug),
-                peopleGroupName: selected.name,
-              ),
-            );
-          },
+        return PeopleGroupCarousel(
+          // Rebuilt from scratch when the set of groups changes, so the
+          // scroll-to-active runs again for the new list.
+          key: ValueKey(groups.list.map((g) => g.slug).join(',')),
+          groups: groups.list,
+          activeSlug: groups.active?.slug,
+          onPray: (g) => _openPray(context, g.slug),
+          onDetails: (g) => _openDetails(g.slug, context),
+          onShare: (g) => _openShare(context, g),
+          onMap: (g) => context.push('/people-groups/${g.slug}/map'),
+          onAdd: () => context.go('/people-groups'),
         );
       },
     );
-  }
-
-  Widget _getInvolvedCard(BuildContext context) {
-    return GetInvolvedCard(
-      onDonate: () => _openExternalUrl(_donateUrl),
-      onFeedback: () => context.push('/feedback'),
-    );
-  }
-
-  void _openExternalUrl(String url) {
-    launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
   /// The deep link to install the app / pray for a people group — the same
   /// route the campaigns server profile pages link to.
   String _shareLink(String slug) => ApiConfig.buildUri('/app/$slug').toString();
 
-  void _share(BuildContext context, SelectedPeopleGroup selected) {
-    final text =
-        '${AppLocalizations.of(context)!.shareMessage(selected.name)} '
-        '${_shareLink(selected.slug)}';
+  /// One share entry point: the modal shows the QR code for sharing in person
+  /// and hands off to the device's share sheet for every other channel.
+  void _openShare(BuildContext context, SubscribedPeopleGroup group) {
+    showSharePeopleGroupModal(
+      context,
+      url: _shareLink(group.slug),
+      peopleGroupName: group.name,
+      onShareLink: (origin) => _share(context, group, origin),
+    );
+  }
 
-    // iPads require a popover anchor; anchor the share sheet to the card.
-    final box = context.findRenderObject() as RenderBox?;
+  void _share(BuildContext context, SubscribedPeopleGroup group, Rect? origin) {
+    final text =
+        '${AppLocalizations.of(context)!.shareMessage(group.name)} '
+        '${_shareLink(group.slug)}';
+
     SharePlus.instance.share(
-      ShareParams(
-        text: text,
-        sharePositionOrigin: box == null
-            ? null
-            : box.localToGlobal(Offset.zero) & box.size,
-      ),
+      // iPads require a popover anchor; the modal reports where it was.
+      ShareParams(text: text, sharePositionOrigin: origin),
     );
   }
 }

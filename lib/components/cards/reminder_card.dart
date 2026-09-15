@@ -13,10 +13,15 @@ class ReminderCard extends StatelessWidget {
     required this.time,
     required this.daysSummary,
     required this.enabled,
+    this.peopleGroupName,
     this.onToggle,
     this.onTap,
   });
 
+  /// The group this reminder is for. Null only for a reminder left over from
+  /// before reminders belonged to a group, which is shown without a label
+  /// rather than hidden.
+  final String? peopleGroupName;
   final String time;
   final String daysSummary;
   final bool enabled;
@@ -39,6 +44,14 @@ class ReminderCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (peopleGroupName != null)
+                  HyphenatedText(
+                    peopleGroupName!,
+                    style: AppTypography.caption.copyWith(
+                      color: AppColors.secondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 HyphenatedText(time, style: AppTypography.titleMedium),
                 const SizedBox(height: 2),
                 HyphenatedText(daysSummary, style: AppTypography.caption),

@@ -60,6 +60,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'وجود عمّال عابرين للثقافات';
 
   @override
+  String get unselect => 'إلغاء الاختيار';
+
+  @override
   String get workInLocalLanguageAndCulture => 'العمل باللغة والثقافة المحلية';
 
   @override
@@ -187,17 +190,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayerThankYouTitle => 'شكرًا لكم على صلواتكم';
 
   @override
-  String get prayerThankYouMessage =>
-      'إخلاصك في الصلاة له أهمية كبيرة. الله يسمعك، وصلواتك تُحدث فرقًا.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'افرحوا دائمًا، صلّوا بلا انقطاع، اشكروا في كل الأحوال؛ فهذه هي مشيئة الله لكم في المسيح يسوع.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 تسالونيكي 5:16-18';
-
-  @override
   String get prayedToday => 'صليت اليوم';
 
   @override
@@ -227,6 +219,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'تم تسجيل الصلاة';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString شخص يصلّي معك الآن',
+      many: '$countString شخصًا يصلّي معك الآن',
+      few: '$countString أشخاص يصلّون معك الآن',
+      two: 'شخصان يصلّيان معك الآن',
+      one: 'شخص واحد يصلّي معك الآن',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'تذكير جديد';
@@ -501,12 +512,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get updateDismiss => 'ليس الآن';
 
   @override
-  String get getInvolved => 'شارك معنا';
-
-  @override
-  String get donate => 'تبرع';
-
-  @override
   String get feedback => 'التعليقات';
 
   @override
@@ -564,7 +569,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'رمز QR';
+  String get shareLink => 'مشاركة الرابط';
 
   @override
   String scanToPray(String name) {
@@ -604,4 +609,107 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'الإشعارات معطلة';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'هل تريد البدء في الصلاة من أجل «$name»؟';
+  }
+
+  @override
+  String get choosePeopleGroup => 'اختر مجموعة شعبية';
+
+  @override
+  String get addAnotherPeopleGroup => 'أضف مجموعة شعبية أخرى';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'أنت تصلّي من أجل $count مجموعات شعبية';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'هذا أقصى عدد يمكنك الصلاة من أجله في الوقت نفسه. لإضافة «$name»، اختر مجموعة تتوقف عن الصلاة من أجلها.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'استبدال';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'هل تتوقف عن الصلاة من أجل «$name»؟';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'ستُزال من الصفحة الرئيسية. يمكنك إضافتها مرة أخرى في أي وقت.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'سيتم حذف تذكيراتها البالغة $count.',
+      two: 'سيتم حذف تذكيريها.',
+      one: 'سيتم حذف تذكيرها.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'التوقف عن الصلاة';
+
+  @override
+  String get noPeopleGroupsForReminder => 'اختر مجموعة شعبية قبل تعيين تذكير.';
+
+  @override
+  String get reminderPeopleGroup => 'المجموعة الشعبية';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'افتح تطبيق Doxa للصلاة من أجل «$name».';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time من أجل «$name»';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'الصلاة من أجل «$name»';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'التبديل إلى «$name»';
+  }
+
+  @override
+  String get map => 'الخريطة';
+
+  @override
+  String mapOf(String name) {
+    return 'خريطة «$name»';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'المجموعات الشعبية القريبة';
+
+  @override
+  String get recenter => 'إعادة التوسيط';
+
+  @override
+  String get mapUnavailableOffline => 'صور الخريطة غير متاحة دون اتصال';
+
+  @override
+  String get yourPeopleGroups => 'مجموعاتك الشعبية';
+
+  @override
+  String get locationNotAvailable => 'الموقع غير متاح';
+
+  @override
+  String get couldNotLoadMapMessage => 'تعذر تحميل الخريطة.';
 }

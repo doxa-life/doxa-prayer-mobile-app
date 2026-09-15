@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/reminders_controller.dart';
 import '../../services/reminders_format.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -15,6 +16,17 @@ class RemindersSummary extends StatelessWidget {
   const RemindersSummary({super.key, required this.reminders});
 
   final Reminders reminders;
+
+  /// The next firing, named with its people group when the user prays for more
+  /// than one — otherwise the group adds nothing they don't already know.
+  String _nextLabel(BuildContext context, NextReminder next) {
+    final l = AppLocalizations.of(context)!;
+    final when = formatNextReminderWhen(context, next.firesAt);
+    final groups = peopleGroupsController.value;
+    if (groups.list.length < 2) return when;
+    final name = groups.bySlug(next.reminder.slug)?.name;
+    return name == null ? when : l.nextReminderForGroup(when, name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +61,7 @@ class RemindersSummary extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       HyphenatedText(
-                        formatNextReminderWhen(context, next.firesAt),
+                        _nextLabel(context, next),
                         style: AppTypography.titleMedium.copyWith(
                           color: AppColors.onPrimary,
                         ),

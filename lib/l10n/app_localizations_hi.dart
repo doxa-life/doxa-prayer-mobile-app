@@ -1,0 +1,701 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Hindi (`hi`).
+class AppLocalizationsHi extends AppLocalizations {
+  AppLocalizationsHi([String locale = 'hi']) : super(locale);
+
+  @override
+  String get appName => 'Doxa Prayer';
+
+  @override
+  String get home => 'होम';
+
+  @override
+  String get pray => 'प्रार्थना करें';
+
+  @override
+  String get peopleGroups => 'जन-समूह';
+
+  @override
+  String nPeopleGroups(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count जन-समूह',
+      one: '1 जन-समूह',
+      zero: 'कोई जन-समूह नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get searchPeopleGroups => 'जन-समूह खोजें';
+
+  @override
+  String get profile => 'प्रोफ़ाइल';
+
+  @override
+  String get reminders => 'अनुस्मारक';
+
+  @override
+  String get settings => 'सेटिंग्स';
+
+  @override
+  String get language => 'भाषा';
+
+  @override
+  String get retry => 'फिर कोशिश करें';
+
+  @override
+  String get couldNotLoadPeopleGroupsMessage => 'जन-समूह लोड नहीं हो सके।';
+
+  @override
+  String get selectPeopleGroup => 'एक जन-समूह चुनें';
+
+  @override
+  String get crossCulturalWorkersPresent =>
+      'सांस्कृतिक सीमाओं को पार करने वाले कार्यकर्ता मौजूद';
+
+  @override
+  String get unselect => 'चयन हटाएँ';
+
+  @override
+  String get workInLocalLanguageAndCulture =>
+      'स्थानीय भाषा और संस्कृति में कार्य';
+
+  @override
+  String get discipleAndChurchMultiplication =>
+      'शिष्यों और कलीसियाओं की वृद्धि';
+
+  @override
+  String get resources => 'संसाधन';
+
+  @override
+  String get bibleTranslation => 'बाइबल अनुवाद';
+
+  @override
+  String get bibleStories => 'बाइबल कहानियाँ';
+
+  @override
+  String get jesusFilm => 'यीशु फ़िल्म';
+
+  @override
+  String get radioBroadcast => 'रेडियो प्रसारण';
+
+  @override
+  String get gospelRecordings => 'सुसमाचार रिकॉर्डिंग';
+
+  @override
+  String get audioScripture => 'ऑडियो पवित्रशास्त्र';
+
+  @override
+  String get overview => 'अवलोकन';
+
+  @override
+  String get prayerStatus => 'प्रार्थना की स्थिति';
+
+  @override
+  String get peopleCommittedToPraying => 'प्रार्थना के लिए प्रतिबद्ध लोग';
+
+  @override
+  String get dailyPrayerCoverage => 'दैनिक प्रार्थना कवरेज';
+
+  @override
+  String get peopleGroup => 'जन-समूह';
+
+  @override
+  String get couldNotLoadPeopleGroupDetailsMessage =>
+      'जन-समूह का विवरण लोड नहीं हो सका।';
+
+  @override
+  String get share => 'साझा करें';
+
+  @override
+  String get search => 'खोजें';
+
+  @override
+  String get country => 'देश';
+
+  @override
+  String get alternateName => 'वैकल्पिक नाम';
+
+  @override
+  String get population => 'जनसंख्या';
+
+  @override
+  String get primaryLanguage => 'मुख्य भाषा';
+
+  @override
+  String get primaryReligion => 'मुख्य धर्म';
+
+  @override
+  String get religiousPractices => 'धार्मिक प्रथाएँ';
+
+  @override
+  String get setReminder => 'अनुस्मारक सेट करें';
+
+  @override
+  String get pauseAndPray => 'रुकें और प्रार्थना करें';
+
+  @override
+  String get select => 'चुनें';
+
+  @override
+  String get selected => 'चयनित';
+
+  @override
+  String get yes => 'हाँ';
+
+  @override
+  String get no => 'नहीं';
+
+  @override
+  String get partial => 'आंशिक';
+
+  @override
+  String get status => 'स्थिति';
+
+  @override
+  String get engagementStatus => 'जुड़ाव की स्थिति';
+
+  @override
+  String get engaged => 'जुड़ा हुआ';
+
+  @override
+  String get adoptionStatus => 'अपनाने की स्थिति';
+
+  @override
+  String get selectPeopleGroupConfirm =>
+      'क्या आप इस जन-समूह को चुनना चाहते हैं?';
+
+  @override
+  String switchPeopleGroupConfirm(String currentName, String newName) {
+    return 'क्या आप “$currentName” के लिए प्रार्थना करना बंद करके “$newName” के लिए प्रार्थना करना शुरू करना चाहते हैं?';
+  }
+
+  @override
+  String get amen => 'आमीन';
+
+  @override
+  String get noPeopleGroupSelected =>
+      'प्रार्थना शुरू करने के लिए एक जन-समूह चुनें।';
+
+  @override
+  String get couldNotLoadPrayerContent => 'प्रार्थना सामग्री लोड नहीं हो सकी।';
+
+  @override
+  String get noPrayerContentAvailable =>
+      'आज के लिए कोई प्रार्थना सामग्री नहीं।';
+
+  @override
+  String get prayerThankYouTitle => 'प्रार्थना करने के लिए धन्यवाद';
+
+  @override
+  String get prayedToday => 'आज प्रार्थना की';
+
+  @override
+  String get prayerReminderTitle => 'आज की प्रार्थना के लिए तैयार?';
+
+  @override
+  String prayerReminderBody(String peopleGroup) {
+    return '“$peopleGroup” के लिए प्रार्थना करने हेतु टैप करें।';
+  }
+
+  @override
+  String get dismissReminderLabel => 'अनुस्मारक बंद करें';
+
+  @override
+  String prayForPeopleGroupLabel(String peopleGroup) {
+    return '“$peopleGroup” के लिए प्रार्थना करें';
+  }
+
+  @override
+  String get pictureCreditLabel => 'चित्र श्रेय';
+
+  @override
+  String get clearSearchLabel => 'खोज साफ़ करें';
+
+  @override
+  String get forwardLabel => 'आगे';
+
+  @override
+  String get prayerRecordedAnnouncement => 'प्रार्थना दर्ज हुई';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString लोग अभी आपके साथ प्रार्थना कर रहे हैं',
+      one: '$countString व्यक्ति अभी आपके साथ प्रार्थना कर रहा है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get newReminder => 'नया अनुस्मारक';
+
+  @override
+  String get editReminder => 'अनुस्मारक संपादित करें';
+
+  @override
+  String get save => 'सहेजें';
+
+  @override
+  String get delete => 'हटाएँ';
+
+  @override
+  String get time => 'समय';
+
+  @override
+  String get daysOfWeek => 'सप्ताह के दिन';
+
+  @override
+  String get everyDay => 'हर दिन';
+
+  @override
+  String get noDaysSelected => 'कोई दिन चयनित नहीं';
+
+  @override
+  String get noRemindersYet => 'अभी कोई अनुस्मारक नहीं';
+
+  @override
+  String get reminderNotificationTitle => 'प्रार्थना का समय';
+
+  @override
+  String get reminderNotificationBody =>
+      'आज की प्रार्थना शुरू करने के लिए Doxa खोलें।';
+
+  @override
+  String get notifications => 'सूचनाएँ';
+
+  @override
+  String get notificationsEnabledStatus =>
+      'सूचनाएँ चालू हैं। आपके प्रार्थना अनुस्मारक आपको मिलते रहेंगे।';
+
+  @override
+  String get notificationsDisabledStatus =>
+      'सूचनाएँ बंद हैं, इसलिए आपके प्रार्थना अनुस्मारक दिखाई नहीं देंगे।';
+
+  @override
+  String get notificationsHowToEnable =>
+      'सेटिंग्स खोलने के लिए नीचे टैप करें, फिर Doxa के लिए सूचनाओं की अनुमति दें।';
+
+  @override
+  String get exactAlarmsDisabledStatus =>
+      'Doxa को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना अनुस्मारक कुछ मिनट देर से आ सकते हैं।';
+
+  @override
+  String get allowExactAlarms => 'सटीक अलार्म की अनुमति दें';
+
+  @override
+  String get exactAlarmsPromptBody =>
+      'आपके प्रार्थना अनुस्मारक ठीक समय पर आएँ, इसके लिए Doxa को सटीक अलार्म की अनुमति दें।';
+
+  @override
+  String get allow => 'अनुमति दें';
+
+  @override
+  String get notNow => 'अभी नहीं';
+
+  @override
+  String get enableNotifications => 'सूचनाएँ सक्षम करें';
+
+  @override
+  String get openSettings => 'सेटिंग्स खोलें';
+
+  @override
+  String get nextReminder => 'अगला अनुस्मारक';
+
+  @override
+  String nextReminderToday(String time) {
+    return 'आज $time पर';
+  }
+
+  @override
+  String nextReminderTomorrow(String time) {
+    return 'कल $time पर';
+  }
+
+  @override
+  String nextReminderOn(String weekday, String time) {
+    return '$weekday को $time';
+  }
+
+  @override
+  String nRemindersSet(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString अनुस्मारक सेट',
+      one: '1 अनुस्मारक सेट',
+      zero: 'कोई अनुस्मारक सेट नहीं',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get wizardWelcomeTitle => 'Doxa Prayer में आपका स्वागत है';
+
+  @override
+  String get wizardWelcomeBody =>
+      'Doxa आपको एक अप्राप्त जन-समूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, अनुस्मारक सेट करने और जुड़े रहने में मदद करेंगे।';
+
+  @override
+  String get wizardGetStarted => 'शुरू करें';
+
+  @override
+  String get wizardChoosePeopleGroupTitle => 'एक जन-समूह चुनें';
+
+  @override
+  String wizardConfirmPeopleGroupTitle(String name) {
+    return '“$name” के लिए प्रार्थना करें?';
+  }
+
+  @override
+  String get wizardConfirmPeopleGroupBody =>
+      'हम आपको इस समूह के लिए प्रार्थना सामग्री और अनुस्मारक दिखाएँगे। आप इसे बाद में बदल सकते हैं।';
+
+  @override
+  String get wizardSetReminderTitle => 'प्रार्थना अनुस्मारक सेट करें';
+
+  @override
+  String get wizardSetReminderBody =>
+      'आपके चुने हुए समय पर हम आपको एक कोमल याद दिलाएँगे। आप इसे छोड़ सकते हैं और बाद में अनुस्मारक जोड़ सकते हैं।';
+
+  @override
+  String get wizardNewsSignupTitle => 'जुड़े रहें';
+
+  @override
+  String get wizardNewsSignupBody =>
+      'वैकल्पिक। अपने जन-समूह की ख़बरें और Doxa से अपडेट पाएँ।';
+
+  @override
+  String get back => 'वापस';
+
+  @override
+  String get continueLabel => 'आगे बढ़ें';
+
+  @override
+  String get skip => 'छोड़ें';
+
+  @override
+  String get finish => 'समाप्त';
+
+  @override
+  String get nameLabel => 'नाम';
+
+  @override
+  String get emailLabel => 'ईमेल';
+
+  @override
+  String get emailInvalid => 'कृपया एक मान्य ईमेल पता दर्ज करें।';
+
+  @override
+  String get nameRequired => 'कृपया अपना नाम दर्ज करें।';
+
+  @override
+  String get updatesAboutMyPeopleGroup =>
+      'मेरे जन-समूह के बारे में अपडेट प्राप्त करें';
+
+  @override
+  String get updatesFromDoxa => 'Doxa से अपडेट प्राप्त करें';
+
+  @override
+  String get signUpForUpdates => 'अपडेट के लिए पंजीकरण करें';
+
+  @override
+  String get newsSignupSuccessTitle => 'पंजीकरण के लिए धन्यवाद!';
+
+  @override
+  String newsSignupSuccessBody(String email) {
+    return 'हमने $email पर एक सत्यापन ईमेल भेजा है। कृपया अपना इनबॉक्स खोलें और सदस्यता की पुष्टि के लिए लिंक पर टैप करें।';
+  }
+
+  @override
+  String get newsSignupError =>
+      'कुछ गड़बड़ हो गई। कृपया अपना कनेक्शन जाँचें और फिर कोशिश करें।';
+
+  @override
+  String get enableNotificationsPromptBody =>
+      'ये अपडेट अपने फ़ोन पर भी पाने के लिए सूचनाएँ सक्षम करें।';
+
+  @override
+  String get enableNotificationsButton => 'सूचनाएँ सक्षम करें';
+
+  @override
+  String get accountSectionTitle => 'आपका खाता';
+
+  @override
+  String get emailVerified => 'सत्यापित';
+
+  @override
+  String get emailUnverified => 'सत्यापित नहीं';
+
+  @override
+  String get resendVerification => 'सत्यापन ईमेल फिर से भेजें';
+
+  @override
+  String get resendVerificationSent =>
+      'सत्यापन ईमेल भेजा गया। अपना इनबॉक्स देखें।';
+
+  @override
+  String resendVerificationCooldown(int seconds) {
+    return 'कृपया दूसरा ईमेल माँगने से पहले $seconds सेकंड प्रतीक्षा करें।';
+  }
+
+  @override
+  String resendVerificationCountdown(int seconds) {
+    return '$seconds सेकंड में फिर से भेजें';
+  }
+
+  @override
+  String get signUp => 'पंजीकरण करें';
+
+  @override
+  String get resendVerificationFailed =>
+      'ईमेल नहीं भेजा जा सका। कृपया फिर कोशिश करें।';
+
+  @override
+  String get viewProfile => 'प्रोफ़ाइल देखें';
+
+  @override
+  String get emailsLoadError => 'आपके ईमेल पते लोड नहीं हो सके।';
+
+  @override
+  String get updateAvailableTitle => 'अपडेट उपलब्ध';
+
+  @override
+  String get updateAvailableBody => 'Doxa Prayer का नया संस्करण उपलब्ध है।';
+
+  @override
+  String get updateRequiredTitle => 'अपडेट आवश्यक';
+
+  @override
+  String get updateRequiredBody =>
+      'Doxa Prayer का उपयोग जारी रखने के लिए कृपया नवीनतम संस्करण पर अपडेट करें।';
+
+  @override
+  String get updateAction => 'अपडेट करें';
+
+  @override
+  String get updateDismiss => 'अभी नहीं';
+
+  @override
+  String get feedback => 'प्रतिक्रिया';
+
+  @override
+  String get feedbackIntro =>
+      'हम आपसे सुनना चाहेंगे। बताइए कि आपको ऐप कैसा लगा।';
+
+  @override
+  String get feedbackTypeLabel => 'किस प्रकार की प्रतिक्रिया?';
+
+  @override
+  String get feedbackTypeCompliment => 'प्रशंसा';
+
+  @override
+  String get feedbackTypeSuggestion => 'सुझाव';
+
+  @override
+  String get feedbackTypeProblem => 'समस्या';
+
+  @override
+  String get feedbackTypeRequired => 'कृपया प्रतिक्रिया का प्रकार चुनें।';
+
+  @override
+  String get feedbackNameLabel => 'नाम (वैकल्पिक)';
+
+  @override
+  String get feedbackMessageLabel => 'संदेश';
+
+  @override
+  String get feedbackMessageRequired => 'कृपया एक संदेश लिखें।';
+
+  @override
+  String get feedbackConsentLabel => 'मुझे Doxa की ख़बरों से अवगत रखें';
+
+  @override
+  String get feedbackSubmit => 'प्रतिक्रिया भेजें';
+
+  @override
+  String get feedbackError =>
+      'कुछ गड़बड़ हो गई। कृपया अपना कनेक्शन जाँचें और फिर कोशिश करें।';
+
+  @override
+  String get feedbackRateLimited =>
+      'आपने हाल ही में बहुत सारी प्रतिक्रियाएँ भेजी हैं। कृपया बाद में कोशिश करें।';
+
+  @override
+  String get feedbackSuccessTitle => 'धन्यवाद!';
+
+  @override
+  String feedbackSuccessBody(String email) {
+    return 'आपकी प्रतिक्रिया $email के रूप में भेजी गई। यदि यह सही पता नहीं है, तो उसे सही पते के साथ फिर से भेजें।';
+  }
+
+  @override
+  String shareMessage(String name) {
+    return 'मेरे साथ $name के लिए प्रार्थना करें — Doxa Prayer ऐप पाएँ:';
+  }
+
+  @override
+  String get shareLink => 'लिंक साझा करें';
+
+  @override
+  String scanToPray(String name) {
+    return 'ऐप पाने और “$name” के लिए प्रार्थना करने हेतु स्कैन करें';
+  }
+
+  @override
+  String appVersion(String version) {
+    return 'संस्करण $version';
+  }
+
+  @override
+  String get previousDay => 'पिछला दिन';
+
+  @override
+  String get nextDay => 'अगला दिन';
+
+  @override
+  String get dayInTheLifeTitle => 'जीवन का एक दिन';
+
+  @override
+  String get myPeopleGroupTitle => 'मेरा जन-समूह';
+
+  @override
+  String peopleGroupIntroTitle(String name) {
+    return '“$name” के लिए प्रार्थना करें';
+  }
+
+  @override
+  String get peopleGroupOfTheDay => 'आज का जन-समूह';
+
+  @override
+  String get pressBackAgainToExit => 'बाहर निकलने के लिए फिर से बैक दबाएँ';
+
+  @override
+  String get notifications_enabled => 'सूचनाएँ सक्षम';
+
+  @override
+  String get notifications_disabled => 'सूचनाएँ अक्षम';
+
+  @override
+  String get cancel => 'रद्द करें';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'क्या आप “$name” के लिए प्रार्थना करना शुरू करना चाहते हैं?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'एक जन-समूह चुनें';
+
+  @override
+  String get addAnotherPeopleGroup => 'एक और जन-समूह जोड़ें';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'आप $count जन-समूहों के लिए प्रार्थना कर रहे हैं';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'एक साथ इतने ही के लिए आप प्रार्थना कर सकते हैं। “$name” को जोड़ने के लिए, चुनें कि किसके लिए प्रार्थना करना बंद करना है।';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'बदलें';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return '“$name” के लिए प्रार्थना करना बंद करें?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'यह आपकी होम स्क्रीन से हटा दिया जाएगा। आप इसे कभी भी फिर से जोड़ सकते हैं।';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'इसके $count अनुस्मारक हटा दिए जाएँगे।',
+      one: 'इसका $count अनुस्मारक हटा दिया जाएगा।',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'प्रार्थना करना बंद करें';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'अनुस्मारक सेट करने से पहले एक जन-समूह चुनें।';
+
+  @override
+  String get reminderPeopleGroup => 'जन-समूह';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return '“$name” के लिए प्रार्थना करने हेतु Doxa खोलें।';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '“$name” के लिए $time';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return '“$name” के लिए प्रार्थना करें';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return '“$name” पर जाएँ';
+  }
+
+  @override
+  String get map => 'मानचित्र';
+
+  @override
+  String mapOf(String name) {
+    return '“$name” का मानचित्र';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'आस-पास के जन-समूह';
+
+  @override
+  String get recenter => 'फिर से केंद्र में लाएँ';
+
+  @override
+  String get mapUnavailableOffline =>
+      'ऑफ़लाइन में मानचित्र की छवियाँ उपलब्ध नहीं';
+
+  @override
+  String get yourPeopleGroups => 'आपके जन-समूह';
+
+  @override
+  String get locationNotAvailable => 'स्थान उपलब्ध नहीं';
+
+  @override
+  String get couldNotLoadMapMessage => 'मानचित्र लोड नहीं हो सका।';
+}

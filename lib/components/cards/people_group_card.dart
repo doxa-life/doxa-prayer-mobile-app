@@ -4,12 +4,12 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../misc/app_image.dart';
 import 'elevated_card.dart';
 import '../misc/hyphenated_text.dart';
+import '../misc/prayed_today_pill.dart';
 
 class PeopleGroupCard extends StatelessWidget {
   const PeopleGroupCard({
@@ -19,17 +19,29 @@ class PeopleGroupCard extends StatelessWidget {
     this.prayedToday = false,
     this.onPray,
     this.onShare,
-    this.onShowQr,
     this.onDetails,
+    this.onMap,
+    this.showMap = false,
   });
 
   final String name;
   final String? imageUrl;
   final bool prayedToday;
   final VoidCallback? onPray;
+
+  /// Opens the share modal, which carries both the QR code and the
+  /// device's share sheet.
   final VoidCallback? onShare;
-  final VoidCallback? onShowQr;
   final VoidCallback? onDetails;
+
+  /// Opens the map of where this group lives. Null leaves the button in place
+  /// but disabled, labelled to say the group's location isn't available —
+  /// a card that silently loses a button its neighbours have looks broken.
+  final VoidCallback? onMap;
+
+  /// Whether the map button belongs on this card at all. False in a build with
+  /// no Mapbox token, where there is no map to offer.
+  final bool showMap;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +64,7 @@ class PeopleGroupCard extends StatelessWidget {
               onPressed: onPray,
               color: ActionButtonColor.secondary,
             ),
-          if (prayedToday) _PrayedTodayPill(label: l.prayedToday),
+          if (prayedToday) PrayedTodayPill(label: l.prayedToday),
           // A Wrap (rather than a Row) so the action buttons reflow onto a
           // second line instead of overflowing when large font scales widen
           // their labels. Full width so spaceEvenly spreads them across the
@@ -77,54 +89,16 @@ class PeopleGroupCard extends StatelessWidget {
                     label: l.share,
                     onPressed: onShare,
                   ),
-                if (onShowQr != null)
+                if (showMap)
                   IconLabelButton(
-                    icon: const AppIcon(AppIconName.qrCode),
-                    label: l.qrCode,
-                    onPressed: onShowQr,
+                    icon: const AppIcon(AppIconName.geoAlt),
+                    label: onMap == null ? l.locationNotAvailable : l.map,
+                    onPressed: onMap,
                   ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PrayedTodayPill extends StatelessWidget {
-  const _PrayedTodayPill({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    // A status indicator, not a control: merge the decorative check icon and
-    // label into a single node so screen readers announce just "<label>".
-    return MergeSemantics(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.xxs,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.xs,
-          children: [
-            const Icon(Icons.check, size: 16, color: AppColors.onSecondary),
-            HyphenatedText(
-              label,
-              style: AppTypography.bodySmall.copyWith(
-                color: AppColors.onSecondary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -60,7 +60,11 @@
     "@crossCulturalWorkersPresent": {
         "description": "The label of the cross-cultural workers present field"
     },
+    "unselect": "Unselect",
     "workInLocalLanguageAndCulture": "Work in local language & culture",
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
+    },
     "@workInLocalLanguageAndCulture": {
         "description": "The label of the work in local language and culture field"
     },
@@ -232,18 +236,6 @@
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
     },
-    "prayerThankYouMessage": "Your faithfulness in prayer matters. God hears you, and your prayers make a difference.",
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
-    "prayerThankYouVerse": "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "prayerThankYouVerseReference": "1 Thessalonians 5:16-18",
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
-    },
     "prayedToday": "Prayed today",
     "@prayedToday": {
         "description": "Pill shown on the home people group card when the user has prayed for it today"
@@ -256,7 +248,9 @@
     "@prayerReminderBody": {
         "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
     },
     "dismissReminderLabel": "Dismiss reminder",
@@ -267,7 +261,9 @@
     "@prayForPeopleGroupLabel": {
         "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
         }
     },
     "pictureCreditLabel": "Picture credit",
@@ -285,6 +281,16 @@
     "prayerRecordedAnnouncement": "Prayer recorded",
     "@prayerRecordedAnnouncement": {
         "description": "Screen-reader announcement made after a prayer session is successfully recorded"
+    },
+    "prayingWithYou": "{count, plural, =1{1 person praying with you now} other{{count} people praying with you now}}",
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
     },
     "newReminder": "New reminder",
     "@newReminder": {
@@ -382,29 +388,40 @@
     "@nextReminderToday": {
         "description": "Next-reminder summary when it fires later today",
         "placeholders": {
-            "time": { "type": "String" }
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nextReminderTomorrow": "Tomorrow at {time}",
     "@nextReminderTomorrow": {
         "description": "Next-reminder summary when it fires tomorrow",
         "placeholders": {
-            "time": { "type": "String" }
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nextReminderOn": "{weekday} at {time}",
     "@nextReminderOn": {
         "description": "Next-reminder summary when it fires later this week",
         "placeholders": {
-            "weekday": { "type": "String" },
-            "time": { "type": "String" }
+            "weekday": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
         }
     },
     "nRemindersSet": "{count, plural, =0{No reminders set} =1{1 reminder set} other{{count} reminders set}}",
     "@nRemindersSet": {
         "description": "Total reminder count shown on the home-screen next-reminder card",
         "placeholders": {
-            "count": { "type": "num", "format": "compact" }
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
         }
     },
     "wizardWelcomeTitle": "Welcome to Doxa Prayer",
@@ -427,7 +444,9 @@
     "@wizardConfirmPeopleGroupTitle": {
         "description": "Title of the wizard confirm-people-group sub-step",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "wizardConfirmPeopleGroupBody": "We'll show you prayer content and reminders for this group. You can change this later.",
@@ -598,14 +617,6 @@
     "@updateDismiss": {
         "description": "Button that dismisses the optional-update banner"
     },
-    "getInvolved": "Get involved",
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
-    },
-    "donate": "Donate",
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "feedback": "Feedback",
     "@feedback": {
         "description": "Button that opens the in-app feedback panel"
@@ -670,32 +681,40 @@
     "@feedbackSuccessBody": {
         "description": "Body of the feedback success confirmation, echoing the email used",
         "placeholders": {
-            "email": { "type": "String" }
+            "email": {
+                "type": "String"
+            }
         }
     },
     "shareMessage": "Pray with me for the {name} — get the Doxa Prayer app:",
     "@shareMessage": {
         "description": "Message text accompanying the shared app link for a people group",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
-    "qrCode": "QR code",
-    "@qrCode": {
-        "description": "Button on the people group card that shows a QR code of the share link"
+    "shareLink": "Share link",
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
     },
     "scanToPray": "Scan to get the app and pray for the {name}",
     "@scanToPray": {
         "description": "Caption under the QR code in the share modal",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "appVersion": "Version {version}",
     "@appVersion": {
         "description": "App version label shown at the bottom of the settings screen",
         "placeholders": {
-            "version": { "type": "String" }
+            "version": {
+                "type": "String"
+            }
         }
     },
     "previousDay": "Previous day",
@@ -718,7 +737,9 @@
     "@peopleGroupIntroTitle": {
         "description": "The title of the people group intro section",
         "placeholders": {
-            "name": { "type": "String" }
+            "name": {
+                "type": "String"
+            }
         }
     },
     "peopleGroupOfTheDay": "People Group of the Day",
@@ -736,5 +757,158 @@
     "notifications_disabled": "Notifications disabled",
     "@notifications_disabled": {
         "description": "Title of the notifications disabled section"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "addPeopleGroupConfirm": "Do you want to start praying for {name}?",
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "choosePeopleGroup": "Choose a people group",
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
+    },
+    "addAnotherPeopleGroup": "Add another people group",
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "peopleGroupLimitTitle": "You are praying for {count} people groups",
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "peopleGroupLimitBody": "That is as many as you can pray for at once. To add {name}, choose one to stop praying for.",
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "swapPeopleGroupAction": "Swap",
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "removePeopleGroupTitle": "Stop praying for {name}?",
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "removePeopleGroupBody": "They will be removed from your home screen. You can add them again at any time.",
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "removePeopleGroupReminders": "{count, plural, =1{Its reminder will be deleted.} other{Its {count} reminders will be deleted.}}",
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "stopPraying": "Stop praying",
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "noPeopleGroupsForReminder": "Choose a people group before setting a reminder.",
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
+    "reminderPeopleGroup": "People group",
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "reminderNotificationBodyForGroup": "Open Doxa to pray for {name}.",
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nextReminderForGroup": "{time} for {name}",
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "prayForNextGroup": "Pray for {name}",
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "switchToPeopleGroup": "Switch to {name}",
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "map": "Map",
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "mapOf": "Map of {name}",
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyPeopleGroups": "Nearby people groups",
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
+    },
+    "recenter": "Recenter",
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
+    },
+    "mapUnavailableOffline": "Map images unavailable offline",
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
+    "yourPeopleGroups": "Your people groups",
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
+    "locationNotAvailable": "Location not available",
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "couldNotLoadMapMessage": "Could not load the map.",
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
     }
 }

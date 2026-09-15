@@ -63,6 +63,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Межкультурные служители присутствуют';
 
   @override
+  String get unselect => 'Отменить выбор';
+
+  @override
   String get workInLocalLanguageAndCulture =>
       'Работа на родном языке и в местной культуре';
 
@@ -193,17 +196,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get prayerThankYouTitle => 'Спасибо за ваши молитвы';
 
   @override
-  String get prayerThankYouMessage =>
-      'Ваша верность в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Всегда радуйтесь, непрестанно молитесь, за всё благодарите; ибо такова воля Божья для вас во Христе Иисусе.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Фессалоникийцам 5:16–18';
-
-  @override
   String get prayedToday => 'Помолились сегодня';
 
   @override
@@ -233,6 +225,24 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'Молитва записана';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString человек молятся с вами сейчас',
+      many: '$countString человек молятся с вами сейчас',
+      few: '$countString человека молятся с вами сейчас',
+      one: '$countString человек молится с вами сейчас',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'Новое напоминание';
@@ -493,12 +503,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updateDismiss => 'Не сейчас';
 
   @override
-  String get getInvolved => 'Присоединяйтесь';
-
-  @override
-  String get donate => 'Сделать пожертвование';
-
-  @override
   String get feedback => 'Отзывы';
 
   @override
@@ -557,7 +561,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'QR-код';
+  String get shareLink => 'Поделиться ссылкой';
 
   @override
   String scanToPray(String name) {
@@ -597,4 +601,109 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Уведомления отключены';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'Хотите начать молиться за народ «$name»?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Выбрать народ';
+
+  @override
+  String get addAnotherPeopleGroup => 'Добавить ещё один народ';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'Вы молитесь за $count народов';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'Это максимум, за который можно молиться одновременно. Чтобы добавить народ «$name», выберите, за какой перестать молиться.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Заменить';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'Перестать молиться за народ «$name»?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'Он исчезнет с главного экрана. Вы сможете добавить его снова в любое время.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Его $count напоминаний будут удалены.',
+      many: 'Его $count напоминаний будут удалены.',
+      few: 'Его $count напоминания будут удалены.',
+      one: 'Его $count напоминание будет удалено.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Перестать молиться';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Выберите народ, прежде чем настраивать напоминание.';
+
+  @override
+  String get reminderPeopleGroup => 'Народ';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Откройте Doxa, чтобы помолиться за народ «$name».';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time за народ «$name»';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Помолиться за народ «$name»';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Перейти к народу «$name»';
+  }
+
+  @override
+  String get map => 'Карта';
+
+  @override
+  String mapOf(String name) {
+    return 'Карта народа «$name»';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'Народы поблизости';
+
+  @override
+  String get recenter => 'Вернуться к центру';
+
+  @override
+  String get mapUnavailableOffline => 'Изображения карты недоступны офлайн';
+
+  @override
+  String get yourPeopleGroups => 'Ваши народы';
+
+  @override
+  String get locationNotAvailable => 'Местоположение недоступно';
+
+  @override
+  String get couldNotLoadMapMessage => 'Не удалось загрузить карту.';
 }

@@ -8,7 +8,7 @@ import '../components/widgets/news_signup.dart';
 import 'api_config.dart';
 import 'identity_service.dart';
 import 'locale_controller.dart';
-import 'selected_people_group_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 
 Future<void> submitNewsSignup(NewsSignupData data) async {
   final body = jsonEncode({
@@ -16,7 +16,7 @@ Future<void> submitNewsSignup(NewsSignupData data) async {
     'name': data.name,
     'consent_doxa_general': data.wantsDoxaUpdates,
     'consent_people_group_updates': data.wantsPeopleGroupUpdates,
-    'people_group_slug': selectedPeopleGroupController.value?.slug ?? '',
+    'people_group_slug': activePeopleGroup?.slug ?? '',
     'country': '',
     'language': localeController.value.languageCode,
     'tracking_id': identityController.value?.trackingId ?? '',

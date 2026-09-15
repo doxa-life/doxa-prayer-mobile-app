@@ -1,4 +1,3 @@
-import 'package:doxa_prayer_mobile_app/components/cards/get_involved_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_list_card.dart';
 import 'package:flutter/material.dart';
@@ -23,24 +22,7 @@ void main() {
           imageUrl: null, // Placeholder, so no network image is loaded.
           onDetails: _noop,
           onShare: _noop,
-          onShowQr: _noop,
         ),
-      ),
-      scale: 3.0,
-      viewport: narrow,
-    );
-
-    expect(tester.takeException(), isNull);
-    expect(find.byType(Wrap), findsOneWidget);
-  });
-
-  testWidgets('GetInvolvedCard buttons wrap without overflow at 3x', (
-    tester,
-  ) async {
-    await pumpAtScale(
-      tester,
-      const SingleChildScrollView(
-        child: GetInvolvedCard(onDonate: _noop, onFeedback: _noop),
       ),
       scale: 3.0,
       viewport: narrow,
@@ -58,6 +40,7 @@ void main() {
         const SingleChildScrollView(
           child: PeopleGroupListCard(
             name: 'A very long people group name that pushes the layout',
+            country: 'A very long country name that pushes the layout',
             imageUrl: null,
             onSelect: _noop,
             onDetails: _noop,

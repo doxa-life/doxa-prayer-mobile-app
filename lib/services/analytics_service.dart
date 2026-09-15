@@ -8,7 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'api_config.dart';
 import 'identity_service.dart';
 import 'locale_controller.dart';
-import 'selected_people_group_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 
 /// First-party analytics relay for the app. Posts usage events to the
 /// campaigns-server `/api/collect/app` endpoint, which forwards them to the
@@ -26,9 +26,7 @@ const _languageSwitchedEvent = 'language_switched';
 void trackAppOpen() {
   _track(
     eventType: _appOpenEvent,
-    metadata: <String, dynamic>{
-      'people_group_slug': ?selectedPeopleGroupController.value?.slug,
-    },
+    metadata: <String, dynamic>{'people_group_slug': ?activePeopleGroup?.slug},
   );
 }
 

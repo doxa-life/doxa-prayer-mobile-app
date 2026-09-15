@@ -8,9 +8,11 @@ import 'package:go_router/go_router.dart';
 import 'components/misc/app_icon.dart';
 import 'components/misc/hyphenated_text.dart';
 import 'components/nav/bottom_nav_bar.dart';
+import 'components/nav/pray_group_avatar_button.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/reminders_notifications.dart';
+import 'services/subscribed_people_groups_controller.dart';
 import 'services/update_controller.dart';
 
 class AppShell extends StatefulWidget {
@@ -66,18 +68,23 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     }
   }
 
-  void _onReminderTap() {
+  Future<void> _onReminderTap() async {
     final payload = reminderTapPayload.value;
     if (payload == null) return;
     reminderTapPayload.value = null;
     if (!mounted) return;
+    // The payload is the slug the reminder was set for, so the Pray tab opens
+    // on the group the user was just reminded about. Reminders scheduled by an
+    // older build carry the flat 'pray' payload and simply open the tab.
+    if (peopleGroupsController.value.contains(payload)) {
+      await setActivePeopleGroup(payload);
+      if (!mounted) return;
+    }
     final prayIndex = AppRoute.values.indexOf(AppRoute.pray);
     widget.navigationShell.goBranch(prayIndex, initialLocation: true);
   }
 
   void _openSettings(BuildContext context) => context.push('/settings');
-
-  void _openGallery(BuildContext context) => context.push('/gallery');
 
   void _openDebug(BuildContext context) => context.push('/debug');
 
@@ -123,55 +130,72 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
         _handleBack();
       },
       child: BackgroundImageContainer(
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: TopNavBar(
-            context: context,
-            onSettings: () => _openSettings(context),
-            onGallery: () => _openGallery(context),
-            onDebug: () => _openDebug(context),
-          ),
-          body: widget.navigationShell,
-          // Badge the reminders tab when anything stops reminders from firing as
-          // expected: notifications turned off, or exact alarms not permitted
-          // (reminders would arrive late). Merge both notifiers so either flips
-          // the dot.
-          bottomNavigationBar: ListenableBuilder(
-            listenable: Listenable.merge([
-              notificationsBlocked,
-              exactAlarmsBlocked,
-            ]),
-            builder: (context, _) => BottomNavBar(
-              items: [
-                BottomNavItemData(
-                  icon: AppIconName.home,
-                  selectedIcon: AppIconName.homeSolid,
-                  label: AppLocalizations.of(context)!.home,
-                ),
-                BottomNavItemData(
-                  icon: AppIconName.pray,
-                  selectedIcon: AppIconName.praySolid,
-                  label: AppLocalizations.of(context)!.pray,
-                ),
-                BottomNavItemData(
-                  icon: AppIconName.peopleGroup,
-                  selectedIcon: AppIconName.peopleGroupSolid,
-                  label: AppLocalizations.of(context)!.search,
-                ),
-                BottomNavItemData(
-                  icon: AppIconName.bell,
-                  selectedIcon: AppIconName.bellSolid,
-                  label: AppLocalizations.of(context)!.reminders,
-                  showBadge:
-                      notificationsBlocked.value || exactAlarmsBlocked.value,
-                ),
-              ],
-              currentIndex: widget.navigationShell.currentIndex,
-              onTap: _onTabTap,
+        // Rebuilt when the subscription list changes so the Pray tab's avatar
+        // appears, updates and disappears with it.
+        child: ValueListenableBuilder<SubscribedPeopleGroups>(
+          valueListenable: peopleGroupsController,
+          builder: (context, groups, _) => Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: TopNavBar(
+              context: context,
+              onSettings: () => _openSettings(context),
+              onDebug: () => _openDebug(context),
+              trailing: _prayGroupAvatar(groups),
+            ),
+            body: widget.navigationShell,
+            // Badge the reminders tab when anything stops reminders from firing as
+            // expected: notifications turned off, or exact alarms not permitted
+            // (reminders would arrive late). Merge both notifiers so either flips
+            // the dot.
+            bottomNavigationBar: ListenableBuilder(
+              listenable: Listenable.merge([
+                notificationsBlocked,
+                exactAlarmsBlocked,
+              ]),
+              builder: (context, _) => BottomNavBar(
+                items: [
+                  BottomNavItemData(
+                    icon: AppIconName.home,
+                    selectedIcon: AppIconName.homeSolid,
+                    label: AppLocalizations.of(context)!.home,
+                  ),
+                  BottomNavItemData(
+                    icon: AppIconName.pray,
+                    selectedIcon: AppIconName.praySolid,
+                    label: AppLocalizations.of(context)!.pray,
+                  ),
+                  BottomNavItemData(
+                    icon: AppIconName.peopleGroup,
+                    selectedIcon: AppIconName.peopleGroupSolid,
+                    label: AppLocalizations.of(context)!.search,
+                  ),
+                  BottomNavItemData(
+                    icon: AppIconName.bell,
+                    selectedIcon: AppIconName.bellSolid,
+                    label: AppLocalizations.of(context)!.reminders,
+                    showBadge:
+                        notificationsBlocked.value || exactAlarmsBlocked.value,
+                  ),
+                ],
+                currentIndex: widget.navigationShell.currentIndex,
+                onTap: _onTabTap,
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  /// The active group's photo for the app bar — Pray tab only, and only when
+  /// there is more than one group, because with one there is nothing to switch
+  /// to and the button would be a control that does nothing.
+  Widget? _prayGroupAvatar(SubscribedPeopleGroups groups) {
+    final onPrayTab =
+        widget.navigationShell.currentIndex == AppRoute.pray.index;
+    if (!onPrayTab || groups.list.length < 2) return null;
+    final active = groups.active;
+    if (active == null) return null;
+    return PrayGroupAvatarButton(group: active);
   }
 }

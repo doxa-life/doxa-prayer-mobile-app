@@ -7,6 +7,27 @@ class AppFonts {
   static const bebasKai = 'BebasKai';
   static const poppins = 'Poppins';
   static const brandonGrotesque = 'BrandonGrotesque';
+  static const roboto = 'Roboto';
+  static const notoSansArabic = 'NotoSansArabic';
+  static const notoSansSC = 'NotoSansSC';
+
+  /// Tried in order for any glyph the style's own family lacks.
+  ///
+  /// Every style carries this, because none of the three brand faces covers
+  /// more than Latin: BebasKai and BrandonGrotesque are Latin display faces and
+  /// Poppins adds only Devanagari. Without it the engine silently substitutes
+  /// whatever the OS ships, which differs per device and per platform.
+  ///
+  /// Order is by specificity, not preference — the scripts do not overlap
+  /// except in Latin, which never reaches this list. Roboto precedes
+  /// NotoSansSC because both carry Cyrillic and Roboto is the text face for it
+  /// (`cyrillic: roboto` in the pipeline's language atlas).
+  static const fallback = <String>[
+    poppins,
+    roboto,
+    notoSansArabic,
+    notoSansSC,
+  ];
 }
 
 class AppTypography {
@@ -22,6 +43,7 @@ class AppTypography {
   static const double xxs = xs / fontScaleRatio;
 
   static const h1 = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
     fontSize: xxl,
@@ -30,6 +52,7 @@ class AppTypography {
   );
 
   static const h2 = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.bebasKai,
     fontWeight: FontWeight.w400,
     fontSize: xl,
@@ -38,6 +61,7 @@ class AppTypography {
   );
 
   static const titleMedium = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w500,
     fontSize: lg,
@@ -45,6 +69,7 @@ class AppTypography {
   );
 
   static const titleLarge = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w500,
     fontSize: xl,
@@ -52,6 +77,7 @@ class AppTypography {
   );
 
   static const bodyLarge = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
     fontSize: lg,
@@ -60,6 +86,7 @@ class AppTypography {
   );
 
   static const bodyMedium = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
     fontSize: md,
@@ -68,6 +95,7 @@ class AppTypography {
   );
 
   static const bodySmall = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
     fontSize: sm,
@@ -76,6 +104,7 @@ class AppTypography {
   );
 
   static const button = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.brandonGrotesque,
     fontWeight: FontWeight.w600,
     fontSize: md,
@@ -83,20 +112,33 @@ class AppTypography {
   );
 
   static const caption = TextStyle(
+    fontFamilyFallback: AppFonts.fallback,
     fontFamily: AppFonts.poppins,
     fontWeight: FontWeight.w400,
     fontSize: sm,
     color: AppColors.onSurface,
   );
 
-  static const textTheme = TextTheme(
+  /// The button style for [locale].
+  ///
+  /// BrandonGrotesque carries 70 glyphs — A-Z, a-z, 0-9 and `!,-.?` — so an
+  /// accented letter, apostrophe or ampersand in a label is drawn by another
+  /// face, mid-word, at different proportions. A [fontFamilyFallback] cannot
+  /// fix that: it is per-glyph by design, which is exactly the mixed-typeface
+  /// result to avoid here. So only English, whose labels stay inside that set,
+  /// keeps the display face; every other language sets its buttons in Poppins.
+  static TextStyle buttonFor(Locale locale) => locale.languageCode == 'en'
+      ? button
+      : button.copyWith(fontFamily: AppFonts.poppins);
+
+  static TextTheme textThemeFor(Locale locale) => TextTheme(
     displayLarge: h1,
     displayMedium: h2,
     titleMedium: titleMedium,
     titleLarge: titleLarge,
     bodyLarge: bodyMedium,
     bodyMedium: bodySmall,
-    labelLarge: button,
+    labelLarge: buttonFor(locale),
     labelSmall: caption,
   );
 }

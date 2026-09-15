@@ -2,15 +2,14 @@ import 'package:doxa_prayer_mobile_app/components/misc/prayer_reminder_banner.da
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/prayer_reminder_controller.dart';
-import 'package:doxa_prayer_mobile_app/services/selected_people_group_controller.dart';
+import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
-const _group = SelectedPeopleGroup(
-  slug: 'kurds',
-  name: 'Kurds',
-  imageUrl: null,
+const _subscribed = SubscribedPeopleGroups(
+  list: [SubscribedPeopleGroup(slug: 'kurds', name: 'Kurds')],
+  activeSlug: 'kurds',
 );
 
 Widget _wrap() {
@@ -40,13 +39,13 @@ Widget _wrap() {
 
 void main() {
   setUp(() {
-    selectedPeopleGroupController.value = null;
+    peopleGroupsController.value = SubscribedPeopleGroups.empty;
     prayedTodayController.value = <String>{};
     prayerReminderDismissedController.value = false;
   });
 
   tearDown(() {
-    selectedPeopleGroupController.value = null;
+    peopleGroupsController.value = SubscribedPeopleGroups.empty;
     prayedTodayController.value = <String>{};
     prayerReminderDismissedController.value = false;
   });
@@ -60,7 +59,7 @@ void main() {
   });
 
   testWidgets('hidden when the user has already prayed today', (tester) async {
-    selectedPeopleGroupController.value = _group;
+    peopleGroupsController.value = _subscribed;
     prayedTodayController.value = {'kurds'};
     await tester.pumpWidget(_wrap());
     await tester.pumpAndSettle();
@@ -71,7 +70,7 @@ void main() {
   testWidgets('shown with group name when selected and not prayed', (
     tester,
   ) async {
-    selectedPeopleGroupController.value = _group;
+    peopleGroupsController.value = _subscribed;
     await tester.pumpWidget(_wrap());
     await tester.pumpAndSettle();
 
@@ -84,7 +83,7 @@ void main() {
   });
 
   testWidgets('dismiss "×" hides the banner for the session', (tester) async {
-    selectedPeopleGroupController.value = _group;
+    peopleGroupsController.value = _subscribed;
     await tester.pumpWidget(_wrap());
     await tester.pumpAndSettle();
     expect(find.text("Ready for today's prayer?"), findsOneWidget);
@@ -97,7 +96,7 @@ void main() {
   });
 
   testWidgets('tapping the banner navigates to the Pray tab', (tester) async {
-    selectedPeopleGroupController.value = _group;
+    peopleGroupsController.value = _subscribed;
     await tester.pumpWidget(_wrap());
     await tester.pumpAndSettle();
 

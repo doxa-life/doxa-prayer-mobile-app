@@ -5,7 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../router.dart';
 import '../../services/prayer_history_service.dart';
 import '../../services/prayer_reminder_controller.dart';
-import '../../services/selected_people_group_controller.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import 'hyphenated_text.dart';
@@ -14,7 +14,7 @@ import 'hyphenated_text.dart';
 /// the home screen, reminding the user they haven't prayed yet today. Tapping
 /// the banner opens the Pray tab; the "×" hides it for the session.
 ///
-/// Self-hiding: renders just [child] unless a people group is selected, the
+/// Self-hiding: renders just [child] unless the user prays for a people group, the
 /// user hasn't prayed for anything today, and the banner hasn't been dismissed
 /// this session — so it can be dropped in unconditionally.
 class PrayerReminderBanner extends StatelessWidget {
@@ -26,14 +26,14 @@ class PrayerReminderBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: Listenable.merge([
-        selectedPeopleGroupController,
+        peopleGroupsController,
         prayedTodayController,
         prayerReminderDismissedController,
       ]),
       builder: (context, _) {
-        final selected = selectedPeopleGroupController.value;
+        final active = activePeopleGroup;
         final show =
-            selected != null &&
+            active != null &&
             prayedTodayController.value.isEmpty &&
             !prayerReminderDismissedController.value;
 
@@ -47,7 +47,7 @@ class PrayerReminderBanner extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.all(AppSpacing.md),
-                  child: _Banner(peopleGroupName: selected.name),
+                  child: _Banner(peopleGroupName: active.name),
                 ),
               ),
             ),

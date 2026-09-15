@@ -7,11 +7,16 @@ import 'app_typography.dart';
 class AppTheme {
   const AppTheme._();
 
-  static ThemeData get light {
+  /// The light theme for [locale].
+  ///
+  /// Locale-dependent because the button face is — see
+  /// [AppTypography.buttonFor].
+  static ThemeData lightFor(Locale locale) {
+    final button = AppTypography.buttonFor(locale);
     final base = ThemeData(
       useMaterial3: true,
       colorScheme: AppColors.scheme,
-      textTheme: AppTypography.textTheme,
+      textTheme: AppTypography.textThemeFor(locale),
       scaffoldBackgroundColor: AppColors.surface,
       extensions: const [AppColorsExtra.light],
     );
@@ -38,7 +43,7 @@ class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.onPrimary,
-          textStyle: AppTypography.button,
+          textStyle: button,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(28)),
           ),
@@ -52,7 +57,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
-          textStyle: AppTypography.button,
+          textStyle: button,
           side: const BorderSide(color: AppColors.primary, width: 1.5),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(28)),
@@ -67,7 +72,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.secondary,
-          textStyle: AppTypography.button,
+          textStyle: button,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

@@ -61,6 +61,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Obreiros transculturais presentes';
 
   @override
+  String get unselect => 'Desmarcar';
+
+  @override
   String get workInLocalLanguageAndCulture =>
       'Trabalho na língua e cultura locais';
 
@@ -190,17 +193,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get prayerThankYouTitle => 'Obrigado por orar';
 
   @override
-  String get prayerThankYouMessage =>
-      'Sua fidelidade na oração importa. Deus ouve você, e suas orações fazem a diferença.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Regozijai-vos sempre. Orai sem cessar. Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tessalonicenses 5:16-18';
-
-  @override
   String get prayedToday => 'Orei hoje';
 
   @override
@@ -230,6 +222,22 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'Oração registrada';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString pessoas orando com você agora',
+      one: '1 pessoa orando com você agora',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'Novo lembrete';
@@ -487,12 +495,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get updateDismiss => 'Agora não';
 
   @override
-  String get getInvolved => 'Participe';
-
-  @override
-  String get donate => 'Doar';
-
-  @override
   String get feedback => 'Comentários';
 
   @override
@@ -551,7 +553,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'Código QR';
+  String get shareLink => 'Compartilhar link';
 
   @override
   String scanToPray(String name) {
@@ -591,4 +593,108 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Notificações desativadas';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'Você quer começar a orar por “$name”?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Escolher um povo';
+
+  @override
+  String get addAnotherPeopleGroup => 'Adicionar outro povo';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'Você está orando por $count povos';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'Esse é o máximo pelo qual você pode orar de uma vez. Para adicionar “$name”, escolha um pelo qual parar de orar.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Trocar';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'Parar de orar por “$name”?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'Ele será removido da sua tela inicial. Você pode adicioná-lo novamente quando quiser.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Os $count lembretes dele serão excluídos.',
+      one: 'O lembrete dele será excluído.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Parar de orar';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Escolha um povo antes de definir um lembrete.';
+
+  @override
+  String get reminderPeopleGroup => 'Povo';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Abra o Doxa para orar por “$name”.';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time por “$name”';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Orar por “$name”';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Mudar para “$name”';
+  }
+
+  @override
+  String get map => 'Mapa';
+
+  @override
+  String mapOf(String name) {
+    return 'Mapa de “$name”';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'Povos próximos';
+
+  @override
+  String get recenter => 'Recentralizar';
+
+  @override
+  String get mapUnavailableOffline =>
+      'Imagens do mapa indisponíveis sem conexão';
+
+  @override
+  String get yourPeopleGroups => 'Seus povos';
+
+  @override
+  String get locationNotAvailable => 'Localização não disponível';
+
+  @override
+  String get couldNotLoadMapMessage => 'Não foi possível carregar o mapa.';
 }
