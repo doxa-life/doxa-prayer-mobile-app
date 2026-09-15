@@ -60,6 +60,9 @@
     "@continueLabel": {
         "description": "Continue button label (named to avoid the reserved word 'continue')"
     },
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
+    },
     "@couldNotLoadPeopleGroupDetailsMessage": {
         "description": "The message displayed when the people group details cannot be loaded"
     },
@@ -194,6 +197,23 @@
     "@language": {
         "description": "The language selector"
     },
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -219,6 +239,9 @@
     },
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
+    },
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
     },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
@@ -310,6 +333,9 @@
                 "type": "num"
             }
         }
+    },
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
     },
     "@reminderNotificationBodyForGroup": {
         "description": "Body of a reminder notification that is for a specific people group",
@@ -692,6 +718,9 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
     "addAnotherPeopleGroup": "أضف مجموعة شعبية أخرى",
     "addPeopleGroupConfirm": "هل تريد البدء في الصلاة من أجل «{name}»؟",
     "adoptionStatus": "حالة التبنّي",
@@ -709,6 +738,7 @@
     "choosePeopleGroup": "اختر مجموعة شعبية",
     "clearSearchLabel": "مسح البحث",
     "continueLabel": "استمر",
+    "couldNotLoadMapMessage": "تعذر تحميل الخريطة.",
     "couldNotLoadPeopleGroupDetailsMessage": "تعذر تحميل تفاصيل المجموعة الشعبية.",
     "couldNotLoadPeopleGroupsMessage": "تعذر تحميل المجموعات الشعبية.",
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
@@ -752,11 +782,16 @@
     "home": "الصفحة الرئيسية",
     "jesusFilm": "فيلم يسوع",
     "language": "اللغة",
+    "locationNotAvailable": "الموقع غير متاح",
+    "map": "الخريطة",
+    "mapOf": "خريطة «{name}»",
+    "mapUnavailableOffline": "صور الخريطة غير متاحة دون اتصال",
     "myPeopleGroupTitle": "مجموعتي الشعبية",
     "nPeopleGroups": "{count, plural, =0{لا توجد مجموعات شعبية} =1{مجموعة شعبية واحدة} other{{count} مجموعة شعبية}}",
     "nRemindersSet": "{count, plural, =0{لم يتم تعيين أي تذكير} =1{تم تعيين تذكير واحد} other{تم تعيين {count} تذكير}}",
     "nameLabel": "الاسم",
     "nameRequired": "يرجى إدخال اسمك.",
+    "nearbyPeopleGroups": "المجموعات الشعبية القريبة",
     "newReminder": "تذكير جديد",
     "newsSignupError": "حدث خطأ ما. يرجى التحقق من اتصالك ومحاولة الإجراء مرة أخرى.",
     "newsSignupSuccessTitle": "شكرًا لتسجيلك!",
@@ -774,10 +809,11 @@
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
     "prayingWithYou": "{count, plural, =1{شخص واحد يصلّي معك الآن} =2{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
+    "recenter": "إعادة التوسيط",
     "reminderNotificationBodyForGroup": "افتح تطبيق Doxa للصلاة من أجل «{name}».",
     "reminderPeopleGroup": "المجموعة الشعبية",
     "removePeopleGroupBody": "ستُزال من الصفحة الرئيسية. يمكنك إضافتها مرة أخرى في أي وقت.",
-    "removePeopleGroupReminders": "{count, plural, =1{سيتم حذف تذكيرها.} other{سيتم حذف تذكيراتها البالغة {count}.}}",
+    "removePeopleGroupReminders": "{count, plural, =1{سيتم حذف تذكيرها.} =2{سيتم حذف تذكيريها.} other{سيتم حذف تذكيراتها البالغة {count}.}}",
     "removePeopleGroupTitle": "هل تتوقف عن الصلاة من أجل «{name}»؟",
     "resendVerification": "إعادة إرسال رسالة التحقق",
     "resendVerificationSent": "تم إرسال رسالة التحقق. تفقَّد صندوق الوارد.",
@@ -873,5 +909,6 @@
     "wizardWelcomeBody": "تساعدك Doxa على الصلاة من أجل إحدى المجموعات الشعبية غير المُبشَّر بها. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.",
     "wizardWelcomeTitle": "مرحبًا بكم في «Doxa Prayer»",
     "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
-    "yes": "نعم"
+    "yes": "نعم",
+    "yourPeopleGroups": "مجموعاتك الشعبية"
 }

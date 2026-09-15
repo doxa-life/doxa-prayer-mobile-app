@@ -682,28 +682,28 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get map => 'Map';
+  String get map => 'Карта';
 
   @override
   String mapOf(String name) {
-    return 'Map of $name';
+    return 'Карта народа «$name»';
   }
 
   @override
-  String get nearbyPeopleGroups => 'Nearby people groups';
+  String get nearbyPeopleGroups => 'Народы поблизости';
 
   @override
-  String get recenter => 'Recenter';
+  String get recenter => 'Вернуться к центру';
 
   @override
-  String get mapUnavailableOffline => 'Map images unavailable offline';
+  String get mapUnavailableOffline => 'Изображения карты недоступны офлайн';
 
   @override
-  String get yourPeopleGroups => 'Your people groups';
+  String get yourPeopleGroups => 'Ваши народы';
 
   @override
-  String get locationNotAvailable => 'Location not available';
+  String get locationNotAvailable => 'Местоположение недоступно';
 
   @override
-  String get couldNotLoadMapMessage => 'Could not load the map.';
+  String get couldNotLoadMapMessage => 'Не удалось загрузить карту.';
 }

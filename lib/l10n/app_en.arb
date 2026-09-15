@@ -874,41 +874,41 @@
             }
         }
     },
-  "map": "Map",
-  "@map": {
-    "description": "Button on the people group card that opens the map of where the group lives"
-  },
-  "mapOf": "Map of {name}",
-  "@mapOf": {
-    "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
+    "map": "Map",
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "mapOf": "Map of {name}",
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyPeopleGroups": "Nearby people groups",
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
+    },
+    "recenter": "Recenter",
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
+    },
+    "mapUnavailableOffline": "Map images unavailable offline",
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
+    "yourPeopleGroups": "Your people groups",
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
+    "locationNotAvailable": "Location not available",
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "couldNotLoadMapMessage": "Could not load the map.",
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
     }
-  },
-  "nearbyPeopleGroups": "Nearby people groups",
-  "@nearbyPeopleGroups": {
-    "description": "Accessibility description of the other pins shown around the focused people group"
-  },
-  "recenter": "Recenter",
-  "@recenter": {
-    "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
-  },
-  "mapUnavailableOffline": "Map images unavailable offline",
-  "@mapUnavailableOffline": {
-    "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
-  },
-  "yourPeopleGroups": "Your people groups",
-  "@yourPeopleGroups": {
-    "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
-  },
-  "locationNotAvailable": "Location not available",
-  "@locationNotAvailable": {
-    "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
-  },
-  "couldNotLoadMapMessage": "Could not load the map.",
-  "@couldNotLoadMapMessage": {
-    "description": "Error shown when the people-group list the map needs could not be loaded"
-  }
 }

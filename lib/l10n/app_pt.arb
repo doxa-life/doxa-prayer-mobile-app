@@ -60,6 +60,9 @@
     "@continueLabel": {
         "description": "Continue button label (named to avoid the reserved word 'continue')"
     },
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
+    },
     "@couldNotLoadPeopleGroupDetailsMessage": {
         "description": "The message displayed when the people group details cannot be loaded"
     },
@@ -197,6 +200,23 @@
     "@language": {
         "description": "The language selector"
     },
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -222,6 +242,9 @@
     },
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
+    },
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
     },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
@@ -324,6 +347,9 @@
     },
     "@prayerReminderTitle": {
         "description": "Title of the dismissable home banner reminding the user they haven't prayed yet today"
+    },
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
     },
     "@reminderNotificationBodyForGroup": {
         "description": "Body of a reminder notification that is for a specific people group",
@@ -692,6 +718,9 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
     "addAnotherPeopleGroup": "Adicionar outro povo",
     "addPeopleGroupConfirm": "Você quer começar a orar por “{name}”?",
     "adoptionStatus": "Status da adoção",
@@ -709,6 +738,7 @@
     "choosePeopleGroup": "Escolher um povo",
     "clearSearchLabel": "Limpar pesquisa",
     "continueLabel": "Continuar",
+    "couldNotLoadMapMessage": "Não foi possível carregar o mapa.",
     "couldNotLoadPeopleGroupDetailsMessage": "Não foi possível carregar os detalhes do povo.",
     "couldNotLoadPeopleGroupsMessage": "Não foi possível carregar os povos.",
     "couldNotLoadPrayerContent": "Não foi possível carregar o conteúdo de oração.",
@@ -752,11 +782,16 @@
     "home": "Início",
     "jesusFilm": "Filme Jesus",
     "language": "Idioma",
+    "locationNotAvailable": "Localização não disponível",
+    "map": "Mapa",
+    "mapOf": "Mapa de “{name}”",
+    "mapUnavailableOffline": "Imagens do mapa indisponíveis sem conexão",
     "myPeopleGroupTitle": "Meu povo",
     "nPeopleGroups": "{count, plural, =0{Nenhum povo} =1{1 povo} other{{count} povos}}",
     "nRemindersSet": "{count, plural, =0{Nenhum lembrete definido} =1{1 lembrete definido} other{{count} lembretes definidos}}",
     "nameLabel": "Nome",
     "nameRequired": "Insira seu nome.",
+    "nearbyPeopleGroups": "Povos próximos",
     "newReminder": "Novo lembrete",
     "newsSignupError": "Algo deu errado. Verifique sua conexão e tente novamente.",
     "newsSignupSuccessTitle": "Obrigado por se inscrever!",
@@ -774,6 +809,7 @@
     "prayerRecordedAnnouncement": "Oração registrada",
     "prayForPeopleGroupLabel": "Orar por “{peopleGroup}”",
     "prayingWithYou": "{count, plural, =1{1 pessoa orando com você agora} other{{count} pessoas orando com você agora}}",
+    "recenter": "Recentralizar",
     "reminderNotificationBodyForGroup": "Abra o Doxa para orar por “{name}”.",
     "reminderPeopleGroup": "Povo",
     "removePeopleGroupBody": "Ele será removido da sua tela inicial. Você pode adicioná-lo novamente quando quiser.",
@@ -873,5 +909,6 @@
     "wizardWelcomeBody": "A Doxa ajuda você a orar por um povo ainda não alcançado. Vamos ajudar você a escolher um povo, definir um lembrete e ficar por dentro.",
     "wizardWelcomeTitle": "Bem-vindo ao Doxa Prayer",
     "workInLocalLanguageAndCulture": "Trabalho na língua e cultura locais",
-    "yes": "Sim"
+    "yes": "Sim",
+    "yourPeopleGroups": "Seus povos"
 }

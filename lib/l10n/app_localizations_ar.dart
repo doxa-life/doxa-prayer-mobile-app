@@ -652,6 +652,7 @@ class AppLocalizationsAr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'سيتم حذف تذكيراتها البالغة $count.',
+      two: 'سيتم حذف تذكيريها.',
       one: 'سيتم حذف تذكيرها.',
     );
     return '$_temp0';
@@ -687,28 +688,28 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get map => 'Map';
+  String get map => 'الخريطة';
 
   @override
   String mapOf(String name) {
-    return 'Map of $name';
+    return 'خريطة «$name»';
   }
 
   @override
-  String get nearbyPeopleGroups => 'Nearby people groups';
+  String get nearbyPeopleGroups => 'المجموعات الشعبية القريبة';
 
   @override
-  String get recenter => 'Recenter';
+  String get recenter => 'إعادة التوسيط';
 
   @override
-  String get mapUnavailableOffline => 'Map images unavailable offline';
+  String get mapUnavailableOffline => 'صور الخريطة غير متاحة دون اتصال';
 
   @override
-  String get yourPeopleGroups => 'Your people groups';
+  String get yourPeopleGroups => 'مجموعاتك الشعبية';
 
   @override
-  String get locationNotAvailable => 'Location not available';
+  String get locationNotAvailable => 'الموقع غير متاح';
 
   @override
-  String get couldNotLoadMapMessage => 'Could not load the map.';
+  String get couldNotLoadMapMessage => 'تعذر تحميل الخريطة.';
 }

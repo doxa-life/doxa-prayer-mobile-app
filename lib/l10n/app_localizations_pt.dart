@@ -672,28 +672,29 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get map => 'Map';
+  String get map => 'Mapa';
 
   @override
   String mapOf(String name) {
-    return 'Map of $name';
+    return 'Mapa de “$name”';
   }
 
   @override
-  String get nearbyPeopleGroups => 'Nearby people groups';
+  String get nearbyPeopleGroups => 'Povos próximos';
 
   @override
-  String get recenter => 'Recenter';
+  String get recenter => 'Recentralizar';
 
   @override
-  String get mapUnavailableOffline => 'Map images unavailable offline';
+  String get mapUnavailableOffline =>
+      'Imagens do mapa indisponíveis sem conexão';
 
   @override
-  String get yourPeopleGroups => 'Your people groups';
+  String get yourPeopleGroups => 'Seus povos';
 
   @override
-  String get locationNotAvailable => 'Location not available';
+  String get locationNotAvailable => 'Localização não disponível';
 
   @override
-  String get couldNotLoadMapMessage => 'Could not load the map.';
+  String get couldNotLoadMapMessage => 'Não foi possível carregar o mapa.';
 }
