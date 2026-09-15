@@ -20,6 +20,11 @@ const List<AppLanguage> appLanguages = <AppLanguage>[
   AppLanguage(locale: Locale('fr'), nativeName: 'Français'),
   AppLanguage(locale: Locale('ru'), nativeName: 'Русский'),
   AppLanguage(locale: Locale('ar'), nativeName: 'العربية'),
+  AppLanguage(locale: Locale('de'), nativeName: 'Deutsch'),
+  AppLanguage(locale: Locale('hi'), nativeName: 'हिन्दी'),
+  AppLanguage(locale: Locale('it'), nativeName: 'Italiano'),
+  AppLanguage(locale: Locale('ro'), nativeName: 'Română'),
+  AppLanguage(locale: Locale('zh'), nativeName: '简体中文'),
 ];
 
 const _storageKey = 'app_locale_language_code';

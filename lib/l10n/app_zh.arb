@@ -1,0 +1,914 @@
+{
+    "@accountSectionTitle": {
+        "description": "Settings section header for the signed-up account (emails and profile)"
+    },
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
+    "@amen": {
+        "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
+    },
+    "@appName": {
+        "description": "The name of the app"
+    },
+    "@appVersion": {
+        "description": "App version label shown at the bottom of the settings screen",
+        "placeholders": {
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "@back": {
+        "description": "Back button label"
+    },
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
+    },
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
+    },
+    "@clearSearchLabel": {
+        "description": "Accessibility label for the button that clears the search field"
+    },
+    "@continueLabel": {
+        "description": "Continue button label (named to avoid the reserved word 'continue')"
+    },
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
+    },
+    "@couldNotLoadPeopleGroupDetailsMessage": {
+        "description": "The message displayed when the people group details cannot be loaded"
+    },
+    "@couldNotLoadPeopleGroupsMessage": {
+        "description": "The message displayed when the people groups cannot be loaded"
+    },
+    "@couldNotLoadPrayerContent": {
+        "description": "Error message shown when the prayer-content API call fails"
+    },
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "@dailyPrayerCoverage": {
+        "description": "The label shown beneath the prayer status progress bar"
+    },
+    "@dayInTheLifeTitle": {
+        "description": "The title of the day in the life section"
+    },
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "@delete": {
+        "description": "Delete button label"
+    },
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "@dismissReminderLabel": {
+        "description": "Accessibility label for the close button on the home prayer reminder banner"
+    },
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
+    },
+    "@emailInvalid": {
+        "description": "Inline validation warning shown when the news signup email is missing or malformed"
+    },
+    "@emailLabel": {
+        "description": "Label for the email input on the news signup form"
+    },
+    "@emailUnverified": {
+        "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "@emailVerified": {
+        "description": "Status label shown next to a signed-up email that has been verified"
+    },
+    "@emailsLoadError": {
+        "description": "Message shown when the list of signed-up email addresses fails to load"
+    },
+    "@enableNotifications": {
+        "description": "Button label that takes the user to the notification settings page to enable notifications"
+    },
+    "@enableNotificationsButton": {
+        "description": "Button that requests OS notification permission so the user can receive push notifications"
+    },
+    "@enableNotificationsPromptBody": {
+        "description": "Prompt shown after signing up for updates, offering to also enable push notifications"
+    },
+    "@engaged": {
+        "description": "Marker label shown when a people group is engaged"
+    },
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "@everyDay": {
+        "description": "Days summary shown when a reminder is set for all 7 days"
+    },
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
+    "@feedback": {
+        "description": "Button that opens the in-app feedback panel"
+    },
+    "@feedbackConsentLabel": {
+        "description": "Label for the marketing-consent toggle on the feedback form"
+    },
+    "@feedbackError": {
+        "description": "Generic error shown when feedback submission fails"
+    },
+    "@feedbackIntro": {
+        "description": "Intro text at the top of the feedback form"
+    },
+    "@feedbackMessageLabel": {
+        "description": "Label for the feedback message field"
+    },
+    "@feedbackMessageRequired": {
+        "description": "Validation message when the feedback message is empty"
+    },
+    "@feedbackNameLabel": {
+        "description": "Label for the optional name field on the feedback form"
+    },
+    "@feedbackRateLimited": {
+        "description": "Error shown when the feedback endpoint rate-limits the user"
+    },
+    "@feedbackSubmit": {
+        "description": "Button that submits the feedback form"
+    },
+    "@feedbackSuccessBody": {
+        "description": "Body of the feedback success confirmation, echoing the email used",
+        "placeholders": {
+            "email": {
+                "type": "String"
+            }
+        }
+    },
+    "@feedbackSuccessTitle": {
+        "description": "Title of the feedback success confirmation"
+    },
+    "@feedbackTypeCompliment": {
+        "description": "Feedback type option for positive feedback"
+    },
+    "@feedbackTypeLabel": {
+        "description": "Label above the feedback-type chooser"
+    },
+    "@feedbackTypeProblem": {
+        "description": "Feedback type option for reporting a problem"
+    },
+    "@feedbackTypeRequired": {
+        "description": "Validation message when no feedback type is selected"
+    },
+    "@feedbackTypeSuggestion": {
+        "description": "Feedback type option for a suggestion or idea"
+    },
+    "@finish": {
+        "description": "Finish button label on the final wizard step"
+    },
+    "@forwardLabel": {
+        "description": "Accessibility label for a forward navigation arrow button"
+    },
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
+    "@home": {
+        "description": "The home screen"
+    },
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
+    },
+    "@language": {
+        "description": "The language selector"
+    },
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
+    "@myPeopleGroupTitle": {
+        "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
+    },
+    "@nPeopleGroups": {
+        "description": "A plural message for the number of people groups",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "@nameLabel": {
+        "description": "Label for the name input on the news signup form"
+    },
+    "@nameRequired": {
+        "description": "Inline validation warning shown when the news signup name is empty"
+    },
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
+    },
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "@newsSignupError": {
+        "description": "Error message shown when the news signup submission fails"
+    },
+    "@newsSignupSuccessBody": {
+        "description": "Body of the in-place confirmation shown after news signup, telling the user to verify their email",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "name@example.com"
+            }
+        }
+    },
+    "@newsSignupSuccessTitle": {
+        "description": "Heading of the in-place confirmation shown after the news signup form is submitted"
+    },
+    "@nextDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
+    },
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "weekday": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "@no": {
+        "description": "The no/cancel button"
+    },
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
+    },
+    "@noPeopleGroupSelected": {
+        "description": "Message shown on the pray screen when the user has not yet selected a people group"
+    },
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
+    "@noPrayerContentAvailable": {
+        "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
+    },
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
+    },
+    "@notifications": {
+        "description": "Title of the settings section/subpage for checking notification permission"
+    },
+    "@notificationsDisabledStatus": {
+        "description": "Shared 'notifications off' message — shown on the notifications settings page, the reminders-screen banner, and the deny toast when permission is denied"
+    },
+    "@notificationsEnabledStatus": {
+        "description": "Confirmation shown on the notifications settings page when permission is granted"
+    },
+    "@notificationsHowToEnable": {
+        "description": "Instructions guiding the user to enable notifications in OS settings"
+    },
+    "@notifications_disabled": {
+        "description": "Title of the notifications disabled section"
+    },
+    "@notifications_enabled": {
+        "description": "Title of the notifications enabled section"
+    },
+    "@openSettings": {
+        "description": "Button label that opens the OS settings to enable notifications"
+    },
+    "@overview": {
+        "description": "The title of the overview section"
+    },
+    "@partial": {
+        "description": "Spoken status for an engagement marker that is partially met (e.g. some but not enough people committed to pray)"
+    },
+    "@pauseAndPray": {
+        "description": "The message displayed when the user should pause and pray"
+    },
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
+    },
+    "@peopleGroup": {
+        "description": "The label of the people group field"
+    },
+    "@peopleGroupIntroTitle": {
+        "description": "The title of the people group intro section",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@peopleGroupOfTheDay": {
+        "description": "Heading for the people group of the day section"
+    },
+    "@peopleGroups": {
+        "description": "The people groups screen"
+    },
+    "@pictureCreditLabel": {
+        "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "@population": {
+        "description": "The label of the population field"
+    },
+    "@pray": {
+        "description": "The pray screen"
+    },
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@prayForPeopleGroupLabel": {
+        "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
+        "placeholders": {
+            "peopleGroup": {
+                "type": "String"
+            }
+        }
+    },
+    "@prayedToday": {
+        "description": "Pill shown on the home people group card when the user has prayed for it today"
+    },
+    "@prayerRecordedAnnouncement": {
+        "description": "Screen-reader announcement made after a prayer session is successfully recorded"
+    },
+    "@prayerReminderBody": {
+        "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
+        "placeholders": {
+            "peopleGroup": {
+                "type": "String"
+            }
+        }
+    },
+    "@prayerReminderTitle": {
+        "description": "Title of the dismissable home banner reminding the user they haven't prayed yet today"
+    },
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "@prayerThankYouTitle": {
+        "description": "Title of the encouraging modal shown after the user taps Amen"
+    },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "@pressBackAgainToExit": {
+        "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
+    },
+    "@previousDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen"
+    },
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
+    "@profile": {
+        "description": "The profile button"
+    },
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
+    },
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "@reminders": {
+        "description": "The reminders screen"
+    },
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@resendVerification": {
+        "description": "Button that re-sends the verification email for an unverified address"
+    },
+    "@resendVerificationCooldown": {
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@resendVerificationCountdown": {
+        "description": "Resend button label while the cooldown counts down",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "@resendVerificationFailed": {
+        "description": "SnackBar shown when resending the verification email fails"
+    },
+    "@resendVerificationSent": {
+        "description": "SnackBar shown after a verification email is successfully resent"
+    },
+    "@resources": {
+        "description": "The title of the resources section"
+    },
+    "@retry": {
+        "description": "The retry button"
+    },
+    "@save": {
+        "description": "Save button label"
+    },
+    "@scanToPray": {
+        "description": "Caption under the QR code in the share modal",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@search": {
+        "description": "The label of the search button"
+    },
+    "@searchPeopleGroups": {
+        "description": "The search people groups input"
+    },
+    "@select": {
+        "description": "The select people group button"
+    },
+    "@selectPeopleGroup": {
+        "description": "The select people group button"
+    },
+    "@selectPeopleGroupConfirm": {
+        "description": "Confirmation prompt when selecting a people group for the first time"
+    },
+    "@selected": {
+        "description": "The disabled label shown on the currently selected people group"
+    },
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
+    "@settings": {
+        "description": "The settings screen"
+    },
+    "@share": {
+        "description": "The label of the share button"
+    },
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
+    },
+    "@shareMessage": {
+        "description": "Message text accompanying the shared app link for a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@signUp": {
+        "description": "Label of the wizard's primary button that submits the signup form"
+    },
+    "@signUpForUpdates": {
+        "description": "Settings row label and sub-screen title for the news signup form"
+    },
+    "@skip": {
+        "description": "Skip button label"
+    },
+    "@status": {
+        "description": "The label of the status field"
+    },
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "@switchPeopleGroupConfirm": {
+        "description": "Confirmation prompt when switching from a currently selected people group to a new one",
+        "placeholders": {
+            "currentName": {
+                "type": "String"
+            },
+            "newName": {
+                "type": "String"
+            }
+        }
+    },
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@time": {
+        "description": "Label for the time-of-day field"
+    },
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
+    },
+    "@updateAction": {
+        "description": "Button that starts the app update / opens the store"
+    },
+    "@updateAvailableBody": {
+        "description": "Body of the optional-update banner"
+    },
+    "@updateAvailableTitle": {
+        "description": "Title of the optional-update banner"
+    },
+    "@updateDismiss": {
+        "description": "Button that dismisses the optional-update banner"
+    },
+    "@updateRequiredBody": {
+        "description": "Body of the forced-update modal"
+    },
+    "@updateRequiredTitle": {
+        "description": "Title of the forced-update modal"
+    },
+    "@updatesAboutMyPeopleGroup": {
+        "description": "Checkbox label on the news signup form for per-people-group updates"
+    },
+    "@updatesFromDoxa": {
+        "description": "Checkbox label on the news signup form for general Doxa updates"
+    },
+    "@viewProfile": {
+        "description": "Button in settings that opens the user's profile page on the web"
+    },
+    "@wizardChoosePeopleGroupTitle": {
+        "description": "Title of the wizard people-group selection step"
+    },
+    "@wizardConfirmPeopleGroupBody": {
+        "description": "Body of the wizard confirm-people-group sub-step"
+    },
+    "@wizardConfirmPeopleGroupTitle": {
+        "description": "Title of the wizard confirm-people-group sub-step",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@wizardGetStarted": {
+        "description": "Primary button on the wizard welcome step"
+    },
+    "@wizardNewsSignupBody": {
+        "description": "Body of the wizard news-signup step"
+    },
+    "@wizardNewsSignupTitle": {
+        "description": "Title of the wizard news-signup step"
+    },
+    "@wizardSetReminderBody": {
+        "description": "Body of the wizard reminder step"
+    },
+    "@wizardSetReminderTitle": {
+        "description": "Title of the wizard reminder step"
+    },
+    "@wizardWelcomeBody": {
+        "description": "Body of the wizard welcome step"
+    },
+    "@wizardWelcomeTitle": {
+        "description": "Title of the wizard welcome step"
+    },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "@yes": {
+        "description": "The yes confirmation button"
+    },
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
+    "accountSectionTitle": "你的账户",
+    "addAnotherPeopleGroup": "添加另一个族群",
+    "addPeopleGroupConfirm": "要开始为“{name}”祷告吗？",
+    "adoptionStatus": "认领状态",
+    "allow": "允许",
+    "allowExactAlarms": "允许精确闹钟",
+    "alternateName": "别名",
+    "amen": "阿们",
+    "appName": "Doxa Prayer",
+    "appVersion": "版本 {version}",
+    "audioScripture": "有声圣经",
+    "back": "返回",
+    "bibleStories": "圣经故事",
+    "bibleTranslation": "圣经译本",
+    "cancel": "取消",
+    "choosePeopleGroup": "选择一个族群",
+    "clearSearchLabel": "清除搜索",
+    "continueLabel": "继续",
+    "couldNotLoadMapMessage": "无法加载地图。",
+    "couldNotLoadPeopleGroupDetailsMessage": "无法加载族群详情。",
+    "couldNotLoadPeopleGroupsMessage": "无法加载族群。",
+    "couldNotLoadPrayerContent": "无法加载祷告内容。",
+    "country": "国家",
+    "crossCulturalWorkersPresent": "有跨文化工人",
+    "dailyPrayerCoverage": "每日祷告覆盖",
+    "dayInTheLifeTitle": "他们的一天",
+    "daysOfWeek": "星期",
+    "delete": "删除",
+    "discipleAndChurchMultiplication": "门徒与教会倍增",
+    "dismissReminderLabel": "关闭提醒",
+    "editReminder": "编辑提醒",
+    "emailInvalid": "请输入有效的电子邮件地址。",
+    "emailLabel": "电子邮件",
+    "emailUnverified": "未验证",
+    "emailVerified": "已验证",
+    "emailsLoadError": "无法加载你的电子邮件地址。",
+    "enableNotifications": "开启通知",
+    "enableNotificationsButton": "开启通知",
+    "enableNotificationsPromptBody": "开启通知，也可在手机上收到这些更新。",
+    "engaged": "已参与宣教",
+    "engagementStatus": "宣教参与状态",
+    "everyDay": "每天",
+    "exactAlarmsDisabledStatus": "Doxa 未获准使用精确闹钟，因此祷告提醒可能会晚几分钟送达。",
+    "exactAlarmsPromptBody": "为使祷告提醒准时送达，请允许 Doxa 使用精确闹钟。",
+    "feedback": "反馈",
+    "feedbackConsentLabel": "请向我发送 Doxa 的最新消息",
+    "feedbackError": "出错了。请检查网络连接后重试。",
+    "feedbackIntro": "我们很想听听你的想法。告诉我们你对这个应用的看法。",
+    "feedbackMessageLabel": "留言",
+    "feedbackMessageRequired": "请输入留言。",
+    "feedbackNameLabel": "姓名（可选）",
+    "feedbackRateLimited": "你最近发送了很多反馈。请稍后再试。",
+    "feedbackSubmit": "发送反馈",
+    "feedbackSuccessBody": "你的反馈已以 {email} 的名义发送。如果这不是正确的地址，请用正确的地址重新发送。",
+    "feedbackSuccessTitle": "谢谢你！",
+    "feedbackTypeCompliment": "赞赏",
+    "feedbackTypeLabel": "哪一类反馈？",
+    "feedbackTypeProblem": "问题",
+    "feedbackTypeRequired": "请选择反馈类型。",
+    "feedbackTypeSuggestion": "建议",
+    "finish": "完成",
+    "forwardLabel": "前进",
+    "gospelRecordings": "福音录音",
+    "home": "首页",
+    "jesusFilm": "耶稣传",
+    "language": "语言",
+    "locationNotAvailable": "位置不可用",
+    "map": "地图",
+    "mapOf": "“{name}”的地图",
+    "mapUnavailableOffline": "离线时无法显示地图图像",
+    "myPeopleGroupTitle": "我的族群",
+    "nPeopleGroups": "{count, plural, =0{没有族群} other{{count} 个族群}}",
+    "nRemindersSet": "{count, plural, =0{未设置提醒} other{已设置 {count} 个提醒}}",
+    "nameLabel": "姓名",
+    "nameRequired": "请输入你的姓名。",
+    "nearbyPeopleGroups": "附近的族群",
+    "newReminder": "新建提醒",
+    "newsSignupError": "出错了。请检查网络连接后重试。",
+    "newsSignupSuccessBody": "我们已向 {email} 发送验证邮件。请打开收件箱并点击链接以确认订阅。",
+    "newsSignupSuccessTitle": "感谢你的订阅！",
+    "nextDay": "后一天",
+    "nextReminder": "下一个提醒",
+    "nextReminderForGroup": "{time} 为“{name}”",
+    "nextReminderOn": "{weekday} {time}",
+    "nextReminderToday": "今天 {time}",
+    "nextReminderTomorrow": "明天 {time}",
+    "no": "否",
+    "noDaysSelected": "未选择日期",
+    "noPeopleGroupSelected": "选择一个族群，开始祷告。",
+    "noPeopleGroupsForReminder": "设置提醒前请先选择一个族群。",
+    "noPrayerContentAvailable": "今天没有祷告内容。",
+    "noRemindersYet": "还没有提醒",
+    "notNow": "暂不",
+    "notifications": "通知",
+    "notificationsDisabledStatus": "通知已关闭，因此你的祷告提醒不会出现。",
+    "notificationsEnabledStatus": "通知已开启。你将收到祷告提醒。",
+    "notificationsHowToEnable": "点击下方打开设置，然后允许 Doxa 发送通知。",
+    "notifications_disabled": "通知已关闭",
+    "notifications_enabled": "通知已开启",
+    "openSettings": "打开设置",
+    "overview": "概览",
+    "partial": "部分",
+    "pauseAndPray": "停下来祷告",
+    "peopleCommittedToPraying": "承诺祷告的人数",
+    "peopleGroup": "族群",
+    "peopleGroupIntroTitle": "为“{name}”祷告",
+    "peopleGroupLimitBody": "这已是你能同时代祷的上限。要添加“{name}”，请选择一个不再为其祷告的族群。",
+    "peopleGroupLimitTitle": "你正在为 {count} 个族群祷告",
+    "peopleGroupOfTheDay": "今日族群",
+    "peopleGroups": "族群",
+    "pictureCreditLabel": "图片来源",
+    "population": "人口",
+    "pray": "祷告",
+    "prayForNextGroup": "为“{name}”祷告",
+    "prayForPeopleGroupLabel": "为“{peopleGroup}”祷告",
+    "prayedToday": "今天已祷告",
+    "prayerRecordedAnnouncement": "祷告已记录",
+    "prayerReminderBody": "点击为“{peopleGroup}”祷告。",
+    "prayerReminderTitle": "准备好今天的祷告了吗？",
+    "prayerStatus": "祷告状态",
+    "prayerThankYouTitle": "感谢你的祷告",
+    "prayingWithYou": "{count, plural, =1{此刻有 1 人与你一同祷告} other{此刻有 {count} 人与你一同祷告}}",
+    "pressBackAgainToExit": "再按一次返回键退出",
+    "previousDay": "前一天",
+    "primaryLanguage": "主要语言",
+    "primaryReligion": "主要宗教",
+    "profile": "个人资料",
+    "radioBroadcast": "广播节目",
+    "recenter": "重新居中",
+    "religiousPractices": "宗教习俗",
+    "reminderNotificationBody": "打开 Doxa，开始今天的祷告。",
+    "reminderNotificationBodyForGroup": "打开 Doxa，为“{name}”祷告。",
+    "reminderNotificationTitle": "祷告时间到了",
+    "reminderPeopleGroup": "族群",
+    "reminders": "提醒",
+    "removePeopleGroupBody": "它将从你的主屏幕移除。你可以随时重新添加。",
+    "removePeopleGroupReminders": "{count, plural, =1{它的提醒将被删除。} other{它的 {count} 个提醒将被删除。}}",
+    "removePeopleGroupTitle": "不再为“{name}”祷告？",
+    "resendVerification": "重新发送验证邮件",
+    "resendVerificationCooldown": "请等待 {seconds} 秒后再申请新邮件。",
+    "resendVerificationCountdown": "{seconds} 秒后可重新发送",
+    "resendVerificationFailed": "邮件发送失败。请重试。",
+    "resendVerificationSent": "验证邮件已发送。请查看收件箱。",
+    "resources": "资源",
+    "retry": "重试",
+    "save": "保存",
+    "scanToPray": "扫码获取应用，并为“{name}”祷告",
+    "search": "搜索",
+    "searchPeopleGroups": "搜索族群",
+    "select": "选择",
+    "selectPeopleGroup": "选择一个族群",
+    "selectPeopleGroupConfirm": "要选择这个族群吗？",
+    "selected": "已选择",
+    "setReminder": "设置提醒",
+    "settings": "设置",
+    "share": "分享",
+    "shareLink": "分享链接",
+    "shareMessage": "与我一同为“{name}”祷告——下载 Doxa Prayer 应用：",
+    "signUp": "注册",
+    "signUpForUpdates": "订阅最新消息",
+    "skip": "跳过",
+    "status": "状态",
+    "stopPraying": "停止祷告",
+    "swapPeopleGroupAction": "替换",
+    "switchPeopleGroupConfirm": "要停止为“{currentName}”祷告，改为为“{newName}”祷告吗？",
+    "switchToPeopleGroup": "切换到“{name}”",
+    "time": "时间",
+    "unselect": "取消选择",
+    "updateAction": "更新",
+    "updateAvailableBody": "Doxa Prayer 有新版本可用。",
+    "updateAvailableTitle": "有可用更新",
+    "updateDismiss": "暂不",
+    "updateRequiredBody": "请更新到最新版本以继续使用 Doxa Prayer。",
+    "updateRequiredTitle": "需要更新",
+    "updatesAboutMyPeopleGroup": "接收我的族群的最新消息",
+    "updatesFromDoxa": "接收 Doxa 的最新消息",
+    "viewProfile": "查看个人资料",
+    "wizardChoosePeopleGroupTitle": "选择一个族群",
+    "wizardConfirmPeopleGroupBody": "我们会为你显示这个族群的祷告内容和提醒。你之后可以更改。",
+    "wizardConfirmPeopleGroupTitle": "为“{name}”祷告吗？",
+    "wizardGetStarted": "开始",
+    "wizardNewsSignupBody": "可选。接收你的族群的消息以及 Doxa 的最新动态。",
+    "wizardNewsSignupTitle": "保持关注",
+    "wizardSetReminderBody": "我们会在你选择的时间轻轻提醒你。你可以跳过这一步，稍后再添加提醒。",
+    "wizardSetReminderTitle": "设置祷告提醒",
+    "wizardWelcomeBody": "Doxa 帮助你为一个未得之族祷告。我们会帮你选择族群、设置提醒并保持关注。",
+    "wizardWelcomeTitle": "欢迎使用 Doxa Prayer",
+    "workInLocalLanguageAndCulture": "以当地语言和文化开展工作",
+    "yes": "是",
+    "yourPeopleGroups": "你的族群"
+}

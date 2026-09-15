@@ -26,15 +26,19 @@ import 'package:hyphenatorx/languages/languageconfig.dart';
 
 /// hyphenatorx [Language] per app language code.
 ///
-/// Languages absent from this map are never hyphenated. `ar` is deliberately
-/// missing: Arabic script has no hyphenation convention, and inserting hyphens
-/// would be wrong rather than merely ugly.
+/// Languages absent from this map are never hyphenated. `ar`, `hi` and `zh` are
+/// deliberately missing: none of Arabic, Devanagari or Han script has a
+/// hyphenation convention — Chinese already wraps between characters — and
+/// inserting hyphens would be wrong rather than merely ugly.
 const Map<String, Language> _languageByCode = <String, Language>{
   'en': Language.language_en_us,
   'es': Language.language_es,
   'fr': Language.language_fr,
   'pt': Language.language_pt,
   'ru': Language.language_ru,
+  'de': Language.language_de_1996,
+  'it': Language.language_it,
+  'ro': Language.language_ro,
 };
 
 /// The character drawn at a break. ASCII rather than U+2010 so it is present in

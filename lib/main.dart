@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
       builder: (context, locale, _) {
         return MaterialApp.router(
           title: 'Doxa Prayer',
-          theme: AppTheme.light,
+          theme: AppTheme.lightFor(locale),
           routerConfig: appRouter,
           localizationsDelegates: const [
             AppLocalizations.delegate,

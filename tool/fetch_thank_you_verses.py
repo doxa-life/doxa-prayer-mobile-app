@@ -60,6 +60,11 @@ LOCALES = [
     ("fr", "FRLSG", "LSG"),
     ("ru", "SYNOD", "SYNOD"),
     ("ar", "SVD", "SVD"),
+    ("de", "S00", "SCH2000"),
+    ("hi", "HIOV", "OV"),
+    ("it", "NR06", "NR06"),
+    ("ro", "NTR", "NTR"),
+    ("zh", "CUNPS", "CUNPS"),
 ]
 
 PSALMS = 19
@@ -86,7 +91,7 @@ PSALM_LXX_EXCEPTIONS = [
 
 # Translations that count a psalm's superscription as verse 1, shifting every
 # subsequent verse number by one.
-PSALM_VERSE_OFFSET = {"SYNOD", "FRLSG"}
+PSALM_VERSE_OFFSET = {"SYNOD", "FRLSG", "S00"}
 
 # Book names for the reference line. Spanish, Portuguese, French and Russian
 # come from Bolls; English and Arabic are set here because Bolls returns
@@ -110,17 +115,59 @@ AR_BOOKS = {
     61: "2 \u0628\u0637\u0631\u0633", 66: "\u0631\u0624\u064a\u0627",
 }
 
+DE_BOOKS = {
+    19: "Psalm", 23: "Jesaja", 24: "Jeremia", 35: "Habakuk", 38: "Sacharja",
+    40: "Matth\u00e4us", 42: "Lukas", 45: "R\u00f6mer", 49: "Epheser",
+    50: "Philipper", 51: "Kolosser", 52: "1. Thessalonicher", 54: "1. Timotheus",
+    59: "Jakobus", 60: "1. Petrus", 61: "2. Petrus", 66: "Offenbarung",
+}
+HI_BOOKS = {
+    19: "\u092d\u091c\u0928 \u0938\u0902\u0939\u093f\u0924\u093e",
+    23: "\u092f\u0936\u093e\u092f\u093e\u0939",
+    24: "\u092f\u093f\u0930\u094d\u092e\u092f\u093e\u0939",
+    35: "\u0939\u092c\u0915\u094d\u0915\u0942\u0915",
+    38: "\u091c\u0915\u0930\u094d\u092f\u093e\u0939",
+    40: "\u092e\u0924\u094d\u0924\u0940", 42: "\u0932\u0942\u0915\u093e",
+    45: "\u0930\u094b\u092e\u093f\u092f\u094b\u0902",
+    49: "\u0907\u092b\u093f\u0938\u093f\u092f\u094b\u0902",
+    50: "\u092b\u093f\u0932\u093f\u092a\u094d\u092a\u093f\u092f\u094b\u0902",
+    51: "\u0915\u0941\u0932\u0941\u0938\u094d\u0938\u093f\u092f\u094b\u0902",
+    52: "1 \u0925\u093f\u0938\u094d\u0938\u0932\u0941\u0928\u0940\u0915\u093f\u092f\u094b\u0902",
+    54: "1 \u0924\u0940\u092e\u0941\u0925\u093f\u092f\u0938",
+    59: "\u092f\u093e\u0915\u0942\u092c", 60: "1 \u092a\u0924\u0930\u0938",
+    61: "2 \u092a\u0924\u0930\u0938",
+    66: "\u092a\u094d\u0930\u0915\u093e\u0936\u093f\u0924\u0935\u093e\u0915\u094d\u092f",
+}
+
+# Superscriptions Bolls leaves as untagged prose inside verse 1 — nothing marks
+# where they end, so the affected passage is named here. (bible, book, chapter).
+UNTAGGED_SUPERSCRIPTION = {
+    ("NR06", 19, 67): "Al direttore del coro. Per strumenti a corda. Salmo. Canto.",
+}
+
+# Han text has no spaces, so the ones left behind by <br/> and by joining
+# verses would show as gaps.
+CJK = "\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef"
+CJK_SPACE = re.compile(f"(?<=[{CJK}])\\s+(?=[{CJK}])")
+
+ELISION_GAP = re.compile(
+    r"(?<=[A-Za-z\u00c0-\u00ff])(['\u2019])\s+(?=[A-Za-z\u00c0-\u00ff])")
+
 TAG = re.compile(r"<[^>]+>")
-LEADING_ITALIC = re.compile(r"^\s*<i>.*?</i>\s*", re.S)
-# Bolls puts footnote markers in <sup> — "[104]" in NVI, a circled letter in NAA.
-# They are editorial apparatus, not scripture, so the whole element goes.
-SUPERSCRIPT = re.compile(r"<sup>.*?</sup>", re.S)
+LEADING_SUPERSCRIPTION = re.compile(
+    r"^\s*(?:<(i|b)>.*?</\1>|\u3014.*?\u3015)\s*", re.S)
+# Bolls puts footnote markers in <sup> — "[104]" in NVI, a circled letter in NAA
+# — and in <f> in SCH2000. They are editorial apparatus, not scripture, so the
+# whole element goes.
+FOOTNOTE = re.compile(r"<(sup|f)>.*?</\1>", re.S)
 LINE_BREAK = re.compile(r"<br\s*/?>", re.I)
 _HARAKAT = "[\u064B-\u0652\u0670\u0640]*"
 _SELAH_AR = _HARAKAT.join(["\u0633", "\u0644", "\u0627", "\u0647"]) + _HARAKAT
 SELAH = re.compile(
-    r"\s*(?:[\u2014-]\s*)?(?:Selah|Pause|S\u00e9lah|Sel\u00e1|\u0421\u0435\u043b\u0430|"
-    + _SELAH_AR + r")\s*[.\u060c]?\s*",
+    r"\s*(?:[\u2014-]\s*)?[(\[\uff08\u3014]?\s*"
+    r"(?:Selah|Pausa|Pause|S\u00e9lah|Sel\u00e1|Sela|"
+    r"\u0421\u0435\u043b\u0430|\u0938\u0947\u0932\u093e|\u7ec6\u62c9|"
+    + _SELAH_AR + r")\s*[.\u060c]?\s*[)\]\uff09\u3015]?\s*",
     re.I,
 )
 
@@ -156,13 +203,13 @@ def psalm_lxx_exception(ch, v1, v2):
 
 def clean(text, strip_superscription=False):
     text = re.sub(r"<S>\d+</S>", "", text)
-    text = SUPERSCRIPT.sub("", text)
+    text = FOOTNOTE.sub("", text)
     text = LINE_BREAK.sub(" ", text)
     if strip_superscription:
         previous = None
         while previous != text:
             previous = text
-            text = LEADING_ITALIC.sub("", text)
+            text = LEADING_SUPERSCRIPTION.sub("", text)
     text = TAG.sub("", text)
     text = SELAH.sub(" ", text)
     return re.sub(r"\s+", " ", text).strip()
@@ -197,7 +244,12 @@ def fetch(bible, book, ch, v1, v2):
         clean(v["text"], strip_superscription=(book == PSALMS and v["verse"] == 1))
         for v in wanted
     )
-    return text, actual_ch, actual_v1, actual_v2
+    if bible == "NR06":
+        text = ELISION_GAP.sub(r"\1", text)
+    prose = UNTAGGED_SUPERSCRIPTION.get((bible, book, ch))
+    if prose and actual_v1 == 1 and text.startswith(prose):
+        text = text[len(prose):].lstrip()
+    return CJK_SPACE.sub("", text), actual_ch, actual_v1, actual_v2
 
 
 def book_name(loc, bolls_books, bible, book_id):
@@ -205,6 +257,10 @@ def book_name(loc, bolls_books, bible, book_id):
         return EN_BOOKS[book_id]
     if loc == "ar":
         return AR_BOOKS[book_id]
+    if loc == "de":
+        return DE_BOOKS[book_id]
+    if loc == "hi":
+        return HI_BOOKS[book_id]
     name = bolls_books[bible][book_id]
     if loc == "ru":
         # "1-e X" -> "1 X", and drop the "Gospel of"/"Epistle to" prefixes.
@@ -212,7 +268,7 @@ def book_name(loc, bolls_books, bible, book_id):
         for prefix in ("\u041e\u0442 ", "\u041a "):
             if name.startswith(prefix):
                 name = name[len(prefix):]
-    if loc == "pt" and name[0].isdigit() and not name[1:2].isspace():
+    if loc in ("pt", "it") and name[0].isdigit() and not name[1:2].isspace():
         name = name[0] + " " + name[1:]
     return name
 
@@ -222,6 +278,8 @@ def format_reference(loc, book, ch, v1, v2):
     verses = str(v1) if v1 == v2 else f"{v1}-{v2}"
     if loc == "fr":
         return f"{book} {ch}, {verses}"
+    if loc == "de":
+        return f"{book} {ch},{verses}"
     if loc == "ru":
         return f"{book} {ch}:{verses.replace('-', '\u2013')}"
     return f"{book} {ch}:{verses}"

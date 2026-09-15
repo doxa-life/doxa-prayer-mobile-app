@@ -195,3 +195,25 @@ flutter:
       fonts:
         - asset: assets/fonts/Brandon_Grotesque/Brandon_Grotesque_bold.otf
           weight: 600
+    # Script fallbacks. Poppins covers Latin and Devanagari but no Cyrillic,
+    # Arabic or Han, and BebasKai/BrandonGrotesque are Latin display faces, so
+    # without these the engine picks whatever the OS happens to ship. Families
+    # and file choices mirror doxa-resource-pipeline/data/language-atlas.yaml.
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+          weight: 500
+    - family: NotoSansArabic
+      fonts:
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSansArabic/NotoSansArabic-Medium.ttf
+          weight: 500
+    # One weight only: a second would add another 10.6 MB, and Han has no
+    # bold-by-design convention the way Latin does.
+    - family: NotoSansSC
+      fonts:
+        - asset: assets/fonts/NotoSansSC/NotoSansSC-Regular.ttf
+          weight: 400
