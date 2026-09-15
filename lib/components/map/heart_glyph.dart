@@ -46,7 +46,7 @@ TextPainter _glyph(double size, Color color, {double? strokeWidth}) {
 /// Measured by rendering the glyph and scanning its alpha: at font size 100 the
 /// ink spans y[0..74], so its centre is 13px high of the box's. Centring the
 /// box alone leaves the heart riding high inside the selection ring.
-const double _inkRise = 0.13;
+const double _inkRise = 0.06;
 
 /// How much of the font size the glyph's ink spans, measured the same way
 /// (76 of 100). Lets a caller size a ring that actually fits the heart.
