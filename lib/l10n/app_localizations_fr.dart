@@ -556,7 +556,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'Code QR';
+  String get shareLink => 'Partager le lien';
 
   @override
   String scanToPray(String name) {

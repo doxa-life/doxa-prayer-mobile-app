@@ -561,7 +561,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'QR-код';
+  String get shareLink => 'Поделиться ссылкой';
 
   @override
   String scanToPray(String name) {

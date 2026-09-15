@@ -1024,11 +1024,11 @@ abstract class AppLocalizations {
   /// **'Pray with me for the {name} — get the Doxa Prayer app:'**
   String shareMessage(String name);
 
-  /// Button on the people group card that shows a QR code of the share link
+  /// Button in the share modal that hands the people group link to the device's share sheet
   ///
   /// In en, this message translates to:
-  /// **'QR code'**
-  String get qrCode;
+  /// **'Share link'**
+  String get shareLink;
 
   /// Caption under the QR code in the share modal
   ///

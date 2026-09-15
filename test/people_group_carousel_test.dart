@@ -33,7 +33,6 @@ Future<void> _pump(
             onPray: onPray ?? (_) {},
             onDetails: (_) {},
             onShare: (_) {},
-            onShowQr: (_) {},
             onMap: (_) {},
             onAdd: () {},
           ),

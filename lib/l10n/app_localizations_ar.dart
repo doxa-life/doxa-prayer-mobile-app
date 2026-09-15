@@ -569,7 +569,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get qrCode => 'رمز QR';
+  String get shareLink => 'مشاركة الرابط';
 
   @override
   String scanToPray(String name) {

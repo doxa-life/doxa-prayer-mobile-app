@@ -22,7 +22,6 @@ void main() {
           imageUrl: null, // Placeholder, so no network image is loaded.
           onDetails: _noop,
           onShare: _noop,
-          onShowQr: _noop,
         ),
       ),
       scale: 3.0,

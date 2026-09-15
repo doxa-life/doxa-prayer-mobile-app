@@ -3,7 +3,7 @@ import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.da
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/prayer_reminder_banner.dart';
-import 'package:doxa_prayer_mobile_app/components/misc/qr_share_modal.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
@@ -29,10 +29,7 @@ class HomeScreen extends StatelessWidget {
         child: PageContainer(
           child: Column(
             spacing: AppSpacing.xxl,
-            children: [
-              _peopleGroupsCardOrCTA(),
-              _remindersCardOrCTA(),
-            ],
+            children: [_peopleGroupsCardOrCTA(), _remindersCardOrCTA()],
           ),
         ),
       ),
@@ -69,12 +66,7 @@ class HomeScreen extends StatelessWidget {
           activeSlug: groups.active?.slug,
           onPray: (g) => _openPray(context, g.slug),
           onDetails: (g) => _openDetails(g.slug, context),
-          onShare: (g) => _share(context, g),
-          onShowQr: (g) => showQrShareModal(
-            context,
-            url: _shareLink(g.slug),
-            peopleGroupName: g.name,
-          ),
+          onShare: (g) => _openShare(context, g),
           onMap: (g) => context.push('/people-groups/${g.slug}/map'),
           onAdd: () => context.go('/people-groups'),
         );
@@ -86,20 +78,25 @@ class HomeScreen extends StatelessWidget {
   /// route the campaigns server profile pages link to.
   String _shareLink(String slug) => ApiConfig.buildUri('/app/$slug').toString();
 
-  void _share(BuildContext context, SubscribedPeopleGroup group) {
+  /// One share entry point: the modal shows the QR code for sharing in person
+  /// and hands off to the device's share sheet for every other channel.
+  void _openShare(BuildContext context, SubscribedPeopleGroup group) {
+    showSharePeopleGroupModal(
+      context,
+      url: _shareLink(group.slug),
+      peopleGroupName: group.name,
+      onShareLink: (origin) => _share(context, group, origin),
+    );
+  }
+
+  void _share(BuildContext context, SubscribedPeopleGroup group, Rect? origin) {
     final text =
         '${AppLocalizations.of(context)!.shareMessage(group.name)} '
         '${_shareLink(group.slug)}';
 
-    // iPads require a popover anchor; anchor the share sheet to the card.
-    final box = context.findRenderObject() as RenderBox?;
     SharePlus.instance.share(
-      ShareParams(
-        text: text,
-        sharePositionOrigin: box == null
-            ? null
-            : box.localToGlobal(Offset.zero) & box.size,
-      ),
+      // iPads require a popover anchor; the modal reports where it was.
+      ShareParams(text: text, sharePositionOrigin: origin),
     );
   }
 }

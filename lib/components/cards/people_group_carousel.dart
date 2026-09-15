@@ -25,7 +25,6 @@ class PeopleGroupCarousel extends StatefulWidget {
     required this.onPray,
     required this.onDetails,
     required this.onShare,
-    required this.onShowQr,
     required this.onMap,
     required this.onAdd,
   });
@@ -35,7 +34,6 @@ class PeopleGroupCarousel extends StatefulWidget {
   final ValueChanged<SubscribedPeopleGroup> onPray;
   final ValueChanged<SubscribedPeopleGroup> onDetails;
   final ValueChanged<SubscribedPeopleGroup> onShare;
-  final ValueChanged<SubscribedPeopleGroup> onShowQr;
   final ValueChanged<SubscribedPeopleGroup> onMap;
   final VoidCallback onAdd;
 
@@ -165,7 +163,6 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
                             onPray: () => widget.onPray(group),
                             onDetails: () => widget.onDetails(group),
                             onShare: () => widget.onShare(group),
-                            onShowQr: () => widget.onShowQr(group),
                             showMap: MapConfig.isConfigured,
                             onMap: canMapPeopleGroup(group.slug, locatedSlugs)
                                 ? () => widget.onMap(group)

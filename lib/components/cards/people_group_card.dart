@@ -4,7 +4,6 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../misc/app_image.dart';
@@ -20,7 +19,6 @@ class PeopleGroupCard extends StatelessWidget {
     this.prayedToday = false,
     this.onPray,
     this.onShare,
-    this.onShowQr,
     this.onDetails,
     this.onMap,
     this.showMap = false,
@@ -30,8 +28,10 @@ class PeopleGroupCard extends StatelessWidget {
   final String? imageUrl;
   final bool prayedToday;
   final VoidCallback? onPray;
+
+  /// Opens the share modal, which carries both the QR code and the
+  /// device's share sheet.
   final VoidCallback? onShare;
-  final VoidCallback? onShowQr;
   final VoidCallback? onDetails;
 
   /// Opens the map of where this group lives. Null leaves the button in place
@@ -88,12 +88,6 @@ class PeopleGroupCard extends StatelessWidget {
                     icon: const AppIcon(AppIconName.share),
                     label: l.share,
                     onPressed: onShare,
-                  ),
-                if (onShowQr != null)
-                  IconLabelButton(
-                    icon: const AppIcon(AppIconName.qrCode),
-                    label: l.qrCode,
-                    onPressed: onShowQr,
                   ),
                 if (showMap)
                   IconLabelButton(

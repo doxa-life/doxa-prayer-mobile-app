@@ -695,9 +695,9 @@
             }
         }
     },
-    "qrCode": "QR code",
-    "@qrCode": {
-        "description": "Button on the people group card that shows a QR code of the share link"
+    "shareLink": "Share link",
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
     },
     "scanToPray": "Scan to get the app and pray for the {name}",
     "@scanToPray": {
