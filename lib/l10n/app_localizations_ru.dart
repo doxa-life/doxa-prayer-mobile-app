@@ -503,12 +503,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updateDismiss => 'Не сейчас';
 
   @override
-  String get getInvolved => 'Присоединяйтесь';
-
-  @override
-  String get donate => 'Сделать пожертвование';
-
-  @override
   String get feedback => 'Отзывы';
 
   @override

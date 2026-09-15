@@ -1,5 +1,4 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/get_involved_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
@@ -15,9 +14,6 @@ import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-const _donateUrl = 'https://giving.ag.org/donate/600001-6c2327';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -36,7 +32,6 @@ class HomeScreen extends StatelessWidget {
             children: [
               _peopleGroupsCardOrCTA(),
               _remindersCardOrCTA(),
-              _getInvolvedCard(context),
             ],
           ),
         ),
@@ -85,17 +80,6 @@ class HomeScreen extends StatelessWidget {
         );
       },
     );
-  }
-
-  Widget _getInvolvedCard(BuildContext context) {
-    return GetInvolvedCard(
-      onDonate: () => _openExternalUrl(_donateUrl),
-      onFeedback: () => context.push('/feedback'),
-    );
-  }
-
-  void _openExternalUrl(String url) {
-    launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
   /// The deep link to install the app / pray for a people group — the same

@@ -498,12 +498,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get updateDismiss => 'Pas maintenant';
 
   @override
-  String get getInvolved => 'Impliquez-vous';
-
-  @override
-  String get donate => 'Faire un don';
-
-  @override
   String get feedback => 'Commentaires';
 
   @override

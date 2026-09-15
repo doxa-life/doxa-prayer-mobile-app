@@ -28,7 +28,7 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:44` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
 | POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:164` |
-| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:103` |
+| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:87` |
 | LINK | `/subscriber` | — | — | — | `profile_service.dart:127` |
 
 `LINK` rows are URIs built for sharing or opening in a browser — they are never requested by the app.

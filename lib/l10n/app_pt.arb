@@ -93,9 +93,6 @@
     "@dismissReminderLabel": {
         "description": "Accessibility label for the close button on the home prayer reminder banner"
     },
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -187,9 +184,6 @@
     },
     "@forwardLabel": {
         "description": "Accessibility label for a forward navigation arrow button"
-    },
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
     },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
@@ -725,7 +719,6 @@
     "daysOfWeek": "Dias da semana",
     "delete": "Excluir",
     "discipleAndChurchMultiplication": "Multiplicação de discípulos e igrejas",
-    "donate": "Doar",
     "editReminder": "Editar lembrete",
     "emailInvalid": "Insira um endereço de e-mail válido.",
     "emailLabel": "E-mail",
@@ -755,7 +748,6 @@
     "feedbackTypeSuggestion": "Sugestão",
     "finish": "Concluir",
     "forwardLabel": "Avançar",
-    "getInvolved": "Participe",
     "gospelRecordings": "Gravações do evangelho",
     "home": "Início",
     "jesusFilm": "Filme Jesus",

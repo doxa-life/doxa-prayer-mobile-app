@@ -493,12 +493,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateDismiss => 'Not now';
 
   @override
-  String get getInvolved => 'Get involved';
-
-  @override
-  String get donate => 'Donate';
-
-  @override
   String get feedback => 'Feedback';
 
   @override

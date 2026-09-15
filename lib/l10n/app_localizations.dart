@@ -922,18 +922,6 @@ abstract class AppLocalizations {
   /// **'Not now'**
   String get updateDismiss;
 
-  /// Title of the home-screen section with share, donate and feedback buttons
-  ///
-  /// In en, this message translates to:
-  /// **'Get involved'**
-  String get getInvolved;
-
-  /// Button that opens the donation page in the browser
-  ///
-  /// In en, this message translates to:
-  /// **'Donate'**
-  String get donate;
-
   /// Button that opens the in-app feedback panel
   ///
   /// In en, this message translates to:

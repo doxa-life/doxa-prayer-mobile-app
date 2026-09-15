@@ -512,12 +512,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get updateDismiss => 'ليس الآن';
 
   @override
-  String get getInvolved => 'شارك معنا';
-
-  @override
-  String get donate => 'تبرع';
-
-  @override
   String get feedback => 'التعليقات';
 
   @override

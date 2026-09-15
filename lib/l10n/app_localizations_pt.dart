@@ -495,12 +495,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get updateDismiss => 'Agora não';
 
   @override
-  String get getInvolved => 'Participe';
-
-  @override
-  String get donate => 'Doar';
-
-  @override
   String get feedback => 'Comentários';
 
   @override

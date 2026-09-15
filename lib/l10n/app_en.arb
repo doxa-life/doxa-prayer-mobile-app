@@ -617,14 +617,6 @@
     "@updateDismiss": {
         "description": "Button that dismisses the optional-update banner"
     },
-    "getInvolved": "Get involved",
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
-    },
-    "donate": "Donate",
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "feedback": "Feedback",
     "@feedback": {
         "description": "Button that opens the in-app feedback panel"

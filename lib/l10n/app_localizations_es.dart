@@ -500,12 +500,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get updateDismiss => 'Ahora no';
 
   @override
-  String get getInvolved => 'Involúcrate';
-
-  @override
-  String get donate => 'Donar';
-
-  @override
   String get feedback => 'Comentarios';
 
   @override

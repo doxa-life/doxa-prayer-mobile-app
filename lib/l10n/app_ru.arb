@@ -93,9 +93,6 @@
     "@dismissReminderLabel": {
         "description": "Accessibility label for the close button on the home prayer reminder banner"
     },
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -187,9 +184,6 @@
     },
     "@forwardLabel": {
         "description": "Accessibility label for a forward navigation arrow button"
-    },
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
     },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
@@ -725,7 +719,6 @@
     "daysOfWeek": "Дни недели",
     "delete": "Удалить",
     "discipleAndChurchMultiplication": "Умножение учеников и церквей",
-    "donate": "Сделать пожертвование",
     "editReminder": "Редактировать напоминание",
     "emailInvalid": "Пожалуйста, введите действительный адрес электронной почты.",
     "emailLabel": "Электронная почта",
@@ -755,7 +748,6 @@
     "feedbackTypeSuggestion": "Предложение",
     "finish": "Завершить",
     "forwardLabel": "Вперёд",
-    "getInvolved": "Присоединяйтесь",
     "gospelRecordings": "Записи Евангелия",
     "home": "Главная",
     "jesusFilm": "Фильм «Иисус»",

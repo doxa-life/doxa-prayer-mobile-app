@@ -90,9 +90,6 @@
     "@discipleAndChurchMultiplication": {
         "description": "The label of the disciple and church multiplication field"
     },
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -184,9 +181,6 @@
     },
     "@forwardLabel": {
         "description": "Accessibility label for a forward navigation arrow button"
-    },
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
     },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
@@ -725,7 +719,6 @@
     "daysOfWeek": "أيام الأسبوع",
     "delete": "حذف",
     "discipleAndChurchMultiplication": "مضاعفة التلاميذ والكنائس",
-    "donate": "تبرع",
     "editReminder": "تحرير التذكير",
     "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صالح.",
     "emailLabel": "البريد الإلكتروني",
@@ -755,7 +748,6 @@
     "feedbackTypeSuggestion": "اقتراح",
     "finish": "إنهاء",
     "forwardLabel": "التالي",
-    "getInvolved": "شارك معنا",
     "gospelRecordings": "تسجيلات الإنجيل",
     "home": "الصفحة الرئيسية",
     "jesusFilm": "فيلم يسوع",

@@ -90,9 +90,6 @@
     "@discipleAndChurchMultiplication": {
         "description": "The label of the disciple and church multiplication field"
     },
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
-    },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
     },
@@ -184,9 +181,6 @@
     },
     "@forwardLabel": {
         "description": "Accessibility label for a forward navigation arrow button"
-    },
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
     },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
@@ -725,7 +719,6 @@
     "daysOfWeek": "Jours de la semaine",
     "delete": "Supprimer",
     "discipleAndChurchMultiplication": "Multiplication des disciples et des églises",
-    "donate": "Faire un don",
     "editReminder": "Modifier le rappel",
     "emailInvalid": "Veuillez saisir une adresse e-mail valide.",
     "emailLabel": "Email",
@@ -755,7 +748,6 @@
     "feedbackTypeSuggestion": "Suggestion",
     "finish": "Terminer",
     "forwardLabel": "Suivant",
-    "getInvolved": "Impliquez-vous",
     "gospelRecordings": "Enregistrements évangéliques",
     "home": "Accueil",
     "jesusFilm": "Film Jésus",
