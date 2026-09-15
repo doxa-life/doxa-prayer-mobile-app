@@ -907,6 +907,10 @@
   "@mapUnavailableOffline": {
     "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
   },
+  "yourPeopleGroups": "Your people groups",
+  "@yourPeopleGroups": {
+    "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+  },
   "locationNotAvailable": "Location not available",
   "@locationNotAvailable": {
     "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"

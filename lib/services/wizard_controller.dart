@@ -131,6 +131,7 @@ class WizardController extends ChangeNotifier {
         countryLabel: null,
         religionLabel: null,
         peoplePraying: 0,
+        peopleCommitted: detail.peopleCommitted,
       );
       // Consume the referral so a later wizard re-entry won't re-trigger it.
       await clearReferredPeopleGroup();

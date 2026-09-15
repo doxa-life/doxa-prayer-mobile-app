@@ -15,6 +15,7 @@ import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/components/widgets/people_group_details_skeleton.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
+import 'package:doxa_prayer_mobile_app/models/prayer_commitment.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/people_groups_service.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
@@ -22,8 +23,6 @@ import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import '../components/misc/hyphenated_text.dart';
-
-const int _peopleCommittedGoal = 100;
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
   const PeopleGroupDetailsScreen({
@@ -132,11 +131,13 @@ class _DetailBody extends StatelessWidget {
                   children: [
                     EngagementItem(
                       label: l.prayerStatus,
-                      status: detail.peopleCommitted >= _peopleCommittedGoal
-                          ? EngagementStatus.yes
-                          : detail.peopleCommitted > 0
-                          ? EngagementStatus.partial
-                          : EngagementStatus.no,
+                      status: switch (prayerCommitmentLevelFor(
+                        detail.peopleCommitted,
+                      )) {
+                        PrayerCommitmentLevel.met => EngagementStatus.yes,
+                        PrayerCommitmentLevel.some => EngagementStatus.partial,
+                        PrayerCommitmentLevel.none => EngagementStatus.no,
+                      },
                     ),
                     EngagementItem(
                       label: l.adoptionStatus,
@@ -341,10 +342,10 @@ class _CommittedProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l = AppLocalizations.of(context)!;
-    final clamped = committed.clamp(0, _peopleCommittedGoal);
-    final ratio = _peopleCommittedGoal == 0
+    final clamped = committed.clamp(0, kPeopleCommittedGoal);
+    final ratio = kPeopleCommittedGoal == 0
         ? 0.0
-        : clamped / _peopleCommittedGoal;
+        : clamped / kPeopleCommittedGoal;
     return ElevatedAppCard(
       padding: AppSpacing.xxxl,
       color: AppColors.primary,
@@ -375,7 +376,7 @@ class _CommittedProgress extends StatelessWidget {
           Semantics(
             container: true,
             label: l.dailyPrayerCoverage,
-            value: '$clamped/$_peopleCommittedGoal',
+            value: '$clamped/$kPeopleCommittedGoal',
             child: ExcludeSemantics(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(999),

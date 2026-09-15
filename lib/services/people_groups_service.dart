@@ -14,7 +14,8 @@ import 'response_cache.dart';
 // cached list, so no second request is needed. They add roughly 60 KB to an
 // ~850 KB response.
 const _listFields =
-    'name,slug,image_url,country_code,religion,people_praying,latitude,longitude';
+    'name,slug,image_url,country_code,religion,people_praying,people_committed,'
+    'latitude,longitude';
 
 /// Bumped whenever [_listFields] changes. The cached body is a *projection* of
 /// the people group, not the whole record, so a build that asks for a new field
@@ -22,7 +23,7 @@ const _listFields =
 /// the map's `latitude,longitude` were added: existing installs kept serving a
 /// coordinate-less list for the rest of its 7-day TTL, and the map button never
 /// appeared. Old files are swept by `maxResponseAge`.
-const String _listFieldsRevision = 'v2';
+const String _listFieldsRevision = 'v3';
 
 /// Cache keys are exposed so a screen can peek the in-memory cache before its
 /// first frame (see `CachedDataBuilder`); they must match what the fetch below

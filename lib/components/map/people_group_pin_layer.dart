@@ -4,16 +4,25 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../models/people_group.dart';
+import '../../models/prayer_commitment.dart';
 import '../../theme/app_colors.dart';
+import '../../theme/prayer_commitment_colors.dart';
+import 'heart_glyph.dart';
 
 /// Radius of an ordinary people-group pin, in logical pixels.
 const double _pinRadius = 5.0;
 
 /// Radius of a pin for a group the user prays for, including the focused one.
-/// Larger than its neighbours so the groups that matter to this user can be
-/// picked out of a crowded region at a glance; which of them is currently
-/// selected is said by the ring, not by the size.
+/// Larger than its neighbours, and drawn as a heart rather than a circle, so
+/// the groups that matter to this user can be picked out of a crowded region at
+/// a glance. Colour is never used for that: it is spoken for by how many people
+/// have committed to pray, which is what the map is about.
 const double _primaryPinRadius = 8.0;
+
+/// Font size of the heart glyph relative to the pin radius it replaces, tuned
+/// so a heart carries about the same visual weight on the map as the circle of
+/// that radius would.
+const double _heartScale = 2.9;
 
 /// White border around every pin, so pins stay legible against both the pale
 /// land and the water of the `light-v11` basemap.
@@ -188,10 +197,14 @@ class _PinPainter extends CustomPainter {
   void _paintSelectionRing(Canvas canvas, PeopleGroup group, Paint ring) {
     final isPrimary =
         group.slug == focusedSlug || subscribedSlugs.contains(group.slug);
-    final radius = isPrimary ? _primaryPinRadius : _pinRadius;
+    // A heart is wider than the circle of the same pin radius, so the ring is
+    // sized from the glyph's own ink rather than from the radius.
+    final enclosed = isPrimary
+        ? _primaryPinRadius * _heartScale * kHeartInkRatio / 2
+        : _pinRadius;
     canvas.drawCircle(
       camera.latLngToScreenOffset(LatLng(group.latitude!, group.longitude!)),
-      radius + _borderWidth + 2,
+      enclosed + _borderWidth + 2,
       ring,
     );
   }
@@ -219,9 +232,22 @@ class _PinPainter extends CustomPainter {
       return;
     }
 
-    fill.color = isPrimary ? AppColors.secondary : AppColors.primaryLight;
-    canvas.drawCircle(offset, radius, fill);
-    canvas.drawCircle(offset, radius, border);
+    // Colour says how well covered the group is; shape says whether it is one
+    // of the user's own.
+    fill.color = prayerCommitmentLevelFor(group.peopleCommitted).color;
+    if (isPrimary) {
+      paintHeart(
+        canvas,
+        offset,
+        size: radius * _heartScale,
+        color: fill.color,
+        borderColor: AppColors.white,
+        borderWidth: _borderWidth,
+      );
+    } else {
+      canvas.drawCircle(offset, radius, fill);
+      canvas.drawCircle(offset, radius, border);
+    }
   }
 
   @override

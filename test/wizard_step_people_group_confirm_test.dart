@@ -12,6 +12,7 @@ const _group = PeopleGroup(
   countryLabel: null,
   religionLabel: null,
   peoplePraying: 0,
+  peopleCommitted: 0,
 );
 
 void main() {

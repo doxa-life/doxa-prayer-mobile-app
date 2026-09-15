@@ -693,6 +693,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapUnavailableOffline => 'Map images unavailable offline';
 
   @override
+  String get yourPeopleGroups => 'Your people groups';
+
+  @override
   String get locationNotAvailable => 'Location not available';
 
   @override

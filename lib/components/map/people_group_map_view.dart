@@ -13,6 +13,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../buttons/map_recentre_button.dart';
 import 'map_attribution_bar.dart';
+import 'map_legend.dart';
 import 'map_offline_notice.dart';
 import 'people_group_pin_card.dart';
 import 'people_group_pin_layer.dart';
@@ -24,8 +25,8 @@ const int _offlineTileFailureThreshold = 4;
 
 /// Padding around the opening fit, so the outermost neighbouring pin isn't
 /// jammed against the edge of the map — and so the bottom row clears the pin
-/// card that opens with it.
-const EdgeInsets _fitPadding = EdgeInsets.fromLTRB(48, 48, 48, 180);
+/// card that opens with it and the top row clears the legend.
+const EdgeInsets _fitPadding = EdgeInsets.fromLTRB(48, 130, 48, 180);
 
 /// The map itself: every located people group as a pin, framed on [focus] and
 /// its nearest neighbours.
@@ -219,15 +220,23 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
               ),
             ),
 
-            if (_tilesUnavailable)
-              Positioned(
-                top: AppSpacing.md,
-                left: AppSpacing.md,
-                right: AppSpacing.md,
-                child: Center(
-                  child: MapOfflineNotice(message: l.mapUnavailableOffline),
-                ),
+            // Legend and offline notice share one top-left column so they
+            // stack rather than overlap, and neither collides with the
+            // recentre button opposite them.
+            Positioned(
+              top: AppSpacing.md,
+              left: AppSpacing.md,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSpacing.sm,
+                children: [
+                  const MapLegend(),
+                  if (_tilesUnavailable)
+                    MapOfflineNotice(message: l.mapUnavailableOffline),
+                ],
               ),
+            ),
             if (_focusOffScreen)
               Positioned(
                 top: AppSpacing.md,

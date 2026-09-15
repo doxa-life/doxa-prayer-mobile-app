@@ -6,6 +6,7 @@ class PeopleGroup {
     required this.countryLabel,
     required this.religionLabel,
     required this.peoplePraying,
+    required this.peopleCommitted,
     this.latitude,
     this.longitude,
   });
@@ -16,6 +17,10 @@ class PeopleGroup {
   final String? countryLabel;
   final String? religionLabel;
   final int peoplePraying;
+
+  /// How many people have committed to pray for this group. Drives the pin's
+  /// colour on the map — see `models/prayer_commitment.dart`.
+  final int peopleCommitted;
 
   /// Where the group sits on the map, in degrees. Null for a group the API has
   /// no location for — every group has one today, but the columns are nullable
@@ -35,6 +40,13 @@ class PeopleGroup {
     return null;
   }
 
+  /// `people_committed` comes back as a string too, for the same reason.
+  static int _count(dynamic value) {
+    if (value is num) return value.toInt();
+    if (value is String) return int.tryParse(value) ?? 0;
+    return 0;
+  }
+
   static PeopleGroup fromJson(Map<String, dynamic> json) {
     final country = json['country_code'];
     final religion = json['religion'];
@@ -49,6 +61,7 @@ class PeopleGroup {
           ? religion['label'] as String?
           : null,
       peoplePraying: (json['people_praying'] as num?)?.toInt() ?? 0,
+      peopleCommitted: _count(json['people_committed']),
       latitude: _coordinate(json['latitude']),
       longitude: _coordinate(json['longitude']),
     );

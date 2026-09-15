@@ -1240,6 +1240,12 @@ abstract class AppLocalizations {
   /// **'Map images unavailable offline'**
   String get mapUnavailableOffline;
 
+  /// Map legend row explaining that heart-shaped pins are the people groups the user prays for
+  ///
+  /// In en, this message translates to:
+  /// **'Your people groups'**
+  String get yourPeopleGroups;
+
   /// Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled
   ///
   /// In en, this message translates to:
