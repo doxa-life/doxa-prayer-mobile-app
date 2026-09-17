@@ -18,22 +18,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pray => 'Orar';
 
   @override
-  String get peopleGroups => 'Grupos de personas';
+  String get peopleGroups => 'Grupos étnicos';
 
   @override
   String nPeopleGroups(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count grupos de personas',
-      one: '1 grupo de personas',
-      zero: 'Sin grupos de personas',
+      other: '$count grupos étnicos',
+      one: '1 grupo étnico',
+      zero: 'Sin grupos étnicos',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchPeopleGroups => 'Buscar grupos de personas';
+  String get searchPeopleGroups => 'Buscar grupos étnicos';
 
   @override
   String get profile => 'Perfil';
@@ -52,10 +52,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get couldNotLoadPeopleGroupsMessage =>
-      'No se han podido cargar los grupos de personas.';
+      'No se han podido cargar los grupos étnicos.';
 
   @override
-  String get selectPeopleGroup => 'Selecciona un grupo de personas';
+  String get selectPeopleGroup => 'Selecciona un grupo étnico';
 
   @override
   String get crossCulturalWorkersPresent => 'Obreros transculturales presentes';
@@ -106,11 +106,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dailyPrayerCoverage => 'Cobertura de oración diaria';
 
   @override
-  String get peopleGroup => 'Grupo de personas';
+  String get peopleGroup => 'Grupo étnico';
 
   @override
   String get couldNotLoadPeopleGroupDetailsMessage =>
-      'No se han podido cargar los datos del grupo de personas.';
+      'No se han podido cargar los datos del grupo étnico.';
 
   @override
   String get share => 'Compartir';
@@ -171,7 +171,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get selectPeopleGroupConfirm =>
-      '¿Quieres seleccionar este grupo de personas?';
+      '¿Quieres seleccionar este grupo étnico?';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
@@ -183,7 +183,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noPeopleGroupSelected =>
-      'Elige un grupo de personas por el que empezar a orar.';
+      'Elige un grupo étnico por el que empezar a orar.';
 
   @override
   String get couldNotLoadPrayerContent =>
@@ -354,13 +354,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
+      'Doxa te ayuda a orar por un grupo étnico no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
 
   @override
   String get wizardGetStarted => 'Empezar';
 
   @override
-  String get wizardChoosePeopleGroupTitle => 'Elige un grupo de personas';
+  String get wizardChoosePeopleGroupTitle => 'Elige un grupo étnico';
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
@@ -383,7 +383,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Opcional. Recibe noticias sobre tu grupo de personas y novedades de Doxa.';
+      'Opcional. Recibe noticias sobre tu grupo étnico y novedades de Doxa.';
 
   @override
   String get back => 'Volver';
@@ -412,7 +412,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get updatesAboutMyPeopleGroup =>
-      'Recibir noticias sobre mi grupo de personas';
+      'Recibir noticias sobre mi grupo étnico';
 
   @override
   String get updatesFromDoxa => 'Recibe novedades de Doxa';
@@ -580,7 +580,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dayInTheLifeTitle => 'Un día en la vida';
 
   @override
-  String get myPeopleGroupTitle => 'Mi grupo de personas';
+  String get myPeopleGroupTitle => 'Mi grupo étnico';
 
   @override
   String peopleGroupIntroTitle(String name) {
@@ -588,7 +588,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get peopleGroupOfTheDay => 'Grupo de personas del día';
+  String get peopleGroupOfTheDay => 'Grupo étnico del día';
 
   @override
   String get pressBackAgainToExit => 'Vuelve a pulsar para salir';
@@ -608,14 +608,14 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get choosePeopleGroup => 'Elegir un grupo de personas';
+  String get choosePeopleGroup => 'Elegir un grupo étnico';
 
   @override
-  String get addAnotherPeopleGroup => 'Añadir otro grupo de personas';
+  String get addAnotherPeopleGroup => 'Añadir otro grupo étnico';
 
   @override
   String peopleGroupLimitTitle(num count) {
-    return 'Estás orando por $count grupos de personas';
+    return 'Estás orando por $count grupos étnicos';
   }
 
   @override
@@ -651,10 +651,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noPeopleGroupsForReminder =>
-      'Elige un grupo de personas antes de configurar un recordatorio.';
+      'Elige un grupo étnico antes de configurar un recordatorio.';
 
   @override
-  String get reminderPeopleGroup => 'Grupo de personas';
+  String get reminderPeopleGroup => 'Grupo étnico';
 
   @override
   String reminderNotificationBodyForGroup(String name) {
@@ -685,7 +685,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Grupos de personas cercanos';
+  String get nearbyPeopleGroups => 'Grupos étnicos cercanos';
 
   @override
   String get recenter => 'Centrar de nuevo';
@@ -695,7 +695,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Imágenes del mapa no disponibles sin conexión';
 
   @override
-  String get yourPeopleGroups => 'Tus grupos de personas';
+  String get yourPeopleGroups => 'Tus grupos étnicos';
 
   @override
   String get locationNotAvailable => 'Ubicación no disponible';
