@@ -27,7 +27,7 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | GET | `/api/profile/{profileId}` | — | — | — | `profile_service.dart:44`<br>`profile_service.dart:63` |
 | PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:44` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
-| POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:164` |
+| POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:185` |
 | LINK | `/app/{slug}` | — | — | — | `home_screen.dart:79` |
 | LINK | `/subscriber` | — | — | — | `profile_service.dart:127` |
 
