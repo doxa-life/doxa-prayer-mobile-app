@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0+29 - 2026-09-17
+
+Bug fixes:
+- deep linking of prayer reminder
+
 ## 2.0.0+28 - 2026-09-17
 
 Features:
