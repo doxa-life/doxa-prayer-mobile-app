@@ -80,6 +80,22 @@ Future<void> initPushNotifications() async {
 
 void _onIdentityChanged() => _syncExternalId(identityController.value);
 
+/// DEBUG: a summary of this device's OneSignal push subscription, so a test
+/// push can be targeted from the OneSignal dashboard/API. Surfaced by the
+/// Debug screen; safe to call when OneSignal isn't configured.
+String oneSignalDebugSummary() {
+  if (!ApiConfig.hasOneSignal) return 'OneSignal not configured (no app id)';
+  final sub = OneSignal.User.pushSubscription;
+  final identity = identityController.value;
+  final externalId = (identity?.profileId?.isNotEmpty ?? false)
+      ? identity!.profileId
+      : identity?.trackingId;
+  return 'subscriptionId: ${sub.id ?? '(none)'}\n'
+      'optedIn: ${sub.optedIn}\n'
+      'token: ${sub.token != null ? 'present' : '(none)'}\n'
+      'externalId: ${externalId ?? '(none)'}';
+}
+
 /// Keeps the OneSignal external id in sync with our identity. Uses `profileId`
 /// when present (so the future server sender can target by it), falling back to
 /// the always-present `trackingId`. A null identity (reset) logs the device out.
@@ -118,6 +134,11 @@ void _syncExternalId(AnonIdentity? identity) {
 
 void _onNotificationClick(OSNotificationClickEvent event) {
   final route = _routeFromData(event.notification.additionalData);
+  developer.log(
+    'onNotificationClick fired: additionalData=${event.notification.additionalData}, '
+    'resolvedRoute=$route',
+    name: 'PUSH_TAP',
+  );
   if (route != null) {
     // Flows through _prayDeepLinkRedirect → setPrayOverride → /pray, so the
     // target group is shown even when the user isn't subscribed to it.

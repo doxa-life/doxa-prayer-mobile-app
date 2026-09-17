@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +27,15 @@ final FlutterLocalNotificationsPlugin _plugin =
 /// can only *set* a badge (via [DarwinNotificationDetails.badgeNumber]); it has
 /// no API to reset it, so the AppDelegate hosts a tiny `clearBadge` handler.
 const MethodChannel _badgeChannel = MethodChannel('app.prayer.doxa/badge');
+
+/// Native → Dart channel over which the iOS AppDelegate forwards reminder
+/// notification taps (see ios/Runner/AppDelegate.swift). Needed because, under
+/// this app's UIScene / implicit-engine setup, flutter_local_notifications'
+/// own tap callback never fires on iOS — the plugin isn't on the app-lifecycle
+/// list FlutterAppDelegate forwards UNUserNotificationCenter events to.
+const MethodChannel _notificationTapChannel = MethodChannel(
+  'app.prayer.doxa/notifications',
+);
 
 bool _initialized = false;
 
@@ -88,10 +99,21 @@ void notificationTapBackground(NotificationResponse response) {
   // Top-level handler required by flutter_local_notifications. The app may not
   // be alive yet; routing is handled by the foreground listener once the app
   // is up. We seed the payload notifier so the foreground side picks it up.
+  developer.log(
+    'notificationTapBackground (bg isolate) fired: '
+    'payload=${response.payload}, actionId=${response.actionId}',
+    name: 'REMINDER_TAP',
+  );
   reminderTapPayload.value = response.payload;
 }
 
 void _onTap(NotificationResponse response) {
+  developer.log(
+    '_onTap (foreground/warm-resume) fired: '
+    'payload=${response.payload}, actionId=${response.actionId}, '
+    'notifierBefore=${reminderTapPayload.value}',
+    name: 'REMINDER_TAP',
+  );
   reminderTapPayload.value = response.payload;
 }
 
@@ -135,9 +157,30 @@ Future<void> initRemindersNotifications() async {
     ),
   );
 
+  // iOS bridge: the AppDelegate forwards notification taps here (see the doc on
+  // [_notificationTapChannel]). Seed the same notifier the shell listens to, so
+  // routing is identical to the plugin's own (Android) tap path.
+  _notificationTapChannel.setMethodCallHandler((call) async {
+    if (call.method == 'reminderTapped') {
+      final payload = call.arguments as String?;
+      developer.log(
+        'native bridge reminderTapped: payload=$payload',
+        name: 'REMINDER_TAP',
+      );
+      reminderTapPayload.value = payload;
+    }
+    return null;
+  });
+
   // Cold-start: if the app was launched by tapping a notification, seed the
   // payload notifier so the shell can route once it's mounted.
   final launch = await _plugin.getNotificationAppLaunchDetails();
+  developer.log(
+    'getNotificationAppLaunchDetails: '
+    'didLaunchApp=${launch?.didNotificationLaunchApp}, '
+    'payload=${launch?.notificationResponse?.payload}',
+    name: 'REMINDER_TAP',
+  );
   if (launch?.didNotificationLaunchApp ?? false) {
     reminderTapPayload.value = launch?.notificationResponse?.payload;
   }
@@ -403,6 +446,55 @@ int _slugHash(String slug) {
     hash = ((hash ^ unit) * 0x01000193) & 0x7fffffff;
   }
   return hash & 0x1fff;
+}
+
+/// Fixed id for the debug test notification, well outside the small
+/// (weekday, hour, minute) slot-id range so it never collides with a real
+/// reminder. See [scheduleTestReminderNotification].
+const int _testNotificationId = 999999;
+
+/// DEBUG ONLY: schedules a one-off reminder-style notification [inSeconds] out
+/// so the notification-tap → Pray-tab routing can be exercised without waiting
+/// for a real scheduled reminder. Uses the exact same channel, details, and
+/// `'pray'` payload as a genuine reminder, so the tap code path is identical.
+/// Trigger it from the Debug screen, then background the app before it fires.
+Future<void> scheduleTestReminderNotification({int inSeconds = 10}) async {
+  if (!_initialized) await initRemindersNotifications();
+
+  final l = lookupAppLocalizations(localeController.value);
+  final androidDetails = AndroidNotificationDetails(
+    _androidChannelId,
+    _androidChannelName,
+    channelDescription: _androidChannelDescription,
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+  const iosDetails = DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+    badgeNumber: 1,
+  );
+  final details = NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+  final fireAt = tz.TZDateTime.now(tz.local).add(Duration(seconds: inSeconds));
+  final canExact = await exactAlarmsAuthorized();
+  await _plugin.zonedSchedule(
+    id: _testNotificationId,
+    title: l.reminderNotificationTitle,
+    body: l.reminderNotificationBody,
+    scheduledDate: fireAt,
+    notificationDetails: details,
+    androidScheduleMode: canExact
+        ? AndroidScheduleMode.exactAllowWhileIdle
+        : AndroidScheduleMode.inexactAllowWhileIdle,
+    payload: 'pray',
+  );
+  developer.log(
+    'scheduleTestReminderNotification: id=$_testNotificationId scheduled for '
+    '$fireAt (in ${inSeconds}s), payload=pray',
+    name: 'REMINDER_TAP',
+  );
 }
 
 tz.TZDateTime _nextInstanceOf(int weekday, int hour, int minute) {

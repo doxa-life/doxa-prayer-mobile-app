@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +19,12 @@ import '../services/install_referrer_service.dart';
 import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
+import '../services/push_notifications_service.dart';
 import '../services/response_cache.dart';
 import '../services/pray_selector_controller.dart';
 import '../services/profile_update_service.dart';
 import '../services/reminders_controller.dart';
+import '../services/reminders_notifications.dart';
 import '../services/subscribed_people_groups_controller.dart';
 import '../services/update_controller.dart';
 import '../services/version_check_service.dart';
@@ -64,6 +68,7 @@ class DebugScreen extends StatelessWidget {
                   ),
                   _prefsSection(context),
                   _cacheSection(context),
+                  _notificationsSection(context),
                   const _SimulateReferralCard(),
                   _updateSection(context),
                   _crashlyticsSection(context),
@@ -193,6 +198,57 @@ class DebugScreen extends StatelessWidget {
           label: 'Cached images',
           description: 'People-group photos held on disk.',
           onClear: AppImageCacheManager.clear,
+        ),
+      ],
+    ),
+  );
+
+  Widget _notificationsSection(BuildContext context) => Section(
+    title: 'Notifications',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        HyphenatedText(
+          'Schedule a one-off reminder-style notification ~10s out — same '
+          'channel and "pray" payload as a real reminder. Tap the button, then '
+          'immediately background the app; when the notification drops, tap it '
+          'and confirm it opens the Pray tab. Watch the REMINDER_TAP entries in '
+          "DevTools' Logging tab.",
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Schedule test reminder (10s)',
+          onPressed: () async {
+            final messenger = ScaffoldMessenger.of(context);
+            await scheduleTestReminderNotification();
+            messenger.showSnackBar(
+              const SnackBar(
+                content: HyphenatedText(
+                  'Test reminder scheduled — background the app now; '
+                  'it fires in ~10s.',
+                ),
+              ),
+            );
+          },
+        ),
+        HyphenatedText(
+          'For OneSignal push testing: log this device\'s subscription id, then '
+          'send a push to it from the OneSignal dashboard/API. Add custom data '
+          '"route" (e.g. /adi/prayer) or "slug" (e.g. adi) to test deep-link '
+          'routing; a push with no data should open the Pray tab. Watch the '
+          'PUSH_TAP entries in DevTools.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Log OneSignal subscription',
+          onPressed: () {
+            final summary = oneSignalDebugSummary();
+            developer.log(summary, name: 'PUSH_TAP');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: HyphenatedText(summary)),
+            );
+          },
         ),
       ],
     ),

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/top_nav_bar.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
@@ -33,6 +35,10 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     reminderTapPayload.addListener(_onReminderTap);
     // Handle a payload that was already set (cold-start from notification tap).
+    developer.log(
+      'AppShell.initState: pendingPayload=${reminderTapPayload.value}',
+      name: 'REMINDER_TAP',
+    );
     if (reminderTapPayload.value != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _onReminderTap());
     }
@@ -70,6 +76,10 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
 
   Future<void> _onReminderTap() async {
     final payload = reminderTapPayload.value;
+    developer.log(
+      'AppShell._onReminderTap: payload=$payload, mounted=$mounted',
+      name: 'REMINDER_TAP',
+    );
     if (payload == null) return;
     reminderTapPayload.value = null;
     if (!mounted) return;
@@ -81,6 +91,10 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
       if (!mounted) return;
     }
     final prayIndex = AppRoute.values.indexOf(AppRoute.pray);
+    developer.log(
+      'AppShell._onReminderTap: switching to Pray branch (index=$prayIndex)',
+      name: 'REMINDER_TAP',
+    );
     widget.navigationShell.goBranch(prayIndex, initialLocation: true);
   }
 
