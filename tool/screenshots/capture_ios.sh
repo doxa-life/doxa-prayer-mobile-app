@@ -44,7 +44,10 @@ for spec in "${IOS_DEVICES[@]}"; do
   fi
 
   raw_out="$RAW_DIR/ios_$key"; framed_out="$FRAMED_DIR/ios/$key"
-  rm -rf "$raw_out"; mkdir -p "$raw_out" "$framed_out"
+  # Both dirs are wiped, not just overwritten: shot names carry an ordering
+  # prefix, so renumbering the scenario leaves the previous run's files behind
+  # under their old names and the upload would carry both sets.
+  rm -rf "$raw_out" "$framed_out"; mkdir -p "$raw_out" "$framed_out"
 
   echo "==== $key ($devname → ${cw}x${ch}) ===="
   xcrun simctl boot "$udid" >/dev/null 2>&1 || true   # no-op if already booted

@@ -38,15 +38,16 @@ CAPTION_COLOR="#F4F1EA"
 # (integration_test/screenshot_test.dart). Store listings order by filename.
 # NB: macOS ships bash 3.2 which lacks associative arrays, so caption() is a
 # case statement rather than a `declare -A` map.
-SHOT_ORDER=(01_home 02_pray 03_people_groups 04_people_group_details 05_reminders 06_onboarding)
+SHOT_ORDER=(01_home 02_pray 03_people_groups 04_people_group_details 05_map 06_reminders 07_onboarding)
 caption() {
   case "$1" in
     01_home)                  echo "Pray for the unreached, every day" ;;
     02_pray)                  echo "A guided daily prayer for every people group" ;;
     03_people_groups)         echo "Explore thousands of people groups" ;;
     04_people_group_details)  echo "Learn their story, language and needs" ;;
-    05_reminders)             echo "Gentle reminders to keep you praying" ;;
-    06_onboarding)            echo "Get started in under a minute" ;;
+    05_map)                   echo "See where they live, among the world's unreached" ;;
+    06_reminders)             echo "Gentle reminders to keep you praying" ;;
+    07_onboarding)            echo "Get started in under a minute" ;;
     *)                        echo "" ;;
   esac
 }

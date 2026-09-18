@@ -27,12 +27,6 @@ import 'package:doxa_prayer_mobile_app/main.dart' as app;
 
 import 'screenshot_scenario.dart';
 
-// Longer budget for screens whose hero image / list is fetched over the network;
-// short one for purely-local screens. Real wall-clock waits (this is a live app,
-// not a WidgetTester) so HTTP + image decode genuinely finish before the grab.
-const _networkSettle = Duration(seconds: 12);
-const _localSettle = Duration(seconds: 3);
-
 Future<void> main() async {
   // enableFlutterDriverExtension() installs its OWN binding, so it must be the
   // FIRST binding-touching call in main() — calling WidgetsFlutterBinding
@@ -58,7 +52,9 @@ Future<void> main() async {
       if (index >= screenshotScenario.length) return 'done';
       final step = screenshotScenario[index++];
       await step.go();
-      await Future<void>.delayed(step.network ? _networkSettle : _localSettle);
+      // Real wall-clock wait (this is a live app, not a WidgetTester), so the
+      // step's HTTP + image decode genuinely finish before the host's grab.
+      await Future<void>.delayed(step.settle);
       return step.name;
     },
   );
