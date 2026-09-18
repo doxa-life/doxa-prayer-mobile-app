@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/image_cache_manager.dart';
+import '../../services/image_failure_reporter.dart';
 import '../../theme/app_colors.dart';
 import 'skeleton_box.dart';
 
@@ -9,7 +10,6 @@ class AppImage extends StatelessWidget {
   const AppImage({
     super.key,
     this.url,
-    this.aspectRatio = 16 / 9,
     this.radius = 16,
     this.fit = BoxFit.cover,
     this.size = 96.0,
@@ -17,7 +17,6 @@ class AppImage extends StatelessWidget {
   });
 
   final String? url;
-  final double aspectRatio;
   final double radius;
   final BoxFit fit;
   final double size;
@@ -67,7 +66,13 @@ class AppImage extends StatelessWidget {
                   // final footprint. A cache hit skips this entirely.
                   placeholder: (context, url) =>
                       SkeletonBox(width: size, height: size, radius: radius),
-                  errorWidget: (context, url, error) => _placeholder(),
+                  errorWidget: (context, url, error) {
+                    // The placeholder is indistinguishable from a group that
+                    // simply has no photo, so the failure has to be recorded
+                    // here or it leaves no trace at all.
+                    reportImageFailure(url, error);
+                    return _placeholder();
+                  },
                 ),
               ),
             ),

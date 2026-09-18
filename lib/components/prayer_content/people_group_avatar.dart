@@ -67,7 +67,6 @@ class PeopleGroupAvatar extends StatelessWidget {
                       child: ClipOval(
                         child: AppImage(
                           url: imageUrl,
-                          aspectRatio: 1,
                           size: _size,
                           semanticLabel: name,
                         ),

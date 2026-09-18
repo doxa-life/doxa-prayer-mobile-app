@@ -29,12 +29,7 @@ class PeopleGroupIntroView extends StatelessWidget {
           AppLocalizations.of(context)!.peopleGroupIntroTitle(name),
           textAlign: TextAlign.center,
         ),
-        AppImage(
-          url: data.imageUrl,
-          aspectRatio: 1,
-          size: 169.0,
-          semanticLabel: name,
-        ),
+        AppImage(url: data.imageUrl, size: 169.0, semanticLabel: name),
       ],
     );
   }
