@@ -133,7 +133,7 @@ so `frame.sh` composites each shot onto an exact canvas. Change sizes in
 | Android phone | 1080×1920 | 16:9 or 9:16, each side 320–3840 px |
 | Android 7" tablet | 1080×1920 | 16:9 or 9:16, each side 320–3840 px |
 | Android 10" tablet | 1440×2560 | 16:9 or 9:16, each side 1080–7680 px |
-| iOS 6.9" iPhone | 1290×2796 | ASC 6.9" display family |
+| iOS iPhone | 1284×2778 | ASC 6.5" display family (`APP_IPHONE_65`); covers 6.7"/6.9" — see `config.sh` for why not 1290×2796 |
 | iOS 13" iPad | 2064×2752 | ASC 13" display family |
 
 ## Customising
