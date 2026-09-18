@@ -42,6 +42,18 @@ class AppImage extends StatelessWidget {
                   // seen paints immediately on later launches instead of
                   // being refetched. See services/image_cache_manager.dart.
                   cacheManager: AppImageCacheManager.instance,
+                  // Decode to the size actually drawn, not the source's. 77 of
+                  // the people groups are served as 1024x1024 photos, which
+                  // cost ~4 MB each in the image cache no matter how small the
+                  // box is — enough, several at a time on a scrolling list, to
+                  // put a modest iPhone under the memory pressure that makes
+                  // iOS reclaim the very directory this cache lives in.
+                  //
+                  // Width only: `CachedNetworkImage` resizes with the default
+                  // exact policy, so passing a height as well would squash the
+                  // portrait sources (most are 200x250) instead of letting
+                  // `BoxFit.cover` crop them.
+                  memCacheWidth: _decodeWidth(context),
                   fit: fit,
                   // The default 500ms fade-in over a 1s placeholder fade-out
                   // makes a photo already on disk look like it is still
@@ -61,6 +73,12 @@ class AppImage extends StatelessWidget {
             ),
     );
   }
+
+  /// The width to decode at: the box's width in physical pixels. Sources are
+  /// never wider than 1024, and [CachedNetworkImage] does not upscale, so a
+  /// photo smaller than the box is left at its own resolution.
+  int _decodeWidth(BuildContext context) =>
+      (size * MediaQuery.devicePixelRatioOf(context)).round();
 
   /// [CachedNetworkImage] has no semantics parameters of its own, so the
   /// treatment `Image.network` applies is reproduced here: a labelled photo is
