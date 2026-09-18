@@ -162,7 +162,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get status => 'Status';
 
   @override
-  String get engagementStatus => 'Engagement-Status';
+  String get engagementStatus => 'Status der Arbeit vor Ort';
 
   @override
   String get engaged => 'Engagiert';
