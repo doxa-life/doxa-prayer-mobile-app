@@ -30,7 +30,8 @@ python3 tool/fetch_thank_you_verses.py
 ```
 
 That rewrites `assets/thank_you_verses.json`, which is what the app ships. Do not edit the
-JSON by hand, and **never send it through DeepL** — the text must be reproduced verbatim.
+JSON by hand, and **never machine translate it** — these are published Bible translations
+and the text must be reproduced verbatim.
 
 ---
 

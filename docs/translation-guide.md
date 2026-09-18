@@ -5,15 +5,17 @@ translations. Written up from the July 2026 translation audit
 ([REPORT.md](translation-audit/REPORT.md)), which found six shipping Blockers — most of
 them caused by patterns that look perfectly fine in English.
 
-**Languages:** English (`en`, template) · Arabic (`ar`) · Spanish (`es`) · French (`fr`) ·
-Portuguese (`pt`) · Russian (`ru`).
+**Languages:** English (`en`) is the template. The rest are listed in
+`lib/services/locale_controller.dart`, which is what the app offers, and each
+has an `app_{code}.arb`. Check that file rather than this line; languages are
+added on branches.
 
 ---
 
 ## 1. The rules that matter most
 
-1. **The glossaries are the source of truth for terminology**, not the `.arb` files.
-   See §2.
+1. **The DOXA glossary is the source of truth for terminology**, not the `.arb`
+   files. See §2.
 2. **Never hand-edit `lib/l10n/app_localizations*.dart`.** It is generated. Edit the
    `.arb` and run `flutter gen-l10n`.
 3. **Never write a user-visible string as a Dart literal.** It will ship in English to
@@ -30,20 +32,27 @@ Portuguese (`pt`) · Russian (`ru`).
 
 When there is any question about *which word* to use:
 
-| Rank | Source | Path |
-|---|---|---|
-| 1 | **The target language's reviewed glossary** | `../translation/translated-glossaries/glossary.{ar,es_ES,fr_FR,pt_PT,ru_RU}.md` |
-| 2 | The DeepL term index (derived; loses to the glossary) | `../translation/deepl-glossaries/{ar,es,fr,pt,ru}.tsv` |
-| 3 | The English glossary — for the *concept* and the "why it matters" warnings | `../translation/glossary.md` |
-| 4 | The app's own existing approved strings, as precedent | `lib/l10n/app_*.arb` |
+| Rank | Source |
+|---|---|
+| 1 | **The DOXA glossary for that language**, `https://pray.doxa.life/api/glossary/{lang}` — add `?format=markdown` to read it |
+| 2 | Its `notes` field, for register, acronym policy and number format |
+| 3 | The app's own existing approved strings, as precedent |
+
+The glossary is maintained in the campaigns server's admin at `/admin/glossary`,
+where native-speaking reviewers confirm each term through a magic link, and it
+is authoritative for this app, the prayer site and the marketing site alike. A
+term marked `draft` is still authoritative: wording nobody has ruled on yet, not
+wording to ignore.
 
 The `.arb` strings themselves carry **no** authority — they are AI-generated and have
 needed three correction passes. Never reason "the other four locales say X, so X is
 right"; the audit found cases where four locales agreed and were all wrong, and cases
 where one locale differed and was the only correct one.
 
-`../translation/` is **read-only** from this repo. If the glossary is wrong or missing a
-term, that is a conversation with the translation team, not a local edit.
+The glossary is **read-only from this repository**. If a term is wrong or
+missing, that is a conversation with whoever runs the review, and the fix is
+made in the admin so every property gets it. `/sync-language <code>` brings this
+repository into line after they do.
 
 ### Where the glossary is silent
 
@@ -224,9 +233,9 @@ Button labels are **infinitive** in every language (`Guardar`, `S'inscrire`,
    states **where it renders and what it means** — translators are held to it, and five
    reviewers judged 19 strings without one because the blocks had been skipped.
    Mark the slot in the description if it is tight (button, chip, status label).
-2. Add the same key to all five locale files, **with the `@key` block duplicated**. That
-   duplication is this repo's convention; Weblate shows the *locale* file's description to
-   the translator, so a stale copy misleads them.
+2. Add the same key to every locale file, **with the `@key` block duplicated**. That
+   duplication is this repo's convention: whoever translates that file reads the
+   description in it, so a stale copy misleads them.
 3. Run `flutter gen-l10n`, then `flutter analyze`.
 4. Run the parity check:
 
@@ -247,8 +256,8 @@ commitment.
 
 ### Deleting a key
 
-Delete the string **and** its `@key` block from all six files, and tell the translation
-team so Weblate doesn't resurrect it.
+Delete the string **and** its `@key` block from every locale file. `tool/check_arb.py`
+catches one left behind.
 
 ### Length
 
@@ -278,16 +287,27 @@ Two traps the audit documented:
 
 ---
 
-## 10. Weblate
+## 10. Keeping up with the glossary
 
-- Weblate normalises key **ordering** in the locale files. Don't hand-sort, and don't
-  treat an ordering diff as a defect. Insert new keys at their alphabetical position and
-  leave the rest alone.
-- Weblate identifies the language from the filename, since none of the six files carries
-  an `@@locale` key. Adding one is a known outstanding item (REPORT.md H-06) and was
+Reviewers edit the glossary live, so terminology moves without this repository
+moving. `/sync-language <code>` is what brings a locale back into line: it reads
+the glossary, applies the terms and the notes, regenerates, and runs the parity
+check.
+
+`/add-language <code>` covers a language the app does not carry yet — the ARB,
+the locale list, fonts for a new script, and the thank-you verses in that
+language's own Bible.
+
+Both refuse to start for a language with no glossary. That is deliberate:
+strings written before the terminology exists have to be rewritten after.
+
+Two things to know before editing an ARB by hand:
+
+- **Key order.** Keys sit in alphabetical position. Insert a new one where it
+  belongs and leave the rest alone; an ordering diff is noise, not a fix.
+- **`@@locale`.** None of the files carries one, so the language is identified
+  by filename. Adding it is a known outstanding item (REPORT.md H-06) and was
   deliberately left alone.
-- Weblate writes to the `weblate-doxa-doxa-prayer-mobile-app` branch. Coordinate a manual
-  `.arb` pass with the translation team so their round-trip doesn't clobber it.
 
 ---
 
