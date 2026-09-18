@@ -9,7 +9,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'Главная';
@@ -276,7 +276,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Откройте Doxa, чтобы начать сегодняшнюю молитву.';
+      'Откройте DOXA, чтобы начать сегодняшнюю молитву.';
 
   @override
   String get notifications => 'Уведомления';
@@ -291,18 +291,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'Нажмите ниже, чтобы открыть настройки, а затем разрешите получение уведомлений от Doxa.';
+      'Нажмите ниже, чтобы открыть настройки, а затем разрешите получение уведомлений от DOXA.';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Точные будильники не разрешены для Doxa, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.';
+      'Точные будильники не разрешены для DOXA, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.';
 
   @override
   String get allowExactAlarms => 'Разрешить точные будильники';
 
   @override
   String get exactAlarmsPromptBody =>
-      'Чтобы напоминания о молитвах приходили точно вовремя, разрешите Doxa использовать точные будильники.';
+      'Чтобы напоминания о молитвах приходили точно вовремя, разрешите DOXA использовать точные будильники.';
 
   @override
   String get allow => 'Разрешить';
@@ -354,11 +354,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Добро пожаловать в «Doxa Prayer»';
+  String get wizardWelcomeTitle => 'Добро пожаловать в «DOXA Prayer»';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.';
+      'DOXA поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.';
 
   @override
   String get wizardGetStarted => 'Начать работу';
@@ -387,7 +387,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Необязательно. Получайте новости о вашем народе и обновления от Doxa.';
+      'Необязательно. Получайте новости о вашем народе и обновления от DOXA.';
 
   @override
   String get back => 'Назад';
@@ -418,7 +418,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get updatesAboutMyPeopleGroup => 'Получайте новости о моём народе';
 
   @override
-  String get updatesFromDoxa => 'Получайте новости от Doxa';
+  String get updatesFromDoxa => 'Получайте новости от DOXA';
 
   @override
   String get signUpForUpdates => 'Подпишитесь на новости';
@@ -487,14 +487,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get updateAvailableBody =>
-      'Вышла новая версия приложения «Doxa Prayer».';
+      'Вышла новая версия приложения «DOXA Prayer».';
 
   @override
   String get updateRequiredTitle => 'Требуется обновление';
 
   @override
   String get updateRequiredBody =>
-      'Пожалуйста, обновите приложение до последней версии, чтобы продолжить пользоваться Doxa Prayer.';
+      'Пожалуйста, обновите приложение до последней версии, чтобы продолжить пользоваться DOXA Prayer.';
 
   @override
   String get updateAction => 'Обновить';
@@ -534,7 +534,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get feedbackMessageRequired => 'Пожалуйста, введите сообщение.';
 
   @override
-  String get feedbackConsentLabel => 'Хочу получать новости от Doxa';
+  String get feedbackConsentLabel => 'Хочу получать новости от DOXA';
 
   @override
   String get feedbackSubmit => 'Отправить отзыв';
@@ -557,7 +557,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Помолитесь вместе со мной за «$name» — скачайте приложение «Doxa Prayer»:';
+    return 'Помолитесь вместе со мной за «$name» — скачайте приложение «DOXA Prayer»:';
   }
 
   @override
@@ -663,7 +663,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String reminderNotificationBodyForGroup(String name) {
-    return 'Откройте Doxa, чтобы помолиться за народ «$name».';
+    return 'Откройте DOXA, чтобы помолиться за народ «$name».';
   }
 
   @override

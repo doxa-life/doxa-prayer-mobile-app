@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'Inicio';
@@ -274,7 +274,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Abre Doxa para comenzar la oración de hoy.';
+      'Abre DOXA para comenzar la oración de hoy.';
 
   @override
   String get notifications => 'Notificaciones';
@@ -289,18 +289,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'Pulsa aquí abajo para abrir los ajustes y, a continuación, autoriza las notificaciones de Doxa.';
+      'Pulsa aquí abajo para abrir los ajustes y, a continuación, autoriza las notificaciones de DOXA.';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Doxa no tiene permiso para usar alarmas exactas, por lo que tus recordatorios de oración pueden llegar con varios minutos de retraso.';
+      'DOXA no tiene permiso para usar alarmas exactas, por lo que tus recordatorios de oración pueden llegar con varios minutos de retraso.';
 
   @override
   String get allowExactAlarms => 'Permitir alarmas exactas';
 
   @override
   String get exactAlarmsPromptBody =>
-      'Para que tus recordatorios de oración lleguen justo a tiempo, permite que Doxa use alarmas exactas.';
+      'Para que tus recordatorios de oración lleguen justo a tiempo, permite que DOXA use alarmas exactas.';
 
   @override
   String get allow => 'Permitir';
@@ -350,11 +350,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Bienvenidos a Doxa Prayer';
+  String get wizardWelcomeTitle => 'Bienvenidos a DOXA Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
+      'DOXA te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
 
   @override
   String get wizardGetStarted => 'Empezar';
@@ -383,7 +383,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Opcional. Recibe noticias sobre tu grupo de personas y novedades de Doxa.';
+      'Opcional. Recibe noticias sobre tu grupo de personas y novedades de DOXA.';
 
   @override
   String get back => 'Volver';
@@ -415,7 +415,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Recibir noticias sobre mi grupo de personas';
 
   @override
-  String get updatesFromDoxa => 'Recibe novedades de Doxa';
+  String get updatesFromDoxa => 'Recibe novedades de DOXA';
 
   @override
   String get signUpForUpdates => 'Suscríbete para recibir novedades';
@@ -484,14 +484,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get updateAvailableBody =>
-      'Ya está disponible una nueva versión de Doxa Prayer.';
+      'Ya está disponible una nueva versión de DOXA Prayer.';
 
   @override
   String get updateRequiredTitle => 'Se requiere una actualización';
 
   @override
   String get updateRequiredBody =>
-      'Actualiza a la última versión para seguir utilizando Doxa Prayer.';
+      'Actualiza a la última versión para seguir utilizando DOXA Prayer.';
 
   @override
   String get updateAction => 'Actualizar';
@@ -531,7 +531,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get feedbackMessageRequired => 'Introduce un mensaje.';
 
   @override
-  String get feedbackConsentLabel => 'Mantenme al día de las novedades de Doxa';
+  String get feedbackConsentLabel => 'Mantenme al día de las novedades de DOXA';
 
   @override
   String get feedbackSubmit => 'Enviar comentarios';
@@ -554,7 +554,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Ora conmigo por los «$name»; descárgate la aplicación Doxa Prayer:';
+    return 'Ora conmigo por los «$name»; descárgate la aplicación DOXA Prayer:';
   }
 
   @override
@@ -658,7 +658,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String reminderNotificationBodyForGroup(String name) {
-    return 'Abre Doxa para orar por «$name».';
+    return 'Abre DOXA para orar por «$name».';
   }
 
   @override

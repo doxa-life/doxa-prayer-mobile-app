@@ -9,7 +9,7 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'होम';
@@ -273,7 +273,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'आज की प्रार्थना शुरू करने के लिए Doxa खोलें।';
+      'आज की प्रार्थना शुरू करने के लिए DOXA खोलें।';
 
   @override
   String get notifications => 'सूचनाएँ';
@@ -288,18 +288,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'सेटिंग्स खोलने के लिए नीचे टैप करें, फिर Doxa के लिए सूचनाओं की अनुमति दें।';
+      'सेटिंग्स खोलने के लिए नीचे टैप करें, फिर DOXA के लिए सूचनाओं की अनुमति दें।';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Doxa को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना अनुस्मारक कुछ मिनट देर से आ सकते हैं।';
+      'DOXA को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना अनुस्मारक कुछ मिनट देर से आ सकते हैं।';
 
   @override
   String get allowExactAlarms => 'सटीक अलार्म की अनुमति दें';
 
   @override
   String get exactAlarmsPromptBody =>
-      'आपके प्रार्थना अनुस्मारक ठीक समय पर आएँ, इसके लिए Doxa को सटीक अलार्म की अनुमति दें।';
+      'आपके प्रार्थना अनुस्मारक ठीक समय पर आएँ, इसके लिए DOXA को सटीक अलार्म की अनुमति दें।';
 
   @override
   String get allow => 'अनुमति दें';
@@ -349,11 +349,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Doxa Prayer में आपका स्वागत है';
+  String get wizardWelcomeTitle => 'DOXA Prayer में आपका स्वागत है';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa आपको एक अप्राप्त जन-समूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, अनुस्मारक सेट करने और जुड़े रहने में मदद करेंगे।';
+      'DOXA आपको एक अप्राप्त जन-समूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, अनुस्मारक सेट करने और जुड़े रहने में मदद करेंगे।';
 
   @override
   String get wizardGetStarted => 'शुरू करें';
@@ -382,7 +382,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'वैकल्पिक। अपने जन-समूह की ख़बरें और Doxa से अपडेट पाएँ।';
+      'वैकल्पिक। अपने जन-समूह की ख़बरें और DOXA से अपडेट पाएँ।';
 
   @override
   String get back => 'वापस';
@@ -413,7 +413,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'मेरे जन-समूह के बारे में अपडेट प्राप्त करें';
 
   @override
-  String get updatesFromDoxa => 'Doxa से अपडेट प्राप्त करें';
+  String get updatesFromDoxa => 'DOXA से अपडेट प्राप्त करें';
 
   @override
   String get signUpForUpdates => 'अपडेट के लिए पंजीकरण करें';
@@ -480,14 +480,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get updateAvailableTitle => 'अपडेट उपलब्ध';
 
   @override
-  String get updateAvailableBody => 'Doxa Prayer का नया संस्करण उपलब्ध है।';
+  String get updateAvailableBody => 'DOXA Prayer का नया संस्करण उपलब्ध है।';
 
   @override
   String get updateRequiredTitle => 'अपडेट आवश्यक';
 
   @override
   String get updateRequiredBody =>
-      'Doxa Prayer का उपयोग जारी रखने के लिए कृपया नवीनतम संस्करण पर अपडेट करें।';
+      'DOXA Prayer का उपयोग जारी रखने के लिए कृपया नवीनतम संस्करण पर अपडेट करें।';
 
   @override
   String get updateAction => 'अपडेट करें';
@@ -527,7 +527,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get feedbackMessageRequired => 'कृपया एक संदेश लिखें।';
 
   @override
-  String get feedbackConsentLabel => 'मुझे Doxa की ख़बरों से अवगत रखें';
+  String get feedbackConsentLabel => 'मुझे DOXA की ख़बरों से अवगत रखें';
 
   @override
   String get feedbackSubmit => 'प्रतिक्रिया भेजें';
@@ -550,7 +550,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'मेरे साथ $name के लिए प्रार्थना करें — Doxa Prayer ऐप पाएँ:';
+    return 'मेरे साथ $name के लिए प्रार्थना करें — DOXA Prayer ऐप पाएँ:';
   }
 
   @override
@@ -654,7 +654,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String reminderNotificationBodyForGroup(String name) {
-    return '“$name” के लिए प्रार्थना करने हेतु Doxa खोलें।';
+    return '“$name” के लिए प्रार्थना करने हेतु DOXA खोलें।';
   }
 
   @override
