@@ -1,5 +1,51 @@
 # Changelog
 
+## 2.1.2+31 - 2026-09-18
+
+Features:
+- enter map a bit more zoomed out
+
+Bug fixes:
+- stop a dropped connection permanently blanking a people-group photo
+- make a failed people-group photo visible, and drop AppImage's dead aspectRatio
+
+## 2.1.1+30 - 2026-09-18
+
+Features:
+- add country label to uupg list cards
+- add rolling verses x30 to thankyou modal
+- add image and data caching
+- add 'N people praying with you now banner
+- ability to choose 5 people groups
+- add map showing selected peoples
+- remove donate, and move feedback to settings
+- combine QR code into share button
+- translate the app into German, Hindi, Italian, Romanian, Chinese
+
+Bug fixes:
+- deep linking of prayer reminder
+- Doxa --> DOXA
+
+## 2.1.0+29 - 2026-09-17
+
+Bug fixes:
+- deep linking of prayer reminder
+
+## 2.0.0+28 - 2026-09-17
+
+Features:
+- add country label to uupg list cards
+- add rolling verses x30 to thankyou modal
+- add image and data caching
+- add 'N people praying with you now banner
+- ability to choose 5 people groups
+- add map showing selected peoples
+- use heart for selected pins; feat: add colour coding for prayer commitment
+- remove donate, and move feedback to settings
+- make background pattern pop a little more
+- combine QR code into share button
+- translate the app into German, Hindi, Italian, Romanian, Chinese
+
 ## 1.17.0+27 - 2026-07-30
 
 Features:

@@ -119,9 +119,8 @@ If your email is still **Unverified**, there's a **Resend verification** option.
 ## Test 4 — The feedback form
 
 **Steps:**
-1. Go to the **Home** screen.
-2. Find the **Get Involved** card.
-3. Tap the **Feedback** button (speech-bubble icon).
+1. Open **Settings** (gear icon in the top bar).
+2. Tap the **Feedback** row.
 
 **What you should see:**
 - [ ] A **feedback form opens in your phone's browser**.

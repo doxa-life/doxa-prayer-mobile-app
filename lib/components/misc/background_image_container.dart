@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../theme/app_colors.dart';
 
 const _kBackgroundColor = Color(0xFFF3F3F1);
-const _kPatternColor = Color(0xFFEDEEEC);
+const _kPatternColor = AppColors.onPrimary;
+
+/// Strength of the background pattern. 0 = invisible, 1 = full [_kPatternColor].
+const _kPatternOpacity = 0.25;
 const _kTabletBreakpoint = 600.0;
 
 class BackgroundImageContainer extends StatelessWidget {
@@ -26,8 +30,8 @@ class BackgroundImageContainer extends StatelessWidget {
               backgroundAsset,
               fit: BoxFit.cover,
               excludeFromSemantics: true,
-              colorFilter: const ColorFilter.mode(
-                _kPatternColor,
+              colorFilter: ColorFilter.mode(
+                _kPatternColor.withValues(alpha: _kPatternOpacity),
                 BlendMode.srcIn,
               ),
             ),

@@ -20,6 +20,15 @@ class PrayerVerseView extends StatelessWidget {
   final String translation;
   final List<List<InlineSpan>> paragraphs;
 
+  /// The style the verse paragraphs are rendered in.
+  ///
+  /// Exposed because the caller builds the [InlineSpan]s, and superscript
+  /// verse numbers have to be sized and coloured against the run they sit in.
+  static final TextStyle textStyle = AppTypography.bodyMedium.copyWith(
+    color: AppColors.white,
+    fontStyle: FontStyle.italic,
+  );
+
   @override
   Widget build(BuildContext context) {
     final citation = [
@@ -43,13 +52,7 @@ class PrayerVerseView extends StatelessWidget {
           for (final spans in paragraphs)
             Text.rich(
               textAlign: TextAlign.center,
-              TextSpan(
-                style: AppTypography.bodyMedium.copyWith(
-                  color: AppColors.white,
-                  fontStyle: FontStyle.italic,
-                ),
-                children: spans,
-              ),
+              TextSpan(style: textStyle, children: spans),
             ),
           if (citation.isNotEmpty)
             Row(

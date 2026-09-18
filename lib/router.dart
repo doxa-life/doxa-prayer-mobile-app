@@ -10,6 +10,8 @@ import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
 import 'screens/notification_permission_settings_screen.dart';
 import 'screens/people_group_details_screen.dart';
+import 'screens/people_group_map_screen.dart';
+import 'screens/people_group_prayer_screen.dart';
 import 'screens/people_groups_screen.dart';
 import 'screens/pray_deep_link_screen.dart';
 import 'screens/pray_screen.dart';
@@ -167,6 +169,32 @@ final GoRouter appRouter = GoRouter(
             slug: state.pathParameters['slug'],
             fromWizard: fromWizard,
           ),
+        );
+      },
+    ),
+    // The map opened from a home people-group card. A sibling of the details
+    // route rather than a child of it: the user arrives from the card, so
+    // nesting would insert a details page they never visited into the back
+    // stack.
+    GoRoute(
+      name: 'people-group-map',
+      path: '/people-groups/:slug/map',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, state) =>
+          PeopleGroupMapScreen(slug: state.pathParameters['slug']!),
+    ),
+    // Prayer content pushed on top of the map, so praying for a group found on
+    // the map doesn't discard the map.
+    GoRoute(
+      name: 'people-group-prayer',
+      path: '/people-groups/:slug/pray',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, state) {
+        final extra = state.extra;
+        final name = extra is Map ? extra['name'] as String? : null;
+        return PeopleGroupPrayerScreen(
+          slug: state.pathParameters['slug']!,
+          name: name ?? '',
         );
       },
     ),

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'Home';
@@ -58,6 +58,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
+
+  @override
+  String get unselect => 'Unselect';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -189,17 +192,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get prayerThankYouTitle => 'Thank you for praying';
 
   @override
-  String get prayerThankYouMessage =>
-      'Your faithfulness in prayer matters. God hears you, and your prayers make a difference.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Rejoice always, pray continually, give thanks in all circumstances; for this is God\'s will for you in Christ Jesus.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Thessalonians 5:16-18';
-
-  @override
   String get prayedToday => 'Prayed today';
 
   @override
@@ -229,6 +221,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'Prayer recorded';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString people praying with you now',
+      one: '1 person praying with you now',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'New reminder';
@@ -261,7 +269,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderNotificationTitle => 'Time to pray';
 
   @override
-  String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
+  String get reminderNotificationBody => 'Open DOXA to start today\'s prayer.';
 
   @override
   String get notifications => 'Notifications';
@@ -276,18 +284,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'Tap below to open settings, then allow notifications for Doxa.';
+      'Tap below to open settings, then allow notifications for DOXA.';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Exact alarms aren\'t allowed for Doxa, so your prayer reminders may arrive several minutes late.';
+      'Exact alarms aren\'t allowed for DOXA, so your prayer reminders may arrive several minutes late.';
 
   @override
   String get allowExactAlarms => 'Allow exact alarms';
 
   @override
   String get exactAlarmsPromptBody =>
-      'For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.';
+      'For your prayer reminders to arrive right on time, allow DOXA to use exact alarms.';
 
   @override
   String get allow => 'Allow';
@@ -337,11 +345,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Welcome to Doxa Prayer';
+  String get wizardWelcomeTitle => 'Welcome to DOXA Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
+      'DOXA helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
 
   @override
   String get wizardGetStarted => 'Get started';
@@ -370,7 +378,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Optional. Get news about your people group and updates from Doxa.';
+      'Optional. Get news about your people group and updates from DOXA.';
 
   @override
   String get back => 'Back';
@@ -401,7 +409,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Receive updates about my people group';
 
   @override
-  String get updatesFromDoxa => 'Receive updates from Doxa';
+  String get updatesFromDoxa => 'Receive updates from DOXA';
 
   @override
   String get signUpForUpdates => 'Sign up for updates';
@@ -469,26 +477,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateAvailableBody =>
-      'A new version of Doxa Prayer is available.';
+      'A new version of DOXA Prayer is available.';
 
   @override
   String get updateRequiredTitle => 'Update required';
 
   @override
   String get updateRequiredBody =>
-      'Please update to the latest version to keep using Doxa Prayer.';
+      'Please update to the latest version to keep using DOXA Prayer.';
 
   @override
   String get updateAction => 'Update';
 
   @override
   String get updateDismiss => 'Not now';
-
-  @override
-  String get getInvolved => 'Get involved';
-
-  @override
-  String get donate => 'Donate';
 
   @override
   String get feedback => 'Feedback';
@@ -522,7 +524,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackMessageRequired => 'Please enter a message.';
 
   @override
-  String get feedbackConsentLabel => 'Keep me updated with news from Doxa';
+  String get feedbackConsentLabel => 'Keep me updated with news from DOXA';
 
   @override
   String get feedbackSubmit => 'Send feedback';
@@ -545,11 +547,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Pray with me for the $name — get the Doxa Prayer app:';
+    return 'Pray with me for the $name — get the DOXA Prayer app:';
   }
 
   @override
-  String get qrCode => 'QR code';
+  String get shareLink => 'Share link';
 
   @override
   String scanToPray(String name) {
@@ -589,4 +591,107 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Notifications disabled';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return 'Do you want to start praying for $name?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Choose a people group';
+
+  @override
+  String get addAnotherPeopleGroup => 'Add another people group';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'You are praying for $count people groups';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'That is as many as you can pray for at once. To add $name, choose one to stop praying for.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Swap';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return 'Stop praying for $name?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'They will be removed from your home screen. You can add them again at any time.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Its $count reminders will be deleted.',
+      one: 'Its reminder will be deleted.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Stop praying';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Choose a people group before setting a reminder.';
+
+  @override
+  String get reminderPeopleGroup => 'People group';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Open DOXA to pray for $name.';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time for $name';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Pray for $name';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Switch to $name';
+  }
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String mapOf(String name) {
+    return 'Map of $name';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'Nearby people groups';
+
+  @override
+  String get recenter => 'Recenter';
+
+  @override
+  String get mapUnavailableOffline => 'Map images unavailable offline';
+
+  @override
+  String get yourPeopleGroups => 'Your people groups';
+
+  @override
+  String get locationNotAvailable => 'Location not available';
+
+  @override
+  String get couldNotLoadMapMessage => 'Could not load the map.';
 }

@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +14,7 @@ import 'api_config.dart';
 import 'crash_reporting_service.dart';
 import 'locale_controller.dart';
 import 'reminders_controller.dart';
+import 'subscribed_people_groups_controller.dart';
 
 const String _androidChannelId = 'prayer_reminders';
 const String _androidChannelName = 'Prayer Reminders';
@@ -24,6 +27,15 @@ final FlutterLocalNotificationsPlugin _plugin =
 /// can only *set* a badge (via [DarwinNotificationDetails.badgeNumber]); it has
 /// no API to reset it, so the AppDelegate hosts a tiny `clearBadge` handler.
 const MethodChannel _badgeChannel = MethodChannel('app.prayer.doxa/badge');
+
+/// Native → Dart channel over which the iOS AppDelegate forwards reminder
+/// notification taps (see ios/Runner/AppDelegate.swift). Needed because, under
+/// this app's UIScene / implicit-engine setup, flutter_local_notifications'
+/// own tap callback never fires on iOS — the plugin isn't on the app-lifecycle
+/// list FlutterAppDelegate forwards UNUserNotificationCenter events to.
+const MethodChannel _notificationTapChannel = MethodChannel(
+  'app.prayer.doxa/notifications',
+);
 
 bool _initialized = false;
 
@@ -87,10 +99,21 @@ void notificationTapBackground(NotificationResponse response) {
   // Top-level handler required by flutter_local_notifications. The app may not
   // be alive yet; routing is handled by the foreground listener once the app
   // is up. We seed the payload notifier so the foreground side picks it up.
+  developer.log(
+    'notificationTapBackground (bg isolate) fired: '
+    'payload=${response.payload}, actionId=${response.actionId}',
+    name: 'REMINDER_TAP',
+  );
   reminderTapPayload.value = response.payload;
 }
 
 void _onTap(NotificationResponse response) {
+  developer.log(
+    '_onTap (foreground/warm-resume) fired: '
+    'payload=${response.payload}, actionId=${response.actionId}, '
+    'notifierBefore=${reminderTapPayload.value}',
+    name: 'REMINDER_TAP',
+  );
   reminderTapPayload.value = response.payload;
 }
 
@@ -134,9 +157,30 @@ Future<void> initRemindersNotifications() async {
     ),
   );
 
+  // iOS bridge: the AppDelegate forwards notification taps here (see the doc on
+  // [_notificationTapChannel]). Seed the same notifier the shell listens to, so
+  // routing is identical to the plugin's own (Android) tap path.
+  _notificationTapChannel.setMethodCallHandler((call) async {
+    if (call.method == 'reminderTapped') {
+      final payload = call.arguments as String?;
+      developer.log(
+        'native bridge reminderTapped: payload=$payload',
+        name: 'REMINDER_TAP',
+      );
+      reminderTapPayload.value = payload;
+    }
+    return null;
+  });
+
   // Cold-start: if the app was launched by tapping a notification, seed the
   // payload notifier so the shell can route once it's mounted.
   final launch = await _plugin.getNotificationAppLaunchDetails();
+  developer.log(
+    'getNotificationAppLaunchDetails: '
+    'didLaunchApp=${launch?.didNotificationLaunchApp}, '
+    'payload=${launch?.notificationResponse?.payload}',
+    name: 'REMINDER_TAP',
+  );
   if (launch?.didNotificationLaunchApp ?? false) {
     reminderTapPayload.value = launch?.notificationResponse?.payload;
   }
@@ -273,27 +317,19 @@ Future<bool> promptEnableExactAlarms() async {
   return granted;
 }
 
-/// Cancels every scheduled reminder notification and reschedules exactly one
-/// per distinct fire-time across all enabled reminders. Keying notifications by
-/// time slot (not by reminder) means several reminders that land on the same
-/// weekday + time collapse into a single notification — no duplicate alerts.
+/// Cancels every scheduled reminder notification and reschedules one per
+/// distinct (people group, weekday, hour, minute) slot across all enabled
+/// reminders.
+///
+/// The slug is part of the key on purpose. Two reminders for the *same* group
+/// at the same time still collapse into a single alert — they mean the same
+/// thing. Two *different* groups at the same time do not: each names its own
+/// group and deep-links into its own prayer, so both are delivered.
 Future<void> rescheduleAllReminders(List<Reminder> all) async {
   if (!_initialized) await initRemindersNotifications();
   await _plugin.cancelAll();
 
-  // Distinct (weekday, hour, minute) slots across every enabled reminder,
-  // keyed by the slot id so duplicates collapse.
-  final slots = <int, ({int weekday, int hour, int minute})>{};
-  for (final r in all) {
-    if (!r.enabled) continue;
-    for (final weekday in r.weekdays) {
-      slots[_notificationId(weekday, r.hour, r.minute)] = (
-        weekday: weekday,
-        hour: r.hour,
-        minute: r.minute,
-      );
-    }
-  }
+  final slots = reminderNotificationSlots(all);
   if (slots.isEmpty) return;
 
   // Prefer exact alarms so reminders fire at the chosen minute, but fall back
@@ -308,7 +344,6 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
 
   final l = lookupAppLocalizations(localeController.value);
   final title = l.reminderNotificationTitle;
-  final body = l.reminderNotificationBody;
 
   final androidDetails = AndroidNotificationDetails(
     _androidChannelId,
@@ -334,6 +369,13 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
     final id = entry.key;
     final slot = entry.value;
     final fireAt = _nextInstanceOf(slot.weekday, slot.hour, slot.minute);
+    // Naming the group is what makes a stack of same-minute reminders
+    // readable; a reminder whose group has since been removed falls back to
+    // the generic copy rather than showing a blank name.
+    final name = peopleGroupsController.value.bySlug(slot.slug)?.name;
+    final body = name == null
+        ? l.reminderNotificationBody
+        : l.reminderNotificationBodyForGroup(name);
     try {
       await _plugin.zonedSchedule(
         id: id,
@@ -343,7 +385,9 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
         notificationDetails: details,
         androidScheduleMode: scheduleMode,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-        payload: 'pray',
+        // The tapped notification routes to this group's prayer, so the slug
+        // travels with it.
+        payload: slot.slug,
       );
     } catch (e, s) {
       debugPrint('reminders_notifications: schedule failed for $id: $e');
@@ -352,12 +396,106 @@ Future<void> rescheduleAllReminders(List<Reminder> all) async {
   }
 }
 
-/// Maps a (weekday, hour, minute) fire-time to a stable notification id.
-/// Reminders that share a fire time share an id, so only one notification is
-/// ever scheduled per distinct time — no duplicate alerts.
-/// Bit layout (all positive, well under 32 bits): hour<<9 | minute<<3 | weekday.
-int _notificationId(int weekday, int hour, int minute) =>
-    (hour << 9) | (minute << 3) | (weekday & 0x7);
+/// One scheduled notification. Several reminders can share a slot; only the
+/// group, weekday and time survive into what is actually delivered.
+typedef ReminderSlot = ({String slug, int weekday, int hour, int minute});
+
+/// The distinct notification slots across every enabled reminder, keyed by the
+/// id each will be scheduled under. Same-group duplicates collapse because
+/// they land on the same key; different groups at the same minute do not.
+@visibleForTesting
+Map<int, ReminderSlot> reminderNotificationSlots(List<Reminder> all) {
+  final slots = <int, ReminderSlot>{};
+  for (final r in all) {
+    if (!r.enabled) continue;
+    for (final weekday in r.weekdays) {
+      slots[_notificationId(r.slug, weekday, r.hour, r.minute)] = (
+        slug: r.slug,
+        weekday: weekday,
+        hour: r.hour,
+        minute: r.minute,
+      );
+    }
+  }
+  return slots;
+}
+
+/// Maps a (people group, weekday, hour, minute) slot to a stable notification
+/// id. Reminders for the same group at the same fire time share an id, so only
+/// one notification is scheduled for them; different groups get different ids
+/// and are delivered alongside each other.
+///
+/// Bit layout, all positive and well inside the 32-bit ids the platforms
+/// accept: slugHash<<14 | hour<<9 | minute<<3 | weekday, where slugHash is 13
+/// bits — so the whole id stays under 2^27.
+int _notificationId(String slug, int weekday, int hour, int minute) {
+  final time = (hour << 9) | (minute << 3) | (weekday & 0x7);
+  return (_slugHash(slug) << 14) | time;
+}
+
+/// A 13-bit FNV-1a hash of the slug. Deliberately not `String.hashCode`, which
+/// Dart does not promise to keep stable between runs — these ids are what a
+/// later cancel has to match.
+///
+/// A collision between two slugs would merge their notifications at the same
+/// minute; at five subscriptions out of 8192 buckets that is remote, and the
+/// cost if it happened is one alert instead of two.
+int _slugHash(String slug) {
+  var hash = 0x811c9dc5;
+  for (final unit in slug.codeUnits) {
+    hash = ((hash ^ unit) * 0x01000193) & 0x7fffffff;
+  }
+  return hash & 0x1fff;
+}
+
+/// Fixed id for the debug test notification, well outside the small
+/// (weekday, hour, minute) slot-id range so it never collides with a real
+/// reminder. See [scheduleTestReminderNotification].
+const int _testNotificationId = 999999;
+
+/// DEBUG ONLY: schedules a one-off reminder-style notification [inSeconds] out
+/// so the notification-tap → Pray-tab routing can be exercised without waiting
+/// for a real scheduled reminder. Uses the exact same channel, details, and
+/// `'pray'` payload as a genuine reminder, so the tap code path is identical.
+/// Trigger it from the Debug screen, then background the app before it fires.
+Future<void> scheduleTestReminderNotification({int inSeconds = 10}) async {
+  if (!_initialized) await initRemindersNotifications();
+
+  final l = lookupAppLocalizations(localeController.value);
+  final androidDetails = AndroidNotificationDetails(
+    _androidChannelId,
+    _androidChannelName,
+    channelDescription: _androidChannelDescription,
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+  const iosDetails = DarwinNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+    badgeNumber: 1,
+  );
+  final details = NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+  final fireAt = tz.TZDateTime.now(tz.local).add(Duration(seconds: inSeconds));
+  final canExact = await exactAlarmsAuthorized();
+  await _plugin.zonedSchedule(
+    id: _testNotificationId,
+    title: l.reminderNotificationTitle,
+    body: l.reminderNotificationBody,
+    scheduledDate: fireAt,
+    notificationDetails: details,
+    androidScheduleMode: canExact
+        ? AndroidScheduleMode.exactAllowWhileIdle
+        : AndroidScheduleMode.inexactAllowWhileIdle,
+    payload: 'pray',
+  );
+  developer.log(
+    'scheduleTestReminderNotification: id=$_testNotificationId scheduled for '
+    '$fireAt (in ${inSeconds}s), payload=pray',
+    name: 'REMINDER_TAP',
+  );
+}
 
 tz.TZDateTime _nextInstanceOf(int weekday, int hour, int minute) {
   final now = tz.TZDateTime.now(tz.local);

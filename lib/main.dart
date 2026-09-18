@@ -11,18 +11,21 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
+import 'services/cache_warmup.dart';
 import 'services/crash_reporting_service.dart';
 import 'services/identity_service.dart';
 import 'services/install_referrer_service.dart';
 import 'services/locale_controller.dart';
 import 'services/pray_override_controller.dart';
+import 'services/pray_selector_controller.dart';
 import 'services/prayer_history_service.dart';
 import 'services/profile_update_service.dart';
 import 'services/push_notifications_service.dart';
 import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
-import 'services/selected_people_group_controller.dart';
+import 'services/response_cache.dart';
+import 'services/subscribed_people_groups_controller.dart';
 import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
 import 'theme/app_theme.dart';
@@ -43,14 +46,18 @@ Future<void> main() async {
     );
   }
   await initRemindersNotifications();
+  // The subscription list first and on its own: loadReminders() adopts the
+  // active group for any reminder stored before reminders belonged to a group,
+  // so it cannot race this.
+  await loadPeopleGroups();
   await Future.wait([
-    loadSelectedPeopleGroup(),
     refreshPrayedToday(),
     loadReminders(),
     loadWizardCompleted(),
     loadLocale(),
     loadIdentity(),
     loadReferredPeopleGroup(),
+    loadPraySelectorSeen(),
   ]);
   // Push notifications: init after identity is loaded so the first
   // OneSignal.login() uses the right external id. Receive-only for now; no
@@ -61,6 +68,13 @@ Future<void> main() async {
   // referred slug is loaded, so it can't be clobbered; it updates the referral
   // controller within a second or two — before the user finishes the welcome step.
   unawaited(fetchInstallReferrer());
+  // Load the cached people-group list and prefetch today's prayer content while
+  // the user is still on the home screen, so opening a tab is instant. Needs
+  // the selected group and locale above, hence its position here.
+  unawaited(warmCachesOnLaunch());
+  // Drop cache entries past the longest TTL, so a user who browses back
+  // through many days of prayer content doesn't accumulate files forever.
+  unawaited(ResponseCache.prune());
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
   // Revert the Pray tab to the user's own selection once they leave it after a
@@ -83,7 +97,7 @@ class MyApp extends StatelessWidget {
       builder: (context, locale, _) {
         return MaterialApp.router(
           title: 'Doxa Prayer',
-          theme: AppTheme.light,
+          theme: AppTheme.lightFor(locale),
           routerConfig: appRouter,
           localizationsDelegates: const [
             AppLocalizations.delegate,

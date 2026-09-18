@@ -3,7 +3,7 @@ import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../services/selected_people_group_controller.dart';
+import '../../services/subscribed_people_groups_controller.dart';
 import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
@@ -21,8 +21,8 @@ class WizardStepPeopleGroupConfirm extends StatelessWidget {
   Future<void> _onContinue(BuildContext context) async {
     final g = controller.candidatePeopleGroup;
     if (g == null) return;
-    await setSelectedPeopleGroup(
-      SelectedPeopleGroup(slug: g.slug, name: g.name, imageUrl: g.imageUrl),
+    await addPeopleGroup(
+      SubscribedPeopleGroup(slug: g.slug, name: g.name, imageUrl: g.imageUrl),
     );
     controller.next();
   }

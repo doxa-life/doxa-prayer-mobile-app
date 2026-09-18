@@ -76,8 +76,6 @@ welcome flow.*
   - [ ] Sharing offers a **link** to open the app / prayer page.
   - [ ] There's also an option to show a **QR code** someone nearby can scan.
 - [ ] A **reminders summary** shows your upcoming prayer reminder(s).
-- [ ] A **Get Involved** card shows **Donate** and **Feedback** buttons.
-  - [ ] **Donate** opens the donation page in your browser.
 - [ ] If you've selected a group but **haven't prayed yet today**, a banner appears at
       the **bottom** — *"Ready for today's prayer? Tap to pray for [your group]"*.
   - [ ] Tapping the banner opens the **Pray** tab.
@@ -267,7 +265,7 @@ the app should already know which group they came for.* **(Android)**
 
 *The feedback form is now **built into the app** — it no longer opens in your browser.*
 
-- [ ] From **Home → Get Involved**, tap **Feedback** (speech-bubble icon).
+- [ ] From **Settings**, tap the **Feedback** row.
 - [ ] A **feedback form opens inside the app**, **in your app's language** (it slides in
       over the tabs — you stay in the app).
 - [ ] The form has:
@@ -338,8 +336,8 @@ use a **screen reader**. Part **15a** is quick and everyone should try it. Part 
 - [ ] Text is **larger** everywhere and the app still works.
 - [ ] **Onboarding wizard:** the **Get started** button isn't jammed against the bottom;
       the sign-up step **scrolls** so you can still reach its buttons (even with the keyboard up).
-- [ ] **Home:** the **Get Involved** buttons (Donate/Feedback) and the people-group card
-      buttons (Profile/Share/QR) **wrap onto more than one line** instead of running off the edge.
+- [ ] **Home:** the people-group card buttons (Profile/Share/QR) **wrap onto more than one
+      line** instead of running off the edge.
 - [ ] **Pray tab:** the scripture **reference/citation** line **wraps** instead of being cut off.
 - [ ] **Reminders:** the **day-of-week** circles **wrap** onto a second row if needed; the
       **Delete** and **Save** buttons stack neatly rather than overflowing.
@@ -385,7 +383,7 @@ Priority tests are marked ⭐.
 
 - [ ] **1** First-time setup completed
 - [ ] **2** Navigation between tabs works
-- [ ] **3** Home screen (group card, pray, share, get involved)
+- [ ] **3** Home screen (group card, pray, share)
 - [ ] ⭐ **4** Pray tab shows **my** group and **today's** prayers (+ Amen → **Home**, day nav)
 - [ ] ⭐ **5** Viewed people group info (incl. prayer-status colours); shared QR/link opens the right group
 - [ ] ⭐ **5c** Fresh install from a QR auto-selected the right group (Android)

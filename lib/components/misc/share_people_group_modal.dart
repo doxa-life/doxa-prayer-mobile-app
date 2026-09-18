@@ -7,30 +7,58 @@ import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
+import '../buttons/action_button.dart';
+import 'app_icon.dart';
 import 'hyphenated_text.dart';
 
-/// Shows a dismissable dialog with a QR code of [url], so someone physically
-/// nearby can scan the share link instead of receiving it over a channel.
-Future<void> showQrShareModal(
+/// Shows the single share surface for a people group: a QR code of [url] for
+/// someone physically nearby to scan, and a button handing the same link to
+/// the device's share sheet for everyone else.
+///
+/// The two are one modal rather than two card buttons because they are the
+/// same act — the QR is just the in-person channel.
+Future<void> showSharePeopleGroupModal(
   BuildContext context, {
   required String url,
   required String peopleGroupName,
+  required ValueChanged<Rect?> onShareLink,
 }) {
   return showDialog<void>(
     context: context,
-    builder: (ctx) => QrShareModal(url: url, peopleGroupName: peopleGroupName),
+    builder: (ctx) => SharePeopleGroupModal(
+      url: url,
+      peopleGroupName: peopleGroupName,
+      onShareLink: onShareLink,
+    ),
   );
 }
 
-class QrShareModal extends StatelessWidget {
-  const QrShareModal({
+class SharePeopleGroupModal extends StatelessWidget {
+  const SharePeopleGroupModal({
     super.key,
     required this.url,
     required this.peopleGroupName,
+    required this.onShareLink,
   });
 
   final String url;
   final String peopleGroupName;
+
+  /// Called once the modal has closed, with the modal's own bounds — iPads
+  /// need a popover anchor for the share sheet, and the modal is the last
+  /// thing the user touched.
+  final ValueChanged<Rect?> onShareLink;
+
+  void _shareLink(BuildContext context) {
+    final box = context.findRenderObject() as RenderBox?;
+    final origin = box == null
+        ? null
+        : box.localToGlobal(Offset.zero) & box.size;
+    // Close first: the share sheet is the end of this interaction, and
+    // returning from it to a stale QR dialog reads as a dead end.
+    Navigator.of(context).pop();
+    onShareLink(origin);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +105,12 @@ class QrShareModal extends StatelessWidget {
               l.scanToPray(peopleGroupName),
               style: AppTypography.bodyMedium,
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            ActionButton.fullWidth(
+              label: l.shareLink,
+              icon: const AppIcon(AppIconName.share, color: AppColors.white),
+              onPressed: () => _shareLink(context),
             ),
             const SizedBox(height: AppSpacing.md),
           ],

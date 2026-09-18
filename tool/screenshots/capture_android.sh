@@ -89,7 +89,10 @@ for spec in "${ANDROID_DEVICES[@]}"; do
 
   raw_out="$RAW_DIR/android_$key"
   framed_out="$FRAMED_DIR/android/$play_folder"
-  rm -rf "$raw_out"; mkdir -p "$raw_out" "$framed_out"
+  # Both dirs are wiped, not just overwritten: shot names carry an ordering
+  # prefix, so renumbering the scenario leaves the previous run's files behind
+  # under their old names and the upload would carry both sets.
+  rm -rf "$raw_out" "$framed_out"; mkdir -p "$raw_out" "$framed_out"
 
   echo "==== $key ($avd → ${cw}x${ch}, $play_folder) ===="
   ensure_avd "$avd" "$profile"

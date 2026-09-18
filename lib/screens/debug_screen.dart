@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
@@ -9,14 +11,21 @@ import '../components/nav/details_nav_bar.dart';
 import '../components/nav/root_pop_scope.dart';
 import '../layouts/page_scaffold.dart';
 import '../layouts/section.dart';
+import '../services/cache_policy.dart';
 import '../services/crash_reporting_service.dart';
 import '../services/identity_service.dart';
+import '../services/image_cache_manager.dart';
 import '../services/install_referrer_service.dart';
 import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
+import '../services/push_notifications_service.dart';
+import '../services/response_cache.dart';
+import '../services/pray_selector_controller.dart';
+import '../services/profile_update_service.dart';
 import '../services/reminders_controller.dart';
-import '../services/selected_people_group_controller.dart';
+import '../services/reminders_notifications.dart';
+import '../services/subscribed_people_groups_controller.dart';
 import '../services/update_controller.dart';
 import '../services/version_check_service.dart';
 import '../services/wizard_completion_controller.dart';
@@ -58,6 +67,8 @@ class DebugScreen extends StatelessWidget {
                     style: AppTypography.bodyMedium,
                   ),
                   _prefsSection(context),
+                  _cacheSection(context),
+                  _notificationsSection(context),
                   const _SimulateReferralCard(),
                   _updateSection(context),
                   _crashlyticsSection(context),
@@ -90,8 +101,14 @@ class DebugScreen extends StatelessWidget {
         ),
         _clearRow(
           context,
-          label: 'Selected people group',
-          onClear: clearSelectedPeopleGroup,
+          label: 'People groups',
+          description: 'Unsubscribes from all of them locally.',
+          onClear: () async {
+            await clearPeopleGroups();
+            // Otherwise the sync still believes the server holds the old
+            // schedules and skips the next PUT for a re-added group.
+            resetProfileUpdateState();
+          },
         ),
         _clearRow(
           context,
@@ -139,15 +156,99 @@ class DebugScreen extends StatelessWidget {
               await Future.wait([
                 clearLocale(),
                 clearWizardCompleted(),
-                clearSelectedPeopleGroup(),
+                clearPeopleGroups().then((_) => resetProfileUpdateState()),
                 clearReminders(),
                 clearPrayerHistory(),
                 clearIdentity(),
                 clearReferredPeopleGroup(),
                 clearInstallReferrerChecked(),
+                clearPraySelectorSeen(),
               ]);
             },
           ),
+        ),
+      ],
+    ),
+  );
+
+  Widget _cacheSection(BuildContext context) => Section(
+    title: 'Caches',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        HyphenatedText(
+          'Fetched data is held on disk: prayer content and photos for '
+          '${CachePolicy.prayerContent.inDays} days, the people-group list and '
+          'detail pages for ${CachePolicy.peopleGroupList.inDays} — those two '
+          'also refresh in the background once the cached copy is over '
+          '${CachePolicy.peopleGroupCounts.inHours}h old, to keep the praying '
+          'counts current. Clear a cache to force the next screen to refetch.',
+          style: AppTypography.caption,
+        ),
+        _clearRow(
+          context,
+          label: 'API responses',
+          description:
+              'Prayer content, the UUPG list, and people-group details.',
+          onClear: ResponseCache.clear,
+        ),
+        _clearRow(
+          context,
+          label: 'Cached images',
+          description: 'People-group photos held on disk.',
+          onClear: AppImageCacheManager.clear,
+        ),
+      ],
+    ),
+  );
+
+  Widget _notificationsSection(BuildContext context) => Section(
+    title: 'Notifications',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        HyphenatedText(
+          'Schedule a one-off reminder-style notification ~10s out — same '
+          'channel and "pray" payload as a real reminder. Tap the button, then '
+          'immediately background the app; when the notification drops, tap it '
+          'and confirm it opens the Pray tab. Watch the REMINDER_TAP entries in '
+          "DevTools' Logging tab.",
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Schedule test reminder (10s)',
+          onPressed: () async {
+            final messenger = ScaffoldMessenger.of(context);
+            await scheduleTestReminderNotification();
+            messenger.showSnackBar(
+              const SnackBar(
+                content: HyphenatedText(
+                  'Test reminder scheduled — background the app now; '
+                  'it fires in ~10s.',
+                ),
+              ),
+            );
+          },
+        ),
+        HyphenatedText(
+          'For OneSignal push testing: log this device\'s subscription id, then '
+          'send a push to it from the OneSignal dashboard/API. Add custom data '
+          '"route" (e.g. /adi/prayer) or "slug" (e.g. adi) to test deep-link '
+          'routing; a push with no data should open the Pray tab. Watch the '
+          'PUSH_TAP entries in DevTools.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'Log OneSignal subscription',
+          onPressed: () {
+            final summary = oneSignalDebugSummary();
+            developer.log(summary, name: 'PUSH_TAP');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: HyphenatedText(summary)),
+            );
+          },
         ),
       ],
     ),
@@ -319,9 +420,9 @@ class _SimulateReferralCardState extends State<_SimulateReferralCard> {
           ValueListenableBuilder<String?>(
             valueListenable: referredPeopleGroupController,
             builder: (_, referredSlug, _) {
-              return ValueListenableBuilder<SelectedPeopleGroup?>(
-                valueListenable: selectedPeopleGroupController,
-                builder: (_, selected, _) {
+              return ValueListenableBuilder<SubscribedPeopleGroups>(
+                valueListenable: peopleGroupsController,
+                builder: (_, subscribed, _) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -330,7 +431,8 @@ class _SimulateReferralCardState extends State<_SimulateReferralCard> {
                         style: AppTypography.titleMedium,
                       ),
                       HyphenatedText(
-                        'Selected people group: ${selected?.slug ?? '(none)'}',
+                        'People groups: '
+                        '${subscribed.isEmpty ? '(none)' : subscribed.list.map((g) => g.slug).join(', ')}',
                         style: AppTypography.titleMedium,
                       ),
                     ],

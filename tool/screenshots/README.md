@@ -24,24 +24,34 @@ full-battery via `simctl status_bar override` in `capture_ios.sh`.
 
 ## What gets captured
 
-Six screens, driven in a seeded state so they always look populated:
+Seven screens, driven in a seeded state so they always look populated:
 
 | File | Screen | Caption (default) |
 |------|--------|-------------------|
-| `01_home` | Home (group selected) | Pray for the unreached, every day |
+| `01_home` | Home (carousel of subscribed groups) | Pray for the unreached, every day |
 | `02_pray` | Daily prayer session | A guided daily prayer for every people group |
 | `03_people_groups` | Browse list | Explore thousands of people groups |
 | `04_people_group_details` | Group profile | Learn their story, language and needs |
-| `05_reminders` | Reminders | Gentle reminders to keep you praying |
-| `06_onboarding` | Welcome / wizard | Get started in under a minute |
+| `05_map` | People-group map | See where they live, among the world's unreached |
+| `06_reminders` | Reminders | Gentle reminders to keep you praying |
+| `07_onboarding` | Welcome / wizard | Get started in under a minute |
 
-Store listings order by filename, so `01…06` is the order. Rename to reorder.
+Store listings order by filename, so `01…07` is the order. Rename to reorder.
 
-**Seeded state** (in `screenshot_test.dart`, written to SharedPreferences before
-`main()`): wizard complete, locale `en`, selected people group **afar** (a real
-staging group with a photo, full profile and daily prayer content), and two
-reminders. Transient overlays (update banner, the home prayer nudge, the
+**Seeded state** (in `test_driver/screenshot_scenario.dart`, written to
+SharedPreferences before `main()`): wizard complete, locale `en`, three
+subscribed people groups — **adi** (the active one), **khamba** and
+**dzalakha** — and two per-group reminders. All three are real staging groups
+with a photo, a full profile and daily prayer content, and all three sit within
+~4° of each other in the eastern Himalaya, so the map shot (which opens fitted
+to the active group) shows the other two as subscribed hearts rather than a lone
+pin. Transient overlays (update banner, the home prayer nudge, the
 notifications/exact-alarm warnings) are pinned off so shots stay clean.
+
+The map shot needs a Mapbox token: `MAPBOX_TOKEN` in `.env` (bundled as an app
+asset), or `--dart-define=MAPBOX_TOKEN=…`. Without one `MapConfig.isConfigured`
+is false, the home cards hide their map button, and `05_map` captures the
+"couldn't load the map" view.
 
 ## Prerequisites
 
@@ -129,10 +139,12 @@ so `frame.sh` composites each shot onto an exact canvas. Change sizes in
 ## Customising
 
 - **Captions / order** — `CAPTIONS` and `SHOT_ORDER` in `config.sh`.
-- **Which screens** — add/remove `binding.takeScreenshot(...)` calls in
-  `screenshot_test.dart` (and the matching caption in `config.sh`).
-- **People group / reminders / locale** — the `_seedState()` constants in
-  `screenshot_test.dart`.
+- **Which screens** — add/remove `ShotStep`s in
+  `test_driver/screenshot_scenario.dart` (and the matching caption in
+  `config.sh`). A step's `settle` is how long that screen gets to load before
+  the shutter: `localSettle`, `networkSettle` or `mapSettle`.
+- **People groups / reminders / locale** — the `_groups`, `_focusSlug` and
+  `seedState()` constants in `test_driver/screenshot_scenario.dart`.
 - **Theme (background, bezel, font colour)** — `config.sh`.
 - **Canvas sizes / devices** — `ANDROID_DEVICES` / `IOS_DEVICES` in `config.sh`.
 - **iOS device frames** — swap the PNGs in `frames/` and update each row's
@@ -144,8 +156,10 @@ so `frame.sh` composites each shot onto an exact canvas. Change sizes in
 ## Troubleshooting
 
 - **Blank image on a screen** — its network image didn't finish loading; give
-  that screen the longer wait by passing `network: true` to `_settle(...)` in
-  `screenshot_test.dart` (already set for the image-heavy screens).
+  that step a longer `settle` in `test_driver/screenshot_scenario.dart`
+  (image-heavy screens already use `networkSettle`).
+- **Grey squares instead of a basemap** — either no `MAPBOX_TOKEN` (see above)
+  or the tiles hadn't arrived; raise `mapSettle`.
 - **Emulator won't boot headless** — the scripts use `-gpu swiftshader_indirect`
   for reliable headless software rendering; ensure no stale emulator is on port
   5554 (`adb -s emulator-5554 emu kill`).

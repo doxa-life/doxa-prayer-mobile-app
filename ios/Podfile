@@ -47,5 +47,12 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    # flutter_additional_ios_build_settings drops every pod to Flutter's own
+    # floor (iOS 13), below the 15.0 minimum the installed Xcode accepts — the
+    # archive then fails Target Integrity on Pods.xcodeproj. Re-raise each pod to
+    # the app's deployment target (Podfile `platform :ios, '15.0'` above).
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
   end
 end

@@ -1,4 +1,4 @@
-import 'package:doxa_prayer_mobile_app/components/buttons/select_people_group_button.dart';
+import 'package:doxa_prayer_mobile_app/components/buttons/subscribe_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/engagement_item.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/icon_circle.dart';
@@ -6,6 +6,7 @@ import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/background_image_container.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/check_icon.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/cached_data_builder.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
@@ -14,6 +15,7 @@ import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/components/widgets/people_group_details_skeleton.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
+import 'package:doxa_prayer_mobile_app/models/prayer_commitment.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/people_groups_service.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
@@ -21,8 +23,6 @@ import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import '../components/misc/hyphenated_text.dart';
-
-const int _peopleCommittedGoal = 100;
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
   const PeopleGroupDetailsScreen({
@@ -44,15 +44,7 @@ class PeopleGroupDetailsScreen extends StatefulWidget {
 }
 
 class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
-  late Future<PeopleGroupDetail> _future;
-
-  @override
-  void initState() {
-    super.initState();
-    _future = _load();
-  }
-
-  Future<PeopleGroupDetail> _load() {
+  Future<PeopleGroupDetail> _load({bool forceRefresh = false}) {
     final slug = widget.slug;
     if (slug == null || slug.isEmpty) {
       return Future.error('Missing people group slug');
@@ -60,11 +52,8 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
     return fetchPeopleGroupDetail(
       slug,
       lang: localeController.value.languageCode,
+      forceRefresh: forceRefresh,
     );
-  }
-
-  void _reload() {
-    setState(() => _future = _load());
   }
 
   @override
@@ -80,24 +69,19 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
         ),
         body: SafeArea(
           child: PageContainer(
-            child: FutureBuilder<PeopleGroupDetail>(
-              future: _future,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return const PeopleGroupDetailsSkeleton();
-                }
-                if (snapshot.hasError) {
-                  return _ErrorView(
-                    message: l.couldNotLoadPeopleGroupDetailsMessage,
-                    onRetry: _reload,
-                  );
-                }
-                final detail = snapshot.data!;
-                return _DetailBody(
-                  detail: detail,
-                  fromWizard: widget.fromWizard,
-                );
-              },
+            child: CachedDataBuilder<PeopleGroupDetail>(
+              cacheKey: peopleGroupDetailCacheKey(
+                widget.slug ?? '',
+                localeController.value.languageCode,
+              ),
+              fetch: _load,
+              loading: (context) => const PeopleGroupDetailsSkeleton(),
+              error: (context, retry) => _ErrorView(
+                message: l.couldNotLoadPeopleGroupDetailsMessage,
+                onRetry: retry,
+              ),
+              builder: (context, detail) =>
+                  _DetailBody(detail: detail, fromWizard: widget.fromWizard),
             ),
           ),
         ),
@@ -120,11 +104,11 @@ class _DetailBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: AppSpacing.xl,
         children: [
-          SelectPeopleGroupButton(
+          SubscribePeopleGroupButton(
             slug: detail.slug,
             name: detail.name,
             imageUrl: detail.imageUrl,
-            onConfirmed: fromWizard
+            onAdded: fromWizard
                 ? () {
                     if (Navigator.of(context).canPop()) {
                       Navigator.of(context).pop(true);
@@ -147,11 +131,13 @@ class _DetailBody extends StatelessWidget {
                   children: [
                     EngagementItem(
                       label: l.prayerStatus,
-                      status: detail.peopleCommitted >= _peopleCommittedGoal
-                          ? EngagementStatus.yes
-                          : detail.peopleCommitted > 0
-                          ? EngagementStatus.partial
-                          : EngagementStatus.no,
+                      status: switch (prayerCommitmentLevelFor(
+                        detail.peopleCommitted,
+                      )) {
+                        PrayerCommitmentLevel.met => EngagementStatus.yes,
+                        PrayerCommitmentLevel.some => EngagementStatus.partial,
+                        PrayerCommitmentLevel.none => EngagementStatus.no,
+                      },
                     ),
                     EngagementItem(
                       label: l.adoptionStatus,
@@ -310,7 +296,6 @@ class _Hero extends StatelessWidget {
               children: [
                 AppImage(
                   url: detail.imageUrl,
-                  aspectRatio: 1,
                   size: 240,
                   semanticLabel: detail.name,
                 ),
@@ -356,10 +341,10 @@ class _CommittedProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l = AppLocalizations.of(context)!;
-    final clamped = committed.clamp(0, _peopleCommittedGoal);
-    final ratio = _peopleCommittedGoal == 0
+    final clamped = committed.clamp(0, kPeopleCommittedGoal);
+    final ratio = kPeopleCommittedGoal == 0
         ? 0.0
-        : clamped / _peopleCommittedGoal;
+        : clamped / kPeopleCommittedGoal;
     return ElevatedAppCard(
       padding: AppSpacing.xxxl,
       color: AppColors.primary,
@@ -390,7 +375,7 @@ class _CommittedProgress extends StatelessWidget {
           Semantics(
             container: true,
             label: l.dailyPrayerCoverage,
-            value: '$clamped/$_peopleCommittedGoal',
+            value: '$clamped/$kPeopleCommittedGoal',
             child: ExcludeSemantics(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(999),

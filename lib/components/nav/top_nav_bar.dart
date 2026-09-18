@@ -17,20 +17,20 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     String? title,
     VoidCallback? onSettings,
     VoidCallback? onBack,
-    VoidCallback? onGallery,
     VoidCallback? onDebug,
+    Widget? trailing,
   }) => TopNavBar._(
     key: key,
     title: title,
     onSettings: onSettings,
     onBack: onBack,
-    onGallery: onGallery,
     onDebug: onDebug,
+    trailing: trailing,
     preferredSize: NavBarTitle.preferredSizeFor(
       context,
       title: title,
-      hasLeading: onBack != null,
-      actionCount: _actionCount(onSettings: onSettings, onDebug: onDebug),
+      hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
+      actionCount: _actionCount(onSettings: onSettings, trailing: trailing),
     ),
   );
 
@@ -39,25 +39,32 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     required this.onSettings,
     required this.onBack,
-    required this.onGallery,
     required this.onDebug,
+    required this.trailing,
     required this.preferredSize,
   });
 
   final String? title;
   final VoidCallback? onSettings;
   final VoidCallback? onBack;
-  final VoidCallback? onGallery;
   final VoidCallback? onDebug;
+
+  /// An extra action ahead of the settings cog — the Pray tab's people-group
+  /// avatar. Null everywhere else, so no other screen pays for the slot.
+  final Widget? trailing;
 
   @override
   final Size preferredSize;
 
+  /// Kept in step with the [leading] built below. Debug sits in the leading
+  /// slot (the corner opposite settings), so it counts the same as a back
+  /// button for the title's sizing.
+  static bool _hasLeading({VoidCallback? onBack, VoidCallback? onDebug}) =>
+      onBack != null || (kDebugMode && onDebug != null);
+
   /// Kept in step with the [actions] built below.
-  static int _actionCount({VoidCallback? onSettings, VoidCallback? onDebug}) =>
-      (kDebugMode ? 1 : 0) +
-      (kDebugMode && onDebug != null ? 1 : 0) +
-      (onSettings != null ? 1 : 0);
+  static int _actionCount({VoidCallback? onSettings, Widget? trailing}) =>
+      (trailing != null ? 1 : 0) + (onSettings != null ? 1 : 0);
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +73,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       // Must match preferredSize, or the Scaffold and the AppBar disagree on
       // how tall the bar is and the title clips.
       toolbarHeight: preferredSize.height,
-      leading: onBack != null
-          ? IconButton(
-              icon: TriangleIcon(
-                color: AppColors.onPrimary,
-                direction: Directionality.of(context) == TextDirection.rtl
-                    ? TriangleDirection.right
-                    : TriangleDirection.left,
-                size: 12,
-              ),
-              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-              onPressed: onBack,
-            )
-          : null,
+      leading: _buildLeading(context),
       centerTitle: true,
       title: title != null
           ? NavBarTitle(
@@ -86,10 +81,10 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
               color: AppColors.onPrimary,
               width: NavBarTitle.widthFor(
                 context,
-                hasLeading: onBack != null,
+                hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
                 actionCount: _actionCount(
                   onSettings: onSettings,
-                  onDebug: onDebug,
+                  trailing: trailing,
                 ),
               ),
             )
@@ -100,27 +95,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
               semanticLabel: l10n.appName,
             ),
       actions: [
-        // Gallery ("Kitchen Sink") and Debug are dev-only tools — hidden in
-        // release builds. kDebugMode is a compile-time constant, so the
-        // tree-shaker drops these buttons entirely from release builds.
-        if (kDebugMode)
-          IconButton(
-            icon: const Icon(
-              Icons.widgets_outlined,
-              color: AppColors.onPrimary,
-            ),
-            tooltip: 'Kitchen Sink',
-            onPressed: onGallery,
-          ),
-        if (kDebugMode && onDebug != null)
-          IconButton(
-            icon: const Icon(
-              Icons.bug_report_outlined,
-              color: AppColors.onPrimary,
-            ),
-            tooltip: 'Debug',
-            onPressed: onDebug,
-          ),
+        ?trailing,
         if (onSettings != null)
           IconButton(
             icon: const AppIcon(AppIconName.gear, color: AppColors.onPrimary),
@@ -130,5 +105,33 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       ],
       backgroundColor: AppColors.primary,
     );
+  }
+
+  /// A back button when there is one to show, otherwise the dev-only Debug
+  /// button — parked in the corner opposite settings so the actions side is
+  /// left to the screen's own controls. kDebugMode is a compile-time constant,
+  /// so the tree-shaker drops it entirely from release builds.
+  Widget? _buildLeading(BuildContext context) {
+    if (onBack != null) {
+      return IconButton(
+        icon: TriangleIcon(
+          color: AppColors.onPrimary,
+          direction: Directionality.of(context) == TextDirection.rtl
+              ? TriangleDirection.right
+              : TriangleDirection.left,
+          size: 12,
+        ),
+        tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+        onPressed: onBack,
+      );
+    }
+    if (kDebugMode && onDebug != null) {
+      return IconButton(
+        icon: const Icon(Icons.bug_report_outlined, color: AppColors.onPrimary),
+        tooltip: 'Debug',
+        onPressed: onDebug,
+      );
+    }
+    return null;
   }
 }

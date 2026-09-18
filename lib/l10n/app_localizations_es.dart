@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'Inicio';
@@ -59,6 +59,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get crossCulturalWorkersPresent => 'Obreros transculturales presentes';
+
+  @override
+  String get unselect => 'Deseleccionar';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -193,17 +196,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get prayerThankYouTitle => 'Gracias por orar';
 
   @override
-  String get prayerThankYouMessage =>
-      'Tu constancia en la oración es importante. Dios te escucha, y tus oraciones marcan la diferencia.';
-
-  @override
-  String get prayerThankYouVerse =>
-      'Estad siempre gozosos, orad sin cesar, dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.';
-
-  @override
-  String get prayerThankYouVerseReference => '1 Tesalonicenses 5:16-18';
-
-  @override
   String get prayedToday => 'Hoy he orado';
 
   @override
@@ -233,6 +225,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get prayerRecordedAnnouncement => 'Oración registrada';
+
+  @override
+  String prayingWithYou(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString personas orando contigo ahora',
+      one: '1 persona orando contigo ahora',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get newReminder => 'Nuevo recordatorio';
@@ -266,7 +274,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reminderNotificationBody =>
-      'Abre Doxa para comenzar la oración de hoy.';
+      'Abre DOXA para comenzar la oración de hoy.';
 
   @override
   String get notifications => 'Notificaciones';
@@ -281,18 +289,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'Pulsa aquí abajo para abrir los ajustes y, a continuación, autoriza las notificaciones de Doxa.';
+      'Pulsa aquí abajo para abrir los ajustes y, a continuación, autoriza las notificaciones de DOXA.';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Doxa no tiene permiso para usar alarmas exactas, por lo que tus recordatorios de oración pueden llegar con varios minutos de retraso.';
+      'DOXA no tiene permiso para usar alarmas exactas, por lo que tus recordatorios de oración pueden llegar con varios minutos de retraso.';
 
   @override
   String get allowExactAlarms => 'Permitir alarmas exactas';
 
   @override
   String get exactAlarmsPromptBody =>
-      'Para que tus recordatorios de oración lleguen justo a tiempo, permite que Doxa use alarmas exactas.';
+      'Para que tus recordatorios de oración lleguen justo a tiempo, permite que DOXA use alarmas exactas.';
 
   @override
   String get allow => 'Permitir';
@@ -342,11 +350,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Bienvenidos a Doxa Prayer';
+  String get wizardWelcomeTitle => 'Bienvenidos a DOXA Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
+      'DOXA te ayuda a orar por un grupo de personas no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.';
 
   @override
   String get wizardGetStarted => 'Empezar';
@@ -375,7 +383,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Opcional. Recibe noticias sobre tu grupo de personas y novedades de Doxa.';
+      'Opcional. Recibe noticias sobre tu grupo de personas y novedades de DOXA.';
 
   @override
   String get back => 'Volver';
@@ -407,7 +415,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Recibir noticias sobre mi grupo de personas';
 
   @override
-  String get updatesFromDoxa => 'Recibe novedades de Doxa';
+  String get updatesFromDoxa => 'Recibe novedades de DOXA';
 
   @override
   String get signUpForUpdates => 'Suscríbete para recibir novedades';
@@ -476,26 +484,20 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get updateAvailableBody =>
-      'Ya está disponible una nueva versión de Doxa Prayer.';
+      'Ya está disponible una nueva versión de DOXA Prayer.';
 
   @override
   String get updateRequiredTitle => 'Se requiere una actualización';
 
   @override
   String get updateRequiredBody =>
-      'Actualiza a la última versión para seguir utilizando Doxa Prayer.';
+      'Actualiza a la última versión para seguir utilizando DOXA Prayer.';
 
   @override
   String get updateAction => 'Actualizar';
 
   @override
   String get updateDismiss => 'Ahora no';
-
-  @override
-  String get getInvolved => 'Involúcrate';
-
-  @override
-  String get donate => 'Donar';
 
   @override
   String get feedback => 'Comentarios';
@@ -529,7 +531,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get feedbackMessageRequired => 'Introduce un mensaje.';
 
   @override
-  String get feedbackConsentLabel => 'Mantenme al día de las novedades de Doxa';
+  String get feedbackConsentLabel => 'Mantenme al día de las novedades de DOXA';
 
   @override
   String get feedbackSubmit => 'Enviar comentarios';
@@ -552,11 +554,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Ora conmigo por los «$name»; descárgate la aplicación Doxa Prayer:';
+    return 'Ora conmigo por los «$name»; descárgate la aplicación DOXA Prayer:';
   }
 
   @override
-  String get qrCode => 'Código QR';
+  String get shareLink => 'Compartir enlace';
 
   @override
   String scanToPray(String name) {
@@ -596,4 +598,108 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notifications_disabled => 'Notificaciones desactivadas';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String addPeopleGroupConfirm(String name) {
+    return '¿Quieres empezar a orar por «$name»?';
+  }
+
+  @override
+  String get choosePeopleGroup => 'Elegir un grupo de personas';
+
+  @override
+  String get addAnotherPeopleGroup => 'Añadir otro grupo de personas';
+
+  @override
+  String peopleGroupLimitTitle(num count) {
+    return 'Estás orando por $count grupos de personas';
+  }
+
+  @override
+  String peopleGroupLimitBody(String name) {
+    return 'Es el máximo por el que puedes orar a la vez. Para añadir «$name», elige uno por el que dejar de orar.';
+  }
+
+  @override
+  String get swapPeopleGroupAction => 'Cambiar';
+
+  @override
+  String removePeopleGroupTitle(String name) {
+    return '¿Dejar de orar por «$name»?';
+  }
+
+  @override
+  String get removePeopleGroupBody =>
+      'Desaparecerá de tu pantalla de inicio. Puedes volver a añadirlo cuando quieras.';
+
+  @override
+  String removePeopleGroupReminders(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Se eliminarán sus $count recordatorios.',
+      one: 'Se eliminará su recordatorio.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stopPraying => 'Dejar de orar';
+
+  @override
+  String get noPeopleGroupsForReminder =>
+      'Elige un grupo de personas antes de configurar un recordatorio.';
+
+  @override
+  String get reminderPeopleGroup => 'Grupo de personas';
+
+  @override
+  String reminderNotificationBodyForGroup(String name) {
+    return 'Abre DOXA para orar por «$name».';
+  }
+
+  @override
+  String nextReminderForGroup(String time, String name) {
+    return '$time por «$name»';
+  }
+
+  @override
+  String prayForNextGroup(String name) {
+    return 'Orar por «$name»';
+  }
+
+  @override
+  String switchToPeopleGroup(String name) {
+    return 'Cambiar a «$name»';
+  }
+
+  @override
+  String get map => 'Mapa';
+
+  @override
+  String mapOf(String name) {
+    return 'Mapa de «$name»';
+  }
+
+  @override
+  String get nearbyPeopleGroups => 'Grupos de personas cercanos';
+
+  @override
+  String get recenter => 'Centrar de nuevo';
+
+  @override
+  String get mapUnavailableOffline =>
+      'Imágenes del mapa no disponibles sin conexión';
+
+  @override
+  String get yourPeopleGroups => 'Tus grupos de personas';
+
+  @override
+  String get locationNotAvailable => 'Ubicación no disponible';
+
+  @override
+  String get couldNotLoadMapMessage => 'No se ha podido cargar el mapa.';
 }

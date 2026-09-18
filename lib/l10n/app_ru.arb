@@ -1,4 +1,15 @@
 {
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "@adoptionStatus": {
         "description": "The label of the adoption status field"
     },
@@ -37,11 +48,20 @@
     "@bibleTranslation": {
         "description": "The label of the bible translation field"
     },
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
+    },
     "@clearSearchLabel": {
         "description": "Accessibility label for the button that clears the search field"
     },
     "@continueLabel": {
         "description": "Continue button label (named to avoid the reserved word 'continue')"
+    },
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
     },
     "@couldNotLoadPeopleGroupDetailsMessage": {
         "description": "The message displayed when the people group details cannot be loaded"
@@ -75,9 +95,6 @@
     },
     "@dismissReminderLabel": {
         "description": "Accessibility label for the close button on the home prayer reminder banner"
-    },
-    "@donate": {
-        "description": "Button that opens the donation page in the browser"
     },
     "@editReminder": {
         "description": "Title of the edit-reminder bottom sheet"
@@ -171,9 +188,6 @@
     "@forwardLabel": {
         "description": "Accessibility label for a forward navigation arrow button"
     },
-    "@getInvolved": {
-        "description": "Title of the home-screen section with share, donate and feedback buttons"
-    },
     "@gospelRecordings": {
         "description": "The label of the gospel recordings field"
     },
@@ -185,6 +199,23 @@
     },
     "@language": {
         "description": "The language selector"
+    },
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
@@ -211,6 +242,9 @@
     },
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
+    },
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
     },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
@@ -239,11 +273,49 @@
     "@emailUnverified": {
         "description": "Status label shown next to a signed-up email that has not been verified yet"
     },
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
     "@notNow": {
         "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
     },
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "@pictureCreditLabel": {
         "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@prayerRecordedAnnouncement": {
         "description": "Screen-reader announcement made after a prayer session is successfully recorded"
@@ -251,7 +323,51 @@
     "@prayForPeopleGroupLabel": {
         "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
         "placeholders": {
-            "peopleGroup": { "type": "String" }
+            "peopleGroup": {
+                "type": "String"
+            }
+        }
+    },
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "format": "compact",
+                "type": "num"
+            }
+        }
+    },
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
+    },
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
         }
     },
     "@resendVerification": {
@@ -281,6 +397,23 @@
     },
     "@resendVerificationFailed": {
         "description": "SnackBar shown when resending the verification email fails"
+    },
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
         "description": "Button in settings that opens the user's profile page on the web"
@@ -409,17 +542,8 @@
     "@prayerStatus": {
         "description": "The title of the prayer status section"
     },
-    "@prayerThankYouMessage": {
-        "description": "Encouraging body message of the modal shown after the user taps Amen"
-    },
     "@prayerThankYouTitle": {
         "description": "Title of the encouraging modal shown after the user taps Amen"
-    },
-    "@prayerThankYouVerse": {
-        "description": "Bible verse text shown in the thank-you-for-praying modal"
-    },
-    "@prayerThankYouVerseReference": {
-        "description": "Bible verse reference shown beneath the verse in the thank-you-for-praying modal"
     },
     "@pressBackAgainToExit": {
         "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
@@ -594,19 +718,27 @@
     "@yes": {
         "description": "The yes confirmation button"
     },
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
+    "addAnotherPeopleGroup": "Добавить ещё один народ",
+    "addPeopleGroupConfirm": "Хотите начать молиться за народ «{name}»?",
     "adoptionStatus": "Статус принятия",
     "allow": "Разрешить",
     "allowExactAlarms": "Разрешить точные будильники",
     "alternateName": "Другое название",
     "amen": "Аминь",
-    "appName": "Doxa Prayer",
+    "appName": "DOXA Prayer",
     "appVersion": "Версия {version}",
     "audioScripture": "Аудиозапись Писания",
     "back": "Назад",
     "bibleStories": "Библейские истории",
     "bibleTranslation": "Перевод Библии",
+    "cancel": "Отмена",
+    "choosePeopleGroup": "Выбрать народ",
     "clearSearchLabel": "Очистить поиск",
     "continueLabel": "Продолжить",
+    "couldNotLoadMapMessage": "Не удалось загрузить карту.",
     "couldNotLoadPeopleGroupDetailsMessage": "Не удалось загрузить сведения о народе.",
     "couldNotLoadPeopleGroupsMessage": "Не удалось загрузить народы.",
     "couldNotLoadPrayerContent": "Не удалось загрузить молитвенные материалы.",
@@ -617,7 +749,6 @@
     "daysOfWeek": "Дни недели",
     "delete": "Удалить",
     "discipleAndChurchMultiplication": "Умножение учеников и церквей",
-    "donate": "Сделать пожертвование",
     "editReminder": "Редактировать напоминание",
     "emailInvalid": "Пожалуйста, введите действительный адрес электронной почты.",
     "emailLabel": "Электронная почта",
@@ -627,10 +758,10 @@
     "engagementStatus": "Статус вовлечения",
     "engaged": "Вовлечён",
     "everyDay": "Каждый день",
-    "exactAlarmsDisabledStatus": "Точные будильники не разрешены для Doxa, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.",
-    "exactAlarmsPromptBody": "Чтобы напоминания о молитвах приходили точно вовремя, разрешите Doxa использовать точные будильники.",
+    "exactAlarmsDisabledStatus": "Точные будильники не разрешены для DOXA, поэтому напоминания о молитвах могут приходить с опозданием на несколько минут.",
+    "exactAlarmsPromptBody": "Чтобы напоминания о молитвах приходили точно вовремя, разрешите DOXA использовать точные будильники.",
     "feedback": "Отзывы",
-    "feedbackConsentLabel": "Хочу получать новости от Doxa",
+    "feedbackConsentLabel": "Хочу получать новости от DOXA",
     "feedbackError": "Произошла ошибка. Проверьте подключение и попробуйте ещё раз.",
     "feedbackIntro": "Мы будем рады услышать ваше мнение. Расскажите, что вы думаете о приложении.",
     "feedbackMessageLabel": "Сообщение",
@@ -647,16 +778,20 @@
     "feedbackTypeSuggestion": "Предложение",
     "finish": "Завершить",
     "forwardLabel": "Вперёд",
-    "getInvolved": "Присоединяйтесь",
     "gospelRecordings": "Записи Евангелия",
     "home": "Главная",
     "jesusFilm": "Фильм «Иисус»",
     "language": "Язык",
+    "locationNotAvailable": "Местоположение недоступно",
+    "map": "Карта",
+    "mapOf": "Карта народа «{name}»",
+    "mapUnavailableOffline": "Изображения карты недоступны офлайн",
     "myPeopleGroupTitle": "Мой народ",
     "nPeopleGroups": "{count, plural, =0{Нет народов} one{{count} народ} few{{count} народа} many{{count} народов} other{{count} народов}}",
     "nRemindersSet": "{count, plural, =0{Напоминаний не установлено} one{Установлено {count} напоминание} few{Установлено {count} напоминания} many{Установлено {count} напоминаний} other{Установлено {count} напоминаний}}",
     "nameLabel": "Имя",
     "nameRequired": "Пожалуйста, введите своё имя.",
+    "nearbyPeopleGroups": "Народы поблизости",
     "newReminder": "Новое напоминание",
     "newsSignupError": "Произошла ошибка. Проверьте подключение и попробуйте ещё раз.",
     "newsSignupSuccessTitle": "Спасибо за регистрацию!",
@@ -664,16 +799,32 @@
     "accountSectionTitle": "Ваш аккаунт",
     "emailVerified": "Подтверждён",
     "emailUnverified": "Не подтверждён",
+    "nextReminderForGroup": "{time} за народ «{name}»",
+    "noPeopleGroupsForReminder": "Выберите народ, прежде чем настраивать напоминание.",
     "notNow": "Не сейчас",
+    "peopleGroupLimitBody": "Это максимум, за который можно молиться одновременно. Чтобы добавить народ «{name}», выберите, за какой перестать молиться.",
+    "peopleGroupLimitTitle": "Вы молитесь за {count} народов",
     "pictureCreditLabel": "Авторство изображения",
+    "prayForNextGroup": "Помолиться за народ «{name}»",
     "prayerRecordedAnnouncement": "Молитва записана",
     "prayForPeopleGroupLabel": "Помолиться за народ «{peopleGroup}»",
+    "prayingWithYou": "{count, plural, one{{count} человек молится с вами сейчас} few{{count} человека молятся с вами сейчас} many{{count} человек молятся с вами сейчас} other{{count} человек молятся с вами сейчас}}",
+    "recenter": "Вернуться к центру",
+    "reminderNotificationBodyForGroup": "Откройте DOXA, чтобы помолиться за народ «{name}».",
+    "reminderPeopleGroup": "Народ",
+    "removePeopleGroupBody": "Он исчезнет с главного экрана. Вы сможете добавить его снова в любое время.",
+    "removePeopleGroupReminders": "{count, plural, one{Его {count} напоминание будет удалено.} few{Его {count} напоминания будут удалены.} many{Его {count} напоминаний будут удалены.} other{Его {count} напоминаний будут удалены.}}",
+    "removePeopleGroupTitle": "Перестать молиться за народ «{name}»?",
     "resendVerification": "Отправить письмо повторно",
     "resendVerificationSent": "Письмо для подтверждения отправлено. Проверьте почту.",
     "resendVerificationCooldown": "Подождите {seconds} с, прежде чем запрашивать новое письмо.",
     "resendVerificationCountdown": "Повторить через {seconds} с",
     "signUp": "Зарегистрироваться",
     "resendVerificationFailed": "Не удалось отправить письмо. Попробуйте ещё раз.",
+    "stopPraying": "Перестать молиться",
+    "swapPeopleGroupAction": "Заменить",
+    "switchToPeopleGroup": "Перейти к народу «{name}»",
+    "unselect": "Отменить выбор",
     "viewProfile": "Открыть профиль",
     "emailsLoadError": "Не удалось загрузить ваши адреса электронной почты.",
     "nextDay": "Следующий день",
@@ -689,7 +840,7 @@
     "notifications": "Уведомления",
     "notificationsDisabledStatus": "Уведомления отключены, поэтому напоминания о молитвах не будут отображаться.",
     "notificationsEnabledStatus": "Уведомления включены. Вы будете получать напоминания о молитвах.",
-    "notificationsHowToEnable": "Нажмите ниже, чтобы открыть настройки, а затем разрешите получение уведомлений от Doxa.",
+    "notificationsHowToEnable": "Нажмите ниже, чтобы открыть настройки, а затем разрешите получение уведомлений от DOXA.",
     "notifications_disabled": "Уведомления отключены",
     "notifications_enabled": "Уведомления включены",
     "openSettings": "Открыть настройки",
@@ -708,19 +859,15 @@
     "prayerReminderBody": "Нажмите, чтобы помолиться за народ «{peopleGroup}».",
     "dismissReminderLabel": "Скрыть напоминание",
     "prayerStatus": "Статус молитвы",
-    "prayerThankYouMessage": "Ваша верность в молитве имеет большое значение. Бог слышит вас, и ваши молитвы приносят результаты.",
     "prayerThankYouTitle": "Спасибо за ваши молитвы",
-    "prayerThankYouVerse": "Всегда радуйтесь, непрестанно молитесь, за всё благодарите; ибо такова воля Божья для вас во Христе Иисусе.",
-    "prayerThankYouVerseReference": "1 Фессалоникийцам 5:16–18",
     "pressBackAgainToExit": "Нажмите «Назад» ещё раз, чтобы выйти",
     "previousDay": "Предыдущий день",
     "primaryLanguage": "Основной язык",
     "primaryReligion": "Основная религия",
     "profile": "Профиль",
-    "qrCode": "QR-код",
     "radioBroadcast": "Радиопередача",
     "religiousPractices": "Религиозные обряды",
-    "reminderNotificationBody": "Откройте Doxa, чтобы начать сегодняшнюю молитву.",
+    "reminderNotificationBody": "Откройте DOXA, чтобы начать сегодняшнюю молитву.",
     "reminderNotificationTitle": "Пора молиться",
     "reminders": "Напоминания",
     "resources": "Ресурсы",
@@ -736,30 +883,32 @@
     "setReminder": "Установить напоминание",
     "settings": "Настройки",
     "share": "Поделиться",
-    "shareMessage": "Помолитесь вместе со мной за «{name}» — скачайте приложение «Doxa Prayer»:",
+    "shareLink": "Поделиться ссылкой",
+    "shareMessage": "Помолитесь вместе со мной за «{name}» — скачайте приложение «DOXA Prayer»:",
     "signUpForUpdates": "Подпишитесь на новости",
     "skip": "Пропустить",
     "status": "Статус",
     "switchPeopleGroupConfirm": "Хотите перестать молиться за народ «{currentName}» и начать молиться за народ «{newName}»?",
     "time": "Время",
     "updateAction": "Обновить",
-    "updateAvailableBody": "Вышла новая версия приложения «Doxa Prayer».",
+    "updateAvailableBody": "Вышла новая версия приложения «DOXA Prayer».",
     "updateAvailableTitle": "Доступно обновление",
     "updateDismiss": "Не сейчас",
-    "updateRequiredBody": "Пожалуйста, обновите приложение до последней версии, чтобы продолжить пользоваться Doxa Prayer.",
+    "updateRequiredBody": "Пожалуйста, обновите приложение до последней версии, чтобы продолжить пользоваться DOXA Prayer.",
     "updateRequiredTitle": "Требуется обновление",
     "updatesAboutMyPeopleGroup": "Получайте новости о моём народе",
-    "updatesFromDoxa": "Получайте новости от Doxa",
+    "updatesFromDoxa": "Получайте новости от DOXA",
     "wizardChoosePeopleGroupTitle": "Выберите народ",
     "wizardConfirmPeopleGroupBody": "Мы покажем вам молитвенные материалы и напоминания для этого народа. Вы сможете изменить эти настройки позже.",
     "wizardConfirmPeopleGroupTitle": "Помолиться за «{name}»?",
     "wizardGetStarted": "Начать работу",
-    "wizardNewsSignupBody": "Необязательно. Получайте новости о вашем народе и обновления от Doxa.",
+    "wizardNewsSignupBody": "Необязательно. Получайте новости о вашем народе и обновления от DOXA.",
     "wizardNewsSignupTitle": "Будьте в курсе событий",
     "wizardSetReminderBody": "Мы отправим вам небольшое напоминание в выбранное вами время. Вы можете пропустить этот шаг и добавить напоминания позже.",
     "wizardSetReminderTitle": "Установить напоминание о молитве",
-    "wizardWelcomeBody": "Doxa поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.",
-    "wizardWelcomeTitle": "Добро пожаловать в «Doxa Prayer»",
+    "wizardWelcomeBody": "DOXA поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.",
+    "wizardWelcomeTitle": "Добро пожаловать в «DOXA Prayer»",
     "workInLocalLanguageAndCulture": "Работа на родном языке и в местной культуре",
-    "yes": "Да"
+    "yes": "Да",
+    "yourPeopleGroups": "Ваши народы"
 }

@@ -7,6 +7,7 @@ import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import 'prayer_verse_view.dart';
 import '../misc/hyphenated_text.dart';
+import '../misc/superscript_text.dart';
 
 /// Renders a TipTap-style document tree (the `content_json` field on a
 /// prayer-content static block).
@@ -80,11 +81,13 @@ class _Paragraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spans = _inlineSpans(node['content'] as List<dynamic>? ?? const []);
-    if (spans.isEmpty) return const SizedBox.shrink();
-    return Text.rich(
-      TextSpan(style: AppTypography.bodyMedium, children: spans),
+    const style = AppTypography.bodyMedium;
+    final spans = _inlineSpans(
+      node['content'] as List<dynamic>? ?? const [],
+      style,
     );
+    if (spans.isEmpty) return const SizedBox.shrink();
+    return Text.rich(TextSpan(style: style, children: spans));
   }
 }
 
@@ -98,7 +101,10 @@ class _Heading extends StatelessWidget {
     final level =
         (node['attrs'] as Map<String, dynamic>?)?['level'] as int? ?? 2;
     final style = level == 1 ? AppTypography.h1 : AppTypography.h2;
-    final spans = _inlineSpans(node['content'] as List<dynamic>? ?? const []);
+    final spans = _inlineSpans(
+      node['content'] as List<dynamic>? ?? const [],
+      style,
+    );
     if (spans.isEmpty) return const SizedBox.shrink();
     return Text.rich(TextSpan(style: style, children: spans));
   }
@@ -117,7 +123,12 @@ class _Verse extends StatelessWidget {
     final paragraphs = (node['content'] as List<dynamic>? ?? const [])
         .whereType<Map<String, dynamic>>()
         .where((n) => n['type'] == 'paragraph')
-        .map((p) => _inlineSpans(p['content'] as List<dynamic>? ?? const []))
+        .map(
+          (p) => _inlineSpans(
+            p['content'] as List<dynamic>? ?? const [],
+            PrayerVerseView.textStyle,
+          ),
+        )
         .where((spans) => spans.isNotEmpty)
         .toList();
     if (paragraphs.isEmpty) return const SizedBox.shrink();
@@ -129,37 +140,84 @@ class _Verse extends StatelessWidget {
   }
 }
 
-List<InlineSpan> _inlineSpans(List<dynamic> nodes) {
+/// Flattens TipTap inline nodes into spans drawn on top of [baseStyle], which
+/// is the style the enclosing [Text.rich] applies to the whole run.
+///
+/// Walks with lookahead: a `superscript` node claims the first word of the
+/// text node after it, so the two can be drawn as one unbreakable box. See
+/// [SuperscriptText] for why that is necessary.
+List<InlineSpan> _inlineSpans(List<dynamic> nodes, TextStyle baseStyle) {
+  final items = nodes.whereType<Map<String, dynamic>>().toList();
   final out = <InlineSpan>[];
-  for (final raw in nodes) {
-    if (raw is! Map<String, dynamic>) continue;
-    switch (raw['type']) {
-      case 'text':
-        out.add(_textSpan(raw));
-        break;
-      case 'hardBreak':
-        out.add(const TextSpan(text: '\n'));
-        break;
+  // Characters at the head of the next text node already drawn by a
+  // superscript that claimed them.
+  var claimed = 0;
+
+  for (var i = 0; i < items.length; i++) {
+    final node = items[i];
+    if (node['type'] == 'hardBreak') {
+      out.add(const TextSpan(text: '\n'));
+      continue;
     }
+    if (node['type'] != 'text') continue;
+
+    var text = node['text'] as String? ?? '';
+    if (claimed > 0) {
+      text = text.substring(claimed);
+      claimed = 0;
+    }
+
+    // Spans with no marks (and unknown marks) inherit the run's style
+    // untouched. A superscript holding nothing but whitespace does too.
+    final number = _isSuperscript(node) ? text.trim() : '';
+    if (number.isEmpty) {
+      if (text.isNotEmpty) out.add(TextSpan(text: text));
+      continue;
+    }
+
+    // Leading whitespace stays an ordinary span: it separates the number from
+    // whatever precedes it, and breaking there is fine.
+    final lead = text.substring(0, text.length - text.trimLeft().length);
+    if (lead.isNotEmpty) out.add(TextSpan(text: lead));
+
+    final next = i + 1 < items.length ? items[i + 1] : null;
+    var word = '';
+    if (next != null && next['type'] == 'text' && !_isSuperscript(next)) {
+      final (first, consumed) = _firstWord(next['text'] as String? ?? '');
+      word = first;
+      claimed = consumed;
+    }
+
+    out.add(
+      WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: SuperscriptText(
+          text: number,
+          attached: word,
+          baseStyle: baseStyle,
+        ),
+      ),
+    );
   }
   return out;
 }
 
-TextSpan _textSpan(Map<String, dynamic> node) {
-  final text = node['text'] as String? ?? '';
-  final marks = (node['marks'] as List<dynamic>? ?? const [])
-      .whereType<Map<String, dynamic>>()
-      .map((m) => m['type'] as String?)
-      .whereType<String>()
-      .toSet();
+bool _isSuperscript(Map<String, dynamic> node) =>
+    (node['marks'] as List<dynamic>? ?? const [])
+        .whereType<Map<String, dynamic>>()
+        .any((m) => m['type'] == 'superscript');
 
-  TextStyle? style;
-  if (marks.contains('superscript')) {
-    style = const TextStyle(
-      fontFeatures: [FontFeature.superscripts()],
-      fontWeight: FontWeight.w600,
-      fontSize: AppTypography.xs,
-    );
+/// The first word of [text], and how many characters of [text] it covers —
+/// including any whitespace before it, which the superscript replaces with its
+/// own, tighter gap.
+(String, int) _firstWord(String text) {
+  final start = text.length - text.trimLeft().length;
+  var end = start;
+  while (end < text.length && !_isWhitespace(text[end])) {
+    end++;
   }
-  return TextSpan(text: text, style: style);
+  return (text.substring(start, end), end);
 }
+
+bool _isWhitespace(String char) => char.trim().isEmpty;

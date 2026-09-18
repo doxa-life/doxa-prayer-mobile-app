@@ -8,6 +8,7 @@ import 'helpers/pump_at_scale.dart';
 
 const _reminder = Reminder(
   id: 'r1',
+  slug: 'kurds',
   hour: 7,
   minute: 30,
   weekdays: [1, 2, 3, 4, 5],
