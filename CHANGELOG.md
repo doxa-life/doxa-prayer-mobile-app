@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.2+31 - 2026-09-18
+
+Features:
+- enter map a bit more zoomed out
+
+Bug fixes:
+- stop a dropped connection permanently blanking a people-group photo
+- make a failed people-group photo visible, and drop AppImage's dead aspectRatio
+
 ## 2.1.1+30 - 2026-09-18
 
 Features:
