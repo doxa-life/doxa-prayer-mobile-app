@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.1.1+30 - 2026-09-18
+
+Features:
+- add country label to uupg list cards
+- add rolling verses x30 to thankyou modal
+- add image and data caching
+- add 'N people praying with you now banner
+- ability to choose 5 people groups
+- add map showing selected peoples
+- remove donate, and move feedback to settings
+- combine QR code into share button
+- translate the app into German, Hindi, Italian, Romanian, Chinese
+
+Bug fixes:
+- deep linking of prayer reminder
+- Doxa --> DOXA
+
 ## 2.1.0+29 - 2026-09-17
 
 Bug fixes:
