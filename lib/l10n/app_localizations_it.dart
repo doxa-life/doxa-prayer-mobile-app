@@ -58,7 +58,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get selectPeopleGroup => 'Seleziona un gruppo etnico';
 
   @override
-  String get crossCulturalWorkersPresent => 'Operatori interculturali presenti';
+  String get crossCulturalWorkersPresent => 'Operatori transculturali presenti';
 
   @override
   String get unselect => 'Deseleziona';
