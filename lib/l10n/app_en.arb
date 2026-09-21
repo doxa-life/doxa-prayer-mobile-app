@@ -1,5 +1,5 @@
 {
-    "appName": "Doxa Prayer",
+    "appName": "DOXA Prayer",
     "@appName": {
         "description": "The name of the app"
     },
@@ -332,7 +332,7 @@
     "@reminderNotificationTitle": {
         "description": "Title shown on a scheduled reminder notification"
     },
-    "reminderNotificationBody": "Open Doxa to start today's prayer.",
+    "reminderNotificationBody": "Open DOXA to start today's prayer.",
     "@reminderNotificationBody": {
         "description": "Body shown on a scheduled reminder notification"
     },
@@ -348,11 +348,11 @@
     "@notificationsDisabledStatus": {
         "description": "Shared 'notifications off' message — shown on the notifications settings page, the reminders-screen banner, and the deny toast when permission is denied"
     },
-    "notificationsHowToEnable": "Tap below to open settings, then allow notifications for Doxa.",
+    "notificationsHowToEnable": "Tap below to open settings, then allow notifications for DOXA.",
     "@notificationsHowToEnable": {
         "description": "Instructions guiding the user to enable notifications in OS settings"
     },
-    "exactAlarmsDisabledStatus": "Exact alarms aren't allowed for Doxa, so your prayer reminders may arrive several minutes late.",
+    "exactAlarmsDisabledStatus": "Exact alarms aren't allowed for DOXA, so your prayer reminders may arrive several minutes late.",
     "@exactAlarmsDisabledStatus": {
         "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
     },
@@ -360,7 +360,7 @@
     "@allowExactAlarms": {
         "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
     },
-    "exactAlarmsPromptBody": "For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.",
+    "exactAlarmsPromptBody": "For your prayer reminders to arrive right on time, allow DOXA to use exact alarms.",
     "@exactAlarmsPromptBody": {
         "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
     },
@@ -424,11 +424,11 @@
             }
         }
     },
-    "wizardWelcomeTitle": "Welcome to Doxa Prayer",
+    "wizardWelcomeTitle": "Welcome to DOXA Prayer",
     "@wizardWelcomeTitle": {
         "description": "Title of the wizard welcome step"
     },
-    "wizardWelcomeBody": "Doxa helps you pray for an unreached people group. We'll help you choose a group, set a reminder, and stay in the loop.",
+    "wizardWelcomeBody": "DOXA helps you pray for an unreached people group. We'll help you choose a group, set a reminder, and stay in the loop.",
     "@wizardWelcomeBody": {
         "description": "Body of the wizard welcome step"
     },
@@ -465,7 +465,7 @@
     "@wizardNewsSignupTitle": {
         "description": "Title of the wizard news-signup step"
     },
-    "wizardNewsSignupBody": "Optional. Get news about your people group and updates from Doxa.",
+    "wizardNewsSignupBody": "Optional. Get news about your people group and updates from DOXA.",
     "@wizardNewsSignupBody": {
         "description": "Body of the wizard news-signup step"
     },
@@ -505,7 +505,7 @@
     "@updatesAboutMyPeopleGroup": {
         "description": "Checkbox label on the news signup form for per-people-group updates"
     },
-    "updatesFromDoxa": "Receive updates from Doxa",
+    "updatesFromDoxa": "Receive updates from DOXA",
     "@updatesFromDoxa": {
         "description": "Checkbox label on the news signup form for general Doxa updates"
     },
@@ -597,7 +597,7 @@
     "@updateAvailableTitle": {
         "description": "Title of the optional-update banner"
     },
-    "updateAvailableBody": "A new version of Doxa Prayer is available.",
+    "updateAvailableBody": "A new version of DOXA Prayer is available.",
     "@updateAvailableBody": {
         "description": "Body of the optional-update banner"
     },
@@ -605,7 +605,7 @@
     "@updateRequiredTitle": {
         "description": "Title of the forced-update modal"
     },
-    "updateRequiredBody": "Please update to the latest version to keep using Doxa Prayer.",
+    "updateRequiredBody": "Please update to the latest version to keep using DOXA Prayer.",
     "@updateRequiredBody": {
         "description": "Body of the forced-update modal"
     },
@@ -657,7 +657,7 @@
     "@feedbackMessageRequired": {
         "description": "Validation message when the feedback message is empty"
     },
-    "feedbackConsentLabel": "Keep me updated with news from Doxa",
+    "feedbackConsentLabel": "Keep me updated with news from DOXA",
     "@feedbackConsentLabel": {
         "description": "Label for the marketing-consent toggle on the feedback form"
     },
@@ -686,7 +686,7 @@
             }
         }
     },
-    "shareMessage": "Pray with me for the {name} — get the Doxa Prayer app:",
+    "shareMessage": "Pray with me for the {name} — get the DOXA Prayer app:",
     "@shareMessage": {
         "description": "Message text accompanying the shared app link for a people group",
         "placeholders": {
@@ -835,7 +835,7 @@
     "@reminderPeopleGroup": {
         "description": "Label of the people group field in the reminder editor"
     },
-    "reminderNotificationBodyForGroup": "Open Doxa to pray for {name}.",
+    "reminderNotificationBodyForGroup": "Open DOXA to pray for {name}.",
     "@reminderNotificationBodyForGroup": {
         "description": "Body of a reminder notification that is for a specific people group",
         "placeholders": {

@@ -38,15 +38,16 @@ CAPTION_COLOR="#F4F1EA"
 # (integration_test/screenshot_test.dart). Store listings order by filename.
 # NB: macOS ships bash 3.2 which lacks associative arrays, so caption() is a
 # case statement rather than a `declare -A` map.
-SHOT_ORDER=(01_home 02_pray 03_people_groups 04_people_group_details 05_reminders 06_onboarding)
+SHOT_ORDER=(01_home 02_pray 03_people_groups 04_people_group_details 05_map 06_reminders 07_onboarding)
 caption() {
   case "$1" in
     01_home)                  echo "Pray for the unreached, every day" ;;
     02_pray)                  echo "A guided daily prayer for every people group" ;;
     03_people_groups)         echo "Explore thousands of people groups" ;;
     04_people_group_details)  echo "Learn their story, language and needs" ;;
-    05_reminders)             echo "Gentle reminders to keep you praying" ;;
-    06_onboarding)            echo "Get started in under a minute" ;;
+    05_map)                   echo "See where they live, among the world's unreached" ;;
+    06_reminders)             echo "Gentle reminders to keep you praying" ;;
+    07_onboarding)            echo "Get started in under a minute" ;;
     *)                        echo "" ;;
   esac
 }
@@ -61,9 +62,18 @@ ANDROID_DEVICES=(
   "tablet10|doxa_tablet10|Nexus 10|1440|2560|tenInchScreenshots"
 )
 
-# iOS device matrix (macOS only). Canvases are App Store Connect required sizes:
-#   - iPhone 6.9" Display slot: 1290x2796 (also accepts 1260x2736 / 1320x2868)
-#   - iPad  13"  Display slot: 2064x2752 (also accepts 2048x2732)
+# iOS device matrix (macOS only). Canvases are App Store Connect accepted sizes:
+#   - iPhone 6.5" Display slot: 1284x2778 (also accepts 1242x2688). We deliberately
+#     target 6.5", NOT the newer 6.9" size (1290x2796): the pinned fastlane
+#     (2.237.0 — see ios/Gemfile.lock) has NO 6.9" display type. Its `deliver`
+#     picks the ASC slot purely from pixel dimensions and maps 1290x2796 to the
+#     retired APP_IPHONE_67 (6.7") slot; App Store Connect then rejects it against
+#     the 6.5" slot ("dimensions are wrong; want 1242x2688 / 1284x2778"). 1284x2778
+#     has the same 19.5:9 aspect, maps cleanly to APP_IPHONE_65, and is accepted —
+#     Apple scales it up for 6.7"/6.9" devices. If ASC ever *requires* native 6.9",
+#     bump fastlane to a version with an APP_IPHONE_69 type and set this to 1290x2796.
+#   - iPad 13" Display slot: 2064x2752 (also accepts 2048x2732) — fastlane maps this
+#     to APP_IPAD_PRO_3GEN_129 correctly, so the iPad shot is unaffected.
 #
 # Real device frames (frames/*.png) replace the drawn bezel for iOS. Each frame
 # is a PNG with a transparent screen window; the trailing fields give that
@@ -72,7 +82,7 @@ ANDROID_DEVICES=(
 # frameit-frames offsets.json entries for these devices).
 #   key | simulator device name | canvas W | canvas H | frame png | scrX | scrY | scrW | scrH
 IOS_DEVICES=(
-  "iphone69|iPhone 17 Pro Max|1290|2796|frames/iphone69.png|75|66|1320|2868"
+  "iphone69|iPhone 17 Pro Max|1284|2778|frames/iphone69.png|75|66|1320|2868"
   "ipad13|iPad Pro 13-inch (M5)|2064|2752|frames/ipad13.png|96|102|2048|2732"
 )
 

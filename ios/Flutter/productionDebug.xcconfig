@@ -2,5 +2,5 @@
 #include "Generated.xcconfig"
 
 ASSET_PREFIX=production
-BUNDLE_NAME=Doxa Prayer
-BUNDLE_DISPLAY_NAME=Doxa Prayer
+BUNDLE_NAME=DOXA Prayer
+BUNDLE_DISPLAY_NAME=DOXA Prayer

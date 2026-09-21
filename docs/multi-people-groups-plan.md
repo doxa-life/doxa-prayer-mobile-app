@@ -199,7 +199,7 @@ slugs instead of one.
 ## Phase 7 — Strings, docs, verification
 
 **Strings** — add to `lib/l10n/app_en.arb` (sorted, with the duplicated `@` metadata
-this project uses), then propagate with `/translate` against the DeepL glossaries.
+this project uses), then propagate with `/sync-language` against the DOXA glossary.
 Never hand-edit `lib/l10n/app_localizations*.dart`; run `flutter gen-l10n`.
 
 Roughly: `addPeopleGroup`, `praying`, `atPeopleGroupLimit`, `swapPeopleGroupTitle`,

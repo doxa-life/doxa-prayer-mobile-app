@@ -18,7 +18,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/config.sh"
 
-command -v convert >/dev/null || { echo "ImageMagick 'convert' not found" >&2; exit 1; }
+command -v magick >/dev/null || command -v convert >/dev/null \
+  || { echo "ImageMagick not found (need 'magick' or 'convert')" >&2; exit 1; }
 
 WANT=("$@")
 

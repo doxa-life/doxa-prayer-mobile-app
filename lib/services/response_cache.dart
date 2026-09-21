@@ -254,6 +254,15 @@ set responseCacheClient(http.Client client) => _client = client;
 /// moment later) share a single request.
 final Map<String, Future<String>> _inFlight = <String, Future<String>>{};
 
+/// Background revalidations still running, keyed by cache key.
+///
+/// Nothing in the app waits on these — the point of `refreshAfter` is that the
+/// caller already has a value to paint and the refresh lands behind it. They
+/// are tracked for [pendingRevalidation], because a test otherwise has no way
+/// to know the refresh has landed and sleeping on a wall clock makes the suite
+/// flaky as soon as the machine is busy.
+final Map<String, Future<void>> _revalidations = <String, Future<void>>{};
+
 /// GETs [uri] through the memory and disk caches, decoding bodies with [decode].
 ///
 /// Resolution order:
@@ -285,13 +294,22 @@ Future<T> getJsonCached<T>({
   void scheduleRevalidation(DateTime cachedAt) {
     if (refreshAfter == null) return;
     if (DateTime.now().difference(cachedAt) <= refreshAfter) return;
+    final revalidation = _revalidate<T>(
+      uri: uri,
+      cacheKey: cacheKey,
+      decode: decode,
+      errorMessage: errorMessage,
+    );
+    _revalidations[cacheKey] = revalidation;
     unawaited(
-      _revalidate<T>(
-        uri: uri,
-        cacheKey: cacheKey,
-        decode: decode,
-        errorMessage: errorMessage,
-      ),
+      revalidation.whenComplete(() {
+        // Only if it is still this one: a second revalidation can be scheduled
+        // for the same key before the first finishes, and clearing the entry
+        // blindly would hide the newer one from [pendingRevalidation].
+        if (identical(_revalidations[cacheKey], revalidation)) {
+          _revalidations.remove(cacheKey);
+        }
+      }),
     );
   }
 
@@ -411,7 +429,18 @@ Future<String> _fetchBody({
 void clearMemoryCache() {
   _memory.clear();
   _listeners.clear();
+  _revalidations.clear();
 }
+
+/// The background revalidation running for [cacheKey], or null when none is.
+///
+/// Lets a test await the fire-and-forget refresh that [getJsonCached] schedules
+/// behind a stale cache hit. Null means there is nothing left to wait for —
+/// either none was scheduled, or it has already landed — so awaiting it is
+/// always safe. Completes normally even when the refresh failed; failure is
+/// silent by design, and what changed is whether the cached value moved.
+@visibleForTesting
+Future<void>? pendingRevalidation(String cacheKey) => _revalidations[cacheKey];
 
 /// Puts [value] straight into the in-memory layer, as if it had been fetched at
 /// [cachedAt]. Lets a widget test exercise the cached-data path without the

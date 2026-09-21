@@ -42,7 +42,6 @@ class PrayGroupAvatarButton extends StatelessWidget {
             child: ClipOval(
               child: AppImage(
                 url: group.imageUrl,
-                aspectRatio: 1,
                 size: _size,
                 semanticLabel: group.name,
               ),
