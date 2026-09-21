@@ -24,6 +24,12 @@ number format. Read those first.
 A `draft` term is still authoritative — wording nobody has ruled on yet, not
 wording to ignore.
 
+An acronym is a field of its own. The wording never carries it, so a term
+published as `Unreached people group (UPG) → unerreichte Volksgruppe (UVG)`
+gives the phrase `unerreichte Volksgruppe` and, separately, the acronym `UVG`.
+A bare acronym in a string takes this language's acronym, which is the English
+one unless a reviewer chose another.
+
 **The ARB strings carry no authority of their own.** They were machine-drafted
 and have needed several correction passes. Never reason that four locales agree
 so the fifth is wrong; past audits found cases where the four were all wrong.
