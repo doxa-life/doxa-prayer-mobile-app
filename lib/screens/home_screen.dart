@@ -101,9 +101,9 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/// The reminder slot: a nudge to pray today when the user has an active people
-/// group they haven't prayed for yet and hasn't dismissed it this session,
-/// otherwise the usual "next reminder in…" card (or the set-one-up CTA).
+/// The reminder slot: a nudge to pray for the next people group that still
+/// needs today's prayer, otherwise the usual "next reminder in…" card (or the
+/// set-one-up CTA).
 Widget _reminderSection() {
   return ListenableBuilder(
     listenable: Listenable.merge([
@@ -112,15 +112,10 @@ Widget _reminderSection() {
       prayerReminderDismissedController,
     ]),
     builder: (context, _) {
-      final active = activePeopleGroup;
-      final nudge =
-          active != null &&
-          prayedTodayController.value.isEmpty &&
-          !prayerReminderDismissedController.value;
-
-      return nudge
-          ? PrayerReminderCard(peopleGroupName: active.name)
-          : _remindersCardOrCTA();
+      final needsPrayer = peopleGroupNeedingPrayer();
+      return needsPrayer == null
+          ? _remindersCardOrCTA()
+          : PrayerReminderCard(group: needsPrayer);
     },
   );
 }
