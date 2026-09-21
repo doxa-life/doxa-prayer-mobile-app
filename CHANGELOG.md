@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.2.0+32 - 2026-09-21
+
+Features:
+- make verse numbers superscript instead of sub
+- enter map a bit more zoomed out
+
+Bug fixes:
+- Doxa --> DOXA
+- stop a dropped connection permanently blanking a people-group photo
+- make a failed people-group photo visible
+- align hi, zh and it translations with the glossary (#21)
+- align Spanish with the reviewed glossary (#19)
+- align Portuguese with the reviewed glossary (#20)
+- order languages alphabetically;
+- use the glossary label family for the German engagement status
+
 ## 2.1.2+31 - 2026-09-18
 
 Features:
