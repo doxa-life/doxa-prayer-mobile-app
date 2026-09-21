@@ -1,13 +1,15 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/prayer_reminder_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
-import 'package:doxa_prayer_mobile_app/components/misc/prayer_reminder_banner.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
+import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
+import 'package:doxa_prayer_mobile_app/services/prayer_reminder_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
@@ -24,13 +26,11 @@ class HomeScreen extends StatelessWidget {
     // loose (non-button) text into one merged semantics node — a screen reader
     // reads the whole page at once instead of stopping on each item. A
     // SingleChildScrollView keeps each element as its own accessibility stop.
-    return PrayerReminderBanner(
-      child: SingleChildScrollView(
-        child: PageContainer(
-          child: Column(
-            spacing: AppSpacing.xxl,
-            children: [_peopleGroupsCardOrCTA(), _remindersCardOrCTA()],
-          ),
+    return SingleChildScrollView(
+      child: PageContainer(
+        child: Column(
+          spacing: AppSpacing.xxl,
+          children: [_peopleGroupsCardOrCTA(), _reminderSection()],
         ),
       ),
     );
@@ -99,6 +99,30 @@ class HomeScreen extends StatelessWidget {
       ShareParams(text: text, sharePositionOrigin: origin),
     );
   }
+}
+
+/// The reminder slot: a nudge to pray today when the user has an active people
+/// group they haven't prayed for yet and hasn't dismissed it this session,
+/// otherwise the usual "next reminder in…" card (or the set-one-up CTA).
+Widget _reminderSection() {
+  return ListenableBuilder(
+    listenable: Listenable.merge([
+      peopleGroupsController,
+      prayedTodayController,
+      prayerReminderDismissedController,
+    ]),
+    builder: (context, _) {
+      final active = activePeopleGroup;
+      final nudge =
+          active != null &&
+          prayedTodayController.value.isEmpty &&
+          !prayerReminderDismissedController.value;
+
+      return nudge
+          ? PrayerReminderCard(peopleGroupName: active.name)
+          : _remindersCardOrCTA();
+    },
+  );
 }
 
 Widget _remindersCardOrCTA() {

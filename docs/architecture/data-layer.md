@@ -84,7 +84,7 @@ Language is part of every content cache key, which is why switching language inv
 | Key | Constant | Declared in | Written by |
 | --- | --- | --- | --- |
 | `active_people_group_slug` | `_activeSlugKey` | [subscribed_people_groups_controller.dart:98](../../lib/services/subscribed_people_groups_controller.dart#L98) | Cold start; Confirm a people group; Group details → pray for this group; Group details → stop praying for this group |
-| `app_locale_language_code` | `_storageKey` | [locale_controller.dart:30](../../lib/services/locale_controller.dart#L30) | Change language |
+| `app_locale_language_code` | `_storageKey` | [locale_controller.dart:38](../../lib/services/locale_controller.dart#L38) | Change language |
 | `identity_profile_id` | `_profileIdKey` | [identity_service.dart:17](../../lib/services/identity_service.dart#L17) | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
 | `identity_subscription_id` | `_legacySubscriptionIdKey` | [subscribed_people_groups_controller.dart:104](../../lib/services/subscribed_people_groups_controller.dart#L104) | News step → Sign up; News step → Skip |
 | `identity_subscription_id` | `_subscriptionIdKey` | [identity_service.dart:18](../../lib/services/identity_service.dart#L18) | News step → Sign up; News step → Skip |
