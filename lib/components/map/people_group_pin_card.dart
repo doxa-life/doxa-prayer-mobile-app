@@ -63,7 +63,6 @@ class PeopleGroupPinCard extends StatelessWidget {
               // when there isn't one, so the row never changes height.
               AppImage(
                 url: group.imageUrl,
-                aspectRatio: 1,
                 size: 64.0,
                 semanticLabel: group.name,
               ),

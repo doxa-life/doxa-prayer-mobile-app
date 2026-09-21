@@ -517,10 +517,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
   Widget _iconsSection() => const Section(title: 'Icons', child: IconSet());
 
-  Widget _imageSection() => const Section(
-    title: 'Image',
-    child: AppImage(url: null, aspectRatio: 16 / 9),
-  );
+  Widget _imageSection() =>
+      const Section(title: 'Image', child: AppImage(url: null));
 
   Widget _skeletonSection() => const Section(
     title: 'Loading skeletons',

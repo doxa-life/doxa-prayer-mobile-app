@@ -217,6 +217,15 @@ void main() {
       );
     }
 
+    /// Waits for the refresh scheduled behind a stale hit to land.
+    ///
+    /// These used to sleep for 50 ms, which was enough on an idle machine and
+    /// not enough once `flutter test` ran the suite's files in parallel — the
+    /// refresh does real file I/O, so the assertions raced it. Null means there
+    /// is nothing left to wait for.
+    Future<void> settleRevalidation() async =>
+        await pendingRevalidation('thing-en');
+
     test('a cache hit within refreshAfter makes no request', () async {
       final api = _FakeApi();
       await fetchSwr(api);
@@ -238,7 +247,7 @@ void main() {
       // The caller is handed the cached value immediately...
       expect(await fetchSwr(api), 'old');
       // ...and the refresh lands behind it.
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await settleRevalidation();
       expect(updates, ['fresh']);
       expect(peekCached<String>('thing-en'), 'fresh');
       expect(api.calls, 1);
@@ -251,19 +260,24 @@ void main() {
       ).setLastModified(DateTime.now().subtract(const Duration(hours: 2)));
       final api = _FakeApi(status: 500);
       expect(await fetchSwr(api), 'old');
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await settleRevalidation();
       expect(peekCached<String>('thing-en'), 'old');
     });
 
     test('a memory hit still triggers revalidation when old enough', () async {
-      await ResponseCache.write('thing-en', '{"value":"old"}');
-      await File(
-        '${dir.path}/thing-en',
-      ).setLastModified(DateTime.now().subtract(const Duration(hours: 2)));
+      // Seeded straight into memory with an aged timestamp, so the fetch below
+      // is served without touching the disk — the disk-hit path is the
+      // previous test's job, and going through it here meant this one never
+      // exercised the memory branch its name describes.
+      seedMemoryCache(
+        'thing-en',
+        'old',
+        cachedAt: DateTime.now().subtract(const Duration(hours: 2)),
+      );
       final api = _FakeApi(body: '{"value":"fresh"}');
-      // First call populates memory from the aged disk entry.
-      await fetchSwr(api);
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      expect(await fetchSwr(api), 'old', reason: 'served from memory');
+      await settleRevalidation();
       expect(peekCached<String>('thing-en'), 'fresh');
       expect(api.calls, 1);
     });

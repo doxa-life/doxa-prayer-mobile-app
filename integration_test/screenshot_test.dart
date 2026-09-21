@@ -50,7 +50,7 @@ void main() {
 
     for (final step in screenshotScenario) {
       await step.go();
-      await _settle(tester, network: step.network);
+      await _settle(tester, step.settle);
       await tester.pump();
       await binding.takeScreenshot(step.name);
     }
@@ -59,11 +59,8 @@ void main() {
 
 /// Pump for a bounded window so real async (HTTP, image decode) can complete.
 /// We avoid `pumpAndSettle` because loading spinners never settle and would
-/// throw. [network] screens get a longer window for the fetch + images.
-Future<void> _settle(WidgetTester tester, {bool network = false}) async {
-  final window = network
-      ? const Duration(seconds: 12)
-      : const Duration(seconds: 3);
+/// throw. The budget comes from the step (see screenshot_scenario.dart).
+Future<void> _settle(WidgetTester tester, [Duration window = localSettle]) async {
   final end = DateTime.now().add(window);
   while (DateTime.now().isBefore(end)) {
     await tester.pump(const Duration(milliseconds: 200));

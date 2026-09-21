@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => 'Home';
@@ -269,7 +269,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reminderNotificationTitle => 'Time to pray';
 
   @override
-  String get reminderNotificationBody => 'Open Doxa to start today\'s prayer.';
+  String get reminderNotificationBody => 'Open DOXA to start today\'s prayer.';
 
   @override
   String get notifications => 'Notifications';
@@ -284,18 +284,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationsHowToEnable =>
-      'Tap below to open settings, then allow notifications for Doxa.';
+      'Tap below to open settings, then allow notifications for DOXA.';
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'Exact alarms aren\'t allowed for Doxa, so your prayer reminders may arrive several minutes late.';
+      'Exact alarms aren\'t allowed for DOXA, so your prayer reminders may arrive several minutes late.';
 
   @override
   String get allowExactAlarms => 'Allow exact alarms';
 
   @override
   String get exactAlarmsPromptBody =>
-      'For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.';
+      'For your prayer reminders to arrive right on time, allow DOXA to use exact alarms.';
 
   @override
   String get allow => 'Allow';
@@ -345,11 +345,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => 'Welcome to Doxa Prayer';
+  String get wizardWelcomeTitle => 'Welcome to DOXA Prayer';
 
   @override
   String get wizardWelcomeBody =>
-      'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
+      'DOXA helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.';
 
   @override
   String get wizardGetStarted => 'Get started';
@@ -378,7 +378,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wizardNewsSignupBody =>
-      'Optional. Get news about your people group and updates from Doxa.';
+      'Optional. Get news about your people group and updates from DOXA.';
 
   @override
   String get back => 'Back';
@@ -409,7 +409,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Receive updates about my people group';
 
   @override
-  String get updatesFromDoxa => 'Receive updates from Doxa';
+  String get updatesFromDoxa => 'Receive updates from DOXA';
 
   @override
   String get signUpForUpdates => 'Sign up for updates';
@@ -477,14 +477,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateAvailableBody =>
-      'A new version of Doxa Prayer is available.';
+      'A new version of DOXA Prayer is available.';
 
   @override
   String get updateRequiredTitle => 'Update required';
 
   @override
   String get updateRequiredBody =>
-      'Please update to the latest version to keep using Doxa Prayer.';
+      'Please update to the latest version to keep using DOXA Prayer.';
 
   @override
   String get updateAction => 'Update';
@@ -524,7 +524,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackMessageRequired => 'Please enter a message.';
 
   @override
-  String get feedbackConsentLabel => 'Keep me updated with news from Doxa';
+  String get feedbackConsentLabel => 'Keep me updated with news from DOXA';
 
   @override
   String get feedbackSubmit => 'Send feedback';
@@ -547,7 +547,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return 'Pray with me for the $name — get the Doxa Prayer app:';
+    return 'Pray with me for the $name — get the DOXA Prayer app:';
   }
 
   @override
@@ -651,7 +651,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String reminderNotificationBodyForGroup(String name) {
-    return 'Open Doxa to pray for $name.';
+    return 'Open DOXA to pray for $name.';
   }
 
   @override

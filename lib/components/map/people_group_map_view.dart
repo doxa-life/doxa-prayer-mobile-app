@@ -8,6 +8,7 @@ import '../../services/cached_map_tile_provider.dart';
 import '../../services/map_config.dart';
 import '../../services/people_group_map_data.dart';
 import '../../services/prayer_history_service.dart';
+import '../../services/pulled_back_camera_fit.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
@@ -27,6 +28,12 @@ const int _offlineTileFailureThreshold = 4;
 /// jammed against the edge of the map — and so the bottom row clears the pin
 /// card that opens with it and the top row clears the legend.
 const EdgeInsets _fitPadding = EdgeInsets.fromLTRB(48, 130, 48, 180);
+
+/// How far the map backs off from the tight fit around the opening frame, in
+/// zoom levels. The tight fit puts the neighbouring pins at the edges of the
+/// screen with nothing around them; a level out keeps the coastlines and
+/// borders that say *where* this is in view.
+const double _openingZoomOut = 1;
 
 /// The map itself: every located people group as a pin, framed on [focus] and
 /// its nearest neighbours.
@@ -87,12 +94,16 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
   void initState() {
     super.initState();
     _tileProvider = CachedMapTileProvider();
-    _openingFit = CameraFit.coordinates(
-      coordinates: openingFrame(widget.focus, widget.groups),
-      padding: _fitPadding,
-      // Without a cap, a group whose neighbours are all but on top of it opens
-      // at street level, which says nothing about where in the world it is.
-      maxZoom: 9,
+    _openingFit = PulledBackCameraFit(
+      inner: CameraFit.coordinates(
+        coordinates: openingFrame(widget.focus, widget.groups),
+        padding: _fitPadding,
+        // Without a cap, a group whose neighbours are all but on top of it
+        // opens at street level, which says nothing about where in the world
+        // it is.
+        maxZoom: 9,
+      ),
+      zoomOut: _openingZoomOut,
     );
   }
 

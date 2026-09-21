@@ -47,12 +47,7 @@ class PeopleGroupListCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppImage(
-                url: imageUrl,
-                aspectRatio: 1,
-                size: 96.0,
-                semanticLabel: name,
-              ),
+              AppImage(url: imageUrl, size: 96.0, semanticLabel: name),
               Expanded(
                 child: Column(
                   spacing: 0,

@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// The name of the app
   ///
   /// In en, this message translates to:
-  /// **'Doxa Prayer'**
+  /// **'DOXA Prayer'**
   String get appName;
 
   /// The home screen
@@ -575,7 +575,7 @@ abstract class AppLocalizations {
   /// Body shown on a scheduled reminder notification
   ///
   /// In en, this message translates to:
-  /// **'Open Doxa to start today\'s prayer.'**
+  /// **'Open DOXA to start today\'s prayer.'**
   String get reminderNotificationBody;
 
   /// Title of the settings section/subpage for checking notification permission
@@ -599,13 +599,13 @@ abstract class AppLocalizations {
   /// Instructions guiding the user to enable notifications in OS settings
   ///
   /// In en, this message translates to:
-  /// **'Tap below to open settings, then allow notifications for Doxa.'**
+  /// **'Tap below to open settings, then allow notifications for DOXA.'**
   String get notificationsHowToEnable;
 
   /// Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late
   ///
   /// In en, this message translates to:
-  /// **'Exact alarms aren\'t allowed for Doxa, so your prayer reminders may arrive several minutes late.'**
+  /// **'Exact alarms aren\'t allowed for DOXA, so your prayer reminders may arrive several minutes late.'**
   String get exactAlarmsDisabledStatus;
 
   /// Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission
@@ -617,7 +617,7 @@ abstract class AppLocalizations {
   /// Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission
   ///
   /// In en, this message translates to:
-  /// **'For your prayer reminders to arrive right on time, allow Doxa to use exact alarms.'**
+  /// **'For your prayer reminders to arrive right on time, allow DOXA to use exact alarms.'**
   String get exactAlarmsPromptBody;
 
   /// Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission
@@ -677,13 +677,13 @@ abstract class AppLocalizations {
   /// Title of the wizard welcome step
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Doxa Prayer'**
+  /// **'Welcome to DOXA Prayer'**
   String get wizardWelcomeTitle;
 
   /// Body of the wizard welcome step
   ///
   /// In en, this message translates to:
-  /// **'Doxa helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.'**
+  /// **'DOXA helps you pray for an unreached people group. We\'ll help you choose a group, set a reminder, and stay in the loop.'**
   String get wizardWelcomeBody;
 
   /// Primary button on the wizard welcome step
@@ -731,7 +731,7 @@ abstract class AppLocalizations {
   /// Body of the wizard news-signup step
   ///
   /// In en, this message translates to:
-  /// **'Optional. Get news about your people group and updates from Doxa.'**
+  /// **'Optional. Get news about your people group and updates from DOXA.'**
   String get wizardNewsSignupBody;
 
   /// Back button label
@@ -791,7 +791,7 @@ abstract class AppLocalizations {
   /// Checkbox label on the news signup form for general Doxa updates
   ///
   /// In en, this message translates to:
-  /// **'Receive updates from Doxa'**
+  /// **'Receive updates from DOXA'**
   String get updatesFromDoxa;
 
   /// Settings row label and sub-screen title for the news signup form
@@ -905,7 +905,7 @@ abstract class AppLocalizations {
   /// Body of the optional-update banner
   ///
   /// In en, this message translates to:
-  /// **'A new version of Doxa Prayer is available.'**
+  /// **'A new version of DOXA Prayer is available.'**
   String get updateAvailableBody;
 
   /// Title of the forced-update modal
@@ -917,7 +917,7 @@ abstract class AppLocalizations {
   /// Body of the forced-update modal
   ///
   /// In en, this message translates to:
-  /// **'Please update to the latest version to keep using Doxa Prayer.'**
+  /// **'Please update to the latest version to keep using DOXA Prayer.'**
   String get updateRequiredBody;
 
   /// Button that starts the app update / opens the store
@@ -995,7 +995,7 @@ abstract class AppLocalizations {
   /// Label for the marketing-consent toggle on the feedback form
   ///
   /// In en, this message translates to:
-  /// **'Keep me updated with news from Doxa'**
+  /// **'Keep me updated with news from DOXA'**
   String get feedbackConsentLabel;
 
   /// Button that submits the feedback form
@@ -1031,7 +1031,7 @@ abstract class AppLocalizations {
   /// Message text accompanying the shared app link for a people group
   ///
   /// In en, this message translates to:
-  /// **'Pray with me for the {name} — get the Doxa Prayer app:'**
+  /// **'Pray with me for the {name} — get the DOXA Prayer app:'**
   String shareMessage(String name);
 
   /// Button in the share modal that hands the people group link to the device's share sheet
@@ -1187,7 +1187,7 @@ abstract class AppLocalizations {
   /// Body of a reminder notification that is for a specific people group
   ///
   /// In en, this message translates to:
-  /// **'Open Doxa to pray for {name}.'**
+  /// **'Open DOXA to pray for {name}.'**
   String reminderNotificationBodyForGroup(String name);
 
   /// The next reminder on the home screen summary card, naming the people group it is for

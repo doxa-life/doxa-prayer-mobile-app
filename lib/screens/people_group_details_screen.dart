@@ -296,7 +296,6 @@ class _Hero extends StatelessWidget {
               children: [
                 AppImage(
                   url: detail.imageUrl,
-                  aspectRatio: 1,
                   size: 240,
                   semanticLabel: detail.name,
                 ),

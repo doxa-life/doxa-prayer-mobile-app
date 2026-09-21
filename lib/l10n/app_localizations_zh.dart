@@ -9,7 +9,7 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appName => 'Doxa Prayer';
+  String get appName => 'DOXA Prayer';
 
   @override
   String get home => '首页';
@@ -155,10 +155,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get status => '状态';
 
   @override
-  String get engagementStatus => '宣教参与状态';
+  String get engagementStatus => '接触状态';
 
   @override
-  String get engaged => '已参与宣教';
+  String get engaged => '已接触';
 
   @override
   String get adoptionStatus => '认领状态';
@@ -264,7 +264,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get reminderNotificationTitle => '祷告时间到了';
 
   @override
-  String get reminderNotificationBody => '打开 Doxa，开始今天的祷告。';
+  String get reminderNotificationBody => '打开 DOXA，开始今天的祷告。';
 
   @override
   String get notifications => '通知';
@@ -276,16 +276,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notificationsDisabledStatus => '通知已关闭，因此你的祷告提醒不会出现。';
 
   @override
-  String get notificationsHowToEnable => '点击下方打开设置，然后允许 Doxa 发送通知。';
+  String get notificationsHowToEnable => '点击下方打开设置，然后允许 DOXA 发送通知。';
 
   @override
-  String get exactAlarmsDisabledStatus => 'Doxa 未获准使用精确闹钟，因此祷告提醒可能会晚几分钟送达。';
+  String get exactAlarmsDisabledStatus => 'DOXA 未获准使用精确闹钟，因此祷告提醒可能会晚几分钟送达。';
 
   @override
   String get allowExactAlarms => '允许精确闹钟';
 
   @override
-  String get exactAlarmsPromptBody => '为使祷告提醒准时送达，请允许 Doxa 使用精确闹钟。';
+  String get exactAlarmsPromptBody => '为使祷告提醒准时送达，请允许 DOXA 使用精确闹钟。';
 
   @override
   String get allow => '允许';
@@ -334,10 +334,10 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get wizardWelcomeTitle => '欢迎使用 Doxa Prayer';
+  String get wizardWelcomeTitle => '欢迎使用 DOXA Prayer';
 
   @override
-  String get wizardWelcomeBody => 'Doxa 帮助你为一个未得之族祷告。我们会帮你选择族群、设置提醒并保持关注。';
+  String get wizardWelcomeBody => 'DOXA 帮助你为一个未得之民祷告。我们会帮你选择族群、设置提醒并保持关注。';
 
   @override
   String get wizardGetStarted => '开始';
@@ -363,7 +363,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wizardNewsSignupTitle => '保持关注';
 
   @override
-  String get wizardNewsSignupBody => '可选。接收你的族群的消息以及 Doxa 的最新动态。';
+  String get wizardNewsSignupBody => '可选。接收你的族群的消息以及 DOXA 的最新动态。';
 
   @override
   String get back => '返回';
@@ -393,7 +393,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updatesAboutMyPeopleGroup => '接收我的族群的最新消息';
 
   @override
-  String get updatesFromDoxa => '接收 Doxa 的最新消息';
+  String get updatesFromDoxa => '接收 DOXA 的最新消息';
 
   @override
   String get signUpForUpdates => '订阅最新消息';
@@ -456,13 +456,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updateAvailableTitle => '有可用更新';
 
   @override
-  String get updateAvailableBody => 'Doxa Prayer 有新版本可用。';
+  String get updateAvailableBody => 'DOXA Prayer 有新版本可用。';
 
   @override
   String get updateRequiredTitle => '需要更新';
 
   @override
-  String get updateRequiredBody => '请更新到最新版本以继续使用 Doxa Prayer。';
+  String get updateRequiredBody => '请更新到最新版本以继续使用 DOXA Prayer。';
 
   @override
   String get updateAction => '更新';
@@ -501,7 +501,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feedbackMessageRequired => '请输入留言。';
 
   @override
-  String get feedbackConsentLabel => '请向我发送 Doxa 的最新消息';
+  String get feedbackConsentLabel => '请向我发送 DOXA 的最新消息';
 
   @override
   String get feedbackSubmit => '发送反馈';
@@ -522,7 +522,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String shareMessage(String name) {
-    return '与我一同为“$name”祷告——下载 Doxa Prayer 应用：';
+    return '与我一同为“$name”祷告——下载 DOXA Prayer 应用：';
   }
 
   @override
@@ -624,7 +624,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String reminderNotificationBodyForGroup(String name) {
-    return '打开 Doxa，为“$name”祷告。';
+    return '打开 DOXA，为“$name”祷告。';
   }
 
   @override

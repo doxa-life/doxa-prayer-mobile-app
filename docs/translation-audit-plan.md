@@ -22,25 +22,22 @@ one file each.
 
 ## 2. Source materials (canonical paths)
 
-| What | Path |
+| What | Where |
 |---|---|
 | English source strings | `lib/l10n/app_en.arb` |
-| Translations under review | `lib/l10n/app_{ar,es,fr,pt,ru}.arb` |
-| **English glossary (definitions, rationale)** | `../translation/glossary.md` |
-| **Per-language glossaries — SOURCE OF TRUTH** | `../translation/translated-glossaries/glossary.{ar,es_ES,fr_FR,pt_PT,ru_RU}.md` |
-| DeepL term pairs (fast lookup, term→term only) | `../translation/deepl-glossaries/{ar,es,fr,pt,ru}.tsv` |
-| Prior translation conventions | `../doxa-campaigns-server/.claude/skills/translate/SKILL.md` |
+| Translations under review | `lib/l10n/app_{code}.arb` |
+| **The DOXA glossary — SOURCE OF TRUTH** | `https://pray.doxa.life/api/glossary/{lang}`, or `?format=markdown` to read it |
+| Prior translation conventions | `docs/translation-guide.md` |
 
 ### Authority order — non-negotiable
 
-1. **The translated glossary for that language** (`glossary.fr_FR.md` etc.) wins. It was
-   reviewed by native speakers and records *why* a rendering was chosen.
-2. The DeepL `.tsv` is a convenience index derived from those glossaries. If it
-   disagrees with the glossary prose, the glossary wins.
-3. `../translation/glossary.md` (English) supplies the concept, the numeric thresholds,
-   and the "why it matters" warnings. Use it to judge whether a translation preserves
-   *meaning*, not to pick words.
-4. **The `.arb` strings themselves carry no authority.** They are AI-generated and were
+1. **The glossary for that language** wins. Each term was confirmed by a native
+   speaker through a review link, and the response carries the English
+   annotations — the definition, an example, why the term matters — so a
+   translation can be judged on whether it preserves the *meaning*.
+2. **Its `notes` field** carries what no single term holds: register, the verbs
+   prayer prompts use, acronym policy, number format, script and name rules.
+3. **The `.arb` strings themselves carry no authority.** They are AI-generated and were
    wrong often enough to need two correction passes. Never reason "the other locales all
    say X, so X is right."
 
@@ -55,12 +52,15 @@ applied. Do not defer a translation decision back to the user, and do not leave 
 unresolved pending review. There is no "needs a native speaker" escape hatch in this
 audit.
 
-### Do not modify the glossaries
+### Do not modify the glossary
 
-`../translation/` is **read-only for every phase of this work**. The glossaries are
-frozen. Where the app has legitimately moved past them (see §6.4), the translation must
-be made correct on its own merits — the gap is not a reason to edit the glossary, propose
-a patch to it, or stall.
+The glossary is **read-only for every phase of this work**. It is edited in the
+campaigns server's admin by reviewers, and a change there reaches every DOXA
+property at once, which is not a side effect an audit of this app should have.
+Where the app has legitimately moved past it (see §6.4), the translation must be
+made correct on its own merits — the gap is not a reason to edit the glossary,
+propose a patch to it, or stall. Record the gap instead; it is a question for
+whoever runs the review.
 
 ### Hard rules
 
@@ -250,7 +250,7 @@ look for more of the same class.**
 8. **Non-translatables.** `Doxa` / `DOXA` must appear untranslated and unscripted in every
    language, Arabic and Russian included.
 
-**Not in scope:** alphabetical key ordering. Weblate normalises it — see §6.3.
+**Not in scope:** alphabetical key ordering — see §6.3.
 
 ### 5.3 Vocabulary agent brief (B2)
 
@@ -275,7 +275,7 @@ five language reviewers do not each invent a different answer.
    "coverage" (uninterrupted prayer through the day, never insurance/legal cover). This is
    a translation decision, not a glossary edit.
 4. **`.tsv` ↔ glossary disagreements** for any term the new content touches — report as
-   `Note` only, since `../translation/` is read-only.
+   `Note` only, since the glossary is read-only from here.
 
 Its output binds A1–A5's cluster decisions where they conflict; C1 arbitrates.
 
@@ -285,11 +285,11 @@ Its output binds A1–A5's cluster decisions where they conflict; C1 arbitrates.
 > `{LANGUAGE}`; other agents cover the others.
 >
 > Read, in this order:
-> 1. `../translation/translated-glossaries/glossary.{CODE}.md` — **the source of truth for
+> 1. `https://pray.doxa.life/api/glossary/{CODE}` — **the source of truth for
 >    terminology.** Read it fully before looking at any app string.
-> 2. `../translation/glossary.md` — the English concepts and the "why it matters"
+> 2. Each term's own annotations in that response — the English concept and the "why it matters"
 >    warnings behind each term.
-> 3. `../translation/deepl-glossaries/{SHORT}.tsv` — quick term index. Subordinate to (1).
+> 3. That response's `notes` — register, acronyms, number format. Subordinate to (1).
 > 4. `lib/l10n/app_en.arb` — English source, including every `@key` `description`. The
 >    descriptions state the UI context and are as binding as the string itself.
 > 5. `lib/l10n/app_{SHORT}.arb` — the translations under review.
@@ -308,7 +308,7 @@ Its output binds A1–A5's cluster decisions where they conflict; C1 arbitrates.
 > **Resolve every terminology question from the glossary.** Where the glossary is silent,
 > decide using the nearest glossary precedent and record which precedent you applied. Do
 > not escalate translation decisions to a human and do not leave any string unresolved.
-> `../translation/` is read-only — never edit a glossary.
+> The glossary is read-only from here — never edit it.
 >
 > Write to `docs/translation-audit/findings-{SHORT}.md` in the §7 format. Do not edit any
 > `.arb` file. Do not touch `app_localizations*.dart`.
@@ -365,7 +365,7 @@ Locale files were fully sorted at `3f58613`; the new keys were appended or inser
 order (first breaks: `engagementStatus` → `engaged`, then the `newsSignupSuccess*` /
 `accountSectionTitle` run). `app_en.arb` is not sorted and never was.
 
-**Decision: leave it. Weblate normalises ordering.** D1–D5 should insert new keys at their
+**Decision: leave it.** Keys sit in alphabetical position. D1–D5 should insert new keys at their
 alphabetical position where that is obvious, but must not perform a whole-file re-sort —
 it would bury the real changes in diff noise.
 
@@ -446,7 +446,7 @@ so C1 can merge without guesswork, and so D1–D5 can apply findings mechanicall
 
 **Agent:** review-fr
 **Scope:** 46 keys, French
-**Glossary consulted:** ../translation/translated-glossaries/glossary.fr_FR.md
+**Glossary consulted:** https://pray.doxa.life/api/glossary/fr
 **Keys verdicted:** 46 / 46
 
 ## Findings
@@ -541,8 +541,8 @@ each agent is the **sole writer of exactly one file** — there are no shared wr
 >    when the report is terse.
 > 3. `docs/translation-audit/findings-mechanical.md` — the rows for {LANGUAGE}.
 > 4. `docs/translation-audit/findings-vocabulary.md` — canonical renderings.
-> 5. `../translation/translated-glossaries/glossary.{CODE}.md` — if any change looks
->    wrong to you, check it here. The glossary decides. `../translation/` is read-only.
+> 5. `https://pray.doxa.life/api/glossary/{CODE}` — if any change looks
+>    wrong to you, check it here. The glossary decides, and is read-only from here.
 >
 > Apply, to `lib/l10n/app_{SHORT}.arb` only:
 > - Every change in your language's change set, using the report's exact strings.
@@ -557,7 +557,7 @@ each agent is the **sole writer of exactly one file** — there are no shared wr
 > - Touch any file other than `lib/l10n/app_{SHORT}.arb` and your own report file.
 > - Edit `app_en.arb` or any `app_localizations*.dart` — the Dart is generated.
 > - Re-sort the file. Insert new keys at their alphabetical position where obvious;
->   Weblate normalises the rest (§6.3).
+>   Leave the rest of the ordering alone (§6.3).
 > - Change any string not named in the report.
 > - Substitute your own wording for the report's. If a report string is genuinely
 >   unusable, apply nothing for that key and record why in your output file.

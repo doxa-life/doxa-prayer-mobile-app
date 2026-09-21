@@ -52,12 +52,7 @@ class PeopleGroupCard extends StatelessWidget {
         spacing: AppSpacing.xl,
         children: [
           HyphenatedText(name, style: AppTypography.h2),
-          AppImage(
-            url: imageUrl,
-            aspectRatio: 1,
-            size: 169.0,
-            semanticLabel: name,
-          ),
+          AppImage(url: imageUrl, size: 169.0, semanticLabel: name),
           if (onPray != null)
             ActionButton(
               label: l.pray,

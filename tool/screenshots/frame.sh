@@ -18,7 +18,12 @@ source "$SCRIPT_DIR/config.sh"
 RAW="$1"; OUT="$2"; W="$3"; H="$4"; CAPTION="$5"
 FRAME_PNG="${6:-}"; SCR_X="${7:-}"; SCR_Y="${8:-}"; SCR_W="${9:-}"; SCR_H="${10:-}"
 
-command -v convert >/dev/null || { echo "ImageMagick 'convert' not found" >&2; exit 1; }
+# ImageMagick 7 renamed the tool to `magick`; the legacy `convert` still works
+# there but prints a deprecation warning. Prefer `magick`, and fall back to
+# `convert` for any box still on IM6 (where `magick` doesn't exist).
+if command -v magick >/dev/null; then IM=magick
+elif command -v convert >/dev/null; then IM=convert
+else echo "ImageMagick not found (need 'magick' or 'convert')" >&2; exit 1; fi
 
 # ---- layout (integer math, all derived from the canvas size) ----------------
 margin=$(( W * 9 / 100 ))        # horizontal breathing room around the device
@@ -44,14 +49,14 @@ trap 'rm -rf "$tmp"' EXIT
 #   * drawn bezel — otherwise (Android): round the screenshot's corners and set
 #     it on a solid rounded rectangle. The original behaviour.
 if [ -n "$FRAME_PNG" ]; then
-  read -r fw fh <<<"$(convert "$FRAME_PNG" -format "%w %h" info:)"
+  read -r fw fh <<<"$("$IM" "$FRAME_PNG" -format "%w %h" info:)"
   bw=$(( W - 2 * margin ))                    # fit the whole frame into the slot
   bh=$(( fh * bw / fw ))
   maxh=$(( avail_h + 2 * pad ))               # frame carries its own bezel, no pad reserve
   if [ "$bh" -gt "$maxh" ]; then bh=$maxh; bw=$(( fw * bh / fh )); fi
   br=$(( bw * 9 / 100 ))                      # ~device corner radius (shadow only)
 
-  convert "$RAW" -resize "${SCR_W}x${SCR_H}!" "$tmp/s.png"
+  "$IM" "$RAW" -resize "${SCR_W}x${SCR_H}!" "$tmp/s.png"
 
   # Clip the screenshot to the frame's real screen-window shape (rounded
   # corners). A device screenshot is a full rectangle with square corners; on a
@@ -62,21 +67,21 @@ if [ -n "$FRAME_PNG" ]; then
   # the exterior transparency away (starting from a corner, reached via a 1px
   # black border) so only the enclosed hole remains, then use that as the
   # screenshot's alpha.
-  convert "$FRAME_PNG" -alpha extract -threshold 50% \
+  "$IM" "$FRAME_PNG" -alpha extract -threshold 50% \
     -bordercolor black -border 1 \
     -fill white -draw "color 0,0 floodfill" \
     -shave 1x1 -negate \
     -crop "${SCR_W}x${SCR_H}+${SCR_X}+${SCR_Y}" +repage "$tmp/screen_mask.png"
-  convert "$tmp/s.png" "$tmp/screen_mask.png" \
+  "$IM" "$tmp/s.png" "$tmp/screen_mask.png" \
     -alpha off -compose CopyOpacity -composite "$tmp/s.png"
 
-  convert -size "${fw}x${fh}" xc:none \
+  "$IM" -size "${fw}x${fh}" xc:none \
     "$tmp/s.png"  -geometry "+${SCR_X}+${SCR_Y}" -compose over -composite \
     "$FRAME_PNG"  -compose over -composite \
     "$tmp/device_full.png"
-  convert "$tmp/device_full.png" -resize "${bw}x${bh}!" "$tmp/device.png"
+  "$IM" "$tmp/device_full.png" -resize "${bw}x${bh}!" "$tmp/device.png"
 else
-  read -r rw rh <<<"$(convert "$RAW" -format "%w %h" info:)"
+  read -r rw rh <<<"$("$IM" "$RAW" -format "%w %h" info:)"
   dev_w=$(( W - 2 * margin ))
   dev_h=$(( rh * dev_w / rw ))
   if [ "$dev_h" -gt "$avail_h" ]; then       # height-limited (usual for portrait)
@@ -88,18 +93,18 @@ else
   bh=$(( dev_h + 2 * pad ))
   br=$(( radius + pad ))                       # bezel corner radius
 
-  convert "$RAW" -resize "${dev_w}x${dev_h}!" "$tmp/s.png"
+  "$IM" "$RAW" -resize "${dev_w}x${dev_h}!" "$tmp/s.png"
   r=$radius
-  convert "$tmp/s.png" -alpha set -background none \
+  "$IM" "$tmp/s.png" -alpha set -background none \
     \( +clone -alpha extract \
        -draw "fill black polygon 0,0 0,$r $r,0 fill white circle $r,$r $r,0" \
        \( +clone -flip \) -compose Multiply -composite \
        \( +clone -flop \) -compose Multiply -composite \) \
     -alpha off -compose CopyOpacity -composite "$tmp/rounded.png"
 
-  convert -size "${bw}x${bh}" xc:none -fill "$BEZEL_COLOR" \
+  "$IM" -size "${bw}x${bh}" xc:none -fill "$BEZEL_COLOR" \
     -draw "roundrectangle 0,0 $((bw-1)),$((bh-1)) $br,$br" "$tmp/bezel.png"
-  convert "$tmp/bezel.png" "$tmp/rounded.png" -geometry "+${pad}+${pad}" \
+  "$IM" "$tmp/bezel.png" "$tmp/rounded.png" -geometry "+${pad}+${pad}" \
     -compose over -composite "$tmp/device.png"
 fi
 
@@ -112,23 +117,23 @@ left_x=$(( (W - bw) / 2 ))                     # centre the device horizontally
 smar=$(( W * 5 / 100 ))
 ssw=$(( bw + 2 * smar ))
 ssh=$(( bh + 2 * smar ))
-convert -size "${ssw}x${ssh}" xc:none -fill "black" \
+"$IM" -size "${ssw}x${ssh}" xc:none -fill "black" \
   -draw "roundrectangle ${smar},${smar} $((smar+bw-1)),$((smar+bh-1)) $br,$br" \
   -channel A -evaluate multiply 0.5 +channel -blur "0x$(( W * 22 / 1000 ))" "$tmp/shadow.png"
 
 # ---- 5. background gradient -------------------------------------------------
-convert -size "${W}x${H}" "gradient:${BG_TOP}-${BG_BOTTOM}" "$tmp/bg.png"
+"$IM" -size "${W}x${H}" "gradient:${BG_TOP}-${BG_BOTTOM}" "$tmp/bg.png"
 
 # ---- 6. caption (auto-wraps + auto-sizes to the band) ----------------------
 cap_w=$(( W - 2 * (W * 8 / 100) ))
-convert -background none -fill "$CAPTION_COLOR" -font "$CAPTION_FONT" \
+"$IM" -background none -fill "$CAPTION_COLOR" -font "$CAPTION_FONT" \
   -gravity center -size "${cap_w}x${cap_h}" "caption:${CAPTION}" "$tmp/cap.png"
 
 # ---- 7. compose everything --------------------------------------------------
 # The shadow layer is padded by `smar`, so offset back by it to align the
 # silhouette with the device, then nudge down by `drop` for a cast-shadow look.
 drop=$(( H * 12 / 1000 ))
-convert "$tmp/bg.png" \
+"$IM" "$tmp/bg.png" \
   "$tmp/shadow.png" -geometry "+$((left_x - smar))+$((top_y - smar + drop))" -compose over -composite \
   "$tmp/device.png" -geometry "+${left_x}+${top_y}" -compose over -composite \
   -gravity North "$tmp/cap.png" -geometry "+0+${cap_top}" -compose over -composite \

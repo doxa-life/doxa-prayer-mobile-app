@@ -157,10 +157,16 @@ platform :ios do
     bundle_ids = [cfg[:bundle], cfg[:ext_bundle]].reject { |id| id.to_s.strip.empty? }
     UI.message("Signing bundle id(s): #{bundle_ids.join(', ')}")
 
+    # Read-only on CI so a build machine never mutates the shared certs repo or
+    # the Apple portal. Writeable on a developer Mac so a first-time flavor whose
+    # bundle id isn't in the match repo yet self-provisions instead of dying with
+    # "No matching provisioning profiles found … a new one cannot be created
+    # because you enabled `readonly`". The existing distribution cert is reused;
+    # match only adds the missing profile and pushes it.
     match(
       type: "appstore",
       app_identifier: bundle_ids,
-      readonly: true,
+      readonly: is_ci,
       api_key: api_key,
     )
 

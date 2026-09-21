@@ -70,13 +70,13 @@ android {
         create("production") {
             dimension = "env"
             // Uses the default applicationId (life.doxa.pray).
-            resValue("string", "app_name", "Doxa Prayer")
+            resValue("string", "app_name", "DOXA Prayer")
         }
         create("staging") {
             dimension = "env"
             applicationId = "app.prayer.doxa.staging"
             versionNameSuffix = "-staging"
-            resValue("string", "app_name", "Doxa Staging")
+            resValue("string", "app_name", "DOXA Staging")
         }
     }
 }
