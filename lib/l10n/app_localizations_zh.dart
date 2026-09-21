@@ -155,10 +155,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get status => '状态';
 
   @override
-  String get engagementStatus => '宣教参与状态';
+  String get engagementStatus => '接触状态';
 
   @override
-  String get engaged => '已参与宣教';
+  String get engaged => '已接触';
 
   @override
   String get adoptionStatus => '认领状态';
@@ -337,7 +337,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wizardWelcomeTitle => '欢迎使用 DOXA Prayer';
 
   @override
-  String get wizardWelcomeBody => 'DOXA 帮助你为一个未得之族祷告。我们会帮你选择族群、设置提醒并保持关注。';
+  String get wizardWelcomeBody => 'DOXA 帮助你为一个未得之民祷告。我们会帮你选择族群、设置提醒并保持关注。';
 
   @override
   String get wizardGetStarted => '开始';

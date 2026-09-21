@@ -18,28 +18,28 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pray => 'प्रार्थना करें';
 
   @override
-  String get peopleGroups => 'जन-समूह';
+  String get peopleGroups => 'जनसमूह';
 
   @override
   String nPeopleGroups(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count जन-समूह',
-      one: '1 जन-समूह',
-      zero: 'कोई जन-समूह नहीं',
+      other: '$count जनसमूह',
+      one: '1 जनसमूह',
+      zero: 'कोई जनसमूह नहीं',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchPeopleGroups => 'जन-समूह खोजें';
+  String get searchPeopleGroups => 'जनसमूह खोजें';
 
   @override
   String get profile => 'प्रोफ़ाइल';
 
   @override
-  String get reminders => 'अनुस्मारक';
+  String get reminders => 'रिमाइंडर';
 
   @override
   String get settings => 'सेटिंग्स';
@@ -51,14 +51,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get retry => 'फिर कोशिश करें';
 
   @override
-  String get couldNotLoadPeopleGroupsMessage => 'जन-समूह लोड नहीं हो सके।';
+  String get couldNotLoadPeopleGroupsMessage => 'जनसमूह लोड नहीं हो सके।';
 
   @override
-  String get selectPeopleGroup => 'एक जन-समूह चुनें';
+  String get selectPeopleGroup => 'एक जनसमूह चुनें';
 
   @override
-  String get crossCulturalWorkersPresent =>
-      'सांस्कृतिक सीमाओं को पार करने वाले कार्यकर्ता मौजूद';
+  String get crossCulturalWorkersPresent => 'अंतर-सांस्कृतिक कार्यकर्ता मौजूद';
 
   @override
   String get unselect => 'चयन हटाएँ';
@@ -68,17 +67,16 @@ class AppLocalizationsHi extends AppLocalizations {
       'स्थानीय भाषा और संस्कृति में कार्य';
 
   @override
-  String get discipleAndChurchMultiplication =>
-      'शिष्यों और कलीसियाओं की वृद्धि';
+  String get discipleAndChurchMultiplication => 'शिष्य और कलीसिया का गुणन';
 
   @override
   String get resources => 'संसाधन';
 
   @override
-  String get bibleTranslation => 'बाइबल अनुवाद';
+  String get bibleTranslation => 'बाइबिल अनुवाद';
 
   @override
-  String get bibleStories => 'बाइबल कहानियाँ';
+  String get bibleStories => 'बाइबिल कहानियाँ';
 
   @override
   String get jesusFilm => 'यीशु फ़िल्म';
@@ -105,11 +103,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dailyPrayerCoverage => 'दैनिक प्रार्थना कवरेज';
 
   @override
-  String get peopleGroup => 'जन-समूह';
+  String get peopleGroup => 'जनसमूह';
 
   @override
   String get couldNotLoadPeopleGroupDetailsMessage =>
-      'जन-समूह का विवरण लोड नहीं हो सका।';
+      'जनसमूह का विवरण लोड नहीं हो सका।';
 
   @override
   String get share => 'साझा करें';
@@ -136,7 +134,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get religiousPractices => 'धार्मिक प्रथाएँ';
 
   @override
-  String get setReminder => 'अनुस्मारक सेट करें';
+  String get setReminder => 'रिमाइंडर सेट करें';
 
   @override
   String get pauseAndPray => 'रुकें और प्रार्थना करें';
@@ -160,17 +158,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get status => 'स्थिति';
 
   @override
-  String get engagementStatus => 'जुड़ाव की स्थिति';
+  String get engagementStatus => 'संलग्नता की स्थिति';
 
   @override
-  String get engaged => 'जुड़ा हुआ';
+  String get engaged => 'संपर्कित';
 
   @override
-  String get adoptionStatus => 'अपनाने की स्थिति';
+  String get adoptionStatus => 'गोद लेने की स्थिति';
 
   @override
   String get selectPeopleGroupConfirm =>
-      'क्या आप इस जन-समूह को चुनना चाहते हैं?';
+      'क्या आप इस जनसमूह को चुनना चाहते हैं?';
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
@@ -182,7 +180,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noPeopleGroupSelected =>
-      'प्रार्थना शुरू करने के लिए एक जन-समूह चुनें।';
+      'प्रार्थना शुरू करने के लिए एक जनसमूह चुनें।';
 
   @override
   String get couldNotLoadPrayerContent => 'प्रार्थना सामग्री लोड नहीं हो सकी।';
@@ -206,7 +204,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get dismissReminderLabel => 'अनुस्मारक बंद करें';
+  String get dismissReminderLabel => 'रिमाइंडर बंद करें';
 
   @override
   String prayForPeopleGroupLabel(String peopleGroup) {
@@ -242,10 +240,10 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get newReminder => 'नया अनुस्मारक';
+  String get newReminder => 'नया रिमाइंडर';
 
   @override
-  String get editReminder => 'अनुस्मारक संपादित करें';
+  String get editReminder => 'रिमाइंडर संपादित करें';
 
   @override
   String get save => 'सहेजें';
@@ -266,7 +264,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noDaysSelected => 'कोई दिन चयनित नहीं';
 
   @override
-  String get noRemindersYet => 'अभी कोई अनुस्मारक नहीं';
+  String get noRemindersYet => 'अभी कोई रिमाइंडर नहीं';
 
   @override
   String get reminderNotificationTitle => 'प्रार्थना का समय';
@@ -280,11 +278,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notificationsEnabledStatus =>
-      'सूचनाएँ चालू हैं। आपके प्रार्थना अनुस्मारक आपको मिलते रहेंगे।';
+      'सूचनाएँ चालू हैं। आपके प्रार्थना रिमाइंडर आपको मिलते रहेंगे।';
 
   @override
   String get notificationsDisabledStatus =>
-      'सूचनाएँ बंद हैं, इसलिए आपके प्रार्थना अनुस्मारक दिखाई नहीं देंगे।';
+      'सूचनाएँ बंद हैं, इसलिए आपके प्रार्थना रिमाइंडर दिखाई नहीं देंगे।';
 
   @override
   String get notificationsHowToEnable =>
@@ -292,14 +290,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get exactAlarmsDisabledStatus =>
-      'DOXA को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना अनुस्मारक कुछ मिनट देर से आ सकते हैं।';
+      'DOXA को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना रिमाइंडर कुछ मिनट देर से आ सकते हैं।';
 
   @override
   String get allowExactAlarms => 'सटीक अलार्म की अनुमति दें';
 
   @override
   String get exactAlarmsPromptBody =>
-      'आपके प्रार्थना अनुस्मारक ठीक समय पर आएँ, इसके लिए DOXA को सटीक अलार्म की अनुमति दें।';
+      'आपके प्रार्थना रिमाइंडर ठीक समय पर आएँ, इसके लिए DOXA को सटीक अलार्म की अनुमति दें।';
 
   @override
   String get allow => 'अनुमति दें';
@@ -314,7 +312,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get openSettings => 'सेटिंग्स खोलें';
 
   @override
-  String get nextReminder => 'अगला अनुस्मारक';
+  String get nextReminder => 'अगला रिमाइंडर';
 
   @override
   String nextReminderToday(String time) {
@@ -341,9 +339,9 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString अनुस्मारक सेट',
-      one: '1 अनुस्मारक सेट',
-      zero: 'कोई अनुस्मारक सेट नहीं',
+      other: '$countString रिमाइंडर सेट',
+      one: '1 रिमाइंडर सेट',
+      zero: 'कोई रिमाइंडर सेट नहीं',
     );
     return '$_temp0';
   }
@@ -353,13 +351,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'DOXA आपको एक अप्राप्त जन-समूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, अनुस्मारक सेट करने और जुड़े रहने में मदद करेंगे।';
+      'DOXA आपको एक अप्राप्य जनसमूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, रिमाइंडर सेट करने और जुड़े रहने में मदद करेंगे।';
 
   @override
   String get wizardGetStarted => 'शुरू करें';
 
   @override
-  String get wizardChoosePeopleGroupTitle => 'एक जन-समूह चुनें';
+  String get wizardChoosePeopleGroupTitle => 'एक जनसमूह चुनें';
 
   @override
   String wizardConfirmPeopleGroupTitle(String name) {
@@ -368,21 +366,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get wizardConfirmPeopleGroupBody =>
-      'हम आपको इस समूह के लिए प्रार्थना सामग्री और अनुस्मारक दिखाएँगे। आप इसे बाद में बदल सकते हैं।';
+      'हम आपको इस समूह के लिए प्रार्थना सामग्री और रिमाइंडर दिखाएँगे। आप इसे बाद में बदल सकते हैं।';
 
   @override
-  String get wizardSetReminderTitle => 'प्रार्थना अनुस्मारक सेट करें';
+  String get wizardSetReminderTitle => 'प्रार्थना रिमाइंडर सेट करें';
 
   @override
   String get wizardSetReminderBody =>
-      'आपके चुने हुए समय पर हम आपको एक कोमल याद दिलाएँगे। आप इसे छोड़ सकते हैं और बाद में अनुस्मारक जोड़ सकते हैं।';
+      'आपके चुने हुए समय पर हम आपको एक कोमल याद दिलाएँगे। आप इसे छोड़ सकते हैं और बाद में रिमाइंडर जोड़ सकते हैं।';
 
   @override
   String get wizardNewsSignupTitle => 'जुड़े रहें';
 
   @override
   String get wizardNewsSignupBody =>
-      'वैकल्पिक। अपने जन-समूह की ख़बरें और DOXA से अपडेट पाएँ।';
+      'वैकल्पिक। अपने जनसमूह की ख़बरें और DOXA से अपडेट पाएँ।';
 
   @override
   String get back => 'वापस';
@@ -410,7 +408,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get updatesAboutMyPeopleGroup =>
-      'मेरे जन-समूह के बारे में अपडेट प्राप्त करें';
+      'मेरे जनसमूह के बारे में अपडेट प्राप्त करें';
 
   @override
   String get updatesFromDoxa => 'DOXA से अपडेट प्राप्त करें';
@@ -576,7 +574,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dayInTheLifeTitle => 'जीवन का एक दिन';
 
   @override
-  String get myPeopleGroupTitle => 'मेरा जन-समूह';
+  String get myPeopleGroupTitle => 'मेरा जनसमूह';
 
   @override
   String peopleGroupIntroTitle(String name) {
@@ -584,7 +582,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get peopleGroupOfTheDay => 'आज का जन-समूह';
+  String get peopleGroupOfTheDay => 'आज का जनसमूह';
 
   @override
   String get pressBackAgainToExit => 'बाहर निकलने के लिए फिर से बैक दबाएँ';
@@ -604,14 +602,14 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get choosePeopleGroup => 'एक जन-समूह चुनें';
+  String get choosePeopleGroup => 'एक जनसमूह चुनें';
 
   @override
-  String get addAnotherPeopleGroup => 'एक और जन-समूह जोड़ें';
+  String get addAnotherPeopleGroup => 'एक और जनसमूह जोड़ें';
 
   @override
   String peopleGroupLimitTitle(num count) {
-    return 'आप $count जन-समूहों के लिए प्रार्थना कर रहे हैं';
+    return 'आप $count जनसमूहों के लिए प्रार्थना कर रहे हैं';
   }
 
   @override
@@ -636,8 +634,8 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'इसके $count अनुस्मारक हटा दिए जाएँगे।',
-      one: 'इसका $count अनुस्मारक हटा दिया जाएगा।',
+      other: 'इसके $count रिमाइंडर हटा दिए जाएँगे।',
+      one: 'इसका $count रिमाइंडर हटा दिया जाएगा।',
     );
     return '$_temp0';
   }
@@ -647,10 +645,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noPeopleGroupsForReminder =>
-      'अनुस्मारक सेट करने से पहले एक जन-समूह चुनें।';
+      'रिमाइंडर सेट करने से पहले एक जनसमूह चुनें।';
 
   @override
-  String get reminderPeopleGroup => 'जन-समूह';
+  String get reminderPeopleGroup => 'जनसमूह';
 
   @override
   String reminderNotificationBodyForGroup(String name) {
@@ -681,7 +679,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'आस-पास के जन-समूह';
+  String get nearbyPeopleGroups => 'आस-पास के जनसमूह';
 
   @override
   String get recenter => 'फिर से केंद्र में लाएँ';
@@ -691,7 +689,7 @@ class AppLocalizationsHi extends AppLocalizations {
       'ऑफ़लाइन में मानचित्र की छवियाँ उपलब्ध नहीं';
 
   @override
-  String get yourPeopleGroups => 'आपके जन-समूह';
+  String get yourPeopleGroups => 'आपके जनसमूह';
 
   @override
   String get locationNotAvailable => 'स्थान उपलब्ध नहीं';
