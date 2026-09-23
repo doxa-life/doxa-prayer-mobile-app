@@ -2,16 +2,23 @@
 """Regenerate assets/thank_you_verses.json from bolls.life.
 
 The thank-you modal rotates through a fixed set of verses. Each locale shows the
-verse in that locale's own Bible translation — configured in
-doxa-campaigns-server/config/languages.ts — rather than a machine translation of
+verse in that locale's own Bible translation rather than a machine translation of
 the English, because these are published translations that must be reproduced
 verbatim.
 
+The edition for each locale comes from the campaigns server's GET /api/languages
+(its config/languages.ts). Only locales the app ships — those with a
+lib/l10n/app_{code}.arb — are fetched, and a language with no bible_id is skipped.
+
 Usage:  python3 tool/fetch_thank_you_verses.py
+        DOXA_SITE_URL=http://localhost:3000 python3 tool/fetch_thank_you_verses.py
+
+DOXA_SITE_URL overrides the default site, https://pray.doxa.life.
 
 Edit REFERENCES below to change which verses are in the rotation, then re-run.
 """
 import json
+import os
 import re
 import sys
 import time
@@ -52,20 +59,8 @@ REFERENCES = [
     (50, 4, 6, 6),  # Philippians 4:6
 ]
 
-# locale -> (bolls translation id, display label). Mirrors languages.ts.
-LOCALES = [
-    ("en", "NKJV", "NKJV"),
-    ("es", "NVI", "NVI"),
-    ("pt", "NAA", "NAA"),
-    ("fr", "FRLSG", "LSG"),
-    ("ru", "SYNOD", "SYNOD"),
-    ("ar", "SVD", "SVD"),
-    ("de", "S00", "SCH2000"),
-    ("hi", "HIOV", "OV"),
-    ("it", "NR06", "NR06"),
-    ("ro", "NTR", "NTR"),
-    ("zh", "CUNPS", "CUNPS"),
-]
+REPO = Path(__file__).resolve().parent.parent
+SITE_URL = os.environ.get("DOXA_SITE_URL", "https://pray.doxa.life").rstrip("/")
 
 PSALMS = 19
 
@@ -143,6 +138,7 @@ HI_BOOKS = {
 # where they end, so the affected passage is named here. (bible, book, chapter).
 UNTAGGED_SUPERSCRIPTION = {
     ("NR06", 19, 67): "Al direttore del coro. Per strumenti a corda. Salmo. Canto.",
+    ("FIK38", 19, 67): "Veisuunjohtajalle; kielisoittimilla; virsi, laulu.",
 }
 
 # Han text has no spaces, so the ones left behind by <br/> and by joining
@@ -161,13 +157,15 @@ LEADING_SUPERSCRIPTION = re.compile(
 # whole element goes.
 FOOTNOTE = re.compile(r"<(sup|f)>.*?</\1>", re.S)
 LINE_BREAK = re.compile(r"<br\s*/?>", re.I)
+# FIK38 prefixes each psalm verse with its Hebrew numbering, e.g. "(H67:3)".
+HEBREW_VERSE = re.compile(r"\(H\d+:\d+\)")
 _HARAKAT = "[\u064B-\u0652\u0670\u0640]*"
 _SELAH_AR = _HARAKAT.join(["\u0633", "\u0644", "\u0627", "\u0647"]) + _HARAKAT
 SELAH = re.compile(
     r"\s*(?:[\u2014-]\s*)?[(\[\uff08\u3014]?\s*"
     r"(?:Selah|Pausa|Pause|S\u00e9lah|Sel\u00e1|Sela|"
     r"\u0421\u0435\u043b\u0430|\u0938\u0947\u0932\u093e|\u7ec6\u62c9|"
-    + _SELAH_AR + r")\s*[.\u060c]?\s*[)\]\uff09\u3015]?\s*",
+    + _SELAH_AR + r")\s*[.\u060c\u2014-]?\s*[)\]\uff09\u3015]?\s*",
     re.I,
 )
 
@@ -205,6 +203,7 @@ def clean(text, strip_superscription=False):
     text = re.sub(r"<S>\d+</S>", "", text)
     text = FOOTNOTE.sub("", text)
     text = LINE_BREAK.sub(" ", text)
+    text = HEBREW_VERSE.sub("", text)
     if strip_superscription:
         previous = None
         while previous != text:
@@ -285,9 +284,33 @@ def format_reference(loc, book, ch, v1, v2):
     return f"{book} {ch}:{verses}"
 
 
+def load_locales():
+    """(locale, bolls translation id, display label) for each shipped locale with an edition."""
+    print(f"reading Bible editions from {SITE_URL}/api/languages", file=sys.stderr)
+    languages = get_json(f"{SITE_URL}/api/languages")["languages"]
+    shipped = {p.stem[len("app_"):] for p in (REPO / "lib" / "l10n").glob("app_*.arb")}
+    listed = {lang["code"] for lang in languages}
+    for code in sorted(listed - shipped):
+        print(f"  skipping {code}: the app has no app_{code}.arb", file=sys.stderr)
+    for code in sorted(shipped - listed):
+        print(f"  WARNING: {code} ships in the app but the server does not list it",
+              file=sys.stderr)
+    locales = []
+    for lang in languages:
+        if lang["code"] not in shipped:
+            continue
+        if not lang["bible_id"]:
+            print(f"  WARNING: {lang['code']} has no Bible edition, so no verses",
+                  file=sys.stderr)
+            continue
+        locales.append((lang["code"], lang["bible_id"], lang["bible_label"]))
+    return locales
+
+
 def main():
+    locales = load_locales()
     bolls_books = {}
-    for _, bible, _ in LOCALES:
+    for _, bible, _ in locales:
         if bible in bolls_books:
             continue
         books = get_json(f"https://bolls.life/get-books/{bible}/")
@@ -297,7 +320,7 @@ def main():
     verses = []
     for index, (book, ch, v1, v2) in enumerate(REFERENCES, 1):
         entry = {"locales": {}}
-        for loc, bible, label in LOCALES:
+        for loc, bible, label in locales:
             text, actual_ch, actual_v1, actual_v2 = fetch(bible, book, ch, v1, v2)
             entry["locales"][loc] = {
                 "text": text,
@@ -319,7 +342,7 @@ def main():
         ),
         "verses": verses,
     }
-    out = Path(__file__).resolve().parent.parent / "assets" / "thank_you_verses.json"
+    out = REPO / "assets" / "thank_you_verses.json"
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
     print(f"wrote {len(verses)} verses to {out}", file=sys.stderr)
 

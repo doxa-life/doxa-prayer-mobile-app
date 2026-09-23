@@ -66,9 +66,11 @@ published Bible translation, never a machine translation.
 python3 tool/fetch_thank_you_verses.py
 ```
 
-It reads the edition configured for the language on the campaigns server. A
-language whose glossary records no Bible edition cannot have this step: say so
-rather than translating the verses, and raise it as a question for the reviewer.
+It reads each language's edition from the campaigns server's `/api/languages`
+(`https://pray.doxa.life` unless `DOXA_SITE_URL` points elsewhere), for every
+locale that has an `app_{code}.arb`. A language whose glossary records no Bible
+edition cannot have this step: say so rather than translating the verses, and
+raise it as a question for the reviewer.
 
 ## 7. Verify
 
