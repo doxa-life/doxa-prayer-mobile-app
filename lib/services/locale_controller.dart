@@ -13,24 +13,32 @@ class AppLanguage {
   final String nativeName;
 }
 
+/// Every language the app ships, in the order the language selector shows
+/// them: alphabetical by native name, with the non-Latin scripts after the
+/// Latin ones. Nothing depends on this order — [defaultLocale] is the
+/// fallback, not the first entry.
 const List<AppLanguage> appLanguages = <AppLanguage>[
+  AppLanguage(locale: Locale('de'), nativeName: 'Deutsch'),
   AppLanguage(locale: Locale('en'), nativeName: 'English'),
   AppLanguage(locale: Locale('es'), nativeName: 'Español'),
-  AppLanguage(locale: Locale('pt'), nativeName: 'Português'),
   AppLanguage(locale: Locale('fr'), nativeName: 'Français'),
+  AppLanguage(locale: Locale('it'), nativeName: 'Italiano'),
+  AppLanguage(locale: Locale('pt'), nativeName: 'Português'),
+  AppLanguage(locale: Locale('ro'), nativeName: 'Română'),
   AppLanguage(locale: Locale('ru'), nativeName: 'Русский'),
   AppLanguage(locale: Locale('ar'), nativeName: 'العربية'),
-  AppLanguage(locale: Locale('de'), nativeName: 'Deutsch'),
   AppLanguage(locale: Locale('hi'), nativeName: 'हिन्दी'),
-  AppLanguage(locale: Locale('it'), nativeName: 'Italiano'),
-  AppLanguage(locale: Locale('ro'), nativeName: 'Română'),
   AppLanguage(locale: Locale('zh'), nativeName: '简体中文'),
 ];
+
+/// The locale used before a preference is read and when no system locale
+/// matches a shipped language.
+const Locale defaultLocale = Locale('en');
 
 const _storageKey = 'app_locale_language_code';
 
 final ValueNotifier<Locale> localeController = ValueNotifier<Locale>(
-  appLanguages.first.locale,
+  defaultLocale,
 );
 
 /// Switches the app to [locale], with its hyphenation patterns already loaded.
@@ -77,7 +85,7 @@ Locale _bestMatchForSystem() {
     final match = _matchByLanguageCode(systemLocale.languageCode);
     if (match != null) return match;
   }
-  return appLanguages.first.locale;
+  return defaultLocale;
 }
 
 Locale? _matchByLanguageCode(String languageCode) {
