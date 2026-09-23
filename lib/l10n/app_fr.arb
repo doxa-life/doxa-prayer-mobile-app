@@ -560,9 +560,6 @@
     "@profile": {
         "description": "The profile button"
     },
-    "@qrCode": {
-        "description": "Button on the people group card that shows a QR code of the share link"
-    },
     "@radioBroadcast": {
         "description": "The label of the radio broadcast field"
     },
@@ -621,6 +618,9 @@
     },
     "@share": {
         "description": "The label of the share button"
+    },
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
     },
     "@shareMessage": {
         "description": "Message text accompanying the shared app link for a people group",

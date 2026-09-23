@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Parity/hygiene checks across lib/l10n/*.arb. Exit 1 on any failure."""
-import json, re, sys, collections, unicodedata
+import glob, json, re, sys, collections, unicodedata
 
-LOCALES = ['ar', 'es', 'fr', 'pt', 'ru']
 ARB = 'lib/l10n/app_{}.arb'
+LOCALES = sorted(re.fullmatch(r'lib/l10n/app_(\w+)\.arb', p).group(1)
+                 for p in glob.glob(ARB.format("*")))
+LOCALES.remove('en')
 # A real ICU placeholder/arg is '{name}' or '{name,' — not a branch body like '=0{No ...}'
-PH = re.compile(r'\{(\w+)\s*[,}]')
+# ASCII-only: placeholder names are Dart identifiers, and a Han branch body has no spaces.
+PH = re.compile(r'\{(\w+)\s*[,}]', re.ASCII)
 fail = []
 
 def load(code):
