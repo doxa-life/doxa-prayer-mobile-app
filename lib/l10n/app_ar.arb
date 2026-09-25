@@ -560,9 +560,6 @@
     "@profile": {
         "description": "The profile button"
     },
-    "@qrCode": {
-        "description": "Button on the people group card that shows a QR code of the share link"
-    },
     "@radioBroadcast": {
         "description": "The label of the radio broadcast field"
     },
@@ -621,6 +618,9 @@
     },
     "@share": {
         "description": "The label of the share button"
+    },
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
     },
     "@shareMessage": {
         "description": "Message text accompanying the shared app link for a people group",
@@ -743,7 +743,7 @@
     "couldNotLoadPeopleGroupsMessage": "تعذر تحميل المجموعات الشعبية.",
     "couldNotLoadPrayerContent": "تعذر تحميل محتوى الصلاة.",
     "country": "الدولة",
-    "crossCulturalWorkersPresent": "وجود عمّال عابرين للثقافات",
+    "crossCulturalWorkersPresent": "وجود عاملين عبر الثقافات",
     "dailyPrayerCoverage": "تغطية الصلاة اليومية",
     "dayInTheLifeTitle": "يوم في الحياة",
     "daysOfWeek": "أيام الأسبوع",
@@ -756,7 +756,7 @@
     "enableNotificationsButton": "تمكين الإشعارات",
     "enableNotificationsPromptBody": "قم بتمكين الإشعارات لتصلك هذه المستجدات على هاتفك أيضًا.",
     "engagementStatus": "حالة الانخراط",
-    "engaged": "مُنخرَطة",
+    "engaged": "مَخْدُومَة",
     "everyDay": "كل يوم",
     "exactAlarmsDisabledStatus": "المنبّهات الدقيقة غير مسموح بها لتطبيق DOXA، لذا قد تصل تذكيرات الصلاة متأخرة بعدة دقائق.",
     "exactAlarmsPromptBody": "لكي تصل تذكيرات الصلاة في وقتها تمامًا، اسمح لتطبيق DOXA باستخدام المنبّهات الدقيقة.",
@@ -787,8 +787,8 @@
     "mapOf": "خريطة «{name}»",
     "mapUnavailableOffline": "صور الخريطة غير متاحة دون اتصال",
     "myPeopleGroupTitle": "مجموعتي الشعبية",
-    "nPeopleGroups": "{count, plural, =0{لا توجد مجموعات شعبية} =1{مجموعة شعبية واحدة} other{{count} مجموعة شعبية}}",
-    "nRemindersSet": "{count, plural, =0{لم يتم تعيين أي تذكير} =1{تم تعيين تذكير واحد} other{تم تعيين {count} تذكير}}",
+    "nPeopleGroups": "{count, plural, zero{لا توجد مجموعات شعبية} one{مجموعة شعبية واحدة} two{مجموعتان شعبيتان} few{{count} مجموعات شعبية} many{{count} مجموعة شعبية} other{{count} مجموعة شعبية}}",
+    "nRemindersSet": "{count, plural, zero{لم يتم تعيين أي تذكير} one{تم تعيين تذكير واحد} two{تم تعيين تذكيرين} few{تم تعيين {count} تذكيرات} many{تم تعيين {count} تذكيرًا} other{تم تعيين {count} تذكير}}",
     "nameLabel": "الاسم",
     "nameRequired": "يرجى إدخال اسمك.",
     "nearbyPeopleGroups": "المجموعات الشعبية القريبة",
@@ -808,12 +808,12 @@
     "prayForNextGroup": "الصلاة من أجل «{name}»",
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
-    "prayingWithYou": "{count, plural, =1{شخص واحد يصلّي معك الآن} =2{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
+    "prayingWithYou": "{count, plural, one{شخص واحد يصلّي معك الآن} two{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
     "recenter": "إعادة التوسيط",
     "reminderNotificationBodyForGroup": "افتح تطبيق DOXA للصلاة من أجل «{name}».",
     "reminderPeopleGroup": "المجموعة الشعبية",
     "removePeopleGroupBody": "ستُزال من الصفحة الرئيسية. يمكنك إضافتها مرة أخرى في أي وقت.",
-    "removePeopleGroupReminders": "{count, plural, =1{سيتم حذف تذكيرها.} =2{سيتم حذف تذكيريها.} other{سيتم حذف تذكيراتها البالغة {count}.}}",
+    "removePeopleGroupReminders": "{count, plural, one{سيتم حذف تذكيرها.} two{سيتم حذف تذكيريها.} other{سيتم حذف تذكيراتها البالغة {count}.}}",
     "removePeopleGroupTitle": "هل تتوقف عن الصلاة من أجل «{name}»؟",
     "resendVerification": "إعادة إرسال رسالة التحقق",
     "resendVerificationSent": "تم إرسال رسالة التحقق. تفقَّد صندوق الوارد.",
@@ -888,7 +888,7 @@
     "signUpForUpdates": "اشترك للحصول على آخر المستجدات",
     "skip": "تخطّي",
     "status": "الحالة",
-    "switchPeopleGroupConfirm": "هل تريد التوقف عن الدعاء من أجل «{currentName}» والبدء في الدعاء من أجل «{newName}»؟",
+    "switchPeopleGroupConfirm": "هل تريد التوقف عن الصلاة من أجل «{currentName}» والبدء في الصلاة من أجل «{newName}»؟",
     "time": "الوقت",
     "updateAction": "تحديث",
     "updateAvailableBody": "يتوفر إصدار جديد من تطبيق «DOXA Prayer».",
@@ -906,7 +906,7 @@
     "wizardNewsSignupTitle": "ابقَ على اطلاع",
     "wizardSetReminderBody": "سنرسل لك تذكيرًا لطيفًا في الوقت الذي تختاره. يمكنك تخطي هذه الخطوة وإضافة التذكيرات لاحقًا.",
     "wizardSetReminderTitle": "ضبط تذكير بالصلاة",
-    "wizardWelcomeBody": "تساعدك DOXA على الصلاة من أجل إحدى المجموعات الشعبية غير المُبشَّر بها. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.",
+    "wizardWelcomeBody": "تساعدك DOXA على الصلاة من أجل إحدى المجموعات الشعبية غير المبلَّغة. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.",
     "wizardWelcomeTitle": "مرحبًا بكم في «DOXA Prayer»",
     "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
     "yes": "نعم",

@@ -26,6 +26,9 @@ class AppLocalizationsAr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count مجموعة شعبية',
+      many: '$count مجموعة شعبية',
+      few: '$count مجموعات شعبية',
+      two: 'مجموعتان شعبيتان',
       one: 'مجموعة شعبية واحدة',
       zero: 'لا توجد مجموعات شعبية',
     );
@@ -57,7 +60,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectPeopleGroup => 'اختر مجموعة شعبية';
 
   @override
-  String get crossCulturalWorkersPresent => 'وجود عمّال عابرين للثقافات';
+  String get crossCulturalWorkersPresent => 'وجود عاملين عبر الثقافات';
 
   @override
   String get unselect => 'إلغاء الاختيار';
@@ -160,7 +163,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get engagementStatus => 'حالة الانخراط';
 
   @override
-  String get engaged => 'مُنخرَطة';
+  String get engaged => 'مَخْدُومَة';
 
   @override
   String get adoptionStatus => 'حالة التبنّي';
@@ -170,7 +173,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String switchPeopleGroupConfirm(String currentName, String newName) {
-    return 'هل تريد التوقف عن الدعاء من أجل «$currentName» والبدء في الدعاء من أجل «$newName»؟';
+    return 'هل تريد التوقف عن الصلاة من أجل «$currentName» والبدء في الصلاة من أجل «$newName»؟';
   }
 
   @override
@@ -339,6 +342,9 @@ class AppLocalizationsAr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'تم تعيين $countString تذكير',
+      many: 'تم تعيين $countString تذكيرًا',
+      few: 'تم تعيين $countString تذكيرات',
+      two: 'تم تعيين تذكيرين',
       one: 'تم تعيين تذكير واحد',
       zero: 'لم يتم تعيين أي تذكير',
     );
@@ -350,7 +356,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'تساعدك DOXA على الصلاة من أجل إحدى المجموعات الشعبية غير المُبشَّر بها. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.';
+      'تساعدك DOXA على الصلاة من أجل إحدى المجموعات الشعبية غير المبلَّغة. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.';
 
   @override
   String get wizardGetStarted => 'ابدؤوا الآن';
