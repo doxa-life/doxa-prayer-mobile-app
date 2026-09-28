@@ -808,7 +808,7 @@
     "prayForNextGroup": "Orar por “{name}”",
     "prayerRecordedAnnouncement": "Oração registrada",
     "prayForPeopleGroupLabel": "Orar por “{peopleGroup}”",
-    "prayingWithYou": "{count, plural, =1{1 pessoa orando com você agora} other{{count} pessoas orando com você agora}}",
+    "prayingWithYou": "{count, plural, one{{count} pessoa orando agora pelos grupos étnicos não engajados} other{{count} pessoas orando agora pelos grupos étnicos não engajados}}",
     "recenter": "Recentralizar",
     "reminderNotificationBodyForGroup": "Abra o DOXA para orar por “{name}”.",
     "reminderPeopleGroup": "Grupo étnico",

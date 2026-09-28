@@ -28,13 +28,13 @@ void main() {
     prayingNowController.value = 1;
     await tester.pumpWidget(_host());
     await tester.pumpAndSettle();
-    expect(find.text('1 person praying with you now'), findsOneWidget);
+    expect(find.text('1 praying for the unengaged now'), findsOneWidget);
 
     // This is what used to be impossible: a new value with no remount.
     prayingNowController.value = 9;
     await tester.pumpAndSettle();
-    expect(find.text('9 people praying with you now'), findsOneWidget);
-    expect(find.text('1 person praying with you now'), findsNothing);
+    expect(find.text('9 praying for the unengaged now'), findsOneWidget);
+    expect(find.text('1 praying for the unengaged now'), findsNothing);
 
     prayingNowController.value = 0;
     await tester.pumpAndSettle();

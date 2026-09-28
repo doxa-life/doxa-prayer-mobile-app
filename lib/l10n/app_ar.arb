@@ -808,7 +808,7 @@
     "prayForNextGroup": "الصلاة من أجل «{name}»",
     "prayerRecordedAnnouncement": "تم تسجيل الصلاة",
     "prayForPeopleGroupLabel": "الصلاة من أجل «{peopleGroup}»",
-    "prayingWithYou": "{count, plural, one{شخص واحد يصلّي معك الآن} two{شخصان يصلّيان معك الآن} few{{count} أشخاص يصلّون معك الآن} many{{count} شخصًا يصلّي معك الآن} other{{count} شخص يصلّي معك الآن}}",
+    "prayingWithYou": "{count, plural, one{شخص واحد يصلّي الآن لأجل الشعوب غير المَخْدُومَة} two{شخصان يصلّيان الآن لأجل الشعوب غير المَخْدُومَة} few{{count} أشخاص يصلّون الآن لأجل الشعوب غير المَخْدُومَة} many{{count} شخصًا يصلّي الآن لأجل الشعوب غير المَخْدُومَة} other{{count} شخص يصلّي الآن لأجل الشعوب غير المَخْدُومَة}}",
     "recenter": "إعادة التوسيط",
     "reminderNotificationBodyForGroup": "افتح تطبيق DOXA للصلاة من أجل «{name}».",
     "reminderPeopleGroup": "المجموعة الشعبية",

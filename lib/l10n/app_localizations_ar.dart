@@ -233,11 +233,11 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString شخص يصلّي معك الآن',
-      many: '$countString شخصًا يصلّي معك الآن',
-      few: '$countString أشخاص يصلّون معك الآن',
-      two: 'شخصان يصلّيان معك الآن',
-      one: 'شخص واحد يصلّي معك الآن',
+      other: '$countString شخص يصلّي الآن لأجل الشعوب غير المَخْدُومَة',
+      many: '$countString شخصًا يصلّي الآن لأجل الشعوب غير المَخْدُومَة',
+      few: '$countString أشخاص يصلّون الآن لأجل الشعوب غير المَخْدُومَة',
+      two: 'شخصان يصلّيان الآن لأجل الشعوب غير المَخْدُومَة',
+      one: 'شخص واحد يصلّي الآن لأجل الشعوب غير المَخْدُومَة',
     );
     return '$_temp0';
   }

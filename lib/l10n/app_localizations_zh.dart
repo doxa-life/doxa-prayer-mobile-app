@@ -227,8 +227,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '此刻有 $countString 人与你一同祷告',
-      one: '此刻有 1 人与你一同祷告',
+      other: '此刻有 $countString 人为未接触族群祷告',
     );
     return '$_temp0';
   }

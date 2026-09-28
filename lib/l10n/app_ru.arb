@@ -808,7 +808,7 @@
     "prayForNextGroup": "Помолиться за народ «{name}»",
     "prayerRecordedAnnouncement": "Молитва записана",
     "prayForPeopleGroupLabel": "Помолиться за народ «{peopleGroup}»",
-    "prayingWithYou": "{count, plural, one{{count} человек молится с вами сейчас} few{{count} человека молятся с вами сейчас} many{{count} человек молятся с вами сейчас} other{{count} человек молятся с вами сейчас}}",
+    "prayingWithYou": "{count, plural, one{{count} человек молится сейчас за невовлечённые народы} few{{count} человека молятся сейчас за невовлечённые народы} many{{count} человек молятся сейчас за невовлечённые народы} other{{count} человек молятся сейчас за невовлечённые народы}}",
     "recenter": "Вернуться к центру",
     "reminderNotificationBodyForGroup": "Откройте DOXA, чтобы помолиться за народ «{name}».",
     "reminderPeopleGroup": "Народ",

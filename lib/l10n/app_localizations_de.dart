@@ -237,8 +237,9 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString Personen beten gerade mit dir',
-      one: '1 Person betet gerade mit dir',
+      other:
+          '$countString Personen beten gerade für die unberührten Volksgruppen',
+      one: '$countString Person betet gerade für die unberührten Volksgruppen',
     );
     return '$_temp0';
   }

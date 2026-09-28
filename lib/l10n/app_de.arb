@@ -842,7 +842,7 @@
     "prayerReminderTitle": "Bereit für das Gebet von heute?",
     "prayerStatus": "Gebetsstatus",
     "prayerThankYouTitle": "Danke, dass du gebetet hast",
-    "prayingWithYou": "{count, plural, =1{1 Person betet gerade mit dir} other{{count} Personen beten gerade mit dir}}",
+    "prayingWithYou": "{count, plural, one{{count} Person betet gerade für die unberührten Volksgruppen} other{{count} Personen beten gerade für die unberührten Volksgruppen}}",
     "pressBackAgainToExit": "Zum Beenden erneut „Zurück“ drücken",
     "previousDay": "Vorheriger Tag",
     "primaryLanguage": "Hauptsprache",

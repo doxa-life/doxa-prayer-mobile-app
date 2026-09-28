@@ -509,7 +509,7 @@ abstract class AppLocalizations {
   /// Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{1 person praying with you now} other{{count} people praying with you now}}'**
+  /// **'{count, plural, other{{count} praying for the unengaged now}}'**
   String prayingWithYou(num count);
 
   /// Title of the create-reminder bottom sheet and label of the create button on the reminders screen

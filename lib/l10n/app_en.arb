@@ -282,7 +282,7 @@
     "@prayerRecordedAnnouncement": {
         "description": "Screen-reader announcement made after a prayer session is successfully recorded"
     },
-    "prayingWithYou": "{count, plural, =1{1 person praying with you now} other{{count} people praying with you now}}",
+    "prayingWithYou": "{count, plural, other{{count} praying for the unengaged now}}",
     "@prayingWithYou": {
         "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
         "placeholders": {

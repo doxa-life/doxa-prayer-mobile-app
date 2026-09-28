@@ -842,7 +842,7 @@
     "prayerReminderTitle": "准备好今天的祷告了吗？",
     "prayerStatus": "祷告状态",
     "prayerThankYouTitle": "感谢你的祷告",
-    "prayingWithYou": "{count, plural, =1{此刻有 1 人与你一同祷告} other{此刻有 {count} 人与你一同祷告}}",
+    "prayingWithYou": "{count, plural, other{此刻有 {count} 人为未接触族群祷告}}",
     "pressBackAgainToExit": "再按一次返回键退出",
     "previousDay": "前一天",
     "primaryLanguage": "主要语言",

@@ -842,7 +842,7 @@
     "prayerReminderTitle": "Ești gata pentru rugăciunea de astăzi?",
     "prayerStatus": "Stadiul rugăciunii",
     "prayerThankYouTitle": "Îți mulțumim că te-ai rugat",
-    "prayingWithYou": "{count, plural, =1{1 persoană se roagă acum împreună cu tine} few{{count} persoane se roagă acum împreună cu tine} other{{count} de persoane se roagă acum împreună cu tine}}",
+    "prayingWithYou": "{count, plural, one{{count} persoană se roagă acum pentru grupurile etnolingvistice neangajate misionar} few{{count} persoane se roagă acum pentru grupurile etnolingvistice neangajate misionar} other{{count} de persoane se roagă acum pentru grupurile etnolingvistice neangajate misionar}}",
     "pressBackAgainToExit": "Apasă din nou Înapoi ca să ieși",
     "previousDay": "Ziua anterioară",
     "primaryLanguage": "Limba principală",

@@ -237,9 +237,12 @@ class AppLocalizationsRo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString de persoane se roagă acum împreună cu tine',
-      few: '$countString persoane se roagă acum împreună cu tine',
-      one: '1 persoană se roagă acum împreună cu tine',
+      other:
+          '$countString de persoane se roagă acum pentru grupurile etnolingvistice neangajate misionar',
+      few:
+          '$countString persoane se roagă acum pentru grupurile etnolingvistice neangajate misionar',
+      one:
+          '$countString persoană se roagă acum pentru grupurile etnolingvistice neangajate misionar',
     );
     return '$_temp0';
   }

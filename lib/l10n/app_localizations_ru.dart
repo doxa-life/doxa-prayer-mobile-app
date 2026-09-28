@@ -236,10 +236,10 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString человек молятся с вами сейчас',
-      many: '$countString человек молятся с вами сейчас',
-      few: '$countString человека молятся с вами сейчас',
-      one: '$countString человек молится с вами сейчас',
+      other: '$countString человек молятся сейчас за невовлечённые народы',
+      many: '$countString человек молятся сейчас за невовлечённые народы',
+      few: '$countString человека молятся сейчас за невовлечённые народы',
+      one: '$countString человек молится сейчас за невовлечённые народы',
     );
     return '$_temp0';
   }

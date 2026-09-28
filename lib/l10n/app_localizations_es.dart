@@ -236,8 +236,10 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString personas orando contigo ahora',
-      one: '1 persona orando contigo ahora',
+      other:
+          '$countString personas orando ahora por los grupos étnicos no comprometidos',
+      one:
+          '$countString persona orando ahora por los grupos étnicos no comprometidos',
     );
     return '$_temp0';
   }

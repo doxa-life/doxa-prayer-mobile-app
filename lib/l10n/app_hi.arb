@@ -842,7 +842,7 @@
     "prayerReminderTitle": "आज की प्रार्थना के लिए तैयार?",
     "prayerStatus": "प्रार्थना की स्थिति",
     "prayerThankYouTitle": "प्रार्थना करने के लिए धन्यवाद",
-    "prayingWithYou": "{count, plural, one{{count} व्यक्ति अभी आपके साथ प्रार्थना कर रहा है} other{{count} लोग अभी आपके साथ प्रार्थना कर रहे हैं}}",
+    "prayingWithYou": "{count, plural, one{{count} व्यक्ति अभी अनसंपर्कित जनसमूहों के लिए प्रार्थना कर रहा है} other{{count} लोग अभी अनसंपर्कित जनसमूहों के लिए प्रार्थना कर रहे हैं}}",
     "pressBackAgainToExit": "बाहर निकलने के लिए फिर से बैक दबाएँ",
     "previousDay": "पिछला दिन",
     "primaryLanguage": "मुख्य भाषा",

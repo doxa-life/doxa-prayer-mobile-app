@@ -6,7 +6,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 
-/// "X people praying with you now" — a global count of prayer sessions in
+/// "X praying for the unengaged now" — a global count of prayer sessions in
 /// progress, across this app and the web prayer pages.
 ///
 /// Reads [prayingNowController] rather than fetching for itself. The Pray tab
@@ -17,7 +17,7 @@ import '../../theme/app_typography.dart';
 /// current.
 ///
 /// Self-hiding. Renders nothing before the first successful fetch or when the
-/// count is zero — an absent line reads better than "0 people praying with you
+/// count is zero — an absent line reads better than "0 praying for the unengaged
 /// now" — so it can be dropped into the layout unconditionally.
 class PrayingNowBanner extends StatelessWidget {
   const PrayingNowBanner({super.key});

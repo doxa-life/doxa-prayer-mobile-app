@@ -842,7 +842,7 @@
     "prayerReminderTitle": "Pronto per la preghiera di oggi?",
     "prayerStatus": "Stato della preghiera",
     "prayerThankYouTitle": "Grazie per aver pregato",
-    "prayingWithYou": "{count, plural, =1{1 persona sta pregando con te ora} other{{count} persone stanno pregando con te ora}}",
+    "prayingWithYou": "{count, plural, one{{count} persona sta pregando ora per i gruppi etnici non coinvolti} other{{count} persone stanno pregando ora per i gruppi etnici non coinvolti}}",
     "pressBackAgainToExit": "Premi di nuovo Indietro per uscire",
     "previousDay": "Giorno precedente",
     "primaryLanguage": "Lingua principale",
