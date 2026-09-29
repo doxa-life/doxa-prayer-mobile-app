@@ -155,21 +155,21 @@ class _DetailBody extends StatelessWidget {
                     else ...[
                       EngagementItem(
                         label: l.crossCulturalWorkersPresent,
-                        status: detail.raw['workers_long_term'] != null
+                        status: detail.raw['workers_long_term'] == true
                             ? EngagementStatus.yes
                             : EngagementStatus.no,
                       ),
                       EngagementItem(
                         label: l.workInLocalLanguageAndCulture,
-                        status: detail.raw['work_in_local_language'] != null
+                        status: detail.raw['work_in_local_language'] == true
                             ? EngagementStatus.yes
                             : EngagementStatus.no,
                       ),
                       EngagementItem(
                         label: l.discipleAndChurchMultiplication,
                         status:
-                            detail.raw['disciple_and_church_multiplication'] !=
-                                null
+                            detail.raw['disciple_and_church_multiplication'] ==
+                                true
                             ? EngagementStatus.yes
                             : EngagementStatus.no,
                       ),
