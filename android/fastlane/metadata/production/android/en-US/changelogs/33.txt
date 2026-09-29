@@ -1,0 +1,6 @@
+Features:
+- sync arabic translation
+- reword praying-now banner to "praying for the unengaged now"
+
+Bug fixes:
+- 3 markers of engagement

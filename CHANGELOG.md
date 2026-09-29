@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.1+33 - 2026-09-29
+
+Features:
+- sync arabic translation
+- reword praying-now banner to "praying for the unengaged now"
+
+Bug fixes:
+- 3 markers of engagement
+
 ## 2.2.0+32 - 2026-09-21
 
 Features:
