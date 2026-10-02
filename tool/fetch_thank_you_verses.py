@@ -65,6 +65,7 @@ LOCALES = [
     ("it", "NR06", "NR06"),
     ("ro", "NTR", "NTR"),
     ("zh", "CUNPS", "CUNPS"),
+    ("fi", "FIK38", "FIK38"),
 ]
 
 PSALMS = 19
@@ -143,7 +144,12 @@ HI_BOOKS = {
 # where they end, so the affected passage is named here. (bible, book, chapter).
 UNTAGGED_SUPERSCRIPTION = {
     ("NR06", 19, 67): "Al direttore del coro. Per strumenti a corda. Salmo. Canto.",
+    ("FIK38", 19, 67): "Veisuunjohtajalle; kielisoittimilla; virsi, laulu.",
 }
+
+# FIK38 inlines a Hebrew/Greek cross-reference after its own verse number,
+# e.g. "(H67:2)", "(G13:1)" — editorial apparatus, not scripture.
+FIK38_XREF = re.compile(r"\s*\((?:[HG]\d+|/):\d+\)\s*")
 
 # Han text has no spaces, so the ones left behind by <br/> and by joining
 # verses would show as gaps.
@@ -167,7 +173,7 @@ SELAH = re.compile(
     r"\s*(?:[\u2014-]\s*)?[(\[\uff08\u3014]?\s*"
     r"(?:Selah|Pausa|Pause|S\u00e9lah|Sel\u00e1|Sela|"
     r"\u0421\u0435\u043b\u0430|\u0938\u0947\u0932\u093e|\u7ec6\u62c9|"
-    + _SELAH_AR + r")\s*[.\u060c]?\s*[)\]\uff09\u3015]?\s*",
+    + _SELAH_AR + r")\s*[.\u060c]?\s*[)\]\uff09\u3015]?\s*(?:[\u2014-]\s*)?",
     re.I,
 )
 
@@ -246,6 +252,8 @@ def fetch(bible, book, ch, v1, v2):
     )
     if bible == "NR06":
         text = ELISION_GAP.sub(r"\1", text)
+    if bible == "FIK38":
+        text = FIK38_XREF.sub(" ", text).strip()
     prose = UNTAGGED_SUPERSCRIPTION.get((bible, book, ch))
     if prose and actual_v1 == 1 and text.startswith(prose):
         text = text[len(prose):].lstrip()

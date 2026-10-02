@@ -25,6 +25,7 @@ const List<AppLanguage> appLanguages = <AppLanguage>[
   AppLanguage(locale: Locale('it'), nativeName: 'Italiano'),
   AppLanguage(locale: Locale('pt'), nativeName: 'Português'),
   AppLanguage(locale: Locale('ro'), nativeName: 'Română'),
+  AppLanguage(locale: Locale('fi'), nativeName: 'suomi'),
   AppLanguage(locale: Locale('ru'), nativeName: 'Русский'),
   AppLanguage(locale: Locale('ar'), nativeName: 'العربية'),
   AppLanguage(locale: Locale('hi'), nativeName: 'हिन्दी'),

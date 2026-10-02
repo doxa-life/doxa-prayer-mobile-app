@@ -2,7 +2,7 @@
 """Parity/hygiene checks across lib/l10n/*.arb. Exit 1 on any failure."""
 import json, re, sys, collections, unicodedata
 
-LOCALES = ['ar', 'es', 'fr', 'pt', 'ru']
+LOCALES = ['ar', 'es', 'fr', 'pt', 'ru', 'fi']
 ARB = 'lib/l10n/app_{}.arb'
 # A real ICU placeholder/arg is '{name}' or '{name,' — not a branch body like '=0{No ...}'
 PH = re.compile(r'\{(\w+)\s*[,}]')

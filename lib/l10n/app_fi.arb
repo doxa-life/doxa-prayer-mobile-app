@@ -1,0 +1,914 @@
+{
+    "appName": "DOXA Prayer",
+    "@appName": {
+        "description": "The name of the app"
+    },
+    "home": "Koti",
+    "@home": {
+        "description": "The home screen"
+    },
+    "pray": "Rukoile",
+    "@pray": {
+        "description": "The pray screen"
+    },
+    "peopleGroups": "Kansanryhmät",
+    "@peopleGroups": {
+        "description": "The people groups screen"
+    },
+    "nPeopleGroups": "{count, plural, =0{Ei kansanryhmiä} =1{1 kansanryhmä} other{{count} kansanryhmää}}",
+    "@nPeopleGroups": {
+        "description": "A plural message for the number of people groups",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "searchPeopleGroups": "Hae kansanryhmiä",
+    "@searchPeopleGroups": {
+        "description": "The search people groups input"
+    },
+    "profile": "Profiili",
+    "@profile": {
+        "description": "The profile button"
+    },
+    "reminders": "Muistutukset",
+    "@reminders": {
+        "description": "The reminders screen"
+    },
+    "settings": "Asetukset",
+    "@settings": {
+        "description": "The settings screen"
+    },
+    "language": "Kieli",
+    "@language": {
+        "description": "The language selector"
+    },
+    "retry": "Yritä uudelleen",
+    "@retry": {
+        "description": "The retry button"
+    },
+    "couldNotLoadPeopleGroupsMessage": "Kansanryhmiä ei voitu latata.",
+    "@couldNotLoadPeopleGroupsMessage": {
+        "description": "The message displayed when the people groups cannot be loaded"
+    },
+    "selectPeopleGroup": "Valitse kansanryhmä",
+    "@selectPeopleGroup": {
+        "description": "The select people group button"
+    },
+    "crossCulturalWorkersPresent": "Kulttuurirajat ylittäviä työntekijöitä paikalla",
+    "@crossCulturalWorkersPresent": {
+        "description": "The label of the cross-cultural workers present field"
+    },
+    "unselect": "Poista valinta",
+    "workInLocalLanguageAndCulture": "Työ paikallisella kielellä ja kulttuurissa",
+    "@unselect": {
+        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
+    },
+    "@workInLocalLanguageAndCulture": {
+        "description": "The label of the work in local language and culture field"
+    },
+    "discipleAndChurchMultiplication": "Opetuslapseuden ja seurakuntien moninkertaistuminen",
+    "@discipleAndChurchMultiplication": {
+        "description": "The label of the disciple and church multiplication field"
+    },
+    "resources": "Resurssit",
+    "@resources": {
+        "description": "The title of the resources section"
+    },
+    "bibleTranslation": "Raamatunkäännös",
+    "@bibleTranslation": {
+        "description": "The label of the bible translation field"
+    },
+    "bibleStories": "Raamatun kertomukset",
+    "@bibleStories": {
+        "description": "The label of the bible stories field"
+    },
+    "jesusFilm": "Jeesus-elokuva",
+    "@jesusFilm": {
+        "description": "The label of the jesus film field"
+    },
+    "radioBroadcast": "Radiolähetys",
+    "@radioBroadcast": {
+        "description": "The label of the radio broadcast field"
+    },
+    "gospelRecordings": "Evankeliumiäänitteet",
+    "@gospelRecordings": {
+        "description": "The label of the gospel recordings field"
+    },
+    "audioScripture": "Raamattu äänikirjana",
+    "@audioScripture": {
+        "description": "The label of the audio scripture field"
+    },
+    "overview": "Yleiskatsaus",
+    "@overview": {
+        "description": "The title of the overview section"
+    },
+    "prayerStatus": "Rukouksen tilanne",
+    "@prayerStatus": {
+        "description": "The title of the prayer status section"
+    },
+    "peopleCommittedToPraying": "Rukoukseen sitoutuneet ihmiset",
+    "@peopleCommittedToPraying": {
+        "description": "The label of the people committed to praying field"
+    },
+    "dailyPrayerCoverage": "Päivittäisen rukouksen kattavuus",
+    "@dailyPrayerCoverage": {
+        "description": "The label shown beneath the prayer status progress bar"
+    },
+    "peopleGroup": "Kansanryhmä",
+    "@peopleGroup": {
+        "description": "The label of the people group field"
+    },
+    "couldNotLoadPeopleGroupDetailsMessage": "Kansanryhmän tietoja ei voitu latata.",
+    "@couldNotLoadPeopleGroupDetailsMessage": {
+        "description": "The message displayed when the people group details cannot be loaded"
+    },
+    "share": "Jaa",
+    "@share": {
+        "description": "The label of the share button"
+    },
+    "search": "Hae",
+    "@search": {
+        "description": "The label of the search button"
+    },
+    "country": "Maa",
+    "@country": {
+        "description": "The label of the country field"
+    },
+    "alternateName": "Vaihtoehtoinen nimi",
+    "@alternateName": {
+        "description": "The label of the alternate name field"
+    },
+    "population": "Väestö",
+    "@population": {
+        "description": "The label of the population field"
+    },
+    "primaryLanguage": "Pääkieli",
+    "@primaryLanguage": {
+        "description": "The label of the primary language field"
+    },
+    "primaryReligion": "Pääuskonto",
+    "@primaryReligion": {
+        "description": "The label of the primary religion field"
+    },
+    "religiousPractices": "Uskonnolliset käytännöt",
+    "@religiousPractices": {
+        "description": "The label of the religious practices field"
+    },
+    "setReminder": "Aseta muistutus",
+    "@setReminder": {
+        "description": "The set reminder button"
+    },
+    "pauseAndPray": "Pysähdy ja rukoile",
+    "@pauseAndPray": {
+        "description": "The message displayed when the user should pause and pray"
+    },
+    "select": "Valitse",
+    "@select": {
+        "description": "The select people group button"
+    },
+    "selected": "Valittu",
+    "@selected": {
+        "description": "The disabled label shown on the currently selected people group"
+    },
+    "yes": "Kyllä",
+    "@yes": {
+        "description": "The yes confirmation button"
+    },
+    "no": "Ei",
+    "@no": {
+        "description": "The no/cancel button"
+    },
+    "partial": "Osittainen",
+    "@partial": {
+        "description": "Spoken status for an engagement marker that is partially met (e.g. some but not enough people committed to pray)"
+    },
+    "status": "Tila",
+    "@status": {
+        "description": "The label of the status field"
+    },
+    "engagementStatus": "Kohtaamistyön tilanne",
+    "@engagementStatus": {
+        "description": "The label of the engagement status field"
+    },
+    "engaged": "Kohdattu",
+    "@engaged": {
+        "description": "Marker label shown when a people group is engaged"
+    },
+    "adoptionStatus": "Vastuunoton tilanne",
+    "@adoptionStatus": {
+        "description": "The label of the adoption status field"
+    },
+    "selectPeopleGroupConfirm": "Haluatko valita tämän kansanryhmän?",
+    "@selectPeopleGroupConfirm": {
+        "description": "Confirmation prompt when selecting a people group for the first time"
+    },
+    "switchPeopleGroupConfirm": "Haluatko lopettaa rukoilemisen kansanryhmän {currentName} puolesta ja alkaa rukoilla kansanryhmän {newName} puolesta?",
+    "@switchPeopleGroupConfirm": {
+        "description": "Confirmation prompt when switching from a currently selected people group to a new one",
+        "placeholders": {
+            "currentName": {
+                "type": "String"
+            },
+            "newName": {
+                "type": "String"
+            }
+        }
+    },
+    "amen": "Aamen",
+    "@amen": {
+        "description": "The Amen button shown at the bottom of the prayer screen to log a prayer session"
+    },
+    "noPeopleGroupSelected": "Valitse kansanryhmä aloittaaksesi rukoilemisen.",
+    "@noPeopleGroupSelected": {
+        "description": "Message shown on the pray screen when the user has not yet selected a people group"
+    },
+    "couldNotLoadPrayerContent": "Rukoussisältöä ei voitu latata.",
+    "@couldNotLoadPrayerContent": {
+        "description": "Error message shown when the prayer-content API call fails"
+    },
+    "noPrayerContentAvailable": "Tälle päivälle ei ole rukoussisältöä.",
+    "@noPrayerContentAvailable": {
+        "description": "Message shown when the API returns hasContent=false or an empty content list"
+    },
+    "prayerThankYouTitle": "Kiitos, että rukoilit",
+    "@prayerThankYouTitle": {
+        "description": "Title of the encouraging modal shown after the user taps Amen"
+    },
+    "prayedToday": "Rukoiltu tänään",
+    "@prayedToday": {
+        "description": "Pill shown on the home people group card when the user has prayed for it today"
+    },
+    "prayerReminderTitle": "Valmiina tämän päivän rukoukseen?",
+    "@prayerReminderTitle": {
+        "description": "Title of the dismissable home banner reminding the user they haven't prayed yet today"
+    },
+    "prayerReminderBody": "Napauta rukoillaksesi kansanryhmän {peopleGroup} puolesta.",
+    "@prayerReminderBody": {
+        "description": "Body of the dismissable home banner; tapping it opens the Pray tab for the selected people group",
+        "placeholders": {
+            "peopleGroup": {
+                "type": "String"
+            }
+        }
+    },
+    "dismissReminderLabel": "Hylkää muistutus",
+    "@dismissReminderLabel": {
+        "description": "Accessibility label for the close button on the home prayer reminder banner"
+    },
+    "prayForPeopleGroupLabel": "Rukoile kansanryhmän {peopleGroup} puolesta",
+    "@prayForPeopleGroupLabel": {
+        "description": "Accessibility label for the tappable home prayer reminder banner, which opens the Pray tab",
+        "placeholders": {
+            "peopleGroup": {
+                "type": "String"
+            }
+        }
+    },
+    "pictureCreditLabel": "Kuvan lähde",
+    "@pictureCreditLabel": {
+        "description": "Accessibility label for the info button that reveals a photo's attribution"
+    },
+    "clearSearchLabel": "Tyhjennä haku",
+    "@clearSearchLabel": {
+        "description": "Accessibility label for the button that clears the search field"
+    },
+    "forwardLabel": "Eteenpäin",
+    "@forwardLabel": {
+        "description": "Accessibility label for a forward navigation arrow button"
+    },
+    "prayerRecordedAnnouncement": "Rukous tallennettu",
+    "@prayerRecordedAnnouncement": {
+        "description": "Screen-reader announcement made after a prayer session is successfully recorded"
+    },
+    "prayingWithYou": "{count, plural, one{{count} henkilö rukoilee juuri nyt kohtaamattomien kansanryhmien puolesta} other{{count} henkilöä rukoilee juuri nyt kohtaamattomien kansanryhmien puolesta}}",
+    "@prayingWithYou": {
+        "description": "Shown at the top of the Pray screen: how many people across Doxa are in a prayer session right now. Never shown for a count of zero, so no =0 form is needed.",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "newReminder": "Uusi muistutus",
+    "@newReminder": {
+        "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
+    },
+    "editReminder": "Muokkaa muistutusta",
+    "@editReminder": {
+        "description": "Title of the edit-reminder bottom sheet"
+    },
+    "save": "Tallenna",
+    "@save": {
+        "description": "Save button label"
+    },
+    "delete": "Poista",
+    "@delete": {
+        "description": "Delete button label"
+    },
+    "time": "Aika",
+    "@time": {
+        "description": "Label for the time-of-day field"
+    },
+    "daysOfWeek": "Viikonpäivät",
+    "@daysOfWeek": {
+        "description": "Label for the weekday selector"
+    },
+    "everyDay": "Joka päivä",
+    "@everyDay": {
+        "description": "Days summary shown when a reminder is set for all 7 days"
+    },
+    "noDaysSelected": "Ei valittuja päiviä",
+    "@noDaysSelected": {
+        "description": "Days summary shown when a reminder has no weekdays selected"
+    },
+    "noRemindersYet": "Ei vielä muistutuksia",
+    "@noRemindersYet": {
+        "description": "Empty state on the reminders screen"
+    },
+    "reminderNotificationTitle": "On aika rukoilla",
+    "@reminderNotificationTitle": {
+        "description": "Title shown on a scheduled reminder notification"
+    },
+    "reminderNotificationBody": "Avaa DOXA aloittaaksesi tämän päivän rukouksen.",
+    "@reminderNotificationBody": {
+        "description": "Body shown on a scheduled reminder notification"
+    },
+    "notifications": "Ilmoitukset",
+    "@notifications": {
+        "description": "Title of the settings section/subpage for checking notification permission"
+    },
+    "notificationsEnabledStatus": "Ilmoitukset ovat käytössä. Rukousmuistutuksesi toimitetaan.",
+    "@notificationsEnabledStatus": {
+        "description": "Confirmation shown on the notifications settings page when permission is granted"
+    },
+    "notificationsDisabledStatus": "Ilmoitukset on poistettu käytöstä, joten rukousmuistutuksesi eivät näy.",
+    "@notificationsDisabledStatus": {
+        "description": "Shared 'notifications off' message — shown on the notifications settings page, the reminders-screen banner, and the deny toast when permission is denied"
+    },
+    "notificationsHowToEnable": "Napauta alla avataksesi asetukset ja salli sitten ilmoitukset DOXAlle.",
+    "@notificationsHowToEnable": {
+        "description": "Instructions guiding the user to enable notifications in OS settings"
+    },
+    "exactAlarmsDisabledStatus": "Täsmähälytykset eivät ole sallittuja DOXAlle, joten rukousmuistutuksesi voivat saapua useita minuutteja myöhässä.",
+    "@exactAlarmsDisabledStatus": {
+        "description": "Warning shown on the reminders screen when the app lacks the exact-alarm permission and reminders may fire late"
+    },
+    "allowExactAlarms": "Salli täsmähälytykset",
+    "@allowExactAlarms": {
+        "description": "Button label that opens the system alarms & reminders settings screen to grant the exact-alarm permission"
+    },
+    "exactAlarmsPromptBody": "Jotta rukousmuistutuksesi saapuvat täsmälleen ajallaan, salli DOXAn käyttää täsmähälytyksiä.",
+    "@exactAlarmsPromptBody": {
+        "description": "Body of the dialog shown after the user creates their first reminder, explaining why to grant the exact-alarm permission"
+    },
+    "allow": "Salli",
+    "@allow": {
+        "description": "Affirmative button on the first-reminder exact-alarm prompt; opens the system settings to grant the permission"
+    },
+    "notNow": "Ei nyt",
+    "@notNow": {
+        "description": "Dismiss button on the first-reminder exact-alarm prompt; keeps reminders on inexact timing"
+    },
+    "enableNotifications": "Ota ilmoitukset käyttöön",
+    "@enableNotifications": {
+        "description": "Button label that takes the user to the notification settings page to enable notifications"
+    },
+    "openSettings": "Avaa asetukset",
+    "@openSettings": {
+        "description": "Button label that opens the OS settings to enable notifications"
+    },
+    "nextReminder": "Seuraava muistutus",
+    "@nextReminder": {
+        "description": "Header on the home-screen card that previews the next scheduled reminder"
+    },
+    "nextReminderToday": "Tänään klo {time}",
+    "@nextReminderToday": {
+        "description": "Next-reminder summary when it fires later today",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "nextReminderTomorrow": "Huomenna klo {time}",
+    "@nextReminderTomorrow": {
+        "description": "Next-reminder summary when it fires tomorrow",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "nextReminderOn": "{weekday} klo {time}",
+    "@nextReminderOn": {
+        "description": "Next-reminder summary when it fires later this week",
+        "placeholders": {
+            "weekday": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "nRemindersSet": "{count, plural, =0{Ei muistutuksia asetettuna} =1{1 muistutus asetettuna} other{{count} muistutusta asetettuna}}",
+    "@nRemindersSet": {
+        "description": "Total reminder count shown on the home-screen next-reminder card",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "wizardWelcomeTitle": "Tervetuloa DOXA Prayer -sovellukseen",
+    "@wizardWelcomeTitle": {
+        "description": "Title of the wizard welcome step"
+    },
+    "wizardWelcomeBody": "DOXA auttaa sinua rukoilemaan tavoittamattoman kansanryhmän puolesta. Autamme sinua valitsemaan ryhmän, asettamaan muistutuksen ja pysymään ajan tasalla.",
+    "@wizardWelcomeBody": {
+        "description": "Body of the wizard welcome step"
+    },
+    "wizardGetStarted": "Aloita",
+    "@wizardGetStarted": {
+        "description": "Primary button on the wizard welcome step"
+    },
+    "wizardChoosePeopleGroupTitle": "Valitse kansanryhmä",
+    "@wizardChoosePeopleGroupTitle": {
+        "description": "Title of the wizard people-group selection step"
+    },
+    "wizardConfirmPeopleGroupTitle": "Rukoiletko kansanryhmän {name} puolesta?",
+    "@wizardConfirmPeopleGroupTitle": {
+        "description": "Title of the wizard confirm-people-group sub-step",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardConfirmPeopleGroupBody": "Näytämme sinulle rukoussisältöä ja muistutuksia tälle ryhmälle. Voit muuttaa tätä myöhemmin.",
+    "@wizardConfirmPeopleGroupBody": {
+        "description": "Body of the wizard confirm-people-group sub-step"
+    },
+    "wizardSetReminderTitle": "Aseta rukousmuistutus",
+    "@wizardSetReminderTitle": {
+        "description": "Title of the wizard reminder step"
+    },
+    "wizardSetReminderBody": "Lähetämme sinulle lempeän muistutuksen valitsemanasi aikana. Voit ohittaa tämän ja lisätä muistutuksia myöhemmin.",
+    "@wizardSetReminderBody": {
+        "description": "Body of the wizard reminder step"
+    },
+    "wizardNewsSignupTitle": "Pysy ajan tasalla",
+    "@wizardNewsSignupTitle": {
+        "description": "Title of the wizard news-signup step"
+    },
+    "wizardNewsSignupBody": "Valinnainen. Saat uutisia kansanryhmästäsi ja päivityksiä DOXAlta.",
+    "@wizardNewsSignupBody": {
+        "description": "Body of the wizard news-signup step"
+    },
+    "back": "Takaisin",
+    "@back": {
+        "description": "Back button label"
+    },
+    "continueLabel": "Jatka",
+    "@continueLabel": {
+        "description": "Continue button label (named to avoid the reserved word 'continue')"
+    },
+    "skip": "Ohita",
+    "@skip": {
+        "description": "Skip button label"
+    },
+    "finish": "Valmis",
+    "@finish": {
+        "description": "Finish button label on the final wizard step"
+    },
+    "nameLabel": "Nimi",
+    "@nameLabel": {
+        "description": "Label for the name input on the news signup form"
+    },
+    "emailLabel": "Sähköposti",
+    "@emailLabel": {
+        "description": "Label for the email input on the news signup form"
+    },
+    "emailInvalid": "Anna kelvollinen sähköpostiosoite.",
+    "@emailInvalid": {
+        "description": "Inline validation warning shown when the news signup email is missing or malformed"
+    },
+    "nameRequired": "Anna nimesi.",
+    "@nameRequired": {
+        "description": "Inline validation warning shown when the news signup name is empty"
+    },
+    "updatesAboutMyPeopleGroup": "Vastaanota päivityksiä kansanryhmästäni",
+    "@updatesAboutMyPeopleGroup": {
+        "description": "Checkbox label on the news signup form for per-people-group updates"
+    },
+    "updatesFromDoxa": "Vastaanota päivityksiä DOXAlta",
+    "@updatesFromDoxa": {
+        "description": "Checkbox label on the news signup form for general Doxa updates"
+    },
+    "signUpForUpdates": "Tilaa päivitykset",
+    "@signUpForUpdates": {
+        "description": "Settings row label and sub-screen title for the news signup form"
+    },
+    "newsSignupSuccessTitle": "Kiitos tilauksesta!",
+    "@newsSignupSuccessTitle": {
+        "description": "Heading of the in-place confirmation shown after the news signup form is submitted"
+    },
+    "newsSignupSuccessBody": "Lähetimme vahvistussähköpostin osoitteeseen {email}. Avaa postilaatikkosi ja napauta linkkiä vahvistaaksesi tilauksesi.",
+    "@newsSignupSuccessBody": {
+        "description": "Body of the in-place confirmation shown after news signup, telling the user to verify their email",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "name@example.com"
+            }
+        }
+    },
+    "newsSignupError": "Jokin meni pieleen. Tarkista yhteytesi ja yritä uudelleen.",
+    "@newsSignupError": {
+        "description": "Error message shown when the news signup submission fails"
+    },
+    "enableNotificationsPromptBody": "Ota ilmoitukset käyttöön saadaksesi näitä päivityksiä myös puhelimeesi.",
+    "@enableNotificationsPromptBody": {
+        "description": "Prompt shown after signing up for updates, offering to also enable push notifications"
+    },
+    "enableNotificationsButton": "Ota ilmoitukset käyttöön",
+    "@enableNotificationsButton": {
+        "description": "Button that requests OS notification permission so the user can receive push notifications"
+    },
+    "accountSectionTitle": "Tilisi",
+    "@accountSectionTitle": {
+        "description": "Settings section header for the signed-up account (emails and profile)"
+    },
+    "emailVerified": "Vahvistettu",
+    "@emailVerified": {
+        "description": "Status label shown next to a signed-up email that has been verified"
+    },
+    "emailUnverified": "Ei vahvistettu",
+    "@emailUnverified": {
+        "description": "Status label shown next to a signed-up email that has not been verified yet"
+    },
+    "resendVerification": "Lähetä vahvistussähköposti uudelleen",
+    "@resendVerification": {
+        "description": "Button that re-sends the verification email for an unverified address"
+    },
+    "resendVerificationSent": "Vahvistussähköposti lähetetty. Tarkista postilaatikkosi.",
+    "@resendVerificationSent": {
+        "description": "SnackBar shown after a verification email is successfully resent"
+    },
+    "resendVerificationCooldown": "Odota {seconds} s, ennen kuin pyydät toisen sähköpostin.",
+    "@resendVerificationCooldown": {
+        "description": "SnackBar shown when the user taps resend again before the cooldown has elapsed",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "resendVerificationCountdown": "Lähetä uudelleen {seconds} s kuluttua",
+    "@resendVerificationCountdown": {
+        "description": "Resend button label while the cooldown counts down",
+        "placeholders": {
+            "seconds": {
+                "type": "int"
+            }
+        }
+    },
+    "signUp": "Tilaa",
+    "@signUp": {
+        "description": "Label of the wizard's primary button that submits the signup form"
+    },
+    "resendVerificationFailed": "Sähköpostia ei voitu lähettää. Yritä uudelleen.",
+    "@resendVerificationFailed": {
+        "description": "SnackBar shown when resending the verification email fails"
+    },
+    "viewProfile": "Näytä profiili",
+    "@viewProfile": {
+        "description": "Button in settings that opens the user's profile page on the web"
+    },
+    "emailsLoadError": "Sähköpostiosoitteitasi ei voitu latata.",
+    "@emailsLoadError": {
+        "description": "Message shown when the list of signed-up email addresses fails to load"
+    },
+    "updateAvailableTitle": "Päivitys saatavilla",
+    "@updateAvailableTitle": {
+        "description": "Title of the optional-update banner"
+    },
+    "updateAvailableBody": "DOXA Prayerista on saatavilla uusi versio.",
+    "@updateAvailableBody": {
+        "description": "Body of the optional-update banner"
+    },
+    "updateRequiredTitle": "Päivitys vaaditaan",
+    "@updateRequiredTitle": {
+        "description": "Title of the forced-update modal"
+    },
+    "updateRequiredBody": "Päivitä uusimpaan versioon jatkaaksesi DOXA Prayerin käyttöä.",
+    "@updateRequiredBody": {
+        "description": "Body of the forced-update modal"
+    },
+    "updateAction": "Päivitä",
+    "@updateAction": {
+        "description": "Button that starts the app update / opens the store"
+    },
+    "updateDismiss": "Ei nyt",
+    "@updateDismiss": {
+        "description": "Button that dismisses the optional-update banner"
+    },
+    "feedback": "Palaute",
+    "@feedback": {
+        "description": "Button that opens the in-app feedback panel"
+    },
+    "feedbackIntro": "Haluaisimme kuulla sinusta. Kerro, mitä pidät sovelluksesta.",
+    "@feedbackIntro": {
+        "description": "Intro text at the top of the feedback form"
+    },
+    "feedbackTypeLabel": "Minkälaista palautetta?",
+    "@feedbackTypeLabel": {
+        "description": "Label above the feedback-type chooser"
+    },
+    "feedbackTypeCompliment": "Kiitos",
+    "@feedbackTypeCompliment": {
+        "description": "Feedback type option for positive feedback"
+    },
+    "feedbackTypeSuggestion": "Ehdotus",
+    "@feedbackTypeSuggestion": {
+        "description": "Feedback type option for a suggestion or idea"
+    },
+    "feedbackTypeProblem": "Ongelma",
+    "@feedbackTypeProblem": {
+        "description": "Feedback type option for reporting a problem"
+    },
+    "feedbackTypeRequired": "Valitse palautteen tyyppi.",
+    "@feedbackTypeRequired": {
+        "description": "Validation message when no feedback type is selected"
+    },
+    "feedbackNameLabel": "Nimi (valinnainen)",
+    "@feedbackNameLabel": {
+        "description": "Label for the optional name field on the feedback form"
+    },
+    "feedbackMessageLabel": "Viesti",
+    "@feedbackMessageLabel": {
+        "description": "Label for the feedback message field"
+    },
+    "feedbackMessageRequired": "Kirjoita viesti.",
+    "@feedbackMessageRequired": {
+        "description": "Validation message when the feedback message is empty"
+    },
+    "feedbackConsentLabel": "Pidä minut ajan tasalla DOXAn uutisista",
+    "@feedbackConsentLabel": {
+        "description": "Label for the marketing-consent toggle on the feedback form"
+    },
+    "feedbackSubmit": "Lähetä palaute",
+    "@feedbackSubmit": {
+        "description": "Button that submits the feedback form"
+    },
+    "feedbackError": "Jokin meni pieleen. Tarkista yhteytesi ja yritä uudelleen.",
+    "@feedbackError": {
+        "description": "Generic error shown when feedback submission fails"
+    },
+    "feedbackRateLimited": "Olet lähettänyt paljon palautetta viime aikoina. Yritä myöhemmin uudelleen.",
+    "@feedbackRateLimited": {
+        "description": "Error shown when the feedback endpoint rate-limits the user"
+    },
+    "feedbackSuccessTitle": "Kiitos!",
+    "@feedbackSuccessTitle": {
+        "description": "Title of the feedback success confirmation"
+    },
+    "feedbackSuccessBody": "Palautteesi lähetettiin osoitteesta {email}. Jos se ei ole oikea osoite, lähetä palaute uudelleen oikealla osoitteella.",
+    "@feedbackSuccessBody": {
+        "description": "Body of the feedback success confirmation, echoing the email used",
+        "placeholders": {
+            "email": {
+                "type": "String"
+            }
+        }
+    },
+    "shareMessage": "Rukoile kanssani kansanryhmän {name} puolesta — hanki DOXA Prayer -sovellus:",
+    "@shareMessage": {
+        "description": "Message text accompanying the shared app link for a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "shareLink": "Jaa linkki",
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
+    },
+    "scanToPray": "Skannaa saadaksesi sovelluksen ja rukoillaksesi kansanryhmän {name} puolesta",
+    "@scanToPray": {
+        "description": "Caption under the QR code in the share modal",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "appVersion": "Versio {version}",
+    "@appVersion": {
+        "description": "App version label shown at the bottom of the settings screen",
+        "placeholders": {
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "previousDay": "Edellinen päivä",
+    "@previousDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the previous day's prayer content on the Pray screen"
+    },
+    "nextDay": "Seuraava päivä",
+    "@nextDay": {
+        "description": "Accessibility label/tooltip for the arrow that shows the next day's prayer content on the Pray screen"
+    },
+    "dayInTheLifeTitle": "Päivä elämässä",
+    "@dayInTheLifeTitle": {
+        "description": "The title of the day in the life section"
+    },
+    "myPeopleGroupTitle": "Oma kansanryhmäni",
+    "@myPeopleGroupTitle": {
+        "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
+    },
+    "peopleGroupIntroTitle": "Rukoile kansanryhmän {name} puolesta",
+    "@peopleGroupIntroTitle": {
+        "description": "The title of the people group intro section",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "peopleGroupOfTheDay": "Päivän kansanryhmä",
+    "@peopleGroupOfTheDay": {
+        "description": "Heading for the people group of the day section"
+    },
+    "pressBackAgainToExit": "Paina takaisin-painiketta uudelleen poistuaksesi",
+    "@pressBackAgainToExit": {
+        "description": "Snackbar on the Home tab when the Android back button is pressed; a second press within 2s exits the app."
+    },
+    "notifications_enabled": "Ilmoitukset käytössä",
+    "@notifications_enabled": {
+        "description": "Title of the notifications enabled section"
+    },
+    "notifications_disabled": "Ilmoitukset pois käytöstä",
+    "@notifications_disabled": {
+        "description": "Title of the notifications disabled section"
+    },
+    "cancel": "Peruuta",
+    "@cancel": {
+        "description": "Button that dismisses a modal without doing anything"
+    },
+    "addPeopleGroupConfirm": "Haluatko alkaa rukoilla kansanryhmän {name} puolesta?",
+    "@addPeopleGroupConfirm": {
+        "description": "Confirmation asked before subscribing to a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "choosePeopleGroup": "Valitse kansanryhmä",
+    "@choosePeopleGroup": {
+        "description": "Button that takes the user to the people groups list"
+    },
+    "addAnotherPeopleGroup": "Lisää toinen kansanryhmä",
+    "@addAnotherPeopleGroup": {
+        "description": "Label on the last card of the home carousel, which opens the people groups list"
+    },
+    "peopleGroupLimitTitle": "Rukoilet {count} kansanryhmän puolesta",
+    "@peopleGroupLimitTitle": {
+        "description": "Title of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "peopleGroupLimitBody": "Se on enimmäismäärä, jonka puolesta voit rukoilla samanaikaisesti. Lisätäksesi kansanryhmän {name}, valitse yksi, jonka puolesta lopetat rukoilemisen.",
+    "@peopleGroupLimitBody": {
+        "description": "Body of the modal shown when adding a people group would exceed the limit",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "swapPeopleGroupAction": "Vaihda",
+    "@swapPeopleGroupAction": {
+        "description": "Confirm button of the modal that swaps one people group for another"
+    },
+    "removePeopleGroupTitle": "Lopeta rukoileminen kansanryhmän {name} puolesta?",
+    "@removePeopleGroupTitle": {
+        "description": "Title of the modal that confirms unsubscribing from a people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "removePeopleGroupBody": "Se poistetaan aloitusnäytöltäsi. Voit lisätä sen takaisin milloin tahansa.",
+    "@removePeopleGroupBody": {
+        "description": "Body of the modal that confirms unsubscribing from a people group with no reminders"
+    },
+    "removePeopleGroupReminders": "{count, plural, =1{Sen muistutus poistetaan.} other{Sen {count} muistutusta poistetaan.}}",
+    "@removePeopleGroupReminders": {
+        "description": "Extra line in the remove modal when the people group has reminders that will be deleted with it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "stopPraying": "Lopeta rukoileminen",
+    "@stopPraying": {
+        "description": "Confirm button of the modal that unsubscribes from a people group"
+    },
+    "noPeopleGroupsForReminder": "Valitse kansanryhmä ennen muistutuksen asettamista.",
+    "@noPeopleGroupsForReminder": {
+        "description": "Message on the reminders screen when the user prays for no people groups, so no reminder can be set"
+    },
+    "reminderPeopleGroup": "Kansanryhmä",
+    "@reminderPeopleGroup": {
+        "description": "Label of the people group field in the reminder editor"
+    },
+    "reminderNotificationBodyForGroup": "Avaa DOXA rukoillaksesi kansanryhmän {name} puolesta.",
+    "@reminderNotificationBodyForGroup": {
+        "description": "Body of a reminder notification that is for a specific people group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nextReminderForGroup": "{time} kansanryhmän {name} puolesta",
+    "@nextReminderForGroup": {
+        "description": "The next reminder on the home screen summary card, naming the people group it is for",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "prayForNextGroup": "Rukoile kansanryhmän {name} puolesta",
+    "@prayForNextGroup": {
+        "description": "Action in the thank you modal that moves on to another people group the user has not prayed for today",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "switchToPeopleGroup": "Vaihda kansanryhmään {name}",
+    "@switchToPeopleGroup": {
+        "description": "Accessibility label for an avatar in the pray screen people group row",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "map": "Kartta",
+    "@map": {
+        "description": "Button on the people group card that opens the map of where the group lives"
+    },
+    "mapOf": "Kansanryhmän {name} kartta",
+    "@mapOf": {
+        "description": "Accessibility label for the people-group map. {name} is the people group being shown.",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "nearbyPeopleGroups": "Lähellä olevat kansanryhmät",
+    "@nearbyPeopleGroups": {
+        "description": "Accessibility description of the other pins shown around the focused people group"
+    },
+    "recenter": "Keskitä uudelleen",
+    "@recenter": {
+        "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
+    },
+    "mapUnavailableOffline": "Karttakuvat eivät ole käytettävissä offline-tilassa",
+    "@mapUnavailableOffline": {
+        "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
+    },
+    "yourPeopleGroups": "Omat kansanryhmäsi",
+    "@yourPeopleGroups": {
+        "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
+    },
+    "locationNotAvailable": "Sijaintia ei saatavilla",
+    "@locationNotAvailable": {
+        "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
+    },
+    "couldNotLoadMapMessage": "Karttaa ei voitu latata.",
+    "@couldNotLoadMapMessage": {
+        "description": "Error shown when the people-group list the map needs could not be loaded"
+    }
+}
