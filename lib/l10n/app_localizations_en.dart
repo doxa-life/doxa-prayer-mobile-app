@@ -165,6 +165,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get engaged => 'Engaged';
 
   @override
+  String get unengaged => 'Unengaged';
+
+  @override
+  String nPeoplePraying(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count people praying',
+      one: '1 person praying',
+      zero: 'No one praying yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get adoptionStatus => 'Adoption Status';
 
   @override

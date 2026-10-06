@@ -406,6 +406,18 @@ abstract class AppLocalizations {
   /// **'Engaged'**
   String get engaged;
 
+  /// Status label shown when a people group is unengaged
+  ///
+  /// In en, this message translates to:
+  /// **'Unengaged'**
+  String get unengaged;
+
+  /// A plural message shown on a people-group card for how many people are praying for it
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No one praying yet} =1{1 person praying} other{{count} people praying}}'**
+  String nPeoplePraying(num count);
+
   /// The label of the adoption status field
   ///
   /// In en, this message translates to:

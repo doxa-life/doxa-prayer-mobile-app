@@ -196,6 +196,19 @@
     "@engaged": {
         "description": "Marker label shown when a people group is engaged"
     },
+    "unengaged": "Unengaged",
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "nPeoplePraying": "{count, plural, =0{No one praying yet} =1{1 person praying} other{{count} people praying}}",
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "adoptionStatus": "Adoption Status",
     "@adoptionStatus": {
         "description": "The label of the adoption status field"

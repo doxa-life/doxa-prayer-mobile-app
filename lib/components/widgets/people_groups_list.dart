@@ -141,28 +141,24 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
               );
             }
             final g = filtered[i - 1];
+            final inWizard = widget.onSelect != null;
             return PeopleGroupListCard(
               name: g.name,
-              country: g.countryLabel ?? '',
+              countryLabel: g.countryLabel,
               imageUrl: g.imageUrl,
+              engagementStatusValue: g.engagementStatusValue,
+              peoplePraying: g.peoplePraying,
               isSelected: subscribed.contains(g.slug),
+              // The wizard keeps its in-list select button; the standalone
+              // list uses the card itself as the tap target (details page).
+              showSelectButton: inWizard,
               // Only outside the wizard: mid-onboarding the list is choosing a
               // first group, not managing a set.
-              onUnselect: widget.onSelect != null
+              onUnselect: inWizard
                   ? null
                   : () => removePeopleGroupFlow(context, slug: g.slug),
               onSelect: () {
-                final cb = widget.onSelect;
-                if (cb != null) {
-                  cb(g);
-                } else {
-                  addPeopleGroupFlow(
-                    context,
-                    slug: g.slug,
-                    name: g.name,
-                    imageUrl: g.imageUrl,
-                  );
-                }
+                widget.onSelect?.call(g);
               },
               onDetails: () => _openDetails(g),
             );

@@ -7,6 +7,11 @@ class PeopleGroup {
     required this.religionLabel,
     required this.peoplePraying,
     required this.peopleCommitted,
+    this.countryCode,
+    this.primaryLanguageLabel,
+    this.population,
+    this.engagementStatusValue,
+    this.regionValue,
     this.latitude,
     this.longitude,
   });
@@ -14,8 +19,21 @@ class PeopleGroup {
   final String name;
   final String slug;
   final String? imageUrl;
+
+  /// ISO country code (e.g. "MYS"). Country labels are display text; codes are
+  /// what the country filter matches on.
+  final String? countryCode;
   final String? countryLabel;
   final String? religionLabel;
+  final String? primaryLanguageLabel;
+  final int? population;
+
+  /// Raw API value ("engaged" / "unengaged"), not a display label.
+  final String? engagementStatusValue;
+
+  /// Raw API value ("asia", "africa", …), lowercased. Used to group the
+  /// country filter by continent.
+  final String? regionValue;
   final int peoplePraying;
 
   /// How many people have committed to pray for this group. Drives the pin's
@@ -50,15 +68,36 @@ class PeopleGroup {
   static PeopleGroup fromJson(Map<String, dynamic> json) {
     final country = json['country_code'];
     final religion = json['religion'];
+    final primaryLanguage = json['primary_language'];
+    final engagementStatus = json['engagement_status'];
+    final region = json['region'];
+    final population = json['population'];
     return PeopleGroup(
       name: json['name'] as String,
       slug: json['slug'] as String,
       imageUrl: json['image_url'] as String?,
+      countryCode: country is Map<String, dynamic>
+          ? country['value'] as String?
+          : null,
       countryLabel: country is Map<String, dynamic>
           ? country['label'] as String?
           : null,
       religionLabel: religion is Map<String, dynamic>
           ? religion['label'] as String?
+          : null,
+      primaryLanguageLabel: primaryLanguage is Map<String, dynamic>
+          ? primaryLanguage['label'] as String?
+          : null,
+      population: switch (population) {
+        num n => n.toInt(),
+        String s => int.tryParse(s),
+        _ => null,
+      },
+      engagementStatusValue: engagementStatus is Map<String, dynamic>
+          ? (engagementStatus['value'] as String?)?.toLowerCase()
+          : null,
+      regionValue: region is Map<String, dynamic>
+          ? (region['value'] as String?)?.toLowerCase()
           : null,
       peoplePraying: (json['people_praying'] as num?)?.toInt() ?? 0,
       peopleCommitted: _count(json['people_committed']),
