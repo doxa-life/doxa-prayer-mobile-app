@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
@@ -6,7 +8,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
+import '../../components/inputs/multi_select_field.dart';
 import '../../components/inputs/search_field.dart';
+import '../../components/inputs/select_field.dart';
+import '../../components/misc/entrance_fade_slide.dart';
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../services/locale_controller.dart';
@@ -47,6 +52,20 @@ class PeopleGroupsList extends StatefulWidget {
 class _PeopleGroupsListState extends State<PeopleGroupsList> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
+  bool _filtersExpanded = false;
+  bool _sortAscending = true;
+
+  Set<String> _languageFilters = {};
+  String? _religionFilter;
+  String? _statusFilter;
+
+  /// The wizard passes [onSelectionConfirmed]; the standalone list doesn't.
+  bool get _isWizardMode => widget.onSelect != null;
+
+  bool get _hasActiveFilters =>
+      _languageFilters.isNotEmpty ||
+      _religionFilter != null ||
+      _statusFilter != null;
 
   @override
   void dispose() {
@@ -54,10 +73,56 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     super.dispose();
   }
 
+  void _clearFilters() {
+    setState(() {
+      _languageFilters = {};
+      _religionFilter = null;
+      _statusFilter = null;
+    });
+  }
+
+  /// Splits on anything that isn't a letter or digit, so each name breaks
+  /// into its actual words.
+  static final RegExp _wordSplitter = RegExp(r'[^\p{L}\p{N}]+', unicode: true);
+
+  /// Whether [query] prefix-matches any *word* in [name] — not a bare
+  /// substring search. A plain `contains` would match "al" against "Akha
+  /// Pala" (the "al" inside "Pala"), which reads as a broken result.
+  static bool _matchesQuery(String name, String query) {
+    if (query.isEmpty) return true;
+    final words = name.toLowerCase().split(_wordSplitter);
+    return words.any((w) => w.startsWith(query));
+  }
+
   List<PeopleGroup> _filter(List<PeopleGroup> groups) {
     final q = _query.trim().toLowerCase();
-    if (q.isEmpty) return groups;
-    return groups.where((g) => g.name.toLowerCase().contains(q)).toList();
+    final filtered = groups.where((g) {
+      final matchesQuery = _matchesQuery(g.name.toLowerCase(), q);
+      final matchesLanguage =
+          _languageFilters.isEmpty ||
+          (g.primaryLanguageLabel != null &&
+              _languageFilters.contains(g.primaryLanguageLabel));
+      final matchesReligion =
+          _religionFilter == null || g.religionLabel == _religionFilter;
+      final matchesStatus =
+          _statusFilter == null || g.engagementStatusValue == _statusFilter;
+      return matchesQuery && matchesLanguage && matchesReligion && matchesStatus;
+    }).toList();
+    filtered.sort((a, b) {
+      final cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      return _sortAscending ? cmp : -cmp;
+    });
+    return filtered;
+  }
+
+  /// Distinct, sorted labels present in [groups], for the filter options.
+  List<String> _distinctLabels(
+    List<PeopleGroup> groups,
+    String? Function(PeopleGroup) selector,
+  ) {
+    final labels = groups.map(selector).whereType<String>().toSet().toList();
+    labels.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    return labels;
   }
 
   Future<void> _openDetails(PeopleGroup group) async {
@@ -72,6 +137,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       spacing: AppSpacing.lg,
@@ -81,7 +147,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           children: [
             Expanded(
               child: SearchField(
-                hint: AppLocalizations.of(context)!.searchPeopleGroups,
+                hint: l.searchPeopleGroups,
                 controller: _searchController,
                 onChanged: (v) => setState(() => _query = v),
                 onClear: () {
@@ -89,6 +155,22 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                   setState(() => _query = '');
                 },
               ),
+            ),
+            IconButton(
+              icon: Badge(
+                isLabelVisible: _hasActiveFilters,
+                child: Icon(
+                  Icons.tune,
+                  // Tinted while the panel is open, so the toggled state shows
+                  // even when no filter is active yet.
+                  color: _filtersExpanded
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
+                ),
+              ),
+              tooltip: l.filters,
+              onPressed: () =>
+                  setState(() => _filtersExpanded = !_filtersExpanded),
             ),
           ],
         ),
@@ -121,48 +203,148 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     );
   }
 
+  Widget _buildSortRow(AppLocalizations l) {
+    final scheme = Theme.of(context).colorScheme;
+    return Row(
+      children: [
+        Expanded(
+          child: HyphenatedText(
+            l.sortByName,
+            style: AppTypography.bodyMedium.copyWith(
+              color: scheme.onSurface.withValues(alpha: 0.6),
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(
+            _sortAscending ? Icons.arrow_upward : Icons.arrow_downward,
+          ),
+          tooltip: _sortAscending ? l.sortDescending : l.sortAscending,
+          onPressed: () => setState(() => _sortAscending = !_sortAscending),
+        ),
+      ],
+    );
+  }
+
   Widget _buildList(BuildContext context, List<PeopleGroup> groups) {
+    final l = AppLocalizations.of(context)!;
     final filtered = _filter(groups);
+    final languages = _distinctLabels(groups, (g) => g.primaryLanguageLabel);
+    final religions = _distinctLabels(groups, (g) => g.religionLabel);
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
-        // The results count scrolls with the list (it is the first
-        // entry) so only the search field stays fixed above it —
-        // this keeps the fixed header small at large font scales.
-        return ListView.separated(
-          padding: EdgeInsets.only(bottom: widget.listBottomPadding),
-          itemCount: filtered.length + 1,
-          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
-          itemBuilder: (context, i) {
-            if (i == 0) {
-              return HyphenatedText(
-                AppLocalizations.of(context)!.nPeopleGroups(filtered.length),
-                style: AppTypography.caption,
-              );
-            }
-            final g = filtered[i - 1];
-            final inWizard = widget.onSelect != null;
-            return PeopleGroupListCard(
-              name: g.name,
-              countryLabel: g.countryLabel,
-              imageUrl: g.imageUrl,
-              engagementStatusValue: g.engagementStatusValue,
-              peoplePraying: g.peoplePraying,
-              isSelected: subscribed.contains(g.slug),
-              // The wizard keeps its in-list select button; the standalone
-              // list uses the card itself as the tap target (details page).
-              showSelectButton: inWizard,
-              // Only outside the wizard: mid-onboarding the list is choosing a
-              // first group, not managing a set.
-              onUnselect: inWizard
-                  ? null
-                  : () => removePeopleGroupFlow(context, slug: g.slug),
-              onSelect: () {
-                widget.onSelect?.call(g);
-              },
-              onDetails: () => _openDetails(g),
-            );
-          },
+        // The results count scrolls with the list (it is the first entry), so
+        // only the search row and the optional filter panel stay fixed above.
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: AppSpacing.lg,
+          children: [
+            if (_filtersExpanded) ...[
+              _buildSortRow(l),
+              MultiSelectField<String>(
+                label: l.primaryLanguage,
+                emptyLabel: l.allLanguages,
+                options: [
+                  for (final lang in languages)
+                    MultiSelectOption(value: lang, label: lang),
+                ],
+                selected: _languageFilters,
+                searchable: true,
+                onChanged: (v) => setState(() => _languageFilters = v),
+              ),
+              SelectField<String?>(
+                label: l.primaryReligion,
+                value: religions.contains(_religionFilter)
+                    ? _religionFilter
+                    : null,
+                items: [
+                  DropdownMenuItem<String?>(
+                    value: null,
+                    child: HyphenatedText(l.allReligions),
+                  ),
+                  for (final r in religions)
+                    DropdownMenuItem<String?>(
+                      value: r,
+                      child: HyphenatedText(r),
+                    ),
+                ],
+                onChanged: (v) => setState(() => _religionFilter = v),
+              ),
+              SelectField<String?>(
+                label: l.status,
+                value: _statusFilter,
+                items: [
+                  DropdownMenuItem<String?>(
+                    value: null,
+                    child: HyphenatedText(l.allStatuses),
+                  ),
+                  DropdownMenuItem<String?>(
+                    value: 'engaged',
+                    child: HyphenatedText(l.engaged),
+                  ),
+                  DropdownMenuItem<String?>(
+                    value: 'unengaged',
+                    child: HyphenatedText(l.unengaged),
+                  ),
+                ],
+                onChanged: (v) => setState(() => _statusFilter = v),
+              ),
+              if (_hasActiveFilters)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: _clearFilters,
+                    child: HyphenatedText(l.clearFilters),
+                  ),
+                ),
+            ],
+            Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+                itemCount: filtered.length + 1,
+                separatorBuilder: (_, _) =>
+                    const SizedBox(height: AppSpacing.lg),
+                itemBuilder: (context, i) {
+                  if (i == 0) {
+                    return HyphenatedText(
+                      l.nPeopleGroups(filtered.length),
+                      style: AppTypography.caption,
+                    );
+                  }
+                  final g = filtered[i - 1];
+                  // Stagger only the first few cards so the initial list
+                  // settles in with a gentle cascade.
+                  final delay = Duration(
+                    milliseconds: 40 * math.min(i - 1, 8),
+                  );
+                  final inWizard = _isWizardMode;
+                  return EntranceFadeSlide(
+                    key: ValueKey(g.slug),
+                    delay: delay,
+                    child: PeopleGroupListCard(
+                      name: g.name,
+                      countryLabel: g.countryLabel,
+                      imageUrl: g.imageUrl,
+                      engagementStatusValue: g.engagementStatusValue,
+                      peoplePraying: g.peoplePraying,
+                      isSelected: subscribed.contains(g.slug),
+                      // The wizard keeps its in-list select button; the
+                      // standalone list uses the card as the tap target.
+                      showSelectButton: inWizard,
+                      // Only outside the wizard: mid-onboarding the list is
+                      // choosing a first group, not managing a set.
+                      onUnselect: inWizard
+                          ? null
+                          : () => removePeopleGroupFlow(context, slug: g.slug),
+                      onSelect: () => widget.onSelect?.call(g),
+                      onDetails: () => _openDetails(g),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         );
       },
     );

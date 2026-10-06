@@ -721,4 +721,46 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get couldNotLoadMapMessage => 'Не удалось загрузить карту.';
+
+  @override
+  String get filters => 'Filters';
+
+  @override
+  String get sortByName => 'Sort by name';
+
+  @override
+  String get sortAscending => 'Sort ascending (A–Z)';
+
+  @override
+  String get sortDescending => 'Sort descending (Z–A)';
+
+  @override
+  String get allLanguages => 'All languages';
+
+  @override
+  String get allReligions => 'All religions';
+
+  @override
+  String get allStatuses => 'Either status';
+
+  @override
+  String nSelected(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count selected',
+      one: '1 selected',
+      zero: 'None selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get clearFilters => 'Clear filters';
 }

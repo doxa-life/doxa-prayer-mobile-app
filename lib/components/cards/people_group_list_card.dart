@@ -161,11 +161,13 @@ class _StatusPill extends StatelessWidget {
               height: 6,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
-            HyphenatedText(
-              engaged ? l10n.engaged : l10n.unengaged,
-              style: AppTypography.caption.copyWith(
-                color: color,
-                fontWeight: FontWeight.w600,
+            Flexible(
+              child: HyphenatedText(
+                engaged ? l10n.engaged : l10n.unengaged,
+                style: AppTypography.caption.copyWith(
+                  color: color,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],
@@ -219,11 +221,13 @@ class _PrayingCount extends StatelessWidget {
       spacing: AppSpacing.xxxs,
       children: [
         AppIcon(AppIconName.pray, size: 14, color: color),
-        HyphenatedText(
-          l10n.nPeoplePraying(count),
-          style: AppTypography.caption.copyWith(
-            color: color,
-            fontWeight: count > 0 ? FontWeight.w600 : FontWeight.w400,
+        Flexible(
+          child: HyphenatedText(
+            l10n.nPeoplePraying(count),
+            style: AppTypography.caption.copyWith(
+              color: color,
+              fontWeight: count > 0 ? FontWeight.w600 : FontWeight.w400,
+            ),
           ),
         ),
       ],

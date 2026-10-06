@@ -1269,6 +1269,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load the map.'**
   String get couldNotLoadMapMessage;
+
+  /// Tooltip for the button that toggles the search filters panel
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get filters;
+
+  /// Label for the alphabetical sort control in the search filters panel
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by name'**
+  String get sortByName;
+
+  /// Tooltip for the button that sorts search results ascending
+  ///
+  /// In en, this message translates to:
+  /// **'Sort ascending (A–Z)'**
+  String get sortAscending;
+
+  /// Tooltip for the button that sorts search results descending
+  ///
+  /// In en, this message translates to:
+  /// **'Sort descending (Z–A)'**
+  String get sortDescending;
+
+  /// The option that clears the people group language filter
+  ///
+  /// In en, this message translates to:
+  /// **'All languages'**
+  String get allLanguages;
+
+  /// The option that clears the people group religion filter
+  ///
+  /// In en, this message translates to:
+  /// **'All religions'**
+  String get allReligions;
+
+  /// The option that clears the people group engagement status filter
+  ///
+  /// In en, this message translates to:
+  /// **'Either status'**
+  String get allStatuses;
+
+  /// A plural message for the number of items selected in a multi-select filter
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{None selected} =1{1 selected} other{{count} selected}}'**
+  String nSelected(num count);
+
+  /// Button that clears the current selection in a picker sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// Button that confirms and closes a picker sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// Button that resets every active search filter
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get clearFilters;
 }
 
 class _AppLocalizationsDelegate
