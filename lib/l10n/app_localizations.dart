@@ -1335,6 +1335,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear filters'**
   String get clearFilters;
+
+  /// The empty-selection summary for the people group country filter
+  ///
+  /// In en, this message translates to:
+  /// **'All countries'**
+  String get allCountries;
+
+  /// Continent group header in the country filter
+  ///
+  /// In en, this message translates to:
+  /// **'Asia'**
+  String get continentAsia;
+
+  /// Continent group header in the country filter
+  ///
+  /// In en, this message translates to:
+  /// **'Africa'**
+  String get continentAfrica;
+
+  /// Continent group header in the country filter
+  ///
+  /// In en, this message translates to:
+  /// **'Americas'**
+  String get continentAmericas;
+
+  /// Continent group header in the country filter
+  ///
+  /// In en, this message translates to:
+  /// **'Europe'**
+  String get continentEurope;
+
+  /// Continent group header in the country filter
+  ///
+  /// In en, this message translates to:
+  /// **'Oceania'**
+  String get continentOceania;
+
+  /// Fallback continent group header when a country's region is unknown
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get continentOther;
 }
 
 class _AppLocalizationsDelegate

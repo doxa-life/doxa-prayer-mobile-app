@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
 import '../../components/inputs/multi_select_field.dart';
+import '../../components/inputs/population_range_field.dart';
 import '../../components/inputs/search_field.dart';
 import '../../components/inputs/select_field.dart';
 import '../../components/misc/entrance_fade_slide.dart';
@@ -58,6 +59,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   Set<String> _languageFilters = {};
   String? _religionFilter;
   String? _statusFilter;
+  Set<String> _countryFilters = {};
+
+  // null = no population filter applied (the slider still shows the full
+  // data-derived range).
+  RangeValues? _populationRange;
 
   /// The wizard passes [onSelectionConfirmed]; the standalone list doesn't.
   bool get _isWizardMode => widget.onSelect != null;
@@ -65,7 +71,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   bool get _hasActiveFilters =>
       _languageFilters.isNotEmpty ||
       _religionFilter != null ||
-      _statusFilter != null;
+      _statusFilter != null ||
+      _countryFilters.isNotEmpty ||
+      _populationRange != null;
 
   @override
   void dispose() {
@@ -78,6 +86,8 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
       _languageFilters = {};
       _religionFilter = null;
       _statusFilter = null;
+      _countryFilters = {};
+      _populationRange = null;
     });
   }
 
@@ -106,7 +116,20 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           _religionFilter == null || g.religionLabel == _religionFilter;
       final matchesStatus =
           _statusFilter == null || g.engagementStatusValue == _statusFilter;
-      return matchesQuery && matchesLanguage && matchesReligion && matchesStatus;
+      final matchesCountry =
+          _countryFilters.isEmpty ||
+          (g.countryCode != null && _countryFilters.contains(g.countryCode));
+      final range = _populationRange;
+      final matchesPopulation =
+          range == null ||
+          g.population == null ||
+          (g.population! >= range.start && g.population! <= range.end);
+      return matchesQuery &&
+          matchesLanguage &&
+          matchesReligion &&
+          matchesStatus &&
+          matchesCountry &&
+          matchesPopulation;
     }).toList();
     filtered.sort((a, b) {
       final cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
@@ -123,6 +146,57 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     final labels = groups.map(selector).whereType<String>().toSet().toList();
     labels.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
     return labels;
+  }
+
+  String _continentLabel(String? regionValue, AppLocalizations l) =>
+      switch (regionValue) {
+        'asia' => l.continentAsia,
+        'africa' => l.continentAfrica,
+        'americas' => l.continentAmericas,
+        'europe' => l.continentEurope,
+        'oceania' => l.continentOceania,
+        _ => l.continentOther,
+      };
+
+  /// Country options for the country filter, grouped by continent. The
+  /// continent comes from each group's own region field, so no separate
+  /// country dataset is needed.
+  List<MultiSelectOption<String>> _countryOptions(
+    List<PeopleGroup> groups,
+    AppLocalizations l,
+  ) {
+    final byCode = <String, (String label, String? region)>{};
+    for (final g in groups) {
+      final code = g.countryCode;
+      final label = g.countryLabel;
+      if (code == null || label == null) continue;
+      byCode[code] = (label, g.regionValue);
+    }
+    final entries = byCode.entries.toList()
+      ..sort((a, b) {
+        final continentCompare = _continentLabel(
+          a.value.$2,
+          l,
+        ).compareTo(_continentLabel(b.value.$2, l));
+        if (continentCompare != 0) return continentCompare;
+        return a.value.$1.toLowerCase().compareTo(b.value.$1.toLowerCase());
+      });
+    return [
+      for (final e in entries)
+        MultiSelectOption(
+          value: e.key,
+          label: e.value.$1,
+          groupLabel: _continentLabel(e.value.$2, l),
+        ),
+    ];
+  }
+
+  /// The (min, max) population across [groups], for the slider bounds. (0, 0)
+  /// while nothing has a population yet, which hides the slider.
+  (int, int) _populationBounds(List<PeopleGroup> groups) {
+    final populations = groups.map((g) => g.population).whereType<int>();
+    if (populations.isEmpty) return (0, 0);
+    return (populations.reduce(math.min), populations.reduce(math.max));
   }
 
   Future<void> _openDetails(PeopleGroup group) async {
@@ -231,6 +305,10 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     final filtered = _filter(groups);
     final languages = _distinctLabels(groups, (g) => g.primaryLanguageLabel);
     final religions = _distinctLabels(groups, (g) => g.religionLabel);
+    final countryOptions = _countryOptions(groups, l);
+    final (popMin, popMax) = _populationBounds(groups);
+    final populationValue =
+        _populationRange ?? RangeValues(popMin.toDouble(), popMax.toDouble());
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
@@ -290,6 +368,22 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 ],
                 onChanged: (v) => setState(() => _statusFilter = v),
               ),
+              if (countryOptions.isNotEmpty)
+                MultiSelectField<String>(
+                  label: l.country,
+                  emptyLabel: l.allCountries,
+                  options: countryOptions,
+                  selected: _countryFilters,
+                  searchable: true,
+                  onChanged: (v) => setState(() => _countryFilters = v),
+                ),
+              if (popMax > popMin)
+                PopulationRangeField(
+                  min: popMin,
+                  max: popMax,
+                  value: populationValue,
+                  onChanged: (v) => setState(() => _populationRange = v),
+                ),
               if (_hasActiveFilters)
                 Align(
                   alignment: Alignment.centerRight,

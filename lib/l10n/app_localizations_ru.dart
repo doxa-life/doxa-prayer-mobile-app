@@ -763,4 +763,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clearFilters => 'Clear filters';
+
+  @override
+  String get allCountries => 'All countries';
+
+  @override
+  String get continentAsia => 'Asia';
+
+  @override
+  String get continentAfrica => 'Africa';
+
+  @override
+  String get continentAmericas => 'Americas';
+
+  @override
+  String get continentEurope => 'Europe';
+
+  @override
+  String get continentOceania => 'Oceania';
+
+  @override
+  String get continentOther => 'Other';
 }

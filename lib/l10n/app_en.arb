@@ -972,5 +972,33 @@
     "clearFilters": "Clear filters",
     "@clearFilters": {
         "description": "Button that resets every active search filter"
+    },
+    "allCountries": "All countries",
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "continentAsia": "Asia",
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAfrica": "Africa",
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAmericas": "Americas",
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentEurope": "Europe",
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOceania": "Oceania",
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOther": "Other",
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
     }
 }
