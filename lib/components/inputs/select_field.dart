@@ -24,6 +24,23 @@ class SelectField<T> extends StatelessWidget {
       initialValue: value,
       items: items,
       onChanged: onChanged,
+      // Without isExpanded the selected value is laid out at its natural
+      // width, so a long label ("Islam - Sunni", a long language name) pushes
+      // the arrow off the field. The value row has a fixed height, so it is
+      // kept to one line with an ellipsis; the open menu still shows the full
+      // text.
+      isExpanded: true,
+      selectedItemBuilder: (context) => [
+        for (final item in items)
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: DefaultTextStyle.merge(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              child: item.child,
+            ),
+          ),
+      ],
       decoration: InputDecoration(
         // Clamp the floating label's text scaling so it stays within the
         // outline border's notch at large accessibility font sizes. Left

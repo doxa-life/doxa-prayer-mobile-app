@@ -166,16 +166,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get engaged => 'مَخْدُومَة';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'غير مُنخرَطة';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count أشخاص يصلون',
+      one: 'شخص واحد يصلي',
+      zero: 'لا أحد يصلي بعد',
     );
     return '$_temp0';
   }
@@ -735,65 +735,65 @@ class AppLocalizationsAr extends AppLocalizations {
   String get couldNotLoadMapMessage => 'تعذر تحميل الخريطة.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'الفلاتر';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'ترتيب حسب الاسم';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'ترتيب تصاعدي (أ-ي)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'ترتيب تنازلي (ي-أ)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get allLanguages => 'كل اللغات';
 
   @override
-  String get allReligions => 'All religions';
+  String get allReligions => 'كل الأديان';
 
   @override
-  String get allStatuses => 'Either status';
+  String get allStatuses => 'كل الحالات';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: 'تم تحديد $count',
+      one: 'تم تحديد 1',
+      zero: 'لم يتم تحديد شيء',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'مسح';
 
   @override
-  String get done => 'Done';
+  String get done => 'تم';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'مسح الفلاتر';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'كل الدول';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'آسيا';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'أفريقيا';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'الأمريكتان';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'أوروبا';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => 'أوقيانوسيا';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'أخرى';
 }

@@ -312,133 +312,131 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
-        // The results count scrolls with the list (it is the first entry), so
-        // only the search row and the optional filter panel stay fixed above.
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: AppSpacing.lg,
-          children: [
-            if (_filtersExpanded) ...[
-              _buildSortRow(l),
-              MultiSelectField<String>(
-                label: l.primaryLanguage,
-                emptyLabel: l.allLanguages,
-                options: [
-                  for (final lang in languages)
-                    MultiSelectOption(value: lang, label: lang),
-                ],
-                selected: _languageFilters,
-                searchable: true,
-                onChanged: (v) => setState(() => _languageFilters = v),
-              ),
-              SelectField<String?>(
-                label: l.primaryReligion,
-                value: religions.contains(_religionFilter)
-                    ? _religionFilter
-                    : null,
-                items: [
-                  DropdownMenuItem<String?>(
-                    value: null,
-                    child: HyphenatedText(l.allReligions),
-                  ),
-                  for (final r in religions)
-                    DropdownMenuItem<String?>(
-                      value: r,
-                      child: HyphenatedText(r),
+        // The filter panel and results count scroll with the list (they are
+        // the first entry), so only the search row stays fixed above.
+        return ListView.separated(
+          padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+          itemCount: filtered.length + 1,
+          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
+          itemBuilder: (context, i) {
+            if (i == 0) {
+              // The filter panel scrolls with the results rather than
+              // sitting fixed above them: open, it is taller than a
+              // phone screen, which overflowed the fixed header.
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: AppSpacing.lg,
+                children: [
+                  if (_filtersExpanded) ...[
+                    _buildSortRow(l),
+                    MultiSelectField<String>(
+                      label: l.primaryLanguage,
+                      emptyLabel: l.allLanguages,
+                      options: [
+                        for (final lang in languages)
+                          MultiSelectOption(value: lang, label: lang),
+                      ],
+                      selected: _languageFilters,
+                      searchable: true,
+                      onChanged: (v) => setState(() => _languageFilters = v),
                     ),
-                ],
-                onChanged: (v) => setState(() => _religionFilter = v),
-              ),
-              SelectField<String?>(
-                label: l.status,
-                value: _statusFilter,
-                items: [
-                  DropdownMenuItem<String?>(
-                    value: null,
-                    child: HyphenatedText(l.allStatuses),
-                  ),
-                  DropdownMenuItem<String?>(
-                    value: 'engaged',
-                    child: HyphenatedText(l.engaged),
-                  ),
-                  DropdownMenuItem<String?>(
-                    value: 'unengaged',
-                    child: HyphenatedText(l.unengaged),
-                  ),
-                ],
-                onChanged: (v) => setState(() => _statusFilter = v),
-              ),
-              if (countryOptions.isNotEmpty)
-                MultiSelectField<String>(
-                  label: l.country,
-                  emptyLabel: l.allCountries,
-                  options: countryOptions,
-                  selected: _countryFilters,
-                  searchable: true,
-                  onChanged: (v) => setState(() => _countryFilters = v),
-                ),
-              if (popMax > popMin)
-                PopulationRangeField(
-                  min: popMin,
-                  max: popMax,
-                  value: populationValue,
-                  onChanged: (v) => setState(() => _populationRange = v),
-                ),
-              if (_hasActiveFilters)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: _clearFilters,
-                    child: HyphenatedText(l.clearFilters),
-                  ),
-                ),
-            ],
-            Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.only(bottom: widget.listBottomPadding),
-                itemCount: filtered.length + 1,
-                separatorBuilder: (_, _) =>
-                    const SizedBox(height: AppSpacing.lg),
-                itemBuilder: (context, i) {
-                  if (i == 0) {
-                    return HyphenatedText(
-                      l.nPeopleGroups(filtered.length),
-                      style: AppTypography.caption,
-                    );
-                  }
-                  final g = filtered[i - 1];
-                  // Stagger only the first few cards so the initial list
-                  // settles in with a gentle cascade.
-                  final delay = Duration(
-                    milliseconds: 40 * math.min(i - 1, 8),
-                  );
-                  final inWizard = _isWizardMode;
-                  return EntranceFadeSlide(
-                    key: ValueKey(g.slug),
-                    delay: delay,
-                    child: PeopleGroupListCard(
-                      name: g.name,
-                      countryLabel: g.countryLabel,
-                      imageUrl: g.imageUrl,
-                      engagementStatusValue: g.engagementStatusValue,
-                      peoplePraying: g.peoplePraying,
-                      isSelected: subscribed.contains(g.slug),
-                      // The wizard keeps its in-list select button; the
-                      // standalone list uses the card as the tap target.
-                      showSelectButton: inWizard,
-                      // Only outside the wizard: mid-onboarding the list is
-                      // choosing a first group, not managing a set.
-                      onUnselect: inWizard
-                          ? null
-                          : () => removePeopleGroupFlow(context, slug: g.slug),
-                      onSelect: () => widget.onSelect?.call(g),
-                      onDetails: () => _openDetails(g),
+                    SelectField<String?>(
+                      label: l.primaryReligion,
+                      value: religions.contains(_religionFilter)
+                          ? _religionFilter
+                          : null,
+                      items: [
+                        DropdownMenuItem<String?>(
+                          value: null,
+                          child: HyphenatedText(l.allReligions),
+                        ),
+                        for (final r in religions)
+                          DropdownMenuItem<String?>(
+                            value: r,
+                            child: HyphenatedText(r),
+                          ),
+                      ],
+                      onChanged: (v) => setState(() => _religionFilter = v),
                     ),
-                  );
-                },
+                    SelectField<String?>(
+                      label: l.status,
+                      value: _statusFilter,
+                      items: [
+                        DropdownMenuItem<String?>(
+                          value: null,
+                          child: HyphenatedText(l.allStatuses),
+                        ),
+                        DropdownMenuItem<String?>(
+                          value: 'engaged',
+                          child: HyphenatedText(l.engaged),
+                        ),
+                        DropdownMenuItem<String?>(
+                          value: 'unengaged',
+                          child: HyphenatedText(l.unengaged),
+                        ),
+                      ],
+                      onChanged: (v) => setState(() => _statusFilter = v),
+                    ),
+                    if (countryOptions.isNotEmpty)
+                      MultiSelectField<String>(
+                        label: l.country,
+                        emptyLabel: l.allCountries,
+                        options: countryOptions,
+                        selected: _countryFilters,
+                        searchable: true,
+                        onChanged: (v) => setState(() => _countryFilters = v),
+                      ),
+                    if (popMax > popMin)
+                      PopulationRangeField(
+                        min: popMin,
+                        max: popMax,
+                        value: populationValue,
+                        onChanged: (v) => setState(() => _populationRange = v),
+                      ),
+                    if (_hasActiveFilters)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: _clearFilters,
+                          child: HyphenatedText(l.clearFilters),
+                        ),
+                      ),
+                  ],
+                  HyphenatedText(
+                    l.nPeopleGroups(filtered.length),
+                    style: AppTypography.caption,
+                  ),
+                ],
+              );
+            }
+            final g = filtered[i - 1];
+            // Stagger only the first few cards so the initial list
+            // settles in with a gentle cascade.
+            final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
+            final inWizard = _isWizardMode;
+            return EntranceFadeSlide(
+              key: ValueKey(g.slug),
+              delay: delay,
+              child: PeopleGroupListCard(
+                name: g.name,
+                countryLabel: g.countryLabel,
+                imageUrl: g.imageUrl,
+                engagementStatusValue: g.engagementStatusValue,
+                peoplePraying: g.peoplePraying,
+                isSelected: subscribed.contains(g.slug),
+                // The wizard keeps its in-list select button; the
+                // standalone list uses the card as the tap target.
+                showSelectButton: inWizard,
+                // Only outside the wizard: mid-onboarding the list is
+                // choosing a first group, not managing a set.
+                onUnselect: inWizard
+                    ? null
+                    : () => removePeopleGroupFlow(context, slug: g.slug),
+                onSelect: () => widget.onSelect?.call(g),
+                onDetails: () => _openDetails(g),
               ),
-            ),
-          ],
+            );
+          },
         );
       },
     );

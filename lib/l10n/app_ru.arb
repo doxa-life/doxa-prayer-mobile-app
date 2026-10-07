@@ -721,6 +721,76 @@
     "@yourPeopleGroups": {
         "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
     },
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
+    },
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
     "addAnotherPeopleGroup": "Добавить ещё один народ",
     "addPeopleGroupConfirm": "Хотите начать молиться за народ «{name}»?",
     "adoptionStatus": "Статус принятия",
@@ -910,5 +980,25 @@
     "wizardWelcomeTitle": "Добро пожаловать в «DOXA Prayer»",
     "workInLocalLanguageAndCulture": "Работа на родном языке и в местной культуре",
     "yes": "Да",
-    "yourPeopleGroups": "Ваши народы"
+    "yourPeopleGroups": "Ваши народы",
+    "unengaged": "Не вовлечён",
+    "nPeoplePraying": "{count, plural, =0{Пока никто не молится} one{{count} человек молится} few{{count} человека молятся} many{{count} человек молятся} other{{count} человека молятся}}",
+    "filters": "Фильтры",
+    "sortByName": "Сортировать по имени",
+    "sortAscending": "Сортировать по возрастанию (А-Я)",
+    "sortDescending": "Сортировать по убыванию (Я-А)",
+    "allLanguages": "Все языки",
+    "allReligions": "Все религии",
+    "allStatuses": "Все статусы",
+    "nSelected": "{count, plural, =0{Ничего не выбрано} =1{Выбран 1} other{Выбрано {count}}}",
+    "clear": "Очистить",
+    "done": "Готово",
+    "clearFilters": "Очистить фильтры",
+    "allCountries": "Все страны",
+    "continentAsia": "Азия",
+    "continentAfrica": "Африка",
+    "continentAmericas": "Америка",
+    "continentEurope": "Европа",
+    "continentOceania": "Океания",
+    "continentOther": "Другое"
 }

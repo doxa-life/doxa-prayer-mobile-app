@@ -166,16 +166,16 @@ class AppLocalizationsPt extends AppLocalizations {
   String get engaged => 'Engajado';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Não engajado';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count pessoas orando',
+      one: '1 pessoa orando',
+      zero: 'Ninguém orando ainda',
     );
     return '$_temp0';
   }
@@ -719,65 +719,65 @@ class AppLocalizationsPt extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Não foi possível carregar o mapa.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Filtros';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Ordenar por nome';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Ordenar crescente (A-Z)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Ordenar decrescente (Z-A)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get allLanguages => 'Todos os idiomas';
 
   @override
-  String get allReligions => 'All religions';
+  String get allReligions => 'Todas as religiões';
 
   @override
-  String get allStatuses => 'Either status';
+  String get allStatuses => 'Todos os status';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count selecionados',
+      one: '1 selecionado',
+      zero: 'Nenhum selecionado',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Limpar';
 
   @override
-  String get done => 'Done';
+  String get done => 'Concluído';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Limpar filtros';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Todos os países';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'Ásia';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'África';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Américas';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Europa';
 
   @override
   String get continentOceania => 'Oceania';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Outro';
 }

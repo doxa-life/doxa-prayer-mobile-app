@@ -167,16 +167,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get engaged => 'Вовлечён';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Не вовлечён';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count человека молятся',
+      many: '$count человек молятся',
+      few: '$count человека молятся',
+      one: '$count человек молится',
+      zero: 'Пока никто не молится',
     );
     return '$_temp0';
   }
@@ -723,65 +725,65 @@ class AppLocalizationsRu extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Не удалось загрузить карту.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Фильтры';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Сортировать по имени';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Сортировать по возрастанию (А-Я)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Сортировать по убыванию (Я-А)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get allLanguages => 'Все языки';
 
   @override
-  String get allReligions => 'All religions';
+  String get allReligions => 'Все религии';
 
   @override
-  String get allStatuses => 'Either status';
+  String get allStatuses => 'Все статусы';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: 'Выбрано $count',
+      one: 'Выбран 1',
+      zero: 'Ничего не выбрано',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Очистить';
 
   @override
-  String get done => 'Done';
+  String get done => 'Готово';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Очистить фильтры';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Все страны';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'Азия';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'Африка';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Америка';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Европа';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => 'Океания';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Другое';
 }

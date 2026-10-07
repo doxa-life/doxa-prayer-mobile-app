@@ -721,6 +721,76 @@
     "@yourPeopleGroups": {
         "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
     },
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
+    },
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
     "addAnotherPeopleGroup": "أضف مجموعة شعبية أخرى",
     "addPeopleGroupConfirm": "هل تريد البدء في الصلاة من أجل «{name}»؟",
     "adoptionStatus": "حالة التبنّي",
@@ -910,5 +980,25 @@
     "wizardWelcomeTitle": "مرحبًا بكم في «DOXA Prayer»",
     "workInLocalLanguageAndCulture": "العمل باللغة والثقافة المحلية",
     "yes": "نعم",
-    "yourPeopleGroups": "مجموعاتك الشعبية"
+    "yourPeopleGroups": "مجموعاتك الشعبية",
+    "unengaged": "غير مُنخرَطة",
+    "nPeoplePraying": "{count, plural, =0{لا أحد يصلي بعد} =1{شخص واحد يصلي} other{{count} أشخاص يصلون}}",
+    "filters": "الفلاتر",
+    "sortByName": "ترتيب حسب الاسم",
+    "sortAscending": "ترتيب تصاعدي (أ-ي)",
+    "sortDescending": "ترتيب تنازلي (ي-أ)",
+    "allLanguages": "كل اللغات",
+    "allReligions": "كل الأديان",
+    "allStatuses": "كل الحالات",
+    "nSelected": "{count, plural, =0{لم يتم تحديد شيء} =1{تم تحديد 1} other{تم تحديد {count}}}",
+    "clear": "مسح",
+    "done": "تم",
+    "clearFilters": "مسح الفلاتر",
+    "allCountries": "كل الدول",
+    "continentAsia": "آسيا",
+    "continentAfrica": "أفريقيا",
+    "continentAmericas": "الأمريكتان",
+    "continentEurope": "أوروبا",
+    "continentOceania": "أوقيانوسيا",
+    "continentOther": "أخرى"
 }
