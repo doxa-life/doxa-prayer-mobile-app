@@ -35,8 +35,8 @@ final ValueNotifier<Set<String>?> peopleGroupSlugsWithLocation =
 /// cache is not evidence of a missing location, and disabling on it would make
 /// the button come and go for reasons a user cannot see.
 ///
-/// Whether the button is shown at all is a separate question, answered by
-/// [MapConfig.isConfigured]: a build with no Mapbox token has no map to offer.
+/// A build with no Mapbox token ([MapConfig.isConfigured] false) still shows
+/// the button; the home carousel answers a tap with a message instead.
 bool canMapPeopleGroup(String slug, Set<String>? known) =>
     MapConfig.isConfigured && (known == null || known.contains(slug));
 

@@ -9,10 +9,14 @@ class EntranceFadeSlide extends StatefulWidget {
     super.key,
     required this.child,
     this.delay = Duration.zero,
+    this.animate = true,
   });
 
   final Widget child;
   final Duration delay;
+
+  /// False shows [child] in place at once, with no entrance.
+  final bool animate;
 
   @override
   State<EntranceFadeSlide> createState() => _EntranceFadeSlideState();
@@ -32,7 +36,9 @@ class _EntranceFadeSlideState extends State<EntranceFadeSlide>
   @override
   void initState() {
     super.initState();
-    if (widget.delay == Duration.zero) {
+    if (!widget.animate) {
+      _controller.value = 1;
+    } else if (widget.delay == Duration.zero) {
       _controller.forward();
     } else {
       Future.delayed(widget.delay, () {

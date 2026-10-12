@@ -726,6 +726,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mapUnavailableOffline => 'صور الخريطة غير متاحة دون اتصال';
 
   @override
+  String get mapNotConfigured => 'الخريطة غير متاحة حاليًا';
+
+  @override
   String get yourPeopleGroups => 'مجموعاتك الشعبية';
 
   @override
@@ -745,6 +748,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sortDescending => 'ترتيب تنازلي (ي-أ)';
+
+  @override
+  String get sortAZ => 'أ–ي';
+
+  @override
+  String get sortZA => 'ي–أ';
+
+  @override
+  String get prioritizeFewestIntercessors =>
+      'إعطاء الأولوية للمجموعات الشعبية ذات أقل عدد من الشفعاء';
 
   @override
   String get allLanguages => 'كل اللغات';
@@ -796,4 +809,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get continentOther => 'أخرى';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'صُمم تطبيق DOXA Prayer لمساعدتك على الصلاة من أجل المجموعات الشعبية غير المُبشَّر بها. أول شيء علينا فعله هو إيجاد مجموعة تصلي من أجلها.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'البحث عن مجموعة شعبية';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'اختاروا مجموعة لي';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote => 'يمكنك تغيير هذا في أي وقت.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'اخترنا $name من أجلك!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'هل تودّ المتابعة مع هذه المجموعة أم تجربة أخرى؟';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'المتابعة مع هذه المجموعة';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'اختيار مجموعة أخرى';
 }

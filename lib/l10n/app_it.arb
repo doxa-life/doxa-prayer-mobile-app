@@ -229,6 +229,120 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "La mappa non è disponibile al momento",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
+    "sortAZ": "A–Z",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "Z–A",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "Dai priorità ai gruppi etnici con meno intercessori",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
+    "allLanguages": "Tutte le lingue",
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "allReligions": "Tutte le religioni",
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "allStatuses": "Qualsiasi stato",
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "nSelected": "{count, plural, =0{Nessuno selezionato} one{{count} selezionato} other{{count} selezionati}}",
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "clear": "Cancella",
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "done": "Fatto",
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "clearFilters": "Cancella i filtri",
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "allCountries": "Tutti i paesi",
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "continentAsia": "Asia",
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAfrica": "Africa",
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAmericas": "Americhe",
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentEurope": "Europa",
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOceania": "Oceania",
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOther": "Altro",
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
+    "wizardGroupIntroBody": "DOXA Prayer è pensata per aiutarti a pregare per i gruppi etnici non raggiunti. Per prima cosa dobbiamo trovare un gruppo etnico per cui pregare.",
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "wizardGroupIntroSearchOption": "Trova un gruppo etnico",
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "wizardGroupIntroPickForMeOption": "Scegli un gruppo per me",
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "wizardGroupIntroChangeLaterNote": "Puoi cambiarlo in qualsiasi momento.",
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "wizardGroupPickedTitle": "Abbiamo scelto {name} per te!",
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardGroupPickedQuestion": "Vuoi continuare con questo gruppo o provarne un altro?",
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "wizardGroupPickedContinueButton": "Continua con questo gruppo",
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "wizardGroupPickedRerollButton": "Scegli un altro gruppo",
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -740,6 +854,22 @@
     "clearSearchLabel": "Cancella la ricerca",
     "continueLabel": "Continua",
     "couldNotLoadMapMessage": "Impossibile caricare la mappa.",
+    "filters": "Filtri",
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "sortByName": "Ordina per nome",
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "sortAscending": "Ordine crescente (A–Z)",
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "sortDescending": "Ordine decrescente (Z–A)",
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
+    },
     "couldNotLoadPeopleGroupDetailsMessage": "Impossibile caricare i dettagli del gruppo etnico.",
     "couldNotLoadPeopleGroupsMessage": "Impossibile caricare i gruppi etnici.",
     "couldNotLoadPrayerContent": "Impossibile caricare i contenuti di preghiera.",
@@ -761,6 +891,19 @@
     "enableNotificationsButton": "Attiva le notifiche",
     "enableNotificationsPromptBody": "Attiva le notifiche per ricevere questi aggiornamenti anche sul telefono.",
     "engaged": "Coinvolto",
+    "unengaged": "Non coinvolto",
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "nPeoplePraying": "{count, plural, =0{Ancora nessuno prega} one{{count} persona prega} other{{count} persone pregano}}",
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "engagementStatus": "Stato del coinvolgimento",
     "everyDay": "Ogni giorno",
     "exactAlarmsDisabledStatus": "Le sveglie esatte non sono consentite per DOXA, quindi i tuoi promemoria di preghiera potrebbero arrivare con qualche minuto di ritardo.",

@@ -4,23 +4,29 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show ScrollCacheExtent, ScrollDirection;
 import 'package:go_router/go_router.dart';
 
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
+import '../../components/inputs/checkbox_field.dart';
+import '../../components/inputs/filter_section.dart';
 import '../../components/inputs/multi_select_field.dart';
 import '../../components/inputs/population_range_field.dart';
 import '../../components/inputs/search_field.dart';
-import '../../components/inputs/select_field.dart';
+import '../../components/misc/collapsible.dart';
 import '../../components/misc/entrance_fade_slide.dart';
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../services/locale_controller.dart';
 import '../../services/people_groups_service.dart';
+import '../../services/prayer_need_ranking.dart';
 import '../../services/people_group_subscription_flow.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../misc/cached_data_builder.dart';
+import '../misc/country_flag.dart';
+import '../misc/religion_icon.dart';
 import '../misc/hyphenated_text.dart';
 
 class PeopleGroupsList extends StatefulWidget {
@@ -51,13 +57,42 @@ class PeopleGroupsList extends StatefulWidget {
 }
 
 class _PeopleGroupsListState extends State<PeopleGroupsList> {
-  final TextEditingController _searchController = TextEditingController();
+  final _CountryFlagSearchController _searchController =
+      _CountryFlagSearchController();
+
+  /// The list last shown, so the search box can tell a typed country name
+  /// from any other search.
+  List<PeopleGroup>? _loadedGroups;
   String _query = '';
   bool _filtersExpanded = false;
   bool _sortAscending = true;
 
+  /// How much of the results list stays visible under an open filter menu.
+  static const double _listRoomBelowMenu = 160;
+
+  /// The filter menu's "Prioritize groups with the fewest intercessors" box.
+  /// On by default, so the groups that most need prayer are seen first.
+  /// Unticking it counts as changing a filter: the reset button appears, and
+  /// resetting ticks it again.
+  bool _prioritizeFewest = true;
+
+  /// Whether the opening cascade has played. Only cards in the list's first
+  /// frame animate in; cards built later, as the user scrolls, appear at once
+  /// so they're already there when they come into view. Changing a filter or
+  /// the sort plays it again (see [_updateResults]).
+  bool _cascadePlayed = false;
+
+  /// Bumped whenever a filter or the sort changes. Part of each card's key,
+  /// so the cards are rebuilt and settle in again rather than the list
+  /// jumping to its new contents.
+  int _resultsGeneration = 0;
+
+  /// The population section is the only one that opens in place; the others
+  /// open a picker sheet or carry their control in the header.
+  bool _populationOpen = false;
+
   Set<String> _languageFilters = {};
-  String? _religionFilter;
+  Set<String> _religionFilters = {};
   String? _statusFilter;
   Set<String> _countryFilters = {};
 
@@ -70,10 +105,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   bool get _hasActiveFilters =>
       _languageFilters.isNotEmpty ||
-      _religionFilter != null ||
+      _religionFilters.isNotEmpty ||
       _statusFilter != null ||
       _countryFilters.isNotEmpty ||
-      _populationRange != null;
+      _populationRange != null ||
+      !_prioritizeFewest;
 
   @override
   void dispose() {
@@ -81,13 +117,24 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     super.dispose();
   }
 
-  void _clearFilters() {
+  /// Applies a filter or sort [change] and replays the cards' entrance, so
+  /// the results visibly settle into their new state.
+  void _updateResults(VoidCallback change) {
     setState(() {
+      change();
+      _resultsGeneration++;
+      _cascadePlayed = false;
+    });
+  }
+
+  void _clearFilters() {
+    _updateResults(() {
       _languageFilters = {};
-      _religionFilter = null;
+      _religionFilters = {};
       _statusFilter = null;
       _countryFilters = {};
       _populationRange = null;
+      _prioritizeFewest = true;
     });
   }
 
@@ -104,16 +151,152 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     return words.any((w) => w.startsWith(query));
   }
 
-  List<PeopleGroup> _filter(List<PeopleGroup> groups) {
+  /// The filter values the search box matches, as if they'd been picked in
+  /// that filter. [textsByValue] maps each filter value to the texts it's
+  /// known by. Each query word must be a *whole* word of one of those texts,
+  /// so a half-typed "mus" or "ind" doesn't pull in every Islam or Indian
+  /// group — only names match until the filter value is spelled out. Labels
+  /// come translated, so this works in every language.
+  static Set<String> _valuesMatching(
+    Map<String, List<String>> textsByValue,
+    String query,
+  ) {
+    final queryWords = query.split(_wordSplitter).where((w) => w.isNotEmpty);
+    if (queryWords.isEmpty) return const {};
+    return {
+      for (final MapEntry(key: value, value: texts) in textsByValue.entries)
+        if (_allWordsAreWords(queryWords, texts)) value,
+    };
+  }
+
+  /// Religion labels the query matches: "sunni" finds "Islam - Sunni",
+  /// "shia" both Shia religions, and "muslim" every Islam religion through
+  /// its alternate names.
+  Set<String> _religionsMatching(List<PeopleGroup> groups, String query) =>
+      _valuesMatching({
+        for (final g in groups)
+          if (g.religionLabel != null)
+            g.religionLabel!: [g.religionLabel!, ...g.religionAlternates],
+      }, query);
+
+  /// Words of a text with where each ends, for finding country names in
+  /// the search box.
+  static final RegExp _wordPattern = RegExp(r'[\p{L}\p{N}]+', unicode: true);
+
+  /// The countries named in [text], each with the offset where its name ends
+  /// (for drawing its flag there). The text has to be made up *entirely* of
+  /// whole country names — "india", "united states", "india pakistan" — so
+  /// a word shared by several countries, like "united", or a search that
+  /// mixes in other words, matches no country. Empty when it doesn't.
+  List<(String code, int end)> _countriesNamed(
+    List<PeopleGroup> groups,
+    String text,
+  ) {
+    final codesByName = <String, String>{
+      for (final g in groups)
+        if (g.countryCode != null && g.countryLabel != null)
+          _wordsOf(g.countryLabel!): g.countryCode!,
+    };
+    final longest = codesByName.keys.fold(
+      0,
+      (n, name) => math.max(n, name.split(' ').length),
+    );
+    final words = _wordPattern.allMatches(text).toList();
+    final found = <(String, int)>[];
+    var i = 0;
+    while (i < words.length) {
+      // Longest name first, so "guinea bissau" isn't read as "guinea".
+      var matched = false;
+      for (var n = math.min(longest, words.length - i); n > 0; n--) {
+        final name = [
+          for (final w in words.sublist(i, i + n)) w[0]!.toLowerCase(),
+        ].join(' ');
+        final code = codesByName[name];
+        if (code == null) continue;
+        found.add((code, words[i + n - 1].end));
+        i += n;
+        matched = true;
+        break;
+      }
+      if (!matched) return const [];
+    }
+    return found;
+  }
+
+  /// Country codes the query names (see [_countriesNamed]).
+  Set<String> _countriesMatching(List<PeopleGroup> groups, String query) => {
+    for (final (code, _) in _countriesNamed(groups, query)) code,
+  };
+
+  /// [text] lowercased with punctuation and extra spaces collapsed, so
+  /// "Congo, Democratic Republic of" compares equal however it's spaced.
+  static String _wordsOf(String text) => text
+      .toLowerCase()
+      .split(_wordSplitter)
+      .where((w) => w.isNotEmpty)
+      .join(' ');
+
+  /// Primary-language labels the query matches.
+  Set<String> _languagesMatching(List<PeopleGroup> groups, String query) =>
+      _valuesMatching({
+        for (final g in groups)
+          if (g.primaryLanguageLabel != null)
+            g.primaryLanguageLabel!: [g.primaryLanguageLabel!],
+      }, query);
+
+  /// Region values the query matches by continent name ("africa"). The
+  /// catch-all "other" continent is left out so typing "other" doesn't match.
+  Set<String> _continentsMatching(
+    List<PeopleGroup> groups,
+    String query,
+    AppLocalizations l,
+  ) => _valuesMatching({
+    for (final g in groups)
+      if (g.regionValue case final region?
+          when _continentLabel(region, l) != l.continentOther)
+        region: [_continentLabel(region, l)],
+  }, query);
+
+  /// Engagement status values the query matches ("unengaged").
+  Set<String> _statusesMatching(String query, AppLocalizations l) =>
+      _valuesMatching({
+        'engaged': [l.engaged],
+        'unengaged': [l.unengaged],
+      }, query);
+
+  static bool _allWordsAreWords(
+    Iterable<String> queryWords,
+    List<String> texts,
+  ) {
+    final words = {
+      for (final t in texts) ...t.toLowerCase().split(_wordSplitter),
+    };
+    return queryWords.every(words.contains);
+  }
+
+  List<PeopleGroup> _filter(List<PeopleGroup> groups, AppLocalizations l) {
     final q = _query.trim().toLowerCase();
+    final religionMatches = _religionsMatching(groups, q);
+    final countryMatches = _countriesMatching(groups, q);
+    final languageMatches = _languagesMatching(groups, q);
+    final continentMatches = _continentsMatching(groups, q, l);
+    final statusMatches = _statusesMatching(q, l);
     final filtered = groups.where((g) {
-      final matchesQuery = _matchesQuery(g.name.toLowerCase(), q);
+      final matchesQuery =
+          _matchesQuery(g.name, q) ||
+          religionMatches.contains(g.religionLabel) ||
+          countryMatches.contains(g.countryCode) ||
+          languageMatches.contains(g.primaryLanguageLabel) ||
+          continentMatches.contains(g.regionValue) ||
+          statusMatches.contains(g.engagementStatusValue);
       final matchesLanguage =
           _languageFilters.isEmpty ||
           (g.primaryLanguageLabel != null &&
               _languageFilters.contains(g.primaryLanguageLabel));
       final matchesReligion =
-          _religionFilter == null || g.religionLabel == _religionFilter;
+          _religionFilters.isEmpty ||
+          (g.religionLabel != null &&
+              _religionFilters.contains(g.religionLabel));
       final matchesStatus =
           _statusFilter == null || g.engagementStatusValue == _statusFilter;
       final matchesCountry =
@@ -132,6 +315,14 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           matchesPopulation;
     }).toList();
     filtered.sort((a, b) {
+      // With the box ticked, the groups with the fewest intercessors come
+      // first, by the same measure "pick a group for me" uses. Ties, and the
+      // whole list with the box unticked, follow the A–Z / Z–A button — not
+      // shuffled, so the list doesn't jump about while typing.
+      if (_prioritizeFewest) {
+        final need = compareByPrayerNeed(a, b);
+        if (need != 0) return need;
+      }
       final cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
       return _sortAscending ? cmp : -cmp;
     });
@@ -187,6 +378,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           value: e.key,
           label: e.value.$1,
           groupLabel: _continentLabel(e.value.$2, l),
+          leading: CountryFlag(code: e.key, height: 16),
         ),
     ];
   }
@@ -209,9 +401,44 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     if (confirmed == true) widget.onSelectionConfirmed?.call(group);
   }
 
+  /// Religion label → its API code, for the religion icons.
+  Map<String, String> _religionCodes(List<PeopleGroup> groups) => {
+    for (final g in groups)
+      if (g.religionLabel != null && g.religionCode != null)
+        g.religionLabel!: g.religionCode!,
+  };
+
+  /// The badges to draw in the search text, the way X decorates some
+  /// hashtags, each with the offset it follows: a flag after each country
+  /// named ("india pakistan" gets two), otherwise the religion's icon at the
+  /// end when every religion the query matches shares one ("muslim" → the
+  /// mosque). Empty when neither applies.
+  List<(int, _SearchBadge)> _badgesForQuery() {
+    final groups = _loadedGroups;
+    if (groups == null) return const [];
+    final text = _searchController.text;
+    final countries = _countriesNamed(groups, text);
+    if (countries.isNotEmpty) {
+      return [
+        for (final (code, end) in countries) (end, _SearchBadge.flag(code)),
+      ];
+    }
+    final codes = _religionCodes(groups);
+    final icons = {
+      for (final label in _religionsMatching(groups, text.trim().toLowerCase()))
+        religionIconFor(codes[label]),
+    };
+    final end = _wordPattern.allMatches(text).lastOrNull?.end;
+    if (end != null && icons.length == 1 && icons.single != null) {
+      return [(end, _SearchBadge.religion(icons.single!))];
+    }
+    return const [];
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    _searchController.badges = _badgesForQuery();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       spacing: AppSpacing.lg,
@@ -243,8 +470,10 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 ),
               ),
               tooltip: l.filters,
-              onPressed: () =>
-                  setState(() => _filtersExpanded = !_filtersExpanded),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                setState(() => _filtersExpanded = !_filtersExpanded);
+              },
             ),
           ],
         ),
@@ -277,168 +506,536 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     );
   }
 
-  Widget _buildSortRow(AppLocalizations l) {
-    final scheme = Theme.of(context).colorScheme;
-    return Row(
+  /// Opens the picker sheet for a list filter — the usual mobile pattern —
+  /// and applies the choice once the user taps Done.
+  Future<void> _pick(
+    String title,
+    List<MultiSelectOption<String>> options,
+    Set<String> selected,
+    ValueChanged<Set<String>> apply,
+  ) async {
+    FocusScope.of(context).unfocus();
+    final result = await showMultiSelectSheet<String>(
+      context: context,
+      title: title,
+      options: options,
+      initialSelection: selected,
+      searchable: true,
+    );
+    if (result == null || !mounted) return;
+    if (result.length == selected.length && result.containsAll(selected)) {
+      return;
+    }
+    _updateResults(() => apply(result));
+  }
+
+  Widget _buildFilterPanel(
+    AppLocalizations l, {
+    required List<String> languages,
+    required List<String> religions,
+    required List<MultiSelectOption<String>> countryOptions,
+    required int popMin,
+    required int popMax,
+    required RangeValues populationValue,
+  }) {
+    final languageOptions = [
+      for (final lang in languages) MultiSelectOption(value: lang, label: lang),
+    ];
+    final religionCodes = _religionCodes(_loadedGroups ?? const []);
+    final religionOptions = [
+      for (final r in religions)
+        MultiSelectOption(
+          value: r,
+          label: r,
+          // Only the religions that have an icon get one.
+          leading: religionIconFor(religionCodes[r]) == null
+              ? null
+              : ReligionIcon(code: religionCodes[r]),
+        ),
+    ];
+    final duration = MediaQuery.disableAnimationsOf(context)
+        ? Duration.zero
+        : Collapsible.duration;
+    final sections = <Widget>[
+      FilterSection(
+        title: l.primaryLanguage,
+        isActive: _languageFilters.isNotEmpty,
+        semanticValue: multiSelectSummary(
+          l,
+          options: languageOptions,
+          selected: _languageFilters,
+          emptyLabel: l.allLanguages,
+        ),
+        onTap: () => _pick(
+          l.primaryLanguage,
+          languageOptions,
+          _languageFilters,
+          (v) => _languageFilters = v,
+        ),
+      ),
+      FilterSection(
+        title: l.primaryReligion,
+        isActive: _religionFilters.isNotEmpty,
+        semanticValue: multiSelectSummary(
+          l,
+          options: religionOptions,
+          selected: _religionFilters,
+          emptyLabel: l.allReligions,
+        ),
+        onTap: () => _pick(
+          l.primaryReligion,
+          religionOptions,
+          _religionFilters,
+          (v) => _religionFilters = v,
+        ),
+      ),
+      if (countryOptions.isNotEmpty)
+        FilterSection(
+          title: l.country,
+          isActive: _countryFilters.isNotEmpty,
+          semanticValue: multiSelectSummary(
+            l,
+            options: countryOptions,
+            selected: _countryFilters,
+            emptyLabel: l.allCountries,
+          ),
+          onTap: () => _pick(
+            l.country,
+            countryOptions,
+            _countryFilters,
+            (v) => _countryFilters = v,
+          ),
+        ),
+      FilterSection(
+        title: l.status,
+        isActive: _statusFilter != null,
+        // Tapping the chosen side again turns the filter back off.
+        trailing: SegmentedButton<String>(
+          segments: [
+            ButtonSegment(value: 'engaged', label: HyphenatedText(l.engaged)),
+            ButtonSegment(
+              value: 'unengaged',
+              label: HyphenatedText(l.unengaged),
+            ),
+          ],
+          selected: {?_statusFilter},
+          emptySelectionAllowed: true,
+          showSelectedIcon: false,
+          onSelectionChanged: (v) =>
+              _updateResults(() => _statusFilter = v.firstOrNull),
+        ),
+      ),
+      if (popMax > popMin)
+        FilterSection(
+          title: l.population,
+          isActive: _populationRange != null,
+          semanticValue:
+              '${PopulationRangeField.format(populationValue.start)} – '
+              '${PopulationRangeField.format(populationValue.end)}',
+          expanded: _populationOpen,
+          onTap: () => setState(() => _populationOpen = !_populationOpen),
+          child: PopulationRangeField(
+            min: popMin,
+            max: popMax,
+            value: populationValue,
+            showLabel: false,
+            // Dragging updates the list live; the cards settle in again
+            // once the user lets go, not on every step of the drag.
+            onChanged: (v) => setState(() => _populationRange = v),
+            onChangeEnd: () => _updateResults(() {}),
+          ),
+        ),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: HyphenatedText(
-            l.sortByName,
-            style: AppTypography.bodyMedium.copyWith(
-              color: scheme.onSurface.withValues(alpha: 0.6),
+        // Always laid out, just invisible while no filter is set, so the
+        // button fading in doesn't push the sections below it down.
+        Align(
+          alignment: AlignmentDirectional.centerEnd,
+          child: IgnorePointer(
+            ignoring: !_hasActiveFilters,
+            child: ExcludeSemantics(
+              excluding: !_hasActiveFilters,
+              child: AnimatedScale(
+                scale: _hasActiveFilters ? 1 : 0.85,
+                duration: duration,
+                curve: Curves.easeOutCubic,
+                child: AnimatedOpacity(
+                  opacity: _hasActiveFilters ? 1 : 0,
+                  duration: duration,
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.restart_alt),
+                    label: HyphenatedText(l.clearFilters),
+                    onPressed: _clearFilters,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        IconButton(
-          icon: Icon(
-            _sortAscending ? Icons.arrow_upward : Icons.arrow_downward,
+        for (final (i, section) in sections.indexed) ...[
+          if (i > 0) const Divider(height: 1),
+          section,
+        ],
+        const Divider(height: 1),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+          child: CheckboxField(
+            label: l.prioritizeFewestIntercessors,
+            value: _prioritizeFewest,
+            onChanged: (v) => _updateResults(() => _prioritizeFewest = v),
           ),
-          tooltip: _sortAscending ? l.sortDescending : l.sortAscending,
-          onPressed: () => setState(() => _sortAscending = !_sortAscending),
         ),
       ],
     );
   }
 
   Widget _buildList(BuildContext context, List<PeopleGroup> groups) {
+    _loadedGroups = groups;
     final l = AppLocalizations.of(context)!;
-    final filtered = _filter(groups);
+    final filtered = _filter(groups, l);
     final languages = _distinctLabels(groups, (g) => g.primaryLanguageLabel);
     final religions = _distinctLabels(groups, (g) => g.religionLabel);
     final countryOptions = _countryOptions(groups, l);
     final (popMin, popMax) = _populationBounds(groups);
     final populationValue =
         _populationRange ?? RangeValues(popMin.toDouble(), popMax.toDouble());
+    if (!_cascadePlayed) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _cascadePlayed = true,
+      );
+    }
+    final panel = Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: _buildFilterPanel(
+        l,
+        languages: languages,
+        religions: religions,
+        countryOptions: countryOptions,
+        popMin: popMin,
+        popMax: popMax,
+        populationValue: populationValue,
+      ),
+    );
+    return LayoutBuilder(
+      builder: (context, constraints) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Fixed above the list, so the filter button opens it in view
+          // however far the list is scrolled. Capped so the list keeps room
+          // below it; with several sections open, the panel scrolls itself.
+          Collapsible(
+            expanded: _filtersExpanded,
+            child: ConstrainedBox(
+              // As tall as the menu needs, leaving the list a strip at the
+              // bottom; it only scrolls when even that won't fit (a short
+              // screen, large text, Population open).
+              constraints: BoxConstraints(
+                maxHeight: math.max(
+                  constraints.maxHeight - _listRoomBelowMenu,
+                  constraints.maxHeight * 0.5,
+                ),
+              ),
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                child: panel,
+              ),
+            ),
+          ),
+          _MenuEdge(visible: _filtersExpanded),
+          Expanded(
+            // Scrolling the results closes the filter panel, giving the list
+            // its room back. Only a drag on the list itself counts: the
+            // panel scrolls inside its own view, and depth 0 skips anything
+            // scrollable nested inside a card.
+            child: NotificationListener<UserScrollNotification>(
+              onNotification: (n) {
+                if (_filtersExpanded &&
+                    n.depth == 0 &&
+                    n.direction != ScrollDirection.idle) {
+                  setState(() => _filtersExpanded = false);
+                }
+                return false;
+              },
+              child: _buildResults(context, filtered),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// The results count, with the sort button beside it. One tap flips the
+  /// order: the arrow turns over and the label slides to the new order.
+  Widget _buildCountAndSort(AppLocalizations l, int count) {
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final duration = reduceMotion ? Duration.zero : Collapsible.duration;
+    final label = _sortAscending ? l.sortAZ : l.sortZA;
+    return Row(
+      spacing: AppSpacing.md,
+      children: [
+        Expanded(
+          child: HyphenatedText(
+            l.nPeopleGroups(count),
+            style: AppTypography.caption,
+          ),
+        ),
+        // The tooltip (and screen-reader label) spells the order out, since
+        // the short "A–Z" reads as two letters.
+        Tooltip(
+          message: _sortAscending ? l.sortAscending : l.sortDescending,
+          excludeFromSemantics: true,
+          child: Semantics(
+            button: true,
+            label: _sortAscending ? l.sortAscending : l.sortDescending,
+            excludeSemantics: true,
+            child: TextButton.icon(
+              icon: AnimatedRotation(
+                turns: _sortAscending ? 0 : 0.5,
+                duration: duration,
+                curve: Curves.easeInOutCubic,
+                child: const Icon(Icons.arrow_downward),
+              ),
+              label: AnimatedSwitcher(
+                duration: duration,
+                transitionBuilder: (child, animation) {
+                  // The incoming label slides in the way the arrow now
+                  // points; the outgoing one leaves the other way.
+                  final incoming = child.key == ValueKey(label);
+                  final from = (incoming == _sortAscending) ? -0.5 : 0.5;
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween(
+                        begin: Offset(0, from),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  );
+                },
+                child: Text(label, key: ValueKey(label)),
+              ),
+              onPressed: () =>
+                  _updateResults(() => _sortAscending = !_sortAscending),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildResults(BuildContext context, List<PeopleGroup> filtered) {
+    final l = AppLocalizations.of(context)!;
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
-        // The filter panel and results count scroll with the list (they are
-        // the first entry), so only the search row stays fixed above.
+        // The results count and sort button scroll with the list (they are
+        // the first entry).
         return ListView.separated(
           padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+          // Swiping the results puts the keyboard away, so it doesn't sit
+          // over the list once the user has finished typing.
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          // Builds cards half a screen past each edge, so they (and their
+          // photos) are ready before they scroll into view.
+          scrollCacheExtent: const ScrollCacheExtent.viewport(0.5),
           itemCount: filtered.length + 1,
           separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
           itemBuilder: (context, i) {
-            if (i == 0) {
-              // The filter panel scrolls with the results rather than
-              // sitting fixed above them: open, it is taller than a
-              // phone screen, which overflowed the fixed header.
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: AppSpacing.lg,
-                children: [
-                  if (_filtersExpanded) ...[
-                    _buildSortRow(l),
-                    MultiSelectField<String>(
-                      label: l.primaryLanguage,
-                      emptyLabel: l.allLanguages,
-                      options: [
-                        for (final lang in languages)
-                          MultiSelectOption(value: lang, label: lang),
-                      ],
-                      selected: _languageFilters,
-                      searchable: true,
-                      onChanged: (v) => setState(() => _languageFilters = v),
-                    ),
-                    SelectField<String?>(
-                      label: l.primaryReligion,
-                      value: religions.contains(_religionFilter)
-                          ? _religionFilter
-                          : null,
-                      items: [
-                        DropdownMenuItem<String?>(
-                          value: null,
-                          child: HyphenatedText(l.allReligions),
-                        ),
-                        for (final r in religions)
-                          DropdownMenuItem<String?>(
-                            value: r,
-                            child: HyphenatedText(r),
-                          ),
-                      ],
-                      onChanged: (v) => setState(() => _religionFilter = v),
-                    ),
-                    SelectField<String?>(
-                      label: l.status,
-                      value: _statusFilter,
-                      items: [
-                        DropdownMenuItem<String?>(
-                          value: null,
-                          child: HyphenatedText(l.allStatuses),
-                        ),
-                        DropdownMenuItem<String?>(
-                          value: 'engaged',
-                          child: HyphenatedText(l.engaged),
-                        ),
-                        DropdownMenuItem<String?>(
-                          value: 'unengaged',
-                          child: HyphenatedText(l.unengaged),
-                        ),
-                      ],
-                      onChanged: (v) => setState(() => _statusFilter = v),
-                    ),
-                    if (countryOptions.isNotEmpty)
-                      MultiSelectField<String>(
-                        label: l.country,
-                        emptyLabel: l.allCountries,
-                        options: countryOptions,
-                        selected: _countryFilters,
-                        searchable: true,
-                        onChanged: (v) => setState(() => _countryFilters = v),
-                      ),
-                    if (popMax > popMin)
-                      PopulationRangeField(
-                        min: popMin,
-                        max: popMax,
-                        value: populationValue,
-                        onChanged: (v) => setState(() => _populationRange = v),
-                      ),
-                    if (_hasActiveFilters)
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: _clearFilters,
-                          child: HyphenatedText(l.clearFilters),
-                        ),
-                      ),
-                  ],
-                  HyphenatedText(
-                    l.nPeopleGroups(filtered.length),
-                    style: AppTypography.caption,
-                  ),
-                ],
-              );
-            }
+            if (i == 0) return _buildCountAndSort(l, filtered.length);
             final g = filtered[i - 1];
-            // Stagger only the first few cards so the initial list
-            // settles in with a gentle cascade.
+            // The first cards settle in with a gentle cascade; anything built
+            // after that first frame shows straight away.
             final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
             final inWizard = _isWizardMode;
-            return EntranceFadeSlide(
-              key: ValueKey(g.slug),
-              delay: delay,
-              child: PeopleGroupListCard(
-                name: g.name,
-                countryLabel: g.countryLabel,
-                imageUrl: g.imageUrl,
-                engagementStatusValue: g.engagementStatusValue,
-                peoplePraying: g.peoplePraying,
-                isSelected: subscribed.contains(g.slug),
-                // The wizard keeps its in-list select button; the
-                // standalone list uses the card as the tap target.
-                showSelectButton: inWizard,
-                // Only outside the wizard: mid-onboarding the list is
-                // choosing a first group, not managing a set.
-                onUnselect: inWizard
-                    ? null
-                    : () => removePeopleGroupFlow(context, slug: g.slug),
-                onSelect: () => widget.onSelect?.call(g),
-                onDetails: () => _openDetails(g),
+            return KeyedSubtree(
+              key: ValueKey((_resultsGeneration, g.slug)),
+              child: EntranceFadeSlide(
+                key: ValueKey(g.slug),
+                animate: !_cascadePlayed,
+                delay: delay,
+                child: PeopleGroupListCard(
+                  name: g.name,
+                  countryLabel: g.countryLabel,
+                  countryCode: g.countryCode,
+                  imageUrl: g.imageUrl,
+                  engagementStatusValue: g.engagementStatusValue,
+                  peoplePraying: g.peopleCommitted,
+                  isSelected: subscribed.contains(g.slug),
+                  // The wizard keeps its in-list select button; the
+                  // standalone list uses the card as the tap target.
+                  showSelectButton: inWizard,
+                  // Only outside the wizard: mid-onboarding the list is
+                  // choosing a first group, not managing a set.
+                  onUnselect: inWizard
+                      ? null
+                      : () => removePeopleGroupFlow(context, slug: g.slug),
+                  onSelect: () => widget.onSelect?.call(g),
+                  onDetails: () => _openDetails(g),
+                ),
               ),
             );
           },
         );
       },
+    );
+  }
+}
+
+/// What the search box shows after the text: a country's flag or a
+/// religion's icon. Equal badges compare equal, so the pop-in plays only
+/// when the badge actually changes.
+class _SearchBadge {
+  const _SearchBadge.flag(String this.countryCode) : religionIcon = null;
+  const _SearchBadge.religion(IconData this.religionIcon) : countryCode = null;
+
+  final String? countryCode;
+  final IconData? religionIcon;
+
+  Widget build() => switch (this) {
+    _SearchBadge(:final countryCode?) => CountryFlag(
+      code: countryCode,
+      height: 14,
+    ),
+    _SearchBadge(:final religionIcon?) => Icon(religionIcon, size: 16),
+    _ => const SizedBox.shrink(),
+  };
+
+  @override
+  bool operator ==(Object other) =>
+      other is _SearchBadge &&
+      other.countryCode == countryCode &&
+      other.religionIcon == religionIcon;
+
+  @override
+  int get hashCode => Object.hash(countryCode, religionIcon);
+}
+
+/// The search box's controller. Each of [badges] is drawn inline right
+/// after the character at its offset — a flag after each country name.
+/// They're only drawn, never part of the text, so editing, copying and the
+/// search itself are unaffected.
+///
+/// A badge rides along with the character before it, drawn together as one
+/// inline widget that stands in for that character. The text and what's
+/// drawn then stay the same length, so a cursor after the name sits after
+/// the badge rather than between the name and the badge.
+class _CountryFlagSearchController extends TextEditingController {
+  List<(int, _SearchBadge)> badges = const [];
+
+  @override
+  TextSpan buildTextSpan({
+    required BuildContext context,
+    TextStyle? style,
+    required bool withComposing,
+  }) {
+    final value = text;
+    // Only after a plain character; a surrogate pair (an emoji, say) is two
+    // code units and would throw the lengths out.
+    bool drawable(int end) {
+      if (end <= 0 || end > value.length) return false;
+      final unit = value.codeUnitAt(end - 1);
+      return unit < 0xD800 || unit > 0xDFFF;
+    }
+
+    final usable = [
+      for (final b in badges)
+        if (drawable(b.$1)) b,
+    ]..sort((x, y) => x.$1.compareTo(y.$1));
+    if (usable.isEmpty) {
+      return super.buildTextSpan(
+        context: context,
+        style: style,
+        withComposing: withComposing,
+      );
+    }
+    final children = <InlineSpan>[];
+    var from = 0;
+    for (final (end, badge) in usable) {
+      if (end - 1 < from) continue;
+      if (end - 1 > from) {
+        children.add(TextSpan(text: value.substring(from, end - 1)));
+      }
+      children.add(
+        WidgetSpan(
+          alignment: PlaceholderAlignment.baseline,
+          baseline: TextBaseline.alphabetic,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(value.substring(end - 1, end), style: style),
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: AppSpacing.xs),
+                child: _PopIn(key: ValueKey(badge), child: badge.build()),
+              ),
+            ],
+          ),
+        ),
+      );
+      from = end;
+    }
+    if (from < value.length) {
+      children.add(TextSpan(text: value.substring(from)));
+    }
+    return TextSpan(style: style, children: children);
+  }
+}
+
+/// Scales and fades [child] in when it first appears.
+class _PopIn extends StatelessWidget {
+  const _PopIn({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (MediaQuery.disableAnimationsOf(context)) return child;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: Collapsible.duration,
+      curve: Curves.easeOutBack,
+      builder: (context, t, child) => Opacity(
+        opacity: t.clamp(0, 1),
+        child: Transform.scale(scale: t, child: child),
+      ),
+      child: child,
+    );
+  }
+}
+
+/// The line under the filter menu that sets it apart from the list. It grows
+/// out from the middle as the menu opens and shrinks away as it closes, and
+/// takes no room while the menu is shut.
+class _MenuEdge extends StatelessWidget {
+  const _MenuEdge({required this.visible});
+
+  final bool visible;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.outlineVariant;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(end: visible ? 1 : 0),
+      duration: MediaQuery.disableAnimationsOf(context)
+          ? Duration.zero
+          : Collapsible.duration,
+      curve: Curves.easeInOutCubic,
+      builder: (context, t, _) => Padding(
+        padding: EdgeInsets.only(bottom: AppSpacing.lg * t),
+        child: t == 0
+            ? const SizedBox.shrink()
+            : Center(
+                child: FractionallySizedBox(
+                  widthFactor: t,
+                  child: Container(height: 1, color: color),
+                ),
+              ),
+      ),
     );
   }
 }

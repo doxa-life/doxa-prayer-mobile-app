@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../components/misc/background_image_container.dart';
 import '../components/wizard/wizard_progress.dart';
+import '../components/misc/triangle_icon.dart';
+import '../components/wizard/wizard_step_group_intro.dart';
+import '../components/wizard/wizard_step_group_picked.dart';
 import '../components/wizard/wizard_step_news_signup.dart';
 import '../components/wizard/wizard_step_people_group_confirm.dart';
 import '../components/wizard/wizard_step_people_groups.dart';
@@ -60,6 +63,33 @@ class _WizardScreenState extends State<WizardScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      // On-screen back for every step but welcome. The
+                      // system back gesture alone left iPhone users with no
+                      // way back. Mirrors DetailsNavBar's arrow.
+                      if (_controller.canGoBack)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.md,
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: IconButton(
+                              icon: TriangleIcon(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                direction:
+                                    Directionality.of(context) ==
+                                        TextDirection.rtl
+                                    ? TriangleDirection.right
+                                    : TriangleDirection.left,
+                                size: 12,
+                              ),
+                              tooltip: MaterialLocalizations.of(
+                                context,
+                              ).backButtonTooltip,
+                              onPressed: _controller.back,
+                            ),
+                          ),
+                        ),
                       Expanded(
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 250),
@@ -98,10 +128,14 @@ class _WizardScreenState extends State<WizardScreen> {
     switch (_controller.step) {
       case WizardStep.welcome:
         return WizardStepWelcome(controller: _controller);
+      case WizardStep.groupIntro:
+        return WizardStepGroupIntro(controller: _controller);
       case WizardStep.peopleGroupsList:
         return WizardStepPeopleGroups(controller: _controller);
       case WizardStep.peopleGroupConfirm:
         return WizardStepPeopleGroupConfirm(controller: _controller);
+      case WizardStep.groupPicked:
+        return WizardStepGroupPicked(controller: _controller);
       case WizardStep.reminder:
         return WizardStepReminder(controller: _controller);
       case WizardStep.newsSignup:

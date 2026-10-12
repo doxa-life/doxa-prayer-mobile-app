@@ -912,6 +912,10 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "The map isn't available right now",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
     "yourPeopleGroups": "Your people groups",
     "@yourPeopleGroups": {
         "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
@@ -939,6 +943,18 @@
     "sortDescending": "Sort descending (Z–A)",
     "@sortDescending": {
         "description": "Tooltip for the button that sorts search results descending"
+    },
+    "sortAZ": "A–Z",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "Z–A",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "Prioritize groups with the fewest intercessors",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
     },
     "allLanguages": "All languages",
     "@allLanguages": {
@@ -1000,5 +1016,42 @@
     "continentOther": "Other",
     "@continentOther": {
         "description": "Fallback continent group header when a country's region is unknown"
+    },
+    "wizardGroupIntroBody": "DOXA Prayer is designed to help you pray for unreached people groups. The first thing we need to do is find a group for you to pray for.",
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "wizardGroupIntroSearchOption": "Find a people group",
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "wizardGroupIntroPickForMeOption": "Pick a group for me",
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "wizardGroupIntroChangeLaterNote": "You can change this at any time.",
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "wizardGroupPickedTitle": "We picked {name} for you!",
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardGroupPickedQuestion": "Would you like to continue with this group, or try another?",
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "wizardGroupPickedContinueButton": "Continue with this group",
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "wizardGroupPickedRerollButton": "Pick another group",
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
     }
 }

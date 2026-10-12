@@ -39,8 +39,9 @@ class PeopleGroupCard extends StatelessWidget {
   /// a card that silently loses a button its neighbours have looks broken.
   final VoidCallback? onMap;
 
-  /// Whether the map button belongs on this card at all. False in a build with
-  /// no Mapbox token, where there is no map to offer.
+  /// Whether the map button belongs on this card at all. The home carousel
+  /// always shows it (with a message when the build has no Mapbox token);
+  /// cards outside it, like the wizard's, leave it off.
   final bool showMap;
 
   @override

@@ -192,9 +192,22 @@
     "@engagementStatus": {
         "description": "The label of the engagement status field"
     },
-    "engaged": "Kohdattu",
+    "engaged": "Lähetystyön piirissä",
     "@engaged": {
         "description": "Marker label shown when a people group is engaged"
+    },
+    "unengaged": "Lähetystyön ulkopuolella",
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "nPeoplePraying": "{count, plural, =0{Kukaan ei vielä rukoile} one{{count} henkilö rukoilee} other{{count} henkilöä rukoilee}}",
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
     },
     "adoptionStatus": "Vastuunoton tilanne",
     "@adoptionStatus": {
@@ -899,6 +912,120 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "Kartta ei ole juuri nyt käytettävissä",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
+    "sortAZ": "A–Ö",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "Ö–A",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "Näytä ensin kansanryhmät, joilla on vähiten esirukoilijoita",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
+    "allLanguages": "Kaikki kielet",
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "allReligions": "Kaikki uskonnot",
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "allStatuses": "Kaikki tilat",
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "nSelected": "{count, plural, =0{Ei valintoja} other{{count} valittu}}",
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "clear": "Tyhjennä",
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "done": "Valmis",
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "clearFilters": "Tyhjennä suodattimet",
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "allCountries": "Kaikki maat",
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "continentAsia": "Aasia",
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAfrica": "Afrikka",
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAmericas": "Amerikka",
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentEurope": "Eurooppa",
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOceania": "Oseania",
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOther": "Muut",
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
+    "wizardGroupIntroBody": "DOXA Prayer on tehty auttamaan sinua rukoilemaan saavuttamattomien kansanryhmien puolesta. Aluksi etsitään sinulle kansanryhmä, jonka puolesta rukoilla.",
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "wizardGroupIntroSearchOption": "Etsi kansanryhmä",
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "wizardGroupIntroPickForMeOption": "Valitse kansanryhmä puolestani",
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "wizardGroupIntroChangeLaterNote": "Voit muuttaa tätä milloin tahansa.",
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "wizardGroupPickedTitle": "Valitsimme sinulle kansanryhmän: {name}!",
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardGroupPickedQuestion": "Haluatko jatkaa tämän kansanryhmän kanssa vai kokeilla toista?",
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "wizardGroupPickedContinueButton": "Jatka tällä kansanryhmällä",
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "wizardGroupPickedRerollButton": "Valitse toinen kansanryhmä",
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "yourPeopleGroups": "Omat kansanryhmäsi",
     "@yourPeopleGroups": {
         "description": "Map legend row explaining that heart-shaped pins are the people groups the user prays for"
@@ -910,5 +1037,21 @@
     "couldNotLoadMapMessage": "Karttaa ei voitu latata.",
     "@couldNotLoadMapMessage": {
         "description": "Error shown when the people-group list the map needs could not be loaded"
+    },
+    "filters": "Suodattimet",
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "sortByName": "Lajittele nimen mukaan",
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "sortAscending": "Lajittele nousevasti (A–Ö)",
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "sortDescending": "Lajittele laskevasti (Ö–A)",
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
     }
 }

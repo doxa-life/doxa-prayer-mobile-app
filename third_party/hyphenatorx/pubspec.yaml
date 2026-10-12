@@ -1,0 +1,36 @@
+# Trimmed copy of hyphenatorx 1.5.11 (https://pub.dev/packages/hyphenatorx).
+#
+# The upstream package bundles hyphenation patterns for ~70 languages (13 MB),
+# and Flutter ships every one of them in the app. This copy keeps only the
+# languages the app hyphenates; see docs/hyphenation.md for how to add one.
+#
+# Changes from upstream:
+# - assets/ holds only the languages listed in
+#   lib/services/hyphenation_service.dart (_languageByCode).
+# - lib/languages/language_*.dart (the same patterns as Dart) are kept only for
+#   those languages; the app never imports them, so they don't ship, but the
+#   unit tests do (asset loading doesn't work in tests). example/, test/ and
+#   tool/ are left out.
+# - The `roboto` font, which upstream declares from test/ for its own tests and
+#   so ships in every app, is dropped.
+#
+# DO NOT replace this with the pub.dev package (`hyphenatorx: ^x.y.z`) when
+# upgrading dependencies: that brings all ~70 languages (~10 MB) back into the
+# app. test/hyphenation_assets_test.dart fails if that happens. To upgrade,
+# follow docs/hyphenation.md.
+name: hyphenatorx
+description: Implementation of an hyphenation algorithm for various languages, based on TeX definitions.
+version: 1.5.11
+repository: https://github.com/xErik/hyphenatorx
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/

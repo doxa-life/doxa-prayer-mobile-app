@@ -163,19 +163,19 @@ class AppLocalizationsFi extends AppLocalizations {
   String get engagementStatus => 'Kohtaamistyön tilanne';
 
   @override
-  String get engaged => 'Kohdattu';
+  String get engaged => 'Lähetystyön piirissä';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Lähetystyön ulkopuolella';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count henkilöä rukoilee',
+      one: '$count henkilö rukoilee',
+      zero: 'Kukaan ei vielä rukoile',
     );
     return '$_temp0';
   }
@@ -709,6 +709,9 @@ class AppLocalizationsFi extends AppLocalizations {
       'Karttakuvat eivät ole käytettävissä offline-tilassa';
 
   @override
+  String get mapNotConfigured => 'Kartta ei ole juuri nyt käytettävissä';
+
+  @override
   String get yourPeopleGroups => 'Omat kansanryhmäsi';
 
   @override
@@ -718,65 +721,104 @@ class AppLocalizationsFi extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Karttaa ei voitu latata.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Suodattimet';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Lajittele nimen mukaan';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Lajittele nousevasti (A–Ö)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Lajittele laskevasti (Ö–A)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'A–Ö';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'Ö–A';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors =>
+      'Näytä ensin kansanryhmät, joilla on vähiten esirukoilijoita';
+
+  @override
+  String get allLanguages => 'Kaikki kielet';
+
+  @override
+  String get allReligions => 'Kaikki uskonnot';
+
+  @override
+  String get allStatuses => 'Kaikki tilat';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count valittu',
+      zero: 'Ei valintoja',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Tyhjennä';
 
   @override
-  String get done => 'Done';
+  String get done => 'Valmis';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Tyhjennä suodattimet';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Kaikki maat';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'Aasia';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'Afrikka';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Amerikka';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Eurooppa';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => 'Oseania';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Muut';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer on tehty auttamaan sinua rukoilemaan saavuttamattomien kansanryhmien puolesta. Aluksi etsitään sinulle kansanryhmä, jonka puolesta rukoilla.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Etsi kansanryhmä';
+
+  @override
+  String get wizardGroupIntroPickForMeOption =>
+      'Valitse kansanryhmä puolestani';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'Voit muuttaa tätä milloin tahansa.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'Valitsimme sinulle kansanryhmän: $name!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Haluatko jatkaa tämän kansanryhmän kanssa vai kokeilla toista?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Jatka tällä kansanryhmällä';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Valitse toinen kansanryhmä';
 }

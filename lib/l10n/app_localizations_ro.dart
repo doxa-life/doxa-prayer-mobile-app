@@ -167,16 +167,17 @@ class AppLocalizationsRo extends AppLocalizations {
   String get engaged => 'Angajat misionar';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Neangajat misionar';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count de persoane se roagă',
+      few: '$count persoane se roagă',
+      one: '$count persoană se roagă',
+      zero: 'Încă nu se roagă nimeni',
     );
     return '$_temp0';
   }
@@ -717,6 +718,9 @@ class AppLocalizationsRo extends AppLocalizations {
       'Imaginile hărții nu sunt disponibile offline';
 
   @override
+  String get mapNotConfigured => 'Harta nu este disponibilă momentan';
+
+  @override
   String get yourPeopleGroups => 'Grupurile tale etnolingvistice';
 
   @override
@@ -726,49 +730,60 @@ class AppLocalizationsRo extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Harta nu a putut fi încărcată.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Filtre';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Sortează după nume';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Sortează crescător (A–Z)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Sortează descrescător (Z–A)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'A–Z';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'Z–A';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors =>
+      'Prioritizează grupurile etnolingvistice cu cei mai puțini mijlocitori';
+
+  @override
+  String get allLanguages => 'Toate limbile';
+
+  @override
+  String get allReligions => 'Toate religiile';
+
+  @override
+  String get allStatuses => 'Orice stadiu';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count de selectate',
+      few: '$count selectate',
+      one: '$count selectat',
+      zero: 'Niciunul selectat',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Șterge';
 
   @override
-  String get done => 'Done';
+  String get done => 'Gata';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Șterge filtrele';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Toate țările';
 
   @override
   String get continentAsia => 'Asia';
@@ -777,14 +792,42 @@ class AppLocalizationsRo extends AppLocalizations {
   String get continentAfrica => 'Africa';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Americile';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Europa';
 
   @override
   String get continentOceania => 'Oceania';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Altele';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer te ajută să te rogi pentru grupurile etnolingvistice neatinse cu Evanghelia. Mai întâi, trebuie să găsim un grup etnolingvistic pentru care să te rogi.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Găsește un grup etnolingvistic';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'Alege un grup pentru mine';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote => 'Poți schimba asta oricând.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'Am ales $name pentru tine!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Vrei să continui cu acest grup sau să încerci altul?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Continuă cu acest grup';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Alege alt grup';
 }

@@ -229,6 +229,120 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "मानचित्र अभी उपलब्ध नहीं है",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
+    "sortAZ": "अ–ह",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "ह–अ",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "सबसे कम मध्यस्थों वाले जनसमूहों को प्राथमिकता दें",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
+    "allLanguages": "सभी भाषाएँ",
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "allReligions": "सभी धर्म",
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "allStatuses": "कोई भी स्थिति",
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "nSelected": "{count, plural, =0{कोई चयनित नहीं} other{{count} चयनित}}",
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "clear": "साफ़ करें",
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "done": "हो गया",
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "clearFilters": "फ़िल्टर हटाएँ",
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "allCountries": "सभी देश",
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "continentAsia": "एशिया",
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAfrica": "अफ़्रीका",
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAmericas": "अमेरिका",
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentEurope": "यूरोप",
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOceania": "ओशिनिया",
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOther": "अन्य",
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
+    "wizardGroupIntroBody": "DOXA Prayer आपको अप्राप्य जनसमूहों के लिए प्रार्थना करने में मदद करने के लिए बनाया गया है। सबसे पहले हमें आपके लिए एक जनसमूह ढूँढना है, जिसके लिए आप प्रार्थना करेंगे।",
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "wizardGroupIntroSearchOption": "एक जनसमूह खोजें",
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "wizardGroupIntroPickForMeOption": "मेरे लिए एक जनसमूह चुनें",
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "wizardGroupIntroChangeLaterNote": "आप इसे कभी भी बदल सकते हैं।",
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "wizardGroupPickedTitle": "हमने आपके लिए {name} चुना है!",
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardGroupPickedQuestion": "क्या आप इसी जनसमूह के साथ आगे बढ़ना चाहेंगे, या कोई दूसरा आज़माना चाहेंगे?",
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "wizardGroupPickedContinueButton": "इसी जनसमूह के साथ आगे बढ़ें",
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "wizardGroupPickedRerollButton": "दूसरा जनसमूह चुनें",
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -740,6 +854,22 @@
     "clearSearchLabel": "खोज साफ़ करें",
     "continueLabel": "आगे बढ़ें",
     "couldNotLoadMapMessage": "मानचित्र लोड नहीं हो सका।",
+    "filters": "फ़िल्टर",
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "sortByName": "नाम से क्रमबद्ध करें",
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "sortAscending": "आरोही क्रम में लगाएँ (अ–ह)",
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "sortDescending": "अवरोही क्रम में लगाएँ (ह–अ)",
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
+    },
     "couldNotLoadPeopleGroupDetailsMessage": "जनसमूह का विवरण लोड नहीं हो सका।",
     "couldNotLoadPeopleGroupsMessage": "जनसमूह लोड नहीं हो सके।",
     "couldNotLoadPrayerContent": "प्रार्थना सामग्री लोड नहीं हो सकी।",
@@ -761,6 +891,19 @@
     "enableNotificationsButton": "सूचनाएँ सक्षम करें",
     "enableNotificationsPromptBody": "ये अपडेट अपने फ़ोन पर भी पाने के लिए सूचनाएँ सक्षम करें।",
     "engaged": "संपर्कित",
+    "unengaged": "अनसंपर्कित",
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "nPeoplePraying": "{count, plural, =0{अभी तक कोई प्रार्थना नहीं कर रहा} one{{count} व्यक्ति प्रार्थना कर रहा है} other{{count} लोग प्रार्थना कर रहे हैं}}",
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "engagementStatus": "संलग्नता की स्थिति",
     "everyDay": "हर दिन",
     "exactAlarmsDisabledStatus": "DOXA को सटीक अलार्म की अनुमति नहीं है, इसलिए आपके प्रार्थना रिमाइंडर कुछ मिनट देर से आ सकते हैं।",

@@ -16,7 +16,10 @@ import 'response_cache.dart';
 const _listFields =
     'name,slug,image_url,country_code,religion,primary_language,population,'
     'engagement_status,region,people_praying,people_committed,'
-    'latitude,longitude';
+    'latitude,longitude,imb_total_resources_available,'
+    'imb_bible_available,imb_jesus_film_available,'
+    'imb_radio_broadcast_available,imb_gospel_recordings_available,'
+    'imb_audio_scripture_available,imb_bible_stories_available';
 
 /// Bumped whenever [_listFields] changes. The cached body is a *projection* of
 /// the people group, not the whole record, so a build that asks for a new field
@@ -24,7 +27,7 @@ const _listFields =
 /// the map's `latitude,longitude` were added: existing installs kept serving a
 /// coordinate-less list for the rest of its 7-day TTL, and the map button never
 /// appeared. Old files are swept by `maxResponseAge`.
-const String _listFieldsRevision = 'v4';
+const String _listFieldsRevision = 'v5';
 
 /// Cache keys are exposed so a screen can peek the in-memory cache before its
 /// first frame (see `CachedDataBuilder`); they must match what the fetch below

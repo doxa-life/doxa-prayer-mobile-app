@@ -9,9 +9,13 @@ class CheckboxField extends StatelessWidget {
     required this.label,
     required this.value,
     required this.onChanged,
+    this.leading,
   });
 
   final String label;
+
+  /// Shown between the checkbox and [label], e.g. a country's flag.
+  final Widget? leading;
   final bool value;
   final ValueChanged<bool> onChanged;
 
@@ -34,6 +38,10 @@ class CheckboxField extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             const SizedBox(width: 8),
+            if (leading case final leading?) ...[
+              leading,
+              const SizedBox(width: 8),
+            ],
             Expanded(
               child: HyphenatedText(label, style: AppTypography.bodyMedium),
             ),

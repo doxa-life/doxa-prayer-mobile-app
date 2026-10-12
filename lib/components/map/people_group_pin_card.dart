@@ -9,6 +9,7 @@ import '../buttons/action_button.dart';
 import '../buttons/button_link.dart';
 import '../cards/elevated_card.dart';
 import '../misc/app_image.dart';
+import '../misc/country_flag.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/prayed_today_pill.dart';
 import '../misc/selected_pill.dart';
@@ -79,13 +80,22 @@ class PeopleGroupPinCard extends StatelessWidget {
                       ),
                     ),
                     if (group.countryLabel != null)
-                      HyphenatedText(
-                        group.countryLabel!,
-                        softWrap: true,
-                        style: AppTypography.bodySmall.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: AppColors.primaryLight,
-                        ),
+                      Row(
+                        spacing: AppSpacing.xs,
+                        children: [
+                          Flexible(
+                            child: HyphenatedText(
+                              group.countryLabel!,
+                              softWrap: true,
+                              style: AppTypography.bodySmall.copyWith(
+                                fontWeight: FontWeight.w300,
+                                color: AppColors.primaryLight,
+                              ),
+                            ),
+                          ),
+                          if (group.countryCode != null)
+                            CountryFlag(code: group.countryCode!),
+                        ],
                       ),
                   ],
                 ),

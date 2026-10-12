@@ -11,14 +11,17 @@ import 'install_referrer_service.dart';
 import 'locale_controller.dart';
 import 'news_signup_service.dart';
 import 'people_groups_service.dart';
+import 'prayer_need_ranking.dart';
 import 'referral_controller.dart';
 import 'subscribed_people_groups_controller.dart';
 import 'wizard_completion_controller.dart';
 
 enum WizardStep {
   welcome,
+  groupIntro,
   peopleGroupsList,
   peopleGroupConfirm,
+  groupPicked,
   reminder,
   newsSignup,
 }
@@ -35,12 +38,35 @@ class WizardController extends ChangeNotifier {
   WizardStep _step = WizardStep.welcome;
   PeopleGroup? _candidatePeopleGroup;
   bool _resolvingReferral = false;
+
+  // "Pick a group for me" (see [skipPeopleGroup]). The picked group keeps its
+  // full list-model fields for the group-picked step's stats.
+  PeopleGroup? _pickedGroup;
+  bool _autoSelectingGroup = false;
+  // Which step the auto-pick was asked from (the intro or the list's Skip),
+  // so back() from the group-picked step returns there.
+  WizardStep _pickedFrom = WizardStep.groupIntro;
+  // Groups already offered this session, so "Pick another group" walks down
+  // the ranking instead of offering the same one again.
+  final Set<String> _offeredSlugs = {};
+  // The auto-pick the user continued with, so it can be swapped out if they
+  // come back and pick another rather than ending up following both.
+  String? _subscribedPickSlug;
+  // Whether the reminder step was reached through the auto-pick, for back().
+  bool _reminderFromAutoPick = false;
+
   // Set in dispose() so async resolution continuations don't touch a disposed
   // notifier (notifyListeners() after dispose throws).
   bool _disposed = false;
 
   WizardStep get step => _step;
   PeopleGroup? get candidatePeopleGroup => _candidatePeopleGroup;
+
+  /// The group "Pick a group for me" chose, for the group-picked step.
+  PeopleGroup? get pickedGroup => _pickedGroup;
+
+  /// True while a group is being picked — the buttons show a spinner.
+  bool get autoSelectingGroup => _autoSelectingGroup;
 
   @override
   void dispose() {
@@ -76,11 +102,9 @@ class WizardController extends ChangeNotifier {
     if (_disposed) return;
     final slug = referredPeopleGroupController.value;
     if (slug == null || slug.isEmpty) {
-      debugPrint(
-        '[deferred] welcome: no referred slug — showing people-groups list',
-      );
+      debugPrint('[deferred] welcome: no referred slug — showing group intro');
       _resolvingReferral = false;
-      _set(WizardStep.peopleGroupsList);
+      _set(WizardStep.groupIntro);
       return;
     }
     debugPrint(
@@ -101,8 +125,10 @@ class WizardController extends ChangeNotifier {
     final slug = referredPeopleGroupController.value;
     if (slug == null || slug.isEmpty) return;
     if (_resolvingReferral) return;
-    if (_step != WizardStep.peopleGroupsList &&
-        _step != WizardStep.peopleGroupConfirm) {
+    if (_step != WizardStep.groupIntro &&
+        _step != WizardStep.peopleGroupsList &&
+        _step != WizardStep.peopleGroupConfirm &&
+        _step != WizardStep.groupPicked) {
       return;
     }
     debugPrint(
@@ -153,14 +179,16 @@ class WizardController extends ChangeNotifier {
     }
   }
 
-  /// Maps the 5-state machine onto 4 progress dots — the confirm sub-step
-  /// shares its dot with the people-group list step.
+  /// Maps the 7-state machine onto 4 progress dots — every "choose a group"
+  /// step (intro, list, confirm, picked) shares the second dot.
   int get progressIndex {
     switch (_step) {
       case WizardStep.welcome:
         return 0;
+      case WizardStep.groupIntro:
       case WizardStep.peopleGroupsList:
       case WizardStep.peopleGroupConfirm:
+      case WizardStep.groupPicked:
         return 1;
       case WizardStep.reminder:
         return 2;
@@ -174,12 +202,18 @@ class WizardController extends ChangeNotifier {
   void next() {
     switch (_step) {
       case WizardStep.welcome:
+        _set(WizardStep.groupIntro);
+      case WizardStep.groupIntro:
         _set(WizardStep.peopleGroupsList);
       case WizardStep.peopleGroupsList:
+        _reminderFromAutoPick = false;
         _set(WizardStep.reminder);
       case WizardStep.peopleGroupConfirm:
         _candidatePeopleGroup = null;
+        _reminderFromAutoPick = false;
         _set(WizardStep.reminder);
+      case WizardStep.groupPicked:
+        continueWithPickedGroup();
       case WizardStep.reminder:
         _set(WizardStep.newsSignup);
       case WizardStep.newsSignup:
@@ -191,13 +225,21 @@ class WizardController extends ChangeNotifier {
     switch (_step) {
       case WizardStep.welcome:
         break;
-      case WizardStep.peopleGroupsList:
+      case WizardStep.groupIntro:
         _set(WizardStep.welcome);
+      case WizardStep.peopleGroupsList:
+        _set(WizardStep.groupIntro);
       case WizardStep.peopleGroupConfirm:
         _candidatePeopleGroup = null;
         _set(WizardStep.peopleGroupsList);
+      case WizardStep.groupPicked:
+        _set(_pickedFrom);
       case WizardStep.reminder:
-        _set(WizardStep.peopleGroupsList);
+        _set(
+          _reminderFromAutoPick
+              ? WizardStep.groupPicked
+              : WizardStep.peopleGroupsList,
+        );
       case WizardStep.newsSignup:
         _set(WizardStep.reminder);
     }
@@ -213,9 +255,110 @@ class WizardController extends ChangeNotifier {
     _set(WizardStep.peopleGroupsList);
   }
 
-  void skipPeopleGroup() {
+  /// The intro's "Find a people group" choice.
+  void searchForGroup() => _set(WizardStep.peopleGroupsList);
+
+  /// "Pick a group for me" (the intro) and Skip (the list): picks the group
+  /// that most needs prayer — see [compareByPrayerNeed] — from the people
+  /// groups list cached on the device, ranking every group each time since
+  /// counts change as people start and stop praying. Lands on the
+  /// group-picked step so the user sees which group they got. If no list can
+  /// be had (offline on a first launch), carries on without a group, as
+  /// skipping always did.
+  Future<void> skipPeopleGroup() async {
+    if (_autoSelectingGroup) return;
     _candidatePeopleGroup = null;
+    _pickedFrom = _step;
+    // Already continued with a pick and come back: show that group again
+    // rather than re-ranking into a different one.
+    final kept = _pickedGroup;
+    if (kept != null && kept.slug == _subscribedPickSlug) {
+      _set(WizardStep.groupPicked);
+      return;
+    }
+    _offeredSlugs.clear();
+    final picked = await _pickNext();
+    if (_disposed) return;
+    if (picked) {
+      _set(WizardStep.groupPicked);
+    } else {
+      _reminderFromAutoPick = false;
+      _set(WizardStep.reminder);
+    }
+  }
+
+  /// The group-picked step's "Pick another group": the next group down the
+  /// same ranking that hasn't been offered yet, re-ranked from the current
+  /// cached list.
+  Future<void> rerollPickedGroup() async {
+    if (_autoSelectingGroup) return;
+    await _pickNext();
+  }
+
+  /// "Continue with this group": follows the picked group and moves on to
+  /// reminders. Replaces an earlier auto-pick the user continued with and
+  /// then came back from, so they don't end up following both.
+  Future<void> continueWithPickedGroup() async {
+    final g = _pickedGroup;
+    if (g == null) return;
+    final previous = _subscribedPickSlug;
+    if (previous != null && previous != g.slug) {
+      await removePeopleGroup(previous);
+    }
+    await addPeopleGroup(
+      SubscribedPeopleGroup(slug: g.slug, name: g.name, imageUrl: g.imageUrl),
+    );
+    _subscribedPickSlug = g.slug;
+    if (_disposed) return;
+    _reminderFromAutoPick = true;
     _set(WizardStep.reminder);
+  }
+
+  /// Picks the neediest group not yet offered (nor already followed) into
+  /// [pickedGroup]. Once every group has been offered, starts again from the
+  /// top. Returns false when there's no list to pick from.
+  Future<bool> _pickNext() async {
+    _autoSelectingGroup = true;
+    notifyListeners();
+    var picked = false;
+    try {
+      final lang = localeController.value.languageCode;
+      final groups = await fetchPeopleGroups(lang: lang);
+      final followed = peopleGroupsController.value;
+      final candidates = rankByPrayerNeed(
+        groups.where(
+          (g) => !followed.contains(g.slug) || g.slug == _subscribedPickSlug,
+        ),
+      );
+      var next = candidates
+          .where((g) => !_offeredSlugs.contains(g.slug))
+          .firstOrNull;
+      if (next == null && candidates.isNotEmpty) {
+        _offeredSlugs.clear();
+        next = candidates.firstWhere(
+          (g) => g.slug != _pickedGroup?.slug,
+          orElse: () => candidates.first,
+        );
+      }
+      if (next != null) {
+        _pickedGroup = next;
+        _offeredSlugs.add(next.slug);
+        picked = true;
+      }
+    } catch (e, s) {
+      developer.log(
+        'auto-pick people group failed',
+        name: 'wizard_controller',
+        error: e,
+        stackTrace: s,
+      );
+      reportError(e, s, reason: 'auto-pick people group failed');
+    }
+    if (!_disposed) {
+      _autoSelectingGroup = false;
+      notifyListeners();
+    }
+    return picked;
   }
 
   /// Performs the signup for the news-signup step: the people-group prayer

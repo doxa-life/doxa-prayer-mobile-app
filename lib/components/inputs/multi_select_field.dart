@@ -19,11 +19,15 @@ class MultiSelectOption<T> {
     required this.value,
     required this.label,
     this.groupLabel,
+    this.leading,
   });
 
   final T value;
   final String label;
   final String? groupLabel;
+
+  /// Shown before [label] in the picker sheet, e.g. a country's flag.
+  final Widget? leading;
 }
 
 /// A [SelectField]-alike for choosing zero or more values: looks like a form
@@ -41,9 +45,11 @@ class MultiSelectField<T> extends StatelessWidget {
     required this.selected,
     required this.onChanged,
     this.searchable = false,
+    this.showLabel = true,
   });
 
   final String label;
+
   /// Summary text shown when nothing is selected (e.g. "All languages").
   final String emptyLabel;
   final List<MultiSelectOption<T>> options;
@@ -51,16 +57,9 @@ class MultiSelectField<T> extends StatelessWidget {
   final ValueChanged<Set<T>> onChanged;
   final bool searchable;
 
-  String _summary(AppLocalizations l) {
-    if (selected.isEmpty) return emptyLabel;
-    if (selected.length <= 2) {
-      final labels = options
-          .where((o) => selected.contains(o.value))
-          .map((o) => o.label);
-      return labels.join(', ');
-    }
-    return l.nSelected(selected.length);
-  }
+  /// False when something around the field already names it (a filter
+  /// section header). [label] still titles the picker sheet.
+  final bool showLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -80,18 +79,43 @@ class MultiSelectField<T> extends StatelessWidget {
       },
       child: InputDecorator(
         decoration: InputDecoration(
-          label: MediaQuery.withClampedTextScaling(
-            maxScaleFactor: 1.3,
-            child: HyphenatedText(label),
-          ),
+          label: showLabel
+              ? MediaQuery.withClampedTextScaling(
+                  maxScaleFactor: 1.3,
+                  child: HyphenatedText(label),
+                )
+              : null,
         ),
         child: HyphenatedText(
-          _summary(l),
+          multiSelectSummary(
+            l,
+            options: options,
+            selected: selected,
+            emptyLabel: emptyLabel,
+          ),
           style: AppTypography.bodyMedium.copyWith(color: scheme.onSurface),
         ),
       ),
     );
   }
+}
+
+/// The field's one-line summary of [selected]: [emptyLabel] when nothing is
+/// chosen, the labels themselves for one or two, otherwise a count.
+String multiSelectSummary<T>(
+  AppLocalizations l, {
+  required List<MultiSelectOption<T>> options,
+  required Set<T> selected,
+  required String emptyLabel,
+}) {
+  if (selected.isEmpty) return emptyLabel;
+  if (selected.length <= 2) {
+    final labels = options
+        .where((o) => selected.contains(o.value))
+        .map((o) => o.label);
+    return labels.join(', ');
+  }
+  return l.nSelected(selected.length);
 }
 
 /// Shows the picker sheet and resolves with the new selection once the user
@@ -217,6 +241,7 @@ class _MultiSelectSheetState<T> extends State<_MultiSelectSheet<T>> {
                       for (final o in entry.value)
                         CheckboxField(
                           label: o.label,
+                          leading: o.leading,
                           value: _selection.contains(o.value),
                           onChanged: (v) => setState(() {
                             if (v) {

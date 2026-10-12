@@ -712,6 +712,9 @@ class AppLocalizationsEs extends AppLocalizations {
       'Imágenes del mapa no disponibles sin conexión';
 
   @override
+  String get mapNotConfigured => 'El mapa no está disponible en este momento';
+
+  @override
   String get yourPeopleGroups => 'Tus grupos étnicos';
 
   @override
@@ -731,6 +734,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sortDescending => 'Ordenar descendente (Z-A)';
+
+  @override
+  String get sortAZ => 'A–Z';
+
+  @override
+  String get sortZA => 'Z–A';
+
+  @override
+  String get prioritizeFewestIntercessors =>
+      'Priorizar los grupos étnicos con menos intercesores';
 
   @override
   String get allLanguages => 'Todos los idiomas';
@@ -782,4 +795,33 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get continentOther => 'Otro';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer está diseñada para ayudarte a orar por grupos de personas no alcanzados. Lo primero que debemos hacer es encontrar un grupo por el que puedas orar.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Encontrar un grupo de personas';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'Elige un grupo por mí';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'Puedes cambiar esto en cualquier momento.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return '¡Hemos elegido a $name para ti!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      '¿Te gustaría continuar con este grupo o probar con otro?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Continuar con este grupo';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Elegir otro grupo';
 }

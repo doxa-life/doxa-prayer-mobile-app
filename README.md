@@ -48,6 +48,41 @@ The same applies to Android **emulators** (their `localhost` is the emulator
 itself, not your machine): run `adb reverse tcp:3000 tcp:3000`, or point the
 override at `http://10.0.2.2:3000`, the emulator's alias for the host.
 
+### Running from Xcode: "No such module 'Flutter'" / "'FirebaseCore'"
+
+Open the project with `tool/open_xcode.sh` (or `tool/open_xcode.sh staging`)
+rather than double-clicking it. Xcode doesn't run `flutter pub get`, regenerate
+`ios/Flutter/Generated.xcconfig` or run `pod install` — `flutter build` does all
+three, which is why the CLI keeps working when Xcode can't find the modules.
+The script does that prep (`flutter build ios --config-only`) and opens
+`Runner.xcworkspace` (never `Runner.xcodeproj`, which doesn't include the Pods).
+If Xcode still fails, quit it and run `tool/open_xcode.sh --clean` to clear this
+project's DerivedData (left over from the old Swift Package Manager setup).
+
+If ⌘R (Run) fails with `No such module 'Flutter'` or `No such module
+'FirebaseCore'` while Archive works, check which build configuration the
+scheme's **Run** action uses (Product → Scheme → Edit Scheme… → Run → Info →
+Build Configuration).
+
+Run must use a **Debug** configuration (`Debug-production` or
+`Debug-staging`). `Profile-*` and `Release-*` are release-type Flutter builds,
+which can't run on the iOS simulator at all — Flutter ships no simulator
+engine for them, and those configurations only support `iphoneos`. Archive
+works because it always builds for a real device.
+
+The shared schemes are set up this way
+(`ios/Runner.xcodeproj/xcshareddata/xcschemes/`):
+
+| Scheme       | Run                | Profile              | Archive              |
+| ------------ | ------------------ | -------------------- | -------------------- |
+| `production` | `Debug-production` | `Profile-production` | `Release-production` |
+| `staging`    | `Debug-staging`    | `Profile-staging`    | `Release-staging`    |
+
+`Debug-production` has the same API host, bundle ID (`life.doxa.pray`),
+team, Firebase config and `.env` as the archive build; it just isn't
+optimised. To try the actual release build, run `Profile-production` on a
+**physical iPhone**, not the simulator — and don't change the Archive action.
+
 ## Releasing (Android)
 
 Releases are automated with [fastlane](https://fastlane.tools), fronted by

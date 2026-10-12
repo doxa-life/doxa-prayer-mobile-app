@@ -42,8 +42,8 @@ class MapConfig {
     return dotenv.maybeGet('MAPBOX_TOKEN', fallback: '') ?? '';
   }
 
-  /// False when no token is configured. The map button hides itself rather than
-  /// opening a screen that can only ever show grey squares.
+  /// False when no token is configured. The map button then shows a message
+  /// rather than opening a screen that can only ever show grey squares.
   static bool get isConfigured => token.isNotEmpty;
 
   /// The raster-tiles template `TileLayer` interpolates `{z}/{x}/{y}` into.

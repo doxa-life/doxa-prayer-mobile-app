@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.2.3+37 - 2026-10-09
+
+Released to Google Play production only (iOS not uploaded). Built from
+uncommitted work on `people-group-card-redesign`. **Push notifications are off
+in this build** — `ONESIGNAL_APP_ID` was empty in `.env`, so OneSignal isn't
+initialised. On-device prayer reminders are unaffected.
+
+Features:
+- search and filter people groups by language, religion, country, status and population
+- groups with the fewest intercessors are shown first (filter-menu checkbox, on by default)
+- country flags and religion icons in search and filters
+- map of where each people group lives, from its home card
+- "pick a group for me" now offers different groups (random among ties)
+
+Bug fixes:
+- the number praying on the list now matches the group's profile
+- real sign-up secret and Mapbox token in the bundled `.env`
+
 ## 2.2.1+33 - 2026-09-29
 
 Features:

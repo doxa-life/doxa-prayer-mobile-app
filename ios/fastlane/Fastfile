@@ -176,7 +176,11 @@ platform :ios do
     # Generate the export options plist from env so the team id stays a single
     # variable. Each embedded target must appear in provisioningProfiles with
     # its match-generated profile name.
-    profile_entries = bundle_ids.map { |id| "  <key>#{id}</key><string>match AppStore #{id}</string>" }.join("\n")
+    # Prefer the names match actually used: when "match AppStore <id>" is already
+    # taken in the portal (e.g. by a profile for an older cert), it creates the
+    # new profile under a timestamped name instead.
+    mapping = lane_context[SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING] || {}
+    profile_entries = bundle_ids.map { |id| "  <key>#{id}</key><string>#{mapping[id] || "match AppStore #{id}"}</string>" }.join("\n")
     export_plist = Tempfile.new(["ExportOptions-#{flavor}", ".plist"])
     export_plist.write(<<~PLIST)
       <?xml version="1.0" encoding="UTF-8"?>

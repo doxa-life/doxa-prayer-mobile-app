@@ -8,8 +8,11 @@ class PeopleGroup {
     required this.peoplePraying,
     required this.peopleCommitted,
     this.countryCode,
+    this.religionCode,
+    this.religionAlternates = const [],
     this.primaryLanguageLabel,
     this.population,
+    this.resourcesAvailable,
     this.engagementStatusValue,
     this.regionValue,
     this.latitude,
@@ -25,8 +28,23 @@ class PeopleGroup {
   final String? countryCode;
   final String? countryLabel;
   final String? religionLabel;
+
+  /// The API's religion code ("MSN", "CPR"…) — untranslated, so it's what
+  /// picks the religion's icon.
+  final String? religionCode;
+
+  /// Other names for the religion, translated server-side (e.g. "Muslim" and
+  /// "Shiite" for "Islam - Shia"). The search box matches these as well as
+  /// the label, so typing "muslim" finds every Islam group.
+  final List<String> religionAlternates;
   final String? primaryLanguageLabel;
   final int? population;
+
+  /// How many outreach resources exist in the group's language (Bible, Jesus
+  /// film, radio, gospel recordings, audio scripture, Bible stories): 0–6, or
+  /// null when unknown. Onboarding's "pick a group for me" favours groups
+  /// with fewer.
+  final int? resourcesAvailable;
 
   /// Raw API value ("engaged" / "unengaged"), not a display label.
   final String? engagementStatusValue;
@@ -65,6 +83,30 @@ class PeopleGroup {
     return 0;
   }
 
+  /// The six per-resource flags behind `imb_total_resources_available`.
+  static const resourceFlagFields = [
+    'imb_bible_available',
+    'imb_jesus_film_available',
+    'imb_radio_broadcast_available',
+    'imb_gospel_recordings_available',
+    'imb_audio_scripture_available',
+    'imb_bible_stories_available',
+  ];
+
+  /// The API's total when it has one (a numeric string, like population);
+  /// for the ~350 groups where it's null, the count of resource flags that
+  /// are true — every group carries those. Null only if neither is present.
+  static int? _resources(Map<String, dynamic> json) {
+    final total = json['imb_total_resources_available'];
+    if (total is num) return total.toInt();
+    if (total is String && int.tryParse(total) != null) {
+      return int.parse(total);
+    }
+    final flags = [for (final f in resourceFlagFields) json[f]];
+    if (flags.every((v) => v is! bool)) return null;
+    return flags.where((v) => v == true).length;
+  }
+
   static PeopleGroup fromJson(Map<String, dynamic> json) {
     final country = json['country_code'];
     final religion = json['religion'];
@@ -85,6 +127,12 @@ class PeopleGroup {
       religionLabel: religion is Map<String, dynamic>
           ? religion['label'] as String?
           : null,
+      religionCode: religion is Map<String, dynamic>
+          ? religion['value'] as String?
+          : null,
+      religionAlternates: religion is Map<String, dynamic>
+          ? [...?(religion['alternates'] as List?)?.whereType<String>()]
+          : const [],
       primaryLanguageLabel: primaryLanguage is Map<String, dynamic>
           ? primaryLanguage['label'] as String?
           : null,
@@ -93,6 +141,7 @@ class PeopleGroup {
         String s => int.tryParse(s),
         _ => null,
       },
+      resourcesAvailable: _resources(json),
       engagementStatusValue: engagementStatus is Map<String, dynamic>
           ? (engagementStatus['value'] as String?)?.toLowerCase()
           : null,

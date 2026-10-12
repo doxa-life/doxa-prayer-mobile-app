@@ -184,7 +184,7 @@ Future<void> seedState() async {
 ///   - home "Ready for today's prayer?" nudge
 ///   - Reminders notifications-blocked / exact-alarms-not-allowed warnings
 ///
-/// Idempotent: safe to call repeatedly (the iOS harness re-arms it per step).
+/// Safe to call repeatedly (the iOS harness re-arms it per step).
 void installOverlayGuards() {
   void pin(ValueNotifier<bool> n, bool target) {
     n.value = target;
@@ -195,7 +195,14 @@ void installOverlayGuards() {
 
   pin(notificationsBlocked, false);
   pin(exactAlarmsBlocked, false);
-  pin(prayerReminderDismissedController, true);
+  // Dismissed per people group now (a set of slugs), so pin every seeded one.
+  final allDismissed = {for (final g in _groups) g.slug};
+  prayerReminderDismissedController.value = allDismissed;
+  prayerReminderDismissedController.addListener(() {
+    if (prayerReminderDismissedController.value != allDismissed) {
+      prayerReminderDismissedController.value = allDismissed;
+    }
+  });
 
   updateController.value = UpdateStatus.none;
   updateController.addListener(() {

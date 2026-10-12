@@ -701,6 +701,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mapUnavailableOffline => 'Map images unavailable offline';
 
   @override
+  String get mapNotConfigured => 'The map isn\'t available right now';
+
+  @override
   String get yourPeopleGroups => 'Your people groups';
 
   @override
@@ -720,6 +723,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sortDescending => 'Sort descending (Z–A)';
+
+  @override
+  String get sortAZ => 'A–Z';
+
+  @override
+  String get sortZA => 'Z–A';
+
+  @override
+  String get prioritizeFewestIntercessors =>
+      'Prioritize groups with the fewest intercessors';
 
   @override
   String get allLanguages => 'All languages';
@@ -771,4 +784,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continentOther => 'Other';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer is designed to help you pray for unreached people groups. The first thing we need to do is find a group for you to pray for.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Find a people group';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'Pick a group for me';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'You can change this at any time.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'We picked $name for you!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Would you like to continue with this group, or try another?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Continue with this group';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Pick another group';
 }

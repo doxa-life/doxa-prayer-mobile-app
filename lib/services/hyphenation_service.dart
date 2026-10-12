@@ -26,10 +26,15 @@ import 'package:hyphenatorx/languages/languageconfig.dart';
 
 /// hyphenatorx [Language] per app language code.
 ///
-/// Languages absent from this map are never hyphenated. `ar`, `hi` and `zh` are
-/// deliberately missing: none of Arabic, Devanagari or Han script has a
-/// hyphenation convention — Chinese already wraps between characters — and
-/// inserting hyphens would be wrong rather than merely ugly.
+/// Every app language is in exactly one of this map or
+/// [unhyphenatedLanguages] — test/language_parity_test.dart fails otherwise, so
+/// a new language can't silently go unhyphenated.
+///
+/// hyphenatorx is a trimmed local copy (third_party/hyphenatorx) that bundles
+/// only these languages' pattern files. Adding an entry here also means copying
+/// its `language_*.json` into third_party/hyphenatorx/assets/ — without it the
+/// load fails (logged, caught) and the language silently goes unhyphenated.
+/// See docs/hyphenation.md.
 const Map<String, Language> _languageByCode = <String, Language>{
   'en': Language.language_en_us,
   'es': Language.language_es,
@@ -39,7 +44,23 @@ const Map<String, Language> _languageByCode = <String, Language>{
   'de': Language.language_de_1996,
   'it': Language.language_it,
   'ro': Language.language_ro,
+  'fi': Language.language_fi,
 };
+
+/// App languages deliberately never hyphenated, with the reason. Inserting
+/// hyphens in these scripts would be wrong rather than merely ugly. Only add a
+/// language here when its script has no hyphenation convention — not because
+/// adding its patterns is extra work.
+const Map<String, String> unhyphenatedLanguages = <String, String>{
+  'ar': 'Arabic script has no hyphenation convention.',
+  'hi': 'Devanagari script has no hyphenation convention.',
+  'zh': 'Han script has no hyphenation; Chinese wraps between characters.',
+};
+
+/// The hyphenatorx languages the app loads, so tests can check that the
+/// trimmed package bundles exactly these.
+@visibleForTesting
+Iterable<Language> get hyphenationLanguages => _languageByCode.values;
 
 /// The character drawn at a break. ASCII rather than U+2010 so it is present in
 /// every bundled font (BebasKai, Poppins, BrandonGrotesque).

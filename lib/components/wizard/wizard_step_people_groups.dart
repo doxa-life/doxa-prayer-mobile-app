@@ -36,12 +36,24 @@ class WizardStepPeopleGroups extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              // Skip picks a group for the user (see
+              // WizardController.skipPeopleGroup) rather than leaving them
+              // with none.
               ActionButton(
                 label: l.skip,
-                onPressed: controller.skipPeopleGroup,
+                onPressed: controller.autoSelectingGroup
+                    ? null
+                    : controller.skipPeopleGroup,
                 isOutlined: true,
                 color: ActionButtonColor.white,
               ),
+              if (controller.autoSelectingGroup) ...[
+                const SizedBox(width: AppSpacing.md),
+                const SizedBox.square(
+                  dimension: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2.5),
+                ),
+              ],
             ],
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/action_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_list_card.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/country_flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -42,6 +43,7 @@ void main() {
           child: PeopleGroupListCard(
             name: 'A very long people group name that pushes the layout',
             countryLabel: 'A very long country name that pushes the layout',
+            countryCode: 'MYS',
             imageUrl: null,
             showSelectButton: true,
             onSelect: _noop,
@@ -54,6 +56,7 @@ void main() {
 
       expect(tester.takeException(), isNull);
       expect(find.byType(ActionButton), findsOneWidget);
+      expect(find.byType(CountryFlag), findsOneWidget);
     },
   );
 }

@@ -716,6 +716,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mapUnavailableOffline => 'Изображения карты недоступны офлайн';
 
   @override
+  String get mapNotConfigured => 'Карта сейчас недоступна';
+
+  @override
   String get yourPeopleGroups => 'Ваши народы';
 
   @override
@@ -735,6 +738,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get sortDescending => 'Сортировать по убыванию (Я-А)';
+
+  @override
+  String get sortAZ => 'А–Я';
+
+  @override
+  String get sortZA => 'Я–А';
+
+  @override
+  String get prioritizeFewestIntercessors =>
+      'Сначала народы с наименьшим числом ходатаев';
 
   @override
   String get allLanguages => 'Все языки';
@@ -786,4 +799,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get continentOther => 'Другое';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer помогает вам молиться за недостигнутые народы. Первое, что нам нужно сделать, — найти народ, за который вы будете молиться.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Найти народ';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'Выбрать народ за меня';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'Вы можете изменить это в любое время.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'Мы выбрали для вас «$name»!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Хотите продолжить с этим народом или попробовать другой?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Продолжить с этим народом';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Выбрать другой народ';
 }

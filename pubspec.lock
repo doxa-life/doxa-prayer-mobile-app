@@ -498,10 +498,9 @@ packages:
   hyphenatorx:
     dependency: "direct main"
     description:
-      name: hyphenatorx
-      sha256: "9afe950d84e56fde91b9129bf3c95e86e70f19a20e24ba6458ee1d028a64816e"
-      url: "https://pub.dev"
-    source: hosted
+      path: "third_party/hyphenatorx"
+      relative: true
+    source: path
     version: "1.5.11"
   image:
     dependency: transitive

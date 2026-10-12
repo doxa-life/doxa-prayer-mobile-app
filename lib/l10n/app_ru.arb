@@ -217,6 +217,10 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "Карта сейчас недоступна",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -560,8 +564,8 @@
     "@profile": {
         "description": "The profile button"
     },
-    "@qrCode": {
-        "description": "Button on the people group card that shows a QR code of the share link"
+    "@shareLink": {
+        "description": "Button in the share modal that hands the people group link to the device's share sheet"
     },
     "@radioBroadcast": {
         "description": "The label of the radio broadcast field"
@@ -791,6 +795,35 @@
     "@continentOther": {
         "description": "Fallback continent group header when a country's region is unknown"
     },
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "addAnotherPeopleGroup": "Добавить ещё один народ",
     "addPeopleGroupConfirm": "Хотите начать молиться за народ «{name}»?",
     "adoptionStatus": "Статус принятия",
@@ -987,6 +1020,18 @@
     "sortByName": "Сортировать по имени",
     "sortAscending": "Сортировать по возрастанию (А-Я)",
     "sortDescending": "Сортировать по убыванию (Я-А)",
+    "sortAZ": "А–Я",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "Я–А",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "Сначала народы с наименьшим числом ходатаев",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
     "allLanguages": "Все языки",
     "allReligions": "Все религии",
     "allStatuses": "Все статусы",
@@ -1000,5 +1045,13 @@
     "continentAmericas": "Америка",
     "continentEurope": "Европа",
     "continentOceania": "Океания",
-    "continentOther": "Другое"
+    "continentOther": "Другое",
+    "wizardGroupIntroBody": "DOXA Prayer помогает вам молиться за недостигнутые народы. Первое, что нам нужно сделать, — найти народ, за который вы будете молиться.",
+    "wizardGroupIntroSearchOption": "Найти народ",
+    "wizardGroupIntroPickForMeOption": "Выбрать народ за меня",
+    "wizardGroupIntroChangeLaterNote": "Вы можете изменить это в любое время.",
+    "wizardGroupPickedTitle": "Мы выбрали для вас «{name}»!",
+    "wizardGroupPickedQuestion": "Хотите продолжить с этим народом или попробовать другой?",
+    "wizardGroupPickedContinueButton": "Продолжить с этим народом",
+    "wizardGroupPickedRerollButton": "Выбрать другой народ"
 }

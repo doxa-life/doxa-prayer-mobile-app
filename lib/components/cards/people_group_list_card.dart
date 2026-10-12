@@ -7,6 +7,7 @@ import '../buttons/action_button.dart';
 import '../misc/app_icon.dart';
 import '../misc/app_image.dart';
 import 'elevated_card.dart';
+import '../misc/country_flag.dart';
 import '../misc/hyphenated_text.dart';
 
 class PeopleGroupListCard extends StatelessWidget {
@@ -18,6 +19,7 @@ class PeopleGroupListCard extends StatelessWidget {
     this.onSelect,
     this.onUnselect,
     this.countryLabel,
+    this.countryCode,
     this.isSelected = false,
     this.engagementStatusValue,
     this.peoplePraying = 0,
@@ -39,6 +41,9 @@ class PeopleGroupListCard extends StatelessWidget {
   /// entry per country, so the country is shown under the name to tell
   /// same-named entries apart.
   final String? countryLabel;
+
+  /// ISO alpha-3 code ("MYS"); its flag is shown after [countryLabel].
+  final String? countryCode;
 
   /// Whether the user already follows this group.
   final bool isSelected;
@@ -94,11 +99,10 @@ class PeopleGroupListCard extends StatelessWidget {
                           ),
                       ],
                     ),
-                    if (countryLabel != null) _CountryTag(label: countryLabel!),
+                    if (countryLabel != null)
+                      _CountryTag(label: countryLabel!, code: countryCode),
                     if (engagementStatusValue != null)
-                      _StatusPill(
-                        engaged: engagementStatusValue == 'engaged',
-                      ),
+                      _StatusPill(engaged: engagementStatusValue == 'engaged'),
                     _PrayingCount(count: peoplePraying),
                   ],
                 ),
@@ -178,9 +182,10 @@ class _StatusPill extends StatelessWidget {
 }
 
 class _CountryTag extends StatelessWidget {
-  const _CountryTag({required this.label});
+  const _CountryTag({required this.label, this.code});
 
   final String label;
+  final String? code;
 
   @override
   Widget build(BuildContext context) {
@@ -192,13 +197,19 @@ class _CountryTag extends StatelessWidget {
       spacing: AppSpacing.xxxs,
       children: [
         Icon(Icons.place_outlined, size: 14, color: muted),
+        // Wraps onto further lines rather than truncating, so a long country
+        // name is always shown in full.
         Flexible(
-          child: HyphenatedText(
+          child: Text(
             label,
-            softWrap: true,
             style: AppTypography.caption.copyWith(color: muted),
           ),
         ),
+        if (code != null)
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: AppSpacing.xxs),
+            child: CountryFlag(code: code!),
+          ),
       ],
     );
   }
@@ -222,7 +233,7 @@ class _PrayingCount extends StatelessWidget {
       children: [
         AppIcon(AppIconName.pray, size: 14, color: color),
         Flexible(
-          child: HyphenatedText(
+          child: Text(
             l10n.nPeoplePraying(count),
             style: AppTypography.caption.copyWith(
               color: color,

@@ -1,0 +1,9 @@
+Features:
+- search and filter people groups by language, religion, country, status and population
+- groups with the fewest intercessors are shown first
+- country flags and religion icons in search and filters
+- map of where each people group lives, from its home card
+- "pick a group for me" now offers different groups
+
+Bug fixes:
+- the number praying on the list now matches the group's profile

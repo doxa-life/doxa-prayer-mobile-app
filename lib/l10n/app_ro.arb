@@ -229,6 +229,120 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "Harta nu este disponibilă momentan",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
+    "sortAZ": "A–Z",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "Z–A",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "Prioritizează grupurile etnolingvistice cu cei mai puțini mijlocitori",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
+    "allLanguages": "Toate limbile",
+    "@allLanguages": {
+        "description": "The option that clears the people group language filter"
+    },
+    "allReligions": "Toate religiile",
+    "@allReligions": {
+        "description": "The option that clears the people group religion filter"
+    },
+    "allStatuses": "Orice stadiu",
+    "@allStatuses": {
+        "description": "The option that clears the people group engagement status filter"
+    },
+    "nSelected": "{count, plural, =0{Niciunul selectat} one{{count} selectat} few{{count} selectate} other{{count} de selectate}}",
+    "@nSelected": {
+        "description": "A plural message for the number of items selected in a multi-select filter",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
+    "clear": "Șterge",
+    "@clear": {
+        "description": "Button that clears the current selection in a picker sheet"
+    },
+    "done": "Gata",
+    "@done": {
+        "description": "Button that confirms and closes a picker sheet"
+    },
+    "clearFilters": "Șterge filtrele",
+    "@clearFilters": {
+        "description": "Button that resets every active search filter"
+    },
+    "allCountries": "Toate țările",
+    "@allCountries": {
+        "description": "The empty-selection summary for the people group country filter"
+    },
+    "continentAsia": "Asia",
+    "@continentAsia": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAfrica": "Africa",
+    "@continentAfrica": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentAmericas": "Americile",
+    "@continentAmericas": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentEurope": "Europa",
+    "@continentEurope": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOceania": "Oceania",
+    "@continentOceania": {
+        "description": "Continent group header in the country filter"
+    },
+    "continentOther": "Altele",
+    "@continentOther": {
+        "description": "Fallback continent group header when a country's region is unknown"
+    },
+    "wizardGroupIntroBody": "DOXA Prayer te ajută să te rogi pentru grupurile etnolingvistice neatinse cu Evanghelia. Mai întâi, trebuie să găsim un grup etnolingvistic pentru care să te rogi.",
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "wizardGroupIntroSearchOption": "Găsește un grup etnolingvistic",
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "wizardGroupIntroPickForMeOption": "Alege un grup pentru mine",
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "wizardGroupIntroChangeLaterNote": "Poți schimba asta oricând.",
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "wizardGroupPickedTitle": "Am ales {name} pentru tine!",
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "wizardGroupPickedQuestion": "Vrei să continui cu acest grup sau să încerci altul?",
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "wizardGroupPickedContinueButton": "Continuă cu acest grup",
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "wizardGroupPickedRerollButton": "Alege alt grup",
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -740,6 +854,22 @@
     "clearSearchLabel": "Șterge căutarea",
     "continueLabel": "Continuă",
     "couldNotLoadMapMessage": "Harta nu a putut fi încărcată.",
+    "filters": "Filtre",
+    "@filters": {
+        "description": "Tooltip for the button that toggles the search filters panel"
+    },
+    "sortByName": "Sortează după nume",
+    "@sortByName": {
+        "description": "Label for the alphabetical sort control in the search filters panel"
+    },
+    "sortAscending": "Sortează crescător (A–Z)",
+    "@sortAscending": {
+        "description": "Tooltip for the button that sorts search results ascending"
+    },
+    "sortDescending": "Sortează descrescător (Z–A)",
+    "@sortDescending": {
+        "description": "Tooltip for the button that sorts search results descending"
+    },
     "couldNotLoadPeopleGroupDetailsMessage": "Detaliile grupului etnolingvistic nu au putut fi încărcate.",
     "couldNotLoadPeopleGroupsMessage": "Grupurile etnolingvistice nu au putut fi încărcate.",
     "couldNotLoadPrayerContent": "Conținutul de rugăciune nu a putut fi încărcat.",
@@ -761,6 +891,19 @@
     "enableNotificationsButton": "Activează notificările",
     "enableNotificationsPromptBody": "Activează notificările ca să primești aceste noutăți și pe telefon.",
     "engaged": "Angajat misionar",
+    "unengaged": "Neangajat misionar",
+    "@unengaged": {
+        "description": "Status label shown when a people group is unengaged"
+    },
+    "nPeoplePraying": "{count, plural, =0{Încă nu se roagă nimeni} one{{count} persoană se roagă} few{{count} persoane se roagă} other{{count} de persoane se roagă}}",
+    "@nPeoplePraying": {
+        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "placeholders": {
+            "count": {
+                "type": "num"
+            }
+        }
+    },
     "engagementStatus": "Stadiul angajării misionare",
     "everyDay": "În fiecare zi",
     "exactAlarmsDisabledStatus": "Alarmele exacte nu sunt permise pentru DOXA, așa că mementourile tale de rugăciune pot ajunge cu câteva minute întârziere.",

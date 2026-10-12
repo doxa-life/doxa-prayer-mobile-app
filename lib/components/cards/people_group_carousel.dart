@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../services/map_config.dart';
 import '../../services/people_group_locations.dart';
 import '../../services/prayer_history_service.dart';
@@ -109,6 +110,14 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
     });
   }
 
+  void _showMapNotConfigured(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.mapNotConfigured)),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -163,8 +172,13 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
                             onPray: () => widget.onPray(group),
                             onDetails: () => widget.onDetails(group),
                             onShare: () => widget.onShare(group),
-                            showMap: MapConfig.isConfigured,
-                            onMap: canMapPeopleGroup(group.slug, locatedSlugs)
+                            showMap: true,
+                            // A build with no Mapbox token keeps the button
+                            // and says why tapping it can't open the map,
+                            // rather than the button silently vanishing.
+                            onMap: !MapConfig.isConfigured
+                                ? () => _showMapNotConfigured(context)
+                                : canMapPeopleGroup(group.slug, locatedSlugs)
                                 ? () => widget.onMap(group)
                                 : null,
                           ),

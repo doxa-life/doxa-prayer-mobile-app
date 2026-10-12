@@ -1252,6 +1252,12 @@ abstract class AppLocalizations {
   /// **'Map images unavailable offline'**
   String get mapUnavailableOffline;
 
+  /// Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load
+  ///
+  /// In en, this message translates to:
+  /// **'The map isn\'t available right now'**
+  String get mapNotConfigured;
+
   /// Map legend row explaining that heart-shaped pins are the people groups the user prays for
   ///
   /// In en, this message translates to:
@@ -1293,6 +1299,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sort descending (Z–A)'**
   String get sortDescending;
+
+  /// Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet
+  ///
+  /// In en, this message translates to:
+  /// **'A–Z'**
+  String get sortAZ;
+
+  /// Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet
+  ///
+  /// In en, this message translates to:
+  /// **'Z–A'**
+  String get sortZA;
+
+  /// Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize groups with the fewest intercessors'**
+  String get prioritizeFewestIntercessors;
 
   /// The option that clears the people group language filter
   ///
@@ -1377,6 +1401,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get continentOther;
+
+  /// Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group
+  ///
+  /// In en, this message translates to:
+  /// **'DOXA Prayer is designed to help you pray for unreached people groups. The first thing we need to do is find a group for you to pray for.'**
+  String get wizardGroupIntroBody;
+
+  /// Button on the group-intro step that leads to the regular searchable people-groups list
+  ///
+  /// In en, this message translates to:
+  /// **'Find a people group'**
+  String get wizardGroupIntroSearchOption;
+
+  /// Button on the group-intro step that auto-selects a default group on the user's behalf
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a group for me'**
+  String get wizardGroupIntroPickForMeOption;
+
+  /// Reassurance note on the group-intro step that the group choice isn't permanent
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this at any time.'**
+  String get wizardGroupIntroChangeLaterNote;
+
+  /// Title of the group-picked step, naming the auto-selected group
+  ///
+  /// In en, this message translates to:
+  /// **'We picked {name} for you!'**
+  String wizardGroupPickedTitle(String name);
+
+  /// Question on the group-picked step, leading into the continue vs pick-another choice
+  ///
+  /// In en, this message translates to:
+  /// **'Would you like to continue with this group, or try another?'**
+  String get wizardGroupPickedQuestion;
+
+  /// Button on the group-picked step that keeps the auto-selected group and continues onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with this group'**
+  String get wizardGroupPickedContinueButton;
+
+  /// Button on the group-picked step that replaces the auto-selected group with the next one in priority order
+  ///
+  /// In en, this message translates to:
+  /// **'Pick another group'**
+  String get wizardGroupPickedRerollButton;
 }
 
 class _AppLocalizationsDelegate

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -226,18 +227,24 @@ final GoRouter appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (_, _) => const RootPopScope(child: FeedbackScreen()),
     ),
-    GoRoute(
-      name: 'gallery',
-      path: '/gallery',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const RootPopScope(child: GalleryScreen()),
-    ),
-    GoRoute(
-      name: 'debug',
-      path: '/debug',
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, _) => const RootPopScope(child: DebugScreen()),
-    ),
+    // Dev-only screens. The Debug button that opens /debug is already hidden in
+    // release (see TopNavBar), but the routes themselves were still reachable by
+    // any `doxa:///debug` or `doxa:///gallery` link. kReleaseMode is a
+    // compile-time constant, so release builds drop these screens entirely.
+    if (!kReleaseMode) ...[
+      GoRoute(
+        name: 'gallery',
+        path: '/gallery',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, _) => const RootPopScope(child: GalleryScreen()),
+      ),
+      GoRoute(
+        name: 'debug',
+        path: '/debug',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, _) => const RootPopScope(child: DebugScreen()),
+      ),
+    ],
     GoRoute(
       name: 'wizard',
       path: '/wizard',

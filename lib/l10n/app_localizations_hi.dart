@@ -164,16 +164,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get engaged => 'संपर्कित';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'अनसंपर्कित';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count लोग प्रार्थना कर रहे हैं',
+      one: '$count व्यक्ति प्रार्थना कर रहा है',
+      zero: 'अभी तक कोई प्रार्थना नहीं कर रहा',
     );
     return '$_temp0';
   }
@@ -706,6 +706,9 @@ class AppLocalizationsHi extends AppLocalizations {
       'ऑफ़लाइन में मानचित्र की छवियाँ उपलब्ध नहीं';
 
   @override
+  String get mapNotConfigured => 'मानचित्र अभी उपलब्ध नहीं है';
+
+  @override
   String get yourPeopleGroups => 'आपके जनसमूह';
 
   @override
@@ -715,65 +718,102 @@ class AppLocalizationsHi extends AppLocalizations {
   String get couldNotLoadMapMessage => 'मानचित्र लोड नहीं हो सका।';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'फ़िल्टर';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'नाम से क्रमबद्ध करें';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'आरोही क्रम में लगाएँ (अ–ह)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'अवरोही क्रम में लगाएँ (ह–अ)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'अ–ह';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'ह–अ';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors =>
+      'सबसे कम मध्यस्थों वाले जनसमूहों को प्राथमिकता दें';
+
+  @override
+  String get allLanguages => 'सभी भाषाएँ';
+
+  @override
+  String get allReligions => 'सभी धर्म';
+
+  @override
+  String get allStatuses => 'कोई भी स्थिति';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count चयनित',
+      zero: 'कोई चयनित नहीं',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'साफ़ करें';
 
   @override
-  String get done => 'Done';
+  String get done => 'हो गया';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'फ़िल्टर हटाएँ';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'सभी देश';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'एशिया';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'अफ़्रीका';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'अमेरिका';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'यूरोप';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => 'ओशिनिया';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'अन्य';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer आपको अप्राप्य जनसमूहों के लिए प्रार्थना करने में मदद करने के लिए बनाया गया है। सबसे पहले हमें आपके लिए एक जनसमूह ढूँढना है, जिसके लिए आप प्रार्थना करेंगे।';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'एक जनसमूह खोजें';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'मेरे लिए एक जनसमूह चुनें';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote => 'आप इसे कभी भी बदल सकते हैं।';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'हमने आपके लिए $name चुना है!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'क्या आप इसी जनसमूह के साथ आगे बढ़ना चाहेंगे, या कोई दूसरा आज़माना चाहेंगे?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'इसी जनसमूह के साथ आगे बढ़ें';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'दूसरा जनसमूह चुनें';
 }

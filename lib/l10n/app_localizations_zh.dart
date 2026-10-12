@@ -161,16 +161,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get engaged => '已接触';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => '未接触';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count 人在祷告',
+      zero: '还没有人祷告',
     );
     return '$_temp0';
   }
@@ -199,7 +198,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noPrayerContentAvailable => '今天没有祷告内容。';
 
   @override
-  String get prayerThankYouTitle => '感谢你的祷告';
+  String get prayerThankYouTitle => '感谢您的祷告';
 
   @override
   String get prayedToday => '今天已祷告';
@@ -284,10 +283,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notifications => '通知';
 
   @override
-  String get notificationsEnabledStatus => '通知已开启。你将收到祷告提醒。';
+  String get notificationsEnabledStatus => '通知已开启。您将收到祷告提醒。';
 
   @override
-  String get notificationsDisabledStatus => '通知已关闭，因此你的祷告提醒不会出现。';
+  String get notificationsDisabledStatus => '通知已关闭，因此您的祷告提醒不会出现。';
 
   @override
   String get notificationsHowToEnable => '点击下方打开设置，然后允许 DOXA 发送通知。';
@@ -351,7 +350,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wizardWelcomeTitle => '欢迎使用 DOXA Prayer';
 
   @override
-  String get wizardWelcomeBody => 'DOXA 帮助你为一个未得之民祷告。我们会帮你选择族群、设置提醒并保持关注。';
+  String get wizardWelcomeBody => 'DOXA 帮助您为一个未得之民祷告。我们会帮您选择族群、设置提醒并保持关注。';
 
   @override
   String get wizardGetStarted => '开始';
@@ -365,19 +364,19 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get wizardConfirmPeopleGroupBody => '我们会为你显示这个族群的祷告内容和提醒。你之后可以更改。';
+  String get wizardConfirmPeopleGroupBody => '我们会为您显示这个族群的祷告内容和提醒。您之后可以更改。';
 
   @override
   String get wizardSetReminderTitle => '设置祷告提醒';
 
   @override
-  String get wizardSetReminderBody => '我们会在你选择的时间轻轻提醒你。你可以跳过这一步，稍后再添加提醒。';
+  String get wizardSetReminderBody => '我们会在您选择的时间轻轻提醒您。您可以跳过这一步，稍后再添加提醒。';
 
   @override
   String get wizardNewsSignupTitle => '保持关注';
 
   @override
-  String get wizardNewsSignupBody => '可选。接收你的族群的消息以及 DOXA 的最新动态。';
+  String get wizardNewsSignupBody => '可选。接收您的族群的消息以及 DOXA 的最新动态。';
 
   @override
   String get back => '返回';
@@ -401,7 +400,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get emailInvalid => '请输入有效的电子邮件地址。';
 
   @override
-  String get nameRequired => '请输入你的姓名。';
+  String get nameRequired => '请输入您的姓名。';
 
   @override
   String get updatesAboutMyPeopleGroup => '接收我的族群的最新消息';
@@ -413,7 +412,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get signUpForUpdates => '订阅最新消息';
 
   @override
-  String get newsSignupSuccessTitle => '感谢你的订阅！';
+  String get newsSignupSuccessTitle => '感谢您的订阅！';
 
   @override
   String newsSignupSuccessBody(String email) {
@@ -430,7 +429,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get enableNotificationsButton => '开启通知';
 
   @override
-  String get accountSectionTitle => '你的账户';
+  String get accountSectionTitle => '您的账户';
 
   @override
   String get emailVerified => '已验证';
@@ -464,7 +463,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get viewProfile => '查看个人资料';
 
   @override
-  String get emailsLoadError => '无法加载你的电子邮件地址。';
+  String get emailsLoadError => '无法加载您的电子邮件地址。';
 
   @override
   String get updateAvailableTitle => '有可用更新';
@@ -488,7 +487,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feedback => '反馈';
 
   @override
-  String get feedbackIntro => '我们很想听听你的想法。告诉我们你对这个应用的看法。';
+  String get feedbackIntro => '我们很想听听您的想法。告诉我们您对这个应用的看法。';
 
   @override
   String get feedbackTypeLabel => '哪一类反馈？';
@@ -524,14 +523,14 @@ class AppLocalizationsZh extends AppLocalizations {
   String get feedbackError => '出错了。请检查网络连接后重试。';
 
   @override
-  String get feedbackRateLimited => '你最近发送了很多反馈。请稍后再试。';
+  String get feedbackRateLimited => '您最近发送了很多反馈。请稍后再试。';
 
   @override
-  String get feedbackSuccessTitle => '谢谢你！';
+  String get feedbackSuccessTitle => '谢谢您！';
 
   @override
   String feedbackSuccessBody(String email) {
-    return '你的反馈已以 $email 的名义发送。如果这不是正确的地址，请用正确的地址重新发送。';
+    return '您的反馈已以 $email 的名义发送。如果这不是正确的地址，请用正确的地址重新发送。';
   }
 
   @override
@@ -597,12 +596,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String peopleGroupLimitTitle(num count) {
-    return '你正在为 $count 个族群祷告';
+    return '您正在为 $count 个族群祷告';
   }
 
   @override
   String peopleGroupLimitBody(String name) {
-    return '这已是你能同时代祷的上限。要添加“$name”，请选择一个不再为其祷告的族群。';
+    return '这已是您能同时代祷的上限。要添加“$name”，请选择一个不再为其祷告的族群。';
   }
 
   @override
@@ -614,7 +613,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get removePeopleGroupBody => '它将从你的主屏幕移除。你可以随时重新添加。';
+  String get removePeopleGroupBody => '它将从您的主屏幕移除。您可以随时重新添加。';
 
   @override
   String removePeopleGroupReminders(num count) {
@@ -674,7 +673,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mapUnavailableOffline => '离线时无法显示地图图像';
 
   @override
-  String get yourPeopleGroups => '你的族群';
+  String get mapNotConfigured => '地图暂时不可用';
+
+  @override
+  String get yourPeopleGroups => '您的族群';
 
   @override
   String get locationNotAvailable => '位置不可用';
@@ -683,65 +685,100 @@ class AppLocalizationsZh extends AppLocalizations {
   String get couldNotLoadMapMessage => '无法加载地图。';
 
   @override
-  String get filters => 'Filters';
+  String get filters => '筛选';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => '按名称排序';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => '升序排列（A–Z）';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => '降序排列（Z–A）';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'A–Z';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'Z–A';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors => '优先显示代祷者最少的族群';
+
+  @override
+  String get allLanguages => '所有语言';
+
+  @override
+  String get allReligions => '所有宗教';
+
+  @override
+  String get allStatuses => '所有状态';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '已选择 $count 项',
+      zero: '未选择',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => '清除';
 
   @override
-  String get done => 'Done';
+  String get done => '完成';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => '清除筛选';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => '所有国家';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => '亚洲';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => '非洲';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => '美洲';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => '欧洲';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => '大洋洲';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => '其他';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer 旨在帮助您为未得之民祷告。首先，我们要为您找到一个可以为之祷告的族群。';
+
+  @override
+  String get wizardGroupIntroSearchOption => '查找族群';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => '为我选择一个族群';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote => '您可以随时更改。';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return '我们为您选择了“$name”！';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion => '您想继续为这个族群祷告，还是换一个？';
+
+  @override
+  String get wizardGroupPickedContinueButton => '继续为这个族群祷告';
+
+  @override
+  String get wizardGroupPickedRerollButton => '换一个族群';
 }

@@ -168,16 +168,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get engaged => 'Engagiert';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Unberührt';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count Personen beten',
+      one: '$count Person betet',
+      zero: 'Noch niemand betet',
     );
     return '$_temp0';
   }
@@ -711,6 +711,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mapUnavailableOffline => 'Kartenbilder offline nicht verfügbar';
 
   @override
+  String get mapNotConfigured => 'Die Karte ist derzeit nicht verfügbar';
+
+  @override
   String get yourPeopleGroups => 'Deine Volksgruppen';
 
   @override
@@ -720,65 +723,104 @@ class AppLocalizationsDe extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Die Karte konnte nicht geladen werden.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Filter';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Nach Name sortieren';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Aufsteigend sortieren (A–Z)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Absteigend sortieren (Z–A)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'A–Z';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'Z–A';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors =>
+      'Volksgruppen mit den wenigsten Fürbittern zuerst zeigen';
+
+  @override
+  String get allLanguages => 'Alle Sprachen';
+
+  @override
+  String get allReligions => 'Alle Religionen';
+
+  @override
+  String get allStatuses => 'Jeder Status';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count ausgewählt',
+      zero: 'Keine ausgewählt',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Löschen';
 
   @override
-  String get done => 'Done';
+  String get done => 'Fertig';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Filter zurücksetzen';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Alle Länder';
 
   @override
-  String get continentAsia => 'Asia';
+  String get continentAsia => 'Asien';
 
   @override
-  String get continentAfrica => 'Africa';
+  String get continentAfrica => 'Afrika';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Amerika';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Europa';
 
   @override
-  String get continentOceania => 'Oceania';
+  String get continentOceania => 'Ozeanien';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Sonstige';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer hilft dir, für unerreichte Volksgruppen zu beten. Als Erstes suchen wir eine Volksgruppe, für die du beten kannst.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Eine Volksgruppe finden';
+
+  @override
+  String get wizardGroupIntroPickForMeOption =>
+      'Volksgruppe für mich auswählen';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'Du kannst das jederzeit ändern.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'Wir haben $name für dich ausgewählt!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Möchtest du mit dieser Volksgruppe weitermachen oder eine andere ausprobieren?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Mit dieser Volksgruppe weiter';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Andere Volksgruppe wählen';
 }

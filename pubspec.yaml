@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 2.2.1+33
+version: 2.2.3+37
 
 environment:
   sdk: ^3.11.5
@@ -72,7 +72,12 @@ dependencies:
   qr_flutter: ^4.1.0
   firebase_core: ^4.11.0
   firebase_crashlytics: ^5.2.4
-  hyphenatorx: ^1.5.11
+  # Trimmed local copy: only the hyphenation languages the app uses ship.
+  # Keep it a path dependency — switching back to the pub.dev version
+  # (`hyphenatorx: ^1.x`) re-adds ~10 MB of unused languages to the app.
+  # Upgrading it or adding a language: see docs/hyphenation.md.
+  hyphenatorx:
+    path: third_party/hyphenatorx
   # Disk-backed image cache (see services/image_cache_manager.dart). Replaces
   # Image.network in components/misc/app_image.dart so people-group photos
   # survive app restarts instead of being refetched on every view.
@@ -177,6 +182,8 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    # Country flags by ISO alpha-3 code; regenerate with tool/fetch_flags.py.
+    - assets/flags/
     - assets/thank_you_verses.json
     - .env
 

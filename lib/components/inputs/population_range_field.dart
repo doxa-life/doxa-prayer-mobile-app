@@ -20,6 +20,8 @@ class PopulationRangeField extends StatelessWidget {
     required this.max,
     required this.value,
     required this.onChanged,
+    this.onChangeEnd,
+    this.showLabel = true,
   });
 
   /// Absolute lower/upper bounds of the slider (the full, unfiltered range —
@@ -30,6 +32,12 @@ class PopulationRangeField extends StatelessWidget {
   /// The currently selected range, in population units.
   final RangeValues value;
   final ValueChanged<RangeValues> onChanged;
+
+  /// Called once when the user lets go of the slider.
+  final VoidCallback? onChangeEnd;
+
+  /// False when a filter section header already names the field.
+  final bool showLabel;
 
   double _logOf(num n) => math.log(math.max(n, 1));
 
@@ -62,7 +70,7 @@ class PopulationRangeField extends StatelessWidget {
     return (span / targetStepLog).round().clamp(100, 2000);
   }
 
-  static String _format(double population) {
+  static String format(double population) {
     final n = population.round();
     return n.toString().replaceAllMapped(
       RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
@@ -81,25 +89,26 @@ class PopulationRangeField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HyphenatedText(
-          l.population,
-          style: AppTypography.bodyMedium.copyWith(
-            color: scheme.onSurface.withValues(alpha: 0.6),
+        if (showLabel)
+          HyphenatedText(
+            l.population,
+            style: AppTypography.bodyMedium.copyWith(
+              color: scheme.onSurface.withValues(alpha: 0.6),
+            ),
           ),
-        ),
         RangeSlider(
           values: sliderValues,
           divisions: _divisions,
-          labels: RangeLabels(_format(value.start), _format(value.end)),
-          onChanged: (v) => onChanged(
-            RangeValues(_fromSlider(v.start), _fromSlider(v.end)),
-          ),
+          labels: RangeLabels(format(value.start), format(value.end)),
+          onChanged: (v) =>
+              onChanged(RangeValues(_fromSlider(v.start), _fromSlider(v.end))),
+          onChangeEnd: onChangeEnd == null ? null : (_) => onChangeEnd!(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            HyphenatedText(_format(value.start), style: AppTypography.caption),
-            HyphenatedText(_format(value.end), style: AppTypography.caption),
+            HyphenatedText(format(value.start), style: AppTypography.caption),
+            HyphenatedText(format(value.end), style: AppTypography.caption),
           ],
         ),
       ],

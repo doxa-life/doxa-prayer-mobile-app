@@ -214,6 +214,10 @@
     "@mapUnavailableOffline": {
         "description": "Shown over the map when its tiles cannot be downloaded; the people-group pins are still shown"
     },
+    "mapNotConfigured": "الخريطة غير متاحة حاليًا",
+    "@mapNotConfigured": {
+        "description": "Shown when the map button is tapped in a build that has no Mapbox token, so the map cannot load"
+    },
     "@myPeopleGroupTitle": {
         "description": "Heading for the selected people group's detail card shown below the Amen button on the Pray screen"
     },
@@ -791,6 +795,35 @@
     "@continentOther": {
         "description": "Fallback continent group header when a country's region is unknown"
     },
+    "@wizardGroupIntroBody": {
+        "description": "Intro paragraph on the wizard's group-intro step, shown before the user picks how to choose a group"
+    },
+    "@wizardGroupIntroSearchOption": {
+        "description": "Button on the group-intro step that leads to the regular searchable people-groups list"
+    },
+    "@wizardGroupIntroPickForMeOption": {
+        "description": "Button on the group-intro step that auto-selects a default group on the user's behalf"
+    },
+    "@wizardGroupIntroChangeLaterNote": {
+        "description": "Reassurance note on the group-intro step that the group choice isn't permanent"
+    },
+    "@wizardGroupPickedTitle": {
+        "description": "Title of the group-picked step, naming the auto-selected group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "@wizardGroupPickedQuestion": {
+        "description": "Question on the group-picked step, leading into the continue vs pick-another choice"
+    },
+    "@wizardGroupPickedContinueButton": {
+        "description": "Button on the group-picked step that keeps the auto-selected group and continues onboarding"
+    },
+    "@wizardGroupPickedRerollButton": {
+        "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
     "addAnotherPeopleGroup": "أضف مجموعة شعبية أخرى",
     "addPeopleGroupConfirm": "هل تريد البدء في الصلاة من أجل «{name}»؟",
     "adoptionStatus": "حالة التبنّي",
@@ -987,6 +1020,18 @@
     "sortByName": "ترتيب حسب الاسم",
     "sortAscending": "ترتيب تصاعدي (أ-ي)",
     "sortDescending": "ترتيب تنازلي (ي-أ)",
+    "sortAZ": "أ–ي",
+    "@sortAZ": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically from the start of the alphabet; use the first and last letters of the language's alphabet"
+    },
+    "sortZA": "ي–أ",
+    "@sortZA": {
+        "description": "Short label on the list's sort button while groups are sorted alphabetically in reverse; use the last and first letters of the language's alphabet"
+    },
+    "prioritizeFewestIntercessors": "إعطاء الأولوية للمجموعات الشعبية ذات أقل عدد من الشفعاء",
+    "@prioritizeFewestIntercessors": {
+        "description": "Checkbox at the bottom of the people-groups filter menu, ticked by default: lists the groups with the fewest intercessors (people committed to praying for them) first. Uses the glossary term for 'intercessor'."
+    },
     "allLanguages": "كل اللغات",
     "allReligions": "كل الأديان",
     "allStatuses": "كل الحالات",
@@ -1000,5 +1045,13 @@
     "continentAmericas": "الأمريكتان",
     "continentEurope": "أوروبا",
     "continentOceania": "أوقيانوسيا",
-    "continentOther": "أخرى"
+    "continentOther": "أخرى",
+    "wizardGroupIntroBody": "صُمم تطبيق DOXA Prayer لمساعدتك على الصلاة من أجل المجموعات الشعبية غير المُبشَّر بها. أول شيء علينا فعله هو إيجاد مجموعة تصلي من أجلها.",
+    "wizardGroupIntroSearchOption": "البحث عن مجموعة شعبية",
+    "wizardGroupIntroPickForMeOption": "اختاروا مجموعة لي",
+    "wizardGroupIntroChangeLaterNote": "يمكنك تغيير هذا في أي وقت.",
+    "wizardGroupPickedTitle": "اخترنا {name} من أجلك!",
+    "wizardGroupPickedQuestion": "هل تودّ المتابعة مع هذه المجموعة أم تجربة أخرى؟",
+    "wizardGroupPickedContinueButton": "المتابعة مع هذه المجموعة",
+    "wizardGroupPickedRerollButton": "اختيار مجموعة أخرى"
 }

@@ -166,16 +166,16 @@ class AppLocalizationsIt extends AppLocalizations {
   String get engaged => 'Coinvolto';
 
   @override
-  String get unengaged => 'Unengaged';
+  String get unengaged => 'Non coinvolto';
 
   @override
   String nPeoplePraying(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count persone pregano',
+      one: '$count persona prega',
+      zero: 'Ancora nessuno prega',
     );
     return '$_temp0';
   }
@@ -710,6 +710,9 @@ class AppLocalizationsIt extends AppLocalizations {
       'Immagini della mappa non disponibili offline';
 
   @override
+  String get mapNotConfigured => 'La mappa non è disponibile al momento';
+
+  @override
   String get yourPeopleGroups => 'I tuoi gruppi etnici';
 
   @override
@@ -719,49 +722,59 @@ class AppLocalizationsIt extends AppLocalizations {
   String get couldNotLoadMapMessage => 'Impossibile caricare la mappa.';
 
   @override
-  String get filters => 'Filters';
+  String get filters => 'Filtri';
 
   @override
-  String get sortByName => 'Sort by name';
+  String get sortByName => 'Ordina per nome';
 
   @override
-  String get sortAscending => 'Sort ascending (A–Z)';
+  String get sortAscending => 'Ordine crescente (A–Z)';
 
   @override
-  String get sortDescending => 'Sort descending (Z–A)';
+  String get sortDescending => 'Ordine decrescente (Z–A)';
 
   @override
-  String get allLanguages => 'All languages';
+  String get sortAZ => 'A–Z';
 
   @override
-  String get allReligions => 'All religions';
+  String get sortZA => 'Z–A';
 
   @override
-  String get allStatuses => 'Either status';
+  String get prioritizeFewestIntercessors =>
+      'Dai priorità ai gruppi etnici con meno intercessori';
+
+  @override
+  String get allLanguages => 'Tutte le lingue';
+
+  @override
+  String get allReligions => 'Tutte le religioni';
+
+  @override
+  String get allStatuses => 'Qualsiasi stato';
 
   @override
   String nSelected(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count selected',
-      one: '1 selected',
-      zero: 'None selected',
+      other: '$count selezionati',
+      one: '$count selezionato',
+      zero: 'Nessuno selezionato',
     );
     return '$_temp0';
   }
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Cancella';
 
   @override
-  String get done => 'Done';
+  String get done => 'Fatto';
 
   @override
-  String get clearFilters => 'Clear filters';
+  String get clearFilters => 'Cancella i filtri';
 
   @override
-  String get allCountries => 'All countries';
+  String get allCountries => 'Tutti i paesi';
 
   @override
   String get continentAsia => 'Asia';
@@ -770,14 +783,43 @@ class AppLocalizationsIt extends AppLocalizations {
   String get continentAfrica => 'Africa';
 
   @override
-  String get continentAmericas => 'Americas';
+  String get continentAmericas => 'Americhe';
 
   @override
-  String get continentEurope => 'Europe';
+  String get continentEurope => 'Europa';
 
   @override
   String get continentOceania => 'Oceania';
 
   @override
-  String get continentOther => 'Other';
+  String get continentOther => 'Altro';
+
+  @override
+  String get wizardGroupIntroBody =>
+      'DOXA Prayer è pensata per aiutarti a pregare per i gruppi etnici non raggiunti. Per prima cosa dobbiamo trovare un gruppo etnico per cui pregare.';
+
+  @override
+  String get wizardGroupIntroSearchOption => 'Trova un gruppo etnico';
+
+  @override
+  String get wizardGroupIntroPickForMeOption => 'Scegli un gruppo per me';
+
+  @override
+  String get wizardGroupIntroChangeLaterNote =>
+      'Puoi cambiarlo in qualsiasi momento.';
+
+  @override
+  String wizardGroupPickedTitle(String name) {
+    return 'Abbiamo scelto $name per te!';
+  }
+
+  @override
+  String get wizardGroupPickedQuestion =>
+      'Vuoi continuare con questo gruppo o provarne un altro?';
+
+  @override
+  String get wizardGroupPickedContinueButton => 'Continua con questo gruppo';
+
+  @override
+  String get wizardGroupPickedRerollButton => 'Scegli un altro gruppo';
 }
