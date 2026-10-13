@@ -1,0 +1,12 @@
+// Base config for every DoxaWatch build configuration.
+//
+// Takes the version from pubspec.yaml (via the Flutter-generated xcconfig) so the
+// watch app always matches the iPhone app — App Store Connect rejects a companion
+// whose version differs. The fallbacks keep the watch target building before
+// `flutter pub get` has produced Generated.xcconfig.
+FLUTTER_BUILD_NAME = 0.0.0
+FLUTTER_BUILD_NUMBER = 0
+#include? "../Flutter/Generated.xcconfig"
+
+MARKETING_VERSION = $(FLUTTER_BUILD_NAME)
+CURRENT_PROJECT_VERSION = $(FLUTTER_BUILD_NUMBER)
