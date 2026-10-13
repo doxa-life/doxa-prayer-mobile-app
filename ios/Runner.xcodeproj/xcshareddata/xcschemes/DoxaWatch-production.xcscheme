@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "08B28BF6E5374F9618AF18E4"
+               BlueprintIdentifier = "5330DFBE20A75AC4B2D50DA4"
                BuildableName = "DoxaWatch.app"
                BlueprintName = "DoxaWatch"
                ReferencedContainer = "container:Runner.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "08B28BF6E5374F9618AF18E4"
+            BlueprintIdentifier = "5330DFBE20A75AC4B2D50DA4"
             BuildableName = "DoxaWatch.app"
             BlueprintName = "DoxaWatch"
             ReferencedContainer = "container:Runner.xcodeproj">
@@ -53,7 +53,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "08B28BF6E5374F9618AF18E4"
+            BlueprintIdentifier = "5330DFBE20A75AC4B2D50DA4"
             BuildableName = "DoxaWatch.app"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -69,7 +69,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "08B28BF6E5374F9618AF18E4"
+            BlueprintIdentifier = "5330DFBE20A75AC4B2D50DA4"
             BuildableName = "DoxaWatch.app"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>

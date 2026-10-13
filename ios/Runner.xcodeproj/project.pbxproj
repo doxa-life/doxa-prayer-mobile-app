@@ -7,20 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		089E47D2ECAB99E4D3E21E2F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F6981ED6D6C0CDE9B514C2 /* ContentView.swift */; };
+		025C00FD8BF5B68F28B03898 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FD99570A66F33B293989F3 /* Reminders.swift */; };
+		0431CE6D39D373EB522766E7 /* DoxaWatchWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B6158947F585AC614DBF29 /* DoxaWatchWidgets.swift */; };
+		058D349681848C737F4960E0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FAA3841BA7F21260ADAD664A /* Localizable.xcstrings */; };
+		06B21A1FF5EC1DDEE8F88E9C /* PrayerCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8FC651CFF955A009FB331F /* PrayerCardView.swift */; };
 		12520C19BA3763F062138EDD /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F4FDB95023E20E3665D6A84 /* Pods_Runner.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		2418149911AFF07378DCDA46 /* PrayerContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F2E60879CAFC0C77DAFF15 /* PrayerContent.swift */; };
+		2ED798D067702D4472DCC60A /* DoxaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B4A62C88C2A6990E5737A7 /* DoxaWatchApp.swift */; };
+		31F76682F090ACE835AACCDA /* thank_you_verses.json in Resources */ = {isa = PBXBuildFile; fileRef = E2212616F368256EDF9EC61B /* thank_you_verses.json */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
+		39F9A9FA6219AA4AD5A2B831 /* PeopleGroupSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3AD1F537DEE2ABBC1BC996 /* PeopleGroupSummary.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		5817E01FCAA3269AA8DD2664 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3FE1E924492575284A569A /* SettingsView.swift */; };
 		6B27748E006D5A3FC376B947 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B1810BA37E32DD075DADFF /* Pods_RunnerTests.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
-		7A58395706A41EBF059139D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F9F994C506D0DC03532F522 /* Assets.xcassets */; };
+		7A196956CB8452BCBB8347F1 /* PrayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6902A9E3E894B1B7C46BDA /* PrayerView.swift */; };
+		82BDE12EC152AA32F7903FA4 /* AmenCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC245ED958F6DCD1C58994D /* AmenCompleteView.swift */; };
+		8F82B6DB5C77653F1E81CDD4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FAA3841BA7F21260ADAD664A /* Localizable.xcstrings */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		F0270F7110FAECAC65D5D323 /* DoxaWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CCEAC348097296354CD592 /* DoxaWatchApp.swift */; };
+		B0A0D8C0D8552974AC110A3A /* GroupPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41374BE2B40D78AD428D348 /* GroupPickerView.swift */; };
+		B445CC91A8F5F62EB71B3C84 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1456E54E1672DFBF2F492CB /* SharedStore.swift */; };
+		BA26499AA8AC8C9FB70422E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 431690CAB498BA4DEDF5CE46 /* Assets.xcassets */; };
+		CE1080F8977C72657E4A7A58 /* PrayerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B90504ADB5D4093B53B314 /* PrayerAPI.swift */; };
+		D3045959EBB64F252409A108 /* DoxaWatchWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 366B9ED7E6556606B9887127 /* DoxaWatchWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D6AA61B47579A250B1E426AB /* ThankYouVerses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62129EBE5604C61E5750DFB1 /* ThankYouVerses.swift */; };
+		D968EACD6A844ED8FB99D34E /* PrayerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803C22E0F94810DDF63E979F /* PrayerSession.swift */; };
+		DEE41387803D1EAF052F40B7 /* PrayerCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE2BE7FB329414C3246B70 /* PrayerCards.swift */; };
+		E63104C339A2106E1F588DB7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF4488EEE3FBE597314A011 /* Config.swift */; };
+		F69550A89CF17AD0FD47019D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D4E1CF984FEC68CA8259EC /* HomeView.swift */; };
+		F8E89A964471228CEF39454A /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE44557E8786947503E8DB /* AppModel.swift */; };
+		FAB486E5F96C91168F329A33 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1456E54E1672DFBF2F492CB /* SharedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,9 +52,27 @@
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
 		};
+		933A6BD3CA9D69D564968010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 844332F4A6ECAA48436C4748;
+			remoteInfo = DoxaWatchWidgets;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3A9979601127A1C8DFA93E9A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D3045959EBB64F252409A108 /* DoxaWatchWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -47,38 +86,52 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		023339DF4E84D8D87EBE9D39 /* DoxaWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoxaWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		084C764668374E2A1275D5AF /* Pods-Runner.debug-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-production.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-production.xcconfig"; sourceTree = "<group>"; };
-		13F6981ED6D6C0CDE9B514C2 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0ABE44557E8786947503E8DB /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		0D3FE1E924492575284A569A /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		12F5A49CE756E83F3F646FDA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		18348497300929BF00F145F9 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		1C8FC651CFF955A009FB331F /* PrayerCardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerCardView.swift; sourceTree = "<group>"; };
+		1F6902A9E3E894B1B7C46BDA /* PrayerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerView.swift; sourceTree = "<group>"; };
 		248E2F3440185D96FBBBDA01 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		2DFEF16CF9A8FBDA89E71F28 /* Pods-RunnerTests.profile-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile-production.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile-production.xcconfig"; sourceTree = "<group>"; };
+		306EFB14FEE7F54B5DDC0E57 /* DoxaWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoxaWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35306688F729B9BA272CF1C5 /* Pods-Runner.stagingprofile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.stagingprofile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.stagingprofile.xcconfig"; sourceTree = "<group>"; };
+		366B9ED7E6556606B9887127 /* DoxaWatchWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DoxaWatchWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
-		4F9F994C506D0DC03532F522 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B46CFDAD2A1E73948D0BF36 /* DoxaWatchWidgets.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = DoxaWatchWidgets.entitlements; sourceTree = "<group>"; };
+		41B8664AAF7A398D9FB7619B /* DoxaWatch.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = DoxaWatch.entitlements; sourceTree = "<group>"; };
+		431690CAB498BA4DEDF5CE46 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		547AF8477D693CF54E908305 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		54D0BC3F1F2789AB97494057 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		596676111508650E043B208F /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		5F5591425C619F20401B689F /* Pods-RunnerTests.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-staging.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-staging.xcconfig"; sourceTree = "<group>"; };
+		62129EBE5604C61E5750DFB1 /* ThankYouVerses.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThankYouVerses.swift; sourceTree = "<group>"; };
 		660F03F4FAAA336CD486C4B9 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		68EAB26A3B55A570758BC518 /* Pods-Runner.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.stagingrelease.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		6AB496C1E8BFF86A6B41EB91 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		6BC245ED958F6DCD1C58994D /* AmenCompleteView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AmenCompleteView.swift; sourceTree = "<group>"; };
+		71B4A62C88C2A6990E5737A7 /* DoxaWatchApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DoxaWatchApp.swift; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		771ACDF41766851A613A69E3 /* Pods-Runner.debug-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-staging.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-staging.xcconfig"; sourceTree = "<group>"; };
 		7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
+		7A3AD1F537DEE2ABBC1BC996 /* PeopleGroupSummary.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PeopleGroupSummary.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7AFA3C8F1D35360C0083082F /* stagingDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = stagingDebug.xcconfig; path = Flutter/stagingDebug.xcconfig; sourceTree = "<group>"; };
 		7AFA3C901D35360C0083082F /* stagingRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = stagingRelease.xcconfig; path = Flutter/stagingRelease.xcconfig; sourceTree = "<group>"; };
 		7AFA3C911D35360C0083082F /* stagingProfile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = stagingProfile.xcconfig; path = Flutter/stagingProfile.xcconfig; sourceTree = "<group>"; };
 		7DED3629FDBA03D26304AA66 /* Pods-RunnerTests.debug-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-staging.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-staging.xcconfig"; sourceTree = "<group>"; };
+		803C22E0F94810DDF63E979F /* PrayerSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerSession.swift; sourceTree = "<group>"; };
+		880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DoxaWatch.xcconfig; sourceTree = "<group>"; };
 		8F4FDB95023E20E3665D6A84 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E178D18B470EFBE7544FFA /* Pods-RunnerTests.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.stagingdebug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.stagingdebug.xcconfig"; sourceTree = "<group>"; };
+		95B90504ADB5D4093B53B314 /* PrayerAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerAPI.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,27 +139,49 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1456E54E1672DFBF2F492CB /* SharedStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
+		B5D4E1CF984FEC68CA8259EC /* HomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B8B1B943B72FA8E839D41DA0 /* Pods-RunnerTests.stagingrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.stagingrelease.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.stagingrelease.xcconfig"; sourceTree = "<group>"; };
 		BC492C44D4FA4587A132B62E /* Pods-Runner.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-staging.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-staging.xcconfig"; sourceTree = "<group>"; };
+		C3AE2BE7FB329414C3246B70 /* PrayerCards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerCards.swift; sourceTree = "<group>"; };
 		C484BB532B32B51DCBA54A02 /* Pods-RunnerTests.profile-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile-staging.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile-staging.xcconfig"; sourceTree = "<group>"; };
 		C9E4554084B859E288885CEA /* Pods-RunnerTests.stagingprofile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.stagingprofile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.stagingprofile.xcconfig"; sourceTree = "<group>"; };
+		C9F2E60879CAFC0C77DAFF15 /* PrayerContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrayerContent.swift; sourceTree = "<group>"; };
 		CA6A570B8FA03ED479DD2ABA /* Pods-RunnerTests.release-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-production.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-production.xcconfig"; sourceTree = "<group>"; };
 		CC51457DE1A415A1E31B8396 /* Pods-Runner.release-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-production.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-production.xcconfig"; sourceTree = "<group>"; };
 		CE397B6E0A6C9ED839DF78E8 /* Pods-RunnerTests.debug-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-production.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-production.xcconfig"; sourceTree = "<group>"; };
 		E1B1810BA37E32DD075DADFF /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2212616F368256EDF9EC61B /* thank_you_verses.json */ = {isa = PBXFileReference; includeInIndex = 1; name = thank_you_verses.json; path = ../assets/thank_you_verses.json; sourceTree = SOURCE_ROOT; };
 		E3DDBD987FC459F4F4DF92A8 /* Pods-Runner.profile-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-staging.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-staging.xcconfig"; sourceTree = "<group>"; };
 		E731A84246BA80770BDE8534 /* Pods-Runner.stagingdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.stagingdebug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.stagingdebug.xcconfig"; sourceTree = "<group>"; };
+		E7FD99570A66F33B293989F3 /* Reminders.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		E8C66C26A8F8FB0B9FBD5FF5 /* Pods-Runner.profile-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-production.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-production.xcconfig"; sourceTree = "<group>"; };
-		F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DoxaWatch.xcconfig; sourceTree = "<group>"; };
-		F8CCEAC348097296354CD592 /* DoxaWatchApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DoxaWatchApp.swift; sourceTree = "<group>"; };
+		EEF4488EEE3FBE597314A011 /* Config.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		F41374BE2B40D78AD428D348 /* GroupPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GroupPickerView.swift; sourceTree = "<group>"; };
+		F9B6158947F585AC614DBF29 /* DoxaWatchWidgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DoxaWatchWidgets.swift; sourceTree = "<group>"; };
+		FAA3841BA7F21260ADAD664A /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1EE073A422372303E2420B65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4FD675F8DF4CA514943AAD41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6B27748E006D5A3FC376B947 /* Pods_RunnerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C615EF0501AA33619B01521 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,13 +191,6 @@
 			files = (
 				78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */,
 				12520C19BA3763F062138EDD /* Pods_Runner.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2110AFF292445D9AF526AF3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +228,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		0C085C4077E4E4A73AC8BF22 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B1456E54E1672DFBF2F492CB /* SharedStore.swift */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		331C8082294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,16 +245,18 @@
 			path = RunnerTests;
 			sourceTree = "<group>";
 		};
-		8152516A3156D6A4FB7A1E26 /* DoxaWatch */ = {
+		578E850C62E60F371263A986 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F8CCEAC348097296354CD592 /* DoxaWatchApp.swift */,
-				13F6981ED6D6C0CDE9B514C2 /* ContentView.swift */,
-				4F9F994C506D0DC03532F522 /* Assets.xcassets */,
-				F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */,
+				6BC245ED958F6DCD1C58994D /* AmenCompleteView.swift */,
+				F41374BE2B40D78AD428D348 /* GroupPickerView.swift */,
+				B5D4E1CF984FEC68CA8259EC /* HomeView.swift */,
+				1C8FC651CFF955A009FB331F /* PrayerCardView.swift */,
+				1F6902A9E3E894B1B7C46BDA /* PrayerView.swift */,
+				0D3FE1E924492575284A569A /* SettingsView.swift */,
 			);
-			name = DoxaWatch;
-			path = DoxaWatch;
+			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -204,7 +283,8 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				080CC0AC8F0227BE470059A3 /* Pods */,
 				DC2E1F9F8C0B4B8536264603 /* Frameworks */,
-				8152516A3156D6A4FB7A1E26 /* DoxaWatch */,
+				A9A2B6039213A4006E8606DA /* DoxaWatch */,
+				DCA9F98DD26C54611A503F5C /* DoxaWatchWidgets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,7 +293,8 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
-				023339DF4E84D8D87EBE9D39 /* DoxaWatch.app */,
+				306EFB14FEE7F54B5DDC0E57 /* DoxaWatch.app */,
+				366B9ED7E6556606B9887127 /* DoxaWatchWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,6 +316,34 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
+		A9A2B6039213A4006E8606DA /* DoxaWatch */ = {
+			isa = PBXGroup;
+			children = (
+				B00176A38F7B55FB69F9DA0F /* App */,
+				431690CAB498BA4DEDF5CE46 /* Assets.xcassets */,
+				41B8664AAF7A398D9FB7619B /* DoxaWatch.entitlements */,
+				880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */,
+				FAA3841BA7F21260ADAD664A /* Localizable.xcstrings */,
+				F24213E8EC0E00EE59AD1639 /* Models */,
+				EACAA190BF7B787D1A1228EA /* Services */,
+				0C085C4077E4E4A73AC8BF22 /* Shared */,
+				578E850C62E60F371263A986 /* Views */,
+				E2212616F368256EDF9EC61B /* thank_you_verses.json */,
+			);
+			name = DoxaWatch;
+			path = DoxaWatch;
+			sourceTree = "<group>";
+		};
+		B00176A38F7B55FB69F9DA0F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0ABE44557E8786947503E8DB /* AppModel.swift */,
+				71B4A62C88C2A6990E5737A7 /* DoxaWatchApp.swift */,
+			);
+			name = App;
+			path = App;
+			sourceTree = "<group>";
+		};
 		DC2E1F9F8C0B4B8536264603 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,26 +353,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DCA9F98DD26C54611A503F5C /* DoxaWatchWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				3B46CFDAD2A1E73948D0BF36 /* DoxaWatchWidgets.entitlements */,
+				F9B6158947F585AC614DBF29 /* DoxaWatchWidgets.swift */,
+				12F5A49CE756E83F3F646FDA /* Info.plist */,
+			);
+			name = DoxaWatchWidgets;
+			path = DoxaWatchWidgets;
+			sourceTree = "<group>";
+		};
+		EACAA190BF7B787D1A1228EA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EEF4488EEE3FBE597314A011 /* Config.swift */,
+				95B90504ADB5D4093B53B314 /* PrayerAPI.swift */,
+				803C22E0F94810DDF63E979F /* PrayerSession.swift */,
+				E7FD99570A66F33B293989F3 /* Reminders.swift */,
+				62129EBE5604C61E5750DFB1 /* ThankYouVerses.swift */,
+			);
+			name = Services;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F24213E8EC0E00EE59AD1639 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A3AD1F537DEE2ABBC1BC996 /* PeopleGroupSummary.swift */,
+				C3AE2BE7FB329414C3246B70 /* PrayerCards.swift */,
+				C9F2E60879CAFC0C77DAFF15 /* PrayerContent.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		08B28BF6E5374F9618AF18E4 /* DoxaWatch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A405320672CDB5A34F444B4F /* Build configuration list for PBXNativeTarget "DoxaWatch" */;
-			buildPhases = (
-				C05D55E7BFBDB7A443E39C8D /* Sources */,
-				D2110AFF292445D9AF526AF3 /* Frameworks */,
-				747433077AFCF3F13B70A2EA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = DoxaWatch;
-			productName = DoxaWatch;
-			productReference = 023339DF4E84D8D87EBE9D39 /* DoxaWatch.app */;
-			productType = "com.apple.product-type.application";
-		};
 		331C8080294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
@@ -282,6 +409,42 @@
 			productName = RunnerTests;
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5330DFBE20A75AC4B2D50DA4 /* DoxaWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FD86D4A8C5C192BAA0627D0 /* Build configuration list for PBXNativeTarget "DoxaWatch" */;
+			buildPhases = (
+				B59555EB8849AB900ED3A9A8 /* Sources */,
+				6C615EF0501AA33619B01521 /* Frameworks */,
+				185ADB7A1E4BC81EDBEA16BD /* Resources */,
+				3A9979601127A1C8DFA93E9A /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				751813A30E1B4371AE5DDE69 /* PBXTargetDependency */,
+			);
+			name = DoxaWatch;
+			productName = DoxaWatch;
+			productReference = 306EFB14FEE7F54B5DDC0E57 /* DoxaWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		844332F4A6ECAA48436C4748 /* DoxaWatchWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F77B59D944BF59E7BCDEC17B /* Build configuration list for PBXNativeTarget "DoxaWatchWidgets" */;
+			buildPhases = (
+				21A634FE72DB887962747905 /* Sources */,
+				1EE073A422372303E2420B65 /* Frameworks */,
+				AAF2DFC675EBC5409B3E6292 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DoxaWatchWidgets;
+			productName = DoxaWatchWidgets;
+			productReference = 366B9ED7E6556606B9887127 /* DoxaWatchWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
@@ -347,24 +510,27 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
-				08B28BF6E5374F9618AF18E4 /* DoxaWatch */,
+				5330DFBE20A75AC4B2D50DA4 /* DoxaWatch */,
+				844332F4A6ECAA48436C4748 /* DoxaWatchWidgets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		185ADB7A1E4BC81EDBEA16BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA26499AA8AC8C9FB70422E6 /* Assets.xcassets in Resources */,
+				31F76682F090ACE835AACCDA /* thank_you_verses.json in Resources */,
+				058D349681848C737F4960E0 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		331C807F294A63A400263BE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		747433077AFCF3F13B70A2EA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A58395706A41EBF059139D6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +542,14 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAF2DFC675EBC5409B3E6292 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F82B6DB5C77653F1E81CDD4 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +665,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		21A634FE72DB887962747905 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0431CE6D39D373EB522766E7 /* DoxaWatchWidgets.swift in Sources */,
+				B445CC91A8F5F62EB71B3C84 /* SharedStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		331C807D294A63A400263BE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -509,12 +692,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C05D55E7BFBDB7A443E39C8D /* Sources */ = {
+		B59555EB8849AB900ED3A9A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0270F7110FAECAC65D5D323 /* DoxaWatchApp.swift in Sources */,
-				089E47D2ECAB99E4D3E21E2F /* ContentView.swift in Sources */,
+				F8E89A964471228CEF39454A /* AppModel.swift in Sources */,
+				2ED798D067702D4472DCC60A /* DoxaWatchApp.swift in Sources */,
+				39F9A9FA6219AA4AD5A2B831 /* PeopleGroupSummary.swift in Sources */,
+				DEE41387803D1EAF052F40B7 /* PrayerCards.swift in Sources */,
+				2418149911AFF07378DCDA46 /* PrayerContent.swift in Sources */,
+				E63104C339A2106E1F588DB7 /* Config.swift in Sources */,
+				CE1080F8977C72657E4A7A58 /* PrayerAPI.swift in Sources */,
+				D968EACD6A844ED8FB99D34E /* PrayerSession.swift in Sources */,
+				025C00FD8BF5B68F28B03898 /* Reminders.swift in Sources */,
+				D6AA61B47579A250B1E426AB /* ThankYouVerses.swift in Sources */,
+				82BDE12EC152AA32F7903FA4 /* AmenCompleteView.swift in Sources */,
+				B0A0D8C0D8552974AC110A3A /* GroupPickerView.swift in Sources */,
+				F69550A89CF17AD0FD47019D /* HomeView.swift in Sources */,
+				06B21A1FF5EC1DDEE8F88E9C /* PrayerCardView.swift in Sources */,
+				7A196956CB8452BCBB8347F1 /* PrayerView.swift in Sources */,
+				5817E01FCAA3269AA8DD2664 /* SettingsView.swift in Sources */,
+				FAB486E5F96C91168F329A33 /* SharedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,6 +723,12 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		751813A30E1B4371AE5DDE69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DoxaWatchWidgets;
+			target = 844332F4A6ECAA48436C4748 /* DoxaWatchWidgets */;
+			targetProxy = 933A6BD3CA9D69D564968010 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -548,6 +752,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0802501DE292DEBD0F52B6C7 /* Profile-staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "STAGING $(inherited)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Profile-staging";
+		};
 		249021D3217E4FDB00AE95B9 /* Profile-production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -894,18 +1131,20 @@
 			};
 			name = "Profile-staging";
 		};
-		547BC3BCBD04160BECD1DBEE /* Debug-staging */ = {
+		431D16685238B2D447E6C441 /* Profile-staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-staging";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -915,66 +1154,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = "Debug-staging";
-		};
-		66C9E8FAE7C6401AB34AF6AB /* Release-staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-staging";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7WDLZXA935;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "watchos watchsimulator";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = "Release-staging";
-		};
-		67A703B7E2BB2C9C39B9BD01 /* Profile-staging */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-staging";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7WDLZXA935;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "STAGING $(inherited)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -984,27 +1164,30 @@
 			};
 			name = "Profile-staging";
 		};
-		7725DFE625AFC010AE9DF778 /* Profile-production */ = {
+		53275119F06FDDF82B3D6DC3 /* Release-production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp.widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1012,25 +1195,60 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
-			name = "Profile-production";
+			name = "Release-production";
 		};
-		8934AD313385FA4431350CEA /* Debug-production */ = {
+		75F58D066DEF2439333410C5 /* Release-staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-staging";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
+				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "STAGING $(inherited)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Release-staging";
+		};
+		84599DA19A5B131B0CD43F61 /* Debug-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp.widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1043,6 +1261,38 @@
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = "Debug-production";
+		};
+		9203031608CAD43FEA0BD73A /* Debug-staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Debug-staging";
 		};
 		97C147031CF9000F007C117D /* Debug-production */ = {
 			isa = XCBuildConfiguration;
@@ -1282,18 +1532,53 @@
 			};
 			name = "Profile-staging";
 		};
-		BC532DEBB0D3EB31A5BBCBF4 /* Release-production */ = {
+		9EAE969F5AC883C0DF9841F3 /* Release-staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F75088DDFEB060DAA278AE4F /* DoxaWatch.xcconfig */;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "STAGING $(inherited)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Release-staging";
+		};
+		A036A28A473207B66B98E71D /* Release-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1303,6 +1588,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1311,6 +1597,136 @@
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = "Release-production";
+		};
+		B585DFACB11421F58808BABE /* Profile-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Profile-production";
+		};
+		B5F47C47B1226E29B73235BA /* Debug-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-production";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Debug-production";
+		};
+		DFCE506C2A70091221CF500C /* Debug-staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-staging";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatch/DoxaWatch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.staging.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Staging";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.staging.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Debug-staging";
+		};
+		FF66E4A1A2773BFDEDF6A4FB /* Profile-production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 880ED96C595BE42129A9653B /* DoxaWatch.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = DoxaWatchWidgets/DoxaWatchWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WDLZXA935;
+				DOXA_APP_GROUP = group.life.doxa.pray.watch;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DoxaWatchWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "DOXA Prayer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = life.doxa.pray.watchkitapp.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = "Profile-production";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1324,6 +1740,19 @@
 				331C808B294A63A400263BE5 /* Debug-staging */,
 				331C808C294A63A400263BE5 /* Release-staging */,
 				331C808D294A63A400263BE5 /* Profile-staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release-production";
+		};
+		7FD86D4A8C5C192BAA0627D0 /* Build configuration list for PBXNativeTarget "DoxaWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5F47C47B1226E29B73235BA /* Debug-production */,
+				A036A28A473207B66B98E71D /* Release-production */,
+				B585DFACB11421F58808BABE /* Profile-production */,
+				DFCE506C2A70091221CF500C /* Debug-staging */,
+				75F58D066DEF2439333410C5 /* Release-staging */,
+				431D16685238B2D447E6C441 /* Profile-staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-production";
@@ -1354,15 +1783,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-production";
 		};
-		A405320672CDB5A34F444B4F /* Build configuration list for PBXNativeTarget "DoxaWatch" */ = {
+		F77B59D944BF59E7BCDEC17B /* Build configuration list for PBXNativeTarget "DoxaWatchWidgets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8934AD313385FA4431350CEA /* Debug-production */,
-				BC532DEBB0D3EB31A5BBCBF4 /* Release-production */,
-				7725DFE625AFC010AE9DF778 /* Profile-production */,
-				547BC3BCBD04160BECD1DBEE /* Debug-staging */,
-				66C9E8FAE7C6401AB34AF6AB /* Release-staging */,
-				67A703B7E2BB2C9C39B9BD01 /* Profile-staging */,
+				84599DA19A5B131B0CD43F61 /* Debug-production */,
+				53275119F06FDDF82B3D6DC3 /* Release-production */,
+				FF66E4A1A2773BFDEDF6A4FB /* Profile-production */,
+				9203031608CAD43FEA0BD73A /* Debug-staging */,
+				9EAE969F5AC883C0DF9841F3 /* Release-staging */,
+				0802501DE292DEBD0F52B6C7 /* Profile-staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release-production";
