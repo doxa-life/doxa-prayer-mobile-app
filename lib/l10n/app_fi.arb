@@ -1053,5 +1053,22 @@
     "sortDescending": "Lajittele laskevasti (Ö–A)",
     "@sortDescending": {
         "description": "Tooltip for the button that sorts search results descending"
+    },
+    "languageSwitchConfirm": "Säilytetäänkö tämä kieli?",
+    "@languageSwitchConfirm": {
+        "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
+    },
+    "languageSwitchKeep": "Säilytä",
+    "@languageSwitchKeep": {
+        "description": "Button in the language-switch confirmation that keeps the newly picked language"
+    },
+    "languageSwitchUndo": "Takaisin: {language}",
+    "@languageSwitchUndo": {
+        "description": "Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
     }
 }

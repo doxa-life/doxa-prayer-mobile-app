@@ -7,10 +7,19 @@ import 'analytics_service.dart';
 import 'hyphenation_service.dart';
 
 class AppLanguage {
-  const AppLanguage({required this.locale, required this.nativeName});
+  const AppLanguage({
+    required this.locale,
+    required this.nativeName,
+    required this.flagCode,
+  });
 
   final Locale locale;
   final String nativeName;
+
+  /// ISO alpha-3 code of the country whose flag stands for this language in
+  /// the language selector — see `CountryFlag`. A language is not a country,
+  /// so this is the conventional pick, not a claim about where it is spoken.
+  final String flagCode;
 }
 
 /// Every language the app ships, in the order the language selector shows
@@ -18,18 +27,66 @@ class AppLanguage {
 /// Latin ones. Nothing depends on this order — [defaultLocale] is the
 /// fallback, not the first entry.
 const List<AppLanguage> appLanguages = <AppLanguage>[
-  AppLanguage(locale: Locale('de'), nativeName: 'Deutsch'),
-  AppLanguage(locale: Locale('en'), nativeName: 'English'),
-  AppLanguage(locale: Locale('es'), nativeName: 'Español'),
-  AppLanguage(locale: Locale('fr'), nativeName: 'Français'),
-  AppLanguage(locale: Locale('it'), nativeName: 'Italiano'),
-  AppLanguage(locale: Locale('pt'), nativeName: 'Português'),
-  AppLanguage(locale: Locale('ro'), nativeName: 'Română'),
-  AppLanguage(locale: Locale('fi'), nativeName: 'suomi'),
-  AppLanguage(locale: Locale('ru'), nativeName: 'Русский'),
-  AppLanguage(locale: Locale('ar'), nativeName: 'العربية'),
-  AppLanguage(locale: Locale('hi'), nativeName: 'हिन्दी'),
-  AppLanguage(locale: Locale('zh'), nativeName: '简体中文'),
+  AppLanguage(
+    locale: Locale('de'),
+    nativeName: 'Deutsch',
+    flagCode: 'DEU',
+  ),
+  AppLanguage(
+    locale: Locale('en'),
+    nativeName: 'English',
+    flagCode: 'GBR',
+  ),
+  AppLanguage(
+    locale: Locale('es'),
+    nativeName: 'Español',
+    flagCode: 'ESP',
+  ),
+  AppLanguage(
+    locale: Locale('fr'),
+    nativeName: 'Français',
+    flagCode: 'FRA',
+  ),
+  AppLanguage(
+    locale: Locale('it'),
+    nativeName: 'Italiano',
+    flagCode: 'ITA',
+  ),
+  AppLanguage(
+    locale: Locale('pt'),
+    nativeName: 'Português',
+    flagCode: 'PRT',
+  ),
+  AppLanguage(
+    locale: Locale('ro'),
+    nativeName: 'Română',
+    flagCode: 'ROU',
+  ),
+  AppLanguage(
+    locale: Locale('fi'),
+    nativeName: 'suomi',
+    flagCode: 'FIN',
+  ),
+  AppLanguage(
+    locale: Locale('ru'),
+    nativeName: 'Русский',
+    flagCode: 'RUS',
+  ),
+  AppLanguage(
+    locale: Locale('ar'),
+    nativeName: 'العربية',
+    flagCode: 'SAU',
+  ),
+  AppLanguage(
+    locale: Locale('hi'),
+    nativeName: 'हिन्दी',
+    flagCode: 'IND',
+  ),
+  AppLanguage(
+    locale: Locale('zh'),
+    nativeName: '简体中文',
+    flagCode: 'CHN',
+  ),
 ];
 
 /// The locale used before a preference is read and when no system locale

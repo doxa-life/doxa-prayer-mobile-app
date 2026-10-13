@@ -823,4 +823,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'Andere Volksgruppe wählen';
+
+  @override
+  String get languageSwitchConfirm => 'Diese Sprache beibehalten?';
+
+  @override
+  String get languageSwitchKeep => 'Beibehalten';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return 'Zurück zu $language';
+  }
 }

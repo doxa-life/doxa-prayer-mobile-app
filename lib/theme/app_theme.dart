@@ -22,6 +22,14 @@ class AppTheme {
     );
 
     return base.copyWith(
+      // Pages slide in from the side and can be swiped back from the edge, on
+      // every platform — Android's default fades/zooms and has no swipe back.
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          for (final platform in TargetPlatform.values)
+            platform: const CupertinoPageTransitionsBuilder(),
+        },
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         foregroundColor: AppColors.onSurface,

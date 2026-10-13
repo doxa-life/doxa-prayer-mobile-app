@@ -824,4 +824,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'Elegir otro grupo';
+
+  @override
+  String get languageSwitchConfirm => '¿Mantener este idioma?';
+
+  @override
+  String get languageSwitchKeep => 'Mantener';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return 'Volver a $language';
+  }
 }

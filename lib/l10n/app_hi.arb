@@ -1053,5 +1053,22 @@
     "wizardWelcomeTitle": "DOXA Prayer में आपका स्वागत है",
     "workInLocalLanguageAndCulture": "स्थानीय भाषा और संस्कृति में कार्य",
     "yes": "हाँ",
-    "yourPeopleGroups": "आपके जनसमूह"
+    "yourPeopleGroups": "आपके जनसमूह",
+    "languageSwitchConfirm": "क्या आप यही भाषा रखना चाहते हैं?",
+    "@languageSwitchConfirm": {
+        "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
+    },
+    "languageSwitchKeep": "रखें",
+    "@languageSwitchKeep": {
+        "description": "Button in the language-switch confirmation that keeps the newly picked language"
+    },
+    "languageSwitchUndo": "{language} पर वापस जाएँ",
+    "@languageSwitchUndo": {
+        "description": "Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    }
 }

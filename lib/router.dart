@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'app_shell.dart';
 import 'components/nav/root_pop_scope.dart';
+import 'components/nav/swipeable_branch_container.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/gallery_screen.dart';
@@ -20,6 +21,7 @@ import 'screens/reminders_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/wizard_screen.dart';
 import 'services/crashlytics_route_observer.dart';
+import 'services/haptic_route_observer.dart';
 import 'services/pray_override_controller.dart';
 import 'services/referral_controller.dart';
 import 'services/wizard_completion_controller.dart';
@@ -49,8 +51,9 @@ final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
-  // Records root-level screen transitions as Crashlytics breadcrumbs.
-  observers: [CrashlyticsRouteObserver()],
+  // Records root-level screen transitions as Crashlytics breadcrumbs, and
+  // gives each page change a light haptic tick.
+  observers: [CrashlyticsRouteObserver(), HapticRouteObserver()],
   refreshListenable: wizardCompletedController,
   redirect: (context, state) {
     // "Pray on the app" deep links (/app/<slug>) are resolved by their own route
@@ -73,9 +76,16 @@ final GoRouter appRouter = GoRouter(
     return null;
   },
   routes: [
-    StatefulShellRoute.indexedStack(
+    StatefulShellRoute(
       builder: (context, state, navigationShell) =>
           AppShell(navigationShell: navigationShell),
+      // Tabs sit side by side so they can be swiped between, rather than in
+      // go_router's default IndexedStack.
+      navigatorContainerBuilder: (context, navigationShell, children) =>
+          SwipeableBranchContainer(
+            navigationShell: navigationShell,
+            children: children,
+          ),
       branches: [
         StatefulShellBranch(
           routes: [

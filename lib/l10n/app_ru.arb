@@ -1053,5 +1053,22 @@
     "wizardGroupPickedTitle": "Мы выбрали для вас «{name}»!",
     "wizardGroupPickedQuestion": "Хотите продолжить с этим народом или попробовать другой?",
     "wizardGroupPickedContinueButton": "Продолжить с этим народом",
-    "wizardGroupPickedRerollButton": "Выбрать другой народ"
+    "wizardGroupPickedRerollButton": "Выбрать другой народ",
+    "languageSwitchConfirm": "Оставить этот язык?",
+    "@languageSwitchConfirm": {
+        "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
+    },
+    "languageSwitchKeep": "Оставить",
+    "@languageSwitchKeep": {
+        "description": "Button in the language-switch confirmation that keeps the newly picked language"
+    },
+    "languageSwitchUndo": "Назад: {language}",
+    "@languageSwitchUndo": {
+        "description": "Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    }
 }

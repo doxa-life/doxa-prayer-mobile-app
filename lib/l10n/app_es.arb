@@ -1053,5 +1053,22 @@
     "wizardGroupPickedTitle": "¡Hemos elegido a {name} para ti!",
     "wizardGroupPickedQuestion": "¿Te gustaría continuar con este grupo o probar con otro?",
     "wizardGroupPickedContinueButton": "Continuar con este grupo",
-    "wizardGroupPickedRerollButton": "Elegir otro grupo"
+    "wizardGroupPickedRerollButton": "Elegir otro grupo",
+    "languageSwitchConfirm": "¿Mantener este idioma?",
+    "@languageSwitchConfirm": {
+        "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
+    },
+    "languageSwitchKeep": "Mantener",
+    "@languageSwitchKeep": {
+        "description": "Button in the language-switch confirmation that keeps the newly picked language"
+    },
+    "languageSwitchUndo": "Volver a {language}",
+    "@languageSwitchUndo": {
+        "description": "Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    }
 }

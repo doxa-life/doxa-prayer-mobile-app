@@ -60,8 +60,11 @@ class NavBarTitle extends StatelessWidget {
   /// The width a centred [AppBar] title gets, given how many icon buttons sit
   /// either side of it.
   ///
-  /// Mirrors `NavigationToolbar`'s layout: the middle slot gets what is left
-  /// after the leading and trailing slots and the spacing on both sides.
+  /// The wider of the leading and trailing slots is reserved on *both* sides.
+  /// `NavigationToolbar` only centres the middle slot on the screen when it
+  /// clears both slots; a title box sized to what is left after a back button
+  /// alone is too wide for that, so the toolbar pushes the box against the back
+  /// button and the centred text inside it lands right of the screen's middle.
   static double widthFor(
     BuildContext context, {
     required bool hasLeading,
@@ -70,10 +73,13 @@ class NavBarTitle extends StatelessWidget {
     const leadingWidth = 56.0;
     const actionWidth = 48.0;
     const spacing = NavigationToolbar.kMiddleSpacing;
+    final sideWidth = math.max(
+      hasLeading ? leadingWidth : 0.0,
+      actionCount * actionWidth,
+    );
     final available =
         MediaQuery.sizeOf(context).width -
-        (hasLeading ? leadingWidth : 0) -
-        actionCount * actionWidth -
+        2 * sideWidth -
         2 * spacing -
         _safetyMargin;
     return math.max(available, 0);

@@ -1053,5 +1053,22 @@
     "wizardGroupPickedRerollButton": "Pick another group",
     "@wizardGroupPickedRerollButton": {
         "description": "Button on the group-picked step that replaces the auto-selected group with the next one in priority order"
+    },
+    "languageSwitchConfirm": "Keep this language?",
+    "@languageSwitchConfirm": {
+        "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
+    },
+    "languageSwitchKeep": "Keep",
+    "@languageSwitchKeep": {
+        "description": "Button in the language-switch confirmation that keeps the newly picked language"
+    },
+    "languageSwitchUndo": "Back to {language}",
+    "@languageSwitchUndo": {
+        "description": "Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
     }
 }

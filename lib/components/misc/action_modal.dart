@@ -11,6 +11,7 @@ class ActionModal extends StatelessWidget {
     super.key,
     required this.message,
     required this.actionButtons,
+    this.footer,
   }) : assert(
          actionButtons.length == 2,
          'ActionModal lays out exactly two buttons (leading + trailing).',
@@ -18,6 +19,9 @@ class ActionModal extends StatelessWidget {
 
   final String message;
   final List<ActionButton> actionButtons;
+
+  /// Shown under the buttons — e.g. a countdown bar.
+  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +60,10 @@ class ActionModal extends StatelessWidget {
               leading: actionButtons.first,
               trailing: actionButtons.last,
             ),
+            if (footer != null) ...[
+              const SizedBox(height: AppSpacing.xl),
+              footer!,
+            ],
           ],
         ),
       ),

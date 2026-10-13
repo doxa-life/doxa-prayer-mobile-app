@@ -828,4 +828,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'Выбрать другой народ';
+
+  @override
+  String get languageSwitchConfirm => 'Оставить этот язык?';
+
+  @override
+  String get languageSwitchKeep => 'Оставить';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return 'Назад: $language';
+  }
 }

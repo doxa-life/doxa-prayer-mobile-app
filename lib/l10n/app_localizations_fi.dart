@@ -821,4 +821,15 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'Valitse toinen kansanryhmä';
+
+  @override
+  String get languageSwitchConfirm => 'Säilytetäänkö tämä kieli?';
+
+  @override
+  String get languageSwitchKeep => 'Säilytä';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return 'Takaisin: $language';
+  }
 }

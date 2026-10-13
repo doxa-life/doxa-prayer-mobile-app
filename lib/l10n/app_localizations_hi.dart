@@ -816,4 +816,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'दूसरा जनसमूह चुनें';
+
+  @override
+  String get languageSwitchConfirm => 'क्या आप यही भाषा रखना चाहते हैं?';
+
+  @override
+  String get languageSwitchKeep => 'रखें';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return '$language पर वापस जाएँ';
+  }
 }

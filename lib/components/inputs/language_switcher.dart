@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../services/locale_controller.dart';
+import '../../theme/app_spacing.dart';
+import '../misc/country_flag.dart';
+import '../misc/language_switch_modal.dart';
 import 'select_field.dart';
 import '../misc/hyphenated_text.dart';
 
@@ -20,13 +23,20 @@ class LanguageSwitcher extends StatelessWidget {
               .map(
                 (lang) => DropdownMenuItem<Locale>(
                   value: lang.locale,
-                  child: HyphenatedText(lang.nativeName),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CountryFlag(code: lang.flagCode, height: 16),
+                      const SizedBox(width: AppSpacing.md),
+                      Flexible(child: HyphenatedText(lang.nativeName)),
+                    ],
+                  ),
                 ),
               )
               .toList(growable: false),
           onChanged: (selected) {
             if (selected != null) {
-              setLocale(selected);
+              switchLanguageWithConfirmation(context, selected);
             }
           },
         );

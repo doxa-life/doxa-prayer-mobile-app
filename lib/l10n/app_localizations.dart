@@ -1449,6 +1449,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick another group'**
   String get wizardGroupPickedRerollButton;
+
+  /// Asked right after the user picks a new language, in that new language, so they can undo the switch
+  ///
+  /// In en, this message translates to:
+  /// **'Keep this language?'**
+  String get languageSwitchConfirm;
+
+  /// Button in the language-switch confirmation that keeps the newly picked language
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get languageSwitchKeep;
+
+  /// Button in the language-switch confirmation that switches back. {language} is the previous language's own name, e.g. 'English', so it stays readable to someone who cannot read the new language
+  ///
+  /// In en, this message translates to:
+  /// **'Back to {language}'**
+  String languageSwitchUndo(String language);
 }
 
 class _AppLocalizationsDelegate

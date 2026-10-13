@@ -781,4 +781,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => '换一个族群';
+
+  @override
+  String get languageSwitchConfirm => '保留此语言？';
+
+  @override
+  String get languageSwitchKeep => '保留';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return '返回$language';
+  }
 }

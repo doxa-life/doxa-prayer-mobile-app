@@ -29,8 +29,11 @@ void safeBack(BuildContext context) {
 /// page on the stack. [safeBack] handles both: it pops when there is history
 /// and only routes to `/home` when the stack would otherwise empty.
 ///
-/// Mirrors the `PopScope(canPop: false, ...)` pattern used by the shell and the
-/// wizard, which own back handling for their own subtrees.
+/// When there is history, popping is left allowed rather than intercepted: a
+/// `PopScope(canPop: false)` also disables the swipe-from-the-edge back
+/// gesture, and pushed pages should be swipeable back to where they came from.
+/// Only the deep-linked, only-page-on-the-stack case is intercepted, mirroring
+/// the `PopScope(canPop: false, ...)` pattern used by the shell and the wizard.
 class RootPopScope extends StatelessWidget {
   const RootPopScope({super.key, required this.child});
 
@@ -39,7 +42,7 @@ class RootPopScope extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: Navigator.of(context).canPop(),
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) return;
         safeBack(context);

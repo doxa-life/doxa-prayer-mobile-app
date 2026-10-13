@@ -830,4 +830,15 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get wizardGroupPickedRerollButton => 'Alege alt grup';
+
+  @override
+  String get languageSwitchConfirm => 'Păstrezi această limbă?';
+
+  @override
+  String get languageSwitchKeep => 'Păstrează';
+
+  @override
+  String languageSwitchUndo(String language) {
+    return 'Înapoi la $language';
+  }
 }

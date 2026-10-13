@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+
+/// The bottom-nav tabs laid side by side in a [PageView], so a horizontal swipe
+/// slides to the neighbouring tab and a tap on the nav bar slides over to the
+/// one tapped. Stands in for go_router's default `IndexedStack` container — see
+/// the `navigatorContainerBuilder` in router.dart.
+///
+/// The shell's current index stays the single source of truth: a swipe calls
+/// [StatefulNavigationShell.goBranch], and any other branch change (nav bar
+/// tap, back to Home, a reminder tap) arrives here as a new index and is
+/// animated to. Every tab change ends in a selection haptic.
+class SwipeableBranchContainer extends StatefulWidget {
+  const SwipeableBranchContainer({
+    super.key,
+    required this.navigationShell,
+    required this.children,
+  });
+
+  final StatefulNavigationShell navigationShell;
+
+  /// One navigator per branch, in branch order.
+  final List<Widget> children;
+
+  @override
+  State<SwipeableBranchContainer> createState() =>
+      _SwipeableBranchContainerState();
+}
+
+class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
+  static const Duration _slideDuration = Duration(milliseconds: 320);
+
+  late final PageController _controller = PageController(
+    initialPage: widget.navigationShell.currentIndex,
+  );
+
+  /// Set while a nav-bar tap (or other programmatic change) is sliding the
+  /// pages, so the pages it passes on the way don't register as swipes.
+  int? _animatingTo;
+
+  @override
+  void didUpdateWidget(SwipeableBranchContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final index = widget.navigationShell.currentIndex;
+    if (index == oldWidget.navigationShell.currentIndex) return;
+    HapticFeedback.selectionClick();
+    // A swipe has already moved the pages; only other changes need sliding.
+    if (_controller.hasClients && _controller.page?.round() != index) {
+      _slideTo(index);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _slideTo(int index) async {
+    if (_animatingTo == index) return;
+    _animatingTo = index;
+    // A jump across several tabs starts from the neighbouring page, so it
+    // reads as one slide rather than a flick through every tab in between.
+    final from = _controller.page?.round() ?? index;
+    if ((from - index).abs() > 1) {
+      _controller.jumpToPage(index > from ? index - 1 : index + 1);
+    }
+    await _controller.animateToPage(
+      index,
+      duration: _slideDuration,
+      curve: Curves.easeOutCubic,
+    );
+    if (mounted && _animatingTo == index) _animatingTo = null;
+  }
+
+  void _onPageChanged(int index) {
+    if (_animatingTo != null) return;
+    final shell = widget.navigationShell;
+    if (index != shell.currentIndex) shell.goBranch(index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: _controller,
+      onPageChanged: _onPageChanged,
+      children: [
+        for (final child in widget.children) _KeepAlive(child: child),
+      ],
+    );
+  }
+}
+
+/// Keeps an off-screen tab's navigator — and its scroll position, form input
+/// and pushed pages — alive, as the `IndexedStack` it replaces did.
+class _KeepAlive extends StatefulWidget {
+  const _KeepAlive({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_KeepAlive> createState() => _KeepAliveState();
+}
+
+class _KeepAliveState extends State<_KeepAlive>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return widget.child;
+  }
+}
