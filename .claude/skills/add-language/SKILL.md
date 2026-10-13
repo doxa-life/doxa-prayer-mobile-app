@@ -57,7 +57,23 @@ with its license, declared in `pubspec.yaml`, and wired into the typography
 fallback list. Check that the heading face has glyphs for the script; where it
 does not, the script falls back, which is expected rather than a defect.
 
-## 6. Thank-you verses
+## 6. Hyphenation
+
+Long words are hyphenated per language, and only languages whose pattern files
+are bundled can be. `hyphenatorx` is a trimmed local copy in
+`third_party/hyphenatorx` that holds only the languages the app uses, so a new
+language is **not** hyphenated until it's added there. Follow "Adding a
+language" in `docs/hyphenation.md`: decide whether the script hyphenates at all
+(Arabic, Devanagari, Han and similar don't), copy the language's `.json` and
+`.dart` pattern files from the upstream package, and map the code in
+`_languageByCode` in `lib/services/hyphenation_service.dart`. A language whose
+script never hyphenates goes in `unhyphenatedLanguages` in the same file, with
+the reason, instead.
+
+Never switch `pubspec.yaml` back to the pub.dev `hyphenatorx` to get a
+language: that re-adds about 10 MB of unused languages to the app.
+
+## 7. Thank-you verses
 
 `assets/thank_you_verses.json` holds each locale's verses in that locale's own
 published Bible translation, never a machine translation.
@@ -70,11 +86,16 @@ It reads the edition configured for the language on the campaigns server. A
 language whose glossary records no Bible edition cannot have this step: say so
 rather than translating the verses, and raise it as a question for the reviewer.
 
-## 7. Verify
+## 8. Verify
+
+`test/language_parity_test.dart` fails until the language is in every place
+above: the language picker, the generated localizations, every thank-you verse,
+and a hyphenation decision. Its failure messages name the missing piece.
 
 ```bash
 flutter gen-l10n
 python3 tool/check_arb.py
+flutter test test/language_parity_test.dart test/hyphenation_assets_test.dart
 flutter analyze
 flutter run --flavor staging
 ```
@@ -88,14 +109,15 @@ strings by codepoint rather than by eye.
 `flutter pub get` dirties `macos/Flutter/*.xcconfig` and creates
 `macos/Podfile`. Discard both before committing.
 
-## 8. Store listings
+## 9. Store listings
 
 `android/fastlane/metadata/` carries the Play listing. Adding a listing for the
 new language is a separate decision about market presence, not part of shipping
 the strings. Name it in the report rather than doing it.
 
-## 9. Report
+## 10. Report
 
-What was added, what still falls back to English, which fonts were added, and
+What was added, what still falls back to English, which fonts were added,
+whether the language is hyphenated (and if not, why), and
 anything a reviewer must answer. Leave the changes uncommitted unless a pull
 request is asked for.

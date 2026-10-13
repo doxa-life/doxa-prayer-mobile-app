@@ -86,6 +86,13 @@ The generated Dart files are tracked, so commit them with the ARB.
   bidi-naive editor can reorder what it displays.
 - **Length.** Translations run up to about 2.6 times English on short labels.
   Check a new button in the longest language at a large text scale.
+- **Hyphenation.** Long words are only hyphenated for languages whose patterns
+  are bundled in the trimmed `third_party/hyphenatorx` copy. Updating strings
+  needs no change there, but if the language is missing from `_languageByCode`
+  in `lib/services/hyphenation_service.dart` and its script does hyphenate, say
+  so in the report and point to `docs/hyphenation.md`. Never switch
+  `pubspec.yaml` back to the pub.dev `hyphenatorx`: that re-adds about 10 MB of
+  unused languages.
 
 ## 6. Report
 
