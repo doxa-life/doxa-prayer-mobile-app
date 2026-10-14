@@ -4,7 +4,7 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart' show ScrollCacheExtent, ScrollDirection;
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:go_router/go_router.dart';
 
 import '../../components/buttons/action_button.dart';
@@ -20,9 +20,9 @@ import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../services/locale_controller.dart';
 import '../../services/people_groups_service.dart';
-import '../../services/prayer_need_ranking.dart';
 import '../../services/people_group_subscription_flow.dart';
 import '../../services/subscribed_people_groups_controller.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../misc/cached_data_builder.dart';
 import '../misc/country_flag.dart';
@@ -99,6 +99,30 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   // null = no population filter applied (the slider still shows the full
   // data-derived range).
   RangeValues? _populationRange;
+
+  /// The filter menu's options, worked out from the whole list. Kept between
+  /// builds — they only change with the list itself or the language — rather
+  /// than redone from ~2,100 groups on every keystroke and filter tap.
+  List<PeopleGroup>? _optionsFor;
+  AppLocalizations? _optionsLocale;
+  late List<String> _languageLabels;
+  late List<String> _religionLabels;
+  late List<MultiSelectOption<String>> _countryChoices;
+  late (int, int) _populationLimits;
+
+  void _computeOptions(List<PeopleGroup> groups, AppLocalizations l) {
+    if (identical(groups, _optionsFor) && identical(l, _optionsLocale)) return;
+    _optionsFor = groups;
+    _optionsLocale = l;
+    _languageLabels = _distinctLabels(groups, (g) => g.primaryLanguageLabel);
+    _religionLabels = _distinctLabels(groups, (g) => g.religionLabel);
+    _countryChoices = _countryOptions(groups, l);
+    _populationLimits = _populationBounds(groups);
+  }
+
+  void _closeFilters() {
+    if (_filtersExpanded) setState(() => _filtersExpanded = false);
+  }
 
   /// The wizard passes [onSelectionConfirmed]; the standalone list doesn't.
   bool get _isWizardMode => widget.onSelect != null;
@@ -316,11 +340,15 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     }).toList();
     filtered.sort((a, b) {
       // With the box ticked, the groups with the fewest intercessors come
-      // first, by the same measure "pick a group for me" uses. Ties, and the
-      // whole list with the box unticked, follow the A–Z / Z–A button — not
-      // shuffled, so the list doesn't jump about while typing.
+      // first — the count each card shows — and each run with the same count
+      // follows the A–Z / Z–A button.
+      //
+      // Deliberately not `compareByPrayerNeed`, which "pick a group for me"
+      // uses: it breaks ties on outreach resources, which no card shows, so
+      // within one count the names ran A–Z, then started over at A for the
+      // next resource tier, and the list read as broken.
       if (_prioritizeFewest) {
-        final need = compareByPrayerNeed(a, b);
+        final need = a.peopleCommitted.compareTo(b.peopleCommitted);
         if (need != 0) return need;
       }
       final cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
@@ -695,10 +723,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     _loadedGroups = groups;
     final l = AppLocalizations.of(context)!;
     final filtered = _filter(groups, l);
-    final languages = _distinctLabels(groups, (g) => g.primaryLanguageLabel);
-    final religions = _distinctLabels(groups, (g) => g.religionLabel);
-    final countryOptions = _countryOptions(groups, l);
-    final (popMin, popMax) = _populationBounds(groups);
+    _computeOptions(groups, l);
+    final languages = _languageLabels;
+    final religions = _religionLabels;
+    final countryOptions = _countryChoices;
+    final (popMin, popMax) = _populationLimits;
     final populationValue =
         _populationRange ?? RangeValues(popMin.toDouble(), popMax.toDouble());
     if (!_cascadePlayed) {
@@ -707,7 +736,12 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
       );
     }
     final panel = Padding(
-      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        0,
+        AppSpacing.md,
+        AppSpacing.sm,
+      ),
       child: _buildFilterPanel(
         l,
         languages: languages,
@@ -718,48 +752,82 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
         populationValue: populationValue,
       ),
     );
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
     return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      builder: (context, constraints) => Stack(
         children: [
-          // Fixed above the list, so the filter button opens it in view
-          // however far the list is scrolled. Capped so the list keeps room
-          // below it; with several sections open, the panel scrolls itself.
-          Collapsible(
-            expanded: _filtersExpanded,
-            child: ConstrainedBox(
-              // As tall as the menu needs, leaving the list a strip at the
-              // bottom; it only scrolls when even that won't fit (a short
-              // screen, large text, Population open).
-              constraints: BoxConstraints(
-                maxHeight: math.max(
-                  constraints.maxHeight - _listRoomBelowMenu,
-                  constraints.maxHeight * 0.5,
+          // The results never move or resize for the menu: it floats over
+          // them instead of pushing them down, so opening it re-lays out
+          // nothing underneath.
+          Positioned.fill(child: _buildResults(context, filtered)),
+
+          // Dims the results under an open menu. Tapping it, or starting to
+          // drag the list beneath it, closes the menu and hands the list back.
+          Positioned.fill(
+            child: IgnorePointer(
+              ignoring: !_filtersExpanded,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: _closeFilters,
+                onVerticalDragStart: (_) => _closeFilters(),
+                child: AnimatedOpacity(
+                  opacity: _filtersExpanded ? 1 : 0,
+                  duration: reduceMotion ? Duration.zero : Collapsible.duration,
+                  curve: Curves.easeOutCubic,
+                  child: ColoredBox(
+                    color: AppColors.black.withValues(alpha: 0.18),
+                  ),
                 ),
-              ),
-              child: SingleChildScrollView(
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                child: panel,
               ),
             ),
           ),
-          _MenuEdge(visible: _filtersExpanded),
-          Expanded(
-            // Scrolling the results closes the filter panel, giving the list
-            // its room back. Only a drag on the list itself counts: the
-            // panel scrolls inside its own view, and depth 0 skips anything
-            // scrollable nested inside a card.
-            child: NotificationListener<UserScrollNotification>(
-              onNotification: (n) {
-                if (_filtersExpanded &&
-                    n.depth == 0 &&
-                    n.direction != ScrollDirection.idle) {
-                  setState(() => _filtersExpanded = false);
-                }
-                return false;
-              },
-              child: _buildResults(context, filtered),
+
+          // Pinned to the top of the results, so the filter button opens it in
+          // view however far the list is scrolled. Capped so a strip of the
+          // dimmed list stays below it to tap; with several sections open the
+          // menu scrolls itself.
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Collapsible(
+              expanded: _filtersExpanded,
+              // Its own layer, so the open/close animation moves already
+              // painted pixels rather than repainting every section per frame.
+              child: RepaintBoundary(
+                child: Material(
+                  color: AppColors.surface,
+                  elevation: 6,
+                  shadowColor: AppColors.black.withValues(alpha: 0.35),
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(16),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ConstrainedBox(
+                        // As tall as the menu needs, leaving the list a strip
+                        // at the bottom; it only scrolls when even that won't
+                        // fit (a short screen, large text, Population open).
+                        constraints: BoxConstraints(
+                          maxHeight: math.max(
+                            constraints.maxHeight - _listRoomBelowMenu,
+                            constraints.maxHeight * 0.5,
+                          ),
+                        ),
+                        child: SingleChildScrollView(
+                          keyboardDismissBehavior:
+                              ScrollViewKeyboardDismissBehavior.onDrag,
+                          child: panel,
+                        ),
+                      ),
+                      _MenuEdge(visible: _filtersExpanded),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],

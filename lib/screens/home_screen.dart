@@ -8,10 +8,12 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
+import 'package:doxa_prayer_mobile_app/services/map_config.dart';
 import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
 import 'package:doxa_prayer_mobile_app/services/prayer_reminder_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
+import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +32,15 @@ class HomeScreen extends StatelessWidget {
       child: PageContainer(
         child: Column(
           spacing: AppSpacing.xxl,
-          children: [_peopleGroupsCardOrCTA(), _reminderSection()],
+          children: [
+            // The map button belongs with the people groups, so it sits closer
+            // to them than to the reminders below.
+            Column(
+              spacing: AppSpacing.lg,
+              children: [_peopleGroupsCardOrCTA(), const _ViewMapButton()],
+            ),
+            _reminderSection(),
+          ],
         ),
       ),
     );
@@ -101,6 +111,59 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+/// Opens the map of every people group — the way onto the map that doesn't
+/// depend on first picking one of the user's groups in the carousel, and the
+/// only one for a user who hasn't picked any yet.
+///
+/// Outlined rather than filled so it never competes with the carousel's Pray
+/// buttons or the select-a-group call to action above it.
+class _ViewMapButton extends StatelessWidget {
+  const _ViewMapButton();
+
+  void _open(BuildContext context) {
+    // A build with no Mapbox token says why rather than opening a map that can
+    // only ever show grey squares — the same answer the carousel gives.
+    if (!MapConfig.isConfigured) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.mapNotConfigured),
+          ),
+        );
+      return;
+    }
+    context.push('/map');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton.icon(
+        onPressed: () => _open(context),
+        icon: const AppIcon(
+          AppIconName.geoAlt,
+          size: 20,
+          color: AppColors.primary,
+        ),
+        // No explicit style: the theme's label style picks the right face for
+        // the current language.
+        label: Text(AppLocalizations.of(context)!.viewMap.toUpperCase()),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.primary,
+          backgroundColor: AppColors.surface.withValues(alpha: 0.9),
+          side: const BorderSide(color: AppColors.primary, width: 1.5),
+          minimumSize: const Size(64, 52),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// The reminder slot: a nudge to pray for the next people group that still
 /// needs today's prayer, otherwise the usual "next reminder in…" card (or the
 /// set-one-up CTA).
@@ -130,7 +193,7 @@ Widget _remindersCardOrCTA() {
           : CtaButton(
               label: AppLocalizations.of(context)!.setReminder,
               leadingIcon: const AppIcon(AppIconName.bell),
-              onPressed: () => context.go('/reminders'),
+              onPressed: () => context.push('/reminders'),
             );
     },
   );

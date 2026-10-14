@@ -250,9 +250,9 @@ class AppLocalizationsFi extends AppLocalizations {
       count,
       locale: localeName,
       other:
-          '$countString henkilöä rukoilee juuri nyt kohtaamattomien kansanryhmien puolesta',
+          '$countString henkilöä rukoilee juuri nyt lähetystyön ulkopuolella olevien kansanryhmien puolesta',
       one:
-          '$countString henkilö rukoilee juuri nyt kohtaamattomien kansanryhmien puolesta',
+          '$countString henkilö rukoilee juuri nyt lähetystyön ulkopuolella olevien kansanryhmien puolesta',
     );
     return '$_temp0';
   }
@@ -369,7 +369,7 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get wizardWelcomeBody =>
-      'DOXA auttaa sinua rukoilemaan tavoittamattoman kansanryhmän puolesta. Autamme sinua valitsemaan ryhmän, asettamaan muistutuksen ja pysymään ajan tasalla.';
+      'DOXA auttaa sinua rukoilemaan saavuttamattoman kansanryhmän puolesta. Autamme sinua valitsemaan ryhmän, asettamaan muistutuksen ja pysymään ajan tasalla.';
 
   @override
   String get wizardGetStarted => 'Aloita';
@@ -713,6 +713,72 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get yourPeopleGroups => 'Omat kansanryhmäsi';
+
+  @override
+  String get viewMap => 'Näytä kartta';
+
+  @override
+  String get moreInfo => 'Lisätietoja';
+
+  @override
+  String get help => 'Ohje';
+
+  @override
+  String get helpMissionTitle => 'Missiomme';
+
+  @override
+  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+
+  @override
+  String get helpFaqTitle => 'Usein kysytyt kysymykset';
+
+  @override
+  String get helpFaq1Question => '[Placeholder: question 1]';
+
+  @override
+  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+
+  @override
+  String get helpFaq2Question => '[Placeholder: question 2]';
+
+  @override
+  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
+
+  @override
+  String get helpFaq3Question => '[Placeholder: question 3]';
+
+  @override
+  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+
+  @override
+  String get helpGlossaryTitle => 'Sanasto';
+
+  @override
+  String get glossaryTerm1 => '[Placeholder: term 1]';
+
+  @override
+  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+
+  @override
+  String get glossaryTerm1Alternates => '';
+
+  @override
+  String get glossaryTerm2 => '[Placeholder: term 2]';
+
+  @override
+  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
+
+  @override
+  String get glossaryTerm2Alternates => '';
+
+  @override
+  String get glossaryTerm3 => '[Placeholder: term 3]';
+
+  @override
+  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
+
+  @override
+  String get glossaryTerm3Alternates => '';
 
   @override
   String get locationNotAvailable => 'Sijaintia ei saatavilla';

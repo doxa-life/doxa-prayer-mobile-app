@@ -8,6 +8,7 @@ import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../../theme/prayer_commitment_colors.dart';
 import 'heart_glyph.dart';
+import 'people_group_pin_layer.dart';
 
 /// Diameter of a legend swatch. Larger than the pins it explains — a 5px dot
 /// reproduced exactly would be unreadable next to text.
@@ -75,11 +76,25 @@ class MapLegend extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           _row(
-            // The same icon the pins and the "Selected" pill use.
-            swatch: const Icon(
-              kHeartIcon,
-              size: _swatchSize,
-              color: AppColors.primaryLight,
+            // The same icon the pins and the "Selected" pill use, on the same
+            // halo the map draws behind the user's own groups.
+            swatch: Container(
+              width: _swatchSize,
+              height: _swatchSize,
+              decoration: BoxDecoration(
+                color: kPrayingHaloFill,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: kPrayingHaloRim,
+                  width: kPrayingHaloRimWidth,
+                ),
+              ),
+              alignment: Alignment.center,
+              child: const Icon(
+                kHeartIcon,
+                size: _swatchSize - 5,
+                color: AppColors.primaryLight,
+              ),
             ),
             label: l.yourPeopleGroups,
           ),

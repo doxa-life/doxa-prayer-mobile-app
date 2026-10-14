@@ -1264,6 +1264,138 @@ abstract class AppLocalizations {
   /// **'Your people groups'**
   String get yourPeopleGroups;
 
+  /// Home screen button that opens the map of every people group, not tied to any one of the user's groups
+  ///
+  /// In en, this message translates to:
+  /// **'View map'**
+  String get viewMap;
+
+  /// Link in a map pin's tooltip that opens the people group's profile page
+  ///
+  /// In en, this message translates to:
+  /// **'More info'**
+  String get moreInfo;
+
+  /// Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get help;
+
+  /// Heading of the Help page's mission section
+  ///
+  /// In en, this message translates to:
+  /// **'Our mission'**
+  String get helpMissionTitle;
+
+  /// Body of the Help page's mission section. Glossary terms in it become tappable
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: DOXA\'s mission]'**
+  String get helpMissionBody;
+
+  /// Heading of the Help page's FAQ section
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently asked questions'**
+  String get helpFaqTitle;
+
+  /// FAQ entry 1 on the Help page: the question, shown as a tappable row
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: question 1]'**
+  String get helpFaq1Question;
+
+  /// FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: answer to question 1]'**
+  String get helpFaq1Answer;
+
+  /// FAQ entry 2 on the Help page: the question, shown as a tappable row
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: question 2]'**
+  String get helpFaq2Question;
+
+  /// FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: answer to question 2]'**
+  String get helpFaq2Answer;
+
+  /// FAQ entry 3 on the Help page: the question, shown as a tappable row
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: question 3]'**
+  String get helpFaq3Question;
+
+  /// FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: answer to question 3]'**
+  String get helpFaq3Answer;
+
+  /// Heading of the Help page's glossary section
+  ///
+  /// In en, this message translates to:
+  /// **'Glossary'**
+  String get helpGlossaryTitle;
+
+  /// Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: term 1]'**
+  String get glossaryTerm1;
+
+  /// Definition of glossary term 1, shown on the Help page and when the term is tapped
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: definition of term 1]'**
+  String get glossaryTerm1Definition;
+
+  /// Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get glossaryTerm1Alternates;
+
+  /// Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: term 2]'**
+  String get glossaryTerm2;
+
+  /// Definition of glossary term 2, shown on the Help page and when the term is tapped
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: definition of term 2]'**
+  String get glossaryTerm2Definition;
+
+  /// Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get glossaryTerm2Alternates;
+
+  /// Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: term 3]'**
+  String get glossaryTerm3;
+
+  /// Definition of glossary term 3, shown on the Help page and when the term is tapped
+  ///
+  /// In en, this message translates to:
+  /// **'[Placeholder: definition of term 3]'**
+  String get glossaryTerm3Definition;
+
+  /// Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get glossaryTerm3Alternates;
+
   /// Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled
   ///
   /// In en, this message translates to:

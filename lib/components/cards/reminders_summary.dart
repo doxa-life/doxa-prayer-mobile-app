@@ -37,7 +37,7 @@ class RemindersSummary extends StatelessWidget {
 
     return ElevatedAppCard(
       color: AppColors.primary,
-      onTap: () => context.go('/reminders'),
+      onTap: () => context.push('/reminders'),
       padding: AppSpacing.xl,
 
       child: Column(

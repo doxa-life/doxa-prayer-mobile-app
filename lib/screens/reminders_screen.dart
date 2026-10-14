@@ -1,12 +1,14 @@
-import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/layouts/fill_viewport_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/buttons/action_button.dart';
 import '../components/cards/reminder_card.dart';
+import '../components/misc/background_image_container.dart';
 import '../components/misc/hyphenated_text.dart';
 import '../components/misc/plus_icon.dart';
+import '../components/nav/details_nav_bar.dart';
+import '../components/nav/root_pop_scope.dart';
 import '../components/reminders/exact_alarm_warning_banner.dart';
 import '../components/reminders/reminder_editor.dart';
 import '../l10n/app_localizations.dart';
@@ -25,24 +27,33 @@ class RemindersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: PageContainer(child: _buildReminders(context, l)),
-      // No people groups means no reminder can be created — every reminder
-      // belongs to one. The empty state offers the way out instead.
-      floatingActionButton: ValueListenableBuilder<SubscribedPeopleGroups>(
-        valueListenable: peopleGroupsController,
-        builder: (context, groups, _) {
-          if (groups.isEmpty) return const SizedBox.shrink();
-          return FloatingActionButton(
-            onPressed: () => showReminderEditor(context),
-            backgroundColor: AppColors.primary,
-            foregroundColor: AppColors.onPrimary,
-            shape: const CircleBorder(),
-            tooltip: l.newReminder,
-            child: const PlusIcon(color: AppColors.onPrimary, size: 24),
-          );
-        },
+    // Its own page now, opened from Settings and the home screen, so it
+    // carries the background and back button the tab shell used to supply.
+    return BackgroundImageContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: DetailsNavBar(
+          context: context,
+          title: l.reminders,
+          onBack: () => safeBack(context),
+        ),
+        body: PageContainer(child: _buildReminders(context, l)),
+        // No people groups means no reminder can be created — every reminder
+        // belongs to one. The empty state offers the way out instead.
+        floatingActionButton: ValueListenableBuilder<SubscribedPeopleGroups>(
+          valueListenable: peopleGroupsController,
+          builder: (context, groups, _) {
+            if (groups.isEmpty) return const SizedBox.shrink();
+            return FloatingActionButton(
+              onPressed: () => showReminderEditor(context),
+              backgroundColor: AppColors.primary,
+              foregroundColor: AppColors.onPrimary,
+              shape: const CircleBorder(),
+              tooltip: l.newReminder,
+              child: const PlusIcon(color: AppColors.onPrimary, size: 24),
+            );
+          },
+        ),
       ),
     );
   }
@@ -132,7 +143,6 @@ class RemindersScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: AppSpacing.xxl,
           children: [
-            H1(l.reminders),
             Column(
               children: [
                 for (final r in list)

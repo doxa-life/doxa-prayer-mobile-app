@@ -145,55 +145,52 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
       },
       child: BackgroundImageContainer(
         // Rebuilt when the subscription list changes so the Pray tab's avatar
-        // appears, updates and disappears with it.
-        child: ValueListenableBuilder<SubscribedPeopleGroups>(
-          valueListenable: peopleGroupsController,
-          builder: (context, groups, _) => Scaffold(
+        // appears, updates and disappears with it, and when anything stops
+        // reminders from firing as expected — notifications turned off, or
+        // exact alarms not permitted (reminders would arrive late) — so the
+        // settings cog, where Reminders now lives, can say so.
+        child: ListenableBuilder(
+          listenable: Listenable.merge([
+            peopleGroupsController,
+            notificationsBlocked,
+            exactAlarmsBlocked,
+          ]),
+          builder: (context, _) => Scaffold(
             backgroundColor: Colors.transparent,
             appBar: TopNavBar(
               context: context,
               onSettings: () => _openSettings(context),
               onDebug: () => _openDebug(context),
-              trailing: _prayGroupAvatar(groups),
+              trailing: _prayGroupAvatar(peopleGroupsController.value),
+              settingsBadge:
+                  notificationsBlocked.value || exactAlarmsBlocked.value,
             ),
             body: widget.navigationShell,
-            // Badge the reminders tab when anything stops reminders from firing as
-            // expected: notifications turned off, or exact alarms not permitted
-            // (reminders would arrive late). Merge both notifiers so either flips
-            // the dot.
-            bottomNavigationBar: ListenableBuilder(
-              listenable: Listenable.merge([
-                notificationsBlocked,
-                exactAlarmsBlocked,
-              ]),
-              builder: (context, _) => BottomNavBar(
-                items: [
-                  BottomNavItemData(
-                    icon: AppIconName.home,
-                    selectedIcon: AppIconName.homeSolid,
-                    label: AppLocalizations.of(context)!.home,
-                  ),
-                  BottomNavItemData(
-                    icon: AppIconName.pray,
-                    selectedIcon: AppIconName.praySolid,
-                    label: AppLocalizations.of(context)!.pray,
-                  ),
-                  BottomNavItemData(
-                    icon: AppIconName.peopleGroup,
-                    selectedIcon: AppIconName.peopleGroupSolid,
-                    label: AppLocalizations.of(context)!.search,
-                  ),
-                  BottomNavItemData(
-                    icon: AppIconName.bell,
-                    selectedIcon: AppIconName.bellSolid,
-                    label: AppLocalizations.of(context)!.reminders,
-                    showBadge:
-                        notificationsBlocked.value || exactAlarmsBlocked.value,
-                  ),
-                ],
-                currentIndex: widget.navigationShell.currentIndex,
-                onTap: _onTabTap,
-              ),
+            bottomNavigationBar: BottomNavBar(
+              items: [
+                BottomNavItemData(
+                  icon: AppIconName.home,
+                  selectedIcon: AppIconName.homeSolid,
+                  label: AppLocalizations.of(context)!.home,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.pray,
+                  selectedIcon: AppIconName.praySolid,
+                  label: AppLocalizations.of(context)!.pray,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.peopleGroup,
+                  selectedIcon: AppIconName.peopleGroupSolid,
+                  label: AppLocalizations.of(context)!.search,
+                ),
+                BottomNavItemData(
+                  icon: AppIconName.help,
+                  selectedIcon: AppIconName.helpSolid,
+                  label: AppLocalizations.of(context)!.help,
+                ),
+              ],
+              currentIndex: widget.navigationShell.currentIndex,
+              onTap: _onTabTap,
             ),
           ),
         ),

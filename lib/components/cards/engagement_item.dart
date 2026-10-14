@@ -5,7 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../misc/check_icon.dart';
 import '../misc/close_icon.dart';
-import '../misc/hyphenated_text.dart';
+import '../help/glossary_text.dart';
 import '../misc/icon_circle.dart';
 
 enum EngagementStatus { yes, no, partial }
@@ -68,7 +68,9 @@ class EngagementItem extends StatelessWidget {
             label: statusLabel,
             child: IconCircle(icon: icon, color: color),
           ),
-          HyphenatedText(
+          // Glossary-aware: a marker such as "Engaged" links to its
+          // definition when the glossary has one.
+          GlossaryText(
             label,
             style: AppTypography.h1.copyWith(fontSize: AppTypography.md),
             textAlign: TextAlign.center,

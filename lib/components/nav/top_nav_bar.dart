@@ -19,10 +19,12 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     VoidCallback? onBack,
     VoidCallback? onDebug,
     Widget? trailing,
+    bool settingsBadge = false,
   }) => TopNavBar._(
     key: key,
     title: title,
     onSettings: onSettings,
+    settingsBadge: settingsBadge,
     onBack: onBack,
     onDebug: onDebug,
     trailing: trailing,
@@ -38,6 +40,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     required this.onSettings,
+    required this.settingsBadge,
     required this.onBack,
     required this.onDebug,
     required this.trailing,
@@ -46,6 +49,11 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? title;
   final VoidCallback? onSettings;
+
+  /// Dots the settings cog when something inside it needs attention —
+  /// reminders that can't fire as set. The Reminders tab carried this dot
+  /// before Reminders moved into Settings.
+  final bool settingsBadge;
   final VoidCallback? onBack;
   final VoidCallback? onDebug;
 
@@ -98,7 +106,14 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
         ?trailing,
         if (onSettings != null)
           IconButton(
-            icon: const AppIcon(AppIconName.gear, color: AppColors.onPrimary),
+            icon: Badge(
+              isLabelVisible: settingsBadge,
+              backgroundColor: AppColors.warning,
+              child: const AppIcon(
+                AppIconName.gear,
+                color: AppColors.onPrimary,
+              ),
+            ),
             tooltip: l10n.settings,
             onPressed: onSettings,
           ),

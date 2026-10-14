@@ -72,8 +72,22 @@ class PeopleGroup {
   /// doesn't silently drop every pin.
   static double? _coordinate(dynamic value) {
     if (value is num) return value.toDouble();
-    if (value is String) return double.tryParse(value);
+    if (value is String) return double.tryParse(value.trim());
     return null;
+  }
+
+  /// The API's coordinates as a pair, or nulls when they can't be a real
+  /// place: out of range, not finite, or exactly 0,0 — "Null Island", which is
+  /// what an unset NUMERIC pair defaults to and would otherwise put a pin in
+  /// the Gulf of Guinea for a group that lives somewhere else entirely.
+  static (double?, double?) _location(dynamic lat, dynamic lng) {
+    final latitude = _coordinate(lat);
+    final longitude = _coordinate(lng);
+    if (latitude == null || longitude == null) return (null, null);
+    if (!latitude.isFinite || !longitude.isFinite) return (null, null);
+    if (latitude.abs() > 90 || longitude.abs() > 180) return (null, null);
+    if (latitude == 0 && longitude == 0) return (null, null);
+    return (latitude, longitude);
   }
 
   /// `people_committed` comes back as a string too, for the same reason.
@@ -114,6 +128,10 @@ class PeopleGroup {
     final engagementStatus = json['engagement_status'];
     final region = json['region'];
     final population = json['population'];
+    final (latitude, longitude) = _location(
+      json['latitude'],
+      json['longitude'],
+    );
     return PeopleGroup(
       name: json['name'] as String,
       slug: json['slug'] as String,
@@ -150,8 +168,8 @@ class PeopleGroup {
           : null,
       peoplePraying: (json['people_praying'] as num?)?.toInt() ?? 0,
       peopleCommitted: _count(json['people_committed']),
-      latitude: _coordinate(json['latitude']),
-      longitude: _coordinate(json['longitude']),
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 }

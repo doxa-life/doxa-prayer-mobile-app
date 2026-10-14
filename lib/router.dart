@@ -8,6 +8,7 @@ import 'components/nav/swipeable_branch_container.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/gallery_screen.dart';
+import 'screens/help_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
 import 'screens/notification_permission_settings_screen.dart';
@@ -26,7 +27,7 @@ import 'services/pray_override_controller.dart';
 import 'services/referral_controller.dart';
 import 'services/wizard_completion_controller.dart';
 
-enum AppRoute { home, pray, peopleGroups, reminders }
+enum AppRoute { home, pray, peopleGroups, help }
 
 /// Matches the `/<slug>/prayer` and `/<slug>/prayer/<date>` deep links that
 /// mirror the campaigns site's prayer pages.
@@ -117,9 +118,9 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              name: AppRoute.reminders.name,
-              path: '/reminders',
-              builder: (_, _) => const RemindersScreen(),
+              name: AppRoute.help.name,
+              path: '/help',
+              builder: (_, _) => const HelpScreen(),
             ),
           ],
         ),
@@ -194,6 +195,15 @@ final GoRouter appRouter = GoRouter(
       builder: (_, state) =>
           PeopleGroupMapScreen(slug: state.pathParameters['slug']!),
     ),
+    // Every people group on one map, opened from the home screen's map button
+    // rather than for any one group. Pushed above the tabs like the per-group
+    // map, so back returns to home.
+    GoRoute(
+      name: 'people-groups-overview-map',
+      path: '/map',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const PeopleGroupMapScreen(),
+    ),
     // Prayer content pushed on top of the map, so praying for a group found on
     // the map doesn't discard the map.
     GoRoute(
@@ -230,6 +240,15 @@ final GoRouter appRouter = GoRouter(
               const RootPopScope(child: NotificationPermissionSettingsScreen()),
         ),
       ],
+    ),
+    // Reminders used to be a tab; it now opens from Settings, and from the
+    // home screen's reminder card and call to action. Pushed above the tabs
+    // like Settings, so back returns to wherever it was opened from.
+    GoRoute(
+      name: 'reminders',
+      path: '/reminders',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const RootPopScope(child: RemindersScreen()),
     ),
     GoRoute(
       name: 'feedback',

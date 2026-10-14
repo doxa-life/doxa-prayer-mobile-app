@@ -181,7 +181,7 @@ const surfaces = <Surface>[
   ),
   Surface(
     id: 'reminders',
-    title: 'Reminders tab',
+    title: 'Reminders',
     blurb:
         'Local notifications only — but this is also the single place the OS '
         'notification permission is ever requested, which is what makes push '

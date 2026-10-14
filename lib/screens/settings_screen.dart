@@ -54,6 +54,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: _openNewsSignup,
                     ),
+                    // Reminders moved here from the tab bar. Flagged the way
+                    // its tab used to be when reminders can't fire as set.
+                    ListenableBuilder(
+                      listenable: Listenable.merge([
+                        notificationsBlocked,
+                        exactAlarmsBlocked,
+                      ]),
+                      builder: (context, _) => ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: HyphenatedText(l.reminders),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (notificationsBlocked.value ||
+                                exactAlarmsBlocked.value) ...[
+                              const Icon(
+                                Icons.error,
+                                color: AppColors.warning,
+                                size: 20,
+                              ),
+                              const SizedBox(width: AppSpacing.xs),
+                            ],
+                            const Icon(Icons.chevron_right),
+                          ],
+                        ),
+                        onTap: () => context.push('/reminders'),
+                      ),
+                    ),
                     ValueListenableBuilder<bool>(
                       valueListenable: notificationsBlocked,
                       builder: (context, blocked, _) => ListTile(

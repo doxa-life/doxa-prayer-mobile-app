@@ -25,7 +25,9 @@ enum AppIconName {
   download('download.svg'),
   trash('trash-can.svg'),
   sun('sun-2.svg'),
-  geoAlt('geo-alt.svg');
+  geoAlt('geo-alt.svg'),
+  help('help.svg'),
+  helpSolid('help-solid.svg');
 
   const AppIconName(this.fileName);
   final String fileName;

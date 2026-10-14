@@ -28,7 +28,7 @@ All requests are built through `ApiConfig.buildUri`, which resolves the host fro
 | PUT | `/api/profile/{profileId}` | — | — | — | `profile_update_service.dart:44` |
 | POST | `/api/profile/{profileId}/resend-verification` | — | — | — | `profile_service.dart:83` |
 | POST | `/api/push/register` | — | — | — | `push_notifications_service.dart:185` |
-| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:79` |
+| LINK | `/app/{slug}` | — | — | — | `home_screen.dart:89` |
 | LINK | `/subscriber` | — | — | — | `profile_service.dart:127` |
 
 `LINK` rows are URIs built for sharing or opening in a browser — they are never requested by the app.
@@ -84,7 +84,7 @@ Language is part of every content cache key, which is why switching language inv
 | Key | Constant | Declared in | Written by |
 | --- | --- | --- | --- |
 | `active_people_group_slug` | `_activeSlugKey` | [subscribed_people_groups_controller.dart:98](../../lib/services/subscribed_people_groups_controller.dart#L98) | Cold start; Confirm a people group; Group details → pray for this group; Group details → stop praying for this group |
-| `app_locale_language_code` | `_storageKey` | [locale_controller.dart:39](../../lib/services/locale_controller.dart#L39) | Change language |
+| `app_locale_language_code` | `_storageKey` | [locale_controller.dart:96](../../lib/services/locale_controller.dart#L96) | Change language |
 | `identity_profile_id` | `_profileIdKey` | [identity_service.dart:17](../../lib/services/identity_service.dart#L17) | News step → Sign up; News step → Skip; Settings → Sign up for updates → Sign up |
 | `identity_subscription_id` | `_legacySubscriptionIdKey` | [subscribed_people_groups_controller.dart:104](../../lib/services/subscribed_people_groups_controller.dart#L104) | News step → Sign up; News step → Skip |
 | `identity_subscription_id` | `_subscriptionIdKey` | [identity_service.dart:18](../../lib/services/identity_service.dart#L18) | News step → Sign up; News step → Skip |
@@ -112,16 +112,18 @@ Cached API responses are not in SharedPreferences — they are files under the r
 | `home` | `/home` |
 | `pray` | `/pray` |
 | `peopleGroups` | `/people-groups` |
-| `reminders` | `/reminders` |
+| `help` | `/help` |
 | `app-deep-link` | `/app/:slug` |
 | `pray-deep-link` | `/:slug/prayer` |
 | `pray-deep-link-dated` | `/:slug/prayer/:date` |
 | `people-group-details` | `/people-groups/:slug` |
 | `people-group-map` | `/people-groups/:slug/map` |
+| `people-groups-overview-map` | `/map` |
 | `people-group-prayer` | `/people-groups/:slug/pray` |
 | `settings` | `/settings` |
 | `settings-news-signup` | `/settings/news-signup` |
 | `settings-notifications` | `/settings/notifications` |
+| `reminders` | `/reminders` |
 | `feedback` | `/feedback` |
 | `gallery` | `/gallery` |
 | `debug` | `/debug` |

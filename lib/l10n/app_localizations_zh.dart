@@ -679,6 +679,72 @@ class AppLocalizationsZh extends AppLocalizations {
   String get yourPeopleGroups => '您的族群';
 
   @override
+  String get viewMap => '查看地图';
+
+  @override
+  String get moreInfo => '更多信息';
+
+  @override
+  String get help => '帮助';
+
+  @override
+  String get helpMissionTitle => '我们的使命';
+
+  @override
+  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+
+  @override
+  String get helpFaqTitle => '常见问题';
+
+  @override
+  String get helpFaq1Question => '[Placeholder: question 1]';
+
+  @override
+  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+
+  @override
+  String get helpFaq2Question => '[Placeholder: question 2]';
+
+  @override
+  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
+
+  @override
+  String get helpFaq3Question => '[Placeholder: question 3]';
+
+  @override
+  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+
+  @override
+  String get helpGlossaryTitle => '术语表';
+
+  @override
+  String get glossaryTerm1 => '[Placeholder: term 1]';
+
+  @override
+  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+
+  @override
+  String get glossaryTerm1Alternates => '';
+
+  @override
+  String get glossaryTerm2 => '[Placeholder: term 2]';
+
+  @override
+  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
+
+  @override
+  String get glossaryTerm2Alternates => '';
+
+  @override
+  String get glossaryTerm3 => '[Placeholder: term 3]';
+
+  @override
+  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
+
+  @override
+  String get glossaryTerm3Alternates => '';
+
+  @override
   String get locationNotAvailable => '位置不可用';
 
   @override

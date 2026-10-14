@@ -63,6 +63,43 @@ void main() {
     expect(find.byType(FilterSection).hitTestable(), findsWidgets);
   });
 
+  testWidgets('results run fewest intercessors first, then A–Z', (
+    tester,
+  ) async {
+    PeopleGroup group(String name, int committed, int resources) => PeopleGroup(
+      name: name,
+      slug: name.toLowerCase(),
+      imageUrl: null,
+      countryLabel: 'Malaysia',
+      religionLabel: 'Hinduism',
+      peoplePraying: 0,
+      peopleCommitted: committed,
+      resourcesAvailable: resources,
+    );
+    // Resource counts deliberately disagree with the names: the list used to
+    // break ties on them, which nobody can see, so the names restarted at A
+    // part-way through a run of equal counts.
+    seedMemoryCache(peopleGroupListCacheKey('en'), [
+      group('Delta', 0, 0),
+      group('Bravo', 0, 6),
+      group('Alpha', 0, 3),
+      group('Echo', 2, 0),
+      group('Charlie', 1, 5),
+    ]);
+    // Tall enough that every card is built.
+    await pumpAtScale(
+      tester,
+      const PeopleGroupsList(),
+      scale: 1.0,
+      viewport: const Size(360, 2400),
+    );
+    await tester.pumpAndSettle();
+
+    final order = ['Alpha', 'Bravo', 'Delta', 'Charlie', 'Echo'];
+    final tops = [for (final n in order) tester.getTopLeft(find.text(n)).dy];
+    expect(tops, orderedEquals([...tops]..sort()));
+  });
+
   testWidgets('cards scrolled into view are shown at once', (tester) async {
     await pumpList(tester, count: 60);
     await tester.pumpAndSettle();

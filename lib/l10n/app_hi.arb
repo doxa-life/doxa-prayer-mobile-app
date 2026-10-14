@@ -1054,6 +1054,94 @@
     "workInLocalLanguageAndCulture": "स्थानीय भाषा और संस्कृति में कार्य",
     "yes": "हाँ",
     "yourPeopleGroups": "आपके जनसमूह",
+    "viewMap": "मानचित्र देखें",
+    "@viewMap": {
+        "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
+    },
+    "moreInfo": "अधिक जानकारी",
+    "@moreInfo": {
+        "description": "Link in a map pin's tooltip that opens the people group's profile page"
+    },
+    "help": "सहायता",
+    "@help": {
+        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
+    },
+    "helpMissionTitle": "हमारा मिशन",
+    "@helpMissionTitle": {
+        "description": "Heading of the Help page's mission section"
+    },
+    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "@helpMissionBody": {
+        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
+    },
+    "helpFaqTitle": "अक्सर पूछे जाने वाले प्रश्न",
+    "@helpFaqTitle": {
+        "description": "Heading of the Help page's FAQ section"
+    },
+    "helpFaq1Question": "[Placeholder: question 1]",
+    "@helpFaq1Question": {
+        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
+    },
+    "helpFaq1Answer": "[Placeholder: answer to question 1]",
+    "@helpFaq1Answer": {
+        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
+    },
+    "helpFaq2Question": "[Placeholder: question 2]",
+    "@helpFaq2Question": {
+        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
+    },
+    "helpFaq2Answer": "[Placeholder: answer to question 2]",
+    "@helpFaq2Answer": {
+        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
+    },
+    "helpFaq3Question": "[Placeholder: question 3]",
+    "@helpFaq3Question": {
+        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
+    },
+    "helpFaq3Answer": "[Placeholder: answer to question 3]",
+    "@helpFaq3Answer": {
+        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
+    },
+    "helpGlossaryTitle": "शब्दावली",
+    "@helpGlossaryTitle": {
+        "description": "Heading of the Help page's glossary section"
+    },
+    "glossaryTerm1": "[Placeholder: term 1]",
+    "@glossaryTerm1": {
+        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
+    },
+    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
+    "@glossaryTerm1Definition": {
+        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
+    },
+    "glossaryTerm1Alternates": "",
+    "@glossaryTerm1Alternates": {
+        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
+    },
+    "glossaryTerm2": "[Placeholder: term 2]",
+    "@glossaryTerm2": {
+        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
+    },
+    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
+    "@glossaryTerm2Definition": {
+        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
+    },
+    "glossaryTerm2Alternates": "",
+    "@glossaryTerm2Alternates": {
+        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
+    },
+    "glossaryTerm3": "[Placeholder: term 3]",
+    "@glossaryTerm3": {
+        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
+    },
+    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
+    "@glossaryTerm3Definition": {
+        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
+    },
+    "glossaryTerm3Alternates": "",
+    "@glossaryTerm3Alternates": {
+        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
+    },
     "languageSwitchConfirm": "क्या आप यही भाषा रखना चाहते हैं?",
     "@languageSwitchConfirm": {
         "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"

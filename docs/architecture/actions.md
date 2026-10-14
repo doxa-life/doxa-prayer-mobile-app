@@ -27,7 +27,7 @@ Each entry pairs what the user perceives with what actually happens. In the diag
 | Browse tab and group details | [Open the Browse tab](#open-the-browse-tab) | `GET /api/people-groups/list` | — |
 | Browse tab and group details | [Group details → pray for this group](#group-details--pray-for-this-group) | `POST /api/people-groups/{slug}/anon-signup` | `people_group_subscriptions`<br>`active_people_group_slug` |
 | Browse tab and group details | [Group details → stop praying for this group](#group-details--stop-praying-for-this-group) | `POST /api/people-groups/{slug}/unsubscribe` | `reminders`<br>`people_group_subscriptions`<br>`active_people_group_slug` |
-| Reminders tab | [Add or edit a reminder](#add-or-edit-a-reminder) | `PUT /api/profile/{profileId}`<br>`POST /api/push/register` | `reminders` |
+| Reminders | [Add or edit a reminder](#add-or-edit-a-reminder) | `PUT /api/profile/{profileId}`<br>`POST /api/push/register` | `reminders` |
 | Settings | [Settings → Sign up for updates → Sign up](#settings--sign-up-for-updates--sign-up) | `POST /api/news-signup`<br>`POST /api/push/register` | `identity_tracking_id`<br>`identity_profile_id` |
 | Settings | [Enable notifications (prompt or settings row)](#enable-notifications-prompt-or-settings-row) | `POST /api/push/register` | — |
 | Settings | [Settings → view signed-up emails](#settings--view-signed-up-emails) | `GET /api/profile/{profileId}` | — |
@@ -502,7 +502,7 @@ sequenceDiagram
 
 ---
 
-## Reminders tab
+## Reminders
 
 Local notifications only — but this is also the single place the OS notification permission is ever requested, which is what makes push work.
 

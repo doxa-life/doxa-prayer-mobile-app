@@ -22,6 +22,7 @@ import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
+import '../components/help/glossary_text.dart';
 import '../components/misc/hyphenated_text.dart';
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
@@ -323,7 +324,7 @@ class _Hero extends StatelessWidget {
             ],
           ),
           if (detail.raw['imb_people_description'] is String)
-            HyphenatedText(
+            GlossaryText(
               detail.raw['imb_people_description'] as String,
               style: AppTypography.bodyMedium,
             ),
@@ -484,8 +485,10 @@ class _DetailRow extends StatelessWidget {
             ],
           ),
         ),
+        // Glossary-aware, so a value such as "Unengaged" links to what it
+        // means.
         Expanded(
-          child: HyphenatedText(value!, style: AppTypography.bodyMedium),
+          child: GlossaryText(value!, style: AppTypography.bodyMedium),
         ),
       ],
     );

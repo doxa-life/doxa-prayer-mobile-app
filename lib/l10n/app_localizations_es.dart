@@ -718,6 +718,72 @@ class AppLocalizationsEs extends AppLocalizations {
   String get yourPeopleGroups => 'Tus grupos étnicos';
 
   @override
+  String get viewMap => 'Ver mapa';
+
+  @override
+  String get moreInfo => 'Más información';
+
+  @override
+  String get help => 'Ayuda';
+
+  @override
+  String get helpMissionTitle => 'Nuestra misión';
+
+  @override
+  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+
+  @override
+  String get helpFaqTitle => 'Preguntas frecuentes';
+
+  @override
+  String get helpFaq1Question => '[Placeholder: question 1]';
+
+  @override
+  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+
+  @override
+  String get helpFaq2Question => '[Placeholder: question 2]';
+
+  @override
+  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
+
+  @override
+  String get helpFaq3Question => '[Placeholder: question 3]';
+
+  @override
+  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+
+  @override
+  String get helpGlossaryTitle => 'Glosario';
+
+  @override
+  String get glossaryTerm1 => '[Placeholder: term 1]';
+
+  @override
+  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+
+  @override
+  String get glossaryTerm1Alternates => '';
+
+  @override
+  String get glossaryTerm2 => '[Placeholder: term 2]';
+
+  @override
+  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
+
+  @override
+  String get glossaryTerm2Alternates => '';
+
+  @override
+  String get glossaryTerm3 => '[Placeholder: term 3]';
+
+  @override
+  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
+
+  @override
+  String get glossaryTerm3Alternates => '';
+
+  @override
   String get locationNotAvailable => 'Ubicación no disponible';
 
   @override

@@ -12,15 +12,18 @@ import '../services/people_group_locations.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
-/// Where one people group sits in the world, among every other people group.
+/// Where one people group sits in the world, among every other people group —
+/// or, with no [slug], every people group at once.
 ///
-/// Opened from the map button on a home people-group card. The pins come from
+/// Opened for one group from the map button on a home people-group card, and
+/// without one from the home screen's own map button. The pins come from
 /// the UUPG list the app already caches on disk, so in the normal case this
 /// screen makes no request at all — see `people_group_locations.dart`.
 class PeopleGroupMapScreen extends StatefulWidget {
-  const PeopleGroupMapScreen({super.key, required this.slug});
+  const PeopleGroupMapScreen({super.key, this.slug});
 
-  final String slug;
+  /// The group to open on, or null for the overview of every group.
+  final String? slug;
 
   @override
   State<PeopleGroupMapScreen> createState() => _PeopleGroupMapScreenState();
@@ -59,17 +62,20 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
       child: FutureBuilder<List<PeopleGroup>>(
         future: _groups,
         builder: (context, snapshot) {
-          final focus = snapshot.data
-              ?.where((g) => g.slug == widget.slug)
-              .firstOrNull;
+          final slug = widget.slug;
+          final focus = slug == null
+              ? null
+              : snapshot.data?.where((g) => g.slug == slug).firstOrNull;
           return BackgroundImageContainer(
             child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: DetailsNavBar(
                 context: context,
-                // Falls back to the generic title until the list resolves and
-                // the group's own name is known.
-                title: focus?.name ?? l.peopleGroup,
+                // For one group, falls back to the generic title until the
+                // list resolves and the group's own name is known.
+                title: widget.slug == null
+                    ? l.map
+                    : focus?.name ?? l.peopleGroup,
                 onBack: () => safeBack(context),
               ),
               body: _body(context, snapshot, focus),
@@ -93,7 +99,12 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
     // same thing from here: there is no map to draw. The home card hides its
     // map button whenever the list is unavailable, so this is the narrow case
     // of the cache expiring between the card being drawn and the map opening.
-    if (snapshot.hasError || focus == null) {
+    //
+    // The overview has no group to miss, but an empty list is still no map:
+    // a failed fetch on a cold cache resolves to nothing rather than an error.
+    if (snapshot.hasError ||
+        (widget.slug != null && focus == null) ||
+        (snapshot.data?.isEmpty ?? true)) {
       return _ErrorView(message: l.couldNotLoadMapMessage, onRetry: _retry);
     }
     return PeopleGroupMapView(

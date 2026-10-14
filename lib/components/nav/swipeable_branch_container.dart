@@ -59,7 +59,7 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
 
   Future<void> _slideTo(int index) async {
     if (_animatingTo == index) return;
-    _animatingTo = index;
+    setState(() => _animatingTo = index);
     // A jump across several tabs starts from the neighbouring page, so it
     // reads as one slide rather than a flick through every tab in between.
     final from = _controller.page?.round() ?? index;
@@ -71,7 +71,7 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
       duration: _slideDuration,
       curve: Curves.easeOutCubic,
     );
-    if (mounted && _animatingTo == index) _animatingTo = null;
+    if (mounted && _animatingTo == index) setState(() => _animatingTo = null);
   }
 
   void _onPageChanged(int index) {
@@ -82,11 +82,20 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final current = widget.navigationShell.currentIndex;
     return PageView(
       controller: _controller,
       onPageChanged: _onPageChanged,
       children: [
-        for (final child in widget.children) _KeepAlive(child: child),
+        for (final (i, child) in widget.children.indexed)
+          // Tabs out of view stay alive but stop animating, as they did in
+          // go_router's own container: without this a loading skeleton on
+          // a tab nobody is looking at pulses forever, costing frames on
+          // every other tab.
+          TickerMode(
+            enabled: i == current || i == _animatingTo,
+            child: _KeepAlive(child: child),
+          ),
       ],
     );
   }
