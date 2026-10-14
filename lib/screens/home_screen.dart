@@ -5,6 +5,7 @@ import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
+import 'package:doxa_prayer_mobile_app/layouts/design_scale.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
@@ -22,25 +23,76 @@ import 'package:share_plus/share_plus.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  /// From this shortest side the device is a tablet, as in
+  /// BackgroundImageContainer.
+  static const double _tabletBreakpoint = 600;
+
   @override
   Widget build(BuildContext context) {
+    final isTablet =
+        MediaQuery.sizeOf(context).shortestSide >= _tabletBreakpoint;
     // A single ListView child wrapping this Column collapses every card's
     // loose (non-button) text into one merged semantics node — a screen reader
     // reads the whole page at once instead of stopping on each item. A
     // SingleChildScrollView keeps each element as its own accessibility stop.
-    return SingleChildScrollView(
-      child: PageContainer(
-        child: Column(
-          spacing: AppSpacing.xxl,
-          children: [
-            // The map button belongs with the people groups, so it sits closer
-            // to them than to the reminders below.
-            Column(
-              spacing: AppSpacing.lg,
-              children: [_peopleGroupsCardOrCTA(), const _ViewMapButton()],
+    if (!isTablet) {
+      return SingleChildScrollView(
+        child: PageContainer(
+          child: Column(
+            spacing: AppSpacing.xxl,
+            children: [
+              // The map button belongs with the people groups, so it sits
+              // closer to them than to the reminders below.
+              Column(
+                spacing: AppSpacing.lg,
+                children: [
+                  _peopleGroupsCardOrCTA(),
+                  UniformScale(
+                    scale: designScaleOf(context),
+                    child: const _ViewMapButton(),
+                  ),
+                ],
+              ),
+              UniformScale(
+                scale: designScaleOf(context),
+                child: _reminderSection(),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    // A tablet's screen is tall enough that the phone layout left about a
+    // third of it empty below the reminders. The cards stay at the top and the
+    // map button and reminders rest against the bottom, with the space between
+    // them; when there is no space to spare the page scrolls as before.
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        child: PageContainer(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: (constraints.maxHeight - AppSpacing.xxl * 2).clamp(
+                0.0,
+                double.infinity,
+              ),
             ),
-            _reminderSection(),
-          ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              spacing: AppSpacing.xxl,
+              children: [
+                _peopleGroupsCardOrCTA(),
+                // Drawn at the same scale as the cards above, so the page
+                // keeps the phone design's proportions.
+                UniformScale(
+                  scale: designScaleOf(context),
+                  child: Column(
+                    spacing: AppSpacing.lg,
+                    children: [const _ViewMapButton(), _reminderSection()],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -79,6 +131,8 @@ class HomeScreen extends StatelessWidget {
           onShare: (g) => _openShare(context, g),
           onMap: (g) => context.push('/people-groups/${g.slug}/map'),
           onAdd: () => context.go('/people-groups'),
+          // Swiping to a group makes it the one the Pray tab shows.
+          onFocus: (g) => setActivePeopleGroup(g.slug),
         );
       },
     );

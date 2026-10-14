@@ -17,6 +17,7 @@ Future<void> _pump(
   List<SubscribedPeopleGroup> groups, {
   String? activeSlug,
   ValueChanged<SubscribedPeopleGroup>? onPray,
+  ValueChanged<SubscribedPeopleGroup>? onFocus,
 }) async {
   await tester.pumpWidget(
     MaterialApp(
@@ -35,6 +36,7 @@ Future<void> _pump(
             onShare: (_) {},
             onMap: (_) {},
             onAdd: () {},
+            onFocus: onFocus,
           ),
         ),
       ),
@@ -162,6 +164,46 @@ void main() {
         .toList();
     expect(cards[0].prayedToday, isFalse);
     expect(cards[1].prayedToday, isTrue);
+  });
+
+  testWidgets('a swipe settles on the next group, centred, and focuses it', (
+    tester,
+  ) async {
+    String? focused;
+    await _pump(
+      tester,
+      _groups(3),
+      activeSlug: 'group-0',
+      onFocus: (g) => focused = g.slug,
+    );
+
+    await tester.fling(_carouselScrollable(), const Offset(-200, 0), 800);
+    await tester.pumpAndSettle();
+
+    final card = tester.getRect(find.byType(PeopleGroupCard).at(1));
+    final viewport = tester.getRect(_carouselScrollable());
+    expect(card.center.dx, moreOrLessEquals(viewport.center.dx, epsilon: 1));
+    expect(focused, 'group-1');
+  });
+
+  testWidgets('tapping a neighbouring card focuses it instead of praying', (
+    tester,
+  ) async {
+    String? prayedFor;
+    String? focused;
+    await _pump(
+      tester,
+      _groups(3),
+      activeSlug: 'group-0',
+      onPray: (g) => prayedFor = g.slug,
+      onFocus: (g) => focused = g.slug,
+    );
+
+    await tester.tap(find.text('PRAY').at(1), warnIfMissed: false);
+    await tester.pumpAndSettle();
+
+    expect(prayedFor, isNull);
+    expect(focused, 'group-1');
   });
 
   testWidgets('praying from a card reports which group it was', (tester) async {
