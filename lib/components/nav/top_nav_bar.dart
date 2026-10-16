@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../misc/app_icon.dart';
+import '../misc/splash_transition.dart';
 import '../misc/triangle_icon.dart';
 import 'nav_bar_title.dart';
 
@@ -96,11 +97,14 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             )
-          : Image.asset(
-              'assets/images/doxa-logo.png',
-              height: AppTypography.lg,
-              fit: BoxFit.contain,
-              semanticLabel: l10n.appName,
+          // Where the launch splash shrinks into.
+          : SplashTarget(
+              child: Image.asset(
+                'assets/images/doxa-logo.png',
+                height: AppTypography.lg,
+                fit: BoxFit.contain,
+                semanticLabel: l10n.appName,
+              ),
             ),
       actions: [
         ?trailing,

@@ -268,6 +268,46 @@
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"
     },
+    "storageSectionTitle": "التخزين",
+    "@storageSectionTitle": {
+        "description": "Settings section header for how much space the app's downloads take"
+    },
+    "storagePrayerData": "الصلوات والمجموعات الشعبية",
+    "@storagePrayerData": {
+        "description": "Storage row: saved prayer content, the people group list and profiles"
+    },
+    "storagePhotos": "الصور",
+    "@storagePhotos": {
+        "description": "Storage row: saved people group photos"
+    },
+    "storageMap": "الخريطة",
+    "@storageMap": {
+        "description": "Storage row: saved map tiles"
+    },
+    "storageTotal": "المجموع",
+    "@storageTotal": {
+        "description": "Storage row: the total of the rows above"
+    },
+    "storageExplanation": "تُحفظ الصلوات والمجموعات الشعبية والصور والخريطة على جهازك لتفتح فورًا وتعمل دون اتصال.",
+    "@storageExplanation": {
+        "description": "Caption under the storage breakdown, saying why things are saved"
+    },
+    "clearCache": "مسح ذاكرة التخزين المؤقت",
+    "@clearCache": {
+        "description": "Button that deletes everything saved for quick access (and the confirm dialog's action)"
+    },
+    "clearCacheConfirmTitle": "مسح ذاكرة التخزين المؤقت؟",
+    "@clearCacheConfirmTitle": {
+        "description": "Title of the dialog confirming the cache should be cleared"
+    },
+    "clearCacheConfirmBody": "سيُحذف كل ما حُفظ للوصول السريع، ثم يُنزَّل مجددًا عند الحاجة. تبقى مجموعاتك الشعبية وتذكيراتك وإعداداتك كما هي.",
+    "@clearCacheConfirmBody": {
+        "description": "Body of the dialog confirming the cache should be cleared"
+    },
+    "cacheCleared": "تم مسح ذاكرة التخزين المؤقت",
+    "@cacheCleared": {
+        "description": "Snackbar shown once the cache has been cleared"
+    },
     "@emailVerified": {
         "description": "Status label shown next to a signed-up email that has been verified"
     },
@@ -502,6 +542,15 @@
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "prayerStatusExplanation": "هذا هو عدد الأشخاص الذين التزموا بالصلاة من أجل «{name}».",
+    "@prayerStatusExplanation": {
+        "description": "Explains the number on the prayer status card of a people group's profile",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@peopleGroup": {
         "description": "The label of the people group field"

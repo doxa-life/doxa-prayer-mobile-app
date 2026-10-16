@@ -22,7 +22,6 @@ import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../misc/cached_data_builder.dart';
-import 'people_group_of_the_day_view.dart';
 import 'praying_now_banner.dart';
 import 'prayer_content_skeleton.dart';
 import 'prayer_content_view.dart';
@@ -314,16 +313,6 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   /// The intro `people_group` block — the deep-linked/selected group, whose full
   /// detail card is rendered below the Amen button. Returns null when no such
   /// block carries people-group data.
-  PrayerContentBlock? _selectedGroupBlock(PrayerContentResponse data) {
-    for (final block in data.content) {
-      if (block.type == PrayerContentBlockType.peopleGroup &&
-          block.peopleGroupData != null) {
-        return block;
-      }
-    }
-    return null;
-  }
-
   Future<void> _onAmen() async {
     if (_submitting || _amenFired) return;
     final openedAt = _openedAt;
@@ -425,18 +414,11 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
                     ),
                   );
                 }
-                final selectedGroup = _selectedGroupBlock(data);
                 // Everything below the Amen is information only. It is rendered
                 // on a full-bleed `mutedSurface` band so the change of zone is
                 // unmistakable and the Amen clearly reads as the end of the
                 // prayer action rather than another block in the flow.
                 final infoBlocks = <Widget>[
-                  if (selectedGroup != null)
-                    PeopleGroupOfTheDayView(
-                      name: selectedGroup.title,
-                      data: selectedGroup.peopleGroupData!,
-                      heading: l10n.myPeopleGroupTitle,
-                    ),
                   if (data.metadata.copyrightNotices.isNotEmpty)
                     _CopyrightNotices(notices: data.metadata.copyrightNotices),
                 ];

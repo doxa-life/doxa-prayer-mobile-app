@@ -8,6 +8,7 @@ import '../../services/wizard_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../inputs/language_switcher.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/titles.dart';
 
@@ -69,11 +70,20 @@ class WizardStepWelcome extends StatelessWidget {
                     height: 140,
                     semanticLabel: l.appName,
                   ),
-                  H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
-                  HyphenatedText(
-                    l.wizardWelcomeBody,
-                    style: AppTypography.bodyMedium,
-                    textAlign: TextAlign.center,
+                  // Cross-faded when the language is changed below, rather
+                  // than the text jumping to the new language mid-read.
+                  _FadeOnLocaleChange(
+                    child: Column(
+                      spacing: 50.0,
+                      children: [
+                        H1(l.wizardWelcomeTitle, textAlign: TextAlign.center),
+                        HyphenatedText(
+                          l.wizardWelcomeBody,
+                          style: AppTypography.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                   // Resolves a deferred "Pray on the app" referral (if any)
                   // and jumps to the confirm step with that group pre-filled;
@@ -90,6 +100,12 @@ class WizardStepWelcome extends StatelessWidget {
                       onPressed: controller.startFromWelcome,
                       color: ActionButtonColor.secondary,
                     ),
+                  // The language is otherwise only found in Settings, which a
+                  // first-time user can't reach until the wizard is done.
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 320),
+                    child: const LanguageSwitcher(confirm: false),
+                  ),
                   SizedBox(height: AppSpacing.xxxs),
                 ],
               ),
@@ -97,6 +113,34 @@ class WizardStepWelcome extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Cross-fades [child] when the app's language changes, and eases the change
+/// in height between the old text and the new.
+class _FadeOnLocaleChange extends StatelessWidget {
+  const _FadeOnLocaleChange({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOutCubic,
+      alignment: Alignment.topCenter,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        layoutBuilder: (current, previous) => Stack(
+          alignment: Alignment.topCenter,
+          children: [...previous, ?current],
+        ),
+        child: KeyedSubtree(key: ValueKey(locale), child: child),
+      ),
     );
   }
 }

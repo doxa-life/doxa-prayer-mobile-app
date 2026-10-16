@@ -103,6 +103,11 @@ class AppLocalizationsEs extends AppLocalizations {
       'Personas comprometidas con la oración';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Este es el número de personas comprometidas a orar por «$name».';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Cobertura de oración diaria';
 
   @override
@@ -458,6 +463,38 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Tu cuenta';
+
+  @override
+  String get storageSectionTitle => 'Almacenamiento';
+
+  @override
+  String get storagePrayerData => 'Oraciones y grupos étnicos';
+
+  @override
+  String get storagePhotos => 'Fotos';
+
+  @override
+  String get storageMap => 'Mapa';
+
+  @override
+  String get storageTotal => 'Total';
+
+  @override
+  String get storageExplanation =>
+      'Las oraciones, los grupos étnicos, las fotos y el mapa se guardan en tu dispositivo para que se abran al instante y funcionen sin conexión.';
+
+  @override
+  String get clearCache => 'Borrar caché';
+
+  @override
+  String get clearCacheConfirmTitle => '¿Borrar caché?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Todo lo guardado para acceso rápido se eliminará y se volverá a descargar cuando haga falta. Tus grupos étnicos, recordatorios y configuración se conservan.';
+
+  @override
+  String get cacheCleared => 'Caché borrada';
 
   @override
   String get emailVerified => 'Verificado';

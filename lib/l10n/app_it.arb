@@ -2,6 +2,46 @@
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"
     },
+    "storageSectionTitle": "Spazio di archiviazione",
+    "@storageSectionTitle": {
+        "description": "Settings section header for how much space the app's downloads take"
+    },
+    "storagePrayerData": "Preghiere e gruppi etnici",
+    "@storagePrayerData": {
+        "description": "Storage row: saved prayer content, the people group list and profiles"
+    },
+    "storagePhotos": "Foto",
+    "@storagePhotos": {
+        "description": "Storage row: saved people group photos"
+    },
+    "storageMap": "Mappa",
+    "@storageMap": {
+        "description": "Storage row: saved map tiles"
+    },
+    "storageTotal": "Totale",
+    "@storageTotal": {
+        "description": "Storage row: the total of the rows above"
+    },
+    "storageExplanation": "Preghiere, gruppi etnici, foto e mappa sono salvati sul tuo dispositivo, così si aprono subito e funzionano anche offline.",
+    "@storageExplanation": {
+        "description": "Caption under the storage breakdown, saying why things are saved"
+    },
+    "clearCache": "Svuota cache",
+    "@clearCache": {
+        "description": "Button that deletes everything saved for quick access (and the confirm dialog's action)"
+    },
+    "clearCacheConfirmTitle": "Svuotare la cache?",
+    "@clearCacheConfirmTitle": {
+        "description": "Title of the dialog confirming the cache should be cleared"
+    },
+    "clearCacheConfirmBody": "Tutto ciò che è salvato per l’accesso rapido verrà eliminato e scaricato di nuovo quando serve. I tuoi gruppi etnici, promemoria e impostazioni restano.",
+    "@clearCacheConfirmBody": {
+        "description": "Body of the dialog confirming the cache should be cleared"
+    },
+    "cacheCleared": "Cache svuotata",
+    "@cacheCleared": {
+        "description": "Snackbar shown once the cache has been cleared"
+    },
     "@addAnotherPeopleGroup": {
         "description": "Label on the last card of the home carousel, which opens the people groups list"
     },
@@ -487,6 +527,15 @@
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "prayerStatusExplanation": "Questo è il numero di persone impegnate a pregare per «{name}».",
+    "@prayerStatusExplanation": {
+        "description": "Explains the number on the prayer status card of a people group's profile",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@peopleGroup": {
         "description": "The label of the people group field"

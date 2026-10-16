@@ -18,11 +18,14 @@ import '../../components/misc/collapsible.dart';
 import '../../components/misc/entrance_fade_slide.dart';
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
+import '../../models/prayer_content.dart';
 import '../../services/locale_controller.dart';
+import '../../services/people_group_of_the_day.dart';
 import '../../services/people_groups_service.dart';
 import '../../services/people_group_subscription_flow.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
+import '../../layouts/page_scaffold.dart';
 import '../../theme/app_spacing.dart';
 import '../misc/cached_data_builder.dart';
 import '../misc/country_flag.dart';
@@ -35,6 +38,7 @@ class PeopleGroupsList extends StatefulWidget {
     this.onSelect,
     this.onSelectionConfirmed,
     this.listBottomPadding = 0,
+    this.fullBleed = false,
   });
 
   /// Override the action triggered when the user taps "Select" on a group.
@@ -52,6 +56,12 @@ class PeopleGroupsList extends StatefulWidget {
   /// viewport edge while keeping a gap after the last item.
   final double listBottomPadding;
 
+  /// Whether the list fills the screen edge to edge and pads itself, as on the
+  /// Search tab. The search bar then sits on a full-width white band, which
+  /// the filter menu drops down from as one continuous surface. Otherwise (the
+  /// wizard) the list sits inside the caller's padding as before.
+  final bool fullBleed;
+
   @override
   State<PeopleGroupsList> createState() => _PeopleGroupsListState();
 }
@@ -63,6 +73,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   /// The list last shown, so the search box can tell a typed country name
   /// from any other search.
   List<PeopleGroup>? _loadedGroups;
+
+  /// Today's People Group of the Day for the active group, once read, and
+  /// which group, language and day it was read for.
+  PeopleGroupBlockData? _ofTheDay;
+  String? _ofTheDayKey;
   String _query = '';
   bool _filtersExpanded = false;
   bool _sortAscending = true;
@@ -467,44 +482,54 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     _searchController.badges = _badgesForQuery();
+    final searchBar = Row(
+      spacing: AppSpacing.md,
+      children: [
+        Expanded(
+          child: SearchField(
+            hint: l.searchPeopleGroups,
+            controller: _searchController,
+            onChanged: (v) => setState(() => _query = v),
+            onClear: () {
+              _searchController.clear();
+              setState(() => _query = '');
+            },
+          ),
+        ),
+        IconButton(
+          icon: Badge(
+            isLabelVisible: _hasActiveFilters,
+            child: Icon(
+              Icons.tune,
+              // Tinted while the panel is open, so the toggled state shows
+              // even when no filter is active yet.
+              color: _filtersExpanded
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
+            ),
+          ),
+          tooltip: l.filters,
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+            setState(() => _filtersExpanded = !_filtersExpanded);
+          },
+        ),
+      ],
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: AppSpacing.lg,
+      spacing: widget.fullBleed ? 0 : AppSpacing.lg,
       children: [
-        Row(
-          spacing: AppSpacing.md,
-          children: [
-            Expanded(
-              child: SearchField(
-                hint: l.searchPeopleGroups,
-                controller: _searchController,
-                onChanged: (v) => setState(() => _query = v),
-                onClear: () {
-                  _searchController.clear();
-                  setState(() => _query = '');
-                },
-              ),
+        if (widget.fullBleed)
+          ColoredBox(
+            color: AppColors.surface,
+            child: PageContainer(
+              verticalPadding: AppSpacing.lg,
+              child: searchBar,
             ),
-            IconButton(
-              icon: Badge(
-                isLabelVisible: _hasActiveFilters,
-                child: Icon(
-                  Icons.tune,
-                  // Tinted while the panel is open, so the toggled state shows
-                  // even when no filter is active yet.
-                  color: _filtersExpanded
-                      ? Theme.of(context).colorScheme.primary
-                      : null,
-                ),
-              ),
-              tooltip: l.filters,
-              onPressed: () {
-                FocusScope.of(context).unfocus();
-                setState(() => _filtersExpanded = !_filtersExpanded);
-              },
-            ),
-          ],
-        ),
+          )
+        else
+          searchBar,
         Expanded(
           // The list is fetched in the app's language, so switching language
           // re-reads it under that language's cache key.
@@ -516,14 +541,20 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 cacheKey: peopleGroupListCacheKey(lang),
                 fetch: ({bool forceRefresh = false}) =>
                     fetchPeopleGroups(lang: lang, forceRefresh: forceRefresh),
-                loading: (context) => PeopleGroupsListSkeleton(
-                  bottomPadding: widget.listBottomPadding,
+                loading: (context) => _padded(
+                  PeopleGroupsListSkeleton(
+                    bottomPadding: widget.listBottomPadding,
+                  ),
+                  top: AppSpacing.lg,
                 ),
-                error: (context, retry) => _ErrorView(
-                  message: AppLocalizations.of(
-                    context,
-                  )!.couldNotLoadPeopleGroupsMessage,
-                  onRetry: retry,
+                error: (context, retry) => _padded(
+                  _ErrorView(
+                    message: AppLocalizations.of(
+                      context,
+                    )!.couldNotLoadPeopleGroupsMessage,
+                    onRetry: retry,
+                  ),
+                  top: AppSpacing.lg,
                 ),
                 builder: (context, groups) => _buildList(context, groups),
               );
@@ -532,6 +563,13 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
         ),
       ],
     );
+  }
+
+  /// In [PeopleGroupsList.fullBleed] mode, gives [child] the page's side
+  /// padding (and [top]) that the caller would otherwise have given the list.
+  Widget _padded(Widget child, {double top = 0}) {
+    if (!widget.fullBleed) return child;
+    return PageContainer(verticalPadding: top, bottomPadding: 0, child: child);
   }
 
   /// Opens the picker sheet for a list filter — the usual mobile pattern —
@@ -759,7 +797,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           // The results never move or resize for the menu: it floats over
           // them instead of pushing them down, so opening it re-lays out
           // nothing underneath.
-          Positioned.fill(child: _buildResults(context, filtered)),
+          Positioned.fill(child: _padded(_buildResults(context, filtered))),
 
           // Dims the results under an open menu. Tapping it, or starting to
           // drag the list beneath it, closes the menu and hands the list back.
@@ -820,7 +858,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                         child: SingleChildScrollView(
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
-                          child: panel,
+                          child: _padded(panel),
                         ),
                       ),
                       _MenuEdge(visible: _filtersExpanded),
@@ -895,15 +933,59 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     );
   }
 
-  Widget _buildResults(BuildContext context, List<PeopleGroup> filtered) {
+  /// Today's People Group of the Day for the active group [slug] — null until
+  /// it has been read, and in the wizard, where there is no active group yet.
+  /// A change of group, language or day reads it again; the setState when it
+  /// lands pins it to the top of the results.
+  PeopleGroupBlockData? _peopleGroupOfTheDay(String? slug) {
+    if (_isWizardMode || slug == null) return null;
+    final language = localeController.value.languageCode;
+    final now = DateTime.now();
+    final key = '$slug-$language-${now.year}-${now.month}-${now.day}';
+    if (key != _ofTheDayKey) {
+      _ofTheDayKey = key;
+      _ofTheDay = null;
+      fetchPeopleGroupOfTheDay(slug: slug, language: language).then(
+        (day) {
+          if (mounted && _ofTheDayKey == key) setState(() => _ofTheDay = day);
+        },
+        // Without it the list simply shows no pinned group.
+        onError: (Object _) {},
+      );
+    }
+    return _ofTheDay;
+  }
+
+  Widget _buildResults(BuildContext context, List<PeopleGroup> results) {
     final l = AppLocalizations.of(context)!;
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
+        // The People Group of the Day leads the results, outlined, whenever
+        // the search and filters leave it in them.
+        var filtered = results;
+        String? ofTheDaySlug;
+        final day = _peopleGroupOfTheDay(subscribed.active?.slug);
+        if (day != null) {
+          final index = indexOfPeopleGroupOfTheDay(results, day);
+          if (index >= 0) {
+            ofTheDaySlug = results[index].slug;
+            filtered = [
+              results[index],
+              ...results.take(index),
+              ...results.skip(index + 1),
+            ];
+          }
+        }
         // The results count and sort button scroll with the list (they are
         // the first entry).
         return ListView.separated(
-          padding: EdgeInsets.only(bottom: widget.listBottomPadding),
+          // Edge to edge, the list starts below the search band rather than a
+          // gap the caller left, so it keeps that gap itself.
+          padding: EdgeInsets.only(
+            top: widget.fullBleed ? AppSpacing.lg : 0,
+            bottom: widget.listBottomPadding,
+          ),
           // Swiping the results puts the keyboard away, so it doesn't sit
           // over the list once the user has finished typing.
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -919,7 +1001,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
             // after that first frame shows straight away.
             final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
             final inWizard = _isWizardMode;
-            return KeyedSubtree(
+            final card = KeyedSubtree(
               key: ValueKey((_resultsGeneration, g.slug)),
               child: EntranceFadeSlide(
                 key: ValueKey(g.slug),
@@ -946,9 +1028,58 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                 ),
               ),
             );
+            if (g.slug != ofTheDaySlug) return card;
+            return _OfTheDayHighlight(
+              label: l.peopleGroupOfTheDay,
+              child: card,
+            );
           },
         );
       },
+    );
+  }
+}
+
+/// The People Group of the Day's card in the results: outlined, with a label
+/// above it saying why it comes first.
+class _OfTheDayHighlight extends StatelessWidget {
+  const _OfTheDayHighlight({required this.label, required this.child});
+
+  final String label;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: AppSpacing.sm,
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: AppColors.secondary,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.xs,
+            ),
+            child: HyphenatedText(
+              label,
+              style: AppTypography.caption.copyWith(color: AppColors.white),
+            ),
+          ),
+        ),
+        // Drawn over the card, so the outline follows its rounded corners
+        // without changing its size.
+        Container(
+          foregroundDecoration: BoxDecoration(
+            border: Border.all(color: AppColors.secondary, width: 3),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: child,
+        ),
+      ],
     );
   }
 }

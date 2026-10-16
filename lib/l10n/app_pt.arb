@@ -271,6 +271,46 @@
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"
     },
+    "storageSectionTitle": "Armazenamento",
+    "@storageSectionTitle": {
+        "description": "Settings section header for how much space the app's downloads take"
+    },
+    "storagePrayerData": "Orações e grupos étnicos",
+    "@storagePrayerData": {
+        "description": "Storage row: saved prayer content, the people group list and profiles"
+    },
+    "storagePhotos": "Fotos",
+    "@storagePhotos": {
+        "description": "Storage row: saved people group photos"
+    },
+    "storageMap": "Mapa",
+    "@storageMap": {
+        "description": "Storage row: saved map tiles"
+    },
+    "storageTotal": "Total",
+    "@storageTotal": {
+        "description": "Storage row: the total of the rows above"
+    },
+    "storageExplanation": "Orações, grupos étnicos, fotos e mapa ficam salvos no seu dispositivo para abrir na hora e funcionar sem conexão.",
+    "@storageExplanation": {
+        "description": "Caption under the storage breakdown, saying why things are saved"
+    },
+    "clearCache": "Limpar cache",
+    "@clearCache": {
+        "description": "Button that deletes everything saved for quick access (and the confirm dialog's action)"
+    },
+    "clearCacheConfirmTitle": "Limpar cache?",
+    "@clearCacheConfirmTitle": {
+        "description": "Title of the dialog confirming the cache should be cleared"
+    },
+    "clearCacheConfirmBody": "Tudo o que foi salvo para acesso rápido será apagado e baixado de novo quando necessário. Seus grupos étnicos, lembretes e configurações são mantidos.",
+    "@clearCacheConfirmBody": {
+        "description": "Body of the dialog confirming the cache should be cleared"
+    },
+    "cacheCleared": "Cache limpo",
+    "@cacheCleared": {
+        "description": "Snackbar shown once the cache has been cleared"
+    },
     "@emailVerified": {
         "description": "Status label shown next to a signed-up email that has been verified"
     },
@@ -516,6 +556,15 @@
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "prayerStatusExplanation": "Este é o número de pessoas comprometidas a orar por “{name}”.",
+    "@prayerStatusExplanation": {
+        "description": "Explains the number on the prayer status card of a people group's profile",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@peopleGroup": {
         "description": "The label of the people group field"

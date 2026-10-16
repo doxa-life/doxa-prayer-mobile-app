@@ -103,6 +103,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get peopleCommittedToPraying => 'Люди, обязавшиеся молиться';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Это число людей, обязавшихся молиться за народ «$name».';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Ежедневный молитвенный охват';
 
   @override
@@ -461,6 +466,38 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Ваш аккаунт';
+
+  @override
+  String get storageSectionTitle => 'Хранилище';
+
+  @override
+  String get storagePrayerData => 'Молитвы и народы';
+
+  @override
+  String get storagePhotos => 'Фотографии';
+
+  @override
+  String get storageMap => 'Карта';
+
+  @override
+  String get storageTotal => 'Всего';
+
+  @override
+  String get storageExplanation =>
+      'Молитвы, народы, фотографии и карта сохраняются на устройстве, чтобы открываться сразу и работать без интернета.';
+
+  @override
+  String get clearCache => 'Очистить кэш';
+
+  @override
+  String get clearCacheConfirmTitle => 'Очистить кэш?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Всё, что сохранено для быстрого доступа, будет удалено и при необходимости загружено заново. Ваши народы, напоминания и настройки сохранятся.';
+
+  @override
+  String get cacheCleared => 'Кэш очищен';
 
   @override
   String get emailVerified => 'Подтверждён';

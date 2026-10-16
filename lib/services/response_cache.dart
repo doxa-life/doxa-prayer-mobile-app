@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 import 'cache_policy.dart';
+import 'load_log.dart';
 
 /// Bump when a cached payload's shape changes in a way that old entries can't
 /// satisfy. The directory name carries the version, so a bump orphans the old
@@ -78,12 +79,28 @@ class ResponseCache {
   static Future<CacheEntry?> readEntry(String key, {Duration? maxAge}) async {
     try {
       final file = await _file(key);
-      if (file == null || !await file.exists()) return null;
-      final cachedAt = await file.lastModified();
-      if (maxAge != null && DateTime.now().difference(cachedAt) > maxAge) {
+      if (file == null || !await file.exists()) {
+        LoadLog.record(LoadAction.miss, key, note: 'not on disk');
         return null;
       }
-      return CacheEntry(await file.readAsString(), cachedAt);
+      final cachedAt = await file.lastModified();
+      final age = DateTime.now().difference(cachedAt);
+      if (maxAge != null && age > maxAge) {
+        LoadLog.record(
+          LoadAction.miss,
+          key,
+          note: 'on disk but expired (${_age(age)} old)',
+        );
+        return null;
+      }
+      final body = await file.readAsString();
+      LoadLog.record(
+        LoadAction.diskHit,
+        key,
+        bytes: LoadLog.enabled ? await file.length() : null,
+        note: '${_age(age)} old',
+      );
+      return CacheEntry(body, cachedAt);
     } catch (e) {
       developer.log(
         'cache read failed for $key',
@@ -103,6 +120,9 @@ class ResponseCache {
       final file = await _file(key);
       if (file == null) return;
       await file.writeAsString(body, flush: true);
+      if (LoadLog.enabled) {
+        LoadLog.record(LoadAction.stored, key, bytes: await file.length());
+      }
     } catch (e) {
       developer.log(
         'cache write failed for $key',
@@ -112,9 +132,15 @@ class ResponseCache {
     }
   }
 
+  /// The folder the responses are written to, or null when there is none.
+  static Future<Directory?> directory() => _directory();
+
   /// Deletes every cached response, in memory and on disk. Wired to the debug
   /// screen.
   static Future<void> clear() async {
+    for (final key in _memory.keys) {
+      LoadLog.record(LoadAction.discarded, key, note: 'cache cleared');
+    }
     _memory.clear();
     try {
       final dir = await _directory();
@@ -141,7 +167,14 @@ class ResponseCache {
       await for (final entity in dir.list()) {
         if (entity is! File) continue;
         final age = now.difference(await entity.lastModified());
-        if (age > maxAge) await entity.delete();
+        if (age > maxAge) {
+          await entity.delete();
+          LoadLog.record(
+            LoadAction.discarded,
+            entity.uri.pathSegments.last,
+            note: 'pruned from disk, ${_age(age)} old',
+          );
+        }
       }
     } catch (e) {
       developer.log('cache prune failed', name: 'response_cache', error: e);
@@ -178,7 +211,13 @@ void _remember(String cacheKey, Object value, DateTime cachedAt) {
   _memory.remove(cacheKey);
   _memory[cacheKey] = _MemoryEntry(value, cachedAt);
   while (_memory.length > _memoryCapacity) {
-    _memory.remove(_memory.keys.first);
+    final oldest = _memory.keys.first;
+    _memory.remove(oldest);
+    LoadLog.record(
+      LoadAction.discarded,
+      oldest,
+      note: 'pushed out of memory (kept on disk)',
+    );
   }
 }
 
@@ -293,7 +332,13 @@ Future<T> getJsonCached<T>({
 }) async {
   void scheduleRevalidation(DateTime cachedAt) {
     if (refreshAfter == null) return;
-    if (DateTime.now().difference(cachedAt) <= refreshAfter) return;
+    final age = DateTime.now().difference(cachedAt);
+    if (age <= refreshAfter) return;
+    LoadLog.record(
+      LoadAction.revalidate,
+      cacheKey,
+      note: '${_age(age)} old, refreshing in the background',
+    );
     final revalidation = _revalidate<T>(
       uri: uri,
       cacheKey: cacheKey,
@@ -322,8 +367,20 @@ Future<T> getJsonCached<T>({
     if (remembered != null &&
         value is T &&
         DateTime.now().difference(remembered.cachedAt) <= ttl) {
+      LoadLog.record(
+        LoadAction.memoryHit,
+        cacheKey,
+        note: '${_age(DateTime.now().difference(remembered.cachedAt))} old',
+      );
       scheduleRevalidation(remembered.cachedAt);
       return value;
+    }
+    if (remembered != null) {
+      LoadLog.record(
+        LoadAction.miss,
+        cacheKey,
+        note: 'in memory but past its ${_age(ttl)} lifetime',
+      );
     }
     final entry = await ResponseCache.readEntry(cacheKey, maxAge: ttl);
     if (entry != null) {
@@ -335,6 +392,11 @@ Future<T> getJsonCached<T>({
       } catch (e) {
         // Unreadable payload (truncated write, or a shape this build no longer
         // understands). Treat it as a miss and refetch.
+        LoadLog.record(
+          LoadAction.discarded,
+          cacheKey,
+          note: 'unreadable on disk: $e',
+        );
         developer.log(
           'discarding undecodable cache entry $cacheKey',
           name: 'response_cache',
@@ -345,6 +407,15 @@ Future<T> getJsonCached<T>({
   }
 
   try {
+    if (_inFlight.containsKey(cacheKey)) {
+      LoadLog.record(
+        LoadAction.joined,
+        cacheKey,
+        note: 'already being fetched; sharing that request',
+      );
+    } else if (forceRefresh) {
+      LoadLog.record(LoadAction.miss, cacheKey, note: 'forced refresh');
+    }
     final body = await (_inFlight[cacheKey] ??= _fetchBody(
       uri: uri,
       cacheKey: cacheKey,
@@ -358,6 +429,11 @@ Future<T> getJsonCached<T>({
     if (stale != null) {
       try {
         final value = await decode(stale);
+        LoadLog.record(
+          LoadAction.stale,
+          cacheKey,
+          note: 'fetch failed ($error); showing the old copy',
+        );
         developer.log(
           'serving stale cache for $cacheKey after fetch failure',
           name: 'response_cache',
@@ -390,6 +466,13 @@ Future<void> _revalidate<T>({
     ));
     final decoded = (await decode(body)) as Object;
     _remember(cacheKey, decoded, DateTime.now());
+    LoadLog.record(
+      LoadAction.replaced,
+      cacheKey,
+      note:
+          'background refresh landed; ${_listeners[cacheKey]?.length ?? 0} '
+          'screen(s) updated',
+    );
     _notifyRevalidated(cacheKey, decoded);
   } catch (e) {
     developer.log(
@@ -405,6 +488,7 @@ Future<String> _fetchBody({
   required String cacheKey,
   required String Function(int statusCode) errorMessage,
 }) async {
+  LoadLog.record(LoadAction.request, cacheKey, note: 'GET ${uri.path}');
   try {
     final response = await _client.get(
       uri,
@@ -454,3 +538,11 @@ void seedMemoryCache(String cacheKey, Object value, {DateTime? cachedAt}) =>
 @visibleForTesting
 void debugNotifyRevalidated(String cacheKey, Object value) =>
     _notifyRevalidated(cacheKey, value);
+
+/// An age, roughly, for the load log: "40 s", "12 min", "5 h", "3 d".
+String _age(Duration d) {
+  if (d.inMinutes < 1) return '${d.inSeconds} s';
+  if (d.inHours < 1) return '${d.inMinutes} min';
+  if (d.inDays < 1) return '${d.inHours} h';
+  return '${d.inDays} d';
+}

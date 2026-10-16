@@ -102,6 +102,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String get peopleCommittedToPraying => 'Persone impegnate a pregare';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Questo è il numero di persone impegnate a pregare per «$name».';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Copertura di preghiera quotidiana';
 
   @override
@@ -457,6 +462,38 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Il tuo account';
+
+  @override
+  String get storageSectionTitle => 'Spazio di archiviazione';
+
+  @override
+  String get storagePrayerData => 'Preghiere e gruppi etnici';
+
+  @override
+  String get storagePhotos => 'Foto';
+
+  @override
+  String get storageMap => 'Mappa';
+
+  @override
+  String get storageTotal => 'Totale';
+
+  @override
+  String get storageExplanation =>
+      'Preghiere, gruppi etnici, foto e mappa sono salvati sul tuo dispositivo, così si aprono subito e funzionano anche offline.';
+
+  @override
+  String get clearCache => 'Svuota cache';
+
+  @override
+  String get clearCacheConfirmTitle => 'Svuotare la cache?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Tutto ciò che è salvato per l’accesso rapido verrà eliminato e scaricato di nuovo quando serve. I tuoi gruppi etnici, promemoria e impostazioni restano.';
+
+  @override
+  String get cacheCleared => 'Cache svuotata';
 
   @override
   String get emailVerified => 'Verificato';

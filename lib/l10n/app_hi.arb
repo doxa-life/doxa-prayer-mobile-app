@@ -2,6 +2,46 @@
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"
     },
+    "storageSectionTitle": "स्टोरेज",
+    "@storageSectionTitle": {
+        "description": "Settings section header for how much space the app's downloads take"
+    },
+    "storagePrayerData": "प्रार्थनाएँ और जनसमूह",
+    "@storagePrayerData": {
+        "description": "Storage row: saved prayer content, the people group list and profiles"
+    },
+    "storagePhotos": "तस्वीरें",
+    "@storagePhotos": {
+        "description": "Storage row: saved people group photos"
+    },
+    "storageMap": "मानचित्र",
+    "@storageMap": {
+        "description": "Storage row: saved map tiles"
+    },
+    "storageTotal": "कुल",
+    "@storageTotal": {
+        "description": "Storage row: the total of the rows above"
+    },
+    "storageExplanation": "प्रार्थनाएँ, जनसमूह, तस्वीरें और मानचित्र आपके डिवाइस पर सहेजे जाते हैं, ताकि वे तुरंत खुलें और ऑफ़लाइन भी काम करें।",
+    "@storageExplanation": {
+        "description": "Caption under the storage breakdown, saying why things are saved"
+    },
+    "clearCache": "कैश साफ़ करें",
+    "@clearCache": {
+        "description": "Button that deletes everything saved for quick access (and the confirm dialog's action)"
+    },
+    "clearCacheConfirmTitle": "कैश साफ़ करें?",
+    "@clearCacheConfirmTitle": {
+        "description": "Title of the dialog confirming the cache should be cleared"
+    },
+    "clearCacheConfirmBody": "जल्दी खोलने के लिए सहेजा गया सब कुछ हटा दिया जाएगा और ज़रूरत पड़ने पर फिर से डाउनलोड होगा। आपके जनसमूह, रिमाइंडर और सेटिंग्स बने रहेंगे।",
+    "@clearCacheConfirmBody": {
+        "description": "Body of the dialog confirming the cache should be cleared"
+    },
+    "cacheCleared": "कैश साफ़ हो गया",
+    "@cacheCleared": {
+        "description": "Snackbar shown once the cache has been cleared"
+    },
     "@addAnotherPeopleGroup": {
         "description": "Label on the last card of the home carousel, which opens the people groups list"
     },
@@ -487,6 +527,15 @@
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "prayerStatusExplanation": "यह उन लोगों की संख्या है जो “{name}” के लिए प्रार्थना करने के लिए प्रतिबद्ध हैं।",
+    "@prayerStatusExplanation": {
+        "description": "Explains the number on the prayer status card of a people group's profile",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@peopleGroup": {
         "description": "The label of the people group field"

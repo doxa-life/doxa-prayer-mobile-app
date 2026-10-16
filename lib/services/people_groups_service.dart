@@ -7,6 +7,7 @@ import '../models/people_group_detail.dart';
 import 'api_config.dart';
 import 'cache_policy.dart';
 import 'people_group_locations.dart';
+import 'people_group_names.dart';
 import 'response_cache.dart';
 
 // `latitude,longitude` are here for the people-group map, not the browse
@@ -42,7 +43,7 @@ String peopleGroupDetailCacheKey(String slug, String lang) =>
 /// long enough to drop frames — so parsing happens in a background isolate.
 /// Only the decode is offloaded: building the 2,000-odd small model objects is
 /// cheap, and doing it here keeps the isolate boundary to plain JSON.
-Future<List<PeopleGroup>> _parseList(String body) async {
+Future<List<PeopleGroup>> _parseList(String lang, String body) async {
   final json = await compute(jsonDecode, body) as Map<String, dynamic>;
   final posts = json['posts'] as List<dynamic>;
   final groups = posts
@@ -52,7 +53,17 @@ Future<List<PeopleGroup>> _parseList(String body) async {
   // startup warm — lands here, so this is the one place that has to publish
   // the coordinates the home cards and the map read.
   publishPeopleGroupLocations(groups);
+  publishPeopleGroupNames(lang, [for (final g in groups) (g.slug, g.name)]);
   return groups;
+}
+
+/// Decodes one detail page, and records its group's name.
+PeopleGroupDetail _parseDetail(String lang, String body) {
+  final detail = PeopleGroupDetail.fromJson(
+    jsonDecode(body) as Map<String, dynamic>,
+  );
+  publishPeopleGroupNames(lang, [(detail.slug, detail.name)]);
+  return detail;
 }
 
 /// The UUPG browse list in [lang], cached on disk for
@@ -73,7 +84,7 @@ Future<List<PeopleGroup>> fetchPeopleGroups({
     ttl: CachePolicy.peopleGroupList,
     refreshAfter: CachePolicy.peopleGroupCounts,
     forceRefresh: forceRefresh,
-    decode: _parseList,
+    decode: (body) => _parseList(lang, body),
     errorMessage: (status) => 'Failed to load people groups ($status)',
   );
 }
@@ -94,8 +105,7 @@ Future<PeopleGroupDetail> fetchPeopleGroupDetail(
     ttl: CachePolicy.peopleGroupDetail,
     refreshAfter: CachePolicy.peopleGroupCounts,
     forceRefresh: forceRefresh,
-    decode: (body) =>
-        PeopleGroupDetail.fromJson(jsonDecode(body) as Map<String, dynamic>),
+    decode: (body) => _parseDetail(lang, body),
     errorMessage: (status) => 'Failed to load people group detail ($status)',
   );
 }
@@ -110,16 +120,14 @@ Future<void> warmPeopleGroupCaches({
     warmCachedValue<List<PeopleGroup>>(
       cacheKey: peopleGroupListCacheKey(lang),
       ttl: CachePolicy.peopleGroupList,
-      decode: _parseList,
+      decode: (body) => _parseList(lang, body),
     ),
     for (final slug in subscribedSlugs)
       if (slug.isNotEmpty)
         warmCachedValue<PeopleGroupDetail>(
           cacheKey: peopleGroupDetailCacheKey(slug, lang),
           ttl: CachePolicy.peopleGroupDetail,
-          decode: (body) => PeopleGroupDetail.fromJson(
-            jsonDecode(body) as Map<String, dynamic>,
-          ),
+          decode: (body) => _parseDetail(lang, body),
         ),
   ]);
 }

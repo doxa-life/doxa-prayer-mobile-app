@@ -10,17 +10,21 @@ import 'subscribed_people_groups_controller.dart';
 /// Prepares the caches at launch so the first tap on a tab has nothing to wait
 /// for.
 ///
-/// Two different jobs:
-///  * The people-group list and the user's own group are only *warmed* — read
-///    from disk into memory if already cached, never downloaded. The list is
-///    ~850 KB, so fetching it at launch would spend a user's data on a tab they
-///    may not open; but decoding it up front is what stops the browse tab from
-///    flashing a skeleton, which is the slow part on a relaunch.
-///  * Today's prayer content is genuinely *prefetched* — downloaded if missing,
-///    along with the photos it renders — because the Pray tab is the point of
-///    the app and each one is a small request. Every subscribed group is
-///    fetched, one after another rather than all at once, so five
-///    subscriptions trickle over a poor connection instead of bursting.
+/// In order:
+///  * The people-group list and the user's own groups' profiles are *warmed*
+///    first — read from disk into memory if already cached — so a relaunch
+///    paints them without a skeleton.
+///  * Today's prayer content is *prefetched* — downloaded if missing, along
+///    with the photos it renders — because the Pray tab is the point of the
+///    app. Every subscribed group is fetched, one after another rather than
+///    all at once, so five subscriptions trickle over a poor connection
+///    instead of bursting.
+///  * Then the profiles of the user's own groups, so opening one from the
+///    home screen is instant too.
+///
+/// The browse list itself is fetched by the Search tab, which is built at
+/// launch (see `SwipeableBranchContainer`), so it is not repeated here; the
+/// two would share one request anyway.
 ///
 /// Fire-and-forget, and silent on failure: nothing here may block or break app
 /// start, and every screen still fetches for itself.
@@ -32,6 +36,26 @@ Future<void> warmCachesOnLaunch() async {
     _warmPeopleGroups(lang: lang, slugs: slugs),
     _prefetchTodaysPrayerContent(lang: lang, slugs: slugs),
   ]);
+  await _prefetchProfiles(lang: lang, slugs: slugs);
+}
+
+/// The user's own groups' profiles, fetched if not already cached.
+Future<void> _prefetchProfiles({
+  required String lang,
+  required List<String> slugs,
+}) async {
+  for (final slug in slugs) {
+    if (slug.isEmpty) continue;
+    try {
+      await fetchPeopleGroupDetail(slug, lang: lang);
+    } catch (e) {
+      developer.log(
+        'profile prefetch failed for $slug',
+        name: 'cache_warmup',
+        error: e,
+      );
+    }
+  }
 }
 
 Future<void> _warmPeopleGroups({

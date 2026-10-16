@@ -2,6 +2,46 @@
     "@accountSectionTitle": {
         "description": "Settings section header for the signed-up account (emails and profile)"
     },
+    "storageSectionTitle": "Spațiu de stocare",
+    "@storageSectionTitle": {
+        "description": "Settings section header for how much space the app's downloads take"
+    },
+    "storagePrayerData": "Rugăciuni și grupuri etnolingvistice",
+    "@storagePrayerData": {
+        "description": "Storage row: saved prayer content, the people group list and profiles"
+    },
+    "storagePhotos": "Fotografii",
+    "@storagePhotos": {
+        "description": "Storage row: saved people group photos"
+    },
+    "storageMap": "Hartă",
+    "@storageMap": {
+        "description": "Storage row: saved map tiles"
+    },
+    "storageTotal": "Total",
+    "@storageTotal": {
+        "description": "Storage row: the total of the rows above"
+    },
+    "storageExplanation": "Rugăciunile, grupurile etnolingvistice, fotografiile și harta sunt salvate pe dispozitiv, ca să se deschidă imediat și să funcționeze și fără conexiune.",
+    "@storageExplanation": {
+        "description": "Caption under the storage breakdown, saying why things are saved"
+    },
+    "clearCache": "Golește memoria cache",
+    "@clearCache": {
+        "description": "Button that deletes everything saved for quick access (and the confirm dialog's action)"
+    },
+    "clearCacheConfirmTitle": "Golești memoria cache?",
+    "@clearCacheConfirmTitle": {
+        "description": "Title of the dialog confirming the cache should be cleared"
+    },
+    "clearCacheConfirmBody": "Tot ce este salvat pentru acces rapid va fi șters și descărcat din nou când va fi nevoie. Grupurile tale, mementourile și setările rămân.",
+    "@clearCacheConfirmBody": {
+        "description": "Body of the dialog confirming the cache should be cleared"
+    },
+    "cacheCleared": "Memoria cache a fost golită",
+    "@cacheCleared": {
+        "description": "Snackbar shown once the cache has been cleared"
+    },
     "@addAnotherPeopleGroup": {
         "description": "Label on the last card of the home carousel, which opens the people groups list"
     },
@@ -487,6 +527,15 @@
     },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
+    },
+    "prayerStatusExplanation": "Acesta este numărul persoanelor angajate să se roage pentru „{name}”.",
+    "@prayerStatusExplanation": {
+        "description": "Explains the number on the prayer status card of a people group's profile",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
     },
     "@peopleGroup": {
         "description": "The label of the people group field"

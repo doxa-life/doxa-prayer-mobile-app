@@ -2,6 +2,7 @@ import 'package:doxa_prayer_mobile_app/components/inputs/language_switcher.dart'
 import 'package:doxa_prayer_mobile_app/components/nav/details_nav_bar.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/components/settings/account_settings_section.dart';
+import 'package:doxa_prayer_mobile_app/components/settings/storage_settings_section.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_notifications.dart';
@@ -111,6 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onTap: () => context.push('/feedback'),
                     ),
                     AccountSettingsSection(key: _accountKey),
+                    const StorageSettingsSection(),
                   ],
                 ),
               ),

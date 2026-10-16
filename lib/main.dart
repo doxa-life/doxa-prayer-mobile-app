@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:http/http.dart' as http;
 
+import 'components/misc/splash_transition.dart';
 import 'components/misc/update_gate.dart';
 import 'l10n/app_localizations.dart';
 import 'router.dart';
@@ -15,6 +17,7 @@ import 'services/cache_warmup.dart';
 import 'services/crash_reporting_service.dart';
 import 'services/identity_service.dart';
 import 'services/install_referrer_service.dart';
+import 'services/load_log.dart';
 import 'services/locale_controller.dart';
 import 'services/pray_override_controller.dart';
 import 'services/pray_selector_controller.dart';
@@ -30,7 +33,16 @@ import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
 import 'theme/app_theme.dart';
 
-Future<void> main() async {
+/// With the load log on, every Dart HTTP request the app makes — however it
+/// makes it — goes through a [LoggingClient], so it shows in the Xcode
+/// console. The whole of startup runs inside it, so clients created early are
+/// covered too. (The factory runs outside that zone, so the `http.Client()`
+/// in it is the platform's own client, not another logging one.)
+Future<void> main() => LoadLog.enabled
+    ? http.runWithClient(_main, () => LoggingClient(http.Client()))
+    : _main();
+
+Future<void> _main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Crash reporting first: initialise Firebase and install the error handlers
   // before the rest of startup so crashes during bootstrap are captured too.
@@ -107,8 +119,11 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: appLanguages.map((l) => l.locale),
           locale: locale,
-          builder: (context, child) =>
-              UpdateGate(child: child ?? const SizedBox.shrink()),
+          // The splash sits over everything, update prompt included, as the
+          // launch screen it continues did.
+          builder: (context, child) => SplashTransition(
+            child: UpdateGate(child: child ?? const SizedBox.shrink()),
+          ),
         );
       },
     );

@@ -9,7 +9,12 @@ import 'select_field.dart';
 import '../misc/hyphenated_text.dart';
 
 class LanguageSwitcher extends StatelessWidget {
-  const LanguageSwitcher({super.key});
+  const LanguageSwitcher({super.key, this.confirm = true});
+
+  /// Whether a switch asks to be kept, and switches back if it isn't. Off on
+  /// the welcome screen, where the selector stays in view — in each language's
+  /// own script — so a wrong pick is undone by picking again.
+  final bool confirm;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +40,11 @@ class LanguageSwitcher extends StatelessWidget {
               )
               .toList(growable: false),
           onChanged: (selected) {
-            if (selected != null) {
+            if (selected == null) return;
+            if (confirm) {
               switchLanguageWithConfirmation(context, selected);
+            } else {
+              setLocale(selected);
             }
           },
         );

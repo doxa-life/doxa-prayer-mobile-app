@@ -100,6 +100,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get peopleCommittedToPraying => 'प्रार्थना के लिए प्रतिबद्ध लोग';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'यह उन लोगों की संख्या है जो “$name” के लिए प्रार्थना करने के लिए प्रतिबद्ध हैं।';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'दैनिक प्रार्थना कवरेज';
 
   @override
@@ -454,6 +459,38 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'आपका खाता';
+
+  @override
+  String get storageSectionTitle => 'स्टोरेज';
+
+  @override
+  String get storagePrayerData => 'प्रार्थनाएँ और जनसमूह';
+
+  @override
+  String get storagePhotos => 'तस्वीरें';
+
+  @override
+  String get storageMap => 'मानचित्र';
+
+  @override
+  String get storageTotal => 'कुल';
+
+  @override
+  String get storageExplanation =>
+      'प्रार्थनाएँ, जनसमूह, तस्वीरें और मानचित्र आपके डिवाइस पर सहेजे जाते हैं, ताकि वे तुरंत खुलें और ऑफ़लाइन भी काम करें।';
+
+  @override
+  String get clearCache => 'कैश साफ़ करें';
+
+  @override
+  String get clearCacheConfirmTitle => 'कैश साफ़ करें?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'जल्दी खोलने के लिए सहेजा गया सब कुछ हटा दिया जाएगा और ज़रूरत पड़ने पर फिर से डाउनलोड होगा। आपके जनसमूह, रिमाइंडर और सेटिंग्स बने रहेंगे।';
+
+  @override
+  String get cacheCleared => 'कैश साफ़ हो गया';
 
   @override
   String get emailVerified => 'सत्यापित';

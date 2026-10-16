@@ -103,6 +103,11 @@ class AppLocalizationsRo extends AppLocalizations {
   String get peopleCommittedToPraying => 'Persoane angajate să se roage';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Acesta este numărul persoanelor angajate să se roage pentru „$name”.';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Acoperire zilnică în rugăciune';
 
   @override
@@ -462,6 +467,38 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Contul tău';
+
+  @override
+  String get storageSectionTitle => 'Spațiu de stocare';
+
+  @override
+  String get storagePrayerData => 'Rugăciuni și grupuri etnolingvistice';
+
+  @override
+  String get storagePhotos => 'Fotografii';
+
+  @override
+  String get storageMap => 'Hartă';
+
+  @override
+  String get storageTotal => 'Total';
+
+  @override
+  String get storageExplanation =>
+      'Rugăciunile, grupurile etnolingvistice, fotografiile și harta sunt salvate pe dispozitiv, ca să se deschidă imediat și să funcționeze și fără conexiune.';
+
+  @override
+  String get clearCache => 'Golește memoria cache';
+
+  @override
+  String get clearCacheConfirmTitle => 'Golești memoria cache?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Tot ce este salvat pentru acces rapid va fi șters și descărcat din nou când va fi nevoie. Grupurile tale, mementourile și setările rămân.';
+
+  @override
+  String get cacheCleared => 'Memoria cache a fost golită';
 
   @override
   String get emailVerified => 'Verificată';

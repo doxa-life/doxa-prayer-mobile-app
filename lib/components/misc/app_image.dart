@@ -13,13 +13,21 @@ class AppImage extends StatelessWidget {
     this.radius = 16,
     this.fit = BoxFit.cover,
     this.size = 96.0,
+    this.height,
     this.semanticLabel,
   });
 
   final String? url;
   final double radius;
   final BoxFit fit;
+
+  /// The width, and the height too unless [height] is given.
   final double size;
+
+  /// The height, for a photo that isn't square. Defaults to [size].
+  final double? height;
+
+  double get _height => height ?? size;
 
   /// Describes the photo for screen readers. When null the image is treated as
   /// decorative and excluded from the semantics tree.
@@ -33,7 +41,7 @@ class AppImage extends StatelessWidget {
           ? _placeholder()
           : SizedBox(
               width: size,
-              height: size,
+              height: _height,
               child: _semantics(
                 CachedNetworkImage(
                   imageUrl: url!,
@@ -65,7 +73,7 @@ class AppImage extends StatelessWidget {
                   // gap until they arrive. A pulsing block fills the exact
                   // final footprint. A cache hit skips this entirely.
                   placeholder: (context, url) =>
-                      SkeletonBox(width: size, height: size, radius: radius),
+                      SkeletonBox(width: size, height: _height, radius: radius),
                   errorWidget: (context, url, error) {
                     // The placeholder is indistinguishable from a group that
                     // simply has no photo, so the failure has to be recorded
@@ -100,7 +108,7 @@ class AppImage extends StatelessWidget {
   Widget _placeholder() {
     return Container(
       width: size,
-      height: size,
+      height: _height,
       color: AppColors.mutedSurface,
       alignment: Alignment.center,
       child: Icon(

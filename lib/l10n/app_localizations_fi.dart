@@ -102,6 +102,11 @@ class AppLocalizationsFi extends AppLocalizations {
   String get peopleCommittedToPraying => 'Rukoukseen sitoutuneet ihmiset';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Tämä on niiden ihmisten määrä, jotka ovat sitoutuneet rukoilemaan kansanryhmän $name puolesta.';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Päivittäisen rukouksen kattavuus';
 
   @override
@@ -455,6 +460,38 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Tilisi';
+
+  @override
+  String get storageSectionTitle => 'Tallennustila';
+
+  @override
+  String get storagePrayerData => 'Rukoukset ja kansanryhmät';
+
+  @override
+  String get storagePhotos => 'Kuvat';
+
+  @override
+  String get storageMap => 'Kartta';
+
+  @override
+  String get storageTotal => 'Yhteensä';
+
+  @override
+  String get storageExplanation =>
+      'Rukoukset, kansanryhmät, kuvat ja kartta tallennetaan laitteellesi, jotta ne avautuvat heti ja toimivat myös ilman yhteyttä.';
+
+  @override
+  String get clearCache => 'Tyhjennä välimuisti';
+
+  @override
+  String get clearCacheConfirmTitle => 'Tyhjennetäänkö välimuisti?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Kaikki nopeaa käyttöä varten tallennettu poistetaan ja ladataan uudelleen tarvittaessa. Kansanryhmäsi, muistutuksesi ja asetuksesi säilyvät.';
+
+  @override
+  String get cacheCleared => 'Välimuisti tyhjennetty';
 
   @override
   String get emailVerified => 'Vahvistettu';

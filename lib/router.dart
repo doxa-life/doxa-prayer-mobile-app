@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'app_shell.dart';
 import 'components/nav/root_pop_scope.dart';
+import 'components/nav/sheet_page.dart';
 import 'components/nav/swipeable_branch_container.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
@@ -98,6 +99,9 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
+          // Built at launch rather than on first visit, so the tab has
+          // loaded by the time it is opened — see SwipeableBranchContainer.
+          preload: true,
           routes: [
             GoRoute(
               name: AppRoute.pray.name,
@@ -107,6 +111,9 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
+          // Built at launch rather than on first visit, so the tab has
+          // loaded by the time it is opened — see SwipeableBranchContainer.
+          preload: true,
           routes: [
             GoRoute(
               name: AppRoute.peopleGroups.name,
@@ -116,6 +123,9 @@ final GoRouter appRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
+          // Built at launch rather than on first visit, so the tab has
+          // loaded by the time it is opened — see SwipeableBranchContainer.
+          preload: true,
           routes: [
             GoRoute(
               name: AppRoute.help.name,
@@ -173,13 +183,19 @@ final GoRouter appRouter = GoRouter(
       name: 'people-group-details',
       path: '/people-groups/:slug',
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (_, state) {
+      // A sheet over wherever it was opened from, dismissed by dragging it
+      // down or by its close button.
+      pageBuilder: (_, state) {
         final extra = state.extra;
         final fromWizard = extra is Map && extra['fromWizard'] == true;
-        return RootPopScope(
-          child: PeopleGroupDetailsScreen(
-            slug: state.pathParameters['slug'],
-            fromWizard: fromWizard,
+        return SheetPage<Object?>(
+          key: state.pageKey,
+          name: state.name,
+          child: RootPopScope(
+            child: PeopleGroupDetailsScreen(
+              slug: state.pathParameters['slug'],
+              fromWizard: fromWizard,
+            ),
           ),
         );
       },

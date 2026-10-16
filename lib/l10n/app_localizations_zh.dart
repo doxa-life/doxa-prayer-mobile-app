@@ -98,6 +98,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get peopleCommittedToPraying => '承诺祷告的人数';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return '这是承诺为“$name”祷告的人数。';
+  }
+
+  @override
   String get dailyPrayerCoverage => '每日祷告覆盖';
 
   @override
@@ -430,6 +435,37 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get accountSectionTitle => '您的账户';
+
+  @override
+  String get storageSectionTitle => '存储空间';
+
+  @override
+  String get storagePrayerData => '祷告与族群';
+
+  @override
+  String get storagePhotos => '照片';
+
+  @override
+  String get storageMap => '地图';
+
+  @override
+  String get storageTotal => '合计';
+
+  @override
+  String get storageExplanation => '祷告、族群、照片和地图会保存在你的设备上，打开更快，离线也能使用。';
+
+  @override
+  String get clearCache => '清除缓存';
+
+  @override
+  String get clearCacheConfirmTitle => '要清除缓存吗？';
+
+  @override
+  String get clearCacheConfirmBody =>
+      '为快速访问而保存的内容将被删除，需要时会重新下载。你的族群、提醒和设置都会保留。';
+
+  @override
+  String get cacheCleared => '缓存已清除';
 
   @override
   String get emailVerified => '已验证';

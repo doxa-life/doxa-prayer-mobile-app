@@ -11,7 +11,7 @@ import 'verified_http_file_service.dart';
 class AppImageCacheManager {
   AppImageCacheManager._();
 
-  static const _key = 'doxa_image_cache';
+  static const key = 'doxa_image_cache';
 
   /// The whole UUPG browse list is 938 *distinct* photo URLs, not one per
   /// group: 2,107 groups share them, and 1,100-odd of those fall back to one
@@ -26,7 +26,7 @@ class AppImageCacheManager {
 
   static final CacheManager instance = CacheManager(
     Config(
-      _key,
+      key,
       stalePeriod: CachePolicy.images,
       maxNrOfCacheObjects: maxPhotos,
       // Refuses to cache a download that arrived short — see the class doc.

@@ -169,8 +169,8 @@ class HomeScreen extends StatelessWidget {
 /// depend on first picking one of the user's groups in the carousel, and the
 /// only one for a user who hasn't picked any yet.
 ///
-/// Outlined rather than filled so it never competes with the carousel's Pray
-/// buttons or the select-a-group call to action above it.
+/// Styled as the Set Reminder button below it, with a map pin in place of the
+/// plus.
 class _ViewMapButton extends StatelessWidget {
   const _ViewMapButton();
 
@@ -192,28 +192,17 @@ class _ViewMapButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: () => _open(context),
-        icon: const AppIcon(
-          AppIconName.geoAlt,
-          size: 20,
-          color: AppColors.primary,
-        ),
-        // No explicit style: the theme's label style picks the right face for
-        // the current language.
-        label: Text(AppLocalizations.of(context)!.viewMap.toUpperCase()),
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
-          backgroundColor: AppColors.surface.withValues(alpha: 0.9),
-          side: const BorderSide(color: AppColors.primary, width: 1.5),
-          minimumSize: const Size(64, 52),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+    return CtaButton(
+      label: AppLocalizations.of(context)!.viewMap,
+      // A folded map in front, so the pin in the circle isn't shown twice —
+      // drawn in the same line style and size as the reminder button's bell.
+      leadingIcon: const AppIcon(AppIconName.map),
+      trailingIcon: const AppIcon(
+        AppIconName.geoAlt,
+        size: 20,
+        color: AppColors.primary,
       ),
+      onPressed: () => _open(context),
     );
   }
 }

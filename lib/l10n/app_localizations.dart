@@ -280,6 +280,12 @@ abstract class AppLocalizations {
   /// **'People committed to praying'**
   String get peopleCommittedToPraying;
 
+  /// Explains the number on the prayer status card of a people group's profile
+  ///
+  /// In en, this message translates to:
+  /// **'This is a count of how many people are committed to praying for {name}.'**
+  String prayerStatusExplanation(String name);
+
   /// The label shown beneath the prayer status progress bar
   ///
   /// In en, this message translates to:
@@ -849,6 +855,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your account'**
   String get accountSectionTitle;
+
+  /// Settings section header for how much space the app's downloads take
+  ///
+  /// In en, this message translates to:
+  /// **'Storage'**
+  String get storageSectionTitle;
+
+  /// Storage row: saved prayer content, the people group list and profiles
+  ///
+  /// In en, this message translates to:
+  /// **'Prayers and people groups'**
+  String get storagePrayerData;
+
+  /// Storage row: saved people group photos
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get storagePhotos;
+
+  /// Storage row: saved map tiles
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get storageMap;
+
+  /// Storage row: the total of the rows above
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get storageTotal;
+
+  /// Caption under the storage breakdown, saying why things are saved
+  ///
+  /// In en, this message translates to:
+  /// **'Prayers, people groups, photos and map are saved on your device so they open instantly and work offline.'**
+  String get storageExplanation;
+
+  /// Button that deletes everything saved for quick access (and the confirm dialog's action)
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cache'**
+  String get clearCache;
+
+  /// Title of the dialog confirming the cache should be cleared
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cache?'**
+  String get clearCacheConfirmTitle;
+
+  /// Body of the dialog confirming the cache should be cleared
+  ///
+  /// In en, this message translates to:
+  /// **'Everything saved for quick access will be deleted and downloaded again when needed. Your people groups, reminders and settings are kept.'**
+  String get clearCacheConfirmBody;
+
+  /// Snackbar shown once the cache has been cleared
+  ///
+  /// In en, this message translates to:
+  /// **'Cache cleared'**
+  String get cacheCleared;
 
   /// Status label shown next to a signed-up email that has been verified
   ///

@@ -1,7 +1,6 @@
 import 'package:doxa_prayer_mobile_app/components/widgets/people_groups_list.dart';
 import 'package:flutter/material.dart';
 
-import '../layouts/page_scaffold.dart';
 import '../theme/app_spacing.dart';
 
 class PeopleGroupsScreen extends StatelessWidget {
@@ -9,9 +8,11 @@ class PeopleGroupsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PageContainer(
-      bottomPadding: 0,
-      child: PeopleGroupsList(listBottomPadding: AppSpacing.xxl),
+    // Edge to edge, so the search bar's white band can reach the screen's
+    // sides; the list pads its own content.
+    return const PeopleGroupsList(
+      listBottomPadding: AppSpacing.xxl,
+      fullBleed: true,
     );
   }
 }

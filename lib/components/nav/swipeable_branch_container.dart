@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
-/// The bottom-nav tabs laid side by side in a [PageView], so a horizontal swipe
-/// slides to the neighbouring tab and a tap on the nav bar slides over to the
-/// one tapped. Stands in for go_router's default `IndexedStack` container — see
+/// The bottom-nav tabs laid side by side, paged like a [PageView], so a
+/// horizontal swipe slides to the neighbouring tab and a tap on the nav bar
+/// slides over to the one tapped.
+///
+/// Unlike a [PageView], every tab is built from the start, not when it first
+/// scrolls into view: each tab loads what it shows (and keeps it fresh) while
+/// the user is still on another, so it is ready the moment they swipe to it.
+/// With the branches preloaded (see router.dart), this is what makes every tab
+/// open already filled in. Stands in for go_router's default `IndexedStack` container — see
 /// the `navigatorContainerBuilder` in router.dart.
 ///
 /// The shell's current index stays the single source of truth: a swipe calls
@@ -29,7 +36,7 @@ class SwipeableBranchContainer extends StatefulWidget {
 }
 
 class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
-  static const Duration _slideDuration = Duration(milliseconds: 320);
+  static const Duration _slideDuration = Duration(milliseconds: 240);
 
   late final PageController _controller = PageController(
     initialPage: widget.navigationShell.currentIndex,
@@ -38,6 +45,9 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
   /// Set while a nav-bar tap (or other programmatic change) is sliding the
   /// pages, so the pages it passes on the way don't register as swipes.
   int? _animatingTo;
+
+  /// The page last reported to [_onPageChanged], as [PageView] tracks it.
+  late int _lastReportedPage = widget.navigationShell.currentIndex;
 
   @override
   void didUpdateWidget(SwipeableBranchContainer oldWidget) {
@@ -83,22 +93,90 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
   @override
   Widget build(BuildContext context) {
     final current = widget.navigationShell.currentIndex;
-    return PageView(
-      controller: _controller,
-      onPageChanged: _onPageChanged,
-      children: [
-        for (final (i, child) in widget.children.indexed)
-          // Tabs out of view stay alive but stop animating, as they did in
-          // go_router's own container: without this a loading skeleton on
-          // a tab nobody is looking at pulses forever, costing frames on
-          // every other tab.
-          TickerMode(
-            enabled: i == current || i == _animatingTo,
-            child: _KeepAlive(child: child),
+    final axisDirection = textDirectionToAxisDirection(
+      Directionality.of(context),
+    );
+    // What a PageView is, less its one-page cache: a paged Scrollable over a
+    // viewport whose cache reaches every tab, so all of them are laid out —
+    // and kept — however far off screen. Page changes are reported the way
+    // PageView reports them.
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification.depth == 0 &&
+            notification is ScrollUpdateNotification) {
+          final metrics = notification.metrics;
+          if (metrics is PageMetrics && metrics.page != null) {
+            final page = metrics.page!.round();
+            if (page != _lastReportedPage) {
+              _lastReportedPage = page;
+              _onPageChanged(page);
+            }
+          }
+        }
+        return false;
+      },
+      child: Scrollable(
+        axisDirection: axisDirection,
+        controller: _controller,
+        physics: const _TabSwipePhysics(),
+        scrollBehavior: ScrollConfiguration.of(
+          context,
+        ).copyWith(scrollbars: false),
+        viewportBuilder: (context, position) => Viewport(
+          axisDirection: axisDirection,
+          offset: position,
+          scrollCacheExtent: ScrollCacheExtent.viewport(
+            widget.children.length.toDouble(),
           ),
-      ],
+          clipBehavior: Clip.hardEdge,
+          slivers: [
+            SliverFillViewport(
+              delegate: SliverChildListDelegate([
+                for (final (i, child) in widget.children.indexed)
+                  // Tabs out of view stay alive but stop animating, as they
+                  // did in go_router's own container: without this a loading
+                  // skeleton on a tab nobody is looking at pulses forever,
+                  // costing frames on every other tab.
+                  TickerMode(
+                    enabled: i == current || i == _animatingTo,
+                    child: _KeepAlive(child: child),
+                  ),
+              ]),
+            ),
+          ],
+        ),
+      ),
     );
   }
+}
+
+/// Page physics for the tabs: a swipe has to be meant to change tab, and the
+/// tabs settle quickly once it is.
+///
+/// A drag that ends with the tab less than half across only counts as a
+/// change of tab if it ends in a deliberate flick — fast, and long enough not
+/// to be the sideways wobble of a vertical scroll. Anything less springs
+/// back. The spring is stiffer than the default, so the tab lands sooner.
+class _TabSwipePhysics extends PageScrollPhysics {
+  const _TabSwipePhysics({super.parent});
+
+  @override
+  _TabSwipePhysics applyTo(ScrollPhysics? ancestor) =>
+      _TabSwipePhysics(parent: buildParent(ancestor));
+
+  @override
+  double get minFlingVelocity => 700;
+
+  @override
+  double get minFlingDistance => 48;
+
+  /// How far a drag must travel before the tabs start to follow it.
+  @override
+  double get dragStartDistanceMotionThreshold => 12;
+
+  @override
+  SpringDescription get spring =>
+      SpringDescription.withDampingRatio(mass: 0.5, stiffness: 260, ratio: 1);
 }
 
 /// Keeps an off-screen tab's navigator — and its scroll position, form input

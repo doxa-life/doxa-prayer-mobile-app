@@ -104,6 +104,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'Menschen, die sich zum Gebet verpflichtet haben';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'Das ist die Zahl der Menschen, die sich verpflichtet haben, für „$name“ zu beten.';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Tägliche Gebetsabdeckung';
 
   @override
@@ -457,6 +462,38 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Dein Konto';
+
+  @override
+  String get storageSectionTitle => 'Speicher';
+
+  @override
+  String get storagePrayerData => 'Gebete und Volksgruppen';
+
+  @override
+  String get storagePhotos => 'Fotos';
+
+  @override
+  String get storageMap => 'Karte';
+
+  @override
+  String get storageTotal => 'Gesamt';
+
+  @override
+  String get storageExplanation =>
+      'Gebete, Volksgruppen, Fotos und Karte werden auf deinem Gerät gespeichert, damit sie sofort öffnen und auch offline funktionieren.';
+
+  @override
+  String get clearCache => 'Cache leeren';
+
+  @override
+  String get clearCacheConfirmTitle => 'Cache leeren?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Alles, was für den schnellen Zugriff gespeichert ist, wird gelöscht und bei Bedarf erneut heruntergeladen. Deine Volksgruppen, Erinnerungen und Einstellungen bleiben erhalten.';
+
+  @override
+  String get cacheCleared => 'Cache geleert';
 
   @override
   String get emailVerified => 'Bestätigt';

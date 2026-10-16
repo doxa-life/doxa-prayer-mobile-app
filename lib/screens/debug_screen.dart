@@ -16,6 +16,7 @@ import '../services/crash_reporting_service.dart';
 import '../services/identity_service.dart';
 import '../services/image_cache_manager.dart';
 import '../services/install_referrer_service.dart';
+import '../services/load_log.dart';
 import '../services/locale_controller.dart';
 import '../services/referral_controller.dart';
 import '../services/prayer_history_service.dart';
@@ -31,6 +32,7 @@ import '../services/version_check_service.dart';
 import '../services/wizard_completion_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
+import 'load_log_screen.dart';
 
 /// A canned /api/app/version response used by the debug buttons to preview the
 /// update UI without hitting the backend or installing a newer build.
@@ -67,6 +69,7 @@ class DebugScreen extends StatelessWidget {
                     style: AppTypography.bodyMedium,
                   ),
                   _prefsSection(context),
+                  _loadLogSection(context),
                   _cacheSection(context),
                   _notificationsSection(context),
                   const _SimulateReferralCard(),
@@ -171,6 +174,36 @@ class DebugScreen extends StatelessWidget {
     ),
   );
 
+  Widget _loadLogSection(BuildContext context) => Section(
+    title: 'Load log',
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
+      children: [
+        HyphenatedText(
+          LoadLog.enabled
+              ? 'Every request, cache hit, refresh and drop is printed to the '
+                    'Xcode console as it happens — filter it on [load]. '
+                    'The summary counts how often each thing was fetched.'
+              : 'Off in this build. Build with --dart-define=LOAD_LOG=true '
+                    'to turn it on.',
+          style: AppTypography.caption,
+        ),
+        ActionButton.fullWidth(
+          label: 'View load log',
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const LoadLogScreen()),
+          ),
+        ),
+        ActionButton.fullWidth(
+          label: 'Print summary to console',
+          color: ActionButtonColor.secondary,
+          onPressed: LoadLog.printSummary,
+        ),
+      ],
+    ),
+  );
+
   Widget _cacheSection(BuildContext context) => Section(
     title: 'Caches',
     child: Column(
@@ -245,9 +278,9 @@ class DebugScreen extends StatelessWidget {
           onPressed: () {
             final summary = oneSignalDebugSummary();
             developer.log(summary, name: 'PUSH_TAP');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: HyphenatedText(summary)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: HyphenatedText(summary)));
           },
         ),
       ],

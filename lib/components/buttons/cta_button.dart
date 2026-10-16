@@ -6,16 +6,23 @@ import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 import '../misc/hyphenated_text.dart';
 
+const double _leadingIconSize = 24;
+
 class CtaButton extends StatelessWidget {
   const CtaButton({
     super.key,
     required this.label,
     this.leadingIcon,
+    this.trailingIcon,
     required this.onPressed,
   });
 
   final String label;
   final Widget? leadingIcon;
+
+  /// Drawn in the white circle at the end, in the button's colour. Defaults to
+  /// a plus, for buttons that set something up.
+  final Widget? trailingIcon;
   final VoidCallback? onPressed;
 
   @override
@@ -44,9 +51,20 @@ class CtaButton extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // A fixed slot, so whatever icon a button has, its label
+                  // starts at the same place as every other button's.
                   if (leadingIcon != null) ...[
-                    leadingIcon!,
-                    const SizedBox(width: 8),
+                    SizedBox.square(
+                      dimension: _leadingIconSize,
+                      child: IconTheme.merge(
+                        data: const IconThemeData(
+                          size: _leadingIconSize,
+                          color: AppColors.white,
+                        ),
+                        child: Center(child: leadingIcon!),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
                   ],
                   Expanded(
                     child: HyphenatedText(
@@ -65,11 +83,9 @@ class CtaButton extends StatelessWidget {
               ),
               padding: const EdgeInsets.all(4),
               child: Center(
-                child: PlusIcon(
-                  color: AppColors.primary,
-                  size: 20,
-                  thickness: 5,
-                ),
+                child:
+                    trailingIcon ??
+                    PlusIcon(color: AppColors.primary, size: 20, thickness: 5),
               ),
             ),
           ],

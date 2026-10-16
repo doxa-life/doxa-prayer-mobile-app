@@ -101,6 +101,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get peopleCommittedToPraying => 'People committed to praying';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'This is a count of how many people are committed to praying for $name.';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'Daily prayer coverage';
 
   @override
@@ -449,6 +454,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'Your account';
+
+  @override
+  String get storageSectionTitle => 'Storage';
+
+  @override
+  String get storagePrayerData => 'Prayers and people groups';
+
+  @override
+  String get storagePhotos => 'Photos';
+
+  @override
+  String get storageMap => 'Map';
+
+  @override
+  String get storageTotal => 'Total';
+
+  @override
+  String get storageExplanation =>
+      'Prayers, people groups, photos and map are saved on your device so they open instantly and work offline.';
+
+  @override
+  String get clearCache => 'Clear cache';
+
+  @override
+  String get clearCacheConfirmTitle => 'Clear cache?';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'Everything saved for quick access will be deleted and downloaded again when needed. Your people groups, reminders and settings are kept.';
+
+  @override
+  String get cacheCleared => 'Cache cleared';
 
   @override
   String get emailVerified => 'Verified';

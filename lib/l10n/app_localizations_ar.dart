@@ -102,6 +102,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get peopleCommittedToPraying => 'الأشخاص الذين التزموا بالصلاة';
 
   @override
+  String prayerStatusExplanation(String name) {
+    return 'هذا هو عدد الأشخاص الذين التزموا بالصلاة من أجل «$name».';
+  }
+
+  @override
   String get dailyPrayerCoverage => 'تغطية الصلاة اليومية';
 
   @override
@@ -457,6 +462,38 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountSectionTitle => 'حسابك';
+
+  @override
+  String get storageSectionTitle => 'التخزين';
+
+  @override
+  String get storagePrayerData => 'الصلوات والمجموعات الشعبية';
+
+  @override
+  String get storagePhotos => 'الصور';
+
+  @override
+  String get storageMap => 'الخريطة';
+
+  @override
+  String get storageTotal => 'المجموع';
+
+  @override
+  String get storageExplanation =>
+      'تُحفظ الصلوات والمجموعات الشعبية والصور والخريطة على جهازك لتفتح فورًا وتعمل دون اتصال.';
+
+  @override
+  String get clearCache => 'مسح ذاكرة التخزين المؤقت';
+
+  @override
+  String get clearCacheConfirmTitle => 'مسح ذاكرة التخزين المؤقت؟';
+
+  @override
+  String get clearCacheConfirmBody =>
+      'سيُحذف كل ما حُفظ للوصول السريع، ثم يُنزَّل مجددًا عند الحاجة. تبقى مجموعاتك الشعبية وتذكيراتك وإعداداتك كما هي.';
+
+  @override
+  String get cacheCleared => 'تم مسح ذاكرة التخزين المؤقت';
 
   @override
   String get emailVerified => 'تم التحقق';

@@ -16,7 +16,7 @@ import 'verified_http_file_service.dart';
 class MapTileCacheManager {
   MapTileCacheManager._();
 
-  static const _key = 'doxa_map_tile_cache';
+  static const key = 'doxa_map_tile_cache';
 
   /// At 512 px @1x a `light-v11` tile is roughly 10 KB, so 500 objects is on
   /// the order of 5 MB — about five people groups' worth of browsing.
@@ -24,7 +24,7 @@ class MapTileCacheManager {
 
   static final CacheManager instance = CacheManager(
     Config(
-      _key,
+      key,
       stalePeriod: CachePolicy.mapTiles,
       maxNrOfCacheObjects: maxTiles,
       // Same reason as the photo cache: a tile that arrives short would
