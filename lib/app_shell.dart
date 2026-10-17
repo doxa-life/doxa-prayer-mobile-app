@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'components/misc/app_icon.dart';
 import 'components/misc/hyphenated_text.dart';
 import 'components/nav/bottom_nav_bar.dart';
-import 'components/nav/pray_group_avatar_button.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/reminders_notifications.dart';
@@ -100,6 +99,8 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
 
   void _openSettings(BuildContext context) => context.push('/settings');
 
+  void _openHelp(BuildContext context) => context.push('/help');
+
   void _openDebug(BuildContext context) => context.push('/debug');
 
   void _onTabTap(int index) {
@@ -144,14 +145,12 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
         _handleBack();
       },
       child: BackgroundImageContainer(
-        // Rebuilt when the subscription list changes so the Pray tab's avatar
-        // appears, updates and disappears with it, and when anything stops
-        // reminders from firing as expected — notifications turned off, or
-        // exact alarms not permitted (reminders would arrive late) — so the
-        // settings cog, where Reminders now lives, can say so.
+        // Rebuilt when anything stops reminders from firing as expected —
+        // notifications turned off, or exact alarms not permitted (reminders
+        // would arrive late) — so the settings cog, where Reminders now lives,
+        // can say so.
         child: ListenableBuilder(
           listenable: Listenable.merge([
-            peopleGroupsController,
             notificationsBlocked,
             exactAlarmsBlocked,
           ]),
@@ -160,8 +159,8 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             appBar: TopNavBar(
               context: context,
               onSettings: () => _openSettings(context),
+              onHelp: () => _openHelp(context),
               onDebug: () => _openDebug(context),
-              trailing: _prayGroupAvatar(peopleGroupsController.value),
               settingsBadge:
                   notificationsBlocked.value || exactAlarmsBlocked.value,
             ),
@@ -183,11 +182,6 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
                   selectedIcon: AppIconName.peopleGroupSolid,
                   label: AppLocalizations.of(context)!.search,
                 ),
-                BottomNavItemData(
-                  icon: AppIconName.help,
-                  selectedIcon: AppIconName.helpSolid,
-                  label: AppLocalizations.of(context)!.help,
-                ),
               ],
               currentIndex: widget.navigationShell.currentIndex,
               onTap: _onTabTap,
@@ -196,17 +190,5 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
         ),
       ),
     );
-  }
-
-  /// The active group's photo for the app bar — Pray tab only, and only when
-  /// there is more than one group, because with one there is nothing to switch
-  /// to and the button would be a control that does nothing.
-  Widget? _prayGroupAvatar(SubscribedPeopleGroups groups) {
-    final onPrayTab =
-        widget.navigationShell.currentIndex == AppRoute.pray.index;
-    if (!onPrayTab || groups.list.length < 2) return null;
-    final active = groups.active;
-    if (active == null) return null;
-    return PrayGroupAvatarButton(group: active);
   }
 }

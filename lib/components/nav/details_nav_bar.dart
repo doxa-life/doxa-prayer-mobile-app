@@ -42,6 +42,11 @@ class DetailsNavBar extends StatelessWidget implements PreferredSizeWidget {
       // Must match preferredSize, or the Scaffold and the AppBar disagree on
       // how tall the bar is and the title clips.
       toolbarHeight: preferredSize.height,
+      // The bar draws nothing different when content scrolls under it (the
+      // theme's scrolledUnderElevation is 0), but by default it still listens
+      // to every scroll below it and rebuilds — title and all — each time the
+      // content leaves or reaches its top, over and over in an iOS bounce.
+      notificationPredicate: (_) => false,
       leading: onBack != null
           ? IconButton(
               icon: TriangleIcon(

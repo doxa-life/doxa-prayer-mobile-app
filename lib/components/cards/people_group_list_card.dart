@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +59,48 @@ class PeopleGroupListCard extends StatelessWidget {
   /// standalone search list keeps the card as the only tap target.
   final bool showSelectButton;
 
+  static final TextStyle _nameStyle = AppTypography.bodyMedium.copyWith(
+    fontWeight: FontWeight.w500,
+  );
+
+  /// Lines the name may take. The longest UUPG name is 33 characters, which
+  /// fits in two at the default text size.
+  static const int _nameLines = 2;
+
+  /// The height of the details beside the photo when the name takes all its
+  /// lines and every line under it is there. Every card reserves it, so cards
+  /// are the same height whether a name wraps or not, and whether or not a
+  /// group has an engagement status.
+  static double _detailsHeight(BuildContext context) {
+    final scaler = MediaQuery.textScalerOf(context);
+    final direction = Directionality.of(context);
+    double linesOf(TextStyle style, int lines) {
+      final painter = TextPainter(
+        text: TextSpan(text: List.filled(lines, 'Ag').join('\n'), style: style),
+        textDirection: direction,
+        textScaler: scaler,
+      )..layout();
+      final height = painter.height;
+      painter.dispose();
+      return height;
+    }
+
+    final caption = linesOf(AppTypography.caption, 1);
+    final pill =
+        linesOf(
+          AppTypography.caption.copyWith(fontWeight: FontWeight.w600),
+          1,
+        ) +
+        AppSpacing.xxxs * 2;
+    return linesOf(_nameStyle, _nameLines) +
+        // The country line, with its pin icon and flag.
+        math.max(caption, 14) +
+        pill +
+        // The praying count, with its icon.
+        math.max(caption, 14) +
+        AppSpacing.xxs * 3;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -74,40 +118,45 @@ class PeopleGroupListCard extends StatelessWidget {
             children: [
               AppImage(url: imageUrl, size: 96.0, semanticLabel: name),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: AppSpacing.xxs,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: AppSpacing.sm,
-                      children: [
-                        Expanded(
-                          child: HyphenatedText(
-                            name,
-                            softWrap: true,
-                            style: AppTypography.bodyMedium.copyWith(
-                              fontWeight: FontWeight.w500,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: _detailsHeight(context),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: AppSpacing.xxs,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: AppSpacing.sm,
+                        children: [
+                          Expanded(
+                            child: HyphenatedText(
+                              name,
+                              softWrap: true,
+                              maxLines: _nameLines,
+                              overflow: TextOverflow.ellipsis,
+                              style: _nameStyle,
                             ),
                           ),
-                        ),
-                        if (isSelected && !showSelectButton)
-                          Icon(
-                            Icons.check_circle,
-                            size: 20,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                      ],
-                    ),
-                    if (countryLabel != null)
-                      _CountryTag(label: countryLabel!, code: countryCode),
-                    if (engagementStatusValue != null)
-                      EngagementStatusPill(
-                        engaged: engagementStatusValue == 'engaged',
+                          if (isSelected && !showSelectButton)
+                            Icon(
+                              Icons.check_circle,
+                              size: 20,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                        ],
                       ),
-                    _PrayingCount(count: peoplePraying),
-                  ],
+                      if (countryLabel != null)
+                        _CountryTag(label: countryLabel!, code: countryCode),
+                      if (engagementStatusValue != null)
+                        EngagementStatusPill(
+                          engaged: engagementStatusValue == 'engaged',
+                        ),
+                      _PrayingCount(count: peoplePraying),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -153,11 +202,13 @@ class _CountryTag extends StatelessWidget {
       spacing: AppSpacing.xxxs,
       children: [
         Icon(Icons.place_outlined, size: 14, color: muted),
-        // Wraps onto further lines rather than truncating, so a long country
-        // name is always shown in full.
+        // One line, so a long country name can't make its card taller than
+        // the rest; the card's height is reserved for exactly one.
         Flexible(
           child: Text(
             label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppTypography.caption.copyWith(color: muted),
           ),
         ),

@@ -46,9 +46,6 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
   /// pages, so the pages it passes on the way don't register as swipes.
   int? _animatingTo;
 
-  /// The page last reported to [_onPageChanged], as [PageView] tracks it.
-  late int _lastReportedPage = widget.navigationShell.currentIndex;
-
   @override
   void didUpdateWidget(SwipeableBranchContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -98,19 +95,20 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
     );
     // What a PageView is, less its one-page cache: a paged Scrollable over a
     // viewport whose cache reaches every tab, so all of them are laid out —
-    // and kept — however far off screen. Page changes are reported the way
-    // PageView reports them.
+    // and kept — however far off screen. A page change is reported when the
+    // swipe settles on it.
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
-        if (notification.depth == 0 &&
-            notification is ScrollUpdateNotification) {
+        // Reported once the swipe has come to rest, not as the page passes
+        // halfway: changing branch rebuilds the shell and starts or stops
+        // whatever the tabs do on arrival (the Pray tab's session, among
+        // others), and done mid-drag that work lands on the frames the swipe
+        // is animating.
+        if (notification.depth == 0 && notification is ScrollEndNotification) {
           final metrics = notification.metrics;
           if (metrics is PageMetrics && metrics.page != null) {
-            final page = metrics.page!.round();
-            if (page != _lastReportedPage) {
-              _lastReportedPage = page;
-              _onPageChanged(page);
-            }
+            // A page the shell is already on is ignored there.
+            _onPageChanged(metrics.page!.round());
           }
         }
         return false;

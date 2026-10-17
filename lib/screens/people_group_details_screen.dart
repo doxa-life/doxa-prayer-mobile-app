@@ -12,7 +12,7 @@ import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/country_flag.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/engagement_status_pill.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
-import 'package:doxa_prayer_mobile_app/components/nav/sheet_page.dart';
+import 'package:doxa_prayer_mobile_app/components/nav/sheet_header.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/components/widgets/people_group_details_skeleton.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
@@ -66,7 +66,7 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
     return BackgroundImageContainer(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: _SheetHeader(onClose: () => safeBack(context)),
+        appBar: SheetHeader(onClose: () => safeBack(context)),
         // The deck runs from the header to the bottom edge and from side to
         // side, with the cards either side showing at the edges; the space around
         // the cards is the deck's own, so the loading skeleton (the same deck)
@@ -251,68 +251,6 @@ class _DetailBody extends StatelessWidget {
   }
 }
 
-/// The top of the profile sheet: a grab handle and a close button, with no
-/// title — the first card heads the profile with the group's name. Dragged,
-/// it moves the sheet, as a drag down on the deck does.
-class _SheetHeader extends StatelessWidget implements PreferredSizeWidget {
-  const _SheetHeader({required this.onClose});
-
-  final VoidCallback onClose;
-
-  @override
-  Size get preferredSize => const Size.fromHeight(52);
-
-  @override
-  Widget build(BuildContext context) {
-    final sheet = SheetScope.maybeOf(context);
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onVerticalDragUpdate: sheet == null
-          ? null
-          : (d) => sheet.update(d.primaryDelta ?? 0),
-      onVerticalDragEnd: sheet == null
-          ? null
-          : (d) => sheet.end(d.primaryVelocity ?? 0),
-      onVerticalDragCancel: sheet == null ? null : () => sheet.end(0),
-      child: ColoredBox(
-        color: AppColors.surface,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(top: AppSpacing.sm),
-                child: ExcludeSemantics(
-                  child: Container(
-                    width: 36,
-                    height: 5,
-                    decoration: BoxDecoration(
-                      color: AppColors.onSurface.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            PositionedDirectional(
-              end: 0,
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: IconButton(
-                  onPressed: onClose,
-                  tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-                  icon: const CloseIcon(size: 16, color: AppColors.onSurface),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// The first card: the group's name, large, with where it lives and how it
 /// stands under it; its photo as the card's centrepiece — as large as the
 /// card allows — then the button to add or remove it, and what the group is
@@ -326,6 +264,50 @@ class _Hero extends StatelessWidget {
   /// The most of the card's height the description takes before it scrolls,
   /// so a long one never squeezes the photo out.
   static const double descriptionShare = 0.3;
+
+  /// On a phone the card is short, so the description gets more of it — the
+  /// photo, in its `Expanded`, gives up the difference.
+  static const double phoneDescriptionShare = 0.4;
+
+  /// The description's sizes, largest first: it is set in the largest that
+  /// fits its space without scrolling, down to the last.
+  static const List<double> descriptionSizes = [
+    AppTypography.lg,
+    AppTypography.md,
+    AppTypography.sm,
+  ];
+
+  static final TextStyle descriptionStyle = AppTypography.bodyLarge.copyWith(
+    fontWeight: FontWeight.w500,
+    height: 1.45,
+  );
+
+  static bool _isPhone(BuildContext context) =>
+      MediaQuery.sizeOf(context).shortestSide < 600;
+
+  /// The largest of [descriptionSizes] at which [text] laid out at [width]
+  /// fits in [maxHeight], or the smallest when none does.
+  static TextStyle _fitDescription(
+    BuildContext context,
+    String text, {
+    required double width,
+    required double maxHeight,
+  }) {
+    final scaler = MediaQuery.textScalerOf(context);
+    final direction = Directionality.of(context);
+    for (final size in descriptionSizes) {
+      final style = descriptionStyle.copyWith(fontSize: size);
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textDirection: direction,
+        textScaler: scaler,
+      )..layout(maxWidth: width);
+      final fits = painter.height <= maxHeight;
+      painter.dispose();
+      if (fits) return style;
+    }
+    return descriptionStyle.copyWith(fontSize: descriptionSizes.last);
+  }
 
   /// How much of the card's width the photo fills.
   static const double imageShare = 0.88;
@@ -392,19 +374,30 @@ class _Hero extends StatelessWidget {
             action,
             if (description is String) ...[
               const SizedBox(height: AppSpacing.lg),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: constraints.maxHeight * descriptionShare,
-                ),
-                child: ProfileCardScroll(
-                  child: GlossaryText(
-                    description,
-                    style: AppTypography.bodyLarge.copyWith(
-                      fontWeight: FontWeight.w500,
-                      height: 1.45,
+              Builder(
+                builder: (context) {
+                  final maxHeight =
+                      constraints.maxHeight *
+                      (_isPhone(context)
+                          ? phoneDescriptionShare
+                          : descriptionShare);
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: maxHeight),
+                    // Still scrolls if even the smallest size overflows, so
+                    // nothing is ever cut off.
+                    child: ProfileCardScroll(
+                      child: GlossaryText(
+                        description,
+                        style: _fitDescription(
+                          context,
+                          description,
+                          width: constraints.maxWidth,
+                          maxHeight: maxHeight,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
             SizedBox(height: constraints.maxHeight * footShare),

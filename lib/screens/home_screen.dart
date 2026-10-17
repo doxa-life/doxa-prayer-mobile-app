@@ -1,7 +1,5 @@
 import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/prayer_reminder_card.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/reminders_summary.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
@@ -10,8 +8,6 @@ import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
 import 'package:doxa_prayer_mobile_app/services/map_config.dart';
-import 'package:doxa_prayer_mobile_app/services/prayer_history_service.dart';
-import 'package:doxa_prayer_mobile_app/services/prayer_reminder_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
@@ -207,32 +203,15 @@ class _ViewMapButton extends StatelessWidget {
   }
 }
 
-/// The reminder slot: a nudge to pray for the next people group that still
-/// needs today's prayer, otherwise the usual "next reminder in…" card (or the
-/// set-one-up CTA).
+/// The reminder slot: the set-one-up CTA until the user has a reminder, then
+/// nothing — reminders are managed from Settings.
 Widget _reminderSection() {
-  return ListenableBuilder(
-    listenable: Listenable.merge([
-      peopleGroupsController,
-      prayedTodayController,
-      prayerReminderDismissedController,
-    ]),
-    builder: (context, _) {
-      final needsPrayer = peopleGroupNeedingPrayer();
-      return needsPrayer == null
-          ? _remindersCardOrCTA()
-          : PrayerReminderCard(group: needsPrayer);
-    },
-  );
-}
-
-Widget _remindersCardOrCTA() {
   return ValueListenableBuilder<Reminders?>(
     valueListenable: remindersController,
     builder: (context, reminders, _) {
       final hasAny = reminders != null && reminders.list.isNotEmpty;
       return hasAny
-          ? RemindersSummary(reminders: reminders)
+          ? const SizedBox.shrink()
           : CtaButton(
               label: AppLocalizations.of(context)!.setReminder,
               leadingIcon: const AppIcon(AppIconName.bell),

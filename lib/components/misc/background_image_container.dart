@@ -61,35 +61,43 @@ class _PatternBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dpr = MediaQuery.devicePixelRatioOf(context);
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final size = constraints.biggest;
-        if (!size.isFinite || size.isEmpty) return const SizedBox.shrink();
-        final key = _RasterKey(asset, size, math.min(dpr, 3));
-        final ready = _rasters[key];
-        if (ready != null) return _image(ready);
-        return FutureBuilder<ui.Image>(
-          future: _rasterize(key),
-          builder: (context, snapshot) {
-            final image = snapshot.data;
-            if (image != null) return _image(image);
-            // Still rendering, or failed: the plain SVG, exactly as before.
-            return ExcludeSemantics(
-              child: SvgPicture.asset(
-                asset,
-                fit: BoxFit.cover,
-                colorFilter: _patternFilter,
-              ),
-            );
-          },
+    final dpr = math.min(MediaQuery.devicePixelRatioOf(context), 3.0);
+    // Rendered at the screen's size whatever the size of the page, and laid
+    // over a smaller one from its top: a sheet is shorter than the screen, and
+    // an image of its own size meant rendering the pattern afresh — SVG parse
+    // and all — on the frames the first sheet was sliding up.
+    final size = MediaQuery.sizeOf(context);
+    if (!size.isFinite || size.isEmpty) return const SizedBox.shrink();
+    final key = _RasterKey(asset, size, dpr);
+    final ready = _rasters[key];
+    if (ready != null) return _image(ready, dpr);
+    return FutureBuilder<ui.Image>(
+      future: _rasterize(key),
+      builder: (context, snapshot) {
+        final image = snapshot.data;
+        if (image != null) return _image(image, dpr);
+        // Still rendering, or failed: the plain SVG, exactly as before.
+        return ExcludeSemantics(
+          child: SvgPicture.asset(
+            asset,
+            fit: BoxFit.cover,
+            colorFilter: _patternFilter,
+          ),
         );
       },
     );
   }
 
-  Widget _image(ui.Image image) => ExcludeSemantics(
-    child: RawImage(image: image, fit: BoxFit.fill),
+  /// Drawn at its own size, from the top, clipped to the page.
+  Widget _image(ui.Image image, double pixelRatio) => ExcludeSemantics(
+    child: ClipRect(
+      child: RawImage(
+        image: image,
+        scale: pixelRatio,
+        fit: BoxFit.none,
+        alignment: Alignment.topCenter,
+      ),
+    ),
   );
 }
 
@@ -138,10 +146,7 @@ Future<ui.Image> _rasterize(_RasterKey key) {
           (height - source.height * scale) / 2,
         )
         ..scale(scale)
-        ..saveLayer(
-          Offset.zero & source,
-          Paint()..colorFilter = _patternFilter,
-        )
+        ..saveLayer(Offset.zero & source, Paint()..colorFilter = _patternFilter)
         ..drawPicture(info.picture)
         ..restore();
       final picture = recorder.endRecording();

@@ -17,6 +17,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     required BuildContext context,
     String? title,
     VoidCallback? onSettings,
+    VoidCallback? onHelp,
     VoidCallback? onBack,
     VoidCallback? onDebug,
     Widget? trailing,
@@ -25,6 +26,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     key: key,
     title: title,
     onSettings: onSettings,
+    onHelp: onHelp,
     settingsBadge: settingsBadge,
     onBack: onBack,
     onDebug: onDebug,
@@ -33,7 +35,11 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       context,
       title: title,
       hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
-      actionCount: _actionCount(onSettings: onSettings, trailing: trailing),
+      actionCount: _actionCount(
+        onSettings: onSettings,
+        onHelp: onHelp,
+        trailing: trailing,
+      ),
     ),
   );
 
@@ -41,6 +47,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     required this.onSettings,
+    required this.onHelp,
     required this.settingsBadge,
     required this.onBack,
     required this.onDebug,
@@ -50,6 +57,9 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? title;
   final VoidCallback? onSettings;
+
+  /// Opens Help, from an icon just before the settings cog.
+  final VoidCallback? onHelp;
 
   /// Dots the settings cog when something inside it needs attention —
   /// reminders that can't fire as set. The Reminders tab carried this dot
@@ -72,8 +82,14 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       onBack != null || (kDebugMode && onDebug != null);
 
   /// Kept in step with the [actions] built below.
-  static int _actionCount({VoidCallback? onSettings, Widget? trailing}) =>
-      (trailing != null ? 1 : 0) + (onSettings != null ? 1 : 0);
+  static int _actionCount({
+    VoidCallback? onSettings,
+    VoidCallback? onHelp,
+    Widget? trailing,
+  }) =>
+      (trailing != null ? 1 : 0) +
+      (onHelp != null ? 1 : 0) +
+      (onSettings != null ? 1 : 0);
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +98,11 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       // Must match preferredSize, or the Scaffold and the AppBar disagree on
       // how tall the bar is and the title clips.
       toolbarHeight: preferredSize.height,
+      // The bar draws nothing different when content scrolls under it (the
+      // theme's scrolledUnderElevation is 0), but by default it still listens
+      // to every scroll below it and rebuilds — title and all — each time the
+      // content leaves or reaches its top, over and over in an iOS bounce.
+      notificationPredicate: (_) => false,
       leading: _buildLeading(context),
       centerTitle: true,
       title: title != null
@@ -93,6 +114,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                 hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
                 actionCount: _actionCount(
                   onSettings: onSettings,
+                  onHelp: onHelp,
                   trailing: trailing,
                 ),
               ),
@@ -108,6 +130,12 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
             ),
       actions: [
         ?trailing,
+        if (onHelp != null)
+          IconButton(
+            icon: const AppIcon(AppIconName.help, color: AppColors.onPrimary),
+            tooltip: l10n.help,
+            onPressed: onHelp,
+          ),
         if (onSettings != null)
           IconButton(
             icon: Badge(

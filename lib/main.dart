@@ -20,7 +20,6 @@ import 'services/install_referrer_service.dart';
 import 'services/load_log.dart';
 import 'services/locale_controller.dart';
 import 'services/pray_override_controller.dart';
-import 'services/pray_selector_controller.dart';
 import 'services/prayer_history_service.dart';
 import 'services/profile_update_service.dart';
 import 'services/push_notifications_service.dart';
@@ -69,7 +68,6 @@ Future<void> _main() async {
     loadLocale(),
     loadIdentity(),
     loadReferredPeopleGroup(),
-    loadPraySelectorSeen(),
   ]);
   // Push notifications: init after identity is loaded so the first
   // OneSignal.login() uses the right external id. Receive-only for now; no

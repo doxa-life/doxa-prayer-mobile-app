@@ -1,17 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/buttons/action_button.dart';
 import '../components/misc/hyphenated_text.dart';
-import '../components/prayer_content/people_group_avatar_row.dart';
+import '../components/prayer_content/pray_group_switcher.dart';
 import '../components/prayer_content/prayer_session_view.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
 import '../router.dart';
 import '../services/locale_controller.dart';
 import '../services/pray_override_controller.dart';
-import '../services/pray_selector_controller.dart';
 import '../services/subscribed_people_groups_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
@@ -24,17 +24,57 @@ class PrayScreen extends StatefulWidget {
 }
 
 class _PrayScreenState extends State<PrayScreen> {
+  /// How long the active group has to stay put, while the tab is out of view,
+  /// before the tab rebuilds for it.
+  static const Duration _offscreenSettle = Duration(milliseconds: 700);
+
+  /// The group whose prayer is on the tab. Follows the active group straight
+  /// away while the tab is in view; while it isn't, only once the active group
+  /// has settled. Swiping through the home screen's cards changes the active
+  /// group at the end of every swipe, and each change tears the prayer session
+  /// down and builds the next one — on the very frames the home screen is
+  /// still settling. Waiting builds once, for the group the user stopped on,
+  /// after they have.
+  String? _shownSlug;
+  Timer? _settle;
+
   @override
   void initState() {
     super.initState();
-    // Once, on the first arrival with something to switch between: show the
-    // switcher so it is not a control nobody knows is there. Every arrival
-    // after that opens on the prayer content.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      if (peopleGroupsController.value.list.length < 2) return;
-      openPraySelectorIfUnseen();
-    });
+    _shownSlug = peopleGroupsController.value.active?.slug;
+    peopleGroupsController.addListener(_onGroupsChanged);
+    appRouter.routerDelegate.addListener(_onRouteChanged);
+  }
+
+  @override
+  void dispose() {
+    _settle?.cancel();
+    peopleGroupsController.removeListener(_onGroupsChanged);
+    appRouter.routerDelegate.removeListener(_onRouteChanged);
+    super.dispose();
+  }
+
+  void _onGroupsChanged() {
+    final slug = peopleGroupsController.value.active?.slug;
+    _settle?.cancel();
+    if (slug == _shownSlug) return;
+    if (_isOnPrayRoute() || slug == null || _shownSlug == null) {
+      _show(slug);
+      return;
+    }
+    _settle = Timer(_offscreenSettle, () => _show(slug));
+  }
+
+  /// Arriving on the tab before the wait is up shows the right group anyway.
+  void _onRouteChanged() {
+    if (_settle?.isActive != true || !_isOnPrayRoute()) return;
+    _settle!.cancel();
+    _show(peopleGroupsController.value.active?.slug);
+  }
+
+  void _show(String? slug) {
+    if (!mounted || slug == _shownSlug) return;
+    setState(() => _shownSlug = slug);
   }
 
   @override
@@ -47,7 +87,11 @@ class _PrayScreenState extends State<PrayScreen> {
         return ValueListenableBuilder<SubscribedPeopleGroups>(
           valueListenable: peopleGroupsController,
           builder: (context, groups, _) {
-            final slug = override?.slug ?? groups.active?.slug;
+            // The shown group, unless it has since been removed.
+            final shown = groups.contains(_shownSlug ?? '')
+                ? _shownSlug
+                : groups.active?.slug;
+            final slug = override?.slug ?? shown;
             if (slug == null) {
               return const PageContainer(child: _NoSubscriptionsView());
             }
@@ -67,56 +111,29 @@ class _PrayScreenState extends State<PrayScreen> {
     );
   }
 
-  /// The switcher, which slides down from under the app bar and back up again.
-  /// Collapsed it takes no height at all — the avatar in the app bar is what
-  /// stands in for it.
-  Widget _buildSelector(String slug) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: praySelectorOpen,
-      builder: (context, open, child) {
-        return AnimatedSize(
-          duration: const Duration(milliseconds: 240),
-          curve: Curves.easeOutCubic,
-          // Anchored to the top so the row slides up out of view rather than
-          // shrinking towards its own middle.
-          alignment: Alignment.topCenter,
-          child: open
-              ? child
-              : const SizedBox(width: double.infinity, height: 0),
+  /// The switcher between the user's groups, above the prayer — swiped like
+  /// the home screen's carousel.
+  Widget _buildSelector(String slug) => const PageContainer(
+    verticalPadding: 0,
+    horizontalPadding: 0,
+    child: Padding(
+      padding: EdgeInsets.only(top: AppSpacing.sm),
+      child: PrayGroupSwitcher(),
+    ),
+  );
+
+  Widget _buildContent(String slug, PrayOverride? override) {
+    return ValueListenableBuilder<Locale>(
+      valueListenable: localeController,
+      builder: (context, locale, _) {
+        return PrayerSessionView(
+          key: ValueKey('$slug-${locale.languageCode}'),
+          slug: slug,
+          language: locale.languageCode,
+          initialDate: override?.date,
+          isActive: _isOnPrayRoute,
         );
       },
-      child: PageContainer(
-        bottomPadding: 0,
-        child: PeopleGroupAvatarRow(activeSlug: slug),
-      ),
-    );
-  }
-
-  /// Reading is the signal that the user is done choosing: the first drag or
-  /// the first touch on the content collapses the switcher.
-  Widget _buildContent(String slug, PrayOverride? override) {
-    return Listener(
-      onPointerDown: (_) => closePraySelector(),
-      child: NotificationListener<UserScrollNotification>(
-        onNotification: (notification) {
-          if (notification.direction != ScrollDirection.idle) {
-            closePraySelector();
-          }
-          return false;
-        },
-        child: ValueListenableBuilder<Locale>(
-          valueListenable: localeController,
-          builder: (context, locale, _) {
-            return PrayerSessionView(
-              key: ValueKey('$slug-${locale.languageCode}'),
-              slug: slug,
-              language: locale.languageCode,
-              initialDate: override?.date,
-              isActive: _isOnPrayRoute,
-            );
-          },
-        ),
-      ),
     );
   }
 

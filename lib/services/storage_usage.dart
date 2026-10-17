@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show compute;
+
 import 'package:path_provider/path_provider.dart';
 
 import 'image_cache_manager.dart';
@@ -41,11 +43,16 @@ Future<StorageUsage> measureStorage() async {
   } catch (_) {
     // No platform directories (tests): the managed caches count as empty.
   }
-  final sizes = await Future.wait([
-    _sizeOf(await ResponseCache.directory()),
-    _sizeOf(cacheFolder(AppImageCacheManager.key)),
-    _sizeOf(cacheFolder(MapTileCacheManager.key)),
-  ]);
+  final paths = [
+    (await ResponseCache.directory())?.path,
+    cacheFolder(AppImageCacheManager.key)?.path,
+    cacheFolder(MapTileCacheManager.key)?.path,
+  ];
+  // Walked on a background isolate: the photo and tile caches hold thousands
+  // of files, and stat-ing each one on the UI isolate costs frames.
+  // A top-level function rather than a closure, so nothing else of this
+  // scope is sent along.
+  final sizes = await compute(_sizesOf, paths);
   return StorageUsage(data: sizes[0], photos: sizes[1], mapTiles: sizes[2]);
 }
 
@@ -61,6 +68,10 @@ Future<void> clearAllCaches() async {
     MapTileCacheManager.clear(),
   ]);
 }
+
+Future<List<int>> _sizesOf(List<String?> paths) => Future.wait([
+  for (final path in paths) _sizeOf(path == null ? null : Directory(path)),
+]);
 
 Future<int> _sizeOf(Directory? dir) async {
   if (dir == null) return 0;

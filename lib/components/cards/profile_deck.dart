@@ -9,7 +9,7 @@ import '../nav/sheet_page.dart';
 
 /// Each card takes this share of the deck's width, leaving the rest for the
 /// cards either side of it to show at the edges.
-const double _kCardShare = 0.88;
+const double _kCardShare = 0.86;
 
 /// The space between one card and the next.
 const double _kGutter = AppSpacing.md;
@@ -87,6 +87,33 @@ class _ProfileDeckState extends State<ProfileDeck> {
     curve: Curves.easeOutCubic,
   );
 
+  /// The button on the deck's [back] (start) or forward (end) side, over the
+  /// gap between the card in focus and the one peeking in, shown while there
+  /// is a card that way.
+  Widget _arrow(
+    BuildContext context, {
+    required bool back,
+    required double bottom,
+    required double width,
+  }) {
+    final target = back ? _current - 1 : _current + 1;
+    final shown = target >= 0 && target < widget.cards.length;
+    final inset = width * (1 - _kCardShare) / 2 - DeckArrowButton.size / 2;
+    return PositionedDirectional(
+      start: back ? inset : null,
+      end: back ? null : inset,
+      top: _kTop,
+      bottom: bottom,
+      child: Center(
+        child: DeckArrowButton(
+          back: back,
+          shown: shown,
+          onTap: () => _goTo(target),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final sheet = widget.interactive ? SheetScope.maybeOf(context) : null;
@@ -113,6 +140,13 @@ class _ProfileDeckState extends State<ProfileDeck> {
             opacity: 1 - (1 - _kBackOpacity) * away,
             child: Transform.scale(
               scale: 1 - (1 - _kBackScale) * away,
+              // Shrunk toward the card in focus, so the edge facing it stays
+              // where it is and keeps showing at the side of the deck.
+              // Shrunk about its middle, a card's near edge pulls back almost
+              // out of view and there's nothing to say it is there.
+              alignment: index > page
+                  ? AlignmentDirectional.centerStart
+                  : AlignmentDirectional.centerEnd,
               child: child,
             ),
           );
@@ -128,25 +162,31 @@ class _ProfileDeckState extends State<ProfileDeck> {
         ),
       ),
     );
-    final deck = Stack(
-      children: [
-        pages,
-        // Laid over the foot of the card in focus, inside its padding, clear
-        // of its content.
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: bottom + AppSpacing.xxs,
-          child: Center(
-            child: ProfileDeckDots(
-              count: widget.cards.length,
-              current: _current,
-              onDark: widget.darkCards.contains(_current),
-              onTap: widget.interactive ? _goTo : null,
+    final deck = LayoutBuilder(
+      builder: (context, box) => Stack(
+        children: [
+          pages,
+          if (widget.interactive) ...[
+            _arrow(context, back: true, bottom: bottom, width: box.maxWidth),
+            _arrow(context, back: false, bottom: bottom, width: box.maxWidth),
+          ],
+          // Laid over the foot of the card in focus, inside its padding, clear
+          // of its content.
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: bottom + AppSpacing.xxs,
+            child: Center(
+              child: ProfileDeckDots(
+                count: widget.cards.length,
+                current: _current,
+                onDark: widget.darkCards.contains(_current),
+                onTap: widget.interactive ? _goTo : null,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
     if (sheet == null) return deck;
     // A drag down on a card that has nothing to scroll is the sheet's: no
@@ -162,6 +202,53 @@ class _ProfileDeckState extends State<ProfileDeck> {
         onVerticalDragEnd: (d) => sheet.end(d.primaryVelocity ?? 0),
         onVerticalDragCancel: () => sheet.end(0),
         child: deck,
+      ),
+    );
+  }
+}
+
+/// A round button at the side of a row of cards swiped through one at a time
+/// — the profile deck, the home carousel, the Pray tab's switcher — saying
+/// there is another card that way, and going to it. Fades out while there is
+/// none: on the first card, there is nothing [back].
+class DeckArrowButton extends StatelessWidget {
+  const DeckArrowButton({
+    super.key,
+    required this.back,
+    required this.shown,
+    required this.onTap,
+  });
+
+  /// Toward the start (the previous card) rather than the end.
+  final bool back;
+  final bool shown;
+  final VoidCallback onTap;
+
+  static const double size = 32;
+
+  @override
+  Widget build(BuildContext context) {
+    final rtl = Directionality.of(context) == TextDirection.rtl;
+    final icon = back == rtl ? Icons.chevron_right : Icons.chevron_left;
+    return IgnorePointer(
+      ignoring: !shown,
+      child: AnimatedOpacity(
+        opacity: shown ? 1 : 0,
+        duration: const Duration(milliseconds: 200),
+        child: Material(
+          color: AppColors.surface,
+          shape: const CircleBorder(),
+          elevation: 3,
+          shadowColor: Colors.black.withValues(alpha: 0.4),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: shown ? onTap : null,
+            child: SizedBox.square(
+              dimension: size,
+              child: Icon(icon, size: 22, color: AppColors.primary),
+            ),
+          ),
+        ),
       ),
     );
   }

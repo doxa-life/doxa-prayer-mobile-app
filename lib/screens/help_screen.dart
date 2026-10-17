@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../components/cards/elevated_card.dart';
 import '../components/help/glossary_text.dart';
+import '../components/misc/background_image_container.dart';
 import '../components/misc/hyphenated_text.dart';
+import '../components/nav/root_pop_scope.dart';
+import '../components/nav/sheet_header.dart';
+import '../components/nav/sheet_page.dart';
 import '../components/misc/titles.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
@@ -11,7 +15,8 @@ import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
-/// The Help tab: DOXA's mission, the FAQ and the glossary.
+/// Help: DOXA's mission, the FAQ and the glossary. Shown in a sheet, opened
+/// from the help icon in the app bar — see router.dart.
 ///
 /// What each section says lives in the ARB files, and which entries exist in
 /// `services/help_content.dart` — this screen only lays them out. The mission
@@ -23,9 +28,15 @@ class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final sheet = SheetScope.maybeOf(context);
     // A SingleChildScrollView rather than a ListView, so each card's lines
     // stay separate accessibility stops — see HomeScreen.
-    return SingleChildScrollView(
+    final content = SingleChildScrollView(
+      // Dragged down from its top, it pulls the sheet down to dismiss it.
+      physics: SheetScrollPhysics(sheet: sheet),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.viewPaddingOf(context).bottom,
+      ),
       child: PageContainer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,6 +73,21 @@ class HelpScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+    return BackgroundImageContainer(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: SheetHeader(title: l.help, onClose: () => safeBack(context)),
+        body: sheet == null
+            ? content
+            : NotificationListener<ScrollEndNotification>(
+                onNotification: (n) {
+                  sheet.end(n.dragDetails?.primaryVelocity ?? 0);
+                  return false;
+                },
+                child: content,
+              ),
       ),
     );
   }

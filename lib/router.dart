@@ -28,7 +28,8 @@ import 'services/pray_override_controller.dart';
 import 'services/referral_controller.dart';
 import 'services/wizard_completion_controller.dart';
 
-enum AppRoute { home, pray, peopleGroups, help }
+/// The bottom-nav tabs, in branch order.
+enum AppRoute { home, pray, peopleGroups }
 
 /// Matches the `/<slug>/prayer` and `/<slug>/prayer/<date>` deep links that
 /// mirror the campaigns site's prayer pages.
@@ -122,18 +123,6 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          // Built at launch rather than on first visit, so the tab has
-          // loaded by the time it is opened — see SwipeableBranchContainer.
-          preload: true,
-          routes: [
-            GoRoute(
-              name: AppRoute.help.name,
-              path: '/help',
-              builder: (_, _) => const HelpScreen(),
-            ),
-          ],
-        ),
       ],
     ),
     // "Pray on the app" deep link (App Link / Universal Link / custom scheme).
@@ -178,6 +167,18 @@ final GoRouter appRouter = GoRouter(
           ),
         ),
       ],
+    ),
+    // Help, opened from the app bar's help icon: a sheet over wherever it was
+    // opened from, as a people group's profile is.
+    GoRoute(
+      name: 'help',
+      path: '/help',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (_, state) => SheetPage<Object?>(
+        key: state.pageKey,
+        name: state.name,
+        child: const RootPopScope(child: HelpScreen()),
+      ),
     ),
     GoRoute(
       name: 'people-group-details',
