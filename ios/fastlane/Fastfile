@@ -123,6 +123,22 @@ platform :ios do
     UI.user_error!("Crashlytics upload-symbols not found — build first so Xcode resolves the firebase-ios-sdk Swift package (`./release.sh build-ios #{flavor}`), or set CRASHLYTICS_UPLOAD_SYMBOLS to its path.") if binary.nil?
   end
 
+  # setup_ci makes fastlane_tmp_keychain the *default* keychain and puts it
+  # first in the search list, then leaves it there. On a developer Mac that
+  # means every app that saves a password afterwards writes to it, and once it
+  # auto-locks (1h / on sleep) macOS keeps prompting for its password all day.
+  # Undo that once the build is done. No-op on CI, where the VM is thrown away.
+  def restore_login_keychain
+    return if is_ci
+    login = File.expand_path("~/Library/Keychains/login.keychain-db")
+    tmp = File.expand_path("~/Library/Keychains/fastlane_tmp_keychain-db")
+    sh("security", "default-keychain", "-d", "user", "-s", login, log: false)
+    sh("security", "list-keychains", "-d", "user", "-s", login, log: false)
+    File.delete(tmp) if File.exist?(tmp)
+  rescue => e
+    UI.important("Couldn't restore the login keychain (#{e.message}). Run: security default-keychain -s #{login}")
+  end
+
   # ---- lanes --------------------------------------------------------------
 
   desc "Compile the iOS app WITHOUT signing — validates the build with no Apple account. flavor: staging|production"
@@ -212,6 +228,8 @@ platform :ios do
     upload_dsyms(flavor: flavor, strict: false)
 
     ipa
+  ensure
+    restore_login_keychain
   end
 
   desc "Upload the latest archive's dSYMs to Crashlytics so native crashes symbolicate. Runs automatically after `build_ipa`; use standalone to retry or to symbolicate an already-shipped build. flavor: staging|production, dsym_path: override, strict: false to warn instead of fail"

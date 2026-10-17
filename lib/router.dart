@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'app_shell.dart';
 import 'components/nav/root_pop_scope.dart';
 import 'components/nav/sheet_page.dart';
+import 'components/prayer_content/prayer_calendar_sheet.dart';
 import 'components/nav/swipeable_branch_container.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
@@ -20,6 +21,7 @@ import 'screens/people_groups_screen.dart';
 import 'screens/pray_deep_link_screen.dart';
 import 'screens/pray_screen.dart';
 import 'screens/reminders_screen.dart';
+import 'screens/saved_prayers_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/wizard_screen.dart';
 import 'services/crashlytics_route_observer.dart';
@@ -50,6 +52,13 @@ String? _prayDeepLinkRedirect(BuildContext context, GoRouterState state) {
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
 );
+
+/// Whether [uri] is the Pray tab — on it, or choosing a day for it from the
+/// calendar sheet over it. The tab's prayer session and a deep link's override
+/// both last while the calendar is open: picking a day is still praying here.
+bool isPrayTabLocation(Uri uri) =>
+    uri.path == '/pray' ||
+    (uri.path == '/calendar' && uri.queryParameters['from'] == 'pray');
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -180,6 +189,34 @@ final GoRouter appRouter = GoRouter(
         child: const RootPopScope(child: HelpScreen()),
       ),
     ),
+    // The calendar for picking a day's prayer, from the Pray tab or a
+    // standalone prayer screen. A sheet like Help; pops with the picked day.
+    GoRoute(
+      name: 'prayer-calendar',
+      path: '/calendar',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (_, state) {
+        final extra = state.extra;
+        final today = DateTime.now();
+        return SheetPage<DateTime>(
+          key: state.pageKey,
+          name: state.name,
+          child: RootPopScope(
+            child: PrayerCalendarScreen(
+              // Opened cold, with nothing to say which days, it offers the
+              // last year up to today.
+              args: extra is PrayerCalendarArgs
+                  ? extra
+                  : PrayerCalendarArgs(
+                      selected: today,
+                      firstDay: today.subtract(const Duration(days: 365)),
+                      lastDay: today,
+                    ),
+            ),
+          ),
+        );
+      },
+    ),
     GoRoute(
       name: 'people-group-details',
       path: '/people-groups/:slug',
@@ -230,11 +267,21 @@ final GoRouter appRouter = GoRouter(
       builder: (_, state) {
         final extra = state.extra;
         final name = extra is Map ? extra['name'] as String? : null;
+        final date = extra is Map ? extra['date'] as DateTime? : null;
         return PeopleGroupPrayerScreen(
           slug: state.pathParameters['slug']!,
           name: name ?? '',
+          initialDate: date,
         );
       },
+    ),
+    // The prayers the user has starred or downloaded, opened from Settings and
+    // from the Pray screen's calendar.
+    GoRoute(
+      name: 'saved-prayers',
+      path: '/saved-prayers',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const RootPopScope(child: SavedPrayersScreen()),
     ),
     GoRoute(
       name: 'settings',

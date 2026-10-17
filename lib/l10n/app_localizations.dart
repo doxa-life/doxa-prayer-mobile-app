@@ -1357,7 +1357,7 @@ abstract class AppLocalizations {
   /// Body of the Help page's mission section. Glossary terms in it become tappable
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: DOXA\'s mission]'**
+  /// **'DOXA\'s mission is to reach every unengaged people group, by 2033.'**
   String get helpMissionBody;
 
   /// Heading of the Help page's FAQ section
@@ -1366,41 +1366,29 @@ abstract class AppLocalizations {
   /// **'Frequently asked questions'**
   String get helpFaqTitle;
 
-  /// FAQ entry 1 on the Help page: the question, shown as a tappable row
+  /// FAQ question in Help: what makes a people group unengaged
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: question 1]'**
-  String get helpFaq1Question;
+  /// **'What makes a people group “unengaged”?'**
+  String get helpFaqUnengagedQuestion;
 
-  /// FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
+  /// Answer to the FAQ question about what makes a people group unengaged
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: answer to question 1]'**
-  String get helpFaq1Answer;
+  /// **'DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.'**
+  String get helpFaqUnengagedAnswer;
 
-  /// FAQ entry 2 on the Help page: the question, shown as a tappable row
+  /// FAQ question in Help: what a people group needs to be classified as engaged
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: question 2]'**
-  String get helpFaq2Question;
+  /// **'What does a people group need in order to be “engaged”?'**
+  String get helpFaqEngagedQuestion;
 
-  /// FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
+  /// Answer to the FAQ question about what makes a people group engaged; a numbered list, one item per line
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: answer to question 2]'**
-  String get helpFaq2Answer;
-
-  /// FAQ entry 3 on the Help page: the question, shown as a tappable row
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: question 3]'**
-  String get helpFaq3Question;
-
-  /// FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: answer to question 3]'**
-  String get helpFaq3Answer;
+  /// **'In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation'**
+  String get helpFaqEngagedAnswer;
 
   /// Heading of the Help page's glossary section
   ///
@@ -1408,59 +1396,23 @@ abstract class AppLocalizations {
   /// **'Glossary'**
   String get helpGlossaryTitle;
 
-  /// Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
+  /// Glossary term in Help: people group (use the DOXA glossary wording)
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: term 1]'**
-  String get glossaryTerm1;
+  /// **'People group'**
+  String get glossaryPeopleGroup;
 
-  /// Definition of glossary term 1, shown on the Help page and when the term is tapped
+  /// Definition of the glossary term 'people group' in Help
   ///
   /// In en, this message translates to:
-  /// **'[Placeholder: definition of term 1]'**
-  String get glossaryTerm1Definition;
+  /// **'A group of people with a shared set of beliefs, values, and culture.'**
+  String get glossaryPeopleGroupDefinition;
 
-  /// Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
+  /// Other wordings of 'people group' (plurals, inflections) that should also link to the glossary term, separated by |; empty when none
   ///
   /// In en, this message translates to:
-  /// **''**
-  String get glossaryTerm1Alternates;
-
-  /// Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: term 2]'**
-  String get glossaryTerm2;
-
-  /// Definition of glossary term 2, shown on the Help page and when the term is tapped
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: definition of term 2]'**
-  String get glossaryTerm2Definition;
-
-  /// Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
-  ///
-  /// In en, this message translates to:
-  /// **''**
-  String get glossaryTerm2Alternates;
-
-  /// Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: term 3]'**
-  String get glossaryTerm3;
-
-  /// Definition of glossary term 3, shown on the Help page and when the term is tapped
-  ///
-  /// In en, this message translates to:
-  /// **'[Placeholder: definition of term 3]'**
-  String get glossaryTerm3Definition;
-
-  /// Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none
-  ///
-  /// In en, this message translates to:
-  /// **''**
-  String get glossaryTerm3Alternates;
+  /// **'people groups'**
+  String get glossaryPeopleGroupAlternates;
 
   /// Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled
   ///
@@ -1665,6 +1617,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to {language}'**
   String languageSwitchUndo(String language);
+
+  /// Tooltip/accessibility label for the date on the Pray screen, which opens a calendar to pick a past day's prayer
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a day'**
+  String get chooseDay;
+
+  /// Button on the Pray screen that marks the day's prayer with a star, so the user can find prayers where they sensed the Holy Spirit at work
+  ///
+  /// In en, this message translates to:
+  /// **'Star'**
+  String get starPrayer;
+
+  /// The star button on the Pray screen once the day's prayer is starred; tapping it again removes the star
+  ///
+  /// In en, this message translates to:
+  /// **'Starred'**
+  String get prayerStarred;
+
+  /// Button on the Pray screen that keeps the day's prayer on the device so it can be prayed offline
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get downloadPrayer;
+
+  /// The download button on the Pray screen once the day's prayer is downloaded; tapping it again removes the download
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded'**
+  String get prayerDownloaded;
+
+  /// Message shown when starring or downloading a prayer fails because its content couldn't be fetched
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save this prayer. Check your connection and try again.'**
+  String get prayerSaveFailed;
+
+  /// Title of the screen (and Settings entry) listing the prayers the user has starred or downloaded
+  ///
+  /// In en, this message translates to:
+  /// **'Saved prayers'**
+  String get savedPrayers;
+
+  /// Shown on the Saved prayers screen before the user has starred or downloaded any prayer
+  ///
+  /// In en, this message translates to:
+  /// **'Star a prayer where you sensed the Holy Spirit at work, or download one to pray offline, and it will appear here.'**
+  String get savedPrayersEmpty;
 }
 
 class _AppLocalizationsDelegate

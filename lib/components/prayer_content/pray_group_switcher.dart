@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../services/cache_warmup.dart';
+import '../../services/locale_controller.dart';
 import '../../services/prayer_history_service.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
-import '../cards/profile_deck.dart' show DeckArrowButton, ProfileDeckDots;
 import '../misc/app_image.dart';
 import '../misc/prayed_today_pill.dart';
 
 /// Switches the Pray tab between the people groups the user prays for, the
 /// way the home screen's carousel does: one compact card per group, swiped
 /// through one at a time, the one in focus centred with its neighbours peeking
-/// in at the sides, arrows over the gaps and a dot per group underneath.
-/// Settling on a card makes its group the active one, which the tab then
+/// in at the sides — no arrows or dots; the peeking neighbours are the only
+/// cue that there is more to swipe to. Settling on a card makes its group the active one, which the tab then
 /// shows. A group already prayed for today carries a check.
 ///
 /// Nothing at all below two groups: there is nothing to switch to.
@@ -115,6 +116,13 @@ class _SwitcherState extends State<_Switcher> {
   void _onPageChanged(int index) {
     if (!_following) HapticFeedback.selectionClick();
     setState(() => _current = index);
+    // Fires mid-swipe, as the card crosses the middle — a head start on the
+    // prayer before the swipe settles and the tab switches to it.
+    prefetchPrayer(
+      slug: widget.groups[index].slug,
+      date: DateTime.now(),
+      language: localeController.value.languageCode,
+    );
   }
 
   /// Once a swipe or tap has come to rest, its group becomes the active one.
@@ -147,48 +155,17 @@ class _SwitcherState extends State<_Switcher> {
   Widget build(BuildContext context) {
     final count = widget.groups.length;
     final height = _cardHeight(context) + _gutter * 2;
-    return LayoutBuilder(
-      builder: (context, box) {
-        final inset =
-            box.maxWidth * (1 - _cardShare) / 2 - DeckArrowButton.size / 2;
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: height,
-              child: Stack(
-                children: [
-                  NotificationListener<ScrollEndNotification>(
-                    onNotification: _onScrollEnd,
-                    child: PageView.builder(
-                      controller: _controller,
-                      onPageChanged: _onPageChanged,
-                      itemCount: count,
-                      itemBuilder: (context, index) => _page(index),
-                    ),
-                  ),
-                  for (final back in [true, false])
-                    PositionedDirectional(
-                      start: back ? inset : null,
-                      end: back ? null : inset,
-                      top: 0,
-                      bottom: 0,
-                      child: Center(
-                        child: DeckArrowButton(
-                          back: back,
-                          shown: back ? _current > 0 : _current < count - 1,
-                          onTap: () =>
-                              _goTo(back ? _current - 1 : _current + 1),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            ProfileDeckDots(count: count, current: _current, onTap: _goTo),
-          ],
-        );
-      },
+    return SizedBox(
+      height: height,
+      child: NotificationListener<ScrollEndNotification>(
+        onNotification: _onScrollEnd,
+        child: PageView.builder(
+          controller: _controller,
+          onPageChanged: _onPageChanged,
+          itemCount: count,
+          itemBuilder: (context, index) => _page(index),
+        ),
+      ),
     );
   }
 

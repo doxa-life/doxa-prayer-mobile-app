@@ -98,6 +98,35 @@ Future<void> _prefetchTodaysPrayerContent({
   }
 }
 
+/// Loads one prayer — the content and the photos it renders — ahead of the
+/// user reaching it, so it paints with no skeleton when they do: the
+/// neighbouring groups' prayers on the Pray tab, the group a swipe is heading
+/// to, the day before the one on show.
+///
+/// Costs nothing when the prayer is already cached, and shares the request
+/// when the screen asks for the same prayer at the same moment. Silent on
+/// failure; the screen fetches for itself.
+Future<void> prefetchPrayer({
+  required String slug,
+  required DateTime date,
+  required String language,
+}) async {
+  try {
+    final content = await fetchPrayerContent(
+      slug: slug,
+      date: date,
+      language: language,
+    );
+    await _warmImages(content);
+  } catch (e) {
+    developer.log(
+      'prayer prefetch failed for $slug',
+      name: 'cache_warmup',
+      error: e,
+    );
+  }
+}
+
 /// Pulls down the photos the prayer page will render — the hero image plus the
 /// one on each people-group block — so the first paint has them locally.
 Future<void> _warmImages(PrayerContentResponse content) async {

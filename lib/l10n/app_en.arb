@@ -985,7 +985,7 @@
     "@helpMissionTitle": {
         "description": "Heading of the Help page's mission section"
     },
-    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "helpMissionBody": "DOXA's mission is to reach every unengaged people group, by 2033.",
     "@helpMissionBody": {
         "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
     },
@@ -993,69 +993,40 @@
     "@helpFaqTitle": {
         "description": "Heading of the Help page's FAQ section"
     },
-    "helpFaq1Question": "[Placeholder: question 1]",
-    "@helpFaq1Question": {
-        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
+    "helpFaqUnengagedQuestion": "What makes a people group “unengaged”?",
+    "@helpFaqUnengagedQuestion": {
+        "description": "FAQ question in Help: what makes a people group unengaged",
+        "x-glossary": false
     },
-    "helpFaq1Answer": "[Placeholder: answer to question 1]",
-    "@helpFaq1Answer": {
-        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
+    "helpFaqUnengagedAnswer": "DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.",
+    "@helpFaqUnengagedAnswer": {
+        "description": "Answer to the FAQ question about what makes a people group unengaged"
     },
-    "helpFaq2Question": "[Placeholder: question 2]",
-    "@helpFaq2Question": {
-        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
+    "helpFaqEngagedQuestion": "What does a people group need in order to be “engaged”?",
+    "@helpFaqEngagedQuestion": {
+        "description": "FAQ question in Help: what a people group needs to be classified as engaged",
+        "x-glossary": false
     },
-    "helpFaq2Answer": "[Placeholder: answer to question 2]",
-    "@helpFaq2Answer": {
-        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq3Question": "[Placeholder: question 3]",
-    "@helpFaq3Question": {
-        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq3Answer": "[Placeholder: answer to question 3]",
-    "@helpFaq3Answer": {
-        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
+    "helpFaqEngagedAnswer": "In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation",
+    "@helpFaqEngagedAnswer": {
+        "description": "Answer to the FAQ question about what makes a people group engaged; a numbered list, one item per line",
+        "x-glossary": true
     },
     "helpGlossaryTitle": "Glossary",
     "@helpGlossaryTitle": {
         "description": "Heading of the Help page's glossary section"
     },
-    "glossaryTerm1": "[Placeholder: term 1]",
-    "@glossaryTerm1": {
-        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
+    "glossaryPeopleGroup": "People group",
+    "@glossaryPeopleGroup": {
+        "description": "Glossary term in Help: people group (use the DOXA glossary wording)"
     },
-    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
-    "@glossaryTerm1Definition": {
-        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
+    "glossaryPeopleGroupDefinition": "A group of people with a shared set of beliefs, values, and culture.",
+    "@glossaryPeopleGroupDefinition": {
+        "description": "Definition of the glossary term 'people group' in Help"
     },
-    "glossaryTerm1Alternates": "",
-    "@glossaryTerm1Alternates": {
-        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm2": "[Placeholder: term 2]",
-    "@glossaryTerm2": {
-        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
-    "@glossaryTerm2Definition": {
-        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm2Alternates": "",
-    "@glossaryTerm2Alternates": {
-        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm3": "[Placeholder: term 3]",
-    "@glossaryTerm3": {
-        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
-    "@glossaryTerm3Definition": {
-        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm3Alternates": "",
-    "@glossaryTerm3Alternates": {
-        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
+    "glossaryPeopleGroupAlternates": "people groups",
+    "@glossaryPeopleGroupAlternates": {
+        "description": "Other wordings of 'people group' (plurals, inflections) that should also link to the glossary term, separated by |; empty when none"
     },
     "locationNotAvailable": "Location not available",
     "@locationNotAvailable": {
@@ -1207,5 +1178,37 @@
                 "type": "String"
             }
         }
+    },
+    "chooseDay": "Choose a day",
+    "@chooseDay": {
+        "description": "Tooltip/accessibility label for the date on the Pray screen, which opens a calendar to pick a past day's prayer"
+    },
+    "starPrayer": "Star",
+    "@starPrayer": {
+        "description": "Button on the Pray screen that marks the day's prayer with a star, so the user can find prayers where they sensed the Holy Spirit at work"
+    },
+    "prayerStarred": "Starred",
+    "@prayerStarred": {
+        "description": "The star button on the Pray screen once the day's prayer is starred; tapping it again removes the star"
+    },
+    "downloadPrayer": "Download",
+    "@downloadPrayer": {
+        "description": "Button on the Pray screen that keeps the day's prayer on the device so it can be prayed offline"
+    },
+    "prayerDownloaded": "Downloaded",
+    "@prayerDownloaded": {
+        "description": "The download button on the Pray screen once the day's prayer is downloaded; tapping it again removes the download"
+    },
+    "prayerSaveFailed": "Couldn't save this prayer. Check your connection and try again.",
+    "@prayerSaveFailed": {
+        "description": "Message shown when starring or downloading a prayer fails because its content couldn't be fetched"
+    },
+    "savedPrayers": "Saved prayers",
+    "@savedPrayers": {
+        "description": "Title of the screen (and Settings entry) listing the prayers the user has starred or downloaded"
+    },
+    "savedPrayersEmpty": "Star a prayer where you sensed the Holy Spirit at work, or download one to pray offline, and it will appear here.",
+    "@savedPrayersEmpty": {
+        "description": "Shown on the Saved prayers screen before the user has starred or downloaded any prayer"
     }
 }

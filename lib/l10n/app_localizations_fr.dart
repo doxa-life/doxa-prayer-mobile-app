@@ -766,58 +766,40 @@ class AppLocalizationsFr extends AppLocalizations {
   String get helpMissionTitle => 'Notre mission';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'La mission de DOXA est d’atteindre chaque peuple non engagé d’ici 2033.';
 
   @override
   String get helpFaqTitle => 'Questions fréquentes';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'Qu’est-ce qui fait qu’un peuple est « non engagé » ?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA considère un peuple comme non engagé lorsqu’aucun effort connu ne vise à y implanter des églises autonomes.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'De quoi un peuple a-t-il besoin pour être « engagé » ?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Pour être considéré comme « engagé », un peuple doit bénéficier :\n1. d’un effort pionnier sur le terrain\n2. d’un travail dans la culture locale et dans sa langue maternelle\n3. d’engagements à long terme\n4. d’une œuvre d’implantation d’églises';
 
   @override
   String get helpGlossaryTitle => 'Glossaire';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Peuple';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Un groupe de personnes partageant un ensemble de croyances, de valeurs et une culture.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'peuples';
 
   @override
   String get locationNotAvailable => 'Emplacement non disponible';
@@ -937,4 +919,30 @@ class AppLocalizationsFr extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Revenir à $language';
   }
+
+  @override
+  String get chooseDay => 'Choisir un jour';
+
+  @override
+  String get starPrayer => 'Marquer';
+
+  @override
+  String get prayerStarred => 'Marquée';
+
+  @override
+  String get downloadPrayer => 'Télécharger';
+
+  @override
+  String get prayerDownloaded => 'Téléchargée';
+
+  @override
+  String get prayerSaveFailed =>
+      'Impossible d’enregistrer cette prière. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get savedPrayers => 'Prières enregistrées';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Marquez une prière où vous avez senti l’œuvre du Saint-Esprit, ou téléchargez-en une pour prier hors connexion : elle apparaîtra ici.';
 }

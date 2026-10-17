@@ -2,6 +2,7 @@ import 'package:doxa_prayer_mobile_app/components/buttons/cta_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/people_group_carousel.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/share_people_group_modal.dart';
+import 'package:doxa_prayer_mobile_app/components/nav/sheet_page.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/design_scale.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
@@ -31,8 +32,13 @@ class HomeScreen extends StatelessWidget {
     // loose (non-button) text into one merged semantics node — a screen reader
     // reads the whole page at once instead of stopping on each item. A
     // SingleChildScrollView keeps each element as its own accessibility stop.
+    //
+    // The page is laid out to fit the screen, so it never scrolls: flicking
+    // up and down does nothing. The scroll view stays only so a very short
+    // screen clips the bottom rather than throwing an overflow error.
     if (!isTablet) {
       return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: PageContainer(
           child: Column(
             spacing: AppSpacing.xxl,
@@ -61,9 +67,10 @@ class HomeScreen extends StatelessWidget {
     // A tablet's screen is tall enough that the phone layout left about a
     // third of it empty below the reminders. The cards stay at the top and the
     // map button and reminders rest against the bottom, with the space between
-    // them; when there is no space to spare the page scrolls as before.
+    // them. Like the phone layout it never scrolls.
     return LayoutBuilder(
       builder: (context, constraints) => SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: PageContainer(
           child: ConstrainedBox(
             constraints: BoxConstraints(
@@ -95,7 +102,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _openDetails(String slug, BuildContext context) {
-    context.push('/people-groups/$slug');
+    pushSheet(context, '/people-groups/$slug');
   }
 
   /// Praying for a group from its card also makes it the active group, so the

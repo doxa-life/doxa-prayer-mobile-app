@@ -1095,7 +1095,7 @@
     "@helpMissionTitle": {
         "description": "Heading of the Help page's mission section"
     },
-    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "helpMissionBody": "DOXAn tehtävänä on tavoittaa vuoteen 2033 mennessä jokainen lähetystyön ulkopuolella oleva kansanryhmä.",
     "@helpMissionBody": {
         "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
     },
@@ -1103,70 +1103,17 @@
     "@helpFaqTitle": {
         "description": "Heading of the Help page's FAQ section"
     },
-    "helpFaq1Question": "[Placeholder: question 1]",
-    "@helpFaq1Question": {
-        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq1Answer": "[Placeholder: answer to question 1]",
-    "@helpFaq1Answer": {
-        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq2Question": "[Placeholder: question 2]",
-    "@helpFaq2Question": {
-        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq2Answer": "[Placeholder: answer to question 2]",
-    "@helpFaq2Answer": {
-        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq3Question": "[Placeholder: question 3]",
-    "@helpFaq3Question": {
-        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq3Answer": "[Placeholder: answer to question 3]",
-    "@helpFaq3Answer": {
-        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
+    "helpFaqUnengagedQuestion": "Milloin kansanryhmä on ”lähetystyön ulkopuolella”?",
+    "helpFaqUnengagedAnswer": "DOXA luokittelee kansanryhmän lähetystyön ulkopuolella olevaksi, jos siellä ei tiedetä olevan pyrkimyksiä perustaa itse kannattavia seurakuntia.",
+    "helpFaqEngagedQuestion": "Mitä kansanryhmä tarvitsee ollakseen ”lähetystyön piirissä”?",
+    "helpFaqEngagedAnswer": "Jotta kansanryhmä luokitellaan lähetystyön piirissä olevaksi, sillä täytyy olla:\n1. Kansanryhmän keskuudessa asuvien työntekijöiden pioneerityötä\n2. Työtä paikallisessa kulttuurissa ja kansan omalla äidinkielellä\n3. Pitkäaikaisia sitoumuksia\n4. Seurakunnanistutustyötä",
     "helpGlossaryTitle": "Sanasto",
     "@helpGlossaryTitle": {
         "description": "Heading of the Help page's glossary section"
     },
-    "glossaryTerm1": "[Placeholder: term 1]",
-    "@glossaryTerm1": {
-        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
-    "@glossaryTerm1Definition": {
-        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm1Alternates": "",
-    "@glossaryTerm1Alternates": {
-        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm2": "[Placeholder: term 2]",
-    "@glossaryTerm2": {
-        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
-    "@glossaryTerm2Definition": {
-        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm2Alternates": "",
-    "@glossaryTerm2Alternates": {
-        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm3": "[Placeholder: term 3]",
-    "@glossaryTerm3": {
-        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
-    "@glossaryTerm3Definition": {
-        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm3Alternates": "",
-    "@glossaryTerm3Alternates": {
-        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
+    "glossaryPeopleGroup": "Kansanryhmä",
+    "glossaryPeopleGroupDefinition": "Ihmisryhmä, jolla on yhteiset uskomukset, arvot ja kulttuuri.",
+    "glossaryPeopleGroupAlternates": "kansanryhmät|kansanryhmän|kansanryhmää|kansanryhmien|kansanryhmiä",
     "locationNotAvailable": "Sijaintia ei saatavilla",
     "@locationNotAvailable": {
         "description": "Label on the people group card's map button when the app has no coordinates for that group, so the button is disabled"
@@ -1207,5 +1154,13 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "chooseDay": "Valitse päivä",
+    "starPrayer": "Merkitse tähdellä",
+    "prayerStarred": "Merkitty",
+    "downloadPrayer": "Lataa",
+    "prayerDownloaded": "Ladattu",
+    "prayerSaveFailed": "Rukousta ei voitu tallentaa. Tarkista yhteys ja yritä uudelleen.",
+    "savedPrayers": "Tallennetut rukoukset",
+    "savedPrayersEmpty": "Merkitse tähdellä rukous, jossa koit Pyhän Hengen toimivan, tai lataa rukous rukoillaksesi ilman yhteyttä, niin se näkyy täällä."
 }

@@ -197,11 +197,7 @@ class _PeopleGroupPinTooltipLayerState extends State<PeopleGroupPinTooltipLayer>
     final origin = Alignment(arrowX / width * 2 - 1, above ? 1 : -1);
     final animated = FadeTransition(
       opacity: _opacity,
-      child: ScaleTransition(
-        scale: _scale,
-        alignment: origin,
-        child: bubble,
-      ),
+      child: ScaleTransition(scale: _scale, alignment: origin, child: bubble),
     );
 
     return SizedBox.expand(

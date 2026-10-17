@@ -27,6 +27,7 @@ import 'services/referral_controller.dart';
 import 'services/reminders_controller.dart';
 import 'services/reminders_notifications.dart';
 import 'services/response_cache.dart';
+import 'services/saved_prayers_service.dart';
 import 'services/subscribed_people_groups_controller.dart';
 import 'services/update_controller.dart';
 import 'services/wizard_completion_controller.dart';
@@ -68,6 +69,9 @@ Future<void> _main() async {
     loadLocale(),
     loadIdentity(),
     loadReferredPeopleGroup(),
+    // Before the cache warm-up below, so a saved prayer is served from its
+    // saved copy rather than fetched again.
+    loadSavedPrayers(),
   ]);
   // Push notifications: init after identity is loaded so the first
   // OneSignal.login() uses the right external id. Receive-only for now; no

@@ -764,58 +764,41 @@ class AppLocalizationsFi extends AppLocalizations {
   String get helpMissionTitle => 'Missiomme';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'DOXAn tehtävänä on tavoittaa vuoteen 2033 mennessä jokainen lähetystyön ulkopuolella oleva kansanryhmä.';
 
   @override
   String get helpFaqTitle => 'Usein kysytyt kysymykset';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'Milloin kansanryhmä on ”lähetystyön ulkopuolella”?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA luokittelee kansanryhmän lähetystyön ulkopuolella olevaksi, jos siellä ei tiedetä olevan pyrkimyksiä perustaa itse kannattavia seurakuntia.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'Mitä kansanryhmä tarvitsee ollakseen ”lähetystyön piirissä”?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Jotta kansanryhmä luokitellaan lähetystyön piirissä olevaksi, sillä täytyy olla:\n1. Kansanryhmän keskuudessa asuvien työntekijöiden pioneerityötä\n2. Työtä paikallisessa kulttuurissa ja kansan omalla äidinkielellä\n3. Pitkäaikaisia sitoumuksia\n4. Seurakunnanistutustyötä';
 
   @override
   String get helpGlossaryTitle => 'Sanasto';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Kansanryhmä';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Ihmisryhmä, jolla on yhteiset uskomukset, arvot ja kulttuuri.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates =>
+      'kansanryhmät|kansanryhmän|kansanryhmää|kansanryhmien|kansanryhmiä';
 
   @override
   String get locationNotAvailable => 'Sijaintia ei saatavilla';
@@ -935,4 +918,30 @@ class AppLocalizationsFi extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Takaisin: $language';
   }
+
+  @override
+  String get chooseDay => 'Valitse päivä';
+
+  @override
+  String get starPrayer => 'Merkitse tähdellä';
+
+  @override
+  String get prayerStarred => 'Merkitty';
+
+  @override
+  String get downloadPrayer => 'Lataa';
+
+  @override
+  String get prayerDownloaded => 'Ladattu';
+
+  @override
+  String get prayerSaveFailed =>
+      'Rukousta ei voitu tallentaa. Tarkista yhteys ja yritä uudelleen.';
+
+  @override
+  String get savedPrayers => 'Tallennetut rukoukset';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Merkitse tähdellä rukous, jossa koit Pyhän Hengen toimivan, tai lataa rukous rukoillaksesi ilman yhteyttä, niin se näkyy täällä.';
 }

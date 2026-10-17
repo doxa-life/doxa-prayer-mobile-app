@@ -27,66 +27,18 @@ class AppLanguage {
 /// Latin ones. Nothing depends on this order — [defaultLocale] is the
 /// fallback, not the first entry.
 const List<AppLanguage> appLanguages = <AppLanguage>[
-  AppLanguage(
-    locale: Locale('de'),
-    nativeName: 'Deutsch',
-    flagCode: 'DEU',
-  ),
-  AppLanguage(
-    locale: Locale('en'),
-    nativeName: 'English',
-    flagCode: 'GBR',
-  ),
-  AppLanguage(
-    locale: Locale('es'),
-    nativeName: 'Español',
-    flagCode: 'ESP',
-  ),
-  AppLanguage(
-    locale: Locale('fr'),
-    nativeName: 'Français',
-    flagCode: 'FRA',
-  ),
-  AppLanguage(
-    locale: Locale('it'),
-    nativeName: 'Italiano',
-    flagCode: 'ITA',
-  ),
-  AppLanguage(
-    locale: Locale('pt'),
-    nativeName: 'Português',
-    flagCode: 'PRT',
-  ),
-  AppLanguage(
-    locale: Locale('ro'),
-    nativeName: 'Română',
-    flagCode: 'ROU',
-  ),
-  AppLanguage(
-    locale: Locale('fi'),
-    nativeName: 'suomi',
-    flagCode: 'FIN',
-  ),
-  AppLanguage(
-    locale: Locale('ru'),
-    nativeName: 'Русский',
-    flagCode: 'RUS',
-  ),
-  AppLanguage(
-    locale: Locale('ar'),
-    nativeName: 'العربية',
-    flagCode: 'SAU',
-  ),
-  AppLanguage(
-    locale: Locale('hi'),
-    nativeName: 'हिन्दी',
-    flagCode: 'IND',
-  ),
-  AppLanguage(
-    locale: Locale('zh'),
-    nativeName: '简体中文',
-    flagCode: 'CHN',
-  ),
+  AppLanguage(locale: Locale('de'), nativeName: 'Deutsch', flagCode: 'DEU'),
+  AppLanguage(locale: Locale('en'), nativeName: 'English', flagCode: 'GBR'),
+  AppLanguage(locale: Locale('es'), nativeName: 'Español', flagCode: 'ESP'),
+  AppLanguage(locale: Locale('fr'), nativeName: 'Français', flagCode: 'FRA'),
+  AppLanguage(locale: Locale('it'), nativeName: 'Italiano', flagCode: 'ITA'),
+  AppLanguage(locale: Locale('pt'), nativeName: 'Português', flagCode: 'PRT'),
+  AppLanguage(locale: Locale('ro'), nativeName: 'Română', flagCode: 'ROU'),
+  AppLanguage(locale: Locale('fi'), nativeName: 'suomi', flagCode: 'FIN'),
+  AppLanguage(locale: Locale('ru'), nativeName: 'Русский', flagCode: 'RUS'),
+  AppLanguage(locale: Locale('ar'), nativeName: 'العربية', flagCode: 'SAU'),
+  AppLanguage(locale: Locale('hi'), nativeName: 'हिन्दी', flagCode: 'IND'),
+  AppLanguage(locale: Locale('zh'), nativeName: '简体中文', flagCode: 'CHN'),
 ];
 
 /// The locale used before a preference is read and when no system locale

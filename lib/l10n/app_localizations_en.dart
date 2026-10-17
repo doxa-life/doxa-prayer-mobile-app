@@ -756,58 +756,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helpMissionTitle => 'Our mission';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'DOXA\'s mission is to reach every unengaged people group, by 2033.';
 
   @override
   String get helpFaqTitle => 'Frequently asked questions';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'What makes a people group “unengaged”?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'What does a people group need in order to be “engaged”?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation';
 
   @override
   String get helpGlossaryTitle => 'Glossary';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'People group';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'A group of people with a shared set of beliefs, values, and culture.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'people groups';
 
   @override
   String get locationNotAvailable => 'Location not available';
@@ -927,4 +909,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Back to $language';
   }
+
+  @override
+  String get chooseDay => 'Choose a day';
+
+  @override
+  String get starPrayer => 'Star';
+
+  @override
+  String get prayerStarred => 'Starred';
+
+  @override
+  String get downloadPrayer => 'Download';
+
+  @override
+  String get prayerDownloaded => 'Downloaded';
+
+  @override
+  String get prayerSaveFailed =>
+      'Couldn\'t save this prayer. Check your connection and try again.';
+
+  @override
+  String get savedPrayers => 'Saved prayers';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Star a prayer where you sensed the Holy Spirit at work, or download one to pray offline, and it will appear here.';
 }

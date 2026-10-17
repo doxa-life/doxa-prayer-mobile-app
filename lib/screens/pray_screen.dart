@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/buttons/action_button.dart';
+import '../components/misc/directional_switcher.dart';
 import '../components/misc/hyphenated_text.dart';
 import '../components/prayer_content/pray_group_switcher.dart';
 import '../components/prayer_content/prayer_session_view.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
 import '../router.dart';
+import '../services/cache_warmup.dart';
 import '../services/locale_controller.dart';
 import '../services/pray_override_controller.dart';
 import '../services/subscribed_people_groups_controller.dart';
@@ -38,10 +40,15 @@ class _PrayScreenState extends State<PrayScreen> {
   String? _shownSlug;
   Timer? _settle;
 
+  /// Which way the last switch of group went through the user's list: +1 to a
+  /// later group, -1 to an earlier one. The prayer slides in from that side.
+  int _direction = 0;
+
   @override
   void initState() {
     super.initState();
     _shownSlug = peopleGroupsController.value.active?.slug;
+    _prefetchAround(_shownSlug);
     peopleGroupsController.addListener(_onGroupsChanged);
     appRouter.routerDelegate.addListener(_onRouteChanged);
   }
@@ -58,6 +65,9 @@ class _PrayScreenState extends State<PrayScreen> {
     final slug = peopleGroupsController.value.active?.slug;
     _settle?.cancel();
     if (slug == _shownSlug) return;
+    // Started now, not once the tab rebuilds: by the time the user looks, the
+    // prayer is ready and the switch is a slide rather than a skeleton.
+    _prefetchAround(slug);
     if (_isOnPrayRoute() || slug == null || _shownSlug == null) {
       _show(slug);
       return;
@@ -74,7 +84,32 @@ class _PrayScreenState extends State<PrayScreen> {
 
   void _show(String? slug) {
     if (!mounted || slug == _shownSlug) return;
-    setState(() => _shownSlug = slug);
+    final list = peopleGroupsController.value.list;
+    final from = list.indexWhere((g) => g.slug == _shownSlug);
+    final to = list.indexWhere((g) => g.slug == slug);
+    setState(() {
+      _direction = from < 0 || to < 0 ? 0 : (to - from).sign;
+      _shownSlug = slug;
+    });
+  }
+
+  /// Today's prayer for [slug] and for the groups either side of it in the
+  /// switcher — the ones a swipe reaches next — so moving between them never
+  /// waits on the network. One request at a time, [slug]'s first.
+  Future<void> _prefetchAround(String? slug) async {
+    if (slug == null) return;
+    final list = peopleGroupsController.value.list;
+    final i = list.indexWhere((g) => g.slug == slug);
+    final slugs = [
+      slug,
+      if (i > 0) list[i - 1].slug,
+      if (i >= 0 && i < list.length - 1) list[i + 1].slug,
+    ];
+    final language = localeController.value.languageCode;
+    final today = DateTime.now();
+    for (final s in slugs) {
+      await prefetchPrayer(slug: s, date: today, language: language);
+    }
   }
 
   @override
@@ -126,19 +161,25 @@ class _PrayScreenState extends State<PrayScreen> {
     return ValueListenableBuilder<Locale>(
       valueListenable: localeController,
       builder: (context, locale, _) {
-        return PrayerSessionView(
-          key: ValueKey('$slug-${locale.languageCode}'),
-          slug: slug,
-          language: locale.languageCode,
-          initialDate: override?.date,
-          isActive: _isOnPrayRoute,
+        // A change of group slides the new prayer in over the old one,
+        // which stays painted until it has gone.
+        return DirectionalSwitcher(
+          direction: override == null ? _direction : 0,
+          child: PrayerSessionView(
+            key: ValueKey('$slug-${locale.languageCode}'),
+            slug: slug,
+            language: locale.languageCode,
+            initialDate: override?.date,
+            isActive: _isOnPrayRoute,
+            inPrayTab: true,
+          ),
         );
       },
     );
   }
 
   static bool _isOnPrayRoute() =>
-      appRouter.routerDelegate.currentConfiguration.uri.path == '/pray';
+      isPrayTabLocation(appRouter.routerDelegate.currentConfiguration.uri);
 }
 
 class _NoSubscriptionsView extends StatelessWidget {

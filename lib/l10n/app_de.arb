@@ -1119,7 +1119,7 @@
     "@helpMissionTitle": {
         "description": "Heading of the Help page's mission section"
     },
-    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "helpMissionBody": "Die Mission von DOXA ist es, bis 2033 jede unberührte Volksgruppe zu erreichen.",
     "@helpMissionBody": {
         "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
     },
@@ -1127,70 +1127,17 @@
     "@helpFaqTitle": {
         "description": "Heading of the Help page's FAQ section"
     },
-    "helpFaq1Question": "[Placeholder: question 1]",
-    "@helpFaq1Question": {
-        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq1Answer": "[Placeholder: answer to question 1]",
-    "@helpFaq1Answer": {
-        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq2Question": "[Placeholder: question 2]",
-    "@helpFaq2Question": {
-        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq2Answer": "[Placeholder: answer to question 2]",
-    "@helpFaq2Answer": {
-        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq3Question": "[Placeholder: question 3]",
-    "@helpFaq3Question": {
-        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq3Answer": "[Placeholder: answer to question 3]",
-    "@helpFaq3Answer": {
-        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
+    "helpFaqUnengagedQuestion": "Wann gilt eine Volksgruppe als „unberührt“?",
+    "helpFaqUnengagedAnswer": "DOXA stuft eine Volksgruppe als unberührt ein, wenn keine Bemühungen bekannt sind, dort Gemeinden zu gründen, die sich selbst tragen.",
+    "helpFaqEngagedQuestion": "Was braucht eine Volksgruppe, um als „engagiert“ zu gelten?",
+    "helpFaqEngagedAnswer": "Damit eine Volksgruppe als „engagiert“ eingestuft wird, braucht sie:\n1. Pionierarbeit vor Ort\n2. Arbeit in der örtlichen Kultur und in ihrer Muttersprache\n3. Langfristige Verpflichtungen\n4. Eine Gemeindegründungsarbeit",
     "helpGlossaryTitle": "Glossar",
     "@helpGlossaryTitle": {
         "description": "Heading of the Help page's glossary section"
     },
-    "glossaryTerm1": "[Placeholder: term 1]",
-    "@glossaryTerm1": {
-        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
-    "@glossaryTerm1Definition": {
-        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm1Alternates": "",
-    "@glossaryTerm1Alternates": {
-        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm2": "[Placeholder: term 2]",
-    "@glossaryTerm2": {
-        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
-    "@glossaryTerm2Definition": {
-        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm2Alternates": "",
-    "@glossaryTerm2Alternates": {
-        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm3": "[Placeholder: term 3]",
-    "@glossaryTerm3": {
-        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
-    "@glossaryTerm3Definition": {
-        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm3Alternates": "",
-    "@glossaryTerm3Alternates": {
-        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
+    "glossaryPeopleGroup": "Volksgruppe",
+    "glossaryPeopleGroupDefinition": "Eine Gruppe von Menschen mit gemeinsamen Überzeugungen, Werten und gemeinsamer Kultur.",
+    "glossaryPeopleGroupAlternates": "Volksgruppen",
     "languageSwitchConfirm": "Diese Sprache beibehalten?",
     "@languageSwitchConfirm": {
         "description": "Asked right after the user picks a new language, in that new language, so they can undo the switch"
@@ -1207,5 +1154,13 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "chooseDay": "Tag auswählen",
+    "starPrayer": "Markieren",
+    "prayerStarred": "Markiert",
+    "downloadPrayer": "Herunterladen",
+    "prayerDownloaded": "Heruntergeladen",
+    "prayerSaveFailed": "Dieses Gebet konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.",
+    "savedPrayers": "Gespeicherte Gebete",
+    "savedPrayersEmpty": "Markiere ein Gebet, bei dem du das Wirken des Heiligen Geistes gespürt hast, oder lade eines herunter, um offline zu beten – es erscheint dann hier."
 }

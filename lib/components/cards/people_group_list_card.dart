@@ -4,6 +4,7 @@ import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../buttons/action_button.dart';
 import '../misc/app_icon.dart';
@@ -27,6 +28,7 @@ class PeopleGroupListCard extends StatelessWidget {
     this.engagementStatusValue,
     this.peoplePraying = 0,
     this.showSelectButton = false,
+    this.tag,
   });
 
   final String name;
@@ -58,6 +60,10 @@ class PeopleGroupListCard extends StatelessWidget {
   /// The wizard's onboarding list still needs a quick in-list select. The
   /// standalone search list keeps the card as the only tap target.
   final bool showSelectButton;
+
+  /// A label pinned to the top of the card saying why it stands out — the
+  /// People Group of the Day.
+  final String? tag;
 
   static final TextStyle _nameStyle = AppTypography.bodyMedium.copyWith(
     fontWeight: FontWeight.w500,
@@ -111,6 +117,11 @@ class PeopleGroupListCard extends StatelessWidget {
       child: Column(
         spacing: AppSpacing.sm,
         children: [
+          if (tag != null)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: _Tag(label: tag!),
+            ),
           Row(
             spacing: AppSpacing.md,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,6 +192,35 @@ class PeopleGroupListCard extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class _Tag extends StatelessWidget {
+  const _Tag({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.secondary,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.xxs,
+        ),
+        child: HyphenatedText(
+          label,
+          style: AppTypography.caption.copyWith(
+            color: AppColors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
     );
   }

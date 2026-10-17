@@ -761,58 +761,40 @@ class AppLocalizationsHi extends AppLocalizations {
   String get helpMissionTitle => 'हमारा मिशन';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'DOXA का मिशन 2033 तक हर अनसंपर्कित जनसमूह तक पहुँचना है।';
 
   @override
   String get helpFaqTitle => 'अक्सर पूछे जाने वाले प्रश्न';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'किसी जनसमूह को “अनसंपर्कित” क्या बनाता है?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'यदि आत्मनिर्भर कलीसियाएँ स्थापित करने का कोई ज्ञात प्रयास नहीं है, तो DOXA उस जनसमूह को अनसंपर्कित मानता है।';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'किसी जनसमूह को “संपर्कित” माने जाने के लिए क्या चाहिए?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'किसी जनसमूह को “संपर्कित” माने जाने के लिए ये ज़रूरी हैं:\n1. उनके बीच रहकर किया जाने वाला अग्रणी प्रयास\n2. स्थानीय संस्कृति में और उनकी मातृभाषा में कार्य\n3. दीर्घकालिक प्रतिबद्धताएँ\n4. कलीसिया स्थापना का कार्य';
 
   @override
   String get helpGlossaryTitle => 'शब्दावली';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'जनसमूह';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'लोगों का एक समूह जिनकी मान्यताएँ, मूल्य और संस्कृति साझा हैं।';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'जनसमूहों';
 
   @override
   String get locationNotAvailable => 'स्थान उपलब्ध नहीं';
@@ -930,4 +912,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return '$language पर वापस जाएँ';
   }
+
+  @override
+  String get chooseDay => 'दिन चुनें';
+
+  @override
+  String get starPrayer => 'तारांकित करें';
+
+  @override
+  String get prayerStarred => 'तारांकित';
+
+  @override
+  String get downloadPrayer => 'डाउनलोड करें';
+
+  @override
+  String get prayerDownloaded => 'डाउनलोड हो गई';
+
+  @override
+  String get prayerSaveFailed =>
+      'यह प्रार्थना सहेजी नहीं जा सकी। अपना कनेक्शन जाँचें और फिर कोशिश करें।';
+
+  @override
+  String get savedPrayers => 'सहेजी गई प्रार्थनाएँ';
+
+  @override
+  String get savedPrayersEmpty =>
+      'जिस प्रार्थना में आपने पवित्र आत्मा को काम करते महसूस किया, उसे तारांकित करें, या ऑफ़लाइन प्रार्थना के लिए किसी को डाउनलोड करें — वह यहाँ दिखाई देगी।';
 }

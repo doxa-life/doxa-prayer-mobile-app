@@ -12,15 +12,21 @@ import '../services/locale_controller.dart';
 /// card shouldn't cost the user the map they were exploring, so this is a
 /// pushed route with a back arrow rather than a jump to the Pray tab. It also
 /// works for a group the user hasn't subscribed to — prayer history is keyed by
-/// slug, not by subscription.
+/// slug, not by subscription. The Saved prayers list opens its prayers here
+/// too, on the day that was saved.
 class PeopleGroupPrayerScreen extends StatelessWidget {
   const PeopleGroupPrayerScreen({
     super.key,
     required this.slug,
     required this.name,
+    this.initialDate,
   });
 
   final String slug;
+
+  /// The day to open on, when not today — a prayer reopened from the Saved
+  /// prayers list.
+  final DateTime? initialDate;
 
   /// Shown in the nav bar. Passed in rather than fetched: whoever pushed this
   /// screen already knows the name, and the prayer content below fetches its
@@ -48,6 +54,7 @@ class PeopleGroupPrayerScreen extends StatelessWidget {
                 slug: slug,
                 language: locale.languageCode,
                 isActive: () => true,
+                initialDate: initialDate,
               );
             },
           ),

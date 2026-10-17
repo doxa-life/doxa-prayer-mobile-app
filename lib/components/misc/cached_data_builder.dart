@@ -24,6 +24,7 @@ class CachedDataBuilder<T> extends StatefulWidget {
     required this.builder,
     required this.loading,
     required this.error,
+    this.fadeDuration,
   });
 
   /// Identifies the cached value; must be the key the [fetch] caches under.
@@ -43,6 +44,11 @@ class CachedDataBuilder<T> extends StatefulWidget {
   /// Built when the fetch failed and no cached value — not even an expired one
   /// — was available to fall back on.
   final Widget Function(BuildContext context, VoidCallback retry) error;
+
+  /// When set, the skeleton fades into the data (or the error) over this long
+  /// rather than being swapped for it in one frame. Data that was cached
+  /// paints in the first frame as ever — there is no skeleton to fade from.
+  final Duration? fadeDuration;
 
   @override
   State<CachedDataBuilder<T>> createState() => _CachedDataBuilderState<T>();
@@ -125,8 +131,25 @@ class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
   @override
   Widget build(BuildContext context) {
     final data = _data;
-    if (data != null) return widget.builder(context, data);
-    if (_error != null) return widget.error(context, _retry);
-    return widget.loading(context);
+    final Widget child;
+    final String state;
+    if (data != null) {
+      child = widget.builder(context, data);
+      state = 'data';
+    } else if (_error != null) {
+      child = widget.error(context, _retry);
+      state = 'error';
+    } else {
+      child = widget.loading(context);
+      state = 'loading';
+    }
+    final fade = widget.fadeDuration;
+    if (fade == null) return child;
+    return AnimatedSwitcher(
+      duration: fade,
+      layoutBuilder: (current, previous) =>
+          Stack(fit: StackFit.expand, children: [...previous, ?current]),
+      child: KeyedSubtree(key: ValueKey(state), child: child),
+    );
   }
 }

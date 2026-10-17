@@ -771,58 +771,40 @@ class AppLocalizationsRu extends AppLocalizations {
   String get helpMissionTitle => 'Наша миссия';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'Миссия DOXA — достичь каждого невовлечённого народа к 2033 году.';
 
   @override
   String get helpFaqTitle => 'Частые вопросы';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'Когда народ считается «невовлечённым»?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA считает народ невовлечённым, если неизвестно ни об одной попытке основать среди него самостоятельные церкви.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'Что нужно, чтобы народ считался «вовлечённым»?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Чтобы народ считался «вовлечённым», необходимы:\n1. Первопроходческое служение служителей, проживающих на месте\n2. Работа в местной культуре и на родном языке народа\n3. Долгосрочные обязательства\n4. Работа по открытию церквей';
 
   @override
   String get helpGlossaryTitle => 'Глоссарий';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Народ';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Группа людей с общими убеждениями, ценностями и культурой.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'народы|народа|народов|народу';
 
   @override
   String get locationNotAvailable => 'Местоположение недоступно';
@@ -942,4 +924,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Назад: $language';
   }
+
+  @override
+  String get chooseDay => 'Выбрать день';
+
+  @override
+  String get starPrayer => 'Отметить';
+
+  @override
+  String get prayerStarred => 'Отмечено';
+
+  @override
+  String get downloadPrayer => 'Скачать';
+
+  @override
+  String get prayerDownloaded => 'Скачано';
+
+  @override
+  String get prayerSaveFailed =>
+      'Не удалось сохранить эту молитву. Проверьте подключение и повторите попытку.';
+
+  @override
+  String get savedPrayers => 'Сохранённые молитвы';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Отметьте молитву, в которой вы ощутили действие Святого Духа, или скачайте молитву, чтобы молиться без интернета, — она появится здесь.';
 }

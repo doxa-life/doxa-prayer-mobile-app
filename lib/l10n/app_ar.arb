@@ -1079,7 +1079,7 @@
     "@helpMissionTitle": {
         "description": "Heading of the Help page's mission section"
     },
-    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "helpMissionBody": "رسالة DOXA هي الوصول إلى كل مجموعة شعبية غير مَخْدُومَة بحلول عام 2033.",
     "@helpMissionBody": {
         "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
     },
@@ -1087,70 +1087,17 @@
     "@helpFaqTitle": {
         "description": "Heading of the Help page's FAQ section"
     },
-    "helpFaq1Question": "[Placeholder: question 1]",
-    "@helpFaq1Question": {
-        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq1Answer": "[Placeholder: answer to question 1]",
-    "@helpFaq1Answer": {
-        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq2Question": "[Placeholder: question 2]",
-    "@helpFaq2Question": {
-        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq2Answer": "[Placeholder: answer to question 2]",
-    "@helpFaq2Answer": {
-        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq3Question": "[Placeholder: question 3]",
-    "@helpFaq3Question": {
-        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq3Answer": "[Placeholder: answer to question 3]",
-    "@helpFaq3Answer": {
-        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
+    "helpFaqUnengagedQuestion": "ما الذي يجعل مجموعة شعبية «غير مَخْدُومَة»؟",
+    "helpFaqUnengagedAnswer": "تَعُدّ DOXA المجموعة الشعبية غير مَخْدُومَة إذا لم تكن هناك جهود معروفة لتأسيس كنائس محلية أصيلة تُعيل نفسها.",
+    "helpFaqEngagedQuestion": "ما الذي تحتاجه مجموعة شعبية لتُعَدّ «مَخْدُومَة»؟",
+    "helpFaqEngagedAnswer": "لكي تُصنَّف مجموعة شعبية على أنها «مَخْدُومَة»، يجب أن يتوفر لها:\n1. جهد ريادي تأسيسي مقيم بين الشعب\n2. عمل ضمن الثقافة المحلية وبلغتهم الأم\n3. التزامات طويلة الأمد\n4. عمل لغرس الكنائس",
     "helpGlossaryTitle": "مسرد المصطلحات",
     "@helpGlossaryTitle": {
         "description": "Heading of the Help page's glossary section"
     },
-    "glossaryTerm1": "[Placeholder: term 1]",
-    "@glossaryTerm1": {
-        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
-    "@glossaryTerm1Definition": {
-        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm1Alternates": "",
-    "@glossaryTerm1Alternates": {
-        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm2": "[Placeholder: term 2]",
-    "@glossaryTerm2": {
-        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
-    "@glossaryTerm2Definition": {
-        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm2Alternates": "",
-    "@glossaryTerm2Alternates": {
-        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm3": "[Placeholder: term 3]",
-    "@glossaryTerm3": {
-        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
-    "@glossaryTerm3Definition": {
-        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm3Alternates": "",
-    "@glossaryTerm3Alternates": {
-        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
+    "glossaryPeopleGroup": "مجموعة شعبية",
+    "glossaryPeopleGroupDefinition": "مجموعة من الناس تجمعهم معتقدات وقيم وثقافة مشتركة.",
+    "glossaryPeopleGroupAlternates": "مجموعات شعبية|المجموعات الشعبية|المجموعة الشعبية",
     "unengaged": "غير مُنخرَطة",
     "nPeoplePraying": "{count, plural, =0{لا أحد يصلي بعد} =1{شخص واحد يصلي} other{{count} أشخاص يصلون}}",
     "filters": "الفلاتر",
@@ -1207,5 +1154,13 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "chooseDay": "اختر يومًا",
+    "starPrayer": "تمييز بنجمة",
+    "prayerStarred": "مميّزة بنجمة",
+    "downloadPrayer": "تنزيل",
+    "prayerDownloaded": "تم التنزيل",
+    "prayerSaveFailed": "تعذّر حفظ هذه الصلاة. تحقق من اتصالك وحاول مرة أخرى.",
+    "savedPrayers": "الصلوات المحفوظة",
+    "savedPrayersEmpty": "ميّز بنجمة صلاةً شعرت فيها بعمل الروح القدس، أو نزّل صلاة لتصلّيها دون اتصال، وستظهر هنا."
 }

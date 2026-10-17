@@ -8,6 +8,7 @@ import '../models/prayer_content.dart';
 import 'api_config.dart';
 import 'cache_policy.dart';
 import 'response_cache.dart';
+import 'saved_prayers_service.dart';
 
 String _formatDate(DateTime date) {
   final y = date.year.toString().padLeft(4, '0');
@@ -32,13 +33,68 @@ String prayerContentCacheKey({
 /// read, paints without a network round-trip. A day's content doesn't change
 /// once that day has started, so there is no background revalidation here.
 /// Pass [forceRefresh] for an explicit user retry.
+///
+/// A prayer the user has starred or downloaded is read from its saved copy
+/// first, with no request at all — that copy outlives the cache, so it opens
+/// offline however long ago the day was.
 Future<PrayerContentResponse> fetchPrayerContent({
   required String slug,
   required DateTime date,
   required String language,
   bool forceRefresh = false,
-}) {
+}) async {
+  if (!forceRefresh) {
+    final saved = await readSavedPrayerBody(
+      slug: slug,
+      date: date,
+      language: language,
+    );
+    if (saved != null) {
+      try {
+        return PrayerContentResponse.fromJson(
+          jsonDecode(saved) as Map<String, dynamic>,
+        );
+      } catch (e) {
+        developer.log(
+          'saved prayer unreadable; fetching instead',
+          name: 'prayer_content_service',
+          error: e,
+        );
+      }
+    }
+  }
   final day = _formatDate(date);
+  try {
+    return await _fetchPrayerContentCached(
+      slug: slug,
+      date: date,
+      day: day,
+      language: language,
+      forceRefresh: forceRefresh,
+    );
+  } catch (_) {
+    // Offline with nothing cached in this language: a prayer saved in another
+    // language still beats an error.
+    final saved = await readSavedPrayerBody(
+      slug: slug,
+      date: date,
+      language: language,
+      anyLanguage: true,
+    );
+    if (saved == null) rethrow;
+    return PrayerContentResponse.fromJson(
+      jsonDecode(saved) as Map<String, dynamic>,
+    );
+  }
+}
+
+Future<PrayerContentResponse> _fetchPrayerContentCached({
+  required String slug,
+  required DateTime date,
+  required String day,
+  required String language,
+  required bool forceRefresh,
+}) {
   return getJsonCached(
     uri: ApiConfig.buildUri('/api/people-groups/$slug/prayer-content/$day', {
       'language': language,

@@ -5,7 +5,6 @@ import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollCacheExtent;
-import 'package:go_router/go_router.dart';
 
 import '../../components/buttons/action_button.dart';
 import '../../components/cards/people_group_list_card.dart';
@@ -16,6 +15,7 @@ import '../../components/inputs/population_range_field.dart';
 import '../../components/inputs/search_field.dart';
 import '../../components/misc/collapsible.dart';
 import '../../components/misc/entrance_fade_slide.dart';
+import '../../components/nav/sheet_page.dart';
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../models/prayer_content.dart';
@@ -436,7 +436,8 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   Future<void> _openDetails(PeopleGroup group) async {
     final fromWizard = widget.onSelectionConfirmed != null;
-    final confirmed = await context.push<bool>(
+    final confirmed = await pushSheet<bool>(
+      context,
       '/people-groups/${group.slug}',
       extra: {'fromWizard': fromWizard},
     );
@@ -1025,14 +1026,12 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                       : () => removePeopleGroupFlow(context, slug: g.slug),
                   onSelect: () => widget.onSelect?.call(g),
                   onDetails: () => _openDetails(g),
+                  tag: g.slug == ofTheDaySlug ? l.peopleGroupOfTheDay : null,
                 ),
               ),
             );
             if (g.slug != ofTheDaySlug) return card;
-            return _OfTheDayHighlight(
-              label: l.peopleGroupOfTheDay,
-              child: card,
-            );
+            return _OfTheDayHighlight(child: card);
           },
         );
       },
@@ -1040,46 +1039,23 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   }
 }
 
-/// The People Group of the Day's card in the results: outlined, with a label
-/// above it saying why it comes first.
+/// The People Group of the Day's card in the results, outlined; the card
+/// itself carries the label saying why it comes first.
 class _OfTheDayHighlight extends StatelessWidget {
-  const _OfTheDayHighlight({required this.label, required this.child});
+  const _OfTheDayHighlight({required this.child});
 
-  final String label;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: AppSpacing.sm,
-      children: [
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md,
-              vertical: AppSpacing.xs,
-            ),
-            child: HyphenatedText(
-              label,
-              style: AppTypography.caption.copyWith(color: AppColors.white),
-            ),
-          ),
-        ),
-        // Drawn over the card, so the outline follows its rounded corners
-        // without changing its size.
-        Container(
-          foregroundDecoration: BoxDecoration(
-            border: Border.all(color: AppColors.secondary, width: 3),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: child,
-        ),
-      ],
+    // Drawn over the card, so the outline follows its rounded corners without
+    // changing its size.
+    return Container(
+      foregroundDecoration: BoxDecoration(
+        border: Border.all(color: AppColors.secondary, width: 3),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: child,
     );
   }
 }

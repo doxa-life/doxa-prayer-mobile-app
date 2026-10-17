@@ -1079,7 +1079,7 @@
     "@helpMissionTitle": {
         "description": "Heading of the Help page's mission section"
     },
-    "helpMissionBody": "[Placeholder: DOXA's mission]",
+    "helpMissionBody": "A missão da DOXA é alcançar todos os grupos étnicos não engajados até 2033.",
     "@helpMissionBody": {
         "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
     },
@@ -1087,70 +1087,17 @@
     "@helpFaqTitle": {
         "description": "Heading of the Help page's FAQ section"
     },
-    "helpFaq1Question": "[Placeholder: question 1]",
-    "@helpFaq1Question": {
-        "description": "FAQ entry 1 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq1Answer": "[Placeholder: answer to question 1]",
-    "@helpFaq1Answer": {
-        "description": "FAQ entry 1 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq2Question": "[Placeholder: question 2]",
-    "@helpFaq2Question": {
-        "description": "FAQ entry 2 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq2Answer": "[Placeholder: answer to question 2]",
-    "@helpFaq2Answer": {
-        "description": "FAQ entry 2 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
-    "helpFaq3Question": "[Placeholder: question 3]",
-    "@helpFaq3Question": {
-        "description": "FAQ entry 3 on the Help page: the question, shown as a tappable row"
-    },
-    "helpFaq3Answer": "[Placeholder: answer to question 3]",
-    "@helpFaq3Answer": {
-        "description": "FAQ entry 3 on the Help page: the answer, shown when the question is opened. Glossary terms in it become tappable"
-    },
+    "helpFaqUnengagedQuestion": "O que faz um grupo étnico ser “não engajado”?",
+    "helpFaqUnengagedAnswer": "A DOXA classifica um grupo étnico como não engajado quando não há esforços conhecidos para estabelecer igrejas autossustentáveis.",
+    "helpFaqEngagedQuestion": "Do que um grupo étnico precisa para ser considerado “engajado”?",
+    "helpFaqEngagedAnswer": "Para ser classificado como “engajado”, um grupo étnico precisa ter:\n1. Esforço pioneiro residente\n2. Trabalho na cultura local e na sua língua materna\n3. Compromissos de longo prazo\n4. Uma operação de plantação de igrejas",
     "helpGlossaryTitle": "Glossário",
     "@helpGlossaryTitle": {
         "description": "Heading of the Help page's glossary section"
     },
-    "glossaryTerm1": "[Placeholder: term 1]",
-    "@glossaryTerm1": {
-        "description": "Glossary term 1 (tag 'term1' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm1Definition": "[Placeholder: definition of term 1]",
-    "@glossaryTerm1Definition": {
-        "description": "Definition of glossary term 1, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm1Alternates": "",
-    "@glossaryTerm1Alternates": {
-        "description": "Other wordings that should also link to glossary term 1 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm2": "[Placeholder: term 2]",
-    "@glossaryTerm2": {
-        "description": "Glossary term 2 (tag 'term2' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm2Definition": "[Placeholder: definition of term 2]",
-    "@glossaryTerm2Definition": {
-        "description": "Definition of glossary term 2, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm2Alternates": "",
-    "@glossaryTerm2Alternates": {
-        "description": "Other wordings that should also link to glossary term 2 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
-    "glossaryTerm3": "[Placeholder: term 3]",
-    "@glossaryTerm3": {
-        "description": "Glossary term 3 (tag 'term3' in lib/services/help_content.dart). Wherever the app shows glossary-aware text, this wording becomes a link to its definition"
-    },
-    "glossaryTerm3Definition": "[Placeholder: definition of term 3]",
-    "@glossaryTerm3Definition": {
-        "description": "Definition of glossary term 3, shown on the Help page and when the term is tapped"
-    },
-    "glossaryTerm3Alternates": "",
-    "@glossaryTerm3Alternates": {
-        "description": "Other wordings that should also link to glossary term 3 (plurals, inflected forms, abbreviations), separated by |. Leave empty when there are none"
-    },
+    "glossaryPeopleGroup": "Grupo étnico",
+    "glossaryPeopleGroupDefinition": "Um grupo de pessoas com um conjunto comum de crenças, valores e cultura.",
+    "glossaryPeopleGroupAlternates": "grupos étnicos",
     "unengaged": "Não engajado",
     "nPeoplePraying": "{count, plural, =0{Ninguém orando ainda} =1{1 pessoa orando} other{{count} pessoas orando}}",
     "filters": "Filtros",
@@ -1207,5 +1154,13 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "chooseDay": "Escolher um dia",
+    "starPrayer": "Marcar",
+    "prayerStarred": "Marcada",
+    "downloadPrayer": "Baixar",
+    "prayerDownloaded": "Baixada",
+    "prayerSaveFailed": "Não foi possível salvar esta oração. Verifique sua conexão e tente novamente.",
+    "savedPrayers": "Orações salvas",
+    "savedPrayersEmpty": "Marque uma oração em que você sentiu o Espírito Santo agir, ou baixe uma para orar offline, e ela aparecerá aqui."
 }

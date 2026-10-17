@@ -87,33 +87,6 @@ class _ProfileDeckState extends State<ProfileDeck> {
     curve: Curves.easeOutCubic,
   );
 
-  /// The button on the deck's [back] (start) or forward (end) side, over the
-  /// gap between the card in focus and the one peeking in, shown while there
-  /// is a card that way.
-  Widget _arrow(
-    BuildContext context, {
-    required bool back,
-    required double bottom,
-    required double width,
-  }) {
-    final target = back ? _current - 1 : _current + 1;
-    final shown = target >= 0 && target < widget.cards.length;
-    final inset = width * (1 - _kCardShare) / 2 - DeckArrowButton.size / 2;
-    return PositionedDirectional(
-      start: back ? inset : null,
-      end: back ? null : inset,
-      top: _kTop,
-      bottom: bottom,
-      child: Center(
-        child: DeckArrowButton(
-          back: back,
-          shown: shown,
-          onTap: () => _goTo(target),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final sheet = widget.interactive ? SheetScope.maybeOf(context) : null;
@@ -163,13 +136,9 @@ class _ProfileDeckState extends State<ProfileDeck> {
       ),
     );
     final deck = LayoutBuilder(
-      builder: (context, box) => Stack(
+      builder: (context, _) => Stack(
         children: [
           pages,
-          if (widget.interactive) ...[
-            _arrow(context, back: true, bottom: bottom, width: box.maxWidth),
-            _arrow(context, back: false, bottom: bottom, width: box.maxWidth),
-          ],
           // Laid over the foot of the card in focus, inside its padding, clear
           // of its content.
           Positioned(
@@ -202,53 +171,6 @@ class _ProfileDeckState extends State<ProfileDeck> {
         onVerticalDragEnd: (d) => sheet.end(d.primaryVelocity ?? 0),
         onVerticalDragCancel: () => sheet.end(0),
         child: deck,
-      ),
-    );
-  }
-}
-
-/// A round button at the side of a row of cards swiped through one at a time
-/// — the profile deck, the home carousel, the Pray tab's switcher — saying
-/// there is another card that way, and going to it. Fades out while there is
-/// none: on the first card, there is nothing [back].
-class DeckArrowButton extends StatelessWidget {
-  const DeckArrowButton({
-    super.key,
-    required this.back,
-    required this.shown,
-    required this.onTap,
-  });
-
-  /// Toward the start (the previous card) rather than the end.
-  final bool back;
-  final bool shown;
-  final VoidCallback onTap;
-
-  static const double size = 32;
-
-  @override
-  Widget build(BuildContext context) {
-    final rtl = Directionality.of(context) == TextDirection.rtl;
-    final icon = back == rtl ? Icons.chevron_right : Icons.chevron_left;
-    return IgnorePointer(
-      ignoring: !shown,
-      child: AnimatedOpacity(
-        opacity: shown ? 1 : 0,
-        duration: const Duration(milliseconds: 200),
-        child: Material(
-          color: AppColors.surface,
-          shape: const CircleBorder(),
-          elevation: 3,
-          shadowColor: Colors.black.withValues(alpha: 0.4),
-          child: InkWell(
-            customBorder: const CircleBorder(),
-            onTap: shown ? onTap : null,
-            child: SizedBox.square(
-              dimension: size,
-              child: Icon(icon, size: 22, color: AppColors.primary),
-            ),
-          ),
-        ),
       ),
     );
   }

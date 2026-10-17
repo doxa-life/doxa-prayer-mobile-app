@@ -6,6 +6,7 @@ import '../components/map/people_group_map_view.dart';
 import '../components/misc/background_image_container.dart';
 import '../components/nav/details_nav_bar.dart';
 import '../components/nav/root_pop_scope.dart';
+import '../components/nav/sheet_page.dart';
 import '../l10n/app_localizations.dart';
 import '../models/people_group.dart';
 import '../services/people_group_locations.dart';
@@ -43,7 +44,7 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
   }
 
   void _openProfile(PeopleGroup group) {
-    context.push('/people-groups/${group.slug}');
+    pushSheet(context, '/people-groups/${group.slug}');
   }
 
   /// Praying is pushed on top of the map rather than replacing it, so backing

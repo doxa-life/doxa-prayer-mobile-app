@@ -766,58 +766,40 @@ class AppLocalizationsDe extends AppLocalizations {
   String get helpMissionTitle => 'Unsere Mission';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'Die Mission von DOXA ist es, bis 2033 jede unberührte Volksgruppe zu erreichen.';
 
   @override
   String get helpFaqTitle => 'Häufige Fragen';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'Wann gilt eine Volksgruppe als „unberührt“?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA stuft eine Volksgruppe als unberührt ein, wenn keine Bemühungen bekannt sind, dort Gemeinden zu gründen, die sich selbst tragen.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'Was braucht eine Volksgruppe, um als „engagiert“ zu gelten?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Damit eine Volksgruppe als „engagiert“ eingestuft wird, braucht sie:\n1. Pionierarbeit vor Ort\n2. Arbeit in der örtlichen Kultur und in ihrer Muttersprache\n3. Langfristige Verpflichtungen\n4. Eine Gemeindegründungsarbeit';
 
   @override
   String get helpGlossaryTitle => 'Glossar';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Volksgruppe';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Eine Gruppe von Menschen mit gemeinsamen Überzeugungen, Werten und gemeinsamer Kultur.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'Volksgruppen';
 
   @override
   String get locationNotAvailable => 'Standort nicht verfügbar';
@@ -937,4 +919,30 @@ class AppLocalizationsDe extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Zurück zu $language';
   }
+
+  @override
+  String get chooseDay => 'Tag auswählen';
+
+  @override
+  String get starPrayer => 'Markieren';
+
+  @override
+  String get prayerStarred => 'Markiert';
+
+  @override
+  String get downloadPrayer => 'Herunterladen';
+
+  @override
+  String get prayerDownloaded => 'Heruntergeladen';
+
+  @override
+  String get prayerSaveFailed =>
+      'Dieses Gebet konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.';
+
+  @override
+  String get savedPrayers => 'Gespeicherte Gebete';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Markiere ein Gebet, bei dem du das Wirken des Heiligen Geistes gespürt hast, oder lade eines herunter, um offline zu beten – es erscheint dann hier.';
 }

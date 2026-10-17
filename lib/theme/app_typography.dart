@@ -22,12 +22,7 @@ class AppFonts {
   /// except in Latin, which never reaches this list. Roboto precedes
   /// NotoSansSC because both carry Cyrillic and Roboto is the text face for it
   /// (`cyrillic: roboto` in the pipeline's language atlas).
-  static const fallback = <String>[
-    poppins,
-    roboto,
-    notoSansArabic,
-    notoSansSC,
-  ];
+  static const fallback = <String>[poppins, roboto, notoSansArabic, notoSansSC];
 }
 
 class AppTypography {

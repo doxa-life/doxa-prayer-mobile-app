@@ -773,58 +773,41 @@ class AppLocalizationsRo extends AppLocalizations {
   String get helpMissionTitle => 'Misiunea noastră';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'Misiunea DOXA este să ajungă la fiecare grup etnolingvistic neangajat misionar până în 2033.';
 
   @override
   String get helpFaqTitle => 'Întrebări frecvente';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'Ce face ca un grup etnolingvistic să fie „neangajat misionar”?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'DOXA consideră un grup etnolingvistic neangajat misionar dacă nu se cunosc eforturi de a întemeia biserici care să se susțină singure.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'De ce are nevoie un grup etnolingvistic pentru a fi „angajat misionar”?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Pentru ca un grup etnolingvistic să fie considerat „angajat misionar”, trebuie să aibă:\n1. O lucrare de pionierat prin lucrători rezidenți\n2. Lucrare în cultura locală și în limba lor maternă\n3. Angajamente pe termen lung\n4. O lucrare de plantare de biserici';
 
   @override
   String get helpGlossaryTitle => 'Glosar';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Grup etnolingvistic';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Un grup de oameni care au în comun un set de credințe, valori și o cultură.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates =>
+      'grupuri etnolingvistice|grupul etnolingvistic|grupului etnolingvistic';
 
   @override
   String get locationNotAvailable => 'Locație indisponibilă';
@@ -944,4 +927,30 @@ class AppLocalizationsRo extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Înapoi la $language';
   }
+
+  @override
+  String get chooseDay => 'Alege o zi';
+
+  @override
+  String get starPrayer => 'Marchează';
+
+  @override
+  String get prayerStarred => 'Marcată';
+
+  @override
+  String get downloadPrayer => 'Descarcă';
+
+  @override
+  String get prayerDownloaded => 'Descărcată';
+
+  @override
+  String get prayerSaveFailed =>
+      'Această rugăciune nu a putut fi salvată. Verifică conexiunea și încearcă din nou.';
+
+  @override
+  String get savedPrayers => 'Rugăciuni salvate';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Marchează o rugăciune în care ai simțit lucrarea Duhului Sfânt sau descarcă una ca să te rogi offline, iar ea va apărea aici.';
 }

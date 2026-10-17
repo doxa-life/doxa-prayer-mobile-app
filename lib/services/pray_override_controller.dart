@@ -33,7 +33,7 @@ void clearPrayOverride() {
 /// it shows their own active group again. Wired once from `main()`.
 void attachPrayOverrideAutoClear() {
   appRouter.routerDelegate.addListener(() {
-    final path = appRouter.routerDelegate.currentConfiguration.uri.path;
-    if (path != '/pray') clearPrayOverride();
+    final uri = appRouter.routerDelegate.currentConfiguration.uri;
+    if (!isPrayTabLocation(uri)) clearPrayOverride();
   });
 }

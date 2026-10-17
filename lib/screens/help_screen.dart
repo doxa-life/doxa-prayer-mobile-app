@@ -10,6 +10,7 @@ import '../components/nav/sheet_page.dart';
 import '../components/misc/titles.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
+import '../services/glossary.dart';
 import '../services/help_content.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_spacing.dart';
@@ -67,7 +68,8 @@ class HelpScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: AppSpacing.lg,
                 children: [
-                  for (final entry in glossary) _GlossaryRow(entry: entry),
+                  for (final term in glossaryOf(context))
+                    _GlossaryRow(term: term),
                 ],
               ),
             ),
@@ -148,20 +150,19 @@ class _FaqTile extends StatelessWidget {
 }
 
 class _GlossaryRow extends StatelessWidget {
-  const _GlossaryRow({required this.entry});
+  const _GlossaryRow({required this.term});
 
-  final GlossaryEntry entry;
+  final GlossaryTerm term;
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     return MergeSemantics(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpacing.xxs,
         children: [
           HyphenatedText(
-            entry.term(l),
+            term.term,
             softWrap: true,
             style: AppTypography.bodyMedium.copyWith(
               fontWeight: FontWeight.w600,
@@ -169,7 +170,7 @@ class _GlossaryRow extends StatelessWidget {
             ),
           ),
           HyphenatedText(
-            entry.definition(l),
+            term.definition,
             softWrap: true,
             style: AppTypography.bodyMedium,
           ),

@@ -727,58 +727,35 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helpMissionTitle => '我们的使命';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody => 'DOXA的使命是：到2033年，接触每一个未接触族群。';
 
   @override
   String get helpFaqTitle => '常见问题';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion => '什么样的族群属于“未接触”族群？';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer => '如果一个族群中没有已知的建立自立教会的努力，DOXA就将其归类为未接触族群。';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion => '一个族群需要具备什么条件才算“已接触”？';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      '一个族群要被归类为“已接触”，必须具备：\n1. 驻地的开拓性努力\n2. 在当地文化中、用他们的母语开展工作\n3. 长期委身\n4. 植堂工作';
 
   @override
   String get helpGlossaryTitle => '术语表';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => '族群';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition => '拥有共同信仰、价值观和文化的一群人。';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => '';
 
   @override
   String get locationNotAvailable => '位置不可用';
@@ -894,4 +871,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return '返回$language';
   }
+
+  @override
+  String get chooseDay => '选择日期';
+
+  @override
+  String get starPrayer => '加星标';
+
+  @override
+  String get prayerStarred => '已加星标';
+
+  @override
+  String get downloadPrayer => '下载';
+
+  @override
+  String get prayerDownloaded => '已下载';
+
+  @override
+  String get prayerSaveFailed => '无法保存此祷告。请检查网络连接后重试。';
+
+  @override
+  String get savedPrayers => '已保存的祷告';
+
+  @override
+  String get savedPrayersEmpty => '为你感受到圣灵动工的祷告加星标，或下载祷告以便离线祷告，它们就会显示在这里。';
 }

@@ -1,0 +1,4 @@
+flutter gen-l10n
+dart run tool/gen_glossary.dart   
+flutter gen-l10n
+dart run tool/gen_glossary.dart   

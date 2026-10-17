@@ -765,58 +765,40 @@ class AppLocalizationsPt extends AppLocalizations {
   String get helpMissionTitle => 'Nossa missão';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'A missão da DOXA é alcançar todos os grupos étnicos não engajados até 2033.';
 
   @override
   String get helpFaqTitle => 'Perguntas frequentes';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'O que faz um grupo étnico ser “não engajado”?';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'A DOXA classifica um grupo étnico como não engajado quando não há esforços conhecidos para estabelecer igrejas autossustentáveis.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'Do que um grupo étnico precisa para ser considerado “engajado”?';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'Para ser classificado como “engajado”, um grupo étnico precisa ter:\n1. Esforço pioneiro residente\n2. Trabalho na cultura local e na sua língua materna\n3. Compromissos de longo prazo\n4. Uma operação de plantação de igrejas';
 
   @override
   String get helpGlossaryTitle => 'Glossário';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'Grupo étnico';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'Um grupo de pessoas com um conjunto comum de crenças, valores e cultura.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates => 'grupos étnicos';
 
   @override
   String get locationNotAvailable => 'Localização não disponível';
@@ -936,4 +918,30 @@ class AppLocalizationsPt extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'Voltar para $language';
   }
+
+  @override
+  String get chooseDay => 'Escolher um dia';
+
+  @override
+  String get starPrayer => 'Marcar';
+
+  @override
+  String get prayerStarred => 'Marcada';
+
+  @override
+  String get downloadPrayer => 'Baixar';
+
+  @override
+  String get prayerDownloaded => 'Baixada';
+
+  @override
+  String get prayerSaveFailed =>
+      'Não foi possível salvar esta oração. Verifique sua conexão e tente novamente.';
+
+  @override
+  String get savedPrayers => 'Orações salvas';
+
+  @override
+  String get savedPrayersEmpty =>
+      'Marque uma oração em que você sentiu o Espírito Santo agir, ou baixe uma para orar offline, e ela aparecerá aqui.';
 }

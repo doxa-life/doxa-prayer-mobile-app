@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart' show VelocityTracker;
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
@@ -26,6 +28,44 @@ class SheetPage<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) => _SheetRoute<T>(page: this);
+}
+
+/// Set from the moment [pushSheet] asks for a sheet until that sheet's route
+/// is in place, covering the frames in between, when no sheet is open yet but
+/// one is on its way. Cleared by a timer too, in case the push never lands.
+bool _sheetPending = false;
+Timer? _pendingTimeout;
+
+/// Whether a sheet is open, or about to be.
+bool get isSheetOpen => _sheetPending || _SheetRoute._open > 0;
+
+/// Opens the sheet at [location] — only one sheet is ever open at once.
+///
+/// Every way into a sheet goes through here rather than `context.push`: a
+/// second tap before the first sheet has slid up (a profile button tapped
+/// over and over, say) would otherwise stack copies of it, each needing its
+/// own dismissal. While a sheet is open or on its way, this does nothing and
+/// resolves to null.
+Future<T?> pushSheet<T extends Object?>(
+  BuildContext context,
+  String location, {
+  Object? extra,
+}) async {
+  if (isSheetOpen) return null;
+  _sheetPending = true;
+  _pendingTimeout?.cancel();
+  _pendingTimeout = Timer(const Duration(seconds: 2), _clearPending);
+  try {
+    return await GoRouter.of(context).push<T>(location, extra: extra);
+  } finally {
+    _clearPending();
+  }
+}
+
+void _clearPending() {
+  _sheetPending = false;
+  _pendingTimeout?.cancel();
+  _pendingTimeout = null;
 }
 
 /// Moves the sheet a page is shown in, for content that is dragged to dismiss
@@ -89,6 +129,41 @@ class _SheetRoute<T> extends PageRoute<T> implements SheetDrag {
   _SheetRoute({required SheetPage<T> page}) : super(settings: page);
 
   SheetPage<T> get _page => settings as SheetPage<T>;
+
+  /// Sheets on the navigator now, for [isSheetOpen]. Counts one opened by a
+  /// deep link as well as one opened by [pushSheet].
+  static int _open = 0;
+
+  /// Whether this sheet is in [_open]. It leaves the count as soon as it is
+  /// popped, not once its closing slide has finished, so the next sheet can be
+  /// opened straight away.
+  bool _counted = false;
+
+  void _uncount() {
+    if (!_counted) return;
+    _counted = false;
+    _open--;
+  }
+
+  @override
+  void install() {
+    super.install();
+    _counted = true;
+    _open++;
+    _clearPending();
+  }
+
+  @override
+  bool didPop(T? result) {
+    _uncount();
+    return super.didPop(result);
+  }
+
+  @override
+  void dispose() {
+    _uncount();
+    super.dispose();
+  }
 
   /// Pulled down past this share of its height, a released sheet closes.
   static const double _dismissShare = 0.3;

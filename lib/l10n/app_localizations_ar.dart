@@ -781,58 +781,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helpMissionTitle => 'رسالتنا';
 
   @override
-  String get helpMissionBody => '[Placeholder: DOXA\'s mission]';
+  String get helpMissionBody =>
+      'رسالة DOXA هي الوصول إلى كل مجموعة شعبية غير مَخْدُومَة بحلول عام 2033.';
 
   @override
   String get helpFaqTitle => 'الأسئلة الشائعة';
 
   @override
-  String get helpFaq1Question => '[Placeholder: question 1]';
+  String get helpFaqUnengagedQuestion =>
+      'ما الذي يجعل مجموعة شعبية «غير مَخْدُومَة»؟';
 
   @override
-  String get helpFaq1Answer => '[Placeholder: answer to question 1]';
+  String get helpFaqUnengagedAnswer =>
+      'تَعُدّ DOXA المجموعة الشعبية غير مَخْدُومَة إذا لم تكن هناك جهود معروفة لتأسيس كنائس محلية أصيلة تُعيل نفسها.';
 
   @override
-  String get helpFaq2Question => '[Placeholder: question 2]';
+  String get helpFaqEngagedQuestion =>
+      'ما الذي تحتاجه مجموعة شعبية لتُعَدّ «مَخْدُومَة»؟';
 
   @override
-  String get helpFaq2Answer => '[Placeholder: answer to question 2]';
-
-  @override
-  String get helpFaq3Question => '[Placeholder: question 3]';
-
-  @override
-  String get helpFaq3Answer => '[Placeholder: answer to question 3]';
+  String get helpFaqEngagedAnswer =>
+      'لكي تُصنَّف مجموعة شعبية على أنها «مَخْدُومَة»، يجب أن يتوفر لها:\n1. جهد ريادي تأسيسي مقيم بين الشعب\n2. عمل ضمن الثقافة المحلية وبلغتهم الأم\n3. التزامات طويلة الأمد\n4. عمل لغرس الكنائس';
 
   @override
   String get helpGlossaryTitle => 'مسرد المصطلحات';
 
   @override
-  String get glossaryTerm1 => '[Placeholder: term 1]';
+  String get glossaryPeopleGroup => 'مجموعة شعبية';
 
   @override
-  String get glossaryTerm1Definition => '[Placeholder: definition of term 1]';
+  String get glossaryPeopleGroupDefinition =>
+      'مجموعة من الناس تجمعهم معتقدات وقيم وثقافة مشتركة.';
 
   @override
-  String get glossaryTerm1Alternates => '';
-
-  @override
-  String get glossaryTerm2 => '[Placeholder: term 2]';
-
-  @override
-  String get glossaryTerm2Definition => '[Placeholder: definition of term 2]';
-
-  @override
-  String get glossaryTerm2Alternates => '';
-
-  @override
-  String get glossaryTerm3 => '[Placeholder: term 3]';
-
-  @override
-  String get glossaryTerm3Definition => '[Placeholder: definition of term 3]';
-
-  @override
-  String get glossaryTerm3Alternates => '';
+  String get glossaryPeopleGroupAlternates =>
+      'مجموعات شعبية|المجموعات الشعبية|المجموعة الشعبية';
 
   @override
   String get locationNotAvailable => 'الموقع غير متاح';
@@ -951,4 +934,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String languageSwitchUndo(String language) {
     return 'العودة إلى $language';
   }
+
+  @override
+  String get chooseDay => 'اختر يومًا';
+
+  @override
+  String get starPrayer => 'تمييز بنجمة';
+
+  @override
+  String get prayerStarred => 'مميّزة بنجمة';
+
+  @override
+  String get downloadPrayer => 'تنزيل';
+
+  @override
+  String get prayerDownloaded => 'تم التنزيل';
+
+  @override
+  String get prayerSaveFailed =>
+      'تعذّر حفظ هذه الصلاة. تحقق من اتصالك وحاول مرة أخرى.';
+
+  @override
+  String get savedPrayers => 'الصلوات المحفوظة';
+
+  @override
+  String get savedPrayersEmpty =>
+      'ميّز بنجمة صلاةً شعرت فيها بعمل الروح القدس، أو نزّل صلاة لتصلّيها دون اتصال، وستظهر هنا.';
 }

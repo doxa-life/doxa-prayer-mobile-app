@@ -12,6 +12,7 @@ import '../../l10n/app_localizations.dart';
 import '../../layouts/page_scaffold.dart';
 import '../../models/prayer_content.dart';
 import '../../router.dart';
+import '../../services/cache_warmup.dart';
 import '../../services/crash_reporting_service.dart';
 import '../../services/identity_service.dart';
 import '../../services/prayer_content_service.dart';
@@ -21,9 +22,13 @@ import '../../services/thank_you_verse_service.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
+import '../misc/app_icon.dart';
 import '../misc/cached_data_builder.dart';
+import '../misc/directional_switcher.dart';
 import 'praying_now_banner.dart';
 import 'prayer_content_skeleton.dart';
+import '../nav/sheet_page.dart';
+import 'prayer_calendar_sheet.dart';
 import 'prayer_content_view.dart';
 import 'prayer_thank_you_modal.dart';
 import '../misc/hyphenated_text.dart';
@@ -52,12 +57,19 @@ class PrayerSessionView extends StatefulWidget {
     required this.language,
     required this.isActive,
     this.initialDate,
+    this.inPrayTab = false,
   });
 
   final String slug;
   final String language;
   final bool Function() isActive;
   final DateTime? initialDate;
+
+  /// Whether this is the Pray tab's view rather than a standalone prayer
+  /// screen. The calendar sheet it opens says so in its location, so the tab
+  /// knows the user is still on it — choosing a day — and keeps its session
+  /// and any deep-link override.
+  final bool inPrayTab;
 
   @override
   State<PrayerSessionView> createState() => _PrayerSessionViewState();
@@ -66,6 +78,10 @@ class PrayerSessionView extends StatefulWidget {
 class _PrayerSessionViewState extends State<PrayerSessionView>
     with WidgetsBindingObserver {
   late DateTime _date;
+
+  /// Which way the last change of day went: +1 later, -1 earlier. The day's
+  /// prayer slides in from that side.
+  int _dayDirection = 0;
   DateTime? _campaignStartDate;
   DateTime? _openedAt;
   String? _sessionId;
@@ -84,6 +100,31 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     if (widget.isActive()) {
       _startSession();
     }
+    _prefetchNeighbouringDays();
+  }
+
+  /// Once the day on show has loaded, the days either side of it — where the
+  /// arrows go next — so stepping to one is a slide, not a skeleton. After the
+  /// day on show, not alongside it, so they never slow it down.
+  void _prefetchNeighbouringDays() {
+    final date = _date;
+    _load().then((_) {
+      if (!mounted || date != _date) return;
+      if (_canGoPrevious) {
+        prefetchPrayer(
+          slug: widget.slug,
+          date: date.subtract(const Duration(days: 1)),
+          language: widget.language,
+        );
+      }
+      if (_canGoNext) {
+        prefetchPrayer(
+          slug: widget.slug,
+          date: date.add(const Duration(days: 1)),
+          language: widget.language,
+        );
+      }
+    }, onError: (_) {});
   }
 
   @override
@@ -256,6 +297,7 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   /// [CachedDataBuilder] keying on the date, so stepping back to a day already
   /// read shows it immediately, with no skeleton.
   void _showCurrentDate() {
+    _prefetchNeighbouringDays();
     setState(() {
       if (_sessionActive) {
         // Stepping to another day is a new prayer session, not a continuation —
@@ -280,13 +322,40 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
 
   void _goToPreviousDay() {
     if (!_canGoPrevious) return;
+    _dayDirection = -1;
     _date = _date.subtract(const Duration(days: 1));
     _showCurrentDate();
   }
 
   void _goToNextDay() {
     if (!_canGoNext) return;
+    _dayDirection = 1;
     _date = _date.add(const Duration(days: 1));
+    _showCurrentDate();
+  }
+
+  /// How far back the calendar reaches when the campaign's start isn't known
+  /// yet (no day has loaded): far enough for any real campaign, and the
+  /// server answers a day before its start with "no content".
+  static const Duration _calendarFallbackReach = Duration(days: 365 * 2);
+
+  /// Picks the day from a calendar, in a sheet over the prayer, rather than
+  /// stepping one day at a time.
+  Future<void> _openCalendar() async {
+    final today = _dateOnly(DateTime.now());
+    final picked = await pushSheet<DateTime>(
+      context,
+      widget.inPrayTab ? '/calendar?from=pray' : '/calendar',
+      extra: PrayerCalendarArgs(
+        selected: _date,
+        firstDay: _campaignStartDate ?? today.subtract(_calendarFallbackReach),
+        lastDay: today,
+      ),
+    );
+    if (!mounted || picked == null) return;
+    if (_dateOnly(picked) == _dateOnly(_date)) return;
+    _dayDirection = _dateOnly(picked).isAfter(_dateOnly(_date)) ? 1 : -1;
+    _date = picked;
     _showCurrentDate();
   }
 
@@ -375,6 +444,11 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final cacheKey = prayerContentCacheKey(
+      slug: widget.slug,
+      date: _date,
+      language: widget.language,
+    );
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -385,94 +459,100 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
             canGoNext: _canGoNext,
             onPrevious: _goToPreviousDay,
             onNext: _goToNextDay,
+            onPickDate: _openCalendar,
           ),
           Expanded(
-            child: CachedDataBuilder<PrayerContentResponse>(
-              cacheKey: prayerContentCacheKey(
-                slug: widget.slug,
-                date: _date,
-                language: widget.language,
-              ),
-              fetch: _load,
-              loading: (context) => const PrayerContentSkeleton(),
-              error: (context, retry) => PageContainer(
-                child: _ErrorView(
-                  message: l10n.couldNotLoadPrayerContent,
-                  onRetry: retry,
+            // A change of day slides the new day's prayer in over the old
+            // one; a day not loaded yet fades in from its skeleton.
+            child: DirectionalSwitcher(
+              direction: _dayDirection,
+              child: CachedDataBuilder<PrayerContentResponse>(
+                key: ValueKey(cacheKey),
+                cacheKey: cacheKey,
+                fadeDuration: const Duration(milliseconds: 220),
+                fetch: _load,
+                loading: (context) => const PrayerContentSkeleton(),
+                error: (context, retry) => PageContainer(
+                  child: _ErrorView(
+                    message: l10n.couldNotLoadPrayerContent,
+                    onRetry: retry,
+                  ),
                 ),
-              ),
-              builder: (context, data) {
-                _captureStartDate(data.globalStartDate);
-                if (!data.hasContent || data.content.isEmpty) {
-                  return PageContainer(
-                    child: Center(
-                      child: HyphenatedText(
-                        l10n.noPrayerContentAvailable,
-                        textAlign: TextAlign.center,
-                        style: AppTypography.bodyMedium,
-                      ),
-                    ),
-                  );
-                }
-                // Everything below the Amen is information only. It is rendered
-                // on a full-bleed `mutedSurface` band so the change of zone is
-                // unmistakable and the Amen clearly reads as the end of the
-                // prayer action rather than another block in the flow.
-                final infoBlocks = <Widget>[
-                  if (data.metadata.copyrightNotices.isNotEmpty)
-                    _CopyrightNotices(notices: data.metadata.copyrightNotices),
-                ];
-                // A ListView here collapsed the entire prayer body into a
-                // single merged semantics node (TalkBack read the whole page at
-                // once, only stopping on headings); a SingleChildScrollView +
-                // Column keeps every block as its own accessibility stop. The
-                // Column must stretch so the full-bleed colour bands still fill
-                // the width the way ListView children did.
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Action zone: an explicit white surface so the prayer
-                      // content reads as a distinct zone against both the app's
-                      // patterned background and the muted info band below. The
-                      // scaffold is transparent over that pattern, so without this
-                      // the prayer section and the band have too little contrast.
-                      ColoredBox(
-                        color: AppColors.surface,
-                        child: PageContainer(
-                          verticalPadding: AppSpacing.xs,
-                          bottomPadding: AppSpacing.xxxl,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const PrayingNowBanner(),
-                              PrayerContentView(response: data),
-                              const SizedBox(height: AppSpacing.xxl),
-                              ActionButton(
-                                label: l10n.amen,
-                                onPressed: _submitting ? null : _onAmen,
-                                color: ActionButtonColor.secondary,
-                              ),
-                            ],
-                          ),
+                builder: (context, data) {
+                  _captureStartDate(data.globalStartDate);
+                  if (!data.hasContent || data.content.isEmpty) {
+                    return PageContainer(
+                      child: Center(
+                        child: HyphenatedText(
+                          l10n.noPrayerContentAvailable,
+                          textAlign: TextAlign.center,
+                          style: AppTypography.bodyMedium,
                         ),
                       ),
-                      if (infoBlocks.isNotEmpty)
+                    );
+                  }
+                  // Everything below the Amen is information only. It is rendered
+                  // on a full-bleed `mutedSurface` band so the change of zone is
+                  // unmistakable and the Amen clearly reads as the end of the
+                  // prayer action rather than another block in the flow.
+                  final infoBlocks = <Widget>[
+                    if (data.metadata.copyrightNotices.isNotEmpty)
+                      _CopyrightNotices(
+                        notices: data.metadata.copyrightNotices,
+                      ),
+                  ];
+                  // A ListView here collapsed the entire prayer body into a
+                  // single merged semantics node (TalkBack read the whole page at
+                  // once, only stopping on headings); a SingleChildScrollView +
+                  // Column keeps every block as its own accessibility stop. The
+                  // Column must stretch so the full-bleed colour bands still fill
+                  // the width the way ListView children did.
+                  return SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Action zone: an explicit white surface so the prayer
+                        // content reads as a distinct zone against both the app's
+                        // patterned background and the muted info band below. The
+                        // scaffold is transparent over that pattern, so without this
+                        // the prayer section and the band have too little contrast.
                         ColoredBox(
-                          color: AppColors.mutedSurface,
+                          color: AppColors.surface,
                           child: PageContainer(
-                            verticalPadding: AppSpacing.xxxl,
+                            verticalPadding: AppSpacing.xs,
+                            bottomPadding: AppSpacing.xxxl,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              spacing: AppSpacing.xxl,
-                              children: infoBlocks,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const PrayingNowBanner(),
+                                PrayerContentView(response: data),
+                                const SizedBox(height: AppSpacing.xxl),
+                                ActionButton(
+                                  label: l10n.amen,
+                                  onPressed: _submitting ? null : _onAmen,
+                                  color: ActionButtonColor.secondary,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                    ],
-                  ),
-                );
-              },
+                        if (infoBlocks.isNotEmpty)
+                          ColoredBox(
+                            color: AppColors.mutedSurface,
+                            child: PageContainer(
+                              verticalPadding: AppSpacing.xxxl,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                spacing: AppSpacing.xxl,
+                                children: infoBlocks,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -495,6 +575,7 @@ class _DateNavigator extends StatelessWidget {
     required this.canGoNext,
     required this.onPrevious,
     required this.onNext,
+    required this.onPickDate,
   });
 
   final DateTime date;
@@ -502,6 +583,9 @@ class _DateNavigator extends StatelessWidget {
   final bool canGoNext;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
+
+  /// Opens the calendar, from a tap on the date itself.
+  final VoidCallback onPickDate;
 
   @override
   Widget build(BuildContext context) {
@@ -535,11 +619,40 @@ class _DateNavigator extends StatelessWidget {
               onPressed: canGoPrevious ? onPrevious : null,
             ),
             Expanded(
-              child: HyphenatedText(
-                label,
-                textAlign: TextAlign.center,
-                style: AppTypography.titleMedium.copyWith(
-                  fontWeight: FontWeight.w600,
+              child: Tooltip(
+                message: l10n.chooseDay,
+                child: Semantics(
+                  button: true,
+                  hint: l10n.chooseDay,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(8),
+                    onTap: onPickDate,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: AppSpacing.xs,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: AppSpacing.sm,
+                        children: [
+                          const AppIcon(
+                            AppIconName.calendar,
+                            size: 18,
+                            color: AppColors.primary,
+                          ),
+                          Flexible(
+                            child: HyphenatedText(
+                              label,
+                              textAlign: TextAlign.center,
+                              style: AppTypography.titleMedium.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

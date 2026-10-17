@@ -9,7 +9,6 @@ import '../../services/subscribed_people_groups_controller.dart';
 import '../../layouts/design_scale.dart';
 import '../../theme/app_spacing.dart';
 import 'add_people_group_card.dart';
-import 'profile_deck.dart' show DeckArrowButton, ProfileDeckDots;
 import 'people_group_card.dart';
 
 /// The people groups the user prays for, as a menu with one card always in
@@ -274,121 +273,79 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
             // "show the button and let the map screen fetch".
             return ValueListenableBuilder<Set<String>?>(
               valueListenable: peopleGroupSlugsWithLocation,
-              builder: (context, locatedSlugs, _) => _withCues(
-                sidePadding: sidePadding,
-                gap: gap,
-                scroller: NotificationListener<ScrollEndNotification>(
-                  onNotification: _onScrollEnd,
-                  child: SingleChildScrollView(
-                    controller: _controller,
-                    scrollDirection: Axis.horizontal,
-                    physics: _CardSnapPhysics(itemExtent: _itemExtent),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: sidePadding,
-                      vertical: _gutter * scale,
-                    ),
-                    // A Row (rather than a horizontal ListView) keeps the
-                    // carousel's height intrinsic, so a card that grows at a
-                    // large font scale is not clipped by a height guessed
-                    // here. IntrinsicHeight is what makes `stretch` legal:
-                    // the home screen leaves our height unbounded, and
-                    // stretching against that forces an infinite height. It
-                    // measures the tallest card and gives every card that
-                    // height, so the cards line up without one being guessed.
-                    child: IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        spacing: gap,
-                        children: [
-                          for (final (i, group) in widget.groups.indexed)
-                            SizedBox(
-                              width: cardWidth,
-                              child: _focusable(
-                                i,
-                                scale,
-                                PeopleGroupCard(
-                                  name: group.name,
-                                  imageUrl: group.imageUrl ?? '',
-                                  prayedToday: prayedSlugs.contains(group.slug),
-                                  onPray: () => widget.onPray(group),
-                                  onDetails: () => widget.onDetails(group),
-                                  onShare: () => widget.onShare(group),
-                                  showMap: true,
-                                  // A build with no Mapbox token keeps the
-                                  // button and says why tapping it can't
-                                  // open the map, rather than the button
-                                  // silently vanishing.
-                                  onMap: !MapConfig.isConfigured
-                                      ? () => _showMapNotConfigured(context)
-                                      : canMapPeopleGroup(
-                                          group.slug,
-                                          locatedSlugs,
-                                        )
-                                      ? () => widget.onMap(group)
-                                      : null,
+              // No arrows or dots: the neighbouring cards peeking in at the
+              // sides are the only cue that there is more to swipe to.
+              builder: (context, locatedSlugs, _) =>
+                  NotificationListener<ScrollEndNotification>(
+                    onNotification: _onScrollEnd,
+                    child: SingleChildScrollView(
+                      controller: _controller,
+                      scrollDirection: Axis.horizontal,
+                      physics: _CardSnapPhysics(itemExtent: _itemExtent),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: sidePadding,
+                        vertical: _gutter * scale,
+                      ),
+                      // A Row (rather than a horizontal ListView) keeps the
+                      // carousel's height intrinsic, so a card that grows at a
+                      // large font scale is not clipped by a height guessed
+                      // here. IntrinsicHeight is what makes `stretch` legal:
+                      // the home screen leaves our height unbounded, and
+                      // stretching against that forces an infinite height. It
+                      // measures the tallest card and gives every card that
+                      // height, so the cards line up without one being guessed.
+                      child: IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          spacing: gap,
+                          children: [
+                            for (final (i, group) in widget.groups.indexed)
+                              SizedBox(
+                                width: cardWidth,
+                                child: _focusable(
+                                  i,
+                                  scale,
+                                  PeopleGroupCard(
+                                    name: group.name,
+                                    imageUrl: group.imageUrl ?? '',
+                                    prayedToday: prayedSlugs.contains(
+                                      group.slug,
+                                    ),
+                                    onPray: () => widget.onPray(group),
+                                    onDetails: () => widget.onDetails(group),
+                                    onShare: () => widget.onShare(group),
+                                    showMap: true,
+                                    // A build with no Mapbox token keeps the
+                                    // button and says why tapping it can't
+                                    // open the map, rather than the button
+                                    // silently vanishing.
+                                    onMap: !MapConfig.isConfigured
+                                        ? () => _showMapNotConfigured(context)
+                                        : canMapPeopleGroup(
+                                            group.slug,
+                                            locatedSlugs,
+                                          )
+                                        ? () => widget.onMap(group)
+                                        : null,
+                                  ),
                                 ),
                               ),
-                            ),
-                          if (widget.groups.length < kMaxPeopleGroups)
-                            SizedBox(
-                              width: cardWidth,
-                              child: _focusable(
-                                widget.groups.length,
-                                scale,
-                                AddPeopleGroupCard(onTap: widget.onAdd),
+                            if (widget.groups.length < kMaxPeopleGroups)
+                              SizedBox(
+                                width: cardWidth,
+                                child: _focusable(
+                                  widget.groups.length,
+                                  scale,
+                                  AddPeopleGroupCard(onTap: widget.onAdd),
+                                ),
                               ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
             );
           },
-        );
-      },
-    );
-  }
-
-  /// [scroller] with what says there are more cards than the one in focus:
-  /// a round arrow over the gap on each side that has another card, and a
-  /// dot per card under the row — as on a people group's profile.
-  Widget _withCues({
-    required Widget scroller,
-    required double sidePadding,
-    required double gap,
-  }) {
-    final count = _cardCount;
-    if (count < 2) return scroller;
-    final inset = sidePadding - gap / 2 - DeckArrowButton.size / 2;
-    return ValueListenableBuilder<int>(
-      valueListenable: _focused,
-      child: scroller,
-      builder: (context, focused, scroller) {
-        Widget arrow({required bool back}) {
-          final target = back ? focused - 1 : focused + 1;
-          return PositionedDirectional(
-            start: back ? inset : null,
-            end: back ? null : inset,
-            top: 0,
-            bottom: 0,
-            child: Center(
-              child: DeckArrowButton(
-                back: back,
-                shown: target >= 0 && target < count,
-                onTap: () => _focusOn(target),
-              ),
-            ),
-          );
-        }
-
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(children: [scroller!, arrow(back: true), arrow(back: false)]),
-            ProfileDeckDots(count: count, current: focused, onTap: _focusOn),
-          ],
         );
       },
     );

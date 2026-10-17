@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hyphenatorx/hyphenatorx.dart';
 
+import '../../services/glossary.dart';
 import '../../services/hyphenation_service.dart';
+import '../help/glossary_text.dart';
 
 /// A drop-in [Text] replacement that breaks over-long words with a visible
 /// hyphen instead of mid-character.
@@ -17,6 +19,12 @@ import '../../services/hyphenation_service.dart';
 /// Falls back to a plain [Text], unchanged, whenever hyphenation cannot apply:
 /// a language with no patterns (Arabic, and anything unmapped), patterns still
 /// loading, unbounded width, or text whose every word already fits.
+///
+/// One of the app's sentences that mentions a glossary term is handed to
+/// [GlossaryText] instead, so the term can be tapped for its definition —
+/// which strings those are was settled when the app was built (see
+/// `services/glossary.dart`), so this costs one map lookup. [glossary] false
+/// opts out.
 class HyphenatedText extends StatelessWidget {
   const HyphenatedText(
     this.data, {
@@ -27,6 +35,7 @@ class HyphenatedText extends StatelessWidget {
     this.overflow,
     this.softWrap,
     this.semanticsLabel,
+    this.glossary = true,
   });
 
   final String data;
@@ -40,8 +49,24 @@ class HyphenatedText extends StatelessWidget {
   /// always get the unbroken words rather than the hyphenated line breaks.
   final String? semanticsLabel;
 
+  /// Whether glossary terms in [data] link to their definitions.
+  final bool glossary;
+
   @override
   Widget build(BuildContext context) {
+    if (glossary &&
+        semanticsLabel == null &&
+        Localizations.maybeLocaleOf(context) != null &&
+        glossarySpansOf(context, data) != null) {
+      return GlossaryText(
+        data,
+        style: style,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        overflow: overflow,
+        softWrap: softWrap,
+      );
+    }
     final locale = Localizations.maybeLocaleOf(context);
     final hyphenator = locale == null ? null : hyphenatorFor(locale);
     if (hyphenator == null || data.isEmpty) return _text(data);
