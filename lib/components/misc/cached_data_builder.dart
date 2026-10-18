@@ -25,6 +25,7 @@ class CachedDataBuilder<T> extends StatefulWidget {
     required this.loading,
     required this.error,
     this.fadeDuration,
+    this.keepPreviousWhileLoading = false,
   });
 
   /// Identifies the cached value; must be the key the [fetch] caches under.
@@ -50,6 +51,13 @@ class CachedDataBuilder<T> extends StatefulWidget {
   /// paints in the first frame as ever — there is no skeleton to fade from.
   final Duration? fadeDuration;
 
+  /// When the [cacheKey] changes to something not cached yet, keep showing the
+  /// previous value until the new one arrives, instead of the skeleton. The
+  /// Pray screen sets it: a change of group or day then swaps one prayer for
+  /// the next in place — text changing, nothing blinking out. A failure for
+  /// the new key still shows [error] rather than leaving the old value up.
+  final bool keepPreviousWhileLoading;
+
   @override
   State<CachedDataBuilder<T>> createState() => _CachedDataBuilderState<T>();
 }
@@ -57,6 +65,10 @@ class CachedDataBuilder<T> extends StatefulWidget {
 class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
   T? _data;
   Object? _error;
+
+  /// Whether [_data] is the previous key's, kept on screen while the current
+  /// key loads (see [CachedDataBuilder.keepPreviousWhileLoading]).
+  bool _stale = false;
 
   @override
   void initState() {
@@ -83,7 +95,9 @@ class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
     addCacheListener(widget.cacheKey, _onRevalidated);
     // The synchronous peek: whatever it finds is on screen in this same frame,
     // so no skeleton is ever built for cached data.
-    _data = peekCached<T>(widget.cacheKey);
+    final peeked = peekCached<T>(widget.cacheKey);
+    _stale = peeked == null && widget.keepPreviousWhileLoading && _data != null;
+    if (!_stale) _data = peeked;
     _error = null;
     _load(forceRefresh: false);
   }
@@ -95,9 +109,15 @@ class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
         .then((value) {
           // Guards against a late response for a key we've since moved off.
           if (!mounted || key != widget.cacheKey) return;
+          // The fetch nearly always answers with the very value the peek
+          // already painted (the memory cache hands back the same object).
+          // Rebuilding for it redrew the whole screen — 2,000 search results,
+          // a whole prayer — for nothing, every time a tab or sheet opened.
+          if (identical(value, _data) && _error == null) return;
           setState(() {
             _data = value;
             _error = null;
+            _stale = false;
           });
         })
         .catchError((Object error) {
@@ -105,8 +125,12 @@ class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
           // `getJsonCached` already falls back to an expired cache entry, so
           // reaching here means there was nothing cached at all. Keeping any
           // value we do hold beats replacing it with an error.
-          if (_data != null) return;
-          setState(() => _error = error);
+          if (_data != null && !_stale) return;
+          setState(() {
+            _error = error;
+            _data = null;
+            _stale = false;
+          });
         });
   }
 
@@ -147,8 +171,12 @@ class _CachedDataBuilderState<T> extends State<CachedDataBuilder<T>> {
     if (fade == null) return child;
     return AnimatedSwitcher(
       duration: fade,
-      layoutBuilder: (current, previous) =>
-          Stack(fit: StackFit.expand, children: [...previous, ?current]),
+      // Sized to the content, from the top: it may sit in a scroll view,
+      // where there is no height to fill.
+      layoutBuilder: (current, previous) => Stack(
+        alignment: Alignment.topCenter,
+        children: [...previous, ?current],
+      ),
       child: KeyedSubtree(key: ValueKey(state), child: child),
     );
   }

@@ -16,6 +16,8 @@ import '../../components/inputs/search_field.dart';
 import '../../components/misc/collapsible.dart';
 import '../../components/misc/entrance_fade_slide.dart';
 import '../../components/nav/sheet_page.dart';
+import '../../components/nav/swipeable_branch_container.dart'
+    show tabSwipeLocked;
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
 import '../../models/prayer_content.dart';
@@ -136,7 +138,28 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   }
 
   void _closeFilters() {
-    if (_filtersExpanded) setState(() => _filtersExpanded = false);
+    if (_filtersExpanded) _setFiltersExpanded(false);
+  }
+
+  /// Leaving the tab — by the nav bar, a reminder, back — closes the menu, so
+  /// the tab lock it holds never outlives it being in view. An out-of-view tab
+  /// has its tickers turned off, which is what this listens for.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!TickerMode.valuesOf(context).enabled && _filtersExpanded) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _closeFilters();
+      });
+    }
+  }
+
+  /// Opens or closes the filter menu. While it is open the tabs don't swipe,
+  /// so a sideways drag on the menu (the population slider, say) can't carry
+  /// the user off to another tab.
+  void _setFiltersExpanded(bool expanded) {
+    setState(() => _filtersExpanded = expanded);
+    if (!_isWizardMode) tabSwipeLocked.value = expanded;
   }
 
   /// The wizard passes [onSelectionConfirmed]; the standalone list doesn't.
@@ -152,6 +175,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
 
   @override
   void dispose() {
+    if (_filtersExpanded && !_isWizardMode) tabSwipeLocked.value = false;
     _searchController.dispose();
     super.dispose();
   }
@@ -186,9 +210,29 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   /// Pala" (the "al" inside "Pala"), which reads as a broken result.
   static bool _matchesQuery(String name, String query) {
     if (query.isEmpty) return true;
-    final words = name.toLowerCase().split(_wordSplitter);
-    return words.any((w) => w.startsWith(query));
+    return _nameWordsOf(name).any((w) => w.startsWith(query));
   }
+
+  /// Each name's lower-cased words, split once and kept with the name: the
+  /// search runs over ~2,100 names on every keystroke, and splitting each
+  /// with a regular expression every time was most of its cost.
+  static final Map<String, List<String>> _nameWords = {};
+  static List<String> _nameWordsOf(String name) => _nameWords.putIfAbsent(
+    name,
+    () => name.toLowerCase().split(_wordSplitter),
+  );
+
+  /// Each name lower-cased, once, for the A–Z sort.
+  static final Map<String, String> _lowerNames = {};
+  static String _lowerOf(String name) =>
+      _lowerNames.putIfAbsent(name, name.toLowerCase);
+
+  /// The last filter's inputs and result. The list is rebuilt for many
+  /// reasons that leave the results as they were — the People Group of the
+  /// Day landing, the menu opening, a group added — and filtering and sorting
+  /// ~2,100 groups again for each was the stutter on those frames.
+  Object? _filteredFor;
+  List<PeopleGroup> _filtered = const [];
 
   /// The filter values the search box matches, as if they'd been picked in
   /// that filter. [textsByValue] maps each filter value to the texts it's
@@ -314,6 +358,28 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   }
 
   List<PeopleGroup> _filter(List<PeopleGroup> groups, AppLocalizations l) {
+    // Lists, sets and the localizations compare by identity here, which is
+    // right: each filter change assigns a new set, and the group list is the
+    // same object until it is refetched.
+    final inputs = (
+      groups,
+      l,
+      _query,
+      _languageFilters,
+      _religionFilters,
+      _statusFilter,
+      _countryFilters,
+      _populationRange,
+      _prioritizeFewest,
+      _sortAscending,
+    );
+    if (inputs == _filteredFor) return _filtered;
+    _filtered = _runFilter(groups, l);
+    _filteredFor = inputs;
+    return _filtered;
+  }
+
+  List<PeopleGroup> _runFilter(List<PeopleGroup> groups, AppLocalizations l) {
     final q = _query.trim().toLowerCase();
     final religionMatches = _religionsMatching(groups, q);
     final countryMatches = _countriesMatching(groups, q);
@@ -366,7 +432,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
         final need = a.peopleCommitted.compareTo(b.peopleCommitted);
         if (need != 0) return need;
       }
-      final cmp = a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      final cmp = _lowerOf(a.name).compareTo(_lowerOf(b.name));
       return _sortAscending ? cmp : -cmp;
     });
     return filtered;
@@ -512,7 +578,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           tooltip: l.filters,
           onPressed: () {
             FocusScope.of(context).unfocus();
-            setState(() => _filtersExpanded = !_filtersExpanded);
+            _setFiltersExpanded(!_filtersExpanded);
           },
         ),
       ],
@@ -945,10 +1011,15 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     final key = '$slug-$language-${now.year}-${now.month}-${now.day}';
     if (key != _ofTheDayKey) {
       _ofTheDayKey = key;
-      _ofTheDay = null;
+      // The last group of the day stays pinned while the new one is read,
+      // rather than dropping out and jumping back in: switching groups on the
+      // home screen lands here on every swipe, and it is usually the same
+      // group of the day anyway.
       fetchPeopleGroupOfTheDay(slug: slug, language: language).then(
         (day) {
-          if (mounted && _ofTheDayKey == key) setState(() => _ofTheDay = day);
+          if (!mounted || _ofTheDayKey != key) return;
+          if (_sameDay(day, _ofTheDay)) return;
+          setState(() => _ofTheDay = day);
         },
         // Without it the list simply shows no pinned group.
         onError: (Object _) {},
@@ -956,6 +1027,9 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     }
     return _ofTheDay;
   }
+
+  static bool _sameDay(PeopleGroupBlockData? a, PeopleGroupBlockData? b) =>
+      a?.name == b?.name && a?.country == b?.country;
 
   Widget _buildResults(BuildContext context, List<PeopleGroup> results) {
     final l = AppLocalizations.of(context)!;
@@ -1183,9 +1257,8 @@ class _PopIn extends StatelessWidget {
   }
 }
 
-/// The line under the filter menu that sets it apart from the list. It grows
-/// out from the middle as the menu opens and shrinks away as it closes, and
-/// takes no room while the menu is shut.
+/// The room at the foot of the filter menu, grown and shrunk with it. No rule
+/// is drawn: the menu's own shadow already marks where it ends.
 class _MenuEdge extends StatelessWidget {
   const _MenuEdge({required this.visible});
 
@@ -1193,24 +1266,13 @@ class _MenuEdge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.outlineVariant;
     return TweenAnimationBuilder<double>(
       tween: Tween(end: visible ? 1 : 0),
       duration: MediaQuery.disableAnimationsOf(context)
           ? Duration.zero
           : Collapsible.duration,
       curve: Curves.easeInOutCubic,
-      builder: (context, t, _) => Padding(
-        padding: EdgeInsets.only(bottom: AppSpacing.lg * t),
-        child: t == 0
-            ? const SizedBox.shrink()
-            : Center(
-                child: FractionallySizedBox(
-                  widthFactor: t,
-                  child: Container(height: 1, color: color),
-                ),
-              ),
-      ),
+      builder: (context, t, _) => SizedBox(height: AppSpacing.lg * t),
     );
   }
 }

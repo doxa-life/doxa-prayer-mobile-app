@@ -104,7 +104,7 @@ class WizardStepWelcome extends StatelessWidget {
                   // first-time user can't reach until the wizard is done.
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 320),
-                    child: const LanguageSwitcher(confirm: false),
+                    child: const LanguageSwitcher(),
                   ),
                   SizedBox(height: AppSpacing.xxxs),
                 ],

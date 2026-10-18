@@ -28,21 +28,29 @@ class PeopleGroupCarousel extends StatefulWidget {
     super.key,
     required this.groups,
     required this.activeSlug,
-    required this.onPray,
-    required this.onDetails,
-    required this.onShare,
-    required this.onMap,
-    required this.onAdd,
+    this.onPray,
+    this.onDetails,
+    this.onShare,
+    this.onMap,
+    this.onAdd,
     this.onFocus,
   });
 
   final List<SubscribedPeopleGroup> groups;
   final String? activeSlug;
-  final ValueChanged<SubscribedPeopleGroup> onPray;
-  final ValueChanged<SubscribedPeopleGroup> onDetails;
-  final ValueChanged<SubscribedPeopleGroup> onShare;
-  final ValueChanged<SubscribedPeopleGroup> onMap;
-  final VoidCallback onAdd;
+
+  /// The card's buttons. Each left null drops its button; with all of them
+  /// null — as on the Pray tab, where the cards only choose the group — each
+  /// card is the group's name and photo alone.
+  final ValueChanged<SubscribedPeopleGroup>? onPray;
+  final ValueChanged<SubscribedPeopleGroup>? onDetails;
+  final ValueChanged<SubscribedPeopleGroup>? onShare;
+  final ValueChanged<SubscribedPeopleGroup>? onMap;
+
+  /// The "add another" card at the end; none when null.
+  final VoidCallback? onAdd;
+
+  bool get _hasAddCard => onAdd != null && groups.length < kMaxPeopleGroups;
 
   /// Called when the user settles on a group other than the active one — the
   /// home screen makes it the active group.
@@ -98,8 +106,7 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
   /// cards it passes don't tick a haptic the user did nothing to cause.
   bool _aligning = false;
 
-  int get _cardCount =>
-      widget.groups.length + (widget.groups.length < kMaxPeopleGroups ? 1 : 0);
+  int get _cardCount => widget.groups.length + (widget._hasAddCard ? 1 : 0);
 
   @override
   void initState() {
@@ -185,6 +192,11 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
     }
     return false;
   }
+
+  static VoidCallback? _bind(
+    ValueChanged<SubscribedPeopleGroup>? action,
+    SubscribedPeopleGroup group,
+  ) => action == null ? null : () => action(group);
 
   void _showMapNotConfigured(BuildContext context) {
     ScaffoldMessenger.of(context)
@@ -311,10 +323,10 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
                                     prayedToday: prayedSlugs.contains(
                                       group.slug,
                                     ),
-                                    onPray: () => widget.onPray(group),
-                                    onDetails: () => widget.onDetails(group),
-                                    onShare: () => widget.onShare(group),
-                                    showMap: true,
+                                    onPray: _bind(widget.onPray, group),
+                                    onDetails: _bind(widget.onDetails, group),
+                                    onShare: _bind(widget.onShare, group),
+                                    showMap: widget.onMap != null,
                                     // A build with no Mapbox token keeps the
                                     // button and says why tapping it can't
                                     // open the map, rather than the button
@@ -325,18 +337,18 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
                                             group.slug,
                                             locatedSlugs,
                                           )
-                                        ? () => widget.onMap(group)
+                                        ? _bind(widget.onMap, group)
                                         : null,
                                   ),
                                 ),
                               ),
-                            if (widget.groups.length < kMaxPeopleGroups)
+                            if (widget._hasAddCard)
                               SizedBox(
                                 width: cardWidth,
                                 child: _focusable(
                                   widget.groups.length,
                                   scale,
-                                  AddPeopleGroupCard(onTap: widget.onAdd),
+                                  AddPeopleGroupCard(onTap: widget.onAdd!),
                                 ),
                               ),
                           ],

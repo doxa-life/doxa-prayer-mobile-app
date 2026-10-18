@@ -9,13 +9,14 @@ import 'cache_policy.dart';
 import 'people_group_locations.dart';
 import 'people_group_names.dart';
 import 'response_cache.dart';
+import 'subscribed_people_groups_controller.dart';
 
 // `latitude,longitude` are here for the people-group map, not the browse
 // list: the map draws every group as a pin and reads them straight off this
 // cached list, so no second request is needed. They add roughly 60 KB to an
 // ~850 KB response.
 const _listFields =
-    'name,slug,image_url,country_code,religion,primary_language,population,'
+    'name,slug,image_url,compressed_image_url,country_code,religion,primary_language,population,'
     'engagement_status,region,people_praying,people_committed,'
     'latitude,longitude,imb_total_resources_available,'
     'imb_bible_available,imb_jesus_film_available,'
@@ -28,7 +29,7 @@ const _listFields =
 /// the map's `latitude,longitude` were added: existing installs kept serving a
 /// coordinate-less list for the rest of its 7-day TTL, and the map button never
 /// appeared. Old files are swept by `maxResponseAge`.
-const String _listFieldsRevision = 'v5';
+const String _listFieldsRevision = 'v6';
 
 /// Cache keys are exposed so a screen can peek the in-memory cache before its
 /// first frame (see `CachedDataBuilder`); they must match what the fetch below
@@ -54,6 +55,7 @@ Future<List<PeopleGroup>> _parseList(String lang, String body) async {
   // the coordinates the home cards and the map read.
   publishPeopleGroupLocations(groups);
   publishPeopleGroupNames(lang, [for (final g in groups) (g.slug, g.name)]);
+  refreshSubscribedPhotos([for (final g in groups) (g.slug, g.imageUrl)]);
   return groups;
 }
 
@@ -63,6 +65,7 @@ PeopleGroupDetail _parseDetail(String lang, String body) {
     jsonDecode(body) as Map<String, dynamic>,
   );
   publishPeopleGroupNames(lang, [(detail.slug, detail.name)]);
+  refreshSubscribedPhotos([(detail.slug, detail.imageUrl)]);
   return detail;
 }
 

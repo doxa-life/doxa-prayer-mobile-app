@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart' show compute;
+import 'package:flutter/painting.dart' show PaintingBinding;
 
 import 'package:path_provider/path_provider.dart';
 
@@ -67,6 +68,30 @@ Future<void> clearAllCaches() async {
     AppImageCacheManager.clear(),
     MapTileCacheManager.clear(),
   ]);
+  // The photo and map caches only delete the files their own index lists. A
+  // file it lost track of — a download cut off, or one refused as short —
+  // stayed on disk, still counted in Settings, and the button seemed to do
+  // nothing. Each folder belongs to its cache alone, and its index is empty
+  // now, so whatever is left in it goes too.
+  try {
+    _temp ??= await getTemporaryDirectory();
+  } catch (_) {
+    return; // No platform directories (tests).
+  }
+  for (final key in [AppImageCacheManager.key, MapTileCacheManager.key]) {
+    final folder = Directory('${_temp!.path}${Platform.pathSeparator}$key');
+    try {
+      if (!await folder.exists()) continue;
+      await for (final entity in folder.list(followLinks: false)) {
+        await entity.delete(recursive: true);
+      }
+    } catch (_) {
+      // A file in use or already gone: the rest is still cleared.
+    }
+  }
+  // Decoded photos held in memory, so screens opened next read them afresh
+  // rather than from what was just cleared.
+  PaintingBinding.instance.imageCache.clear();
 }
 
 Future<List<int>> _sizesOf(List<String?> paths) => Future.wait([

@@ -15,39 +15,35 @@ class PrayerContentSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      // The real content is unscrollable until it arrives; keeping the same
-      // scroll view here means the transition doesn't rebuild the viewport.
-      physics: const NeverScrollableScrollPhysics(),
-      child: ColoredBox(
-        color: AppColors.surface,
-        child: PageContainer(
-          bottomPadding: AppSpacing.xxxl,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: AppSpacing.xxl,
-            children: [
-              // People-group intro: centred title over a square portrait.
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: AppSpacing.lg,
-                children: const [
-                  FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: SkeletonLine(height: 20),
-                  ),
-                  SkeletonBox(width: 169, height: 169, radius: 16),
-                ],
-              ),
-              // Prayer blocks.
-              const SkeletonParagraph(lines: 4),
-              const SkeletonParagraph(lines: 3, lastLineWidthFactor: 0.45),
-              // Amen button.
-              const Center(
-                child: SkeletonBox(width: 160, height: 36, radius: 28),
-              ),
-            ],
-          ),
+    // Sits in the Pray screen's scroll, as the real content does.
+    return ColoredBox(
+      color: AppColors.surface,
+      child: PageContainer(
+        bottomPadding: AppSpacing.xxxl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: AppSpacing.xxl,
+          children: [
+            // People-group intro: centred title over a square portrait.
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: AppSpacing.lg,
+              children: const [
+                FractionallySizedBox(
+                  widthFactor: 0.8,
+                  child: SkeletonLine(height: 20),
+                ),
+                SkeletonBox(width: 169, height: 169, radius: 16),
+              ],
+            ),
+            // Prayer blocks.
+            const SkeletonParagraph(lines: 4),
+            const SkeletonParagraph(lines: 3, lastLineWidthFactor: 0.45),
+            // Amen button.
+            const Center(
+              child: SkeletonBox(width: 160, height: 36, radius: 28),
+            ),
+          ],
         ),
       ),
     );

@@ -135,7 +135,9 @@ class PeopleGroup {
     return PeopleGroup(
       name: json['name'] as String,
       slug: json['slug'] as String,
-      imageUrl: json['image_url'] as String?,
+      // The server's compressed copy (≤1024 px JPEG), with the original as
+      // the fallback: older or cached responses don't carry the copy.
+      imageUrl: (json['compressed_image_url'] ?? json['image_url']) as String?,
       countryCode: country is Map<String, dynamic>
           ? country['value'] as String?
           : null,

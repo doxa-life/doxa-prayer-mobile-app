@@ -62,6 +62,13 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
     return RootPopScope(
       child: FutureBuilder<List<PeopleGroup>>(
         future: _groups,
+        // Nearly always loaded already (the home cards and the Search tab
+        // read the same list), so the map is drawn in the first frame rather
+        // than after a frame of spinner — which rebuilt the whole map in the
+        // middle of the page sliding in.
+        initialData: peopleGroupLocationsController.value.isEmpty
+            ? null
+            : peopleGroupLocationsController.value,
         builder: (context, snapshot) {
           final slug = widget.slug;
           final focus = slug == null
@@ -93,7 +100,8 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
     PeopleGroup? focus,
   ) {
     final l = AppLocalizations.of(context)!;
-    if (snapshot.connectionState == ConnectionState.waiting) {
+    if (snapshot.connectionState == ConnectionState.waiting &&
+        !snapshot.hasData) {
       return const Center(child: CircularProgressIndicator());
     }
     // A group that isn't in the list, or a list that failed to load, are the

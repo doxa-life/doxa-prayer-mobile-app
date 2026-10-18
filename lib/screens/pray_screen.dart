@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/buttons/action_button.dart';
-import '../components/misc/directional_switcher.dart';
 import '../components/misc/hyphenated_text.dart';
-import '../components/prayer_content/pray_group_switcher.dart';
+import '../components/cards/people_group_carousel.dart';
 import '../components/prayer_content/prayer_session_view.dart';
 import '../l10n/app_localizations.dart';
 import '../layouts/page_scaffold.dart';
@@ -39,10 +38,6 @@ class _PrayScreenState extends State<PrayScreen> {
   /// after they have.
   String? _shownSlug;
   Timer? _settle;
-
-  /// Which way the last switch of group went through the user's list: +1 to a
-  /// later group, -1 to an earlier one. The prayer slides in from that side.
-  int _direction = 0;
 
   @override
   void initState() {
@@ -84,13 +79,7 @@ class _PrayScreenState extends State<PrayScreen> {
 
   void _show(String? slug) {
     if (!mounted || slug == _shownSlug) return;
-    final list = peopleGroupsController.value.list;
-    final from = list.indexWhere((g) => g.slug == _shownSlug);
-    final to = list.indexWhere((g) => g.slug == slug);
-    setState(() {
-      _direction = from < 0 || to < 0 ? 0 : (to - from).sign;
-      _shownSlug = slug;
-    });
+    setState(() => _shownSlug = slug);
   }
 
   /// Today's prayer for [slug] and for the groups either side of it in the
@@ -130,15 +119,24 @@ class _PrayScreenState extends State<PrayScreen> {
             if (slug == null) {
               return const PageContainer(child: _NoSubscriptionsView());
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Hidden while a deep link is in charge: the switcher moves
-                // between the user's own groups, and the group on screen is
-                // not one of them.
-                if (override == null) _buildSelector(slug),
-                Expanded(child: _buildContent(slug, override)),
-              ],
+            // The cards say which group the prayer is for — with one group as
+            // with several. None while a deep link is in charge: they show the
+            // user's own groups, and the group on screen is not one of them
+            // (its prayer then carries its own introduction).
+            final cards = override == null ? _buildCards(groups) : null;
+            return ValueListenableBuilder<Locale>(
+              valueListenable: localeController,
+              builder: (context, locale, _) => PrayerSessionView(
+                // Kept for every group: a change of group hands the view the
+                // new slug, and only the prayer under the cards fades.
+                key: ValueKey('pray-${locale.languageCode}'),
+                slug: slug,
+                language: locale.languageCode,
+                initialDate: override?.date,
+                isActive: _isOnPrayRoute,
+                inPrayTab: true,
+                header: cards,
+              ),
             );
           },
         );
@@ -146,35 +144,21 @@ class _PrayScreenState extends State<PrayScreen> {
     );
   }
 
-  /// The switcher between the user's groups, above the prayer — swiped like
-  /// the home screen's carousel.
-  Widget _buildSelector(String slug) => const PageContainer(
-    verticalPadding: 0,
-    horizontalPadding: 0,
-    child: Padding(
-      padding: EdgeInsets.only(top: AppSpacing.sm),
-      child: PrayGroupSwitcher(),
-    ),
-  );
-
-  Widget _buildContent(String slug, PrayOverride? override) {
-    return ValueListenableBuilder<Locale>(
-      valueListenable: localeController,
-      builder: (context, locale, _) {
-        // A change of group slides the new prayer in over the old one,
-        // which stays painted until it has gone.
-        return DirectionalSwitcher(
-          direction: override == null ? _direction : 0,
-          child: PrayerSessionView(
-            key: ValueKey('$slug-${locale.languageCode}'),
-            slug: slug,
-            language: locale.languageCode,
-            initialDate: override?.date,
-            isActive: _isOnPrayRoute,
-            inPrayTab: true,
-          ),
-        );
-      },
+  /// The user's groups as the home screen shows them — a card each, name and
+  /// photo, swiped through one at a time — under the date and above the
+  /// prayer. Settling on a card makes its group the active one, and the
+  /// prayer below changes to it.
+  Widget _buildCards(SubscribedPeopleGroups groups) {
+    return PageContainer(
+      verticalPadding: AppSpacing.sm,
+      child: PeopleGroupCarousel(
+        // Rebuilt from scratch when the set of groups changes, so it lines up
+        // on the active group again.
+        key: ValueKey(groups.list.map((g) => g.slug).join(',')),
+        groups: groups.list,
+        activeSlug: groups.active?.slug,
+        onFocus: (g) => setActivePeopleGroup(g.slug),
+      ),
     );
   }
 

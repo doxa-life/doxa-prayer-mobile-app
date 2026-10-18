@@ -295,6 +295,26 @@ class _Hero extends StatelessWidget {
   }) {
     final scaler = MediaQuery.textScalerOf(context);
     final direction = Directionality.of(context);
+    // Up to three full text layouts per answer, asked again on every rebuild
+    // and every page of the deck that brings the card back: worth keeping.
+    final key = (text, width, maxHeight, scaler, direction);
+    final known = _fitted[key];
+    if (known != null) return known;
+    final style = _measureFit(text, width, maxHeight, scaler, direction);
+    if (_fitted.length >= 64) _fitted.remove(_fitted.keys.first);
+    _fitted[key] = style;
+    return style;
+  }
+
+  static final Map<Object, TextStyle> _fitted = {};
+
+  static TextStyle _measureFit(
+    String text,
+    double width,
+    double maxHeight,
+    TextScaler scaler,
+    TextDirection direction,
+  ) {
     for (final size in descriptionSizes) {
       final style = descriptionStyle.copyWith(fontSize: size);
       final painter = TextPainter(

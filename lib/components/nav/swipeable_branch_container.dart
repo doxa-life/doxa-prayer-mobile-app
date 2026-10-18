@@ -3,6 +3,11 @@ import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
+/// True while something on a tab needs sideways drags to itself and the tabs
+/// must not swipe — the Search tab's filter menu, while it is open. Taps on
+/// the nav bar still change tab.
+final ValueNotifier<bool> tabSwipeLocked = ValueNotifier<bool>(false);
+
 /// The bottom-nav tabs laid side by side, paged like a [PageView], so a
 /// horizontal swipe slides to the neighbouring tab and a tap on the nav bar
 /// slides over to the one tapped.
@@ -113,35 +118,40 @@ class _SwipeableBranchContainerState extends State<SwipeableBranchContainer> {
         }
         return false;
       },
-      child: Scrollable(
-        axisDirection: axisDirection,
-        controller: _controller,
-        physics: const _TabSwipePhysics(),
-        scrollBehavior: ScrollConfiguration.of(
-          context,
-        ).copyWith(scrollbars: false),
-        viewportBuilder: (context, position) => Viewport(
+      child: ValueListenableBuilder<bool>(
+        valueListenable: tabSwipeLocked,
+        builder: (context, locked, _) => Scrollable(
           axisDirection: axisDirection,
-          offset: position,
-          scrollCacheExtent: ScrollCacheExtent.viewport(
-            widget.children.length.toDouble(),
-          ),
-          clipBehavior: Clip.hardEdge,
-          slivers: [
-            SliverFillViewport(
-              delegate: SliverChildListDelegate([
-                for (final (i, child) in widget.children.indexed)
-                  // Tabs out of view stay alive but stop animating, as they
-                  // did in go_router's own container: without this a loading
-                  // skeleton on a tab nobody is looking at pulses forever,
-                  // costing frames on every other tab.
-                  TickerMode(
-                    enabled: i == current || i == _animatingTo,
-                    child: _KeepAlive(child: child),
-                  ),
-              ]),
+          controller: _controller,
+          physics: locked
+              ? const NeverScrollableScrollPhysics()
+              : const _TabSwipePhysics(),
+          scrollBehavior: ScrollConfiguration.of(
+            context,
+          ).copyWith(scrollbars: false),
+          viewportBuilder: (context, position) => Viewport(
+            axisDirection: axisDirection,
+            offset: position,
+            scrollCacheExtent: ScrollCacheExtent.viewport(
+              widget.children.length.toDouble(),
             ),
-          ],
+            clipBehavior: Clip.hardEdge,
+            slivers: [
+              SliverFillViewport(
+                delegate: SliverChildListDelegate([
+                  for (final (i, child) in widget.children.indexed)
+                    // Tabs out of view stay alive but stop animating, as they
+                    // did in go_router's own container: without this a loading
+                    // skeleton on a tab nobody is looking at pulses forever,
+                    // costing frames on every other tab.
+                    TickerMode(
+                      enabled: i == current || i == _animatingTo,
+                      child: _KeepAlive(child: child),
+                    ),
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );

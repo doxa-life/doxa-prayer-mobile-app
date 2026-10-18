@@ -96,7 +96,7 @@ class PrayerContentPeopleGroup {
       id: (json['id'] as num?)?.toInt() ?? 0,
       slug: json['slug'] as String? ?? '',
       title: json['title'] as String? ?? '',
-      imageUrl: json['image_url'] as String?,
+      imageUrl: (json['compressed_image_url'] ?? json['image_url']) as String?,
       defaultLanguage: json['default_language'] as String?,
     );
   }
@@ -184,7 +184,7 @@ class PeopleGroupBlockData {
     return PeopleGroupBlockData(
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      imageUrl: json['image_url'] as String?,
+      imageUrl: (json['compressed_image_url'] ?? json['image_url']) as String?,
       population: (json['population'] as num?)?.toInt(),
       language: json['language'] as String?,
       religion: json['religion'] as String?,

@@ -239,6 +239,41 @@ Future<void> setPeopleGroupSubscriptionId(
   );
 }
 
+/// Brings the photos saved with the user's own groups up to date with
+/// [photos] (slug, url) — what the latest fetch says each group's photo is.
+///
+/// A subscription keeps the photo URL it was added with, so without this a
+/// group added before the server served compressed photos would load its
+/// full-size original on the home card for good. Writes only when a URL
+/// actually changed, so the decodes that call it on every launch cost nothing.
+Future<void> refreshSubscribedPhotos(
+  Iterable<(String slug, String? url)> photos,
+) async {
+  final current = peopleGroupsController.value;
+  if (current.isEmpty) return;
+  final bySlug = {
+    for (final (slug, url) in photos)
+      if (url != null && url.isNotEmpty && current.contains(slug)) slug: url,
+  };
+  if (!current.list.any(
+    (g) => bySlug[g.slug] != null && bySlug[g.slug] != g.imageUrl,
+  )) {
+    return;
+  }
+  await _persist(
+    SubscribedPeopleGroups(
+      list: [
+        for (final g in current.list)
+          if (bySlug[g.slug] case final url? when url != g.imageUrl)
+            g.copyWith(imageUrl: url)
+          else
+            g,
+      ],
+      activeSlug: current.activeSlug,
+    ),
+  );
+}
+
 /// Wipes every subscription. Only the debug screen's reset uses this — the
 /// user-facing path is [removePeopleGroup] one group at a time.
 Future<void> clearPeopleGroups() async {

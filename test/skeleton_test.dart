@@ -52,7 +52,10 @@ void main() {
   // sizes, where a fixed-height placeholder is the easiest thing to overflow.
   for (final entry in <String, Widget>{
     'PeopleGroupsListSkeleton': const PeopleGroupsListSkeleton(),
-    'PrayerContentSkeleton': const PrayerContentSkeleton(),
+    // Shown inside the Pray screen's scroll view, so tested inside one.
+    'PrayerContentSkeleton': const SingleChildScrollView(
+      child: PrayerContentSkeleton(),
+    ),
     'PeopleGroupDetailsSkeleton': const PeopleGroupDetailsSkeleton(),
   }.entries) {
     testWidgets('${entry.key} lays out without overflow at 3x', (tester) async {

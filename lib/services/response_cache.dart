@@ -206,12 +206,25 @@ final Map<String, _MemoryEntry> _memory = <String, _MemoryEntry>{};
 /// disk on demand.
 const int _memoryCapacity = 24;
 
+/// Never pushed out of memory: the people-group list. It is ~850 KB to read
+/// and decode again, and the Search tab, the map and the wizard all paint from
+/// it — whereas the many small prayer days and detail pages the app reads
+/// ahead (neighbouring groups, neighbouring days) are cheap to reload. Without
+/// this, reading ahead could evict the list, and the next look at Search
+/// stalled on a disk read and a decode.
+const List<String> _pinnedPrefixes = ['pg-list-'];
+
+bool _isPinned(String key) => _pinnedPrefixes.any(key.startsWith);
+
 void _remember(String cacheKey, Object value, DateTime cachedAt) {
   // Re-inserted so it counts as most-recently-used.
   _memory.remove(cacheKey);
   _memory[cacheKey] = _MemoryEntry(value, cachedAt);
   while (_memory.length > _memoryCapacity) {
-    final oldest = _memory.keys.first;
+    final oldest = _memory.keys.firstWhere(
+      (k) => !_isPinned(k),
+      orElse: () => _memory.keys.first,
+    );
     _memory.remove(oldest);
     LoadLog.record(
       LoadAction.discarded,

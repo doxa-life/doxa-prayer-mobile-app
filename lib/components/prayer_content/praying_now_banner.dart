@@ -28,26 +28,39 @@ class PrayingNowBanner extends StatelessWidget {
     return ValueListenableBuilder<int?>(
       valueListenable: prayingNowController,
       builder: (context, count, _) {
-        if (count == null || count < 1) return const SizedBox.shrink();
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.people_outline,
-              size: AppTypography.sm,
-              color: AppColors.primaryLight,
-            ),
-            const SizedBox(width: AppSpacing.xxs),
-            Flexible(
-              child: Text(
-                l10n.prayingWithYou(count),
-                style: AppTypography.caption.copyWith(
-                  color: AppColors.primaryLight,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        final shown = count != null && count >= 1;
+        // Eases in and out, and between counts, rather than appearing out of
+        // nowhere and pushing the prayer down a line when the count arrives.
+        return AnimatedSize(
+          duration: const Duration(milliseconds: 260),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.topCenter,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 260),
+            child: !shown
+                ? const SizedBox(key: ValueKey('none'), width: double.infinity)
+                : Row(
+                    key: ValueKey(count),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.people_outline,
+                        size: AppTypography.sm,
+                        color: AppColors.primaryLight,
+                      ),
+                      const SizedBox(width: AppSpacing.xxs),
+                      Flexible(
+                        child: Text(
+                          l10n.prayingWithYou(count),
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.primaryLight,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
         );
       },
     );

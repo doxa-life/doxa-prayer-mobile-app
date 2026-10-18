@@ -20,6 +20,17 @@ class AccountSettingsSection extends StatefulWidget {
 }
 
 class AccountSettingsSectionState extends State<AccountSettingsSection> {
+  /// The last email list fetched, per profile id, for this session. Settings
+  /// shows it straight away and refreshes behind it, instead of a spinner —
+  /// and the section jumping in height — every time it opens.
+  static final Map<String, List<SignedUpEmail>> _lastEmails = {};
+
+  Future<List<SignedUpEmail>> _fetch(String profileId) =>
+      fetchProfileEmails(profileId).then((emails) {
+        _lastEmails[profileId] = emails;
+        return emails;
+      });
+
   String? _profileId;
   Future<List<SignedUpEmail>>? _emailsFuture;
 
@@ -43,7 +54,7 @@ class AccountSettingsSectionState extends State<AccountSettingsSection> {
     final profileId = identityController.value?.profileId;
     setState(() {
       _profileId = profileId;
-      _emailsFuture = profileId == null ? null : fetchProfileEmails(profileId);
+      _emailsFuture = profileId == null ? null : _fetch(profileId);
     });
   }
 
@@ -52,7 +63,7 @@ class AccountSettingsSectionState extends State<AccountSettingsSection> {
   void refresh() {
     final profileId = _profileId;
     if (profileId == null) return;
-    setState(() => _emailsFuture = fetchProfileEmails(profileId));
+    setState(() => _emailsFuture = _fetch(profileId));
   }
 
   Future<void> _openProfile(String profileId) async {
@@ -78,6 +89,21 @@ class AccountSettingsSectionState extends State<AccountSettingsSection> {
         FutureBuilder<List<SignedUpEmail>>(
           future: _emailsFuture,
           builder: (context, snapshot) {
+            // What was fetched last, while the refresh runs or if it fails.
+            final emails = snapshot.data ?? _lastEmails[profileId];
+            if (emails != null) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final email in emails)
+                    SignedUpEmailTile(
+                      key: ValueKey(email.id),
+                      profileId: profileId,
+                      email: email,
+                    ),
+                ],
+              );
+            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
@@ -96,18 +122,7 @@ class AccountSettingsSectionState extends State<AccountSettingsSection> {
                 child: HyphenatedText(l.emailsLoadError),
               );
             }
-            final emails = snapshot.data ?? const [];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final email in emails)
-                  SignedUpEmailTile(
-                    key: ValueKey(email.id),
-                    profileId: profileId,
-                    email: email,
-                  ),
-              ],
-            );
+            return const SizedBox.shrink();
           },
         ),
         ListTile(

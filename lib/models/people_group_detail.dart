@@ -18,7 +18,10 @@ class PeopleGroupDetail {
 
   String get name => raw['name'] as String? ?? '';
   String get slug => raw['slug'] as String? ?? '';
-  String? get imageUrl => raw['image_url'] as String?;
+
+  /// The server's compressed copy, falling back to the original.
+  String? get imageUrl =>
+      (raw['compressed_image_url'] ?? raw['image_url']) as String?;
 
   List<PictureCreditSegment> get pictureCredit {
     final value = raw['picture_credit'];

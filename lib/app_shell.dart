@@ -59,8 +59,9 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      // Re-check the version gate when returning to the foreground.
-      checkForAppUpdate();
+      // Re-check the version gate when returning to the foreground — at most
+      // once an hour; a cold start always checks.
+      checkForAppUpdate(minGap: const Duration(hours: 1));
       // Count the foreground resume as an app-open (cold start is tracked in main()).
       trackAppOpen();
       // Re-check notification permission — the user may have just toggled it in

@@ -49,12 +49,23 @@ Future<int?> fetchPrayingNow() async {
 /// session lifecycle (see `_startSession`), not by mounting.
 final ValueNotifier<int?> prayingNowController = ValueNotifier<int?>(null);
 
+const Duration _prayingNowRefreshGap = Duration(minutes: 2);
+DateTime? _lastPrayingNowRefresh;
+
 /// Refetches the count and publishes it to [prayingNowController].
 ///
 /// A failed fetch leaves the previous value in place rather than clearing it:
 /// the banner hides on null, and blinking out on one dropped request reads worse
 /// than briefly showing the last known figure.
+///
+/// At most once every [_prayingNowRefreshGap]: every return to the Pray tab
+/// starts a session and asks, and the server only recounts every ~5 minutes,
+/// so asking more often than this fetched the same number again.
 Future<void> refreshPrayingNow() async {
+  final now = DateTime.now();
+  final last = _lastPrayingNowRefresh;
+  if (last != null && now.difference(last) < _prayingNowRefreshGap) return;
+  _lastPrayingNowRefresh = now;
   final count = await fetchPrayingNow();
   if (count == null) return;
   prayingNowController.value = count;

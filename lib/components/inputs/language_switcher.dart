@@ -4,17 +4,14 @@ import '../../l10n/app_localizations.dart';
 import '../../services/locale_controller.dart';
 import '../../theme/app_spacing.dart';
 import '../misc/country_flag.dart';
-import '../misc/language_switch_modal.dart';
 import 'select_field.dart';
 import '../misc/hyphenated_text.dart';
 
 class LanguageSwitcher extends StatelessWidget {
-  const LanguageSwitcher({super.key, this.confirm = true});
-
-  /// Whether a switch asks to be kept, and switches back if it isn't. Off on
-  /// the welcome screen, where the selector stays in view — in each language's
-  /// own script — so a wrong pick is undone by picking again.
-  final bool confirm;
+  /// Switches straight away, with no "keep this language?" check: the
+  /// selector stays where it was, each language named in its own script, so
+  /// a wrong pick is undone by picking again.
+  const LanguageSwitcher({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +38,7 @@ class LanguageSwitcher extends StatelessWidget {
               .toList(growable: false),
           onChanged: (selected) {
             if (selected == null) return;
-            if (confirm) {
-              switchLanguageWithConfirmation(context, selected);
-            } else {
-              setLocale(selected);
-            }
+            setLocale(selected);
           },
         );
       },

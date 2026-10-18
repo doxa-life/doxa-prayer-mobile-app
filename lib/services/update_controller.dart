@@ -19,6 +19,9 @@ const _snoozeUntilKey = 'update_snooze_until';
 /// from re-showing the banner the instant the user dismisses Play's dialog.
 const _snoozeDuration = Duration(hours: 6);
 
+/// When the version gate was last asked, this session.
+DateTime? _lastUpdateCheck;
+
 enum UpdateState {
   /// No update needed (or check failed — fail open).
   none,
@@ -47,7 +50,15 @@ final ValueNotifier<UpdateStatus> updateController =
 /// Fetches the server version gate, compares it against the running build and
 /// updates [updateController]. Network/parse failures fail open (UpdateState.none)
 /// so a backend hiccup never blocks the app.
-Future<void> checkForAppUpdate() async {
+///
+/// [minGap] skips the check when the last one was more recent than that: the
+/// app re-checks on every return to the foreground, and someone switching
+/// apps a dozen times an hour doesn't need a dozen version requests.
+Future<void> checkForAppUpdate({Duration? minGap}) async {
+  final now = DateTime.now();
+  final last = _lastUpdateCheck;
+  if (minGap != null && last != null && now.difference(last) < minGap) return;
+  _lastUpdateCheck = now;
   try {
     final info = await fetchAppVersionInfo();
     final packageInfo = await PackageInfo.fromPlatform();

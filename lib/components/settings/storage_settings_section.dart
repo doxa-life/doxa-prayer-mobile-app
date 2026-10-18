@@ -19,7 +19,11 @@ class StorageSettingsSection extends StatefulWidget {
 }
 
 class _StorageSettingsSectionState extends State<StorageSettingsSection> {
-  StorageUsage? _usage;
+  /// The last measurement this session, shown as Settings opens while a fresh
+  /// one runs, so the sizes don't flash "…" on every visit.
+  static StorageUsage? _last;
+
+  StorageUsage? _usage = _last;
   bool _clearing = false;
 
   @override
@@ -30,6 +34,7 @@ class _StorageSettingsSectionState extends State<StorageSettingsSection> {
 
   Future<void> _measure() async {
     final usage = await measureStorage();
+    _last = usage;
     if (mounted) setState(() => _usage = usage);
   }
 

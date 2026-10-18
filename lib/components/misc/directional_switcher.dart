@@ -21,6 +21,7 @@ class DirectionalSwitcher extends StatelessWidget {
     required this.child,
     this.direction = 0,
     this.duration = const Duration(milliseconds: 300),
+    this.fill = true,
   });
 
   final Widget child;
@@ -29,6 +30,11 @@ class DirectionalSwitcher extends StatelessWidget {
   final int direction;
 
   final Duration duration;
+
+  /// Whether the children fill the space given (a page of their own), or
+  /// size to their content, top-aligned — for use inside a scroll view, where
+  /// there is no height to fill.
+  final bool fill;
 
   /// How far the incoming child slides, as a share of its width: enough to
   /// give the switch a direction, little enough to read as a fade.
@@ -61,7 +67,8 @@ class DirectionalSwitcher extends StatelessWidget {
     return AnimatedSwitcher(
       duration: duration,
       layoutBuilder: (current, previous) => Stack(
-        fit: StackFit.expand,
+        fit: fill ? StackFit.expand : StackFit.loose,
+        alignment: Alignment.topCenter,
         children: [if (previous.isNotEmpty) previous.last, ?current],
       ),
       transitionBuilder: (child, animation) {
