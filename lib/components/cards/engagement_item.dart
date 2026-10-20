@@ -5,7 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../misc/check_icon.dart';
 import '../misc/close_icon.dart';
-import '../help/glossary_text.dart';
+import '../misc/glossary_text.dart';
 import '../misc/icon_circle.dart';
 
 enum EngagementStatus { yes, no, partial }

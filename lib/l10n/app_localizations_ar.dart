@@ -63,7 +63,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'وجود عاملين عبر الثقافات';
 
   @override
-  String get unselect => 'إلغاء الاختيار';
+  String get deselect => 'إلغاء الاختيار';
 
   @override
   String get workInLocalLanguageAndCulture => 'العمل باللغة والثقافة المحلية';
@@ -100,6 +100,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'الأشخاص الذين التزموا بالصلاة';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'ملتزمون بالصلاة من أجل «$name»';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -178,9 +183,9 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count أشخاص يصلون',
-      one: 'شخص واحد يصلي',
-      zero: 'لا أحد يصلي بعد',
+      other: '$count صلّوا مؤخرًا',
+      one: 'صلّى شخص واحد مؤخرًا',
+      zero: 'لم يصلِّ أحد مؤخرًا',
     );
     return '$_temp0';
   }
@@ -754,9 +759,6 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'المجموعات الشعبية القريبة';
-
-  @override
   String get recenter => 'إعادة التوسيط';
 
   @override
@@ -772,39 +774,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get viewMap => 'عرض الخريطة';
 
   @override
+  String get viewOnMap => 'عرض على الخريطة';
+
+  @override
   String get moreInfo => 'مزيد من المعلومات';
-
-  @override
-  String get help => 'مساعدة';
-
-  @override
-  String get helpMissionTitle => 'رسالتنا';
-
-  @override
-  String get helpMissionBody =>
-      'رسالة DOXA هي الوصول إلى كل مجموعة شعبية غير مَخْدُومَة بحلول عام 2033.';
-
-  @override
-  String get helpFaqTitle => 'الأسئلة الشائعة';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'ما الذي يجعل مجموعة شعبية «غير مَخْدُومَة»؟';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'تَعُدّ DOXA المجموعة الشعبية غير مَخْدُومَة إذا لم تكن هناك جهود معروفة لتأسيس كنائس محلية أصيلة تُعيل نفسها.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'ما الذي تحتاجه مجموعة شعبية لتُعَدّ «مَخْدُومَة»؟';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'لكي تُصنَّف مجموعة شعبية على أنها «مَخْدُومَة»، يجب أن يتوفر لها:\n1. جهد ريادي تأسيسي مقيم بين الشعب\n2. عمل ضمن الثقافة المحلية وبلغتهم الأم\n3. التزامات طويلة الأمد\n4. عمل لغرس الكنائس';
-
-  @override
-  String get helpGlossaryTitle => 'مسرد المصطلحات';
 
   @override
   String get glossaryPeopleGroup => 'مجموعة شعبية';

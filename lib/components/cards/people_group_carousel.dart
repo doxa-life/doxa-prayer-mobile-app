@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../l10n/app_localizations.dart';
-import '../../services/map_config.dart';
-import '../../services/people_group_locations.dart';
 import '../../services/prayer_history_service.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../layouts/design_scale.dart';
@@ -31,7 +28,6 @@ class PeopleGroupCarousel extends StatefulWidget {
     this.onPray,
     this.onDetails,
     this.onShare,
-    this.onMap,
     this.onAdd,
     this.onFocus,
   });
@@ -45,7 +41,6 @@ class PeopleGroupCarousel extends StatefulWidget {
   final ValueChanged<SubscribedPeopleGroup>? onPray;
   final ValueChanged<SubscribedPeopleGroup>? onDetails;
   final ValueChanged<SubscribedPeopleGroup>? onShare;
-  final ValueChanged<SubscribedPeopleGroup>? onMap;
 
   /// The "add another" card at the end; none when null.
   final VoidCallback? onAdd;
@@ -198,14 +193,6 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
     SubscribedPeopleGroup group,
   ) => action == null ? null : () => action(group);
 
-  void _showMapNotConfigured(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.mapNotConfigured)),
-      );
-  }
-
   /// Draws card [index] by how far it is from the centre: full size in focus,
   /// smaller and fainter as it moves away. A card out of focus takes a tap as
   /// "bring me into focus" rather than passing it to its buttons.
@@ -280,82 +267,60 @@ class _PeopleGroupCarouselState extends State<PeopleGroupCarousel> {
         return ValueListenableBuilder<Set<String>>(
           valueListenable: prayedTodayController,
           builder: (context, prayedSlugs, _) {
-            // Which groups are known to have coordinates — null while the UUPG
-            // list hasn't been read yet, which canMapPeopleGroup treats as
-            // "show the button and let the map screen fetch".
-            return ValueListenableBuilder<Set<String>?>(
-              valueListenable: peopleGroupSlugsWithLocation,
-              // No arrows or dots: the neighbouring cards peeking in at the
-              // sides are the only cue that there is more to swipe to.
-              builder: (context, locatedSlugs, _) =>
-                  NotificationListener<ScrollEndNotification>(
-                    onNotification: _onScrollEnd,
-                    child: SingleChildScrollView(
-                      controller: _controller,
-                      scrollDirection: Axis.horizontal,
-                      physics: _CardSnapPhysics(itemExtent: _itemExtent),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: sidePadding,
-                        vertical: _gutter * scale,
-                      ),
-                      // A Row (rather than a horizontal ListView) keeps the
-                      // carousel's height intrinsic, so a card that grows at a
-                      // large font scale is not clipped by a height guessed
-                      // here. IntrinsicHeight is what makes `stretch` legal:
-                      // the home screen leaves our height unbounded, and
-                      // stretching against that forces an infinite height. It
-                      // measures the tallest card and gives every card that
-                      // height, so the cards line up without one being guessed.
-                      child: IntrinsicHeight(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          spacing: gap,
-                          children: [
-                            for (final (i, group) in widget.groups.indexed)
-                              SizedBox(
-                                width: cardWidth,
-                                child: _focusable(
-                                  i,
-                                  scale,
-                                  PeopleGroupCard(
-                                    name: group.name,
-                                    imageUrl: group.imageUrl ?? '',
-                                    prayedToday: prayedSlugs.contains(
-                                      group.slug,
-                                    ),
-                                    onPray: _bind(widget.onPray, group),
-                                    onDetails: _bind(widget.onDetails, group),
-                                    onShare: _bind(widget.onShare, group),
-                                    showMap: widget.onMap != null,
-                                    // A build with no Mapbox token keeps the
-                                    // button and says why tapping it can't
-                                    // open the map, rather than the button
-                                    // silently vanishing.
-                                    onMap: !MapConfig.isConfigured
-                                        ? () => _showMapNotConfigured(context)
-                                        : canMapPeopleGroup(
-                                            group.slug,
-                                            locatedSlugs,
-                                          )
-                                        ? _bind(widget.onMap, group)
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                            if (widget._hasAddCard)
-                              SizedBox(
-                                width: cardWidth,
-                                child: _focusable(
-                                  widget.groups.length,
-                                  scale,
-                                  AddPeopleGroupCard(onTap: widget.onAdd!),
-                                ),
-                              ),
-                          ],
+            // No arrows or dots: the neighbouring cards peeking in at the
+            // sides are the only cue that there is more to swipe to.
+            return NotificationListener<ScrollEndNotification>(
+              onNotification: _onScrollEnd,
+              child: SingleChildScrollView(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                physics: _CardSnapPhysics(itemExtent: _itemExtent),
+                padding: EdgeInsets.symmetric(
+                  horizontal: sidePadding,
+                  vertical: _gutter * scale,
+                ),
+                // A Row (rather than a horizontal ListView) keeps the
+                // carousel's height intrinsic, so a card that grows at a
+                // large font scale is not clipped by a height guessed
+                // here. IntrinsicHeight is what makes `stretch` legal:
+                // the home screen leaves our height unbounded, and
+                // stretching against that forces an infinite height. It
+                // measures the tallest card and gives every card that
+                // height, so the cards line up without one being guessed.
+                child: IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: gap,
+                    children: [
+                      for (final (i, group) in widget.groups.indexed)
+                        SizedBox(
+                          width: cardWidth,
+                          child: _focusable(
+                            i,
+                            scale,
+                            PeopleGroupCard(
+                              name: group.name,
+                              imageUrl: group.imageUrl ?? '',
+                              prayedToday: prayedSlugs.contains(group.slug),
+                              onPray: _bind(widget.onPray, group),
+                              onDetails: _bind(widget.onDetails, group),
+                              onShare: _bind(widget.onShare, group),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      if (widget._hasAddCard)
+                        SizedBox(
+                          width: cardWidth,
+                          child: _focusable(
+                            widget.groups.length,
+                            scale,
+                            AddPeopleGroupCard(onTap: widget.onAdd!),
+                          ),
+                        ),
+                    ],
                   ),
+                ),
+              ),
             );
           },
         );

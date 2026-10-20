@@ -10,7 +10,6 @@ import 'components/nav/swipeable_branch_container.dart';
 import 'screens/debug_screen.dart';
 import 'screens/feedback_screen.dart';
 import 'screens/gallery_screen.dart';
-import 'screens/help_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/news_signup_settings_screen.dart';
 import 'screens/notification_permission_settings_screen.dart';
@@ -177,20 +176,8 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
-    // Help, opened from the app bar's help icon: a sheet over wherever it was
-    // opened from, as a people group's profile is.
-    GoRoute(
-      name: 'help',
-      path: '/help',
-      parentNavigatorKey: _rootNavigatorKey,
-      pageBuilder: (_, state) => SheetPage<Object?>(
-        key: state.pageKey,
-        name: state.name,
-        child: const RootPopScope(child: HelpScreen()),
-      ),
-    ),
     // The calendar for picking a day's prayer, from the Pray tab or a
-    // standalone prayer screen. A sheet like Help; pops with the picked day.
+    // standalone prayer screen. A sheet, like a people group's profile; pops with the picked day.
     GoRoute(
       name: 'prayer-calendar',
       path: '/calendar',
@@ -238,9 +225,10 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-    // The map opened from a home people-group card. A sibling of the details
-    // route rather than a child of it: the user arrives from the card, so
-    // nesting would insert a details page they never visited into the back
+    // One people group alone on the map, opened from the View on Map button
+    // on its profile. Pushed above the profile sheet, so back returns to it.
+    // A sibling of the details route rather than a child of it, so a deep
+    // link here doesn't insert a profile the user never visited into the back
     // stack.
     GoRoute(
       name: 'people-group-map',
@@ -250,8 +238,8 @@ final GoRouter appRouter = GoRouter(
           PeopleGroupMapScreen(slug: state.pathParameters['slug']!),
     ),
     // Every people group on one map, opened from the home screen's map button
-    // rather than for any one group. Pushed above the tabs like the per-group
-    // map, so back returns to home.
+    // or the Search tab's map icon rather than for any one group. Pushed above
+    // the tabs like the per-group map, so back returns to where it was opened.
     GoRoute(
       name: 'people-groups-overview-map',
       path: '/map',

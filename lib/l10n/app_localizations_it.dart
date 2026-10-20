@@ -61,7 +61,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Operatori transculturali presenti';
 
   @override
-  String get unselect => 'Deseleziona';
+  String get deselect => 'Deseleziona';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -100,6 +100,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Persone impegnate a pregare';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Impegnati a pregare per «$name»';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -178,9 +183,9 @@ class AppLocalizationsIt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count persone pregano',
-      one: '$count persona prega',
-      zero: 'Ancora nessuno prega',
+      other: '$count persone hanno pregato di recente',
+      one: '$count persona ha pregato di recente',
+      zero: 'Nessuno ha pregato di recente',
     );
     return '$_temp0';
   }
@@ -737,9 +742,6 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Gruppi etnici nelle vicinanze';
-
-  @override
   String get recenter => 'Ricentra';
 
   @override
@@ -756,39 +758,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get viewMap => 'Vedi la mappa';
 
   @override
+  String get viewOnMap => 'Vedi sulla mappa';
+
+  @override
   String get moreInfo => 'Maggiori informazioni';
-
-  @override
-  String get help => 'Aiuto';
-
-  @override
-  String get helpMissionTitle => 'La nostra missione';
-
-  @override
-  String get helpMissionBody =>
-      'La missione di DOXA è raggiungere ogni gruppo etnico non coinvolto entro il 2033.';
-
-  @override
-  String get helpFaqTitle => 'Domande frequenti';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Che cosa rende un gruppo etnico «non coinvolto»?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA classifica un gruppo etnico come non coinvolto se non si conoscono sforzi per fondare chiese autosufficienti.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'Di che cosa ha bisogno un gruppo etnico per essere «coinvolto»?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Perché un gruppo etnico sia classificato come «coinvolto», deve avere:\n1. Uno sforzo pionieristico residente\n2. Un lavoro nella cultura locale e nella sua lingua madre\n3. Impegni a lungo termine\n4. Un’opera di fondazione di chiese';
-
-  @override
-  String get helpGlossaryTitle => 'Glossario';
 
   @override
   String get glossaryPeopleGroup => 'Gruppo etnico';

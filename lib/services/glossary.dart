@@ -44,15 +44,8 @@ class GlossarySpan {
 String _language(BuildContext context) =>
     Localizations.localeOf(context).languageCode;
 
-/// The glossary in the app's language, in the order the Help screen lists it.
-List<GlossaryTerm> glossaryOf(BuildContext context) {
-  final terms = glossaryTerms[_language(context)] ?? glossaryTerms['en']!;
-  return [for (final id in glossaryTermIds) ?terms[id]];
-}
-
 /// Whether glossary terms in the app's sentences are tappable. Off for now:
-/// not shipping yet. The Help screen's glossary list shows either way, and the
-/// generator and its test keep the index current so this can simply be
+/// not shipping yet. The generator and its test keep the index current so this can simply be
 /// switched back on.
 const bool glossaryLinksEnabled = false;
 

@@ -409,9 +409,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -810,7 +807,7 @@
     "@time": {
         "description": "Label for the time-of-day field"
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@updateAction": {
@@ -944,7 +941,7 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "nPeoplePraying": "{count, plural, =0{अभी तक कोई प्रार्थना नहीं कर रहा} one{{count} व्यक्ति प्रार्थना कर रहा है} other{{count} लोग प्रार्थना कर रहे हैं}}",
+    "nPeoplePraying": "{count, plural, =0{हाल में किसी ने प्रार्थना नहीं की} one{{count} व्यक्ति ने हाल में प्रार्थना की} other{{count} लोगों ने हाल में प्रार्थना की}}",
     "@nPeoplePraying": {
         "description": "A plural message shown on a people-group card for how many people are praying for it",
         "placeholders": {
@@ -988,7 +985,6 @@
     "nRemindersSet": "{count, plural, =0{कोई रिमाइंडर सेट नहीं} =1{1 रिमाइंडर सेट} other{{count} रिमाइंडर सेट}}",
     "nameLabel": "नाम",
     "nameRequired": "कृपया अपना नाम दर्ज करें।",
-    "nearbyPeopleGroups": "आस-पास के जनसमूह",
     "newReminder": "नया रिमाइंडर",
     "newsSignupError": "कुछ गड़बड़ हो गई। कृपया अपना कनेक्शन जाँचें और फिर कोशिश करें।",
     "newsSignupSuccessBody": "हमने {email} पर एक सत्यापन ईमेल भेजा है। कृपया अपना इनबॉक्स खोलें और सदस्यता की पुष्टि के लिए लिंक पर टैप करें।",
@@ -1017,6 +1013,7 @@
     "partial": "आंशिक",
     "pauseAndPray": "रुकें और प्रार्थना करें",
     "peopleCommittedToPraying": "प्रार्थना के लिए प्रतिबद्ध लोग",
+    "committedToPrayFor": "“{name}” के लिए प्रार्थना करने को प्रतिबद्ध",
     "peopleGroup": "जनसमूह",
     "peopleGroupIntroTitle": "“{name}” के लिए प्रार्थना करें",
     "peopleGroupLimitBody": "एक साथ इतने ही के लिए आप प्रार्थना कर सकते हैं। “{name}” को जोड़ने के लिए, चुनें कि किसके लिए प्रार्थना करना बंद करना है।",
@@ -1080,7 +1077,7 @@
     "switchPeopleGroupConfirm": "क्या आप “{currentName}” के लिए प्रार्थना करना बंद करके “{newName}” के लिए प्रार्थना करना शुरू करना चाहते हैं?",
     "switchToPeopleGroup": "“{name}” पर जाएँ",
     "time": "समय",
-    "unselect": "चयन हटाएँ",
+    "deselect": "चयन हटाएँ",
     "updateAction": "अपडेट करें",
     "updateAvailableBody": "DOXA Prayer का नया संस्करण उपलब्ध है।",
     "updateAvailableTitle": "अपडेट उपलब्ध",
@@ -1107,33 +1104,13 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "मानचित्र पर देखें",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "अधिक जानकारी",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "सहायता",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "हमारा मिशन",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "DOXA का मिशन 2033 तक हर अनसंपर्कित जनसमूह तक पहुँचना है।",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "अक्सर पूछे जाने वाले प्रश्न",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "किसी जनसमूह को “अनसंपर्कित” क्या बनाता है?",
-    "helpFaqUnengagedAnswer": "यदि आत्मनिर्भर कलीसियाएँ स्थापित करने का कोई ज्ञात प्रयास नहीं है, तो DOXA उस जनसमूह को अनसंपर्कित मानता है।",
-    "helpFaqEngagedQuestion": "किसी जनसमूह को “संपर्कित” माने जाने के लिए क्या चाहिए?",
-    "helpFaqEngagedAnswer": "किसी जनसमूह को “संपर्कित” माने जाने के लिए ये ज़रूरी हैं:\n1. उनके बीच रहकर किया जाने वाला अग्रणी प्रयास\n2. स्थानीय संस्कृति में और उनकी मातृभाषा में कार्य\n3. दीर्घकालिक प्रतिबद्धताएँ\n4. कलीसिया स्थापना का कार्य",
-    "helpGlossaryTitle": "शब्दावली",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "जनसमूह",
     "glossaryPeopleGroupDefinition": "लोगों का एक समूह जिनकी मान्यताएँ, मूल्य और संस्कृति साझा हैं।",

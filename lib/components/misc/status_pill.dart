@@ -5,12 +5,11 @@ import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
 import 'hyphenated_text.dart';
 
-/// A small rounded badge stating a fact about a people group — "Prayed today",
+/// A small rounded badge stating a fact about a people group, such as
 /// "Selected". A status indicator, never a control.
 ///
 /// The shape lives here so the badges stay identical wherever they appear and
-/// only their colour and wording differ; see [PrayedTodayPill] and
-/// [SelectedPill], which are the two the app uses.
+/// only their colour and wording differ; see [SelectedPill].
 class StatusPill extends StatelessWidget {
   const StatusPill({
     super.key,

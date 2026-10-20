@@ -7,8 +7,8 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/layouts/design_scale.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/router.dart';
+import 'package:doxa_prayer_mobile_app/screens/people_group_map_screen.dart';
 import 'package:doxa_prayer_mobile_app/services/api_config.dart';
-import 'package:doxa_prayer_mobile_app/services/map_config.dart';
 import 'package:doxa_prayer_mobile_app/services/reminders_controller.dart';
 import 'package:doxa_prayer_mobile_app/services/subscribed_people_groups_controller.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
@@ -132,7 +132,6 @@ class HomeScreen extends StatelessWidget {
           onPray: (g) => _openPray(context, g.slug),
           onDetails: (g) => _openDetails(g.slug, context),
           onShare: (g) => _openShare(context, g),
-          onMap: (g) => context.push('/people-groups/${g.slug}/map'),
           onAdd: () => context.go('/people-groups'),
           // Swiping to a group makes it the one the Pray tab shows.
           onFocus: (g) => setActivePeopleGroup(g.slug),
@@ -177,22 +176,6 @@ class HomeScreen extends StatelessWidget {
 class _ViewMapButton extends StatelessWidget {
   const _ViewMapButton();
 
-  void _open(BuildContext context) {
-    // A build with no Mapbox token says why rather than opening a map that can
-    // only ever show grey squares — the same answer the carousel gives.
-    if (!MapConfig.isConfigured) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.mapNotConfigured),
-          ),
-        );
-      return;
-    }
-    context.push('/map');
-  }
-
   @override
   Widget build(BuildContext context) {
     return CtaButton(
@@ -205,7 +188,7 @@ class _ViewMapButton extends StatelessWidget {
         size: 20,
         color: AppColors.primary,
       ),
-      onPressed: () => _open(context),
+      onPressed: () => openOverviewMap(context),
     );
   }
 }

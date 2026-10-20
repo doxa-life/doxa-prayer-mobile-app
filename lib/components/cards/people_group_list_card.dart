@@ -21,7 +21,7 @@ class PeopleGroupListCard extends StatelessWidget {
     required this.imageUrl,
     required this.onDetails,
     this.onSelect,
-    this.onUnselect,
+    this.onDeselect,
     this.countryLabel,
     this.countryCode,
     this.isSelected = false,
@@ -38,9 +38,9 @@ class PeopleGroupListCard extends StatelessWidget {
   /// Only used when [showSelectButton] is true (the wizard).
   final VoidCallback? onSelect;
 
-  /// What an already-selected group's button does. When null the button is an
-  /// inert "Selected" — the wizard passes null.
-  final VoidCallback? onUnselect;
+  /// What tapping an already-selected group's "Selected" button does. When
+  /// null the button is inert — the wizard passes null.
+  final VoidCallback? onDeselect;
 
   /// The same ethnolinguistic people group is often tracked as a separate
   /// entry per country, so the country is shown under the name to tell
@@ -179,15 +179,18 @@ class PeopleGroupListCard extends StatelessWidget {
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerRight,
-                child: ActionButton(
-                  label: isSelected
-                      ? (onUnselect == null ? l10n.selected : l10n.unselect)
-                      : l10n.select,
-                  onPressed: isSelected ? onUnselect : onSelect,
-                  color: isSelected
-                      ? ActionButtonColor.white
-                      : ActionButtonColor.secondary,
-                  isOutlined: isSelected,
+                // Selected, it says so rather than offering a negative
+                // "Deselect"; screen readers still hear what a tap does.
+                child: Semantics(
+                  hint: isSelected && onDeselect != null ? l10n.deselect : null,
+                  child: ActionButton(
+                    label: isSelected ? l10n.selected : l10n.select,
+                    onPressed: isSelected ? onDeselect : onSelect,
+                    color: isSelected
+                        ? ActionButtonColor.white
+                        : ActionButtonColor.secondary,
+                    isOutlined: isSelected,
+                  ),
                 ),
               ),
             ),

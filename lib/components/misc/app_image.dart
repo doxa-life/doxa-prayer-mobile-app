@@ -15,7 +15,20 @@ class AppImage extends StatelessWidget {
     this.size = 96.0,
     this.height,
     this.semanticLabel,
-  });
+  }) : naturalAspect = false;
+
+  /// A photo [size] wide and as tall as its own proportions make it — never
+  /// cropped or stretched. Until it loads (or when there is none) it holds a
+  /// portrait 4:5 space, the shape most of the people-group photos are.
+  const AppImage.naturalAspect({
+    super.key,
+    this.url,
+    this.radius = 16,
+    required this.size,
+    this.semanticLabel,
+  }) : fit = BoxFit.fitWidth,
+       height = null,
+       naturalAspect = true;
 
   final String? url;
   final double radius;
@@ -27,7 +40,11 @@ class AppImage extends StatelessWidget {
   /// The height, for a photo that isn't square. Defaults to [size].
   final double? height;
 
-  double get _height => height ?? size;
+  /// Whether the height comes from the photo itself — see
+  /// [AppImage.naturalAspect].
+  final bool naturalAspect;
+
+  double get _height => height ?? (naturalAspect ? size * 5 / 4 : size);
 
   /// Describes the photo for screen readers. When null the image is treated as
   /// decorative and excluded from the semantics tree.
@@ -41,7 +58,9 @@ class AppImage extends StatelessWidget {
           ? _placeholder()
           : SizedBox(
               width: size,
-              height: _height,
+              // Left free, the image lays itself out at the photo's own
+              // proportions for the width it is given.
+              height: naturalAspect ? null : _height,
               child: _semantics(
                 CachedNetworkImage(
                   imageUrl: url!,

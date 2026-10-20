@@ -13,7 +13,7 @@
 /// `glossary<Name>` with a sibling `glossary<Name>Definition`; an optional
 /// `glossary<Name>Alternates` lists other wordings that also count as the term
 /// (plurals, inflections), separated by `|`. The order of the keys in
-/// `app_en.arb` is the order the Help screen lists the terms in, and `<Name>`
+/// `app_en.arb` is the order of [glossaryTermIds], and `<Name>`
 /// in kebab case is the term's stable id ("PeopleGroup" → "people-group").
 ///
 /// **Matching**: case-insensitive, longest wording first (so "people group"
@@ -165,7 +165,7 @@ GlossaryGenResult generate(
     ..writeln("import '../services/glossary.dart';")
     ..writeln()
     ..writeln(
-      '/// Every glossary term, in the order the Help screen lists them.',
+      '/// Every glossary term, in the order app_en.arb lists them.',
     )
     ..writeln('const List<String> glossaryTermIds = [')
     ..writeAll([for (final n in names) "  '${_kebab(n)}',\n"])

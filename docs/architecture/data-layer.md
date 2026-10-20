@@ -112,7 +112,6 @@ Cached API responses are not in SharedPreferences — they are files under the r
 | `home` | `/home` |
 | `pray` | `/pray` |
 | `peopleGroups` | `/people-groups` |
-| `help` | `/help` |
 | `app-deep-link` | `/app/:slug` |
 | `pray-deep-link` | `/:slug/prayer` |
 | `pray-deep-link-dated` | `/:slug/prayer/:date` |

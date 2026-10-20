@@ -24,16 +24,20 @@ import 'people_group_pin_tooltip.dart';
 /// whose connection is merely slow.
 const int _offlineTileFailureThreshold = 4;
 
-/// Padding around the opening fit, so the outermost neighbouring pin isn't
-/// jammed against the edge of the map — and so the top row clears the legend
-/// and the tooltip that opens over the focused pin.
+/// Padding around the opening fit, so the outermost pin isn't jammed against
+/// the edge of the map — and so the top row clears the legend and the tooltip
+/// that opens over the focused pin.
 const EdgeInsets _fitPadding = EdgeInsets.fromLTRB(48, 130, 48, 60);
 
 /// How far the map backs off from the tight fit around the opening frame, in
-/// zoom levels. The tight fit puts the neighbouring pins at the edges of the
+/// zoom levels. The tight fit puts the outermost pins at the edges of the
 /// screen with nothing around them; a level out keeps the coastlines and
 /// borders that say *where* this is in view.
 const double _openingZoomOut = 1;
+
+/// The closest the map opens on a single group: about one country across, so
+/// the borders around the pin say where in the world it is.
+const double _singleGroupMaxZoom = 6;
 
 /// The whole inhabited world, for the overview map when the user prays for no
 /// located group yet. Antarctica and the high Arctic are left out: no people
@@ -44,12 +48,12 @@ final LatLngBounds _worldBounds = LatLngBounds(
   const LatLng(72, 180),
 );
 
-/// The map itself: every located people group as a pin.
+/// The map itself: each of [groups] as a pin.
 ///
-/// Opened for one group ([focus]) from its home card, it frames on that group
-/// and its nearest neighbours. Opened from the home screen's map button
-/// ([focus] null), it frames on the groups the user prays for, or on the
-/// whole world when there are none.
+/// Opened for one group ([focus]) from its profile, [groups] is that group
+/// alone and the map frames on it. Opened from the home screen's map button
+/// ([focus] null), [groups] is every located group and the map frames on the
+/// groups the user prays for, or on the whole world when there are none.
 class PeopleGroupMapView extends StatefulWidget {
   const PeopleGroupMapView({
     super.key,
@@ -63,7 +67,7 @@ class PeopleGroupMapView extends StatefulWidget {
   /// tooltip showing, and is what the recentre button returns to.
   final PeopleGroup? focus;
 
-  /// Every located people group, drawn as pins.
+  /// The groups drawn as pins.
   final List<PeopleGroup> groups;
 
   final void Function(PeopleGroup group) onPray;
@@ -117,12 +121,11 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
       _home = [?locationOf(focus)];
       _openingFit = PulledBackCameraFit(
         inner: CameraFit.coordinates(
-          coordinates: openingFrame(focus, widget.groups),
+          coordinates: _home,
           padding: _fitPadding,
-          // Without a cap, a group whose neighbours are all but on top of it
-          // opens at street level, which says nothing about where in the
-          // world it is.
-          maxZoom: 9,
+          // Without a cap, a lone pin opens at street level, which says
+          // nothing about where in the world it is.
+          maxZoom: _singleGroupMaxZoom,
         ),
         zoomOut: _openingZoomOut,
       );
@@ -221,9 +224,7 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
             // built — so the map announces what it is as a whole. Every group
             // on it is reachable through the browse list.
             Semantics(
-              label: focus != null
-                  ? '${l.mapOf(focus.name)}. ${l.nearbyPeopleGroups}'
-                  : l.map,
+              label: focus != null ? l.mapOf(focus.name) : l.map,
               image: true,
               child: FlutterMap(
                 mapController: _controller,

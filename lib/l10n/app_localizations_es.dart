@@ -61,7 +61,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Obreros transculturales presentes';
 
   @override
-  String get unselect => 'Deseleccionar';
+  String get deselect => 'Deseleccionar';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -101,6 +101,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get peopleCommittedToPraying =>
       'Personas comprometidas con la oración';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Comprometidos a orar por «$name»';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -179,9 +184,9 @@ class AppLocalizationsEs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count personas orando',
-      one: '1 persona orando',
-      zero: 'Nadie está orando aún',
+      other: '$count personas han orado recientemente',
+      one: '1 persona ha orado recientemente',
+      zero: 'Nadie ha orado recientemente',
     );
     return '$_temp0';
   }
@@ -739,9 +744,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Grupos étnicos cercanos';
-
-  @override
   String get recenter => 'Centrar de nuevo';
 
   @override
@@ -758,39 +760,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get viewMap => 'Ver mapa';
 
   @override
+  String get viewOnMap => 'Ver en el mapa';
+
+  @override
   String get moreInfo => 'Más información';
-
-  @override
-  String get help => 'Ayuda';
-
-  @override
-  String get helpMissionTitle => 'Nuestra misión';
-
-  @override
-  String get helpMissionBody =>
-      'La misión de DOXA es alcanzar a todos los grupos étnicos no comprometidos para el año 2033.';
-
-  @override
-  String get helpFaqTitle => 'Preguntas frecuentes';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      '¿Qué hace que un grupo étnico sea «no comprometido»?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA clasifica un grupo étnico como no comprometido si no se conocen esfuerzos para establecer iglesias autosostenibles.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      '¿Qué necesita un grupo étnico para considerarse «comprometido»?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Para que un grupo étnico se clasifique como «comprometido», debe contar con:\n1. Un esfuerzo pionero residente\n2. Trabajo en la cultura local y en su lengua materna\n3. Compromisos a largo plazo\n4. Una labor de plantación de iglesias';
-
-  @override
-  String get helpGlossaryTitle => 'Glosario';
 
   @override
   String get glossaryPeopleGroup => 'Grupo étnico';

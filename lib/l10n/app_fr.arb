@@ -244,9 +244,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -453,7 +450,7 @@
             }
         }
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
@@ -943,7 +940,6 @@
     "nRemindersSet": "{count, plural, =0{Aucun rappel défini} =1{1 rappel défini} other{{count} rappels définis}}",
     "nameLabel": "Nom",
     "nameRequired": "Veuillez saisir votre nom.",
-    "nearbyPeopleGroups": "Peuples à proximité",
     "newReminder": "Nouveau rappel",
     "newsSignupError": "Une erreur s'est produite. Veuillez vérifier votre connexion et réessayer.",
     "newsSignupSuccessTitle": "Merci de votre inscription !",
@@ -976,7 +972,7 @@
     "stopPraying": "Cesser de prier",
     "swapPeopleGroupAction": "Remplacer",
     "switchToPeopleGroup": "Passer à « {name} »",
-    "unselect": "Désélectionner",
+    "deselect": "Désélectionner",
     "viewProfile": "Voir le profil",
     "emailsLoadError": "Impossible de charger vos adresses e-mail.",
     "nextDay": "Jour suivant",
@@ -1000,6 +996,7 @@
     "partial": "En partie",
     "pauseAndPray": "Faire une pause et prier",
     "peopleCommittedToPraying": "Personnes engagées dans la prière",
+    "committedToPrayFor": "Engagés à prier pour « {name} »",
     "peopleGroup": "Peuple",
     "peopleGroupIntroTitle": "Priez pour « {name} »",
     "peopleGroupOfTheDay": "Le peuple du jour",
@@ -1067,39 +1064,19 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "Voir sur la carte",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "Plus d’infos",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Aide",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "Notre mission",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "La mission de DOXA est d’atteindre chaque peuple non engagé d’ici 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Questions fréquentes",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "Qu’est-ce qui fait qu’un peuple est « non engagé » ?",
-    "helpFaqUnengagedAnswer": "DOXA considère un peuple comme non engagé lorsqu’aucun effort connu ne vise à y implanter des églises autonomes.",
-    "helpFaqEngagedQuestion": "De quoi un peuple a-t-il besoin pour être « engagé » ?",
-    "helpFaqEngagedAnswer": "Pour être considéré comme « engagé », un peuple doit bénéficier :\n1. d’un effort pionnier sur le terrain\n2. d’un travail dans la culture locale et dans sa langue maternelle\n3. d’engagements à long terme\n4. d’une œuvre d’implantation d’églises",
-    "helpGlossaryTitle": "Glossaire",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "Peuple",
     "glossaryPeopleGroupDefinition": "Un groupe de personnes partageant un ensemble de croyances, de valeurs et une culture.",
     "glossaryPeopleGroupAlternates": "peuples",
     "unengaged": "Non engagé",
-    "nPeoplePraying": "{count, plural, =0{Personne ne prie encore} =1{1 personne prie} other{{count} personnes prient}}",
+    "nPeoplePraying": "{count, plural, =0{Personne n’a prié récemment} =1{1 personne a prié récemment} other{{count} personnes ont prié récemment}}",
     "filters": "Filtres",
     "sortByName": "Trier par nom",
     "sortAscending": "Trier par ordre croissant (A-Z)",

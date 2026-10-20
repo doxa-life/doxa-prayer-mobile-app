@@ -60,7 +60,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Cross-cultural workers present';
 
   @override
-  String get unselect => 'Unselect';
+  String get deselect => 'Deselect';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -99,6 +99,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'People committed to praying';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Committed to pray for $name';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -177,9 +182,9 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people praying',
-      one: '1 person praying',
-      zero: 'No one praying yet',
+      other: '$count have prayed recently',
+      one: '1 person has prayed recently',
+      zero: 'No one has prayed recently',
     );
     return '$_temp0';
   }
@@ -729,9 +734,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Nearby people groups';
-
-  @override
   String get recenter => 'Recenter';
 
   @override
@@ -747,39 +749,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get viewMap => 'View map';
 
   @override
+  String get viewOnMap => 'View on Map';
+
+  @override
   String get moreInfo => 'More info';
-
-  @override
-  String get help => 'Help';
-
-  @override
-  String get helpMissionTitle => 'Our mission';
-
-  @override
-  String get helpMissionBody =>
-      'DOXA\'s mission is to reach every unengaged people group, by 2033.';
-
-  @override
-  String get helpFaqTitle => 'Frequently asked questions';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'What makes a people group “unengaged”?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'What does a people group need in order to be “engaged”?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation';
-
-  @override
-  String get helpGlossaryTitle => 'Glossary';
 
   @override
   String get glossaryPeopleGroup => 'People group';

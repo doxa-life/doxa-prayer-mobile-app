@@ -24,6 +24,7 @@ import '../../theme/app_typography.dart';
 import '../buttons/action_button.dart';
 import '../misc/app_icon.dart';
 import '../misc/cached_data_builder.dart';
+import 'people_group_of_the_day_view.dart';
 import 'praying_now_banner.dart';
 import 'prayer_content_skeleton.dart';
 import '../nav/sheet_page.dart';
@@ -559,7 +560,26 @@ class _PrayerSessionViewState extends State<PrayerSessionView>
     // the Amen clearly reads as the end of the prayer action rather than
     // another block in the flow.
     final notices = data.metadata.copyrightNotices;
+    final ofTheDay = data.content
+        .where(
+          (b) =>
+              b.type == PrayerContentBlockType.peopleGroupOfTheDay &&
+              b.peopleGroupData != null,
+        )
+        .firstOrNull;
     final infoBlocks = <Widget>[
+      // The People Group of the Day closes the page, after the Amen: something
+      // to read about once the prayer is done, not part of it.
+      if (ofTheDay != null)
+        BlockSwap(
+          child: PeopleGroupOfTheDayView(
+            // Changes only when the group of the day does.
+            key: ValueKey('of-the-day-${ofTheDay.title}'),
+            name: ofTheDay.title,
+            data: ofTheDay.peopleGroupData!,
+            heading: l10n.peopleGroupOfTheDay,
+          ),
+        ),
       if (notices.isNotEmpty)
         BlockSwap(
           child: _CopyrightNotices(

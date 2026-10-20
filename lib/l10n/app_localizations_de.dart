@@ -62,7 +62,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Kulturübergreifende Mitarbeiter/innen vor Ort';
 
   @override
-  String get unselect => 'Abwählen';
+  String get deselect => 'Abwählen';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -102,6 +102,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get peopleCommittedToPraying =>
       'Menschen, die sich zum Gebet verpflichtet haben';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Haben zugesagt, für „$name“ zu beten';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -180,9 +185,9 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count Personen beten',
-      one: '$count Person betet',
-      zero: 'Noch niemand betet',
+      other: '$count Personen haben kürzlich gebetet',
+      one: '$count Person hat kürzlich gebetet',
+      zero: 'In letzter Zeit hat niemand gebetet',
     );
     return '$_temp0';
   }
@@ -739,9 +744,6 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Volksgruppen in der Nähe';
-
-  @override
   String get recenter => 'Neu zentrieren';
 
   @override
@@ -757,39 +759,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get viewMap => 'Karte ansehen';
 
   @override
+  String get viewOnMap => 'Auf der Karte zeigen';
+
+  @override
   String get moreInfo => 'Mehr Infos';
-
-  @override
-  String get help => 'Hilfe';
-
-  @override
-  String get helpMissionTitle => 'Unsere Mission';
-
-  @override
-  String get helpMissionBody =>
-      'Die Mission von DOXA ist es, bis 2033 jede unberührte Volksgruppe zu erreichen.';
-
-  @override
-  String get helpFaqTitle => 'Häufige Fragen';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Wann gilt eine Volksgruppe als „unberührt“?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA stuft eine Volksgruppe als unberührt ein, wenn keine Bemühungen bekannt sind, dort Gemeinden zu gründen, die sich selbst tragen.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'Was braucht eine Volksgruppe, um als „engagiert“ zu gelten?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Damit eine Volksgruppe als „engagiert“ eingestuft wird, braucht sie:\n1. Pionierarbeit vor Ort\n2. Arbeit in der örtlichen Kultur und in ihrer Muttersprache\n3. Langfristige Verpflichtungen\n4. Eine Gemeindegründungsarbeit';
-
-  @override
-  String get helpGlossaryTitle => 'Glossar';
 
   @override
   String get glossaryPeopleGroup => 'Volksgruppe';

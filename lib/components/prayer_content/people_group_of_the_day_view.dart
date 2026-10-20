@@ -10,9 +10,8 @@ import '../misc/app_image.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/titles.dart';
 
-/// Renders the introductory `people_group` block of a prayer-content
-/// response — used at the top of the pray screen, and reusable on the
-/// people-group details / wizard preview screens.
+/// Renders the People Group of the Day block of a prayer-content response —
+/// shown at the foot of the Pray page, under the Amen.
 class PeopleGroupOfTheDayView extends StatelessWidget {
   const PeopleGroupOfTheDayView({
     super.key,
@@ -49,23 +48,17 @@ class PeopleGroupOfTheDayView extends StatelessWidget {
                   H2(name, textAlign: TextAlign.start),
                   Wrap(
                     spacing: AppSpacing.md,
+                    // A fact the API leaves out is left out here too, rather
+                    // than shown as "null".
                     children: [
-                      PeopleDetailsView(
-                        text: '${data.country}',
-                        icon: Icons.location_on_outlined,
-                      ),
-                      PeopleDetailsView(
-                        text: '${data.population}',
-                        icon: Icons.people_outline,
-                      ),
-                      PeopleDetailsView(
-                        text: '${data.language}',
-                        icon: Icons.translate,
-                      ),
-                      PeopleDetailsView(
-                        text: '${data.religion}',
-                        icon: Icons.church_outlined,
-                      ),
+                      for (final (text, icon) in [
+                        (data.country, Icons.location_on_outlined),
+                        (data.population?.toString(), Icons.people_outline),
+                        (data.language, Icons.translate),
+                        (data.religion, Icons.church_outlined),
+                      ])
+                        if (text != null && text.isNotEmpty)
+                          PeopleDetailsView(text: text, icon: icon),
                     ],
                   ),
                 ],

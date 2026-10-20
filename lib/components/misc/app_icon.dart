@@ -26,9 +26,7 @@ enum AppIconName {
   trash('trash-can.svg'),
   sun('sun-2.svg'),
   geoAlt('geo-alt.svg'),
-  map('map.svg'),
-  help('help.svg'),
-  helpSolid('help-solid.svg');
+  map('map.svg');
 
   const AppIconName(this.fileName);
   final String fileName;

@@ -60,7 +60,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'अंतर-सांस्कृतिक कार्यकर्ता मौजूद';
 
   @override
-  String get unselect => 'चयन हटाएँ';
+  String get deselect => 'चयन हटाएँ';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -98,6 +98,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'प्रार्थना के लिए प्रतिबद्ध लोग';
+
+  @override
+  String committedToPrayFor(String name) {
+    return '“$name” के लिए प्रार्थना करने को प्रतिबद्ध';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -176,9 +181,9 @@ class AppLocalizationsHi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count लोग प्रार्थना कर रहे हैं',
-      one: '$count व्यक्ति प्रार्थना कर रहा है',
-      zero: 'अभी तक कोई प्रार्थना नहीं कर रहा',
+      other: '$count लोगों ने हाल में प्रार्थना की',
+      one: '$count व्यक्ति ने हाल में प्रार्थना की',
+      zero: 'हाल में किसी ने प्रार्थना नहीं की',
     );
     return '$_temp0';
   }
@@ -733,9 +738,6 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'आस-पास के जनसमूह';
-
-  @override
   String get recenter => 'फिर से केंद्र में लाएँ';
 
   @override
@@ -752,39 +754,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get viewMap => 'मानचित्र देखें';
 
   @override
+  String get viewOnMap => 'मानचित्र पर देखें';
+
+  @override
   String get moreInfo => 'अधिक जानकारी';
-
-  @override
-  String get help => 'सहायता';
-
-  @override
-  String get helpMissionTitle => 'हमारा मिशन';
-
-  @override
-  String get helpMissionBody =>
-      'DOXA का मिशन 2033 तक हर अनसंपर्कित जनसमूह तक पहुँचना है।';
-
-  @override
-  String get helpFaqTitle => 'अक्सर पूछे जाने वाले प्रश्न';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'किसी जनसमूह को “अनसंपर्कित” क्या बनाता है?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'यदि आत्मनिर्भर कलीसियाएँ स्थापित करने का कोई ज्ञात प्रयास नहीं है, तो DOXA उस जनसमूह को अनसंपर्कित मानता है।';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'किसी जनसमूह को “संपर्कित” माने जाने के लिए क्या चाहिए?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'किसी जनसमूह को “संपर्कित” माने जाने के लिए ये ज़रूरी हैं:\n1. उनके बीच रहकर किया जाने वाला अग्रणी प्रयास\n2. स्थानीय संस्कृति में और उनकी मातृभाषा में कार्य\n3. दीर्घकालिक प्रतिबद्धताएँ\n4. कलीसिया स्थापना का कार्य';
-
-  @override
-  String get helpGlossaryTitle => 'शब्दावली';
 
   @override
   String get glossaryPeopleGroup => 'जनसमूह';

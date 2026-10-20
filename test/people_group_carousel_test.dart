@@ -34,7 +34,6 @@ Future<void> _pump(
             onPray: onPray ?? (_) {},
             onDetails: (_) {},
             onShare: (_) {},
-            onMap: (_) {},
             onAdd: () {},
             onFocus: onFocus,
           ),

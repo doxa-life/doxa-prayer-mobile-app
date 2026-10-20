@@ -202,11 +202,11 @@ abstract class AppLocalizations {
   /// **'Cross-cultural workers present'**
   String get crossCulturalWorkersPresent;
 
-  /// Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen
+  /// What tapping the Selected button does, read out by screen readers as its hint: removes the people group the user had selected. Used on the browse list and the details screen
   ///
   /// In en, this message translates to:
-  /// **'Unselect'**
-  String get unselect;
+  /// **'Deselect'**
+  String get deselect;
 
   /// The label of the work in local language and culture field
   ///
@@ -279,6 +279,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'People committed to praying'**
   String get peopleCommittedToPraying;
+
+  /// Under the number on the prayer status card of a people group's profile: how many people have signed up to pray for the group
+  ///
+  /// In en, this message translates to:
+  /// **'Committed to pray for {name}'**
+  String committedToPrayFor(String name);
 
   /// Explains the number on the prayer status card of a people group's profile
   ///
@@ -418,10 +424,10 @@ abstract class AppLocalizations {
   /// **'Unengaged'**
   String get unengaged;
 
-  /// A plural message shown on a people-group card for how many people are praying for it
+  /// How many different people have prayed for a people group recently (the server's 7-day daily average of people who opened a prayer); shown on people-group cards and under the name on its profile
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No one praying yet} =1{1 person praying} other{{count} people praying}}'**
+  /// **'{count, plural, =0{No one has prayed recently} =1{1 person has prayed recently} other{{count} have prayed recently}}'**
   String nPeoplePraying(num count);
 
   /// The label of the adoption status field
@@ -1300,12 +1306,6 @@ abstract class AppLocalizations {
   /// **'Map of {name}'**
   String mapOf(String name);
 
-  /// Accessibility description of the other pins shown around the focused people group
-  ///
-  /// In en, this message translates to:
-  /// **'Nearby people groups'**
-  String get nearbyPeopleGroups;
-
   /// Button that moves the map back to the people group it opened on, shown once that group has been panned off screen
   ///
   /// In en, this message translates to:
@@ -1336,65 +1336,17 @@ abstract class AppLocalizations {
   /// **'View map'**
   String get viewMap;
 
+  /// Button at the top of a people group's profile that opens the map showing only that group
+  ///
+  /// In en, this message translates to:
+  /// **'View on Map'**
+  String get viewOnMap;
+
   /// Link in a map pin's tooltip that opens the people group's profile page
   ///
   /// In en, this message translates to:
   /// **'More info'**
   String get moreInfo;
-
-  /// Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary
-  ///
-  /// In en, this message translates to:
-  /// **'Help'**
-  String get help;
-
-  /// Heading of the Help page's mission section
-  ///
-  /// In en, this message translates to:
-  /// **'Our mission'**
-  String get helpMissionTitle;
-
-  /// Body of the Help page's mission section. Glossary terms in it become tappable
-  ///
-  /// In en, this message translates to:
-  /// **'DOXA\'s mission is to reach every unengaged people group, by 2033.'**
-  String get helpMissionBody;
-
-  /// Heading of the Help page's FAQ section
-  ///
-  /// In en, this message translates to:
-  /// **'Frequently asked questions'**
-  String get helpFaqTitle;
-
-  /// FAQ question in Help: what makes a people group unengaged
-  ///
-  /// In en, this message translates to:
-  /// **'What makes a people group “unengaged”?'**
-  String get helpFaqUnengagedQuestion;
-
-  /// Answer to the FAQ question about what makes a people group unengaged
-  ///
-  /// In en, this message translates to:
-  /// **'DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.'**
-  String get helpFaqUnengagedAnswer;
-
-  /// FAQ question in Help: what a people group needs to be classified as engaged
-  ///
-  /// In en, this message translates to:
-  /// **'What does a people group need in order to be “engaged”?'**
-  String get helpFaqEngagedQuestion;
-
-  /// Answer to the FAQ question about what makes a people group engaged; a numbered list, one item per line
-  ///
-  /// In en, this message translates to:
-  /// **'In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation'**
-  String get helpFaqEngagedAnswer;
-
-  /// Heading of the Help page's glossary section
-  ///
-  /// In en, this message translates to:
-  /// **'Glossary'**
-  String get helpGlossaryTitle;
 
   /// Glossary term in Help: people group (use the DOXA glossary wording)
   ///

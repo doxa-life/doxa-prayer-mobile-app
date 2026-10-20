@@ -6,7 +6,7 @@
 
 import '../services/glossary.dart';
 
-/// Every glossary term, in the order the Help screen lists them.
+/// Every glossary term, in the order app_en.arb lists them.
 const List<String> glossaryTermIds = [
   'people-group',
 ];
@@ -61,9 +61,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'اختر مجموعة شعبية لتبدأ بالصلاة من أجلها.': [GlossarySpan(5, 17, 'people-group')],
     'هل تريد تحديد هذه المجموعة الشعبية؟': [GlossarySpan(18, 34, 'people-group')],
     'تساعدك DOXA على الصلاة من أجل إحدى المجموعات الشعبية غير المبلَّغة. سنساعدك في اختيار مجموعة معينة، وضبط تذكير، ومتابعة آخر المستجدات.': [GlossarySpan(35, 52, 'people-group')],
-    'رسالة DOXA هي الوصول إلى كل مجموعة شعبية غير مَخْدُومَة بحلول عام 2033.': [GlossarySpan(28, 40, 'people-group')],
-    'تَعُدّ DOXA المجموعة الشعبية غير مَخْدُومَة إذا لم تكن هناك جهود معروفة لتأسيس كنائس محلية أصيلة تُعيل نفسها.': [GlossarySpan(12, 28, 'people-group')],
-    'لكي تُصنَّف مجموعة شعبية على أنها «مَخْدُومَة»، يجب أن يتوفر لها:\n1. جهد ريادي تأسيسي مقيم بين الشعب\n2. عمل ضمن الثقافة المحلية وبلغتهم الأم\n3. التزامات طويلة الأمد\n4. عمل لغرس الكنائس': [GlossarySpan(12, 24, 'people-group')],
     'صُمم تطبيق DOXA Prayer لمساعدتك على الصلاة من أجل المجموعات الشعبية غير المُبشَّر بها. أول شيء علينا فعله هو إيجاد مجموعة تصلي من أجلها.': [GlossarySpan(50, 67, 'people-group')],
   },
   'de': {
@@ -78,9 +75,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Möchtest du diese Volksgruppe auswählen?': [GlossarySpan(18, 29, 'people-group')],
     'Optional. Erhalte Neuigkeiten über deine Volksgruppe und Updates von DOXA.': [GlossarySpan(41, 52, 'people-group')],
     'DOXA hilft dir, für eine unerreichte Volksgruppe zu beten. Wir helfen dir, eine Gruppe zu wählen, eine Erinnerung einzurichten und auf dem Laufenden zu bleiben.': [GlossarySpan(37, 48, 'people-group')],
-    'Die Mission von DOXA ist es, bis 2033 jede unberührte Volksgruppe zu erreichen.': [GlossarySpan(54, 65, 'people-group')],
-    'DOXA stuft eine Volksgruppe als unberührt ein, wenn keine Bemühungen bekannt sind, dort Gemeinden zu gründen, die sich selbst tragen.': [GlossarySpan(16, 27, 'people-group')],
-    'Damit eine Volksgruppe als „engagiert“ eingestuft wird, braucht sie:\n1. Pionierarbeit vor Ort\n2. Arbeit in der örtlichen Kultur und in ihrer Muttersprache\n3. Langfristige Verpflichtungen\n4. Eine Gemeindegründungsarbeit': [GlossarySpan(11, 22, 'people-group')],
   },
   'en': {
     'Could not load people groups.': [GlossarySpan(15, 28, 'people-group')],
@@ -92,9 +86,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Prayers, people groups, photos and map are saved on your device so they open instantly and work offline.': [GlossarySpan(9, 22, 'people-group')],
     'Everything saved for quick access will be deleted and downloaded again when needed. Your people groups, reminders and settings are kept.': [GlossarySpan(89, 102, 'people-group')],
     'Choose a people group before setting a reminder.': [GlossarySpan(9, 21, 'people-group')],
-    'DOXA\'s mission is to reach every unengaged people group, by 2033.': [GlossarySpan(43, 55, 'people-group')],
-    'DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.': [GlossarySpan(18, 30, 'people-group')],
-    'In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation': [GlossarySpan(15, 27, 'people-group')],
     'DOXA Prayer is designed to help you pray for unreached people groups. The first thing we need to do is find a group for you to pray for.': [GlossarySpan(55, 68, 'people-group')],
   },
   'es': {
@@ -107,9 +98,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     '¿Quieres seleccionar este grupo étnico?': [GlossarySpan(26, 38, 'people-group')],
     'Opcional. Recibe noticias sobre tu grupo étnico y novedades de DOXA.': [GlossarySpan(35, 47, 'people-group')],
     'DOXA te ayuda a orar por un grupo étnico no alcanzado. Te ayudaremos a elegir un grupo, a configurar un recordatorio y a mantenerte informado.': [GlossarySpan(28, 40, 'people-group')],
-    'La misión de DOXA es alcanzar a todos los grupos étnicos no comprometidos para el año 2033.': [GlossarySpan(42, 56, 'people-group')],
-    'DOXA clasifica un grupo étnico como no comprometido si no se conocen esfuerzos para establecer iglesias autosostenibles.': [GlossarySpan(18, 30, 'people-group')],
-    'Para que un grupo étnico se clasifique como «comprometido», debe contar con:\n1. Un esfuerzo pionero residente\n2. Trabajo en la cultura local y en su lengua materna\n3. Compromisos a largo plazo\n4. Una labor de plantación de iglesias': [GlossarySpan(12, 24, 'people-group')],
   },
   'fi': {
     'Kansanryhmiä ei voitu latata.': [GlossarySpan(0, 12, 'people-group')],
@@ -121,9 +109,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Valitse kansanryhmä ennen muistutuksen asettamista.': [GlossarySpan(8, 19, 'people-group')],
     'DOXA Prayer on tehty auttamaan sinua rukoilemaan saavuttamattomien kansanryhmien puolesta. Aluksi etsitään sinulle kansanryhmä, jonka puolesta rukoilla.': [GlossarySpan(67, 80, 'people-group'), GlossarySpan(115, 126, 'people-group')],
     'Haluatko jatkaa tämän kansanryhmän kanssa vai kokeilla toista?': [GlossarySpan(22, 34, 'people-group')],
-    'DOXAn tehtävänä on tavoittaa vuoteen 2033 mennessä jokainen lähetystyön ulkopuolella oleva kansanryhmä.': [GlossarySpan(91, 102, 'people-group')],
-    'DOXA luokittelee kansanryhmän lähetystyön ulkopuolella olevaksi, jos siellä ei tiedetä olevan pyrkimyksiä perustaa itse kannattavia seurakuntia.': [GlossarySpan(17, 29, 'people-group')],
-    'Jotta kansanryhmä luokitellaan lähetystyön piirissä olevaksi, sillä täytyy olla:\n1. Kansanryhmän keskuudessa asuvien työntekijöiden pioneerityötä\n2. Työtä paikallisessa kulttuurissa ja kansan omalla äidinkielellä\n3. Pitkäaikaisia sitoumuksia\n4. Seurakunnanistutustyötä': [GlossarySpan(6, 17, 'people-group'), GlossarySpan(84, 96, 'people-group')],
   },
   'fr': {
     'Les prières, les peuples, les photos et la carte sont enregistrés sur votre appareil pour s’ouvrir instantanément et fonctionner hors connexion.': [GlossarySpan(17, 24, 'people-group')],
@@ -136,9 +121,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Nous vous proposerons des sujets de prière et des rappels pour ce peuple. Vous pourrez modifier ces paramètres ultérieurement.': [GlossarySpan(66, 72, 'people-group')],
     'Facultatif. Recevez des actualités concernant votre peuple ainsi que les dernières informations de DOXA.': [GlossarySpan(52, 58, 'people-group')],
     'DOXA vous aide à prier pour un peuple non atteint. Nous vous aiderons à choisir un peuple, à programmer un rappel et à rester informé.': [GlossarySpan(31, 37, 'people-group'), GlossarySpan(83, 89, 'people-group')],
-    'La mission de DOXA est d’atteindre chaque peuple non engagé d’ici 2033.': [GlossarySpan(42, 48, 'people-group')],
-    'DOXA considère un peuple comme non engagé lorsqu’aucun effort connu ne vise à y implanter des églises autonomes.': [GlossarySpan(18, 24, 'people-group')],
-    'Pour être considéré comme « engagé », un peuple doit bénéficier :\n1. d’un effort pionnier sur le terrain\n2. d’un travail dans la culture locale et dans sa langue maternelle\n3. d’engagements à long terme\n4. d’une œuvre d’implantation d’églises': [GlossarySpan(41, 47, 'people-group')],
     'DOXA Prayer est conçue pour vous aider à prier pour des peuples non atteints. La première chose à faire est de trouver un peuple pour qui prier.': [GlossarySpan(56, 63, 'people-group'), GlossarySpan(122, 128, 'people-group')],
     'Souhaitez-vous continuer avec ce peuple ou en essayer un autre ?': [GlossarySpan(33, 39, 'people-group')],
   },
@@ -154,9 +136,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'क्या आप इस जनसमूह को चुनना चाहते हैं?': [GlossarySpan(11, 17, 'people-group')],
     'वैकल्पिक। अपने जनसमूह की ख़बरें और DOXA से अपडेट पाएँ।': [GlossarySpan(15, 21, 'people-group')],
     'DOXA आपको एक अप्राप्य जनसमूह के लिए प्रार्थना करने में मदद करता है। हम आपको समूह चुनने, रिमाइंडर सेट करने और जुड़े रहने में मदद करेंगे।': [GlossarySpan(22, 28, 'people-group')],
-    'DOXA का मिशन 2033 तक हर अनसंपर्कित जनसमूह तक पहुँचना है।': [GlossarySpan(35, 41, 'people-group')],
-    'यदि आत्मनिर्भर कलीसियाएँ स्थापित करने का कोई ज्ञात प्रयास नहीं है, तो DOXA उस जनसमूह को अनसंपर्कित मानता है।': [GlossarySpan(78, 84, 'people-group')],
-    'किसी जनसमूह को “संपर्कित” माने जाने के लिए ये ज़रूरी हैं:\n1. उनके बीच रहकर किया जाने वाला अग्रणी प्रयास\n2. स्थानीय संस्कृति में और उनकी मातृभाषा में कार्य\n3. दीर्घकालिक प्रतिबद्धताएँ\n4. कलीसिया स्थापना का कार्य': [GlossarySpan(5, 11, 'people-group')],
   },
   'it': {
     'Preghiere, gruppi etnici, foto e mappa sono salvati sul tuo dispositivo, così si aprono subito e funzionano anche offline.': [GlossarySpan(11, 24, 'people-group')],
@@ -169,9 +148,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Vuoi selezionare questo gruppo etnico?': [GlossarySpan(24, 37, 'people-group')],
     'Facoltativo. Ricevi notizie sul tuo gruppo etnico e aggiornamenti da DOXA.': [GlossarySpan(36, 49, 'people-group')],
     'DOXA ti aiuta a pregare per un gruppo etnico non raggiunto. Ti aiuteremo a scegliere un gruppo, impostare un promemoria e restare aggiornato.': [GlossarySpan(31, 44, 'people-group')],
-    'La missione di DOXA è raggiungere ogni gruppo etnico non coinvolto entro il 2033.': [GlossarySpan(39, 52, 'people-group')],
-    'DOXA classifica un gruppo etnico come non coinvolto se non si conoscono sforzi per fondare chiese autosufficienti.': [GlossarySpan(19, 32, 'people-group')],
-    'Perché un gruppo etnico sia classificato come «coinvolto», deve avere:\n1. Uno sforzo pionieristico residente\n2. Un lavoro nella cultura locale e nella sua lingua madre\n3. Impegni a lungo termine\n4. Un’opera di fondazione di chiese': [GlossarySpan(10, 23, 'people-group')],
   },
   'pt': {
     'Orações, grupos étnicos, fotos e mapa ficam salvos no seu dispositivo para abrir na hora e funcionar sem conexão.': [GlossarySpan(9, 23, 'people-group')],
@@ -184,9 +160,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Vamos mostrar conteúdo de oração e lembretes para este grupo étnico. Você pode mudar isso depois.': [GlossarySpan(55, 67, 'people-group')],
     'Opcional. Receba notícias sobre seu grupo étnico e novidades da DOXA.': [GlossarySpan(36, 48, 'people-group')],
     'A DOXA ajuda você a orar por um grupo étnico ainda não alcançado. Vamos ajudar você a escolher um grupo étnico, definir um lembrete e ficar por dentro.': [GlossarySpan(32, 44, 'people-group'), GlossarySpan(98, 110, 'people-group')],
-    'A missão da DOXA é alcançar todos os grupos étnicos não engajados até 2033.': [GlossarySpan(37, 51, 'people-group')],
-    'A DOXA classifica um grupo étnico como não engajado quando não há esforços conhecidos para estabelecer igrejas autossustentáveis.': [GlossarySpan(21, 33, 'people-group')],
-    'Para ser classificado como “engajado”, um grupo étnico precisa ter:\n1. Esforço pioneiro residente\n2. Trabalho na cultura local e na sua língua materna\n3. Compromissos de longo prazo\n4. Uma operação de plantação de igrejas': [GlossarySpan(42, 54, 'people-group')],
   },
   'ro': {
     'DOXA Prayer te ajută să te rogi pentru grupurile etnolingvistice neatinse cu Evanghelia. Mai întâi, trebuie să găsim un grup etnolingvistic pentru care să te rogi.': [GlossarySpan(120, 139, 'people-group')],
@@ -195,9 +168,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Alege un grup etnolingvistic înainte de a seta un memento.': [GlossarySpan(9, 28, 'people-group')],
     'Vrei să selectezi acest grup etnolingvistic?': [GlossarySpan(24, 43, 'people-group')],
     'DOXA te ajută să te rogi pentru un grup etnolingvistic neatins cu Evanghelia. Te vom ajuta să alegi un grup, să setezi un memento și să rămâi la curent.': [GlossarySpan(35, 54, 'people-group')],
-    'Misiunea DOXA este să ajungă la fiecare grup etnolingvistic neangajat misionar până în 2033.': [GlossarySpan(40, 59, 'people-group')],
-    'DOXA consideră un grup etnolingvistic neangajat misionar dacă nu se cunosc eforturi de a întemeia biserici care să se susțină singure.': [GlossarySpan(18, 37, 'people-group')],
-    'Pentru ca un grup etnolingvistic să fie considerat „angajat misionar”, trebuie să aibă:\n1. O lucrare de pionierat prin lucrători rezidenți\n2. Lucrare în cultura locală și în limba lor maternă\n3. Angajamente pe termen lung\n4. O lucrare de plantare de biserici': [GlossarySpan(13, 32, 'people-group')],
   },
   'ru': {
     'Молитвы, народы, фотографии и карта сохраняются на устройстве, чтобы открываться сразу и работать без интернета.': [GlossarySpan(9, 15, 'people-group')],
@@ -208,9 +178,6 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     'Вы хотите выбрать этот народ?': [GlossarySpan(23, 28, 'people-group')],
     'Мы покажем вам молитвенные материалы и напоминания для этого народа. Вы сможете изменить эти настройки позже.': [GlossarySpan(61, 67, 'people-group')],
     'DOXA поможет вам молиться за недостигнутый народ. Мы поможем вам выбрать народ, настроить напоминание и оставаться в курсе событий.': [GlossarySpan(43, 48, 'people-group'), GlossarySpan(73, 78, 'people-group')],
-    'Миссия DOXA — достичь каждого невовлечённого народа к 2033 году.': [GlossarySpan(45, 51, 'people-group')],
-    'DOXA считает народ невовлечённым, если неизвестно ни об одной попытке основать среди него самостоятельные церкви.': [GlossarySpan(13, 18, 'people-group')],
-    'Чтобы народ считался «вовлечённым», необходимы:\n1. Первопроходческое служение служителей, проживающих на месте\n2. Работа в местной культуре и на родном языке народа\n3. Долгосрочные обязательства\n4. Работа по открытию церквей': [GlossarySpan(6, 11, 'people-group'), GlossarySpan(158, 164, 'people-group')],
     'DOXA Prayer помогает вам молиться за недостигнутые народы. Первое, что нам нужно сделать, — найти народ, за который вы будете молиться.': [GlossarySpan(51, 57, 'people-group'), GlossarySpan(98, 103, 'people-group')],
   },
   'zh': {
@@ -226,8 +193,5 @@ const Map<String, Map<String, List<GlossarySpan>>> glossarySpans = {
     '我们会为您显示这个族群的祷告内容和提醒。您之后可以更改。': [GlossarySpan(9, 11, 'people-group')],
     '可选。接收您的族群的消息以及 DOXA 的最新动态。': [GlossarySpan(7, 9, 'people-group')],
     'DOXA 帮助您为一个未得之民祷告。我们会帮您选择族群、设置提醒并保持关注。': [GlossarySpan(25, 27, 'people-group')],
-    'DOXA的使命是：到2033年，接触每一个未接触族群。': [GlossarySpan(24, 26, 'people-group')],
-    '如果一个族群中没有已知的建立自立教会的努力，DOXA就将其归类为未接触族群。': [GlossarySpan(4, 6, 'people-group'), GlossarySpan(35, 37, 'people-group')],
-    '一个族群要被归类为“已接触”，必须具备：\n1. 驻地的开拓性努力\n2. 在当地文化中、用他们的母语开展工作\n3. 长期委身\n4. 植堂工作': [GlossarySpan(2, 4, 'people-group')],
   },
 };

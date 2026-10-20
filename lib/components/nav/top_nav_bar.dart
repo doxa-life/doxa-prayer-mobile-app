@@ -17,7 +17,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     required BuildContext context,
     String? title,
     VoidCallback? onSettings,
-    VoidCallback? onHelp,
     VoidCallback? onBack,
     VoidCallback? onDebug,
     Widget? trailing,
@@ -26,7 +25,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     key: key,
     title: title,
     onSettings: onSettings,
-    onHelp: onHelp,
     settingsBadge: settingsBadge,
     onBack: onBack,
     onDebug: onDebug,
@@ -35,11 +33,7 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       context,
       title: title,
       hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
-      actionCount: _actionCount(
-        onSettings: onSettings,
-        onHelp: onHelp,
-        trailing: trailing,
-      ),
+      actionCount: _actionCount(onSettings: onSettings, trailing: trailing),
     ),
   );
 
@@ -47,7 +41,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     required this.onSettings,
-    required this.onHelp,
     required this.settingsBadge,
     required this.onBack,
     required this.onDebug,
@@ -57,9 +50,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String? title;
   final VoidCallback? onSettings;
-
-  /// Opens Help, from an icon just before the settings cog.
-  final VoidCallback? onHelp;
 
   /// Dots the settings cog when something inside it needs attention —
   /// reminders that can't fire as set. The Reminders tab carried this dot
@@ -82,14 +72,8 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
       onBack != null || (kDebugMode && onDebug != null);
 
   /// Kept in step with the [actions] built below.
-  static int _actionCount({
-    VoidCallback? onSettings,
-    VoidCallback? onHelp,
-    Widget? trailing,
-  }) =>
-      (trailing != null ? 1 : 0) +
-      (onHelp != null ? 1 : 0) +
-      (onSettings != null ? 1 : 0);
+  static int _actionCount({VoidCallback? onSettings, Widget? trailing}) =>
+      (trailing != null ? 1 : 0) + (onSettings != null ? 1 : 0);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +98,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
                 hasLeading: _hasLeading(onBack: onBack, onDebug: onDebug),
                 actionCount: _actionCount(
                   onSettings: onSettings,
-                  onHelp: onHelp,
                   trailing: trailing,
                 ),
               ),
@@ -130,12 +113,6 @@ class TopNavBar extends StatelessWidget implements PreferredSizeWidget {
             ),
       actions: [
         ?trailing,
-        if (onHelp != null)
-          IconButton(
-            icon: const AppIcon(AppIconName.help, color: AppColors.onPrimary),
-            tooltip: l10n.help,
-            onPressed: onHelp,
-          ),
         if (onSettings != null)
           IconButton(
             icon: Badge(

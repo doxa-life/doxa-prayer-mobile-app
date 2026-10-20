@@ -244,9 +244,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -453,7 +450,7 @@
             }
         }
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
@@ -943,7 +940,6 @@
     "nRemindersSet": "{count, plural, zero{لم يتم تعيين أي تذكير} one{تم تعيين تذكير واحد} two{تم تعيين تذكيرين} few{تم تعيين {count} تذكيرات} many{تم تعيين {count} تذكيرًا} other{تم تعيين {count} تذكير}}",
     "nameLabel": "الاسم",
     "nameRequired": "يرجى إدخال اسمك.",
-    "nearbyPeopleGroups": "المجموعات الشعبية القريبة",
     "newReminder": "تذكير جديد",
     "newsSignupError": "حدث خطأ ما. يرجى التحقق من اتصالك ومحاولة الإجراء مرة أخرى.",
     "newsSignupSuccessTitle": "شكرًا لتسجيلك!",
@@ -976,7 +972,7 @@
     "stopPraying": "التوقف عن الصلاة",
     "swapPeopleGroupAction": "استبدال",
     "switchToPeopleGroup": "التبديل إلى «{name}»",
-    "unselect": "إلغاء الاختيار",
+    "deselect": "إلغاء الاختيار",
     "viewProfile": "عرض الملف الشخصي",
     "emailsLoadError": "تعذّر تحميل عناوين بريدك الإلكتروني.",
     "nextDay": "في اليوم التالي",
@@ -1000,6 +996,7 @@
     "partial": "جزئي",
     "pauseAndPray": "توقف وصلّ",
     "peopleCommittedToPraying": "الأشخاص الذين التزموا بالصلاة",
+    "committedToPrayFor": "ملتزمون بالصلاة من أجل «{name}»",
     "peopleGroup": "مجموعة شعبية",
     "peopleGroupIntroTitle": "صلّ من أجل «{name}»",
     "peopleGroupOfTheDay": "المجموعة الشعبية لليوم",
@@ -1067,39 +1064,19 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "عرض على الخريطة",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "مزيد من المعلومات",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "مساعدة",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "رسالتنا",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "رسالة DOXA هي الوصول إلى كل مجموعة شعبية غير مَخْدُومَة بحلول عام 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "الأسئلة الشائعة",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "ما الذي يجعل مجموعة شعبية «غير مَخْدُومَة»؟",
-    "helpFaqUnengagedAnswer": "تَعُدّ DOXA المجموعة الشعبية غير مَخْدُومَة إذا لم تكن هناك جهود معروفة لتأسيس كنائس محلية أصيلة تُعيل نفسها.",
-    "helpFaqEngagedQuestion": "ما الذي تحتاجه مجموعة شعبية لتُعَدّ «مَخْدُومَة»؟",
-    "helpFaqEngagedAnswer": "لكي تُصنَّف مجموعة شعبية على أنها «مَخْدُومَة»، يجب أن يتوفر لها:\n1. جهد ريادي تأسيسي مقيم بين الشعب\n2. عمل ضمن الثقافة المحلية وبلغتهم الأم\n3. التزامات طويلة الأمد\n4. عمل لغرس الكنائس",
-    "helpGlossaryTitle": "مسرد المصطلحات",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "مجموعة شعبية",
     "glossaryPeopleGroupDefinition": "مجموعة من الناس تجمعهم معتقدات وقيم وثقافة مشتركة.",
     "glossaryPeopleGroupAlternates": "مجموعات شعبية|المجموعات الشعبية|المجموعة الشعبية",
     "unengaged": "غير مُنخرَطة",
-    "nPeoplePraying": "{count, plural, =0{لا أحد يصلي بعد} =1{شخص واحد يصلي} other{{count} أشخاص يصلون}}",
+    "nPeoplePraying": "{count, plural, =0{لم يصلِّ أحد مؤخرًا} =1{صلّى شخص واحد مؤخرًا} other{{count} صلّوا مؤخرًا}}",
     "filters": "الفلاتر",
     "sortByName": "ترتيب حسب الاسم",
     "sortAscending": "ترتيب تصاعدي (أ-ي)",

@@ -63,7 +63,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Межкультурные служители присутствуют';
 
   @override
-  String get unselect => 'Отменить выбор';
+  String get deselect => 'Отменить выбор';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -101,6 +101,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Люди, обязавшиеся молиться';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Обязались молиться за народ «$name»';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -179,11 +184,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count человека молятся',
-      many: '$count человек молятся',
-      few: '$count человека молятся',
-      one: '$count человек молится',
-      zero: 'Пока никто не молится',
+      other: '$count человека недавно молились',
+      many: '$count человек недавно молились',
+      few: '$count человека недавно молились',
+      one: '$count человек недавно молился',
+      zero: 'Недавно никто не молился',
     );
     return '$_temp0';
   }
@@ -744,9 +749,6 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Народы поблизости';
-
-  @override
   String get recenter => 'Вернуться к центру';
 
   @override
@@ -762,39 +764,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get viewMap => 'Открыть карту';
 
   @override
+  String get viewOnMap => 'Показать на карте';
+
+  @override
   String get moreInfo => 'Подробнее';
-
-  @override
-  String get help => 'Помощь';
-
-  @override
-  String get helpMissionTitle => 'Наша миссия';
-
-  @override
-  String get helpMissionBody =>
-      'Миссия DOXA — достичь каждого невовлечённого народа к 2033 году.';
-
-  @override
-  String get helpFaqTitle => 'Частые вопросы';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Когда народ считается «невовлечённым»?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA считает народ невовлечённым, если неизвестно ни об одной попытке основать среди него самостоятельные церкви.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'Что нужно, чтобы народ считался «вовлечённым»?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Чтобы народ считался «вовлечённым», необходимы:\n1. Первопроходческое служение служителей, проживающих на месте\n2. Работа в местной культуре и на родном языке народа\n3. Долгосрочные обязательства\n4. Работа по открытию церквей';
-
-  @override
-  String get helpGlossaryTitle => 'Глоссарий';
 
   @override
   String get glossaryPeopleGroup => 'Народ';

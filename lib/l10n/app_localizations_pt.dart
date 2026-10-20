@@ -61,7 +61,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Obreiros transculturais presentes';
 
   @override
-  String get unselect => 'Desmarcar';
+  String get deselect => 'Desmarcar';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -100,6 +100,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Pessoas comprometidas a orar';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Comprometidos a orar por “$name”';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -178,9 +183,9 @@ class AppLocalizationsPt extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count pessoas orando',
-      one: '1 pessoa orando',
-      zero: 'Ninguém orando ainda',
+      other: '$count pessoas oraram recentemente',
+      one: '1 pessoa orou recentemente',
+      zero: 'Ninguém orou recentemente',
     );
     return '$_temp0';
   }
@@ -737,9 +742,6 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Grupos étnicos próximos';
-
-  @override
   String get recenter => 'Recentralizar';
 
   @override
@@ -756,39 +758,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get viewMap => 'Ver mapa';
 
   @override
+  String get viewOnMap => 'Ver no mapa';
+
+  @override
   String get moreInfo => 'Mais informações';
-
-  @override
-  String get help => 'Ajuda';
-
-  @override
-  String get helpMissionTitle => 'Nossa missão';
-
-  @override
-  String get helpMissionBody =>
-      'A missão da DOXA é alcançar todos os grupos étnicos não engajados até 2033.';
-
-  @override
-  String get helpFaqTitle => 'Perguntas frequentes';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'O que faz um grupo étnico ser “não engajado”?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'A DOXA classifica um grupo étnico como não engajado quando não há esforços conhecidos para estabelecer igrejas autossustentáveis.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'Do que um grupo étnico precisa para ser considerado “engajado”?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Para ser classificado como “engajado”, um grupo étnico precisa ter:\n1. Esforço pioneiro residente\n2. Trabalho na cultura local e na sua língua materna\n3. Compromissos de longo prazo\n4. Uma operação de plantação de igrejas';
-
-  @override
-  String get helpGlossaryTitle => 'Glossário';
 
   @override
   String get glossaryPeopleGroup => 'Grupo étnico';

@@ -409,9 +409,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -810,7 +807,7 @@
     "@time": {
         "description": "Label for the time-of-day field"
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@updateAction": {
@@ -944,7 +941,7 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "nPeoplePraying": "{count, plural, =0{Ancora nessuno prega} one{{count} persona prega} other{{count} persone pregano}}",
+    "nPeoplePraying": "{count, plural, =0{Nessuno ha pregato di recente} one{{count} persona ha pregato di recente} other{{count} persone hanno pregato di recente}}",
     "@nPeoplePraying": {
         "description": "A plural message shown on a people-group card for how many people are praying for it",
         "placeholders": {
@@ -988,7 +985,6 @@
     "nRemindersSet": "{count, plural, =0{Nessun promemoria impostato} =1{1 promemoria impostato} other{{count} promemoria impostati}}",
     "nameLabel": "Nome",
     "nameRequired": "Inserisci il tuo nome.",
-    "nearbyPeopleGroups": "Gruppi etnici nelle vicinanze",
     "newReminder": "Nuovo promemoria",
     "newsSignupError": "Qualcosa è andato storto. Controlla la connessione e riprova.",
     "newsSignupSuccessBody": "Abbiamo inviato un'e-mail di verifica a {email}. Apri la tua casella di posta e tocca il link per confermare l'iscrizione.",
@@ -1017,6 +1013,7 @@
     "partial": "Parziale",
     "pauseAndPray": "Fermati e prega",
     "peopleCommittedToPraying": "Persone impegnate a pregare",
+    "committedToPrayFor": "Impegnati a pregare per «{name}»",
     "peopleGroup": "Gruppo etnico",
     "peopleGroupIntroTitle": "Prega per «{name}»",
     "peopleGroupLimitBody": "È il massimo per cui puoi pregare contemporaneamente. Per aggiungere «{name}», scegli un gruppo per cui smettere di pregare.",
@@ -1080,7 +1077,7 @@
     "switchPeopleGroupConfirm": "Vuoi smettere di pregare per «{currentName}» e iniziare a pregare per «{newName}»?",
     "switchToPeopleGroup": "Passa a «{name}»",
     "time": "Ora",
-    "unselect": "Deseleziona",
+    "deselect": "Deseleziona",
     "updateAction": "Aggiorna",
     "updateAvailableBody": "È disponibile una nuova versione di DOXA Prayer.",
     "updateAvailableTitle": "Aggiornamento disponibile",
@@ -1107,33 +1104,13 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "Vedi sulla mappa",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "Maggiori informazioni",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Aiuto",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "La nostra missione",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "La missione di DOXA è raggiungere ogni gruppo etnico non coinvolto entro il 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Domande frequenti",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "Che cosa rende un gruppo etnico «non coinvolto»?",
-    "helpFaqUnengagedAnswer": "DOXA classifica un gruppo etnico come non coinvolto se non si conoscono sforzi per fondare chiese autosufficienti.",
-    "helpFaqEngagedQuestion": "Di che cosa ha bisogno un gruppo etnico per essere «coinvolto»?",
-    "helpFaqEngagedAnswer": "Perché un gruppo etnico sia classificato come «coinvolto», deve avere:\n1. Uno sforzo pionieristico residente\n2. Un lavoro nella cultura locale e nella sua lingua madre\n3. Impegni a lungo termine\n4. Un’opera di fondazione di chiese",
-    "helpGlossaryTitle": "Glossario",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "Gruppo etnico",
     "glossaryPeopleGroupDefinition": "Un gruppo di persone che condividono credenze, valori e cultura.",

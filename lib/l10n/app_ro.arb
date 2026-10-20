@@ -409,9 +409,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -810,7 +807,7 @@
     "@time": {
         "description": "Label for the time-of-day field"
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@updateAction": {
@@ -944,7 +941,7 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "nPeoplePraying": "{count, plural, =0{Încă nu se roagă nimeni} one{{count} persoană se roagă} few{{count} persoane se roagă} other{{count} de persoane se roagă}}",
+    "nPeoplePraying": "{count, plural, =0{Nimeni nu s-a rugat recent} one{{count} persoană s-a rugat recent} few{{count} persoane s-au rugat recent} other{{count} de persoane s-au rugat recent}}",
     "@nPeoplePraying": {
         "description": "A plural message shown on a people-group card for how many people are praying for it",
         "placeholders": {
@@ -988,7 +985,6 @@
     "nRemindersSet": "{count, plural, =0{Niciun memento setat} =1{1 memento setat} few{{count} mementouri setate} other{{count} de mementouri setate}}",
     "nameLabel": "Nume",
     "nameRequired": "Introdu numele tău.",
-    "nearbyPeopleGroups": "Grupuri etnolingvistice din apropiere",
     "newReminder": "Memento nou",
     "newsSignupError": "Ceva nu a mers bine. Verifică-ți conexiunea și încearcă din nou.",
     "newsSignupSuccessBody": "Am trimis un e-mail de verificare la {email}. Deschide-ți inboxul și atinge linkul ca să confirmi abonarea.",
@@ -1017,6 +1013,7 @@
     "partial": "Parțial",
     "pauseAndPray": "Oprește-te și roagă-te",
     "peopleCommittedToPraying": "Persoane angajate să se roage",
+    "committedToPrayFor": "Angajați să se roage pentru „{name}”",
     "peopleGroup": "Grup etnolingvistic",
     "peopleGroupIntroTitle": "Roagă-te pentru „{name}”",
     "peopleGroupLimitBody": "Este numărul maxim pentru care te poți ruga în același timp. Ca să adaugi „{name}”, alege un grup pentru care să nu te mai rogi.",
@@ -1080,7 +1077,7 @@
     "switchPeopleGroupConfirm": "Vrei să nu te mai rogi pentru „{currentName}” și să începi să te rogi pentru „{newName}”?",
     "switchToPeopleGroup": "Comută la „{name}”",
     "time": "Ora",
-    "unselect": "Deselectează",
+    "deselect": "Deselectează",
     "updateAction": "Actualizează",
     "updateAvailableBody": "O versiune nouă a aplicației DOXA Prayer este disponibilă.",
     "updateAvailableTitle": "Actualizare disponibilă",
@@ -1107,33 +1104,13 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "Vezi pe hartă",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "Mai multe informații",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Ajutor",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "Misiunea noastră",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "Misiunea DOXA este să ajungă la fiecare grup etnolingvistic neangajat misionar până în 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Întrebări frecvente",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "Ce face ca un grup etnolingvistic să fie „neangajat misionar”?",
-    "helpFaqUnengagedAnswer": "DOXA consideră un grup etnolingvistic neangajat misionar dacă nu se cunosc eforturi de a întemeia biserici care să se susțină singure.",
-    "helpFaqEngagedQuestion": "De ce are nevoie un grup etnolingvistic pentru a fi „angajat misionar”?",
-    "helpFaqEngagedAnswer": "Pentru ca un grup etnolingvistic să fie considerat „angajat misionar”, trebuie să aibă:\n1. O lucrare de pionierat prin lucrători rezidenți\n2. Lucrare în cultura locală și în limba lor maternă\n3. Angajamente pe termen lung\n4. O lucrare de plantare de biserici",
-    "helpGlossaryTitle": "Glosar",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "Grup etnolingvistic",
     "glossaryPeopleGroupDefinition": "Un grup de oameni care au în comun un set de credințe, valori și o cultură.",

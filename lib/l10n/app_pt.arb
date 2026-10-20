@@ -247,9 +247,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -467,7 +464,7 @@
             }
         }
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
@@ -943,7 +940,6 @@
     "nRemindersSet": "{count, plural, =0{Nenhum lembrete definido} =1{1 lembrete definido} other{{count} lembretes definidos}}",
     "nameLabel": "Nome",
     "nameRequired": "Insira seu nome.",
-    "nearbyPeopleGroups": "Grupos étnicos próximos",
     "newReminder": "Novo lembrete",
     "newsSignupError": "Algo deu errado. Verifique sua conexão e tente novamente.",
     "newsSignupSuccessTitle": "Obrigado por se inscrever!",
@@ -976,7 +972,7 @@
     "stopPraying": "Parar de orar",
     "swapPeopleGroupAction": "Trocar",
     "switchToPeopleGroup": "Mudar para “{name}”",
-    "unselect": "Desmarcar",
+    "deselect": "Desmarcar",
     "viewProfile": "Ver perfil",
     "emailsLoadError": "Não foi possível carregar seus endereços de e-mail.",
     "nextDay": "Próximo dia",
@@ -1000,6 +996,7 @@
     "partial": "Parcial",
     "pauseAndPray": "Pause e ore",
     "peopleCommittedToPraying": "Pessoas comprometidas a orar",
+    "committedToPrayFor": "Comprometidos a orar por “{name}”",
     "peopleGroup": "Grupo étnico",
     "peopleGroupIntroTitle": "Ore por “{name}”",
     "peopleGroupOfTheDay": "Grupo étnico do dia",
@@ -1067,39 +1064,19 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "Ver no mapa",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "Mais informações",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Ajuda",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "Nossa missão",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "A missão da DOXA é alcançar todos os grupos étnicos não engajados até 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Perguntas frequentes",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "O que faz um grupo étnico ser “não engajado”?",
-    "helpFaqUnengagedAnswer": "A DOXA classifica um grupo étnico como não engajado quando não há esforços conhecidos para estabelecer igrejas autossustentáveis.",
-    "helpFaqEngagedQuestion": "Do que um grupo étnico precisa para ser considerado “engajado”?",
-    "helpFaqEngagedAnswer": "Para ser classificado como “engajado”, um grupo étnico precisa ter:\n1. Esforço pioneiro residente\n2. Trabalho na cultura local e na sua língua materna\n3. Compromissos de longo prazo\n4. Uma operação de plantação de igrejas",
-    "helpGlossaryTitle": "Glossário",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "Grupo étnico",
     "glossaryPeopleGroupDefinition": "Um grupo de pessoas com um conjunto comum de crenças, valores e cultura.",
     "glossaryPeopleGroupAlternates": "grupos étnicos",
     "unengaged": "Não engajado",
-    "nPeoplePraying": "{count, plural, =0{Ninguém orando ainda} =1{1 pessoa orando} other{{count} pessoas orando}}",
+    "nPeoplePraying": "{count, plural, =0{Ninguém orou recentemente} =1{1 pessoa orou recentemente} other{{count} pessoas oraram recentemente}}",
     "filters": "Filtros",
     "sortByName": "Ordenar por nome",
     "sortAscending": "Ordenar crescente (A-Z)",

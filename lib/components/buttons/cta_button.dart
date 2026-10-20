@@ -8,6 +8,9 @@ import '../misc/hyphenated_text.dart';
 
 const double _leadingIconSize = 24;
 
+/// The white circle at the end: a 20 icon with 4 all round.
+const double _trailingCircleSize = 28;
+
 class CtaButton extends StatelessWidget {
   const CtaButton({
     super.key,
@@ -47,41 +50,36 @@ class CtaButton extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // A fixed slot, so whatever icon a button has, its label
-                  // starts at the same place as every other button's.
-                  if (leadingIcon != null) ...[
-                    SizedBox.square(
-                      dimension: _leadingIconSize,
-                      child: IconTheme.merge(
-                        data: const IconThemeData(
-                          size: _leadingIconSize,
-                          color: AppColors.white,
-                        ),
-                        child: Center(child: leadingIcon!),
+            // As wide as the circle at the other end, with or without an icon
+            // in it, so the label between them sits in the button's centre.
+            SizedBox.square(
+              dimension: _trailingCircleSize,
+              child: leadingIcon == null
+                  ? null
+                  : IconTheme.merge(
+                      data: const IconThemeData(
+                        size: _leadingIconSize,
+                        color: AppColors.white,
                       ),
+                      child: Center(child: leadingIcon!),
                     ),
-                    const SizedBox(width: AppSpacing.sm),
-                  ],
-                  Expanded(
-                    child: HyphenatedText(
-                      label.toUpperCase(),
-                      style: AppTypography.h2.copyWith(color: AppColors.white),
-                    ),
-                  ),
-                ],
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Expanded(
+              child: HyphenatedText(
+                label.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: AppTypography.h2.copyWith(color: AppColors.white),
               ),
             ),
             const SizedBox(width: AppSpacing.sm),
             Container(
+              width: _trailingCircleSize,
+              height: _trailingCircleSize,
               decoration: ShapeDecoration(
                 shape: CircleBorder(),
                 color: AppColors.white,
               ),
-              padding: const EdgeInsets.all(4),
               child: Center(
                 child:
                     trailingIcon ??

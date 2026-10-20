@@ -10,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'components/misc/app_icon.dart';
 import 'components/misc/hyphenated_text.dart';
 import 'components/nav/bottom_nav_bar.dart';
-import 'components/nav/sheet_page.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/reminders_notifications.dart';
@@ -101,8 +100,6 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
 
   void _openSettings(BuildContext context) => context.push('/settings');
 
-  void _openHelp(BuildContext context) => pushSheet(context, '/help');
-
   void _openDebug(BuildContext context) => context.push('/debug');
 
   void _onTabTap(int index) {
@@ -161,7 +158,6 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
             appBar: TopNavBar(
               context: context,
               onSettings: () => _openSettings(context),
-              onHelp: () => _openHelp(context),
               onDebug: () => _openDebug(context),
               settingsBadge:
                   notificationsBlocked.value || exactAlarmsBlocked.value,

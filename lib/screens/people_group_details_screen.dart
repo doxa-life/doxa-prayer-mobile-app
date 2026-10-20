@@ -1,6 +1,9 @@
+import 'dart:math' as math;
+
+import 'package:doxa_prayer_mobile_app/components/buttons/icon_label_button.dart';
 import 'package:doxa_prayer_mobile_app/components/buttons/subscribe_people_group_button.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/engagement_item.dart';
-import 'package:doxa_prayer_mobile_app/components/cards/profile_deck.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/profile_cards.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/icon_circle.dart';
 import 'package:doxa_prayer_mobile_app/layouts/page_scaffold.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_image.dart';
@@ -19,13 +22,16 @@ import 'package:doxa_prayer_mobile_app/l10n/app_localizations.dart';
 import 'package:doxa_prayer_mobile_app/models/people_group_detail.dart';
 import 'package:doxa_prayer_mobile_app/models/prayer_commitment.dart';
 import 'package:doxa_prayer_mobile_app/services/locale_controller.dart';
+import 'package:doxa_prayer_mobile_app/services/map_config.dart';
+import 'package:doxa_prayer_mobile_app/services/people_group_locations.dart';
 import 'package:doxa_prayer_mobile_app/services/people_groups_service.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_colors.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_spacing.dart';
 import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../components/help/glossary_text.dart';
+import '../components/misc/glossary_text.dart';
 import '../components/misc/hyphenated_text.dart';
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
@@ -67,10 +73,9 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: SheetHeader(onClose: () => safeBack(context)),
-        // The deck runs from the header to the bottom edge and from side to
-        // side, with the cards either side showing at the edges; the space around
-        // the cards is the deck's own, so the loading skeleton (the same deck)
-        // takes exactly the same place.
+        // The page of cards runs from the header to the bottom edge; the space
+        // around the cards is the page's own, so the loading skeleton (the
+        // same page) takes exactly the same place.
         body: SafeArea(
           bottom: false,
           child: PageContainer(
@@ -97,8 +102,9 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
   }
 }
 
-/// The profile, as a deck of cards: who the group is, how much prayer it
-/// has, how engaged it is, the overview, and the resources in its language.
+/// The profile, as a page of cards: who the group is; what it is like and the
+/// facts about it; how much prayer it has; how engaged it is; and the
+/// resources in its language.
 class _DetailBody extends StatelessWidget {
   const _DetailBody({required this.detail, required this.fromWizard});
 
@@ -108,6 +114,7 @@ class _DetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final description = detail.raw['imb_people_description'];
     final cards = <Widget>[
       _Hero(
         detail: detail,
@@ -124,11 +131,67 @@ class _DetailBody extends StatelessWidget {
               : null,
         ),
       ),
+      _ProfileSection(
+        title: l.overview,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: AppSpacing.lg,
+          // A row with no value is left out altogether, rather than drawing
+          // nothing and still taking the column's spacing — an uneven gap
+          // where it sits (between Country and Population when there is no
+          // alternate name).
+          children: [
+            // What the group is like leads the card, above the facts.
+            if (description is String && description.trim().isNotEmpty) ...[
+              GlossaryText(description, style: _descriptionStyle),
+              ProfileHeadingRule(
+                color: AppColors.white.withValues(alpha: 0.35),
+              ),
+            ],
+            for (final row in <_DetailRow>[
+              _DetailRow(
+                label: l.status,
+                value: _label(detail.raw['engagement_status']),
+              ),
+              _DetailRow(
+                label: l.country,
+                value: _label(detail.raw['country_code']),
+                flagCodes: [?_value(detail.raw['country_code'])],
+              ),
+              _DetailRow(
+                label: l.alternateName,
+                value: detail.raw['imb_alternate_name']?.toString(),
+              ),
+              _DetailRow(
+                label: l.population,
+                value: _formatInt(detail.raw['population']),
+              ),
+              _DetailRow(
+                label: l.primaryLanguage,
+                value: _label(detail.raw['primary_language']),
+              ),
+              _DetailRow(
+                label: l.primaryReligion,
+                value: _label(detail.raw['religion']),
+              ),
+              _DetailRow(
+                label: l.religiousPractices,
+                value: detail.raw['religion'] is Map<String, dynamic>
+                    ? (detail.raw['religion']
+                              as Map<String, dynamic>)['description']
+                          as String?
+                    : null,
+              ),
+            ])
+              if (row.isVisible) row,
+          ],
+        ),
+      ),
       _CommittedProgress(
         committed: detail.peopleCommitted,
         groupName: detail.name,
       ),
-      _DeckSection(
+      _ProfileSection(
         title: l.engagementStatus,
         child: _StatusGrid(
           children: [
@@ -172,56 +235,7 @@ class _DetailBody extends StatelessWidget {
           ],
         ),
       ),
-      _DeckSection(
-        title: l.overview,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: AppSpacing.lg,
-          // A row with no value is left out altogether, rather than drawing
-          // nothing and still taking the column's spacing — an uneven gap
-          // where it sits (between Country and Population when there is no
-          // alternate name).
-          children: [
-            for (final row in <_DetailRow>[
-              _DetailRow(
-                label: l.status,
-                value: _label(detail.raw['engagement_status']),
-              ),
-              _DetailRow(
-                label: l.country,
-                value: _label(detail.raw['country_code']),
-                flagCodes: [?_value(detail.raw['country_code'])],
-              ),
-              _DetailRow(
-                label: l.alternateName,
-                value: detail.raw['imb_alternate_name']?.toString(),
-              ),
-              _DetailRow(
-                label: l.population,
-                value: _formatInt(detail.raw['population']),
-              ),
-              _DetailRow(
-                label: l.primaryLanguage,
-                value: _label(detail.raw['primary_language']),
-              ),
-              _DetailRow(
-                label: l.primaryReligion,
-                value: _label(detail.raw['religion']),
-              ),
-              _DetailRow(
-                label: l.religiousPractices,
-                value: detail.raw['religion'] is Map<String, dynamic>
-                    ? (detail.raw['religion']
-                              as Map<String, dynamic>)['description']
-                          as String?
-                    : null,
-              ),
-            ])
-              if (row.isVisible) row,
-          ],
-        ),
-      ),
-      _DeckSection(
+      _ProfileSection(
         title: l.resources,
         child: _StatusGrid(
           children: [
@@ -243,98 +257,21 @@ class _DetailBody extends StatelessWidget {
         ),
       ),
     ];
-    return ProfileDeck(
-      cards: cards,
-      // Every card after the first is dark green.
-      darkCards: {for (var i = 1; i < cards.length; i++) i},
-    );
+    return ProfileStack(cards: cards);
   }
 }
 
 /// The first card: the group's name, large, with where it lives and how it
-/// stands under it; its photo as the card's centrepiece — as large as the
-/// card allows — then the button to add or remove it, and what the group is
-/// like.
+/// stands under it; then its photo, and under that the button to select it.
 class _Hero extends StatelessWidget {
   const _Hero({required this.detail, required this.action});
 
   final PeopleGroupDetail detail;
   final Widget action;
 
-  /// The most of the card's height the description takes before it scrolls,
-  /// so a long one never squeezes the photo out.
-  static const double descriptionShare = 0.3;
-
-  /// On a phone the card is short, so the description gets more of it — the
-  /// photo, in its `Expanded`, gives up the difference.
-  static const double phoneDescriptionShare = 0.4;
-
-  /// The description's sizes, largest first: it is set in the largest that
-  /// fits its space without scrolling, down to the last.
-  static const List<double> descriptionSizes = [
-    AppTypography.lg,
-    AppTypography.md,
-    AppTypography.sm,
-  ];
-
-  static final TextStyle descriptionStyle = AppTypography.bodyLarge.copyWith(
-    fontWeight: FontWeight.w500,
-    height: 1.45,
-  );
-
-  static bool _isPhone(BuildContext context) =>
-      MediaQuery.sizeOf(context).shortestSide < 600;
-
-  /// The largest of [descriptionSizes] at which [text] laid out at [width]
-  /// fits in [maxHeight], or the smallest when none does.
-  static TextStyle _fitDescription(
-    BuildContext context,
-    String text, {
-    required double width,
-    required double maxHeight,
-  }) {
-    final scaler = MediaQuery.textScalerOf(context);
-    final direction = Directionality.of(context);
-    // Up to three full text layouts per answer, asked again on every rebuild
-    // and every page of the deck that brings the card back: worth keeping.
-    final key = (text, width, maxHeight, scaler, direction);
-    final known = _fitted[key];
-    if (known != null) return known;
-    final style = _measureFit(text, width, maxHeight, scaler, direction);
-    if (_fitted.length >= 64) _fitted.remove(_fitted.keys.first);
-    _fitted[key] = style;
-    return style;
-  }
-
-  static final Map<Object, TextStyle> _fitted = {};
-
-  static TextStyle _measureFit(
-    String text,
-    double width,
-    double maxHeight,
-    TextScaler scaler,
-    TextDirection direction,
-  ) {
-    for (final size in descriptionSizes) {
-      final style = descriptionStyle.copyWith(fontSize: size);
-      final painter = TextPainter(
-        text: TextSpan(text: text, style: style),
-        textDirection: direction,
-        textScaler: scaler,
-      )..layout(maxWidth: width);
-      final fits = painter.height <= maxHeight;
-      painter.dispose();
-      if (fits) return style;
-    }
-    return descriptionStyle.copyWith(fontSize: descriptionSizes.last);
-  }
-
-  /// How much of the card's width the photo fills.
-  static const double imageShare = 0.88;
-
-  /// The share of the card's height left clear at its foot, so the photo,
-  /// button and description sit up under the facts rather than at the bottom.
-  static const double footShare = 0.05;
+  /// The widest the photo is drawn. Most photos are portrait, so on a tablet
+  /// a full-width one would run taller than the screen.
+  static const double maxImageWidth = 480;
 
   /// The group's name: the display face its name is set in on the home
   /// screen's cards, at the size of the profile's card headings.
@@ -346,37 +283,34 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final credit = detail.pictureCredit;
-    final description = detail.raw['imb_people_description'];
-    return ProfileDeckCard(
-      padding: AppSpacing.xl,
-      fill: true,
-      child: LayoutBuilder(
-        builder: (context, constraints) => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Semantics(
-              header: true,
-              child: HyphenatedText(
-                detail.name,
-                textAlign: TextAlign.center,
-                style: nameStyle,
+    return ProfileCard(
+      padding: AppSpacing.lg,
+      // The map button sits over the card's corner rather than beside the
+      // name, so nothing else on the card moves or narrows for it.
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Semantics(
+                header: true,
+                child: HyphenatedText(
+                  detail.name,
+                  textAlign: TextAlign.center,
+                  style: nameStyle,
+                ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            _HeroFacts(detail: detail),
-            const SizedBox(height: AppSpacing.md),
-            Expanded(
-              child: LayoutBuilder(
-                // The photo takes the full height of its space, so its top
-                // sits just under the facts, with no gap above it.
-                builder: (context, box) => Align(
-                  alignment: Alignment.topCenter,
+              const SizedBox(height: AppSpacing.sm),
+              _HeroFacts(detail: detail),
+              const SizedBox(height: AppSpacing.lg),
+              // At the photo's own proportions — never cropped or stretched.
+              LayoutBuilder(
+                builder: (context, box) => Center(
                   child: Stack(
                     children: [
-                      AppImage(
+                      AppImage.naturalAspect(
                         url: detail.imageUrl,
-                        size: box.maxWidth * imageShare,
-                        height: box.maxHeight,
+                        size: math.min(box.maxWidth, maxImageWidth),
                         semanticLabel: detail.name,
                       ),
                       if (credit.isNotEmpty)
@@ -389,47 +323,71 @@ class _Hero extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            action,
-            if (description is String) ...[
               const SizedBox(height: AppSpacing.lg),
-              Builder(
-                builder: (context) {
-                  final maxHeight =
-                      constraints.maxHeight *
-                      (_isPhone(context)
-                          ? phoneDescriptionShare
-                          : descriptionShare);
-                  return ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: maxHeight),
-                    // Still scrolls if even the smallest size overflows, so
-                    // nothing is ever cut off.
-                    child: ProfileCardScroll(
-                      child: GlossaryText(
-                        description,
-                        style: _fitDescription(
-                          context,
-                          description,
-                          width: constraints.maxWidth,
-                          maxHeight: maxHeight,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              action,
             ],
-            SizedBox(height: constraints.maxHeight * footShare),
-          ],
-        ),
+          ),
+          PositionedDirectional(
+            top: 0,
+            end: 0,
+            child: _ViewOnMapButton(slug: detail.slug),
+          ),
+        ],
       ),
     );
   }
 }
 
-/// Under the group's name: its country, with the flag, and the wider people
-/// it belongs to; then whether it is engaged and how many are praying for it —
+/// Opens the map with this group alone on it. Sits in the top corner of the
+/// profile's first card.
+///
+/// A build with no Mapbox token says why the map can't open, as the home
+/// screen's map button does. A group known to have no location leaves the
+/// button muted and saying so.
+class _ViewOnMapButton extends StatelessWidget {
+  const _ViewOnMapButton({required this.slug});
+
+  final String slug;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return ValueListenableBuilder<Set<String>?>(
+      valueListenable: peopleGroupSlugsWithLocation,
+      builder: (context, located, _) {
+        final hasLocation = mayHaveLocation(slug, located);
+        return IconLabelButton(
+          icon: const AppIcon(AppIconName.geoAlt),
+          label: hasLocation ? l.viewOnMap : l.locationNotAvailable,
+          onPressed: !MapConfig.isConfigured
+              ? () => _showMapNotConfigured(context)
+              : hasLocation
+              ? () => context.push('/people-groups/$slug/map')
+              : null,
+        );
+      },
+    );
+  }
+
+  static void _showMapNotConfigured(BuildContext context) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.mapNotConfigured)),
+      );
+  }
+}
+
+/// The group's description, at the top of the overview card.
+final TextStyle _descriptionStyle = AppTypography.bodyLarge.copyWith(
+  color: AppColors.white,
+  fontSize: AppTypography.md,
+  fontWeight: FontWeight.w500,
+  height: 1.45,
+);
+
+/// Under the group's name: its country, with the flag, and the region it
+/// lives in; then whether it is engaged and how many are praying for it —
 /// what the browse list shows for each group.
 class _HeroFacts extends StatelessWidget {
   const _HeroFacts({required this.detail});
@@ -442,7 +400,7 @@ class _HeroFacts extends StatelessWidget {
     final muted = AppColors.onSurface.withValues(alpha: 0.7);
     final country = _label(detail.raw['country_code']);
     final countryCode = _value(detail.raw['country_code']);
-    final cluster = _label(detail.raw['rop1']);
+    final region = _label(detail.raw['region']);
     final hasStatus = _label(detail.raw['engagement_status']) != null;
     final praying = detail.peoplePraying;
     final prayingColor = praying > 0 ? AppColors.secondary : muted;
@@ -465,9 +423,9 @@ class _HeroFacts extends StatelessWidget {
               ),
             ],
           ),
-        if (cluster != null)
+        if (region != null)
           HyphenatedText(
-            cluster,
+            region,
             textAlign: TextAlign.center,
             style: AppTypography.bodySmall.copyWith(color: muted),
           ),
@@ -546,27 +504,24 @@ class _CardHeading extends StatelessWidget {
 final Color _kMutedOnDark = AppColors.white.withValues(alpha: 0.75);
 
 /// A dark green profile card under a [_CardHeading].
-class _DeckSection extends StatelessWidget {
-  const _DeckSection({
+class _ProfileSection extends StatelessWidget {
+  const _ProfileSection({
     required this.title,
     this.subtitle,
     required this.child,
-    this.bodyAlignment = Alignment.topCenter,
   });
 
   final String title;
   final String? subtitle;
   final Widget child;
-  final AlignmentGeometry bodyAlignment;
 
   @override
   Widget build(BuildContext context) {
-    return ProfileDeckCard(
+    return ProfileCard(
       color: AppColors.primary,
       padding: AppSpacing.xl,
       header: _CardHeading(title: title, subtitle: subtitle),
       ruleColor: AppColors.white.withValues(alpha: 0.35),
-      bodyAlignment: bodyAlignment,
       child: child,
     );
   }
@@ -585,10 +540,9 @@ class _CommittedProgress extends StatelessWidget {
     final ratio = kPeopleCommittedGoal == 0
         ? 0.0
         : clamped / kPeopleCommittedGoal;
-    return _DeckSection(
+    return _ProfileSection(
       title: l.prayerStatus,
       subtitle: l.prayerStatusExplanation(groupName),
-      bodyAlignment: Alignment.center,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: AppSpacing.md,
@@ -602,7 +556,7 @@ class _CommittedProgress extends StatelessWidget {
             ),
           ),
           HyphenatedText(
-            l.peopleCommittedToPraying,
+            l.committedToPrayFor(groupName),
             style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
             textAlign: TextAlign.center,
           ),

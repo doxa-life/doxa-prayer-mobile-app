@@ -61,7 +61,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Ouvriers transculturels présents';
 
   @override
-  String get unselect => 'Désélectionner';
+  String get deselect => 'Désélectionner';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -100,6 +100,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Personnes engagées dans la prière';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Engagés à prier pour « $name »';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -178,9 +183,9 @@ class AppLocalizationsFr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count personnes prient',
-      one: '1 personne prie',
-      zero: 'Personne ne prie encore',
+      other: '$count personnes ont prié récemment',
+      one: '1 personne a prié récemment',
+      zero: 'Personne n’a prié récemment',
     );
     return '$_temp0';
   }
@@ -738,9 +743,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Peuples à proximité';
-
-  @override
   String get recenter => 'Recentrer';
 
   @override
@@ -757,39 +759,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get viewMap => 'Voir la carte';
 
   @override
+  String get viewOnMap => 'Voir sur la carte';
+
+  @override
   String get moreInfo => 'Plus d’infos';
-
-  @override
-  String get help => 'Aide';
-
-  @override
-  String get helpMissionTitle => 'Notre mission';
-
-  @override
-  String get helpMissionBody =>
-      'La mission de DOXA est d’atteindre chaque peuple non engagé d’ici 2033.';
-
-  @override
-  String get helpFaqTitle => 'Questions fréquentes';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Qu’est-ce qui fait qu’un peuple est « non engagé » ?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA considère un peuple comme non engagé lorsqu’aucun effort connu ne vise à y implanter des églises autonomes.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'De quoi un peuple a-t-il besoin pour être « engagé » ?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Pour être considéré comme « engagé », un peuple doit bénéficier :\n1. d’un effort pionnier sur le terrain\n2. d’un travail dans la culture locale et dans sa langue maternelle\n3. d’engagements à long terme\n4. d’une œuvre d’implantation d’églises';
-
-  @override
-  String get helpGlossaryTitle => 'Glossaire';
 
   @override
   String get glossaryPeopleGroup => 'Peuple';

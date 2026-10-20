@@ -60,10 +60,10 @@
     "@crossCulturalWorkersPresent": {
         "description": "The label of the cross-cultural workers present field"
     },
-    "unselect": "Unselect",
+    "deselect": "Deselect",
     "workInLocalLanguageAndCulture": "Work in local language & culture",
-    "@unselect": {
-        "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
+    "@deselect": {
+        "description": "What tapping the Selected button does, read out by screen readers as its hint: removes the people group the user had selected. Used on the browse list and the details screen"
     },
     "@workInLocalLanguageAndCulture": {
         "description": "The label of the work in local language and culture field"
@@ -109,6 +109,15 @@
         "description": "The title of the prayer status section"
     },
     "peopleCommittedToPraying": "People committed to praying",
+    "committedToPrayFor": "Committed to pray for {name}",
+    "@committedToPrayFor": {
+        "description": "Under the number on the prayer status card of a people group's profile: how many people have signed up to pray for the group",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
     "@peopleCommittedToPraying": {
         "description": "The label of the people committed to praying field"
     },
@@ -209,9 +218,9 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "nPeoplePraying": "{count, plural, =0{No one praying yet} =1{1 person praying} other{{count} people praying}}",
+    "nPeoplePraying": "{count, plural, =0{No one has prayed recently} =1{1 person has prayed recently} other{{count} have prayed recently}}",
     "@nPeoplePraying": {
-        "description": "A plural message shown on a people-group card for how many people are praying for it",
+        "description": "How many different people have prayed for a people group recently (the server's 7-day daily average of people who opened a prayer); shown on people-group cards and under the name on its profile",
         "placeholders": {
             "count": {
                 "type": "num"
@@ -949,10 +958,6 @@
             }
         }
     },
-    "nearbyPeopleGroups": "Nearby people groups",
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "recenter": "Recenter",
     "@recenter": {
         "description": "Button that moves the map back to the people group it opened on, shown once that group has been panned off screen"
@@ -973,48 +978,13 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "View on Map",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "More info",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Help",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "Our mission",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "DOXA's mission is to reach every unengaged people group, by 2033.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Frequently asked questions",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "What makes a people group “unengaged”?",
-    "@helpFaqUnengagedQuestion": {
-        "description": "FAQ question in Help: what makes a people group unengaged",
-        "x-glossary": false
-    },
-    "helpFaqUnengagedAnswer": "DOXA classifies a people group as unengaged if there are no known efforts at establishing self-sustaining churches.",
-    "@helpFaqUnengagedAnswer": {
-        "description": "Answer to the FAQ question about what makes a people group unengaged"
-    },
-    "helpFaqEngagedQuestion": "What does a people group need in order to be “engaged”?",
-    "@helpFaqEngagedQuestion": {
-        "description": "FAQ question in Help: what a people group needs to be classified as engaged",
-        "x-glossary": false
-    },
-    "helpFaqEngagedAnswer": "In order for a people group to be classified as “engaged”, they must have:\n1. Pioneer effort in residence\n2. Work in the local culture, and in their native language\n3. Long-term commitments\n4. A church-planting operation",
-    "@helpFaqEngagedAnswer": {
-        "description": "Answer to the FAQ question about what makes a people group engaged; a numbered list, one item per line",
-        "x-glossary": true
-    },
-    "helpGlossaryTitle": "Glossary",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "People group",
     "@glossaryPeopleGroup": {

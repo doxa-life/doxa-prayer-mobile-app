@@ -4,7 +4,7 @@ import 'package:hyphenatorx/hyphenatorx.dart';
 
 import '../../services/glossary.dart';
 import '../../services/hyphenation_service.dart';
-import '../help/glossary_text.dart';
+import 'glossary_text.dart';
 
 /// A drop-in [Text] replacement that breaks over-long words with a visible
 /// hyphen instead of mid-character.

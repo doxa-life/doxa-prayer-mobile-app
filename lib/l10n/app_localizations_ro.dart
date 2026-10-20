@@ -62,7 +62,7 @@ class AppLocalizationsRo extends AppLocalizations {
   String get crossCulturalWorkersPresent => 'Lucrători transculturali prezenți';
 
   @override
-  String get unselect => 'Deselectează';
+  String get deselect => 'Deselectează';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -101,6 +101,11 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Persoane angajate să se roage';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Angajați să se roage pentru „$name”';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -179,10 +184,10 @@ class AppLocalizationsRo extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count de persoane se roagă',
-      few: '$count persoane se roagă',
-      one: '$count persoană se roagă',
-      zero: 'Încă nu se roagă nimeni',
+      other: '$count de persoane s-au rugat recent',
+      few: '$count persoane s-au rugat recent',
+      one: '$count persoană s-a rugat recent',
+      zero: 'Nimeni nu s-a rugat recent',
     );
     return '$_temp0';
   }
@@ -745,9 +750,6 @@ class AppLocalizationsRo extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Grupuri etnolingvistice din apropiere';
-
-  @override
   String get recenter => 'Recentrează';
 
   @override
@@ -764,39 +766,10 @@ class AppLocalizationsRo extends AppLocalizations {
   String get viewMap => 'Vezi harta';
 
   @override
+  String get viewOnMap => 'Vezi pe hartă';
+
+  @override
   String get moreInfo => 'Mai multe informații';
-
-  @override
-  String get help => 'Ajutor';
-
-  @override
-  String get helpMissionTitle => 'Misiunea noastră';
-
-  @override
-  String get helpMissionBody =>
-      'Misiunea DOXA este să ajungă la fiecare grup etnolingvistic neangajat misionar până în 2033.';
-
-  @override
-  String get helpFaqTitle => 'Întrebări frecvente';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Ce face ca un grup etnolingvistic să fie „neangajat misionar”?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA consideră un grup etnolingvistic neangajat misionar dacă nu se cunosc eforturi de a întemeia biserici care să se susțină singure.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'De ce are nevoie un grup etnolingvistic pentru a fi „angajat misionar”?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Pentru ca un grup etnolingvistic să fie considerat „angajat misionar”, trebuie să aibă:\n1. O lucrare de pionierat prin lucrători rezidenți\n2. Lucrare în cultura locală și în limba lor maternă\n3. Angajamente pe termen lung\n4. O lucrare de plantare de biserici';
-
-  @override
-  String get helpGlossaryTitle => 'Glosar';
 
   @override
   String get glossaryPeopleGroup => 'Grup etnolingvistic';

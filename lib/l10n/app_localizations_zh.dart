@@ -59,7 +59,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get crossCulturalWorkersPresent => '有跨文化工人';
 
   @override
-  String get unselect => '取消选择';
+  String get deselect => '取消选择';
 
   @override
   String get workInLocalLanguageAndCulture => '以当地语言和文化开展工作';
@@ -96,6 +96,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => '承诺祷告的人数';
+
+  @override
+  String committedToPrayFor(String name) {
+    return '承诺为“$name”祷告';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -173,8 +178,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count 人在祷告',
-      zero: '还没有人祷告',
+      other: '最近有 $count 人祷告过',
+      zero: '最近还没有人祷告',
     );
     return '$_temp0';
   }
@@ -700,9 +705,6 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => '附近的族群';
-
-  @override
   String get recenter => '重新居中';
 
   @override
@@ -718,35 +720,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get viewMap => '查看地图';
 
   @override
+  String get viewOnMap => '在地图上查看';
+
+  @override
   String get moreInfo => '更多信息';
-
-  @override
-  String get help => '帮助';
-
-  @override
-  String get helpMissionTitle => '我们的使命';
-
-  @override
-  String get helpMissionBody => 'DOXA的使命是：到2033年，接触每一个未接触族群。';
-
-  @override
-  String get helpFaqTitle => '常见问题';
-
-  @override
-  String get helpFaqUnengagedQuestion => '什么样的族群属于“未接触”族群？';
-
-  @override
-  String get helpFaqUnengagedAnswer => '如果一个族群中没有已知的建立自立教会的努力，DOXA就将其归类为未接触族群。';
-
-  @override
-  String get helpFaqEngagedQuestion => '一个族群需要具备什么条件才算“已接触”？';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      '一个族群要被归类为“已接触”，必须具备：\n1. 驻地的开拓性努力\n2. 在当地文化中、用他们的母语开展工作\n3. 长期委身\n4. 植堂工作';
-
-  @override
-  String get helpGlossaryTitle => '术语表';
 
   @override
   String get glossaryPeopleGroup => '族群';

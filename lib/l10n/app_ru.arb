@@ -247,9 +247,6 @@
     "@nameRequired": {
         "description": "Inline validation warning shown when the news signup name is empty"
     },
-    "@nearbyPeopleGroups": {
-        "description": "Accessibility description of the other pins shown around the focused people group"
-    },
     "@newReminder": {
         "description": "Title of the create-reminder bottom sheet and label of the create button on the reminders screen"
     },
@@ -456,7 +453,7 @@
             }
         }
     },
-    "@unselect": {
+    "@deselect": {
         "description": "Button that removes a people group the user had selected; the opposite of the select button, used on the browse list and the details screen"
     },
     "@viewProfile": {
@@ -943,7 +940,6 @@
     "nRemindersSet": "{count, plural, =0{Напоминаний не установлено} one{Установлено {count} напоминание} few{Установлено {count} напоминания} many{Установлено {count} напоминаний} other{Установлено {count} напоминаний}}",
     "nameLabel": "Имя",
     "nameRequired": "Пожалуйста, введите своё имя.",
-    "nearbyPeopleGroups": "Народы поблизости",
     "newReminder": "Новое напоминание",
     "newsSignupError": "Произошла ошибка. Проверьте подключение и попробуйте ещё раз.",
     "newsSignupSuccessTitle": "Спасибо за регистрацию!",
@@ -976,7 +972,7 @@
     "stopPraying": "Перестать молиться",
     "swapPeopleGroupAction": "Заменить",
     "switchToPeopleGroup": "Перейти к народу «{name}»",
-    "unselect": "Отменить выбор",
+    "deselect": "Отменить выбор",
     "viewProfile": "Открыть профиль",
     "emailsLoadError": "Не удалось загрузить ваши адреса электронной почты.",
     "nextDay": "Следующий день",
@@ -1000,6 +996,7 @@
     "partial": "Частично",
     "pauseAndPray": "Остановитесь и помолитесь",
     "peopleCommittedToPraying": "Люди, обязавшиеся молиться",
+    "committedToPrayFor": "Обязались молиться за народ «{name}»",
     "peopleGroup": "Народ",
     "peopleGroupIntroTitle": "Помолитесь за народ «{name}»",
     "peopleGroupOfTheDay": "Народ дня",
@@ -1067,39 +1064,19 @@
     "@viewMap": {
         "description": "Home screen button that opens the map of every people group, not tied to any one of the user's groups"
     },
+    "viewOnMap": "Показать на карте",
+    "@viewOnMap": {
+        "description": "Button at the top of a people group's profile that opens the map showing only that group"
+    },
     "moreInfo": "Подробнее",
     "@moreInfo": {
         "description": "Link in a map pin's tooltip that opens the people group's profile page"
-    },
-    "help": "Помощь",
-    "@help": {
-        "description": "Bottom navigation tab that opens the Help page: DOXA's mission, the FAQ and the glossary"
-    },
-    "helpMissionTitle": "Наша миссия",
-    "@helpMissionTitle": {
-        "description": "Heading of the Help page's mission section"
-    },
-    "helpMissionBody": "Миссия DOXA — достичь каждого невовлечённого народа к 2033 году.",
-    "@helpMissionBody": {
-        "description": "Body of the Help page's mission section. Glossary terms in it become tappable"
-    },
-    "helpFaqTitle": "Частые вопросы",
-    "@helpFaqTitle": {
-        "description": "Heading of the Help page's FAQ section"
-    },
-    "helpFaqUnengagedQuestion": "Когда народ считается «невовлечённым»?",
-    "helpFaqUnengagedAnswer": "DOXA считает народ невовлечённым, если неизвестно ни об одной попытке основать среди него самостоятельные церкви.",
-    "helpFaqEngagedQuestion": "Что нужно, чтобы народ считался «вовлечённым»?",
-    "helpFaqEngagedAnswer": "Чтобы народ считался «вовлечённым», необходимы:\n1. Первопроходческое служение служителей, проживающих на месте\n2. Работа в местной культуре и на родном языке народа\n3. Долгосрочные обязательства\n4. Работа по открытию церквей",
-    "helpGlossaryTitle": "Глоссарий",
-    "@helpGlossaryTitle": {
-        "description": "Heading of the Help page's glossary section"
     },
     "glossaryPeopleGroup": "Народ",
     "glossaryPeopleGroupDefinition": "Группа людей с общими убеждениями, ценностями и культурой.",
     "glossaryPeopleGroupAlternates": "народы|народа|народов|народу",
     "unengaged": "Не вовлечён",
-    "nPeoplePraying": "{count, plural, =0{Пока никто не молится} one{{count} человек молится} few{{count} человека молятся} many{{count} человек молятся} other{{count} человека молятся}}",
+    "nPeoplePraying": "{count, plural, =0{Недавно никто не молился} one{{count} человек недавно молился} few{{count} человека недавно молились} many{{count} человек недавно молились} other{{count} человека недавно молились}}",
     "filters": "Фильтры",
     "sortByName": "Сортировать по имени",
     "sortAscending": "Сортировать по возрастанию (А-Я)",

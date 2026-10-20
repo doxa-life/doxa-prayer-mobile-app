@@ -66,7 +66,7 @@ class PrayerContentView extends StatelessWidget {
         final data = block.peopleGroupData;
         if (data == null) return null;
         return PeopleGroupIntroView(name: block.title, data: data);
-      // Shown at the top of the Search tab's results instead.
+      // Shown at the foot of the page, after the Amen — see PrayerSessionView.
       case PrayerContentBlockType.peopleGroupOfTheDay:
         return null;
       case PrayerContentBlockType.static:

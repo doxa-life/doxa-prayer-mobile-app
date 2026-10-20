@@ -61,7 +61,7 @@ class AppLocalizationsFi extends AppLocalizations {
       'Kulttuurirajat ylittäviä työntekijöitä paikalla';
 
   @override
-  String get unselect => 'Poista valinta';
+  String get deselect => 'Poista valinta';
 
   @override
   String get workInLocalLanguageAndCulture =>
@@ -100,6 +100,11 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get peopleCommittedToPraying => 'Rukoukseen sitoutuneet ihmiset';
+
+  @override
+  String committedToPrayFor(String name) {
+    return 'Sitoutuneet rukoilemaan kansanryhmän $name puolesta';
+  }
 
   @override
   String prayerStatusExplanation(String name) {
@@ -178,9 +183,9 @@ class AppLocalizationsFi extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count henkilöä rukoilee',
-      one: '$count henkilö rukoilee',
-      zero: 'Kukaan ei vielä rukoile',
+      other: '$count henkilöä on rukoillut viime aikoina',
+      one: '$count henkilö on rukoillut viime aikoina',
+      zero: 'Kukaan ei ole rukoillut viime aikoina',
     );
     return '$_temp0';
   }
@@ -736,9 +741,6 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
-  String get nearbyPeopleGroups => 'Lähellä olevat kansanryhmät';
-
-  @override
   String get recenter => 'Keskitä uudelleen';
 
   @override
@@ -755,39 +757,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get viewMap => 'Näytä kartta';
 
   @override
+  String get viewOnMap => 'Näytä kartalla';
+
+  @override
   String get moreInfo => 'Lisätietoja';
-
-  @override
-  String get help => 'Ohje';
-
-  @override
-  String get helpMissionTitle => 'Missiomme';
-
-  @override
-  String get helpMissionBody =>
-      'DOXAn tehtävänä on tavoittaa vuoteen 2033 mennessä jokainen lähetystyön ulkopuolella oleva kansanryhmä.';
-
-  @override
-  String get helpFaqTitle => 'Usein kysytyt kysymykset';
-
-  @override
-  String get helpFaqUnengagedQuestion =>
-      'Milloin kansanryhmä on ”lähetystyön ulkopuolella”?';
-
-  @override
-  String get helpFaqUnengagedAnswer =>
-      'DOXA luokittelee kansanryhmän lähetystyön ulkopuolella olevaksi, jos siellä ei tiedetä olevan pyrkimyksiä perustaa itse kannattavia seurakuntia.';
-
-  @override
-  String get helpFaqEngagedQuestion =>
-      'Mitä kansanryhmä tarvitsee ollakseen ”lähetystyön piirissä”?';
-
-  @override
-  String get helpFaqEngagedAnswer =>
-      'Jotta kansanryhmä luokitellaan lähetystyön piirissä olevaksi, sillä täytyy olla:\n1. Kansanryhmän keskuudessa asuvien työntekijöiden pioneerityötä\n2. Työtä paikallisessa kulttuurissa ja kansan omalla äidinkielellä\n3. Pitkäaikaisia sitoumuksia\n4. Seurakunnanistutustyötä';
-
-  @override
-  String get helpGlossaryTitle => 'Sanasto';
 
   @override
   String get glossaryPeopleGroup => 'Kansanryhmä';

@@ -20,15 +20,15 @@ import '../../components/nav/swipeable_branch_container.dart'
     show tabSwipeLocked;
 import '../../components/widgets/people_groups_list_skeleton.dart';
 import '../../models/people_group.dart';
-import '../../models/prayer_content.dart';
+import '../../screens/people_group_map_screen.dart';
 import '../../services/locale_controller.dart';
-import '../../services/people_group_of_the_day.dart';
 import '../../services/people_groups_service.dart';
 import '../../services/people_group_subscription_flow.dart';
 import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../layouts/page_scaffold.dart';
 import '../../theme/app_spacing.dart';
+import '../misc/app_icon.dart';
 import '../misc/cached_data_builder.dart';
 import '../misc/country_flag.dart';
 import '../misc/religion_icon.dart';
@@ -76,10 +76,6 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   /// from any other search.
   List<PeopleGroup>? _loadedGroups;
 
-  /// Today's People Group of the Day for the active group, once read, and
-  /// which group, language and day it was read for.
-  PeopleGroupBlockData? _ofTheDay;
-  String? _ofTheDayKey;
   String _query = '';
   bool _filtersExpanded = false;
   bool _sortAscending = true;
@@ -563,6 +559,17 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
             },
           ),
         ),
+        // Not in the wizard: mid-onboarding the list is for choosing a first
+        // group, and the map would lead away from it.
+        if (!_isWizardMode)
+          IconButton(
+            icon: const AppIcon(AppIconName.map),
+            tooltip: l.viewMap,
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              openOverviewMap(context);
+            },
+          ),
         IconButton(
           icon: Badge(
             isLabelVisible: _hasActiveFilters,
@@ -1000,58 +1007,11 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
     );
   }
 
-  /// Today's People Group of the Day for the active group [slug] — null until
-  /// it has been read, and in the wizard, where there is no active group yet.
-  /// A change of group, language or day reads it again; the setState when it
-  /// lands pins it to the top of the results.
-  PeopleGroupBlockData? _peopleGroupOfTheDay(String? slug) {
-    if (_isWizardMode || slug == null) return null;
-    final language = localeController.value.languageCode;
-    final now = DateTime.now();
-    final key = '$slug-$language-${now.year}-${now.month}-${now.day}';
-    if (key != _ofTheDayKey) {
-      _ofTheDayKey = key;
-      // The last group of the day stays pinned while the new one is read,
-      // rather than dropping out and jumping back in: switching groups on the
-      // home screen lands here on every swipe, and it is usually the same
-      // group of the day anyway.
-      fetchPeopleGroupOfTheDay(slug: slug, language: language).then(
-        (day) {
-          if (!mounted || _ofTheDayKey != key) return;
-          if (_sameDay(day, _ofTheDay)) return;
-          setState(() => _ofTheDay = day);
-        },
-        // Without it the list simply shows no pinned group.
-        onError: (Object _) {},
-      );
-    }
-    return _ofTheDay;
-  }
-
-  static bool _sameDay(PeopleGroupBlockData? a, PeopleGroupBlockData? b) =>
-      a?.name == b?.name && a?.country == b?.country;
-
   Widget _buildResults(BuildContext context, List<PeopleGroup> results) {
     final l = AppLocalizations.of(context)!;
     return ValueListenableBuilder<SubscribedPeopleGroups>(
       valueListenable: peopleGroupsController,
       builder: (context, subscribed, _) {
-        // The People Group of the Day leads the results, outlined, whenever
-        // the search and filters leave it in them.
-        var filtered = results;
-        String? ofTheDaySlug;
-        final day = _peopleGroupOfTheDay(subscribed.active?.slug);
-        if (day != null) {
-          final index = indexOfPeopleGroupOfTheDay(results, day);
-          if (index >= 0) {
-            ofTheDaySlug = results[index].slug;
-            filtered = [
-              results[index],
-              ...results.take(index),
-              ...results.skip(index + 1),
-            ];
-          }
-        }
         // The results count and sort button scroll with the list (they are
         // the first entry).
         return ListView.separated(
@@ -1067,16 +1027,16 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           // Builds cards half a screen past each edge, so they (and their
           // photos) are ready before they scroll into view.
           scrollCacheExtent: const ScrollCacheExtent.viewport(0.5),
-          itemCount: filtered.length + 1,
+          itemCount: results.length + 1,
           separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
           itemBuilder: (context, i) {
-            if (i == 0) return _buildCountAndSort(l, filtered.length);
-            final g = filtered[i - 1];
+            if (i == 0) return _buildCountAndSort(l, results.length);
+            final g = results[i - 1];
             // The first cards settle in with a gentle cascade; anything built
             // after that first frame shows straight away.
             final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
             final inWizard = _isWizardMode;
-            final card = KeyedSubtree(
+            return KeyedSubtree(
               key: ValueKey((_resultsGeneration, g.slug)),
               child: EntranceFadeSlide(
                 key: ValueKey(g.slug),
@@ -1088,48 +1048,24 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
                   countryCode: g.countryCode,
                   imageUrl: g.imageUrl,
                   engagementStatusValue: g.engagementStatusValue,
-                  peoplePraying: g.peopleCommitted,
+                  peoplePraying: g.peoplePraying,
                   isSelected: subscribed.contains(g.slug),
                   // The wizard keeps its in-list select button; the
                   // standalone list uses the card as the tap target.
                   showSelectButton: inWizard,
                   // Only outside the wizard: mid-onboarding the list is
                   // choosing a first group, not managing a set.
-                  onUnselect: inWizard
+                  onDeselect: inWizard
                       ? null
                       : () => removePeopleGroupFlow(context, slug: g.slug),
                   onSelect: () => widget.onSelect?.call(g),
                   onDetails: () => _openDetails(g),
-                  tag: g.slug == ofTheDaySlug ? l.peopleGroupOfTheDay : null,
                 ),
               ),
             );
-            if (g.slug != ofTheDaySlug) return card;
-            return _OfTheDayHighlight(child: card);
           },
         );
       },
-    );
-  }
-}
-
-/// The People Group of the Day's card in the results, outlined; the card
-/// itself carries the label saying why it comes first.
-class _OfTheDayHighlight extends StatelessWidget {
-  const _OfTheDayHighlight({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    // Drawn over the card, so the outline follows its rounded corners without
-    // changing its size.
-    return Container(
-      foregroundDecoration: BoxDecoration(
-        border: Border.all(color: AppColors.secondary, width: 3),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: child,
     );
   }
 }

@@ -6,7 +6,7 @@ import '../../services/subscribed_people_groups_controller.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
-import '../misc/close_icon.dart';
+import '../misc/check_icon.dart';
 import '../misc/hyphenated_text.dart';
 import '../misc/plus_icon.dart';
 
@@ -46,71 +46,74 @@ class SubscribePeopleGroupButton extends StatelessWidget {
         // with a green outline, so the two states can't be mistaken.
         final fill = subscribed ? AppColors.white : AppColors.secondary;
         final ink = subscribed ? AppColors.primary : AppColors.white;
-        return SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            style: FilledButton.styleFrom(
-              elevation: 4,
-              shadowColor: Colors.black.withValues(alpha: 0.35),
-              backgroundColor: fill,
-              foregroundColor: ink,
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.xl,
-                vertical: AppSpacing.sm,
-              ),
-              minimumSize: const Size(64, 56),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: subscribed
-                    ? const BorderSide(color: AppColors.primary, width: 2)
-                    : BorderSide.none,
-              ),
-            ),
-            onPressed: () async {
-              if (subscribed) {
-                await removePeopleGroupFlow(context, slug: slug);
-                return;
-              }
-              final added = await addPeopleGroupFlow(
-                context,
-                slug: slug,
-                name: name,
-                imageUrl: imageUrl,
-              );
-              if (added) onAdded?.call();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: HyphenatedText(
-                    // "Unselect", not a state word: the button has to read as
-                    // the action it performs, and it matches the browse
-                    // list's wording so the two screens offer the same thing
-                    // by the same name.
-                    (subscribed ? l10n.unselect : l10n.select).toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: AppTypography.h2.copyWith(color: ink),
-                  ),
+        // Selected, the label says so ("Selected" rather than a negative
+        // "Deselect"); screen readers still hear what a tap does.
+        return Semantics(
+          hint: subscribed ? l10n.deselect : null,
+          child: SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                elevation: 4,
+                shadowColor: Colors.black.withValues(alpha: 0.35),
+                backgroundColor: fill,
+                foregroundColor: ink,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.xl,
+                  vertical: AppSpacing.sm,
                 ),
-                const SizedBox(width: AppSpacing.sm),
-                ExcludeSemantics(
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: ShapeDecoration(
-                      shape: const CircleBorder(),
-                      color: subscribed ? AppColors.primary : AppColors.white,
+                minimumSize: const Size(64, 56),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: subscribed
+                      ? const BorderSide(color: AppColors.primary, width: 2)
+                      : BorderSide.none,
+                ),
+              ),
+              onPressed: () async {
+                if (subscribed) {
+                  await removePeopleGroupFlow(context, slug: slug);
+                  return;
+                }
+                final added = await addPeopleGroupFlow(
+                  context,
+                  slug: slug,
+                  name: name,
+                  imageUrl: imageUrl,
+                );
+                if (added) onAdded?.call();
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: HyphenatedText(
+                      // Matches the browse list's wording, so the two screens
+                      // show the same state by the same name.
+                      (subscribed ? l10n.selected : l10n.select).toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: AppTypography.h2.copyWith(color: ink),
                     ),
-                    child: subscribed
-                        ? const CloseIcon(size: 14, color: AppColors.white)
-                        : const PlusIcon(
-                            color: AppColors.secondary,
-                            size: 18,
-                            thickness: 4,
-                          ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: AppSpacing.sm),
+                  ExcludeSemantics(
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: ShapeDecoration(
+                        shape: const CircleBorder(),
+                        color: subscribed ? AppColors.primary : AppColors.white,
+                      ),
+                      child: subscribed
+                          ? const CheckIcon(size: 14, color: AppColors.white)
+                          : const PlusIcon(
+                              color: AppColors.secondary,
+                              size: 18,
+                              thickness: 4,
+                            ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -5,7 +5,7 @@ import '../../services/glossary.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_spacing.dart';
 import '../../theme/app_typography.dart';
-import '../misc/hyphenated_text.dart';
+import 'hyphenated_text.dart';
 
 /// One of the app's strings, with every glossary term in it tappable to open
 /// its definition.

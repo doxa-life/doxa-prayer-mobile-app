@@ -10,7 +10,7 @@
 //
 // Things that can't be undone or contact outside services (sending feedback,
 // submitting the news signup, "Amen" on a prayer) are only opened, never sent.
-// Select/unselect and save/delete reminder are done in pairs so the account ends
+// Select/deselect and save/delete reminder are done in pairs so the account ends
 // up as it started.
 
 import 'dart:io' show Platform;
@@ -259,7 +259,12 @@ void main() {
 
     // ---- Bottom navigation -------------------------------------------------
     Future<void> toHome() => go('/home', home);
-    await step('Bottom nav: Pray', () => tapText('PRAY'), ready: pray, before: toHome);
+    await step(
+      'Bottom nav: Pray',
+      () => tapText('PRAY'),
+      ready: pray,
+      before: toHome,
+    );
     await step(
       'Bottom nav: Search',
       () => tapText('SEARCH'),
@@ -300,13 +305,6 @@ void main() {
       ready: find.byType(SharePeopleGroupModal),
       before: toHome,
       undo: dismiss,
-    );
-    await step(
-      'Home: carousel Map button',
-      () => tapText('MAP'),
-      ready: find.byType(PeopleGroupMapScreen),
-      before: toHome,
-      undo: back,
     );
     await step(
       'Home: add people group card',
@@ -416,11 +414,7 @@ void main() {
     // Filter sections live in the open panel.
     await tester.tap(tune.first);
     await settleQuietly();
-    for (final section in [
-      'Primary language',
-      'Primary religion',
-      'Country',
-    ]) {
+    for (final section in ['Primary language', 'Primary religion', 'Country']) {
       await step(
         'Search filter: $section (open picker)',
         () => tapText(section),
@@ -472,12 +466,25 @@ void main() {
     await pumpUntil(details);
     await settleQuietly();
     await step(
-      'Details: Select/Unselect button (toggle, then toggle back)',
-      () => tapText(tester.any(find.text('Select')) ? 'Select' : 'Unselect'),
+      'Details: Select/Selected button (toggle, then toggle back)',
+      () => tapText(tester.any(find.text('Select')) ? 'Select' : 'Selected'),
       undo: () async {
-        await tapText(tester.any(find.text('Select')) ? 'Select' : 'Unselect');
+        await tapText(tester.any(find.text('Select')) ? 'Select' : 'Selected');
       },
       reps: 1,
+    );
+    await step(
+      'Details: View on Map button',
+      () => tapText('VIEW ON MAP'),
+      ready: find.byType(PeopleGroupMapScreen),
+      before: () async {
+        if (!tester.any(details)) {
+          await go('/people-groups', cards);
+          await tester.tap(cards.first);
+          await pumpUntil(details);
+        }
+      },
+      undo: back,
     );
     await step(
       'Details: Back button',
@@ -515,10 +522,14 @@ void main() {
       reps: 2,
     );
     if (_risky) {
-    await tapTip('New reminder');
+      await tapTip('New reminder');
       await pumpUntil(editorOpen);
       await settleQuietly();
-      await step('Reminders: Save (new reminder)', () => tapText('Save'), reps: 1);
+      await step(
+        'Reminders: Save (new reminder)',
+        () => tapText('Save'),
+        reps: 1,
+      );
       await step(
         'Reminders: tap a reminder (open editor)',
         () => tester.tap(find.byType(ReminderCard).last),

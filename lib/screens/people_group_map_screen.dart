@@ -9,17 +9,34 @@ import '../components/nav/root_pop_scope.dart';
 import '../components/nav/sheet_page.dart';
 import '../l10n/app_localizations.dart';
 import '../models/people_group.dart';
+import '../services/map_config.dart';
 import '../services/people_group_locations.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
-/// Where one people group sits in the world, among every other people group —
-/// or, with no [slug], every people group at once.
+/// Where one people group sits in the world, shown on its own — or, with no
+/// [slug], every people group at once.
 ///
-/// Opened for one group from the map button on a home people-group card, and
-/// without one from the home screen's own map button. The pins come from
+/// Opened for one group from the View on Map button on its profile, and
+/// without one from the home screen's own map button and the Search tab's map
+/// icon (see [openOverviewMap]). The pins come from
 /// the UUPG list the app already caches on disk, so in the normal case this
 /// screen makes no request at all — see `people_group_locations.dart`.
+/// Opens the map of every people group. A build with no Mapbox token says why
+/// rather than opening a map that can only ever show grey squares — the same
+/// answer the carousel gives.
+void openOverviewMap(BuildContext context) {
+  if (!MapConfig.isConfigured) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.mapNotConfigured)),
+      );
+    return;
+  }
+  context.push('/map');
+}
+
 class PeopleGroupMapScreen extends StatefulWidget {
   const PeopleGroupMapScreen({super.key, this.slug});
 
@@ -43,7 +60,15 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
     setState(() => _groups = loadPeopleGroupLocations());
   }
 
+  /// The map of one group is opened from that group's profile, so its
+  /// profile is already just behind: going back to it beats stacking a
+  /// second copy on top. A deep link straight to the map has nothing behind
+  /// it, and opens the profile as usual.
   void _openProfile(PeopleGroup group) {
+    if (widget.slug == group.slug && Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+      return;
+    }
     pushSheet(context, '/people-groups/${group.slug}');
   }
 
@@ -105,9 +130,10 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     // A group that isn't in the list, or a list that failed to load, are the
-    // same thing from here: there is no map to draw. The home card hides its
-    // map button whenever the list is unavailable, so this is the narrow case
-    // of the cache expiring between the card being drawn and the map opening.
+    // same thing from here: there is no map to draw. The profile hides its
+    // map button for a group the list has no location for, so this is the
+    // narrow case of the cache expiring between the profile being drawn and
+    // the map opening.
     //
     // The overview has no group to miss, but an empty list is still no map:
     // a failed fetch on a cold cache resolves to nothing rather than an error.
@@ -118,7 +144,8 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
     }
     return PeopleGroupMapView(
       focus: focus,
-      groups: snapshot.data!,
+      // One group's map shows that group and no other.
+      groups: focus != null ? [focus] : snapshot.data!,
       onPray: _openPrayer,
       onProfile: _openProfile,
     );

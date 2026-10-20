@@ -164,7 +164,7 @@ class _GroupSummaryCard extends StatelessWidget {
                     group.population!.toDouble(),
                   ),
                 ),
-              _Fact(value: l.nPeoplePraying(group.peopleCommitted)),
+              _Fact(value: l.nPeoplePraying(group.peoplePraying)),
             ],
           ),
         ],
