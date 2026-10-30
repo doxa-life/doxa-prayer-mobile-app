@@ -5,7 +5,6 @@ class PeopleGroup {
     required this.imageUrl,
     required this.countryLabel,
     required this.religionLabel,
-    required this.peoplePraying,
     required this.peopleCommitted,
     this.countryCode,
     this.religionCode,
@@ -52,7 +51,6 @@ class PeopleGroup {
   /// Raw API value ("asia", "africa", …), lowercased. Used to group the
   /// country filter by continent.
   final String? regionValue;
-  final int peoplePraying;
 
   /// How many people have committed to pray for this group. Drives the pin's
   /// colour on the map — see `models/prayer_commitment.dart`.
@@ -168,7 +166,6 @@ class PeopleGroup {
       regionValue: region is Map<String, dynamic>
           ? (region['value'] as String?)?.toLowerCase()
           : null,
-      peoplePraying: (json['people_praying'] as num?)?.toInt() ?? 0,
       peopleCommitted: _count(json['people_committed']),
       latitude: latitude,
       longitude: longitude,

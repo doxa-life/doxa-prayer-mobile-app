@@ -197,14 +197,16 @@ class _MemoryEntry {
   final DateTime cachedAt;
 }
 
-/// Insertion-ordered, so the first key is the least recently stored: enough of
-/// an LRU to bound memory while a user browses many days or many groups.
+/// Ordered by use — a hit moves its key to the end — so the first key is the
+/// least recently used: an LRU bounding memory while a user browses many days
+/// or many groups.
 final Map<String, _MemoryEntry> _memory = <String, _MemoryEntry>{};
 
-/// Holds the people-group list, a day or two of prayer content and a handful of
-/// detail pages at once — past that, the oldest is dropped and re-read from
-/// disk on demand.
-const int _memoryCapacity = 24;
+/// Holds the people-group list, the user's groups — up to five, each with its
+/// profile and today's prayer and the days either side, which the Pray tab's
+/// carousel switches between — and room besides for browsing. Past that, the
+/// least recently used is dropped and re-read from disk on demand.
+const int _memoryCapacity = 40;
 
 /// Never pushed out of memory: the people-group list. It is ~850 KB to read
 /// and decode again, and the Search tab, the map and the wizard all paint from
@@ -385,6 +387,11 @@ Future<T> getJsonCached<T>({
         cacheKey,
         note: '${_age(DateTime.now().difference(remembered.cachedAt))} old',
       );
+      // Used again, so it is the last to be pushed out — switching back and
+      // forth between the user's groups keeps their prayers in memory.
+      _memory
+        ..remove(cacheKey)
+        ..[cacheKey] = remembered;
       scheduleRevalidation(remembered.cachedAt);
       return value;
     }

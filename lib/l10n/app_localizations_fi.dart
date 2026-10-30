@@ -179,13 +179,12 @@ class AppLocalizationsFi extends AppLocalizations {
   String get unengaged => 'Lähetystyön ulkopuolella';
 
   @override
-  String nPeoplePraying(num count) {
+  String nPeopleCommitted(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count henkilöä on rukoillut viime aikoina',
-      one: '$count henkilö on rukoillut viime aikoina',
-      zero: 'Kukaan ei ole rukoillut viime aikoina',
+      other: '$count henkilöä rukoilee',
+      one: '$count henkilö rukoilee',
     );
     return '$_temp0';
   }

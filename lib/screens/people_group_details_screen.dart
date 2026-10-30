@@ -1,7 +1,6 @@
-import 'dart:math' as math;
-
 import 'package:doxa_prayer_mobile_app/components/buttons/icon_label_button.dart';
 import 'package:doxa_prayer_mobile_app/components/buttons/subscribe_people_group_button.dart';
+import 'package:doxa_prayer_mobile_app/components/cards/elevated_card.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/engagement_item.dart';
 import 'package:doxa_prayer_mobile_app/components/cards/profile_cards.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/icon_circle.dart';
@@ -12,9 +11,8 @@ import 'package:doxa_prayer_mobile_app/components/misc/check_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/cached_data_builder.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/close_icon.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/app_icon.dart';
-import 'package:doxa_prayer_mobile_app/components/misc/country_flag.dart';
-import 'package:doxa_prayer_mobile_app/components/misc/engagement_status_pill.dart';
 import 'package:doxa_prayer_mobile_app/components/misc/credit_popover_button.dart';
+import 'package:doxa_prayer_mobile_app/components/misc/titles.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/sheet_header.dart';
 import 'package:doxa_prayer_mobile_app/components/nav/root_pop_scope.dart';
 import 'package:doxa_prayer_mobile_app/components/widgets/people_group_details_skeleton.dart';
@@ -31,7 +29,6 @@ import 'package:doxa_prayer_mobile_app/theme/app_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../components/misc/glossary_text.dart';
 import '../components/misc/hyphenated_text.dart';
 
 class PeopleGroupDetailsScreen extends StatefulWidget {
@@ -39,6 +36,7 @@ class PeopleGroupDetailsScreen extends StatefulWidget {
     super.key,
     this.slug,
     this.fromWizard = false,
+    this.fromMap = false,
   });
 
   final String? slug;
@@ -47,6 +45,11 @@ class PeopleGroupDetailsScreen extends StatefulWidget {
   /// A successful selection via the "Select" button will pop with `true` so
   /// the wizard can advance past the confirm step.
   final bool fromWizard;
+
+  /// When true, the screen was opened from a pin on the map, so it leaves out
+  /// its View on Map button: the map is already just behind it, and the button
+  /// would only stack another one on top.
+  final bool fromMap;
 
   @override
   State<PeopleGroupDetailsScreen> createState() =>
@@ -73,9 +76,9 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: SheetHeader(onClose: () => safeBack(context)),
-        // The page of cards runs from the header to the bottom edge; the space
-        // around the cards is the page's own, so the loading skeleton (the
-        // same page) takes exactly the same place.
+        // The page runs from the header to the bottom edge and carries its
+        // own padding (see [ProfileStack]), so the loading skeleton takes
+        // exactly the same place.
         body: SafeArea(
           bottom: false,
           child: PageContainer(
@@ -92,8 +95,11 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
                 message: l.couldNotLoadPeopleGroupDetailsMessage,
                 onRetry: retry,
               ),
-              builder: (context, detail) =>
-                  _DetailBody(detail: detail, fromWizard: widget.fromWizard),
+              builder: (context, detail) => _DetailBody(
+                detail: detail,
+                fromWizard: widget.fromWizard,
+                fromMap: widget.fromMap,
+              ),
             ),
           ),
         ),
@@ -102,23 +108,25 @@ class _PeopleGroupDetailsScreenState extends State<PeopleGroupDetailsScreen> {
   }
 }
 
-/// The profile, as a page of cards: who the group is; what it is like and the
-/// facts about it; how much prayer it has; how engaged it is; and the
-/// resources in its language.
 class _DetailBody extends StatelessWidget {
-  const _DetailBody({required this.detail, required this.fromWizard});
+  const _DetailBody({
+    required this.detail,
+    required this.fromWizard,
+    required this.fromMap,
+  });
 
   final PeopleGroupDetail detail;
   final bool fromWizard;
+  final bool fromMap;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final description = detail.raw['imb_people_description'];
-    final cards = <Widget>[
-      _Hero(
-        detail: detail,
-        action: SubscribePeopleGroupButton(
+    // A [ProfileStack] rather than a plain scroll view: shown in a sheet,
+    // dragging down from the top of the page pulls the sheet down after it.
+    return ProfileStack(
+      cards: [
+        SubscribePeopleGroupButton(
           slug: detail.slug,
           name: detail.name,
           imageUrl: detail.imageUrl,
@@ -130,216 +138,223 @@ class _DetailBody extends StatelessWidget {
                 }
               : null,
         ),
-      ),
-      _ProfileSection(
-        title: l.overview,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: AppSpacing.lg,
-          // A row with no value is left out altogether, rather than drawing
-          // nothing and still taking the column's spacing — an uneven gap
-          // where it sits (between Country and Population when there is no
-          // alternate name).
-          children: [
-            // What the group is like leads the card, above the facts.
-            if (description is String && description.trim().isNotEmpty) ...[
-              GlossaryText(description, style: _descriptionStyle),
-              ProfileHeadingRule(
-                color: AppColors.white.withValues(alpha: 0.35),
+        _Hero(detail: detail, showMapButton: !fromMap),
+        _CommittedProgress(committed: detail.peopleCommitted),
+        ElevatedAppCard(
+          padding: AppSpacing.xl,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              H2(l.engagementStatus),
+              Wrap(
+                spacing: AppSpacing.xl,
+                runSpacing: AppSpacing.xl,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  EngagementItem(
+                    label: l.prayerStatus,
+                    status: switch (prayerCommitmentLevelFor(
+                      detail.peopleCommitted,
+                    )) {
+                      PrayerCommitmentLevel.met => EngagementStatus.yes,
+                      PrayerCommitmentLevel.some => EngagementStatus.partial,
+                      PrayerCommitmentLevel.none => EngagementStatus.no,
+                    },
+                  ),
+                  EngagementItem(
+                    label: l.adoptionStatus,
+                    status:
+                        detail.raw['adopted_by_churches'] is num &&
+                            (detail.raw['adopted_by_churches'] as num) > 0
+                        ? EngagementStatus.yes
+                        : EngagementStatus.no,
+                  ),
+                  // When the group is marked as engaged, the last three
+                  // markers are collapsed into a single "Engaged" marker.
+                  if (_isEngaged(detail))
+                    EngagementItem(
+                      label: l.engaged,
+                      status: EngagementStatus.yes,
+                    )
+                  else ...[
+                    EngagementItem(
+                      label: l.crossCulturalWorkersPresent,
+                      status: detail.raw['workers_long_term'] == true
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    EngagementItem(
+                      label: l.workInLocalLanguageAndCulture,
+                      status: detail.raw['work_in_local_language'] == true
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                    EngagementItem(
+                      label: l.discipleAndChurchMultiplication,
+                      status:
+                          detail.raw['disciple_and_church_multiplication'] ==
+                              true
+                          ? EngagementStatus.yes
+                          : EngagementStatus.no,
+                    ),
+                  ],
+                ],
               ),
             ],
-            for (final row in <_DetailRow>[
-              _DetailRow(
-                label: l.status,
-                value: _label(detail.raw['engagement_status']),
-              ),
-              _DetailRow(
-                label: l.country,
-                value: _label(detail.raw['country_code']),
-                flagCodes: [?_value(detail.raw['country_code'])],
-              ),
-              _DetailRow(
-                label: l.alternateName,
-                value: detail.raw['imb_alternate_name']?.toString(),
-              ),
-              _DetailRow(
-                label: l.population,
-                value: _formatInt(detail.raw['population']),
-              ),
-              _DetailRow(
-                label: l.primaryLanguage,
-                value: _label(detail.raw['primary_language']),
-              ),
-              _DetailRow(
-                label: l.primaryReligion,
-                value: _label(detail.raw['religion']),
-              ),
+          ),
+        ),
+        _Section(
+          title: l.overview,
+          children: [
+            _DetailRow(
+              label: l.status,
+              value: _label(detail.raw['engagement_status']),
+            ),
+            _DetailRow(
+              label: l.country,
+              value: detail.raw['country_code']?['label'],
+            ),
+            _DetailRow(
+              label: l.alternateName,
+              value: detail.raw['imb_alternate_name']?.toString(),
+            ),
+            _DetailRow(
+              label: l.population,
+              value: _formatInt(detail.raw['population']),
+            ),
+            _DetailRow(
+              label: l.primaryLanguage,
+              value: _label(detail.raw['primary_language']),
+            ),
+            _DetailRow(
+              label: l.primaryReligion,
+              value: _label(detail.raw['religion']),
+            ),
+            if (detail.raw['religion'] is Map<String, dynamic> &&
+                (detail.raw['religion'] as Map<String, dynamic>)['description']
+                    is String)
               _DetailRow(
                 label: l.religiousPractices,
-                value: detail.raw['religion'] is Map<String, dynamic>
-                    ? (detail.raw['religion']
-                              as Map<String, dynamic>)['description']
-                          as String?
-                    : null,
+                value:
+                    (detail.raw['religion']
+                            as Map<String, dynamic>)['description']
+                        as String,
               ),
-            ])
-              if (row.isVisible) row,
           ],
         ),
-      ),
-      _CommittedProgress(
-        committed: detail.peopleCommitted,
-        groupName: detail.name,
-      ),
-      _ProfileSection(
-        title: l.engagementStatus,
-        child: _StatusGrid(
+        _Section(
+          title: l.resources,
           children: [
-            _StatusTile(
-              label: l.prayerStatus,
-              status: switch (prayerCommitmentLevelFor(
-                detail.peopleCommitted,
-              )) {
-                PrayerCommitmentLevel.met => EngagementStatus.yes,
-                PrayerCommitmentLevel.some => EngagementStatus.partial,
-                PrayerCommitmentLevel.none => EngagementStatus.no,
-              },
+            _DetailRow(
+              label: l.bibleTranslation,
+              value: _formatBool(detail.raw['imb_bible_available'], l),
+              isChecked: detail.raw['imb_bible_available'] ?? false,
             ),
-            _StatusTile(
-              label: l.adoptionStatus,
-              status: _yesNo(
-                detail.raw['adopted_by_churches'] is num &&
-                    (detail.raw['adopted_by_churches'] as num) > 0,
-              ),
+            _DetailRow(
+              label: l.bibleStories,
+              value: _formatBool(detail.raw['imb_bible_stories_available'], l),
+              isChecked: detail.raw['imb_bible_stories_available'] ?? false,
             ),
-            // When the group is marked as engaged, the last three markers are
-            // collapsed into a single "Engaged" marker.
-            if (_isEngaged(detail))
-              _StatusTile(label: l.engaged, status: EngagementStatus.yes)
-            else ...[
-              _StatusTile(
-                label: l.crossCulturalWorkersPresent,
-                status: _yesNo(detail.raw['workers_long_term'] == true),
+            _DetailRow(
+              label: l.jesusFilm,
+              value: _formatBool(detail.raw['imb_jesus_film_available'], l),
+              isChecked: detail.raw['imb_jesus_film_available'] ?? false,
+            ),
+            _DetailRow(
+              label: l.radioBroadcast,
+              value: _formatBool(
+                detail.raw['imb_radio_broadcast_available'],
+                l,
               ),
-              _StatusTile(
-                label: l.workInLocalLanguageAndCulture,
-                status: _yesNo(detail.raw['work_in_local_language'] == true),
+              isChecked: detail.raw['imb_radio_broadcast_available'] ?? false,
+            ),
+            _DetailRow(
+              label: l.gospelRecordings,
+              value: _formatBool(
+                detail.raw['imb_gospel_recordings_available'],
+                l,
               ),
-              _StatusTile(
-                label: l.discipleAndChurchMultiplication,
-                status: _yesNo(
-                  detail.raw['disciple_and_church_multiplication'] == true,
-                ),
+              isChecked: detail.raw['imb_gospel_recordings_available'] ?? false,
+            ),
+            _DetailRow(
+              label: l.audioScripture,
+              value: _formatBool(
+                detail.raw['imb_audio_scripture_available'],
+                l,
               ),
-            ],
+              isChecked: detail.raw['imb_audio_scripture_available'] ?? false,
+            ),
           ],
         ),
-      ),
-      _ProfileSection(
-        title: l.resources,
-        child: _StatusGrid(
-          children: [
-            // Left out when the API doesn't say either way.
-            for (final (label, field) in [
-              (l.bibleTranslation, 'imb_bible_available'),
-              (l.bibleStories, 'imb_bible_stories_available'),
-              (l.jesusFilm, 'imb_jesus_film_available'),
-              (l.radioBroadcast, 'imb_radio_broadcast_available'),
-              (l.gospelRecordings, 'imb_gospel_recordings_available'),
-              (l.audioScripture, 'imb_audio_scripture_available'),
-            ])
-              if (detail.raw[field] is bool)
-                _StatusTile(
-                  label: label,
-                  status: _yesNo(detail.raw[field] as bool),
-                ),
-          ],
-        ),
-      ),
-    ];
-    return ProfileStack(cards: cards);
+      ],
+    );
   }
 }
 
-/// The first card: the group's name, large, with where it lives and how it
-/// stands under it; then its photo, and under that the button to select it.
 class _Hero extends StatelessWidget {
-  const _Hero({required this.detail, required this.action});
+  const _Hero({required this.detail, required this.showMapButton});
 
   final PeopleGroupDetail detail;
-  final Widget action;
-
-  /// The widest the photo is drawn. Most photos are portrait, so on a tablet
-  /// a full-width one would run taller than the screen.
-  static const double maxImageWidth = 480;
-
-  /// The group's name: the display face its name is set in on the home
-  /// screen's cards, at the size of the profile's card headings.
-  static final TextStyle nameStyle = AppTypography.h1.copyWith(
-    fontSize: AppTypography.xxl * 1.2,
-    height: 1.05,
-  );
+  final bool showMapButton;
 
   @override
   Widget build(BuildContext context) {
     final credit = detail.pictureCredit;
-    return ProfileCard(
-      padding: AppSpacing.lg,
-      // The map button sits over the card's corner rather than beside the
-      // name, so nothing else on the card moves or narrows for it.
-      child: Stack(
+    return ElevatedAppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: AppSpacing.lg,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Semantics(
-                header: true,
-                child: HyphenatedText(
-                  detail.name,
-                  textAlign: TextAlign.center,
-                  style: nameStyle,
+          HyphenatedText(
+            detail.name,
+            textAlign: TextAlign.center,
+            style: AppTypography.titleLarge,
+          ),
+          Center(
+            child: Stack(
+              children: [
+                AppImage(
+                  url: detail.imageUrl,
+                  size: 240,
+                  semanticLabel: detail.name,
                 ),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              _HeroFacts(detail: detail),
-              const SizedBox(height: AppSpacing.lg),
-              // At the photo's own proportions — never cropped or stretched.
-              LayoutBuilder(
-                builder: (context, box) => Center(
-                  child: Stack(
-                    children: [
-                      AppImage.naturalAspect(
-                        url: detail.imageUrl,
-                        size: math.min(box.maxWidth, maxImageWidth),
-                        semanticLabel: detail.name,
-                      ),
-                      if (credit.isNotEmpty)
-                        PositionedDirectional(
-                          end: AppSpacing.md,
-                          bottom: AppSpacing.md,
-                          child: CreditPopoverButton(credit: credit),
-                        ),
-                    ],
+                if (credit.isNotEmpty)
+                  Positioned(
+                    right: AppSpacing.lg,
+                    bottom: AppSpacing.lg,
+                    child: CreditPopoverButton(credit: credit),
                   ),
-                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              HyphenatedText(
+                detail.raw['country_code']?['label'] ?? '',
+                textAlign: TextAlign.center,
+                style: AppTypography.titleMedium,
               ),
-              const SizedBox(height: AppSpacing.lg),
-              action,
+              HyphenatedText(
+                '(${detail.raw['rop1']?['label']})',
+                textAlign: TextAlign.center,
+                style: AppTypography.titleMedium,
+              ),
             ],
           ),
-          PositionedDirectional(
-            top: 0,
-            end: 0,
-            child: _ViewOnMapButton(slug: detail.slug),
-          ),
+          if (showMapButton) Center(child: _ViewOnMapButton(slug: detail.slug)),
+          if (detail.raw['imb_people_description'] is String)
+            HyphenatedText(
+              detail.raw['imb_people_description'] as String,
+              style: AppTypography.bodyMedium,
+            ),
         ],
       ),
     );
   }
 }
 
-/// Opens the map with this group alone on it. Sits in the top corner of the
-/// profile's first card.
+/// Opens the map with this group alone on it. Sits under the group's location
+/// on the profile's first card.
 ///
 /// A build with no Mapbox token says why the map can't open, as the home
 /// screen's map button does. A group known to have no location leaves the
@@ -378,160 +393,10 @@ class _ViewOnMapButton extends StatelessWidget {
   }
 }
 
-/// The group's description, at the top of the overview card.
-final TextStyle _descriptionStyle = AppTypography.bodyLarge.copyWith(
-  color: AppColors.white,
-  fontSize: AppTypography.md,
-  fontWeight: FontWeight.w500,
-  height: 1.45,
-);
-
-/// Under the group's name: its country, with the flag, and the region it
-/// lives in; then whether it is engaged and how many are praying for it —
-/// what the browse list shows for each group.
-class _HeroFacts extends StatelessWidget {
-  const _HeroFacts({required this.detail});
-
-  final PeopleGroupDetail detail;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    final muted = AppColors.onSurface.withValues(alpha: 0.7);
-    final country = _label(detail.raw['country_code']);
-    final countryCode = _value(detail.raw['country_code']);
-    final region = _label(detail.raw['region']);
-    final hasStatus = _label(detail.raw['engagement_status']) != null;
-    final praying = detail.peoplePraying;
-    final prayingColor = praying > 0 ? AppColors.secondary : muted;
-    return Column(
-      spacing: AppSpacing.xs,
-      children: [
-        if (country != null)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            spacing: AppSpacing.xs,
-            children: [
-              if (countryCode != null)
-                CountryFlag(code: countryCode, height: 18),
-              Flexible(
-                child: HyphenatedText(
-                  country,
-                  textAlign: TextAlign.center,
-                  style: AppTypography.titleMedium,
-                ),
-              ),
-            ],
-          ),
-        if (region != null)
-          HyphenatedText(
-            region,
-            textAlign: TextAlign.center,
-            style: AppTypography.bodySmall.copyWith(color: muted),
-          ),
-        Wrap(
-          alignment: WrapAlignment.center,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: AppSpacing.md,
-          runSpacing: AppSpacing.xs,
-          children: [
-            if (hasStatus) EngagementStatusPill(engaged: _isEngaged(detail)),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: AppSpacing.xxs,
-              children: [
-                AppIcon(AppIconName.pray, size: 16, color: prayingColor),
-                Flexible(
-                  child: HyphenatedText(
-                    l.nPeoplePraying(praying),
-                    style: AppTypography.caption.copyWith(
-                      color: prayingColor,
-                      fontWeight: praying > 0
-                          ? FontWeight.w600
-                          : FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// The heading of a dark green profile card: its title, large, and an
-/// optional line under it saying what the card shows. Every card after the
-/// first uses this, so they all head alike.
-class _CardHeading extends StatelessWidget {
-  const _CardHeading({required this.title, this.subtitle});
-
-  final String title;
-  final String? subtitle;
-
-  static final TextStyle titleStyle = AppTypography.h1.copyWith(
-    color: AppColors.white,
-    fontSize: AppTypography.xxl * 1.2,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: AppSpacing.xs,
-      children: [
-        Semantics(
-          header: true,
-          child: HyphenatedText(
-            title,
-            textAlign: TextAlign.center,
-            style: titleStyle,
-          ),
-        ),
-        if (subtitle != null)
-          HyphenatedText(
-            subtitle!,
-            textAlign: TextAlign.center,
-            style: AppTypography.bodySmall.copyWith(color: _kMutedOnDark),
-          ),
-      ],
-    );
-  }
-}
-
-/// Secondary text on the dark green cards.
-final Color _kMutedOnDark = AppColors.white.withValues(alpha: 0.75);
-
-/// A dark green profile card under a [_CardHeading].
-class _ProfileSection extends StatelessWidget {
-  const _ProfileSection({
-    required this.title,
-    this.subtitle,
-    required this.child,
-  });
-
-  final String title;
-  final String? subtitle;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return ProfileCard(
-      color: AppColors.primary,
-      padding: AppSpacing.xl,
-      header: _CardHeading(title: title, subtitle: subtitle),
-      ruleColor: AppColors.white.withValues(alpha: 0.35),
-      child: child,
-    );
-  }
-}
-
 class _CommittedProgress extends StatelessWidget {
-  const _CommittedProgress({required this.committed, required this.groupName});
+  const _CommittedProgress({required this.committed});
 
   final int committed;
-  final String groupName;
 
   @override
   Widget build(BuildContext context) {
@@ -540,13 +405,14 @@ class _CommittedProgress extends StatelessWidget {
     final ratio = kPeopleCommittedGoal == 0
         ? 0.0
         : clamped / kPeopleCommittedGoal;
-    return _ProfileSection(
-      title: l.prayerStatus,
-      subtitle: l.prayerStatusExplanation(groupName),
+    return ElevatedAppCard(
+      padding: AppSpacing.xxxl,
+      color: AppColors.primary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: AppSpacing.md,
         children: [
+          H1(l.prayerStatus, color: AppColors.white),
           HyphenatedText(
             '$committed',
             style: AppTypography.bodyLarge.copyWith(
@@ -556,7 +422,7 @@ class _CommittedProgress extends StatelessWidget {
             ),
           ),
           HyphenatedText(
-            l.committedToPrayFor(groupName),
+            l.peopleCommittedToPraying,
             style: AppTypography.bodyMedium.copyWith(color: AppColors.white),
             textAlign: TextAlign.center,
           ),
@@ -599,159 +465,88 @@ class _CommittedProgress extends StatelessWidget {
   }
 }
 
-/// Status tiles in a grid: two to a row on a phone, three where there is room.
-class _StatusGrid extends StatelessWidget {
-  const _StatusGrid({required this.children});
+class _Section extends StatelessWidget {
+  const _Section({required this.title, required this.children});
 
+  final String title;
   final List<Widget> children;
 
-  static const double _gap = AppSpacing.lg;
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final columns = constraints.maxWidth >= 520 ? 3 : 2;
-        final width = (constraints.maxWidth - _gap * (columns - 1)) / columns;
-        return Wrap(
-          spacing: _gap,
-          runSpacing: AppSpacing.xl,
-          children: [
-            for (final child in children) SizedBox(width: width, child: child),
-          ],
-        );
-      },
-    );
-  }
-}
-
-/// One status in a [_StatusGrid]: a tick, part-tick or cross in a coloured
-/// circle — smaller than the card's heading — its [label], and, when given,
-/// an [explanation] of what it means.
-class _StatusTile extends StatelessWidget {
-  const _StatusTile({
-    required this.label,
-    required this.status,
-    // Left for the explanations to come.
-    // ignore: unused_element_parameter
-    this.explanation,
-  });
-
-  final String label;
-  final EngagementStatus status;
-
-  /// What this status means, under the label. Optional; none are written yet.
-  final String? explanation;
-
-  /// The tick or cross. Its circle adds [AppSpacing.xs] each side, which keeps
-  /// it well under the height of the card's heading text.
-  static const double _iconSize = AppTypography.lg;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    final color = switch (status) {
-      EngagementStatus.yes => AppColors.secondary,
-      EngagementStatus.no => AppColors.scheme.error,
-      EngagementStatus.partial => AppColors.partial,
-    };
-    final icon = status == EngagementStatus.no
-        ? const CloseIcon(size: _iconSize, color: AppColors.white)
-        : const CheckIcon(size: _iconSize, color: AppColors.white);
-    final statusLabel = switch (status) {
-      EngagementStatus.yes => l.yes,
-      EngagementStatus.no => l.no,
-      EngagementStatus.partial => l.partial,
-    };
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: AppSpacing.sm,
-      children: [
-        // The tick / cross is a text-less painted icon, so it carries the
-        // spoken status as its own semantics node — kept apart from the
-        // label, as a bare "No" at the end of a longer phrase was read by
-        // TTS as "number".
-        Semantics(
-          label: statusLabel,
-          child: IconCircle(icon: icon, color: color),
-        ),
-        // Glossary-aware: a marker such as "Engaged" links to its definition
-        // when the glossary has one.
-        GlossaryText(
-          label,
-          style: AppTypography.bodyMedium.copyWith(
-            color: AppColors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        if (explanation != null)
+    return ElevatedAppCard(
+      padding: AppSpacing.xl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSpacing.md,
+        children: [
           HyphenatedText(
-            explanation!,
-            style: AppTypography.bodySmall.copyWith(color: _kMutedOnDark),
+            title,
+            style: AppTypography.h2.copyWith(color: AppColors.secondary),
           ),
-      ],
+          const SizedBox(height: AppSpacing.md),
+          for (final w in children)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxs),
+              child: w,
+            ),
+        ],
+      ),
     );
   }
 }
 
-/// One fact in the overview: its [label] above its [value], led by the flags
-/// of [flagCodes] when it is about a place, and, when given, an [explanation]
-/// of what it means.
 class _DetailRow extends StatelessWidget {
-  const _DetailRow({
-    required this.label,
-    required this.value,
-    this.flagCodes = const [],
-    // Left for the explanations to come.
-    // ignore: unused_element_parameter
-    this.explanation,
-  });
+  const _DetailRow({required this.label, required this.value, this.isChecked});
 
   final String label;
   final String? value;
-
-  /// ISO alpha-3 codes of the flags shown before the value.
-  final List<String> flagCodes;
-
-  /// What this fact means, under the value. Optional; none are written yet.
-  final String? explanation;
+  final bool? isChecked;
 
   bool get isVisible => value != null && value!.trim().isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
     if (!isVisible) return const SizedBox.shrink();
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: AppSpacing.xxs,
+      spacing: AppSpacing.sm,
       children: [
-        HyphenatedText(
-          label,
-          style: AppTypography.bodySmall.copyWith(color: _kMutedOnDark),
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: AppSpacing.xs,
-          children: [
-            for (final code in flagCodes) CountryFlag(code: code, height: 16),
-            // Glossary-aware, so a value such as "Unengaged" links to what it
-            // means.
-            Expanded(
-              child: GlossaryText(
-                value!,
-                style: AppTypography.bodyMedium.copyWith(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
+        Padding(
+          padding: const EdgeInsets.only(top: AppSpacing.xxxs),
+          child: Row(
+            spacing: AppSpacing.sm,
+            children: [
+              if (isChecked != null)
+                (isChecked == true)
+                    ? IconCircle(
+                        icon: CheckIcon(
+                          size: AppTypography.xs,
+                          color: AppColors.white,
+                        ),
+                        color: AppColors.secondary,
+                      )
+                    : IconCircle(
+                        icon: CloseIcon(
+                          size: AppTypography.xs,
+                          color: AppColors.white,
+                        ),
+                        color: AppColors.scheme.error,
+                      ),
+              SizedBox(
+                width: 140,
+                child: HyphenatedText(
+                  label,
+                  style: AppTypography.bodySmall.copyWith(
+                    color: AppColors.onSurface.withValues(alpha: 0.6),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        if (explanation != null)
-          HyphenatedText(
-            explanation!,
-            style: AppTypography.bodySmall.copyWith(color: _kMutedOnDark),
+            ],
           ),
+        ),
+        Expanded(
+          child: HyphenatedText(value!, style: AppTypography.bodyMedium),
+        ),
       ],
     );
   }
@@ -808,16 +603,11 @@ String? _label(dynamic field) {
   return null;
 }
 
-String? _value(dynamic field) {
-  if (field is Map<String, dynamic>) {
-    final value = field['value'];
-    if (value is String && value.isNotEmpty) return value;
-  }
-  return null;
+String? _formatBool(dynamic value, AppLocalizations l) {
+  if (value == null) return null;
+  if (value is bool) return value ? l.yes : l.no;
+  return value.toString();
 }
-
-EngagementStatus _yesNo(bool yes) =>
-    yes ? EngagementStatus.yes : EngagementStatus.no;
 
 String? _formatInt(dynamic value) {
   if (value == null) return null;

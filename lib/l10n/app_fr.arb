@@ -774,8 +774,8 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "@nPeoplePraying": {
-        "description": "A plural message shown on a people-group card for how many people are praying for it",
+    "@nPeopleCommitted": {
+        "description": "How many people have committed to pray for a people group (people_committed); shown on people-group cards and in the wizard's picked-group facts",
         "placeholders": {
             "count": {
                 "type": "num"
@@ -1076,7 +1076,7 @@
     "glossaryPeopleGroupDefinition": "Un groupe de personnes partageant un ensemble de croyances, de valeurs et une culture.",
     "glossaryPeopleGroupAlternates": "peuples",
     "unengaged": "Non engagé",
-    "nPeoplePraying": "{count, plural, =0{Personne n’a prié récemment} =1{1 personne a prié récemment} other{{count} personnes ont prié récemment}}",
+    "nPeopleCommitted": "{count, plural, =1{1 personne prie} other{{count} personnes prient}}",
     "filters": "Filtres",
     "sortByName": "Trier par nom",
     "sortAscending": "Trier par ordre croissant (A-Z)",

@@ -11,7 +11,6 @@ const _group = PeopleGroup(
   imageUrl: null, // Placeholder image, so the test needs no network.
   countryLabel: null,
   religionLabel: null,
-  peoplePraying: 0,
   peopleCommitted: 0,
 );
 

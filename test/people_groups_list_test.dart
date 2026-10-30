@@ -21,7 +21,6 @@ PeopleGroup _group(int i) => PeopleGroup(
   population: 1000 * (i + 1),
   engagementStatusValue: 'unengaged',
   regionValue: 'asia',
-  peoplePraying: 0,
   peopleCommitted: 0,
 );
 
@@ -72,7 +71,6 @@ void main() {
       imageUrl: null,
       countryLabel: 'Malaysia',
       religionLabel: 'Hinduism',
-      peoplePraying: 0,
       peopleCommitted: committed,
       resourcesAvailable: resources,
     );

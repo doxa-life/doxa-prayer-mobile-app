@@ -26,7 +26,7 @@ class PeopleGroupListCard extends StatelessWidget {
     this.countryCode,
     this.isSelected = false,
     this.engagementStatusValue,
-    this.peoplePraying = 0,
+    this.peopleCommitted = 0,
     this.showSelectButton = false,
     this.tag,
   });
@@ -55,7 +55,8 @@ class PeopleGroupListCard extends StatelessWidget {
 
   /// Raw API value ("engaged" / "unengaged"). Shown as a status pill.
   final String? engagementStatusValue;
-  final int peoplePraying;
+  /// How many people have committed to pray for this group.
+  final int peopleCommitted;
 
   /// The wizard's onboarding list still needs a quick in-list select. The
   /// standalone search list keeps the card as the only tap target.
@@ -165,7 +166,7 @@ class PeopleGroupListCard extends StatelessWidget {
                         EngagementStatusPill(
                           engaged: engagementStatusValue == 'engaged',
                         ),
-                      _PrayingCount(count: peoplePraying),
+                      _CommittedCount(count: peopleCommitted),
                     ],
                   ),
                 ),
@@ -265,8 +266,8 @@ class _CountryTag extends StatelessWidget {
   }
 }
 
-class _PrayingCount extends StatelessWidget {
-  const _PrayingCount({required this.count});
+class _CommittedCount extends StatelessWidget {
+  const _CommittedCount({required this.count});
 
   final int count;
 
@@ -284,7 +285,7 @@ class _PrayingCount extends StatelessWidget {
         AppIcon(AppIconName.pray, size: 14, color: color),
         Flexible(
           child: Text(
-            l10n.nPeoplePraying(count),
+            l10n.nPeopleCommitted(count),
             style: AppTypography.caption.copyWith(
               color: color,
               fontWeight: count > 0 ? FontWeight.w600 : FontWeight.w400,

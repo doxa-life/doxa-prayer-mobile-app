@@ -174,12 +174,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get unengaged => '未接触';
 
   @override
-  String nPeoplePraying(num count) {
+  String nPeopleCommitted(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '最近有 $count 人祷告过',
-      zero: '最近还没有人祷告',
+      other: '$count 人在祷告',
     );
     return '$_temp0';
   }

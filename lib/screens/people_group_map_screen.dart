@@ -9,8 +9,11 @@ import '../components/nav/root_pop_scope.dart';
 import '../components/nav/sheet_page.dart';
 import '../l10n/app_localizations.dart';
 import '../models/people_group.dart';
+import '../router.dart';
 import '../services/map_config.dart';
 import '../services/people_group_locations.dart';
+import '../services/pray_override_controller.dart';
+import '../services/subscribed_people_groups_controller.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_typography.dart';
 
@@ -69,16 +72,26 @@ class _PeopleGroupMapScreenState extends State<PeopleGroupMapScreen> {
       Navigator.of(context).pop();
       return;
     }
-    pushSheet(context, '/people-groups/${group.slug}');
+    pushSheet(
+      context,
+      '/people-groups/${group.slug}',
+      // The profile leaves out its View on Map button: it would open another
+      // map on top of this one.
+      extra: {'fromMap': true},
+    );
   }
 
-  /// Praying is pushed on top of the map rather than replacing it, so backing
-  /// out returns to the same view of the same region.
-  void _openPrayer(PeopleGroup group) {
-    context.push(
-      '/people-groups/${group.slug}/pray',
-      extra: {'name': group.name},
-    );
+  /// Praying happens on the Pray tab, as from the home screen's cards. One of
+  /// the user's own groups becomes the active one, so the tab's cards line up
+  /// on it; any other group is shown there for this visit only (see
+  /// [setPrayOverride]), without being added to the user's groups.
+  Future<void> _openPrayer(PeopleGroup group) async {
+    if (peopleGroupsController.value.contains(group.slug)) {
+      await setActivePeopleGroup(group.slug);
+    } else {
+      setPrayOverride(group.slug);
+    }
+    if (mounted) context.goNamed(AppRoute.pray.name);
   }
 
   @override

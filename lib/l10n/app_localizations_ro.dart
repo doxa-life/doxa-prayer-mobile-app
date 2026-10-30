@@ -180,14 +180,13 @@ class AppLocalizationsRo extends AppLocalizations {
   String get unengaged => 'Neangajat misionar';
 
   @override
-  String nPeoplePraying(num count) {
+  String nPeopleCommitted(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count de persoane s-au rugat recent',
-      few: '$count persoane s-au rugat recent',
-      one: '$count persoană s-a rugat recent',
-      zero: 'Nimeni nu s-a rugat recent',
+      other: '$count de persoane se roagă',
+      few: '$count persoane se roagă',
+      one: '$count persoană se roagă',
     );
     return '$_temp0';
   }

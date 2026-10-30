@@ -14,7 +14,6 @@ PeopleGroup _g(String slug, {required int praying, int? resources}) =>
       imageUrl: null,
       countryLabel: null,
       religionLabel: null,
-      peoplePraying: 0,
       peopleCommitted: praying,
       resourcesAvailable: resources,
       population: 100,

@@ -424,11 +424,11 @@ abstract class AppLocalizations {
   /// **'Unengaged'**
   String get unengaged;
 
-  /// How many different people have prayed for a people group recently (the server's 7-day daily average of people who opened a prayer); shown on people-group cards and under the name on its profile
+  /// How many people have committed to pray for a people group (people_committed); shown on people-group cards and in the wizard's picked-group facts
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No one has prayed recently} =1{1 person has prayed recently} other{{count} have prayed recently}}'**
-  String nPeoplePraying(num count);
+  /// **'{count, plural, =1{1 person praying} other{{count} people praying}}'**
+  String nPeopleCommitted(num count);
 
   /// The label of the adoption status field
   ///

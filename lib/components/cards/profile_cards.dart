@@ -8,10 +8,6 @@ import '../../theme/app_spacing.dart';
 import '../nav/sheet_header.dart';
 import '../nav/sheet_page.dart';
 
-/// The widest the cards get. On a tablet the page would otherwise run 960
-/// wide, with lines too long to read.
-const double _kMaxWidth = 720;
-
 /// A people group's profile as one page of cards, stacked top to bottom and
 /// scrolled through as a whole. Each card is as tall as its content.
 ///
@@ -42,14 +38,10 @@ class ProfileStack extends StatelessWidget {
         ),
       ),
       child: PageContainer(
-        maxWidth: _kMaxWidth,
-        // Close to the screen's edges, so the cards make use of its width.
-        horizontalPadding: AppSpacing.sm,
-        verticalPadding: AppSpacing.lg,
         bottomPadding: 0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: AppSpacing.lg,
+          spacing: AppSpacing.xl,
           // Each card is drawn once and kept. Without the boundaries, every
           // frame of a scroll redrew every card — shadows, clipped corners,
           // photo and all the text — just to move them up or down; with them a

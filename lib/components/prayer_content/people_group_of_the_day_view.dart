@@ -11,7 +11,7 @@ import '../misc/hyphenated_text.dart';
 import '../misc/titles.dart';
 
 /// Renders the People Group of the Day block of a prayer-content response —
-/// shown at the foot of the Pray page, under the Amen.
+/// shown between the third and fourth parts of the prayer.
 class PeopleGroupOfTheDayView extends StatelessWidget {
   const PeopleGroupOfTheDayView({
     super.key,

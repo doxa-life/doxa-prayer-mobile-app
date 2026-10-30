@@ -213,6 +213,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (_, state) {
         final extra = state.extra;
         final fromWizard = extra is Map && extra['fromWizard'] == true;
+        final fromMap = extra is Map && extra['fromMap'] == true;
         return SheetPage<Object?>(
           key: state.pageKey,
           name: state.name,
@@ -220,6 +221,7 @@ final GoRouter appRouter = GoRouter(
             child: PeopleGroupDetailsScreen(
               slug: state.pathParameters['slug'],
               fromWizard: fromWizard,
+              fromMap: fromMap,
             ),
           ),
         );
@@ -246,8 +248,8 @@ final GoRouter appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (_, _) => const PeopleGroupMapScreen(),
     ),
-    // Prayer content pushed on top of the map, so praying for a group found on
-    // the map doesn't discard the map.
+    // Prayer content pushed on top of whatever opened it — the Saved prayers
+    // list, reopening a saved day.
     GoRoute(
       name: 'people-group-prayer',
       path: '/people-groups/:slug/pray',

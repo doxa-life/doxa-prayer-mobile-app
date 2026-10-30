@@ -4,10 +4,15 @@ import 'package:flutter/material.dart';
 import '../../models/prayer_content.dart';
 import '../../theme/app_spacing.dart';
 import 'people_group_intro_view.dart';
+import 'people_group_of_the_day_view.dart';
 import 'prayer_doc_view.dart';
 
 /// Renders a full `PrayerContentResponse` as a vertical stack of
 /// content blocks: people-group introductions and static rich-text docs.
+///
+/// The People Group of the Day sits between the third part of the prayer and
+/// the fourth — each part being a doc that ends with "Pause & Pray" — or after
+/// the last part, when there are fewer than four.
 ///
 /// Built to change in place. When the response is swapped for another — a
 /// new day, a new group — each block that is the same as before stays exactly
@@ -28,32 +33,66 @@ class PrayerContentView extends StatelessWidget {
   /// prayer already says who it is for.
   final bool showIntro;
 
+  /// The space between sections of the prayer: well over the
+  /// [AppSpacing.xxl] between paragraphs inside a section, so where one ends
+  /// and the next begins is plain.
+  static const double _sectionGap = AppSpacing.xxxl * 1.3;
+
+  /// How many parts of the prayer come before the People Group of the Day.
+  static const int _partsBeforeOfTheDay = 3;
+
   @override
   Widget build(BuildContext context) {
     final children = <Widget>[];
-    for (final block in response.content) {
-      final widget = _buildBlock(context, block);
-      if (widget == null) continue;
+    void add(Widget widget, String key) {
       final order = children.length;
       children.add(
         // Keyed by position, so the block in each slot changes in place.
         BlockSwap(
           key: ValueKey('slot-$order'),
           order: order,
-          child: KeyedSubtree(
-            key: ValueKey('${block.type.name}-${block.id}-${block.title}'),
-            child: widget,
-          ),
+          child: KeyedSubtree(key: ValueKey(key), child: widget),
         ),
       );
     }
+
+    final ofTheDay = response.content
+        .where(
+          (b) =>
+              b.type == PrayerContentBlockType.peopleGroupOfTheDay &&
+              b.peopleGroupData != null,
+        )
+        .firstOrNull;
+    // Changes only when the group of the day does.
+    void addOfTheDay() => add(
+      PeopleGroupOfTheDayView(
+        name: ofTheDay!.title,
+        data: ofTheDay.peopleGroupData!,
+        heading: AppLocalizations.of(context)!.peopleGroupOfTheDay,
+      ),
+      'of-the-day-${ofTheDay.title}',
+    );
+
+    var parts = 0;
+    var ofTheDayPlaced = ofTheDay == null;
+    for (final block in response.content) {
+      final widget = _buildBlock(context, block);
+      if (widget == null) continue;
+      add(widget, '${block.type.name}-${block.id}-${block.title}');
+      if (widget is PrayerDocView) parts++;
+      if (!ofTheDayPlaced && parts == _partsBeforeOfTheDay) {
+        addOfTheDay();
+        ofTheDayPlaced = true;
+      }
+    }
+    if (!ofTheDayPlaced) addOfTheDay();
     return AnimatedSize(
       duration: BlockSwap.resize,
       curve: Curves.easeOutCubic,
       alignment: Alignment.topCenter,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: AppSpacing.xxl,
+        spacing: _sectionGap,
         children: children,
       ),
     );
@@ -66,7 +105,7 @@ class PrayerContentView extends StatelessWidget {
         final data = block.peopleGroupData;
         if (data == null) return null;
         return PeopleGroupIntroView(name: block.title, data: data);
-      // Shown at the foot of the page, after the Amen — see PrayerSessionView.
+      // Placed between the parts of the prayer — see [build].
       case PrayerContentBlockType.peopleGroupOfTheDay:
         return null;
       case PrayerContentBlockType.static:

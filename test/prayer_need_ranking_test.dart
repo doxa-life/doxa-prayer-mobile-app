@@ -15,7 +15,6 @@ PeopleGroup _g(
   imageUrl: null,
   countryLabel: null,
   religionLabel: null,
-  peoplePraying: 0,
   peopleCommitted: praying,
   resourcesAvailable: resources,
   population: population,

@@ -941,9 +941,9 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "nPeoplePraying": "{count, plural, =0{Nessuno ha pregato di recente} one{{count} persona ha pregato di recente} other{{count} persone hanno pregato di recente}}",
-    "@nPeoplePraying": {
-        "description": "A plural message shown on a people-group card for how many people are praying for it",
+    "nPeopleCommitted": "{count, plural, one{{count} persona prega} other{{count} persone pregano}}",
+    "@nPeopleCommitted": {
+        "description": "How many people have committed to pray for a people group (people_committed); shown on people-group cards and in the wizard's picked-group facts",
         "placeholders": {
             "count": {
                 "type": "num"

@@ -39,13 +39,6 @@ class PeopleGroupDetail {
     return 0;
   }
 
-  int get peoplePraying {
-    final v = raw['people_praying'];
-    if (v is num) return v.toInt();
-    if (v is String) return int.tryParse(v) ?? 0;
-    return 0;
-  }
-
   static PeopleGroupDetail fromJson(Map<String, dynamic> json) =>
       PeopleGroupDetail(raw: json);
 }

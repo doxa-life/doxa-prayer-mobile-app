@@ -8,12 +8,9 @@ import '../services/locale_controller.dart';
 
 /// Prayer content for one people group, pushed on top of whatever opened it.
 ///
-/// Used by the people-group map: praying for a neighbouring group from a pin's
-/// card shouldn't cost the user the map they were exploring, so this is a
-/// pushed route with a back arrow rather than a jump to the Pray tab. It also
-/// works for a group the user hasn't subscribed to — prayer history is keyed by
-/// slug, not by subscription. The Saved prayers list opens its prayers here
-/// too, on the day that was saved.
+/// The Saved prayers list opens its prayers here, on the day that was saved.
+/// It works for a group the user hasn't subscribed to — prayer history is
+/// keyed by slug, not by subscription.
 class PeopleGroupPrayerScreen extends StatelessWidget {
   const PeopleGroupPrayerScreen({
     super.key,

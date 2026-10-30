@@ -22,17 +22,18 @@ class MapTileCacheManager {
   /// the order of 5 MB — about five people groups' worth of browsing.
   static const int maxTiles = 500;
 
-  static final CacheManager instance = CacheManager(
-    Config(
-      key,
-      stalePeriod: CachePolicy.mapTiles,
-      maxNrOfCacheObjects: maxTiles,
-      // Same reason as the photo cache: a tile that arrives short would
-      // otherwise be cached as a valid one and leave a blank square on the map
-      // until `CachePolicy.mapTiles` expires it.
-      fileService: VerifiedHttpFileService(),
-    ),
+  /// Held so `cache_cleanup.dart` can read the cache's index.
+  static final Config config = Config(
+    key,
+    stalePeriod: CachePolicy.mapTiles,
+    maxNrOfCacheObjects: maxTiles,
+    // Same reason as the photo cache: a tile that arrives short would
+    // otherwise be cached as a valid one and leave a blank square on the map
+    // until `CachePolicy.mapTiles` expires it.
+    fileService: VerifiedHttpFileService(),
   );
+
+  static final CacheManager instance = CacheManager(config);
 
   static Future<void> clear() => instance.emptyCache();
 }

@@ -291,7 +291,9 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       spacing: AppSpacing.sm,
                       children: [
-                        const MapLegend(),
+                        // Left off the map of one group: with a single pin
+                        // there is nothing to compare its colour against.
+                        if (focus == null) const MapLegend(),
                         if (_tilesUnavailable)
                           MapOfflineNotice(message: l.mapUnavailableOffline),
                       ],
@@ -310,7 +312,9 @@ class _PeopleGroupMapViewState extends State<PeopleGroupMapView> {
                     group: _selected,
                     isSubscribed: (g) => subscribedSlugs.contains(g.slug),
                     onPray: widget.onPray,
-                    onMoreInfo: widget.onProfile,
+                    // Not on the map of one group: it is opened from that
+                    // group's profile, so More info would only loop back.
+                    onMoreInfo: focus == null ? widget.onProfile : null,
                     onClose: () => setState(() => _selected = null),
                   ),
                 ],

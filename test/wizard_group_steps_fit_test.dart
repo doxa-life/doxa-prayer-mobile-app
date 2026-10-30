@@ -38,7 +38,6 @@ void main() {
             religionLabel: 'Ethnoreligion - Animism',
             primaryLanguageLabel: 'Unknown',
             population: 25,
-            peoplePraying: 0,
             peopleCommitted: 0,
           ),
         ]);

@@ -24,24 +24,43 @@ class AppImageCacheManager {
   /// looking at and refetched them on the way back up.
   static const int maxPhotos = 1200;
 
-  static final CacheManager instance = CacheManager(
-    Config(
-      key,
-      stalePeriod: CachePolicy.images,
-      maxNrOfCacheObjects: maxPhotos,
-      // Refuses to cache a download that arrived short — see the class doc.
-      // Without it a single dropped connection poisons that photo for the
-      // whole `CachePolicy.images` window.
-      fileService: VerifiedHttpFileService(),
-    ),
+  /// Held so `cache_cleanup.dart` can read the cache's index.
+  static final Config config = Config(
+    key,
+    stalePeriod: CachePolicy.images,
+    maxNrOfCacheObjects: maxPhotos,
+    // Refuses to cache a download that arrived short — see the class doc.
+    // Without it a single dropped connection poisons that photo for the
+    // whole `CachePolicy.images` window.
+    fileService: VerifiedHttpFileService(),
   );
 
-  /// Downloads [url] into the cache without displaying it — used by the startup
-  /// prefetch so the first paint of the Pray tab has its photos already local.
+  static final CacheManager instance = CacheManager(config);
+
+  /// Downloads [url] into the cache without displaying it — used by the
+  /// prefetches so the Pray tab paints with its photos already local.
   /// Failures are swallowed: this is best-effort warming.
-  static Future<void> warm(String? url) async {
-    if (url == null || url.isEmpty) return;
+  ///
+  /// A photo already on disk is left alone — the cache drops it after
+  /// [CachePolicy.images], and `AppImage` serves whatever is there.
+  /// `downloadFile` always goes to the network, so calling it bare fetched
+  /// every photo of the prayer again on each launch and on every switch of
+  /// group in the carousel.
+  static Future<void> warm(String? url) {
+    if (url == null || url.isEmpty) return Future.value();
+    // One download per photo at a time: switching groups quickly asks for the
+    // same neighbours' photos again before the first request has landed.
+    return _warming[url] ??= _warm(
+      url,
+    ).whenComplete(() => _warming.remove(url));
+  }
+
+  static final Map<String, Future<void>> _warming = {};
+
+  static Future<void> _warm(String url) async {
     try {
+      final cached = await instance.getFileFromCache(url);
+      if (cached != null) return;
       await instance.downloadFile(url);
     } catch (_) {
       // Offline, or a bad URL — the widget will show its placeholder.

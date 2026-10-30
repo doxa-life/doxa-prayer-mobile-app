@@ -178,13 +178,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unengaged => 'Unengaged';
 
   @override
-  String nPeoplePraying(num count) {
+  String nPeopleCommitted(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count have prayed recently',
-      one: '1 person has prayed recently',
-      zero: 'No one has prayed recently',
+      other: '$count people praying',
+      one: '1 person praying',
     );
     return '$_temp0';
   }

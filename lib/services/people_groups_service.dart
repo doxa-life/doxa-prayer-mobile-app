@@ -13,11 +13,11 @@ import 'subscribed_people_groups_controller.dart';
 
 // `latitude,longitude` are here for the people-group map, not the browse
 // list: the map draws every group as a pin and reads them straight off this
-// cached list, so no second request is needed. They add roughly 60 KB to an
-// ~850 KB response.
+// cached list, so no second request is needed. They add roughly 100 KB to a
+// ~2.1 MB response.
 const _listFields =
     'name,slug,image_url,compressed_image_url,country_code,religion,primary_language,population,'
-    'engagement_status,region,people_praying,people_committed,'
+    'engagement_status,region,people_committed,'
     'latitude,longitude,imb_total_resources_available,'
     'imb_bible_available,imb_jesus_film_available,'
     'imb_radio_broadcast_available,imb_gospel_recordings_available,'
@@ -40,16 +40,13 @@ String peopleGroupListCacheKey(String lang) =>
 String peopleGroupDetailCacheKey(String slug, String lang) =>
     'pg-detail-$slug-$lang';
 
-/// The response is ~850 KB for the full list, and `jsonDecode` on that blocks
-/// long enough to drop frames — so parsing happens in a background isolate.
-/// Only the decode is offloaded: building the 2,000-odd small model objects is
-/// cheap, and doing it here keeps the isolate boundary to plain JSON.
+/// The response is ~2.1 MB for the full list, and decoding it blocks long
+/// enough to drop frames — so parsing happens in a background isolate, models
+/// and all. Handing back the 2,100-odd finished [PeopleGroup]s rather than the
+/// decoded JSON leaves the main isolate nothing to walk: the JSON maps never
+/// cross over, and the models are built while the UI keeps animating.
 Future<List<PeopleGroup>> _parseList(String lang, String body) async {
-  final json = await compute(jsonDecode, body) as Map<String, dynamic>;
-  final posts = json['posts'] as List<dynamic>;
-  final groups = posts
-      .map((e) => PeopleGroup.fromJson(e as Map<String, dynamic>))
-      .toList(growable: false);
+  final groups = await compute(_decodeList, body);
   // Every path that decodes the list — fetch, background refresh and the
   // startup warm — lands here, so this is the one place that has to publish
   // the coordinates the home cards and the map read.
@@ -57,6 +54,15 @@ Future<List<PeopleGroup>> _parseList(String lang, String body) async {
   publishPeopleGroupNames(lang, [for (final g in groups) (g.slug, g.name)]);
   refreshSubscribedPhotos([for (final g in groups) (g.slug, g.imageUrl)]);
   return groups;
+}
+
+/// Runs in the background isolate — see [_parseList].
+List<PeopleGroup> _decodeList(String body) {
+  final json = jsonDecode(body) as Map<String, dynamic>;
+  final posts = json['posts'] as List<dynamic>;
+  return posts
+      .map((e) => PeopleGroup.fromJson(e as Map<String, dynamic>))
+      .toList(growable: false);
 }
 
 /// Decodes one detail page, and records its group's name.

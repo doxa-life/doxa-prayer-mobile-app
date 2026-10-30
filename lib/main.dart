@@ -13,6 +13,7 @@ import 'l10n/app_localizations.dart';
 import 'router.dart';
 import 'services/analytics_service.dart';
 import 'services/anon_signup_service.dart';
+import 'services/cache_cleanup.dart';
 import 'services/cache_warmup.dart';
 import 'services/crash_reporting_service.dart';
 import 'services/identity_service.dart';
@@ -89,6 +90,9 @@ Future<void> _main() async {
   // Drop cache entries past the longest TTL, so a user who browses back
   // through many days of prayer content doesn't accumulate files forever.
   unawaited(ResponseCache.prune());
+  // Frees photo and map-tile files the caches have lost track of, once the
+  // launch's own loading has had time to finish.
+  unawaited(Future<void>.delayed(const Duration(seconds: 20), tidyImageCaches));
   installDeferredAnonSignupListener();
   installProfileUpdateListeners();
   // Revert the Pray tab to the user's own selection once they leave it after a

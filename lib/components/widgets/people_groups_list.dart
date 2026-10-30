@@ -599,6 +599,7 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
             color: AppColors.surface,
             child: PageContainer(
               verticalPadding: AppSpacing.lg,
+              horizontalPadding: _sideGutter,
               child: searchBar,
             ),
           )
@@ -643,8 +644,22 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
   /// padding (and [top]) that the caller would otherwise have given the list.
   Widget _padded(Widget child, {double top = 0}) {
     if (!widget.fullBleed) return child;
-    return PageContainer(verticalPadding: top, bottomPadding: 0, child: child);
+    return PageContainer(
+      verticalPadding: top,
+      bottomPadding: 0,
+      horizontalPadding: _sideGutter,
+      child: child,
+    );
   }
+
+  /// The space at the screen's sides in [PeopleGroupsList.fullBleed] mode:
+  /// narrow, so the cards make use of the screen's width, but enough that
+  /// their shadows aren't cut off at the edge.
+  static const double _sideGutter = AppSpacing.sm;
+
+  /// The widest the results get, as [PageContainer] caps the page on a
+  /// tablet.
+  static const double _maxResultsWidth = 960;
 
   /// Opens the picker sheet for a list filter — the usual mobile pattern —
   /// and applies the choice once the user taps Done.
@@ -871,7 +886,10 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
           // The results never move or resize for the menu: it floats over
           // them instead of pushing them down, so opening it re-lays out
           // nothing underneath.
-          Positioned.fill(child: _padded(_buildResults(context, filtered))),
+          // Not padded: the list runs to the screen's edges and pads its own
+          // content, so cards scroll under the sides rather than being cut
+          // off at the edge of a strip the list doesn't reach.
+          Positioned.fill(child: _buildResults(context, filtered)),
 
           // Dims the results under an open menu. Tapping it, or starting to
           // drag the list beneath it, closes the menu and hands the list back.
@@ -1014,59 +1032,73 @@ class _PeopleGroupsListState extends State<PeopleGroupsList> {
       builder: (context, subscribed, _) {
         // The results count and sort button scroll with the list (they are
         // the first entry).
-        return ListView.separated(
-          // Edge to edge, the list starts below the search band rather than a
-          // gap the caller left, so it keeps that gap itself.
-          padding: EdgeInsets.only(
-            top: widget.fullBleed ? AppSpacing.lg : 0,
-            bottom: widget.listBottomPadding,
-          ),
-          // Swiping the results puts the keyboard away, so it doesn't sit
-          // over the list once the user has finished typing.
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          // Builds cards half a screen past each edge, so they (and their
-          // photos) are ready before they scroll into view.
-          scrollCacheExtent: const ScrollCacheExtent.viewport(0.5),
-          itemCount: results.length + 1,
-          separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
-          itemBuilder: (context, i) {
-            if (i == 0) return _buildCountAndSort(l, results.length);
-            final g = results[i - 1];
-            // The first cards settle in with a gentle cascade; anything built
-            // after that first frame shows straight away.
-            final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
-            final inWizard = _isWizardMode;
-            return KeyedSubtree(
-              key: ValueKey((_resultsGeneration, g.slug)),
-              child: EntranceFadeSlide(
-                key: ValueKey(g.slug),
-                animate: !_cascadePlayed,
-                delay: delay,
-                child: PeopleGroupListCard(
-                  name: g.name,
-                  countryLabel: g.countryLabel,
-                  countryCode: g.countryCode,
-                  imageUrl: g.imageUrl,
-                  engagementStatusValue: g.engagementStatusValue,
-                  peoplePraying: g.peoplePraying,
-                  isSelected: subscribed.contains(g.slug),
-                  // The wizard keeps its in-list select button; the
-                  // standalone list uses the card as the tap target.
-                  showSelectButton: inWizard,
-                  // Only outside the wizard: mid-onboarding the list is
-                  // choosing a first group, not managing a set.
-                  onDeselect: inWizard
-                      ? null
-                      : () => removePeopleGroupFlow(context, slug: g.slug),
-                  onSelect: () => widget.onSelect?.call(g),
-                  onDetails: () => _openDetails(g),
+        return LayoutBuilder(
+          builder: (context, constraints) => ListView.separated(
+            // Edge to edge, the list starts below the search band rather than a
+            // gap the caller left, so it keeps that gap itself — and its side
+            // gutters, inside the scroll view, so the cards are drawn right out
+            // to the screen's edges as they scroll.
+            padding: EdgeInsets.only(
+              top: widget.fullBleed ? AppSpacing.lg : 0,
+              bottom: widget.listBottomPadding,
+              left: _sidePadding(constraints.maxWidth),
+              right: _sidePadding(constraints.maxWidth),
+            ),
+            // Swiping the results puts the keyboard away, so it doesn't sit
+            // over the list once the user has finished typing.
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            // Builds cards half a screen past each edge, so they (and their
+            // photos) are ready before they scroll into view.
+            scrollCacheExtent: const ScrollCacheExtent.viewport(0.5),
+            itemCount: results.length + 1,
+            separatorBuilder: (_, _) => const SizedBox(height: AppSpacing.lg),
+            itemBuilder: (context, i) {
+              if (i == 0) return _buildCountAndSort(l, results.length);
+              final g = results[i - 1];
+              // The first cards settle in with a gentle cascade; anything built
+              // after that first frame shows straight away.
+              final delay = Duration(milliseconds: 40 * math.min(i - 1, 8));
+              final inWizard = _isWizardMode;
+              return KeyedSubtree(
+                key: ValueKey((_resultsGeneration, g.slug)),
+                child: EntranceFadeSlide(
+                  key: ValueKey(g.slug),
+                  animate: !_cascadePlayed,
+                  delay: delay,
+                  child: PeopleGroupListCard(
+                    name: g.name,
+                    countryLabel: g.countryLabel,
+                    countryCode: g.countryCode,
+                    imageUrl: g.imageUrl,
+                    engagementStatusValue: g.engagementStatusValue,
+                    peopleCommitted: g.peopleCommitted,
+                    isSelected: subscribed.contains(g.slug),
+                    // The wizard keeps its in-list select button; the
+                    // standalone list uses the card as the tap target.
+                    showSelectButton: inWizard,
+                    // Only outside the wizard: mid-onboarding the list is
+                    // choosing a first group, not managing a set.
+                    onDeselect: inWizard
+                        ? null
+                        : () => removePeopleGroupFlow(context, slug: g.slug),
+                    onSelect: () => widget.onSelect?.call(g),
+                    onDetails: () => _openDetails(g),
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     );
+  }
+
+  /// Side padding for the results: the gutter in
+  /// [PeopleGroupsList.fullBleed] mode, widened on a tablet to centre a list
+  /// no wider than [_maxResultsWidth]; none otherwise, where the caller pads.
+  double _sidePadding(double width) {
+    if (!widget.fullBleed) return 0;
+    return math.max(_sideGutter, (width - _maxResultsWidth) / 2);
   }
 }
 

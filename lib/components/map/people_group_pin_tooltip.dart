@@ -57,7 +57,7 @@ class PeopleGroupPinTooltipLayer extends StatefulWidget {
     required this.group,
     required this.isSubscribed,
     required this.onPray,
-    required this.onMoreInfo,
+    this.onMoreInfo,
     required this.onClose,
   });
 
@@ -66,7 +66,11 @@ class PeopleGroupPinTooltipLayer extends StatefulWidget {
 
   final bool Function(PeopleGroup group) isSubscribed;
   final void Function(PeopleGroup group) onPray;
-  final void Function(PeopleGroup group) onMoreInfo;
+
+  /// Opens the group's profile. Null leaves the More info link out — on the
+  /// map of one group, opened from that group's profile, it would only lead
+  /// back to where the user came from.
+  final void Function(PeopleGroup group)? onMoreInfo;
   final VoidCallback onClose;
 
   @override
@@ -189,7 +193,9 @@ class _PeopleGroupPinTooltipLayerState extends State<PeopleGroupPinTooltipLayer>
       pointsDown: above,
       isSubscribed: widget.isSubscribed(group),
       onPray: () => widget.onPray(group),
-      onMoreInfo: () => widget.onMoreInfo(group),
+      onMoreInfo: widget.onMoreInfo == null
+          ? null
+          : () => widget.onMoreInfo!(group),
       onClose: widget.onClose,
     );
 
@@ -224,7 +230,7 @@ class _Bubble extends StatelessWidget {
     required this.pointsDown,
     required this.isSubscribed,
     required this.onPray,
-    required this.onMoreInfo,
+    this.onMoreInfo,
     required this.onClose,
   });
 
@@ -233,7 +239,7 @@ class _Bubble extends StatelessWidget {
   final bool pointsDown;
   final bool isSubscribed;
   final VoidCallback onPray;
-  final VoidCallback onMoreInfo;
+  final VoidCallback? onMoreInfo;
   final VoidCallback onClose;
 
   @override
@@ -321,12 +327,17 @@ class _Bubble extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: Wrap(
-                    alignment: WrapAlignment.spaceBetween,
+                    // Pray alone keeps to the end, where it sits beside the
+                    // link.
+                    alignment: onMoreInfo == null
+                        ? WrapAlignment.end
+                        : WrapAlignment.spaceBetween,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     spacing: AppSpacing.md,
                     runSpacing: AppSpacing.sm,
                     children: [
-                      ButtonLink(label: l.moreInfo, onPressed: onMoreInfo),
+                      if (onMoreInfo != null)
+                        ButtonLink(label: l.moreInfo, onPressed: onMoreInfo!),
                       ActionButton(
                         label: l.pray,
                         onPressed: onPray,

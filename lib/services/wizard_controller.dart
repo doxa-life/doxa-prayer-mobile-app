@@ -156,7 +156,6 @@ class WizardController extends ChangeNotifier {
         imageUrl: detail.imageUrl,
         countryLabel: null,
         religionLabel: null,
-        peoplePraying: 0,
         peopleCommitted: detail.peopleCommitted,
       );
       // Consume the referral so a later wizard re-entry won't re-trigger it.

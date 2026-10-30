@@ -180,15 +180,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get unengaged => 'Не вовлечён';
 
   @override
-  String nPeoplePraying(num count) {
+  String nPeopleCommitted(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count человека недавно молились',
-      many: '$count человек недавно молились',
-      few: '$count человека недавно молились',
-      one: '$count человек недавно молился',
-      zero: 'Недавно никто не молился',
+      other: '$count человека молятся',
+      many: '$count человек молятся',
+      few: '$count человека молятся',
+      one: '$count человек молится',
     );
     return '$_temp0';
   }

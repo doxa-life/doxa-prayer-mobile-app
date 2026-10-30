@@ -774,8 +774,8 @@
     "@unengaged": {
         "description": "Status label shown when a people group is unengaged"
     },
-    "@nPeoplePraying": {
-        "description": "A plural message shown on a people-group card for how many people are praying for it",
+    "@nPeopleCommitted": {
+        "description": "How many people have committed to pray for a people group (people_committed); shown on people-group cards and in the wizard's picked-group facts",
         "placeholders": {
             "count": {
                 "type": "num"
@@ -1076,7 +1076,7 @@
     "glossaryPeopleGroupDefinition": "Группа людей с общими убеждениями, ценностями и культурой.",
     "glossaryPeopleGroupAlternates": "народы|народа|народов|народу",
     "unengaged": "Не вовлечён",
-    "nPeoplePraying": "{count, plural, =0{Недавно никто не молился} one{{count} человек недавно молился} few{{count} человека недавно молились} many{{count} человек недавно молились} other{{count} человека недавно молились}}",
+    "nPeopleCommitted": "{count, plural, one{{count} человек молится} few{{count} человека молятся} many{{count} человек молятся} other{{count} человека молятся}}",
     "filters": "Фильтры",
     "sortByName": "Сортировать по имени",
     "sortAscending": "Сортировать по возрастанию (А-Я)",
